@@ -48,6 +48,9 @@
     --dur-base: 450ms;
     --dur-slow: 850ms;
     --dur-ambient: 8s;
+
+    /* Reading measure — ความกว้างคอลัมน์อ่านบทความ (60–75ch เพื่ออ่านสบาย) */
+    --reading-measure: 68ch;
   }
 
   html,
@@ -82,11 +85,19 @@
   line-height: 1.9;
 }
 
+/* prose ยาวในหน้าอ่าน (คำอธิบายให้เห็นภาพ / ความหมายเชิงเทคนิค)
+   — จำกัด measure ตามคอลัมน์อ่าน + จังหวะบรรทัด 1.8 (อ่านสบาย ไม่ล้า) */
+.reading-prose {
+  max-width: var(--reading-measure);
+  line-height: 1.8;
+}
+
 /* Markdown body (E5) — เนื้อหาเต็มที่ render จาก Markdown ผ่าน react-markdown + remark-gfm
    ไม่อนุญาต raw HTML (sanitize โดยค่าเริ่มต้นของ react-markdown) ใช้พาเลตต์ night-library */
 .md-body {
+  max-width: var(--reading-measure);
   font-size: 1.0625rem;
-  line-height: 1.9;
+  line-height: 1.8;
   color: var(--color-soft-ivory);
 }
 .md-body > :first-child {

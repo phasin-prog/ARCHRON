@@ -143,7 +143,7 @@ export function ReadingPage({
       {entry.visualExplanation ? (
         <section className="scroll-reveal mt-12">
           <h2 className="font-serif text-2xl text-ivory">คำอธิบายให้เห็นภาพ</h2>
-          <p className="mt-4 whitespace-pre-line text-lg leading-loose text-soft-ivory">
+          <p className="reading-prose mt-4 whitespace-pre-line text-lg text-soft-ivory">
             <InternalLinkText text={entry.visualExplanation} />
           </p>
         </section>
@@ -152,7 +152,7 @@ export function ReadingPage({
       {entry.technicalMeaning ? (
         <section className="scroll-reveal mt-12">
           <h2 className="font-serif text-2xl text-ivory">ความหมายทางวิชาการ / เทคนิค</h2>
-          <p className="mt-4 whitespace-pre-line text-lg leading-loose text-soft-ivory">
+          <p className="reading-prose mt-4 whitespace-pre-line text-lg text-soft-ivory">
             <InternalLinkText text={entry.technicalMeaning} />
           </p>
         </section>

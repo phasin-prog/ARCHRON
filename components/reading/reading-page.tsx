@@ -45,7 +45,6 @@ export function ReadingPage({ entry }: { entry: ContentEntry }) {
 
   return (
     <main className="mx-auto max-w-2xl px-6 pb-24 pt-16">
-      {/* 1-2. Identity */}
       <header>
         <h1 className="font-serif text-4xl text-ivory">{entry.mainTerm ?? entry.title}</h1>
         <p className="mt-3 text-base text-soft-ivory">
@@ -61,7 +60,6 @@ export function ReadingPage({ entry }: { entry: ContentEntry }) {
         ) : null}
       </header>
 
-      {/* 3-5. Metadata */}
       <dl className="mt-8 grid grid-cols-2 gap-4 border-y border-white/10 py-6 text-sm">
         {entry.framework ? (
           <div>
@@ -99,7 +97,6 @@ export function ReadingPage({ entry }: { entry: ContentEntry }) {
         ) : null}
       </dl>
 
-      {/* 6. คำอธิบายให้เห็นภาพ */}
       {entry.visualExplanation ? (
         <section className="mt-12">
           <h2 className="font-serif text-2xl text-ivory">คำอธิบายให้เห็นภาพ</h2>
@@ -109,7 +106,6 @@ export function ReadingPage({ entry }: { entry: ContentEntry }) {
         </section>
       ) : null}
 
-      {/* 7. ความหมายทางวิชาการ / เทคนิค */}
       {entry.technicalMeaning ? (
         <section className="mt-12">
           <h2 className="font-serif text-2xl text-ivory">ความหมายทางวิชาการ / เทคนิค</h2>
@@ -119,14 +115,13 @@ export function ReadingPage({ entry }: { entry: ContentEntry }) {
         </section>
       ) : null}
 
-      {/* 8. แนวคิดที่เกี่ยวข้อง */}
       {entry.relatedConcepts.length > 0 ? (
         <section className="mt-12">
           <h2 className="font-serif text-2xl text-ivory">แนวคิดที่เกี่ยวข้อง</h2>
           <ul className="mt-4 space-y-3">
             {relatedInline.map((rc) => (
               <li key={rc.conceptSlug} className="rounded-md border border-white/10 bg-charcoal/40 p-4">
-                <Link href={`/concepts`} className="text-ivory hover:text-soft-gold">
+                <Link href={`/concepts/${rc.conceptSlug}`} className="text-ivory hover:text-soft-gold">
                   {rc.conceptSlug}
                 </Link>
                 <span className="ml-2 text-xs text-antique-gold">
@@ -149,57 +144,46 @@ export function ReadingPage({ entry }: { entry: ContentEntry }) {
         </section>
       ) : null}
 
-      {/* 9. เอกสารอ้างอิง */}
       {entry.references.length > 0 ? (
         <section className="mt-12">
           <h2 className="font-serif text-2xl text-ivory">เอกสารอ้างอิง</h2>
           {primary.length > 0 ? (
             <div className="mt-5">
               <h3 className="text-sm tracking-widest text-antique-gold">แหล่งต้นทาง (Primary)</h3>
-              <div className="mt-3">
-                <SourceList items={primary} />
-              </div>
+              <div className="mt-3"><SourceList items={primary} /></div>
             </div>
           ) : null}
           {secondary.length > 0 ? (
             <div className="mt-5">
               <h3 className="text-sm tracking-widest text-antique-gold">งานอธิบาย (Secondary)</h3>
-              <div className="mt-3">
-                <SourceList items={secondary} />
-              </div>
+              <div className="mt-3"><SourceList items={secondary} /></div>
             </div>
           ) : null}
           {interpretation.length > 0 ? (
             <div className="mt-5">
               <h3 className="text-sm tracking-widest text-antique-gold">การตีความของเว็บ (Interpretation)</h3>
-              <div className="mt-3">
-                <SourceList items={interpretation} />
-              </div>
+              <div className="mt-3"><SourceList items={interpretation} /></div>
             </div>
           ) : null}
         </section>
       ) : null}
 
-      {/* 10. Roots */}
       {entry.roots ? (
         <section className="mt-12 rounded-md border border-white/10 bg-surface-1/40 p-7">
           <h2 className="font-serif text-2xl text-ivory">Roots — ที่มาของคำ</h2>
           {entry.roots.etymology ? (
             <p className="mt-4 text-base leading-relaxed text-soft-ivory">
-              <span className="text-muted">รากศัพท์: </span>
-              {entry.roots.etymology}
+              <span className="text-muted">รากศัพท์: </span>{entry.roots.etymology}
             </p>
           ) : null}
           {entry.roots.historicalUsage ? (
             <p className="mt-3 text-base leading-relaxed text-soft-ivory">
-              <span className="text-muted">การใช้ในอดีต: </span>
-              {entry.roots.historicalUsage}
+              <span className="text-muted">การใช้ในอดีต: </span>{entry.roots.historicalUsage}
             </p>
           ) : null}
           {entry.roots.meaningShift ? (
             <p className="mt-3 text-base leading-relaxed text-soft-ivory">
-              <span className="text-muted">การเปลี่ยนความหมาย: </span>
-              {entry.roots.meaningShift}
+              <span className="text-muted">การเปลี่ยนความหมาย: </span>{entry.roots.meaningShift}
             </p>
           ) : null}
           {entry.roots.caution ? (
@@ -210,20 +194,13 @@ export function ReadingPage({ entry }: { entry: ContentEntry }) {
         </section>
       ) : null}
 
-      {/* 11-12. Related CTA */}
       <section className="mt-12 border-t border-white/10 pt-8">
         <h2 className="font-serif text-xl text-ivory">อ่านต่อจากแนวคิดนี้</h2>
         <div className="mt-4 flex flex-wrap gap-3">
-          <Link
-            href="/concepts"
-            className="rounded-sm border border-white/20 px-5 py-2.5 text-sm text-ivory transition-colors hover:border-antique-gold hover:text-soft-gold"
-          >
+          <Link href="/concepts" className="rounded-sm border border-white/20 px-5 py-2.5 text-sm text-ivory transition-colors hover:border-antique-gold hover:text-soft-gold">
             สำรวจคลังแนวคิด
           </Link>
-          <Link
-            href="/articles"
-            className="rounded-sm border border-white/20 px-5 py-2.5 text-sm text-ivory transition-colors hover:border-antique-gold hover:text-soft-gold"
-          >
+          <Link href="/articles" className="rounded-sm border border-white/20 px-5 py-2.5 text-sm text-ivory transition-colors hover:border-antique-gold hover:text-soft-gold">
             อ่านบทความอื่น
           </Link>
         </div>

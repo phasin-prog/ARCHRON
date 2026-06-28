@@ -6,6 +6,9 @@ import { conceptRegistry, getConceptBySlug } from "@/lib/content/concept-registr
 import { getBacklinksForConcept } from "@/lib/content/related";
 import { entries } from "@/lib/content/entries";
 
+// Dynamic route — pre-render node ที่มีใน registry และรองรับ slug ใหม่ตอน runtime
+export const dynamicParams = true;
+
 const NODE_LABEL: Record<string, string> = {
   concept: "แนวคิด",
   person: "นักคิด",

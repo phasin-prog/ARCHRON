@@ -3,7 +3,9 @@ import { notFound } from "next/navigation";
 import { ReadingPage } from "@/components/reading/reading-page";
 import { getEntryBySlug, allEntrySlugs } from "@/lib/content/entries";
 
-// Next 15: params เป็น Promise — ต้อง await
+// Dynamic route — pre-render slug ที่มีอยู่ และรองรับ slug ใหม่ตอน runtime
+export const dynamicParams = true;
+
 export function generateStaticParams() {
   return allEntrySlugs().map((slug) => ({ slug }));
 }

@@ -40,6 +40,14 @@
 @layer base {
   :root {
     color-scheme: dark;
+
+    /* Motion tokens — ละมุน เรียบหรู (animate เฉพาะ transform/opacity) */
+    --ease-soft: cubic-bezier(0.21, 0.6, 0.35, 1);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --dur-fast: 200ms;
+    --dur-base: 450ms;
+    --dur-slow: 850ms;
+    --dur-ambient: 8s;
   }
 
   html,
@@ -255,5 +263,50 @@
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+  }
+}
+
+/* ===== Motion system (route transition · mobile menu · ambient glow · scrolled header) ===== */
+@keyframes route-fade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.route-fade {
+  animation: route-fade var(--dur-base) var(--ease-out) both;
+}
+
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.menu-in {
+  animation: menu-in var(--dur-fast) var(--ease-out) both;
+}
+
+/* แสงทองเรือง "หายใจ" ช้า ๆ ที่ hero (โทนหอดูดาว) */
+@keyframes ambient-glow {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+.ambient-glow {
+  animation: ambient-glow var(--dur-ambient) ease-in-out infinite;
+  will-change: opacity, transform;
+}
+
+/* header เข้มขึ้นเมื่อเลื่อนพ้น hero */
+.glass-nav {
+  transition: background var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
+}
+.glass-nav.is-scrolled {
+  background: rgba(8, 11, 22, 0.92);
+  border-bottom-color: rgba(212, 175, 55, 0.18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-fade,
+  .menu-in,
+  .ambient-glow {
+    animation: none !important;
   }
 }

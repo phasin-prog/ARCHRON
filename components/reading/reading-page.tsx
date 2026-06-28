@@ -82,7 +82,7 @@ export function ReadingPage({
   return (
     <main className="mx-auto max-w-2xl px-6 pb-24 pt-10">
       {/* Breadcrumb */}
-      <nav aria-label="เส้นทางนำทาง" className="flex flex-wrap items-center gap-1 text-xs text-muted">
+      <nav aria-label="เส้นทางนำทาง" className="scroll-reveal flex flex-wrap items-center gap-1 text-xs text-muted">
         <Link href="/" className="transition-colors hover:text-soft-gold">หน้าแรก</Link>
         <span className="material-symbols-outlined text-[16px] text-subtle">chevron_right</span>
         <Link href={`/${section}`} className="transition-colors hover:text-soft-gold">
@@ -93,7 +93,7 @@ export function ReadingPage({
       </nav>
 
       {/* Header Zone */}
-      <header className="mt-7">
+      <header className="scroll-reveal stagger-1 mt-7">
         <h1 className="font-serif text-4xl font-bold text-ivory md:text-5xl">
           {entry.mainTerm ?? entry.title}
         </h1>
@@ -112,7 +112,7 @@ export function ReadingPage({
       </header>
 
       {/* Meta-data Grid */}
-      <dl className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
+      <dl className="scroll-reveal stagger-2 mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
         <MetaCell label="สำนัก / กรอบทฤษฎี" value={entry.framework ?? "—"} />
         <MetaCell label="นักคิดหลัก" value={thinker} />
         <MetaCell label="ระดับการอ่าน" value={level} />
@@ -121,7 +121,7 @@ export function ReadingPage({
 
       {/* Main Content Zone */}
       {entry.visualExplanation ? (
-        <section className="mt-12">
+        <section className="scroll-reveal mt-12">
           <h2 className="font-serif text-2xl text-ivory">คำอธิบายให้เห็นภาพ</h2>
           <p className="mt-4 whitespace-pre-line text-lg leading-loose text-soft-ivory">
             <InternalLinkText text={entry.visualExplanation} />
@@ -130,7 +130,7 @@ export function ReadingPage({
       ) : null}
 
       {entry.technicalMeaning ? (
-        <section className="mt-12">
+        <section className="scroll-reveal mt-12">
           <h2 className="font-serif text-2xl text-ivory">ความหมายทางวิชาการ / เทคนิค</h2>
           <p className="mt-4 whitespace-pre-line text-lg leading-loose text-soft-ivory">
             <InternalLinkText text={entry.technicalMeaning} />
@@ -139,7 +139,7 @@ export function ReadingPage({
       ) : null}
 
       {entry.bodyMarkdown && entry.bodyMarkdown.trim() !== "" ? (
-        <section className="mt-12">
+        <section className="scroll-reveal mt-12">
           <div className="md-body">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{entry.bodyMarkdown}</ReactMarkdown>
           </div>
@@ -147,7 +147,7 @@ export function ReadingPage({
       ) : null}
 
       {entry.roots ? (
-        <section className="mt-12">
+        <section className="scroll-reveal mt-12">
           <h2 className="font-serif text-2xl text-ivory">ที่มาของคำและบริบท</h2>
           <ul className="mt-4 space-y-3 text-base leading-relaxed text-soft-ivory">
             {entry.roots.etymology ? (
@@ -180,13 +180,13 @@ export function ReadingPage({
       {/* Ecosystem & Relations Zone */}
       {entry.relatedConcepts.length > 0 ? (
         <section className="mt-14">
-          <h2 className="font-serif text-2xl text-ivory">แนวคิดที่เกี่ยวข้อง</h2>
+          <h2 className="scroll-reveal font-serif text-2xl text-ivory">แนวคิดที่เกี่ยวข้อง</h2>
           <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {relatedInline.map((rc) => (
+            {relatedInline.map((rc, i) => (
               <Link
                 key={rc.conceptSlug}
                 href={`/concepts/${rc.conceptSlug}`}
-                className="group flex flex-col rounded-md border border-white/10 bg-charcoal/40 p-5 transition-colors hover:border-antique-gold/40"
+                className={`scroll-reveal stagger-${i + 1} group flex flex-col rounded-md border border-white/10 bg-charcoal/40 p-5 transition-colors hover:border-antique-gold/40`}
               >
                 <span className="font-serif text-lg text-ivory group-hover:text-soft-gold">
                   {conceptTitle(rc.conceptSlug)}
@@ -210,7 +210,7 @@ export function ReadingPage({
 
       {/* Footer Zone — References */}
       {entry.references.length > 0 ? (
-        <section className="mt-14">
+        <section className="scroll-reveal mt-14">
           <h2 className="flex items-center gap-2 font-serif text-2xl text-ivory">
             <span className="material-symbols-outlined text-[22px] text-antique-gold">format_quote</span>
             เอกสารอ้างอิง
@@ -234,7 +234,7 @@ export function ReadingPage({
       ) : null}
 
       {/* CTA — guide การเข้าใจตัวตน ภายใต้กรอบ Psychological Types (วิชาการ ไม่ใช่ป้ายสำเร็จรูป) */}
-      <aside className="mt-16 overflow-hidden rounded-md border border-antique-gold/30 bg-surface-1/50">
+      <aside className="scroll-reveal mt-16 overflow-hidden rounded-md border border-antique-gold/30 bg-surface-1/50">
         <div className="border-l-2 border-antique-gold p-7 md:p-9">
           <span className="text-xs uppercase tracking-[0.2em] text-antique-gold">
             Psychological Types · การอ่านตัวตน

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 const NAV = [
@@ -14,10 +14,25 @@ const NAV = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    const id = requestAnimationFrame(onScroll); // เช็คตำแหน่งเริ่มต้นนอก effect body
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(id);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 glass-nav">
-      <nav className="mx-auto flex max-w-[1200px] items-center justify-between gap-4 px-6 py-5">
+    <header className={`sticky top-0 z-50 glass-nav ${scrolled ? "is-scrolled" : ""}`}>
+      <nav
+        className={`mx-auto flex max-w-[1200px] items-center justify-between gap-4 px-6 transition-all duration-500 ${
+          scrolled ? "py-3" : "py-5"
+        }`}
+      >
         <Link
           href="/"
           className="font-serif text-[22px] tracking-tight text-burnished-gold"
@@ -60,7 +75,7 @@ export function SiteHeader() {
 
       {open ? (
         <nav
-          className="border-t border-slate-boundary/40 bg-deep-navy px-6 py-3 md:hidden"
+          className="menu-in border-t border-slate-boundary/40 bg-deep-navy px-6 py-3 md:hidden"
           aria-label="เมนูมือถือ"
         >
           {NAV.map((item) => (

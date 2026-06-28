@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ScrollReveal } from "@/components/scroll-reveal";
 
 const PILLARS = [
   {
@@ -37,11 +36,10 @@ const QUICK = [
 
 export default function HomePage() {
   return (
-    <>
-      <main>
+    <main>
         {/* Hero */}
         <section className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden px-6 text-center">
-          <div className="hero-gradient pointer-events-none absolute inset-0 z-0" />
+          <div className="hero-gradient ambient-glow pointer-events-none absolute inset-0 z-0" />
           <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-transparent via-transparent to-deep-navy" />
           <div className="relative z-10 mx-auto max-w-5xl py-24">
             <span className="scroll-reveal mb-8 block text-xs font-semibold uppercase tracking-[0.4em] text-burnished-gold/80">
@@ -178,7 +176,7 @@ export default function HomePage() {
         </section>
 
         {/* Quick links */}
-        <section className="border-t border-slate-boundary/30 bg-surface-container-low py-24">
+        <section className="scroll-reveal border-t border-slate-boundary/30 bg-surface-container-low py-24">
           <div className="mx-auto max-w-[1200px] px-6">
             <div className="grid grid-cols-1 gap-px overflow-hidden border border-slate-boundary/20 bg-slate-boundary/20 sm:grid-cols-2 lg:grid-cols-4">
               {QUICK.map((q) => (
@@ -200,8 +198,6 @@ export default function HomePage() {
             </div>
           </div>
         </section>
-      </main>
-      <ScrollReveal />
-    </>
+    </main>
   );
 }

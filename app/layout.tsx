@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { Tabbar } from "@/components/tabbar";
+import { Fab } from "@/components/fab";
 
 const notoSerifThai = Noto_Serif_Thai({
   subsets: ["thai", "latin"],
@@ -60,6 +61,7 @@ export default function RootLayout({
         <SiteFooter />
         <ScrollToTop />
         <Tabbar />
+        <Fab />
       </body>
     </html>
   );

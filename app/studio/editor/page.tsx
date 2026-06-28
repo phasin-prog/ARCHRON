@@ -22,6 +22,7 @@ import { SearchableMultiSelect } from "@/components/studio/searchable-multi-sele
 import { RelatedConceptPicker } from "@/components/studio/related-concept-picker";
 import { InternalLinkSuggestionPanel } from "@/components/studio/internal-link-suggestion-panel";
 import { RevisionPanel } from "@/components/studio/revision-panel";
+import { MyContentSearch } from "@/components/studio/my-content-search";
 
 const CONTENT_TYPES = [
   "article", "concept", "reading-set", "source-note",
@@ -364,6 +365,7 @@ export default function StudioEditorPage() {
         </main>
 
         <aside className="space-y-6 md:sticky md:top-20 md:self-start">
+          <MyContentSearch supabase={supabase} userId={userId ?? null} />
           <div className="rounded-md border border-white/10 bg-surface-1/40 p-5">
             <h3 className="font-serif text-base text-ivory">คำแนะนำ</h3>
             <ul className="mt-3 space-y-2 text-sm leading-relaxed text-muted">

@@ -54,7 +54,14 @@ export function SiteHeader() {
           ))}
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
+          <Link
+            href="/search"
+            aria-label="ค้นหา"
+            className="flex h-10 w-10 items-center justify-center text-on-surface-variant transition-colors hover:text-burnished-gold"
+          >
+            <span className="material-symbols-outlined text-[22px]">search</span>
+          </Link>
           <Link
             href="/articles"
             className="hidden border border-burnished-gold/30 bg-burnished-gold/10 px-6 py-2.5 text-[10px] font-semibold uppercase tracking-[0.25em] text-burnished-gold transition-all duration-500 hover:bg-burnished-gold hover:text-deep-navy md:block"

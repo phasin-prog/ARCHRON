@@ -6,8 +6,10 @@ import Link from "next/link";
 const NAV = [
   { label: "บทความ", href: "/articles", icon: "newspaper" },
   { label: "คลังแนวคิด", href: "/concepts", icon: "psychology" },
+  { label: "แผนที่ความสัมพันธ์", href: "/constellation", icon: "hub" },
   { label: "ซีรีส์", href: "/reading-sets", icon: "layers" },
   { label: "แหล่งอ้างอิง", href: "/sources", icon: "format_quote" },
+  { label: "ทรัพยากรภายนอก", href: "/external-links", icon: "link" },
   { label: "Manifesto", href: "/manifesto", icon: "description" },
   { label: "สนับสนุน", href: "/support", icon: "favorite" },
 ];
@@ -41,7 +43,7 @@ export function SiteHeader() {
           The Soul&apos;s Compass
         </Link>
 
-        <div className="hidden items-center gap-6 md:flex" aria-label="เมนูหลัก">
+        <div className="hidden items-center gap-5 xl:flex" aria-label="เมนูหลัก">
           {NAV.map((item) => (
             <Link
               key={item.label}
@@ -71,7 +73,7 @@ export function SiteHeader() {
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="flex h-10 w-10 items-center justify-center text-on-surface md:hidden"
+            className="flex h-10 w-10 items-center justify-center text-on-surface xl:hidden"
             aria-label={open ? "ปิดเมนู" : "เปิดเมนู"}
             aria-expanded={open}
           >
@@ -82,7 +84,7 @@ export function SiteHeader() {
 
       {open ? (
         <nav
-          className="menu-in border-t border-slate-boundary/40 bg-deep-navy px-6 py-3 md:hidden"
+          className="menu-in border-t border-slate-boundary/40 bg-deep-navy px-6 py-3 xl:hidden"
           aria-label="เมนูมือถือ"
         >
           {NAV.map((item) => (

@@ -3,12 +3,14 @@ import Link from "next/link";
 const EXPLORE = [
   { label: "บทความ", href: "/articles" },
   { label: "คลังแนวคิด", href: "/concepts" },
+  { label: "แผนที่ความสัมพันธ์", href: "/constellation" },
   { label: "ซีรีส์การอ่าน", href: "/reading-sets" },
 ];
 
 const INSTITUTIONAL = [
   { label: "Manifesto", href: "/manifesto" },
   { label: "แหล่งอ้างอิง", href: "/sources" },
+  { label: "ทรัพยากรภายนอก", href: "/external-links" },
   { label: "สนับสนุนโครงการ", href: "/support" },
 ];
 

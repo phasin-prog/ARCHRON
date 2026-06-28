@@ -20,7 +20,7 @@ export default function ExternalLinksPage() {
         </nav>
 
         <header className="scroll-reveal mt-6">
-          <span className="block text-xs font-semibold uppercase tracking-[0.3em] text-burnished-gold/70">
+          <span className="block text-xs font-semibold tracking-[0.05em] text-burnished-gold/70">
             คลังทรัพยากรภายนอก
           </span>
           <h1 className="mt-3 font-serif text-4xl font-bold text-ivory md:text-5xl">

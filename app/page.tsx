@@ -42,7 +42,7 @@ export default function HomePage() {
           <div className="hero-gradient ambient-glow pointer-events-none absolute inset-0 z-0" />
           <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-transparent via-transparent to-deep-navy" />
           <div className="relative z-10 mx-auto max-w-5xl py-24">
-            <span className="scroll-reveal mb-8 block text-xs font-semibold uppercase tracking-[0.4em] text-burnished-gold/80">
+            <span className="scroll-reveal mb-8 block text-xs font-semibold tracking-[0.05em] text-burnished-gold/80">
               คลังความรู้เพื่อศึกษาจิตใจมนุษย์อย่างมีบริบท
             </span>
             <h1 className="scroll-reveal stagger-1 mb-10 font-serif text-[36px] font-semibold leading-[1.15] text-on-surface md:text-[64px] md:tracking-[-0.02em]">
@@ -56,7 +56,7 @@ export default function HomePage() {
             <div className="scroll-reveal stagger-3 flex flex-col justify-center gap-6 sm:flex-row">
               <Link
                 href="/articles"
-                className="group flex items-center justify-center gap-3 bg-burnished-gold px-10 py-5 text-xs font-semibold uppercase tracking-[0.2em] text-deep-navy transition-all duration-500 hover:shadow-[0_0_30px_rgba(212,175,55,0.3)]"
+                className="group flex items-center justify-center gap-3 bg-burnished-gold px-10 py-5 text-xs font-semibold tracking-[0.05em] text-deep-navy transition-all duration-500 hover:shadow-[0_0_30px_rgba(212,175,55,0.3)]"
               >
                 เริ่มอ่านบทความ
                 <span className="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-1.5">
@@ -65,7 +65,7 @@ export default function HomePage() {
               </Link>
               <Link
                 href="/concepts"
-                className="flex items-center justify-center gap-3 border border-burnished-gold/40 px-10 py-5 text-xs font-semibold uppercase tracking-[0.2em] text-burnished-gold transition-all duration-500 hover:bg-burnished-gold/5"
+                className="flex items-center justify-center gap-3 border border-burnished-gold/40 px-10 py-5 text-xs font-semibold tracking-[0.05em] text-burnished-gold transition-all duration-500 hover:bg-burnished-gold/5"
               >
                 เปิดแผนที่แนวคิด
                 <span className="material-symbols-outlined text-[18px]">map</span>
@@ -97,7 +97,7 @@ export default function HomePage() {
           <div className="mx-auto max-w-[1200px]">
             <div className="mb-20 grid grid-cols-1 items-end gap-8 md:grid-cols-12">
               <div className="md:col-span-8">
-                <span className="mb-4 block text-xs font-semibold uppercase tracking-[0.3em] text-burnished-gold/60">
+                <span className="mb-4 block text-xs font-semibold tracking-[0.05em] text-burnished-gold/60">
                   แผนที่ความรู้
                 </span>
                 <h2 className="mb-6 font-serif text-4xl font-medium text-on-surface">
@@ -110,7 +110,7 @@ export default function HomePage() {
               <div className="md:col-span-4 md:text-right">
                 <Link
                   href="/concepts"
-                  className="group inline-flex items-center gap-3 border-b border-burnished-gold/0 pb-2 text-xs font-semibold uppercase tracking-[0.2em] text-burnished-gold transition-all duration-500 hover:border-burnished-gold/40"
+                  className="group inline-flex items-center gap-3 border-b border-burnished-gold/0 pb-2 text-xs font-semibold tracking-[0.05em] text-burnished-gold transition-all duration-500 hover:border-burnished-gold/40"
                 >
                   เปิดคลังแนวคิดทั้งหมด
                   <span className="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-1.5">
@@ -128,7 +128,7 @@ export default function HomePage() {
                 >
                   <div className="absolute left-0 top-0 h-0 w-[2px] bg-burnished-gold transition-all duration-700 group-hover:h-full" />
                   <div>
-                    <span className="mb-6 block text-[10px] tracking-[0.25em] text-burnished-gold/40">
+                    <span className="mb-6 block text-[10px] tracking-[0.05em] text-burnished-gold/40">
                       {c.no} / {c.kicker}
                     </span>
                     <h4 className="mb-4 font-serif text-[24px] text-on-surface">{c.title}</h4>
@@ -166,7 +166,7 @@ export default function HomePage() {
           </p>
           <Link
             href="/manifesto"
-            className="group inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-burnished-gold transition-all hover:text-primary"
+            className="group inline-flex items-center gap-3 text-xs font-semibold tracking-[0.05em] text-burnished-gold transition-all hover:text-primary"
           >
             อ่าน Manifesto ฉบับเต็ม
             <span className="material-symbols-outlined text-[20px] transition-transform group-hover:translate-x-2">
@@ -185,12 +185,12 @@ export default function HomePage() {
                   href={q.href}
                   className="group bg-surface-container-low p-10 transition-all duration-500 hover:bg-surface-container"
                 >
-                  <span className="mb-4 block text-xs font-semibold uppercase tracking-[0.2em] text-burnished-gold/60">
+                  <span className="mb-4 block text-xs font-semibold tracking-[0.05em] text-burnished-gold/60">
                     {q.no} / {q.kicker}
                   </span>
                   <h5 className="mb-3 font-serif text-[20px] text-on-surface">{q.title}</h5>
                   <p className="mb-6 text-sm leading-relaxed text-on-surface-variant/60">{q.desc}</p>
-                  <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-burnished-gold transition-all group-hover:gap-4">
+                  <div className="flex items-center gap-2 text-xs font-medium tracking-[0.05em] text-burnished-gold transition-all group-hover:gap-4">
                     เข้าชม <span className="material-symbols-outlined text-sm">arrow_forward</span>
                   </div>
                 </Link>

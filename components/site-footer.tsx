@@ -47,7 +47,7 @@ export function SiteFooter() {
 
         <div className="grid grid-cols-2 gap-12 sm:grid-cols-3 md:col-span-7">
           <div>
-            <h6 className="mb-8 text-xs font-semibold uppercase tracking-[0.2em] text-burnished-gold">
+            <h6 className="mb-8 text-xs font-semibold tracking-[0.05em] text-burnished-gold">
               สำรวจ
             </h6>
             <ul className="flex flex-col gap-4">
@@ -64,7 +64,7 @@ export function SiteFooter() {
             </ul>
           </div>
           <div>
-            <h6 className="mb-8 text-xs font-semibold uppercase tracking-[0.2em] text-burnished-gold">
+            <h6 className="mb-8 text-xs font-semibold tracking-[0.05em] text-burnished-gold">
               เกี่ยวกับโครงการ
             </h6>
             <ul className="flex flex-col gap-4">
@@ -81,7 +81,7 @@ export function SiteFooter() {
             </ul>
           </div>
           <div className="col-span-2 sm:col-span-1">
-            <h6 className="mb-8 text-xs font-semibold uppercase tracking-[0.2em] text-burnished-gold">
+            <h6 className="mb-8 text-xs font-semibold tracking-[0.05em] text-burnished-gold">
               จดหมายข่าว
             </h6>
             <p className="mb-6 text-xs text-on-surface-variant/60">

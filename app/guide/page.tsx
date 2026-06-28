@@ -60,7 +60,7 @@ export default function GuidePage() {
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
               href="#contact"
-              className="group inline-flex items-center gap-2 bg-burnished-gold px-9 py-4 text-sm font-semibold uppercase tracking-[0.15em] text-deep-navy transition-all duration-500 hover:shadow-[0_0_30px_rgba(212,175,55,0.3)]"
+              className="group inline-flex items-center gap-2 bg-burnished-gold px-9 py-4 text-sm font-semibold tracking-[0.05em] text-deep-navy transition-all duration-500 hover:shadow-[0_0_30px_rgba(212,175,55,0.3)]"
             >
               นัดหมาย / สอบถาม
               <span className="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-1.5">
@@ -133,12 +133,12 @@ export default function GuidePage() {
       <section className="scroll-reveal mx-auto max-w-3xl px-6 pb-4">
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="rounded-md border border-burnished-gold/40 bg-surface-container-low p-7">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-burnished-gold">ราคาทดลอง</span>
+            <span className="text-xs font-semibold tracking-[0.05em] text-burnished-gold">ราคาทดลอง</span>
             <p className="mt-3 font-serif text-4xl text-on-surface">249<span className="ml-1 text-lg text-on-surface-variant/70">บาท / ครั้ง</span></p>
             <p className="mt-2 text-sm text-on-surface-variant/60">ใช้ได้ถึง 30 มิถุนายน 2569</p>
           </div>
           <div className="rounded-md border border-slate-boundary/40 bg-surface-container-low p-7">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-on-surface-variant/60">ราคาปกติ</span>
+            <span className="text-xs font-semibold tracking-[0.05em] text-on-surface-variant/60">ราคาปกติ</span>
             <p className="mt-3 font-serif text-4xl text-on-surface-variant/80">399<span className="ml-1 text-lg text-on-surface-variant/60">บาท / ครั้ง</span></p>
             <p className="mt-2 text-sm text-on-surface-variant/60">เริ่ม 1 กรกฎาคม 2569</p>
           </div>
@@ -164,7 +164,7 @@ export default function GuidePage() {
                   <span className="material-symbols-outlined text-[20px]">{c.icon}</span>
                 </span>
                 <span className="flex flex-col">
-                  <span className="text-xs uppercase tracking-wider text-on-surface-variant/60">{c.label}</span>
+                  <span className="text-xs tracking-[0.04em] text-on-surface-variant/60">{c.label}</span>
                   <span className="text-base text-on-surface group-hover:text-burnished-gold">{c.value}</span>
                 </span>
               </a>

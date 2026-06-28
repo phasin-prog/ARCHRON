@@ -249,7 +249,7 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
               <span className="material-symbols-outlined text-[20px]">close</span>
             </button>
 
-            <span className="text-xs uppercase tracking-[0.2em] text-burnished-gold/70">
+            <span className="text-xs tracking-[0.05em] text-burnished-gold/70">
               {modal.school.nameTh} · {modal.school.nameEn}
             </span>
             <h3 className="mt-2 font-serif text-2xl text-ivory">{modal.thinker.nameTh}</h3>
@@ -273,7 +273,7 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
             ) : null}
 
             <div className="mt-5 border-t border-white/10 pt-4">
-              <p className="mb-2 text-xs uppercase tracking-wider text-on-surface-variant/50">
+              <p className="mb-2 text-xs tracking-[0.04em] text-on-surface-variant/50">
                 ผลงานเด่น
               </p>
               <ul className="space-y-1.5">

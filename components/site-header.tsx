@@ -8,6 +8,16 @@ type NavGroup = { label: string; items: NavItem[] };
 
 const GROUPS: NavGroup[] = [
   {
+    label: "สำรวจ",
+    items: [
+      { label: "บทความ", href: "/articles", icon: "newspaper" },
+      { label: "คลังแนวคิด", href: "/concepts", icon: "psychology" },
+      { label: "แผนที่ความสัมพันธ์", href: "/constellation", icon: "hub" },
+      { label: "สำนักคิดและนักปราชญ์", href: "/schools", icon: "groups_2" },
+      { label: "ซีรีส์การอ่าน", href: "/reading-sets", icon: "layers" },
+    ],
+  },
+  {
     label: "เกี่ยวกับ",
     items: [
       { label: "Manifesto", href: "/manifesto", icon: "description" },
@@ -50,18 +60,12 @@ export function SiteHeader() {
 
         {/* Desktop: dropdown groups */}
         <div className="hidden items-center gap-2 md:flex" aria-label="เมนูหลัก">
-          <Link
-            href="/knowledge"
-            className="rounded-md px-3 py-2 text-sm uppercase tracking-[0.12em] text-on-surface-variant transition-colors hover:text-burnished-gold"
-          >
-            เข้าสู่คลังความรู้
-          </Link>
           {GROUPS.map((g) => (
             <div key={g.label} className="group/d relative">
               <button
                 type="button"
                 aria-haspopup="true"
-                className="flex items-center gap-1 rounded-md px-3 py-2 text-sm uppercase tracking-[0.12em] text-on-surface-variant transition-colors group-hover/d:text-burnished-gold"
+                className="flex items-center gap-1 rounded-md px-3 py-2 text-sm tracking-[0.04em] text-on-surface-variant transition-colors group-hover/d:text-burnished-gold"
               >
                 {g.label}
                 <span className="material-symbols-outlined text-[18px] transition-transform duration-300 group-hover/d:rotate-180">
@@ -97,10 +101,10 @@ export function SiteHeader() {
             <span className="material-symbols-outlined text-[22px]">search</span>
           </Link>
           <Link
-            href="/studio/editor"
-            className="hidden border border-burnished-gold/30 bg-burnished-gold/10 px-6 py-2.5 text-[10px] font-semibold uppercase tracking-[0.25em] text-burnished-gold transition-all duration-500 hover:bg-burnished-gold hover:text-deep-navy md:block"
+            href="/articles"
+            className="hidden border border-burnished-gold/30 bg-burnished-gold/10 px-6 py-2.5 text-[10px] font-semibold tracking-[0.08em] text-burnished-gold transition-all duration-500 hover:bg-burnished-gold hover:text-deep-navy md:block"
           >
-            Studio
+            เข้าสู่คลังความรู้
           </Link>
           <button
             type="button"
@@ -120,32 +124,9 @@ export function SiteHeader() {
           className="menu-in border-t border-slate-boundary/40 bg-deep-navy px-6 py-4 md:hidden"
           aria-label="เมนูมือถือ"
         >
-          <div className="mb-4 space-y-1.5 border-b border-white/5 pb-3.5">
-            <Link
-              href="/knowledge"
-              onClick={() => setOpen(false)}
-              className="flex items-center gap-3 rounded px-1.5 py-2.5 text-base text-on-surface-variant hover:text-burnished-gold transition-colors"
-            >
-              <span className="material-symbols-outlined text-[20px] text-burnished-gold/70">
-                menu_book
-              </span>
-              เข้าสู่คลังความรู้
-            </Link>
-            <Link
-              href="/studio/editor"
-              onClick={() => setOpen(false)}
-              className="flex items-center gap-3 rounded px-1.5 py-2.5 text-base text-on-surface-variant hover:text-burnished-gold transition-colors"
-            >
-              <span className="material-symbols-outlined text-[20px] text-burnished-gold/70">
-                admin_panel_settings
-              </span>
-              Studio
-            </Link>
-          </div>
-
           {GROUPS.map((g) => (
             <div key={g.label} className="mb-3 last:mb-0">
-              <p className="px-1 py-1 text-[11px] uppercase tracking-wide text-on-surface-variant/40">
+              <p className="px-1 py-1 text-[11px] tracking-[0.04em] text-on-surface-variant/40">
                 {g.label}
               </p>
               {g.items.map((item) => (

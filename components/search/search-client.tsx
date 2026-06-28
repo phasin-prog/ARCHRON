@@ -87,7 +87,7 @@ export function SearchClient({ items }: { items: SearchItem[] }) {
             <div className="space-y-9">
               {groups.map((g) => (
                 <section key={g.type}>
-                  <h2 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-burnished-gold/70">
+                  <h2 className="mb-3 text-xs font-semibold tracking-[0.05em] text-burnished-gold/70">
                     {SEARCH_TYPE_LABEL[g.type]} · {g.items.length}
                   </h2>
                   <ul className="divide-y divide-white/5 overflow-hidden rounded-md border border-white/10">

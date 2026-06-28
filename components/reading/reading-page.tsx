@@ -68,7 +68,7 @@ function readTime(entry: ContentEntry): string {
 function MetaCell({ label, value }: { label: string; value: ReactNode }) {
   return (
     <div className="rounded-md border border-white/10 bg-surface-1/40 p-4">
-      <dt className="text-[11px] uppercase tracking-wider text-muted">{label}</dt>
+      <dt className="text-[11px] tracking-[0.04em] text-muted">{label}</dt>
       <dd className="mt-1 text-sm leading-snug text-ivory">{value}</dd>
     </div>
   );
@@ -247,7 +247,7 @@ export function ReadingPage({
             {entry.references.map((s: SourceItem, i) => (
               <li key={i} className="text-sm leading-relaxed text-soft-ivory">
                 <span className="mr-2 text-antique-gold">{i + 1}.</span>
-                <span className="mr-1 text-xs uppercase tracking-wide text-antique-gold/70">
+                <span className="mr-1 text-xs tracking-[0.04em] text-antique-gold/70">
                   [{SOURCE_TYPE_LABEL[s.sourceType] ?? s.sourceType}]
                 </span>
                 <span className="text-ivory">{[s.author, s.title].filter(Boolean).join(", ")}</span>
@@ -264,7 +264,7 @@ export function ReadingPage({
       {/* CTA — guide การเข้าใจตัวตน ภายใต้กรอบ Psychological Types (วิชาการ ไม่ใช่ป้ายสำเร็จรูป) */}
       <aside className="scroll-reveal mt-16 overflow-hidden rounded-md border border-antique-gold/30 bg-surface-1/50">
         <div className="border-l-2 border-antique-gold p-7 md:p-9">
-          <span className="text-xs uppercase tracking-[0.2em] text-antique-gold">
+          <span className="text-xs tracking-[0.05em] text-antique-gold">
             Psychological Types · การอ่านตัวตน
           </span>
           <h2 className="mt-3 font-serif text-2xl text-ivory">

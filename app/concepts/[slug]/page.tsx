@@ -128,7 +128,7 @@ export default async function ConceptNodePage({
       <header className="mx-auto max-w-2xl px-6 pb-8 pt-20">
         <div className="flex items-center gap-3">
           {Icon ? <Icon className="h-7 w-7 text-antique-gold" /> : null}
-          <span className="text-xs tracking-[0.18em] text-antique-gold">{label}</span>
+          <span className="text-xs tracking-[0.05em] text-antique-gold">{label}</span>
         </div>
         <h1 className="mt-4 font-serif text-3xl text-ivory md:text-4xl">{node.title}</h1>
         {node.description ? (

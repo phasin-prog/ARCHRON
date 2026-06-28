@@ -48,9 +48,6 @@
     --dur-base: 450ms;
     --dur-slow: 850ms;
     --dur-ambient: 8s;
-
-    /* Reading measure — ความกว้างคอลัมน์อ่านบทความ (60–75ch เพื่ออ่านสบาย) */
-    --reading-measure: 68ch;
   }
 
   html,
@@ -85,17 +82,9 @@
   line-height: 1.9;
 }
 
-/* prose ยาวในหน้าอ่าน (คำอธิบายให้เห็นภาพ / ความหมายเชิงเทคนิค)
-   — จำกัด measure ตามคอลัมน์อ่าน + จังหวะบรรทัด 1.8 (อ่านสบาย ไม่ล้า) */
-.reading-prose {
-  max-width: var(--reading-measure);
-  line-height: 1.8;
-}
-
 /* Markdown body (E5) — เนื้อหาเต็มที่ render จาก Markdown ผ่าน react-markdown + remark-gfm
    ไม่อนุญาต raw HTML (sanitize โดยค่าเริ่มต้นของ react-markdown) ใช้พาเลตต์ night-library */
 .md-body {
-  max-width: var(--reading-measure);
   font-size: 1.0625rem;
   line-height: 1.8;
   color: var(--color-soft-ivory);
@@ -162,12 +151,41 @@
 .md-body li::marker {
   color: var(--color-antique-gold);
 }
+/* Core-Epiphany callout — blockquote (>) = คำพูดจากงานต้นฉบับ / ประโยคแก่น
+   โทน night-library: พื้น surface ยกเบา ๆ + เส้นทองเนื้อหา + เครื่องหมายคำพูดทองจาง
+   ใช้ serif แทน italic (ไทยไม่เหมาะกับ italic) */
 .md-body blockquote {
-  margin: 1.6rem 0;
-  padding: 0.4rem 1.25rem;
-  border-left: 2px solid var(--color-antique-gold);
-  color: var(--color-soft-ivory);
-  font-style: italic;
+  position: relative;
+  margin: 2rem 0;
+  padding: 1.5rem 1.75rem 1.5rem 2.6rem;
+  border-left: 3px solid var(--color-antique-gold);
+  border-radius: 0.5rem;
+  background: var(--color-surface-container);
+  color: var(--color-ivory);
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  line-height: 1.8;
+}
+.md-body blockquote::before {
+  content: "\201C";
+  position: absolute;
+  top: 0.15rem;
+  left: 0.7rem;
+  font-family: var(--font-serif);
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--color-antique-gold);
+  opacity: 0.28;
+  pointer-events: none;
+}
+.md-body blockquote p {
+  margin: 0.5rem 0;
+}
+.md-body blockquote p:first-of-type {
+  margin-top: 0;
+}
+.md-body blockquote p:last-of-type {
+  margin-bottom: 0;
 }
 .md-body code {
   font-family: var(--font-mono, ui-monospace, "SFMono-Regular", Menlo, monospace);
@@ -254,12 +272,18 @@
   border-color: rgba(212, 175, 55, 0.4);
   box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
 }
+/* แสดงโดย default — ซ่อนเพื่อ animate เฉพาะเมื่อ JS พร้อม (html.js-reveal)
+   กันหน้าเปล่า/มองไม่เห็น ถ้า JS ช้าหรือเผยพลาดจังหวะ */
 .scroll-reveal {
+  transition:
+    opacity 1s cubic-bezier(0.21, 0.6, 0.35, 1),
+    transform 1s cubic-bezier(0.21, 0.6, 0.35, 1);
+}
+.js-reveal .scroll-reveal {
   opacity: 0;
   transform: translateY(30px);
-  transition: all 1s cubic-bezier(0.21, 0.6, 0.35, 1);
 }
-.scroll-reveal.visible {
+.js-reveal .scroll-reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }

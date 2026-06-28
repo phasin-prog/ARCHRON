@@ -1,3 +1,12 @@
+import Link from "next/link";
+
+const ENTRY = [
+  { label: "บทความ", href: "/articles", desc: "งานอ่านที่อธิบายและตีความแนวคิด" },
+  { label: "คลังแนวคิด", href: "/concepts", desc: "ระบบความรู้แบบเชื่อมโยง (Wiki)" },
+  { label: "ซีรีส์", href: "/reading-sets", desc: "เส้นทางการอ่านจากพื้นฐานสู่ลึก" },
+  { label: "แหล่งอ้างอิง", href: "/sources", desc: "ฐานความรู้และการอ้างอิง" },
+];
+
 const KNOWLEDGE = [
   {
     no: "01",
@@ -48,19 +57,36 @@ export default function HomePage() {
             ตรวจสอบได้ และเชื่อมโยงกันได้มากขึ้น
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
-            <a
-              href="#knowledge"
+            <Link
+              href="/articles"
               className="rounded-sm bg-gradient-to-br from-antique-gold to-soft-gold px-7 py-3.5 text-base font-semibold text-[#1a1306] transition-transform hover:-translate-y-0.5"
             >
               เริ่มอ่านบทความ
-            </a>
-            <a
-              href="#concept"
+            </Link>
+            <Link
+              href="/concepts"
               className="rounded-sm border border-white/25 px-7 py-3.5 text-base text-ivory transition-colors hover:border-antique-gold hover:text-soft-gold"
             >
               เปิดแผนที่แนวคิด
-            </a>
+            </Link>
           </div>
+        </div>
+      </section>
+
+      {/* Entry Points */}
+      <section className="mx-auto max-w-6xl px-6 py-12">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {ENTRY.map((e) => (
+            <Link
+              key={e.href}
+              href={e.href}
+              className="group rounded-md border border-white/10 bg-surface-1/50 p-6 transition-colors hover:border-antique-gold/40"
+            >
+              <span className="font-serif text-lg text-ivory group-hover:text-soft-gold">{e.label}</span>
+              <p className="mt-2 text-sm leading-relaxed text-muted">{e.desc}</p>
+              <span className="mt-3 inline-block text-sm text-antique-gold">เข้าชม →</span>
+            </Link>
+          ))}
         </div>
       </section>
 
@@ -91,18 +117,24 @@ export default function HomePage() {
         </div>
         <div className="mt-12 grid gap-4 md:grid-cols-3">
           {CONCEPTS.map((c) => (
-            <article
+            <Link
               key={c.no}
-              className="flex min-h-[170px] flex-col rounded-md border border-white/10 bg-charcoal/40 p-7 transition-colors hover:border-antique-gold/30 hover:bg-surface-2/40"
+              href="/concepts"
+              className="group flex min-h-[170px] flex-col rounded-md border border-white/10 bg-charcoal/40 p-7 transition-colors hover:border-antique-gold/30 hover:bg-surface-2/40"
             >
               <div className="flex items-center justify-between">
                 <span className="font-serif text-lg text-antique-gold">{c.no}</span>
                 <span className="h-2.5 w-2.5 rounded-full border border-antique-gold" aria-hidden="true" />
               </div>
-              <h3 className="mt-4 font-serif text-xl text-ivory">{c.title}</h3>
+              <h3 className="mt-4 font-serif text-xl text-ivory group-hover:text-soft-gold">{c.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-soft-ivory">{c.desc}</p>
-            </article>
+            </Link>
           ))}
+        </div>
+        <div className="mt-8 text-center">
+          <Link href="/concepts" className="text-sm text-soft-gold hover:underline">
+            เปิดคลังแนวคิดทั้งหมด →
+          </Link>
         </div>
       </section>
 
@@ -118,6 +150,11 @@ export default function HomePage() {
             หรือสูตรสำเร็จในการใช้ชีวิต The Soul&apos;s Compass จึงพยายามวางแนวคิดไว้ในบริบทเดิมของมัน
             พร้อมเปิดพื้นที่ให้การตีความ การเปรียบเทียบ และการตั้งคำถามเกิดขึ้นอย่างรับผิดชอบ
           </p>
+          <div className="mt-8">
+            <Link href="/manifesto" className="text-sm text-soft-gold hover:underline">
+              อ่าน Manifesto ฉบับเต็ม →
+            </Link>
+          </div>
         </div>
       </section>
     </main>

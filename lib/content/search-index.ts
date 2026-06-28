@@ -32,6 +32,7 @@ const SECTIONS: { title: string; href: string; description: string }[] = [
   { title: "บทความ", href: "/articles", description: "งานอ่านที่อธิบายและตีความแนวคิด" },
   { title: "คลังแนวคิด", href: "/concepts", description: "ระบบความรู้แบบเชื่อมโยง (Wiki)" },
   { title: "แผนที่ความสัมพันธ์", href: "/constellation", description: "กราฟความสัมพันธ์ระหว่างแนวคิด" },
+  { title: "สำนักคิดและนักปราชญ์", href: "/schools", description: "ไดเรกทอรีสำนักคิด นักปราชญ์ และผลงานเด่น" },
   { title: "เส้นทางการอ่าน / ซีรีส์", href: "/reading-sets", description: "ลำดับการอ่านจากพื้นฐานสู่ความลึก" },
   { title: "แหล่งอ้างอิง", href: "/sources", description: "ฐานความรู้และการอ้างอิงภายใน" },
   { title: "ทรัพยากรและลิงก์ภายนอก", href: "/external-links", description: "ลิงก์ งานวิจัย และคลังข้อมูลภายนอก" },

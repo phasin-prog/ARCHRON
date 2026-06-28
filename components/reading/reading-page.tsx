@@ -41,9 +41,8 @@ const SOURCE_TYPE_LABEL: Record<string, string> = {
 
 const MAX_RELATED_INLINE = 6;
 
-// ปลายทางปุ่ม CTA "สำรวจประเภททางจิตวิทยา" — ชั่วคราวชี้ไปโหนด Psychological Types ในคลังแนวคิด
-// TODO: เปลี่ยนเป็นหน้า/ลิงก์บริการจริงเมื่อผู้ใช้กำหนดปลายทาง
-const GUIDE_CTA_HREF = "/concepts/psychological-types";
+// ปลายทางปุ่ม CTA "สำรวจประเภททางจิตวิทยา" → หน้าบริการ Jungian Type Analysis
+const GUIDE_CTA_HREF = "/guide";
 
 // ประมาณเวลาอ่านจากความยาวเนื้อหา (ภาษาไทยไม่เว้นวรรค — ใช้จำนวนอักขระ ~400/นาที)
 function readTime(entry: ContentEntry): string {

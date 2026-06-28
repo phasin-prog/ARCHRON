@@ -11,7 +11,7 @@ export function ExternalLinksBrowser({ categories }: { categories: ExternalCateg
     `rounded-full border px-3.5 py-1.5 text-sm transition-colors duration-200 ${
       on
         ? "border-burnished-gold/50 bg-burnished-gold/10 text-burnished-gold"
-        : "border-white/12 text-on-surface-variant hover:border-white/25 hover:text-on-surface"
+        : "border-ink/12 text-on-surface-variant hover:border-ink/25 hover:text-on-surface"
     }`;
 
   return (
@@ -71,7 +71,7 @@ export function ExternalLinksBrowser({ categories }: { categories: ExternalCateg
                       {item.tags.map((t) => (
                         <span
                           key={t}
-                          className="rounded-full border border-white/10 px-2.5 py-0.5 text-[11px] text-on-surface-variant/60"
+                          className="rounded-full border border-ink/10 px-2.5 py-0.5 text-[11px] text-on-surface-variant/60"
                         >
                           {t}
                         </span>

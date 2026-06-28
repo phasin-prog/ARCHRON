@@ -44,7 +44,7 @@ export function MyContentSearch({
     : items;
 
   return (
-    <div className="rounded-md border border-white/10 bg-surface-1/40 p-5">
+    <div className="rounded-md border border-ink/10 bg-surface-1/40 p-5">
       <h3 className="font-serif text-base text-ivory">ค้นหาเนื้อหาของฉัน</h3>
       {!userId ? (
         <p className="mt-3 text-sm text-muted">เข้าสู่ระบบเพื่อค้นหาและเปิดงานของคุณ</p>
@@ -54,7 +54,7 @@ export function MyContentSearch({
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="ค้นหาชื่อ / slug..."
-            className="mt-3 w-full rounded-md border border-white/10 bg-charcoal/40 px-3 py-2 text-sm text-ivory outline-none focus:border-antique-gold/50"
+            className="mt-3 w-full rounded-md border border-ink/10 bg-white/40 px-3 py-2 text-sm text-ivory outline-none focus:border-antique-gold/50"
           />
           <ul className="mt-3 max-h-64 space-y-1 overflow-auto">
             {results.length === 0 ? (
@@ -66,7 +66,7 @@ export function MyContentSearch({
                 <li key={e.slug}>
                   <a
                     href={`/studio/editor?slug=${encodeURIComponent(e.slug)}`}
-                    className="flex items-center justify-between gap-2 rounded px-2 py-1.5 text-sm text-soft-ivory transition-colors hover:bg-white/5 hover:text-soft-gold"
+                    className="flex items-center justify-between gap-2 rounded px-2 py-1.5 text-sm text-soft-ivory transition-colors hover:bg-ink/5 hover:text-soft-gold"
                   >
                     <span className="truncate">{e.title || e.slug}</span>
                     <span className="shrink-0 text-[10px] uppercase tracking-wide text-muted">

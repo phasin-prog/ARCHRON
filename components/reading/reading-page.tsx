@@ -67,7 +67,7 @@ function readTime(entry: ContentEntry): string {
 
 function MetaCell({ label, value }: { label: string; value: ReactNode }) {
   return (
-    <div className="rounded-md border border-white/10 bg-surface-1/40 p-4">
+    <div className="rounded-md border border-ink/10 bg-surface-1/40 p-4">
       <dt className="text-[11px] tracking-[0.04em] text-muted">{label}</dt>
       <dd className="mt-1 text-sm leading-snug text-ivory">{value}</dd>
     </div>
@@ -217,7 +217,7 @@ export function ReadingPage({
               <Link
                 key={rc.conceptSlug}
                 href={`/concepts/${rc.conceptSlug}`}
-                className={`scroll-reveal stagger-${i + 1} group flex flex-col rounded-md border border-white/10 bg-charcoal/40 p-5 transition-colors hover:border-antique-gold/40`}
+                className={`scroll-reveal stagger-${i + 1} group flex flex-col rounded-md border border-ink/10 bg-white/40 p-5 transition-colors hover:border-antique-gold/40`}
               >
                 <span className="font-serif text-lg text-ivory group-hover:text-soft-gold">
                   {conceptTitle(rc.conceptSlug)}

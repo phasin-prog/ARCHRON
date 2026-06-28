@@ -78,7 +78,7 @@ export function SiteHeader() {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="flex items-center gap-2.5 rounded px-3 py-2 text-sm text-on-surface-variant transition-colors hover:bg-white/5 hover:text-burnished-gold"
+                      className="flex items-center gap-2.5 rounded px-3 py-2 text-sm text-on-surface-variant transition-colors hover:bg-ink/5 hover:text-burnished-gold"
                     >
                       <span className="material-symbols-outlined text-[18px] text-burnished-gold/70">
                         {item.icon}

@@ -42,7 +42,7 @@ export function RevisionPanel({
 
   if (!entryId) {
     return (
-      <div className="rounded-md border border-white/10 bg-surface-1/40 p-5">
+      <div className="rounded-md border border-ink/10 bg-surface-1/40 p-5">
         <h3 className="font-serif text-base text-ivory">ประวัติเวอร์ชัน</h3>
         <p className="mt-3 text-sm text-muted">บันทึกแบบร่างครั้งแรกเพื่อเริ่มเก็บเวอร์ชัน</p>
       </div>
@@ -50,7 +50,7 @@ export function RevisionPanel({
   }
 
   return (
-    <div className="rounded-md border border-white/10 bg-surface-1/40 p-5">
+    <div className="rounded-md border border-ink/10 bg-surface-1/40 p-5">
       <h3 className="font-serif text-base text-ivory">ประวัติเวอร์ชัน</h3>
       {revs.length === 0 ? (
         <p className="mt-3 text-sm text-muted">ยังไม่มีเวอร์ชันที่บันทึก</p>
@@ -65,7 +65,7 @@ export function RevisionPanel({
               <button
                 type="button"
                 onClick={() => onRestore(r.snapshot)}
-                className="rounded border border-white/20 px-2 py-1 text-xs text-soft-ivory hover:border-antique-gold"
+                className="rounded border border-ink/20 px-2 py-1 text-xs text-soft-ivory hover:border-antique-gold"
               >
                 กู้คืน
               </button>

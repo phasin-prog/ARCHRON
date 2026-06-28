@@ -78,7 +78,7 @@ export function ReadingToc({ containerId = "reading-article" }: { containerId?: 
   return (
     <nav aria-label="สารบัญในหน้านี้" className="text-sm">
       <p className="mb-3 text-[11px] tracking-[0.05em] text-subtle">ในหน้านี้</p>
-      <ul className="space-y-1 border-l border-white/10">
+      <ul className="space-y-1 border-l border-ink/10">
         {items.map((it) => (
           <li key={it.id} className={it.level === 3 ? "pl-3" : ""}>
             <a

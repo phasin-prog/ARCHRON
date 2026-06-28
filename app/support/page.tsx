@@ -23,7 +23,7 @@ export default function SupportPage() {
       <section className="scroll-reveal stagger-1 mx-auto max-w-6xl px-6">
         <div className="grid gap-4 md:grid-cols-3">
           {WAYS.map((w) => (
-            <article key={w.title} className="rounded-md border border-white/10 bg-charcoal/40 p-6">
+            <article key={w.title} className="rounded-md border border-ink/10 bg-white/40 p-6">
               <h2 className="font-serif text-lg text-ivory">{w.title}</h2>
               <p className="mt-2 text-sm leading-relaxed text-soft-ivory">{w.desc}</p>
             </article>

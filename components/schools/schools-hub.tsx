@@ -88,7 +88,7 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
           on
             ? "bg-burnished-gold/15 text-burnished-gold"
             : has
-              ? "text-on-surface-variant hover:bg-white/5 hover:text-burnished-gold"
+              ? "text-on-surface-variant hover:bg-ink/5 hover:text-burnished-gold"
               : "cursor-default text-on-surface-variant/20"
         }`}
       >
@@ -100,7 +100,7 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
   return (
     <div className="mt-8">
       {/* Search */}
-      <div className="flex items-center gap-3 rounded-md border border-white/12 bg-surface-container/60 px-4 py-3 focus-within:border-burnished-gold/40">
+      <div className="flex items-center gap-3 rounded-md border border-ink/12 bg-surface-container/60 px-4 py-3 focus-within:border-burnished-gold/40">
         <span className="material-symbols-outlined text-[22px] text-burnished-gold">search</span>
         <input
           value={query}
@@ -135,14 +135,14 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
           ทั้งหมด
         </button>
         {THAI_LETTERS.map((ch) => letterBtn(ch))}
-        <span className="mx-1 h-4 w-px bg-white/10" />
+        <span className="mx-1 h-4 w-px bg-ink/8" />
         {EN_LETTERS.map((ch) => letterBtn(ch))}
       </div>
 
       {/* Accordion list */}
       <div className="mt-8 space-y-3">
         {filtered.length === 0 ? (
-          <p className="rounded-md border border-white/10 bg-surface-container/40 p-8 text-center text-sm text-on-surface-variant/60">
+          <p className="rounded-md border border-ink/10 bg-surface-container/40 p-8 text-center text-sm text-on-surface-variant/60">
             ไม่พบสำนักคิดที่ตรงกับการค้นหา
           </p>
         ) : (
@@ -164,7 +164,7 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
                     <span className="text-sm text-on-surface-variant/50">/ {s.nameEn}</span>
                   </span>
                   <span className="flex shrink-0 items-center gap-3">
-                    <span className="rounded-full border border-white/12 px-2.5 py-0.5 text-[11px] text-on-surface-variant/70">
+                    <span className="rounded-full border border-ink/12 px-2.5 py-0.5 text-[11px] text-on-surface-variant/70">
                       {s.thinkers.length} นักคิด
                     </span>
                     <span
@@ -189,7 +189,7 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
                           key={t.nameEn}
                           type="button"
                           onClick={() => setModal({ school: s, thinker: t })}
-                          className="group rounded-md border border-white/10 bg-surface-container/40 p-5 text-left transition-colors hover:border-burnished-gold/40 hover:bg-surface-container"
+                          className="group rounded-md border border-ink/10 bg-surface-container/40 p-5 text-left transition-colors hover:border-burnished-gold/40 hover:bg-surface-container"
                         >
                           <h4 className="font-serif text-lg text-on-surface group-hover:text-burnished-gold">
                             {t.nameTh}
@@ -244,7 +244,7 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
               type="button"
               onClick={() => setModal(null)}
               aria-label="ปิด"
-              className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full text-on-surface-variant/60 transition-colors hover:bg-white/5 hover:text-on-surface"
+              className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full text-on-surface-variant/60 transition-colors hover:bg-ink/5 hover:text-on-surface"
             >
               <span className="material-symbols-outlined text-[20px]">close</span>
             </button>
@@ -272,7 +272,7 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
               </p>
             ) : null}
 
-            <div className="mt-5 border-t border-white/10 pt-4">
+            <div className="mt-5 border-t border-ink/10 pt-4">
               <p className="mb-2 text-xs tracking-[0.04em] text-on-surface-variant/50">
                 ผลงานเด่น
               </p>

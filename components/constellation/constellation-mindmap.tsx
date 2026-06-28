@@ -107,7 +107,7 @@ export function ConstellationMindmap({
           type="button"
           onClick={back}
           disabled={history.length === 0}
-          className="inline-flex items-center gap-1.5 rounded-md border border-white/12 px-3 py-2 text-sm text-on-surface-variant transition-colors hover:border-burnished-gold/40 hover:text-on-surface disabled:cursor-default disabled:opacity-35"
+          className="inline-flex items-center gap-1.5 rounded-md border border-ink/12 px-3 py-2 text-sm text-on-surface-variant transition-colors hover:border-burnished-gold/40 hover:text-on-surface disabled:cursor-default disabled:opacity-35"
         >
           <span className="material-symbols-outlined text-[18px]">arrow_back</span>
           ย้อนกลับ
@@ -117,7 +117,7 @@ export function ConstellationMindmap({
             e.preventDefault();
             runSearch(query);
           }}
-          className="flex flex-1 items-center gap-2 rounded-md border border-white/12 bg-surface-container/60 px-3 py-2 focus-within:border-burnished-gold/40"
+          className="flex flex-1 items-center gap-2 rounded-md border border-ink/12 bg-surface-container/60 px-3 py-2 focus-within:border-burnished-gold/40"
         >
           <span className="material-symbols-outlined text-[18px] text-burnished-gold">search</span>
           <input
@@ -215,7 +215,7 @@ export function ConstellationMindmap({
                 onClick={() => goTo(p.id)}
                 onMouseEnter={() => setHover(p.id)}
                 onMouseLeave={() => setHover(null)}
-                className="flex max-w-[160px] flex-col items-center gap-1 rounded-md border border-white/10 bg-surface-container/85 px-3 py-2 text-center backdrop-blur transition-colors hover:border-burnished-gold/50 hover:bg-surface-container"
+                className="flex max-w-[160px] flex-col items-center gap-1 rounded-md border border-ink/10 bg-surface-container/85 px-3 py-2 text-center backdrop-blur transition-colors hover:border-burnished-gold/50 hover:bg-surface-container"
               >
                 <span className="flex items-center gap-1.5">
                   <span
@@ -276,7 +276,7 @@ export function ConstellationMindmap({
           </Link>
         </p>
         {relationsPresent.length > 0 ? (
-          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 border-t border-white/10 pt-3">
+          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 border-t border-ink/10 pt-3">
             {relationsPresent.map((r) => (
               <span key={r} className="flex items-center gap-1.5 text-[11px] text-on-surface-variant/60">
                 <span className="h-2 w-4 rounded-full" style={{ backgroundColor: RELATION_COLOR[r] }} />

@@ -66,7 +66,7 @@ export function ConceptCard({ c }: { c: ConceptRegistryItem }) {
     <ContextMenu items={items} className="relative">
       <Link
         href={href}
-        className="group block rounded-md border border-white/10 bg-charcoal/40 p-5 transition-colors hover:border-antique-gold/40"
+        className="group block rounded-md border border-ink/10 bg-white/40 p-5 transition-colors hover:border-antique-gold/40"
       >
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">

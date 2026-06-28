@@ -33,7 +33,7 @@ export function RelatedConceptPicker({
     .slice(0, 8);
 
   const inputClass =
-    "w-full rounded-md border border-white/10 bg-charcoal/40 px-3 py-2 text-ivory outline-none";
+    "w-full rounded-md border border-ink/10 bg-white/40 px-3 py-2 text-ivory outline-none";
 
   function add() {
     if (slug.trim() === "") return;
@@ -47,7 +47,7 @@ export function RelatedConceptPicker({
   return (
     <div className="space-y-3">
       {value.map((r, i) => (
-        <div key={i} className="flex items-start justify-between gap-3 rounded-md border border-white/10 bg-charcoal/40 p-3">
+        <div key={i} className="flex items-start justify-between gap-3 rounded-md border border-ink/10 bg-white/40 p-3">
           <div className="text-sm text-soft-ivory">
             <span className="text-ivory">{r.conceptSlug}</span>
             <span className="ml-2 text-xs text-antique-gold">{r.relationType}</span>
@@ -57,7 +57,7 @@ export function RelatedConceptPicker({
         </div>
       ))}
 
-      <div className="rounded-md border border-white/10 bg-surface-1/40 p-3">
+      <div className="rounded-md border border-ink/10 bg-surface-1/40 p-3">
         <input
           value={slug ? slug : q}
           onChange={(e) => {
@@ -80,7 +80,7 @@ export function RelatedConceptPicker({
                       setSlug(c.slug);
                       setQ(c.title);
                     }}
-                    className="block w-full rounded px-2 py-1.5 text-left text-sm text-soft-ivory hover:bg-white/5"
+                    className="block w-full rounded px-2 py-1.5 text-left text-sm text-soft-ivory hover:bg-ink/5"
                   >
                     {c.title}
                     {c.thaiTitle ? <span className="text-muted"> · {c.thaiTitle}</span> : null}
@@ -98,7 +98,7 @@ export function RelatedConceptPicker({
               {RELATION_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
             </select>
             <input className={inputClass} value={reason} onChange={(e) => setReason(e.target.value)} placeholder="เหตุผลที่เชื่อมโยง (ห้ามเชื่อมเพราะชื่อคล้าย)" />
-            <button type="button" onClick={add} className="rounded-md border border-white/20 px-3 text-sm text-soft-ivory hover:border-antique-gold">เพิ่ม</button>
+            <button type="button" onClick={add} className="rounded-md border border-ink/20 px-3 text-sm text-soft-ivory hover:border-antique-gold">เพิ่ม</button>
           </div>
         ) : null}
       </div>

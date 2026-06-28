@@ -90,7 +90,7 @@ export default function KnowledgeHubPage() {
               
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <div className="flex h-12 w-12 items-center justify-center rounded bg-deep-navy border border-white/5 text-burnished-gold transition-colors duration-500 group-hover:border-antique-gold/20 group-hover:bg-midnight group-hover:text-antique-gold">
+                  <div className="flex h-12 w-12 items-center justify-center rounded bg-deep-navy border border-ink/5 text-burnished-gold transition-colors duration-500 group-hover:border-antique-gold/20 group-hover:bg-midnight group-hover:text-antique-gold">
                     <span className="material-symbols-outlined text-[24px]">
                       {section.icon}
                     </span>

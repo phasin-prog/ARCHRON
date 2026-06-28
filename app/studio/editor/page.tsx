@@ -53,7 +53,7 @@ function Label({ children }: { children: React.ReactNode }) {
 }
 
 const inputClass =
-  "w-full rounded-md border border-white/10 bg-charcoal/40 px-3 py-2 text-ivory outline-none focus:border-antique-gold/50";
+  "w-full rounded-md border border-ink/10 bg-white/40 px-3 py-2 text-ivory outline-none focus:border-antique-gold/50";
 
 export default function StudioEditorPage() {
   const { userId } = useAuth();
@@ -210,10 +210,10 @@ export default function StudioEditorPage() {
       <div className="sticky top-0 z-40 border-b border-antique-gold/15 bg-midnight/80 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-6 py-3">
           <Link href="/" className="text-sm text-soft-ivory hover:text-soft-gold">← กลับหน้าแรก</Link>
-          <span className="rounded-full border border-white/15 px-3 py-1 text-xs text-muted">สถานะ: {draft.status}</span>
+          <span className="rounded-full border border-ink/15 px-3 py-1 text-xs text-muted">สถานะ: {draft.status}</span>
           <div className="flex items-center gap-2">
-            <button onClick={handleManualSave} className="rounded-sm border border-white/20 px-4 py-2 text-sm text-ivory hover:border-antique-gold">บันทึก + เวอร์ชัน</button>
-            <button onClick={() => setPreview((v) => !v)} disabled={!canPreview} className="rounded-sm border border-white/20 px-4 py-2 text-sm text-ivory hover:border-antique-gold disabled:opacity-40">{preview ? "ปิดพรีวิว" : "พรีวิว"}</button>
+            <button onClick={handleManualSave} className="rounded-sm border border-ink/20 px-4 py-2 text-sm text-ivory hover:border-antique-gold">บันทึก + เวอร์ชัน</button>
+            <button onClick={() => setPreview((v) => !v)} disabled={!canPreview} className="rounded-sm border border-ink/20 px-4 py-2 text-sm text-ivory hover:border-antique-gold disabled:opacity-40">{preview ? "ปิดพรีวิว" : "พรีวิว"}</button>
             <button onClick={handlePublish} disabled={publishing} className="rounded-sm bg-gradient-to-br from-antique-gold to-soft-gold px-4 py-2 text-sm font-semibold text-[#1a1306] disabled:opacity-50">{publishing ? "กำลังเผยแพร่..." : "เผยแพร่"}</button>
             <UserButton afterSignOutUrl="/" />
           </div>
@@ -239,7 +239,7 @@ export default function StudioEditorPage() {
               <Label>Slug</Label>
               <div className="flex gap-2">
                 <input className={inputClass} value={draft.slug} onChange={(e) => set("slug", e.target.value)} placeholder="psyche" />
-                <button onClick={() => set("slug", slugify(draft.title))} className="shrink-0 rounded-md border border-white/20 px-3 text-sm text-soft-ivory hover:border-antique-gold">สร้างจากชื่อ</button>
+                <button onClick={() => set("slug", slugify(draft.title))} className="shrink-0 rounded-md border border-ink/20 px-3 text-sm text-soft-ivory hover:border-antique-gold">สร้างจากชื่อ</button>
               </div>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -312,7 +312,7 @@ export default function StudioEditorPage() {
           <section className="space-y-3">
             <h2 className="font-serif text-xl text-ivory">เอกสารอ้างอิง</h2>
             {draft.references.map((r, i) => (
-              <div key={i} className="flex items-start justify-between gap-3 rounded-md border border-white/10 bg-charcoal/40 p-3">
+              <div key={i} className="flex items-start justify-between gap-3 rounded-md border border-ink/10 bg-white/40 p-3">
                 <div className="text-sm text-soft-ivory">
                   <span className="text-xs text-antique-gold">{r.sourceType}</span>
                   <span className="ml-2 text-ivory">{r.title}</span>
@@ -333,7 +333,7 @@ export default function StudioEditorPage() {
                   set("references", [...draft.references, ref]);
                   setRef({ sourceType: "primary-source", title: "", relatedClaim: "" });
                 }}
-                className="rounded-md border border-white/20 px-3 text-sm text-soft-ivory hover:border-antique-gold"
+                className="rounded-md border border-ink/20 px-3 text-sm text-soft-ivory hover:border-antique-gold"
               >
                 เพิ่ม
               </button>
@@ -356,7 +356,7 @@ export default function StudioEditorPage() {
               {draft.visualExplanation ? <p className="mt-4 whitespace-pre-line text-soft-ivory">{draft.visualExplanation}</p> : null}
               {draft.technicalMeaning ? <p className="mt-3 whitespace-pre-line text-soft-ivory">{draft.technicalMeaning}</p> : null}
               {draft.bodyMarkdown && draft.bodyMarkdown.trim() !== "" ? (
-                <div className="md-body mt-5 border-t border-white/10 pt-5">
+                <div className="md-body mt-5 border-t border-ink/10 pt-5">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>{draft.bodyMarkdown}</ReactMarkdown>
                 </div>
               ) : null}
@@ -366,7 +366,7 @@ export default function StudioEditorPage() {
 
         <aside className="space-y-6 md:sticky md:top-20 md:self-start">
           <MyContentSearch supabase={supabase} userId={userId ?? null} />
-          <div className="rounded-md border border-white/10 bg-surface-1/40 p-5">
+          <div className="rounded-md border border-ink/10 bg-surface-1/40 p-5">
             <h3 className="font-serif text-base text-ivory">คำแนะนำ</h3>
             <ul className="mt-3 space-y-2 text-sm leading-relaxed text-muted">
               <li>เขียนให้ชัด ไม่ลดทอนแนวคิดจนผิด</li>
@@ -375,7 +375,7 @@ export default function StudioEditorPage() {
               <li>autosave ทุก 2.5 วิ · กด “บันทึก + เวอร์ชัน” เพื่อเก็บ snapshot</li>
             </ul>
           </div>
-          <div className="rounded-md border border-white/10 bg-surface-1/40 p-5">
+          <div className="rounded-md border border-ink/10 bg-surface-1/40 p-5">
             <h3 className="font-serif text-base text-ivory">Publish Checklist</h3>
             <ul className="mt-3 space-y-2 text-sm">
               {checklist.map((c) => (

@@ -22,7 +22,7 @@ export function Accordion({
   };
 
   return (
-    <div className="divide-y divide-white/[0.07] overflow-hidden rounded-md border border-slate-boundary/50">
+    <div className="divide-y divide-ink/[0.07] overflow-hidden rounded-md border border-slate-boundary/50">
       {items.map((it) => {
         const isOpen = open.has(it.id);
         return (

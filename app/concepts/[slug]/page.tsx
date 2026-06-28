@@ -70,7 +70,7 @@ async function Backlinks({ slug }: { slug: string }) {
     (a) => a.slug !== slug,
   );
   return (
-    <section className="mx-auto mt-4 max-w-2xl border-t border-white/10 px-6 pt-10">
+    <section className="mx-auto mt-4 max-w-2xl border-t border-ink/10 px-6 pt-10">
       <h2 className="font-serif text-xl text-ivory">บทความที่ใช้แนวคิดนี้</h2>
       {backlinks.length === 0 ? (
         <p className="mt-3 text-sm text-muted">ยังไม่มีบทความอื่นอ้างถึงแนวคิดนี้</p>
@@ -138,7 +138,7 @@ export default async function ConceptNodePage({
       </header>
 
       <section className="mx-auto max-w-2xl space-y-10 px-6">
-        <dl className="grid grid-cols-2 gap-4 border-y border-white/10 py-6 text-sm">
+        <dl className="grid grid-cols-2 gap-4 border-y border-ink/10 py-6 text-sm">
           {node.thaiTitle ? (
             <div>
               <dt className="text-muted">ชื่อไทย</dt>

@@ -17,7 +17,7 @@ export function PageNav({ current }: { current: string }) {
 
   return (
     <nav className="mx-auto mt-20 max-w-6xl px-6" aria-label="นำทางระหว่างหน้า">
-      <div className="grid grid-cols-3 items-center gap-4 border-t border-white/10 pt-8 text-sm">
+      <div className="grid grid-cols-3 items-center gap-4 border-t border-ink/10 pt-8 text-sm">
         <div>
           {prev ? (
             <Link href={prev.href} className="inline-flex items-center gap-2 text-soft-ivory transition-colors hover:text-soft-gold">

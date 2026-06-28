@@ -14,7 +14,7 @@ export function InternalLinkSuggestionPanel({
   if (suggestions.length === 0) return null;
 
   return (
-    <div className="rounded-md border border-white/10 bg-surface-1/40 p-5">
+    <div className="rounded-md border border-ink/10 bg-surface-1/40 p-5">
       <h3 className="font-serif text-base text-ivory">ลิงก์ที่อาจเชื่อม</h3>
       <p className="mt-1 text-xs text-muted">
         พบคำที่ตรงกับ Concept Registry — กดเพื่อแทรก [[ ]] (ต้องยืนยันเอง ไม่แทรกอัตโนมัติ)
@@ -28,7 +28,7 @@ export function InternalLinkSuggestionPanel({
             <button
               type="button"
               onClick={() => onInsert(s.title)}
-              className="rounded border border-white/20 px-2 py-1 text-xs text-soft-ivory hover:border-antique-gold"
+              className="rounded border border-ink/20 px-2 py-1 text-xs text-soft-ivory hover:border-antique-gold"
             >
               + [[ ]]
             </button>

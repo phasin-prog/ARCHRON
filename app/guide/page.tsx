@@ -34,7 +34,7 @@ const CONTACTS = [
   { icon: "call", label: "โทรศัพท์", value: "081-538-2404", href: "tel:0815382404", external: false },
   { icon: "chat", label: "LINE", value: "phasin_pasumart", href: "https://line.me/ti/p/~phasin_pasumart", external: true },
   { icon: "person", label: "Facebook ส่วนตัว", value: "Phasin", href: "https://www.facebook.com/phasin.phasin.7", external: true },
-  { icon: "groups", label: "Facebook Page", value: "The Soul's Compass", href: "https://www.facebook.com/profile.php?id=61561438596973", external: true },
+  { icon: "groups", label: "Facebook Page", value: "ARCHRON", href: "https://www.facebook.com/profile.php?id=61561438596973", external: true },
 ];
 
 export default function GuidePage() {

@@ -25,7 +25,7 @@ export function SearchableMultiSelect({
   }
 
   return (
-    <div className="rounded-md border border-white/10 bg-charcoal/40 p-2">
+    <div className="rounded-md border border-ink/10 bg-white/40 p-2">
       {values.length > 0 ? (
         <div className="mb-2 flex flex-wrap gap-2">
           {values.map((v) => (
@@ -51,7 +51,7 @@ export function SearchableMultiSelect({
           ) : (
             available.map((o) => (
               <li key={o}>
-                <button type="button" onClick={() => add(o)} className="block w-full rounded px-2 py-1.5 text-left text-sm text-soft-ivory hover:bg-white/5">
+                <button type="button" onClick={() => add(o)} className="block w-full rounded px-2 py-1.5 text-left text-sm text-soft-ivory hover:bg-ink/5">
                   {o}
                 </button>
               </li>

@@ -34,13 +34,13 @@ export function SearchClient({ items }: { items: SearchItem[] }) {
     `rounded-full border px-3 py-1 text-xs transition-colors duration-200 ${
       on
         ? "border-burnished-gold/50 bg-burnished-gold/10 text-burnished-gold"
-        : "border-white/12 text-on-surface-variant hover:border-white/25 hover:text-on-surface"
+        : "border-ink/12 text-on-surface-variant hover:border-ink/25 hover:text-on-surface"
     }`;
 
   return (
     <div className="mt-8">
       {/* Search box */}
-      <div className="flex items-center gap-3 rounded-md border border-white/12 bg-surface-container/60 px-4 py-3 focus-within:border-burnished-gold/40">
+      <div className="flex items-center gap-3 rounded-md border border-ink/12 bg-surface-container/60 px-4 py-3 focus-within:border-burnished-gold/40">
         <span className="material-symbols-outlined text-[22px] text-burnished-gold">search</span>
         <input
           value={query}
@@ -90,7 +90,7 @@ export function SearchClient({ items }: { items: SearchItem[] }) {
                   <h2 className="mb-3 text-xs font-semibold tracking-[0.05em] text-burnished-gold/70">
                     {SEARCH_TYPE_LABEL[g.type]} · {g.items.length}
                   </h2>
-                  <ul className="divide-y divide-white/5 overflow-hidden rounded-md border border-white/10">
+                  <ul className="divide-y divide-ink/5 overflow-hidden rounded-md border border-ink/10">
                     {g.items.map((it) => {
                       const inner = (
                         <>

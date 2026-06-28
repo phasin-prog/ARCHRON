@@ -23,7 +23,7 @@ export default async function ArticlesPage() {
       />
       <section className="scroll-reveal stagger-1 mx-auto max-w-6xl px-6">
         {published.length === 0 ? (
-          <div className="rounded-md border border-white/10 bg-surface-1/50 p-10 text-center">
+          <div className="rounded-md border border-ink/10 bg-surface-1/50 p-10 text-center">
             <p className="text-soft-ivory">ยังไม่มีบทความเผยแพร่ — กำลังจัดเตรียมเนื้อหาชุดแรก</p>
             <p className="mt-2 text-sm text-muted">เนื้อหาเริ่มต้นจะถูกเพิ่มใน Phase 13 (Initial Content Seed)</p>
           </div>
@@ -33,7 +33,7 @@ export default async function ArticlesPage() {
               <Link
                 key={e.slug}
                 href={`/articles/${e.slug}`}
-                className="group rounded-md border border-white/10 bg-surface-1/50 p-6 transition-colors hover:border-antique-gold/40"
+                className="group rounded-md border border-ink/10 bg-surface-1/50 p-6 transition-colors hover:border-antique-gold/40"
               >
                 <span className="text-xs tracking-widest text-antique-gold">
                   {e.framework ?? e.contentType}

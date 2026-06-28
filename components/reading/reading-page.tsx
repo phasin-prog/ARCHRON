@@ -1,9 +1,11 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { ContentEntry, RelationType, SourceItem, Difficulty } from "@/types/content";
 import { InternalLinkText } from "@/components/reading/internal-link-text";
 import { conceptTitle } from "@/lib/content/concept-registry";
+import { Tooltip } from "@/components/tooltip";
 
 type Section = "articles" | "concepts";
 
@@ -27,6 +29,13 @@ const DIFFICULTY_LABEL: Record<Difficulty, string> = {
   intermediate: "ระดับกลาง",
   advanced: "อ่านลึก",
   "source-note": "บันทึกอ้างอิง",
+};
+
+const DIFFICULTY_HINT: Record<Difficulty, string> = {
+  beginner: "เหมาะกับผู้เริ่มต้น ไม่ต้องมีพื้นฐานมาก่อน",
+  intermediate: "ควรคุ้นเคยกับแนวคิดที่เกี่ยวข้องบ้าง",
+  advanced: "อ่านเชิงลึก เหมาะกับผู้ที่คุ้นเคยกับศัพท์เฉพาะแล้ว",
+  "source-note": "บันทึกแหล่งอ้างอิง ไม่ใช่บทความอธิบายเต็ม",
 };
 
 const SOURCE_TYPE_LABEL: Record<string, string> = {
@@ -53,7 +62,7 @@ function readTime(entry: ContentEntry): string {
   return `${Math.max(1, Math.round(chars / 400))} นาที`;
 }
 
-function MetaCell({ label, value }: { label: string; value: string }) {
+function MetaCell({ label, value }: { label: string; value: ReactNode }) {
   return (
     <div className="rounded-md border border-white/10 bg-surface-1/40 p-4">
       <dt className="text-[11px] uppercase tracking-wider text-muted">{label}</dt>
@@ -115,7 +124,18 @@ export function ReadingPage({
       <dl className="scroll-reveal stagger-2 mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
         <MetaCell label="สำนัก / กรอบทฤษฎี" value={entry.framework ?? "—"} />
         <MetaCell label="นักคิดหลัก" value={thinker} />
-        <MetaCell label="ระดับการอ่าน" value={level} />
+        <MetaCell
+          label="ระดับการอ่าน"
+          value={
+            entry.difficulty ? (
+              <Tooltip label={DIFFICULTY_HINT[entry.difficulty]}>
+                <span className="border-b border-dotted border-on-surface-variant/40">{level}</span>
+              </Tooltip>
+            ) : (
+              level
+            )
+          }
+        />
         <MetaCell label="เวลาอ่านโดยประมาณ" value={readTime(entry)} />
       </dl>
 

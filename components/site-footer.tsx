@@ -11,6 +11,7 @@ const INSTITUTIONAL = [
   { label: "Manifesto", href: "/manifesto" },
   { label: "แหล่งอ้างอิง", href: "/sources" },
   { label: "ทรัพยากรภายนอก", href: "/external-links" },
+  { label: "คำถามที่พบบ่อย", href: "/faq" },
   { label: "สนับสนุนโครงการ", href: "/support" },
 ];
 

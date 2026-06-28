@@ -19,6 +19,8 @@ The Soul's Compass — คลังความรู้ภาษาไทยเ
 | `/concepts/[slug]` | `app/concepts/[slug]/page.tsx` | SSG + ISR | หน้าอ่านแนวคิด (entry → `ReadingPage` + Backlinks; ไม่มี entry → stub จาก registry) |
 | `/constellation` | `app/constellation/page.tsx` | dynamic | Radial focus-map (โฟกัส+เพื่อนบ้าน คลิกย้ายศูนย์กลาง · รับ `?focus=`) + no-JS fallback |
 | `/external-links` | `app/external-links/page.tsx` | static | คลังทรัพยากร/ลิงก์ภายนอก (6 หมวด) |
+| `/schools` | `app/schools/page.tsx` | static | สำนักคิดและนักปราชญ์ (search + A-Z + accordion + modal) |
+| `/faq` | `app/faq/page.tsx` | static | คำถามที่พบบ่อย (Accordion) |
 | `/guide` | `app/guide/page.tsx` | static | บริการ Jungian Type Analysis (CTA จากหน้าอ่าน) |
 | `/manifesto` | `app/manifesto/page.tsx` | static | จุดยืนโครงการ |
 | `/reading-sets` | `app/reading-sets/page.tsx` | static | เส้นทางการอ่าน/ซีรีส์ (ยัง placeholder — ไม่มีข้อมูลซีรีส์จริง) |
@@ -38,12 +40,15 @@ Chrome / โครงร่วม: `app/layout.tsx` (ฟอนต์ + SiteHeade
 ### `components/`
 | ไฟล์ | หน้าที่ | client? |
 |---|---|---|
-| `site-header.tsx` | glass-nav sticky · nav + ไอคอนค้นหา (→/search) + CTA + เมนูมือถือ + scroll-aware | ✅ |
+| `site-header.tsx` | glass-nav sticky · เมนู dropdown แบบกลุ่ม (hover/focus) + ค้นหา + CTA + เมนูมือถือ + scroll-aware | ✅ |
 | `site-footer.tsx` | footer 3 คอลัมน์ + จดหมายข่าว | — |
 | `page-header.tsx`, `page-nav.tsx` | header/nav ของหน้า list (articles/concepts/reading-sets/sources) | — |
 | `icons.tsx` | ชุดไอคอน SVG (Compass, Search, Menu, Concept, Person, Book, School, Symbol, Term, Source, Path) | — |
 | `scroll-reveal.tsx` | IntersectionObserver เปิด `.scroll-reveal`→`.visible` (เรียกครั้งเดียวจาก template) | ✅ |
 | `scroll-to-top.tsx` | ปุ่มเลื่อนขึ้นบนสุด (โผล่เมื่อ scroll ลง) เรนเดอร์ใน layout มีทุกหน้า | ✅ |
+| `tooltip.tsx` | Tooltip คำอธิบายสั้น (CSS hover/focus, ใช้ใน server component ได้) | — |
+| `accordion.tsx` | Accordion/Collapse reusable (คลิกพับ-กาง, grid-rows) — ใช้ในหน้า FAQ | ✅ |
+| `schools/schools-hub.tsx` | หน้า /schools — search + A-Z index + accordion + modal นักคิด | ✅ |
 | `reading/reading-page.tsx` | **หน้าอ่าน Unified** (ใช้ทั้ง article/concept) — breadcrumb, meta-grid, markdown, related, refs, CTA | — |
 | `reading/internal-link-text.tsx` | render ข้อความที่มี `[[wikilink]]` | — |
 | `studio/searchable-select.tsx`, `searchable-multi-select.tsx` | dropdown ค้นหาได้ | ✅ |

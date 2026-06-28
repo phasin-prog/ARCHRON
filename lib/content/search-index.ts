@@ -37,6 +37,7 @@ const SECTIONS: { title: string; href: string; description: string }[] = [
   { title: "แหล่งอ้างอิง", href: "/sources", description: "ฐานความรู้และการอ้างอิงภายใน" },
   { title: "ทรัพยากรและลิงก์ภายนอก", href: "/external-links", description: "ลิงก์ งานวิจัย และคลังข้อมูลภายนอก" },
   { title: "Manifesto", href: "/manifesto", description: "จุดยืนและแนวทางของโครงการ" },
+  { title: "คำถามที่พบบ่อย", href: "/faq", description: "คำถามที่พบบ่อยเกี่ยวกับโครงการ วิธีอ่าน ระดับเนื้อหา และการอ้างอิง" },
   { title: "สนับสนุนโครงการ", href: "/support", description: "ช่องทางสนับสนุน The Soul's Compass" },
 ];
 

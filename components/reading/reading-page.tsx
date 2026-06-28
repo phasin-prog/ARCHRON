@@ -1,3 +1,4 @@
+// หน้าอ่าน Unified (articles/concepts) — ใช้ ReadingToc + ReadingDock (ดูไฟล์ในโฟลเดอร์เดียวกัน)
 import type { ReactNode } from "react";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";

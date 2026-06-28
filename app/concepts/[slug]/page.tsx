@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import type { ComponentType } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ReadingPage } from "@/components/reading/reading-page";
 import { conceptRegistry, getConceptBySlug } from "@/lib/content/concept-registry";
 import { getBacklinksForConcept } from "@/lib/content/related";
-import { entries } from "@/lib/content/entries";
+import { entries, getEntryBySlug } from "@/lib/content/entries";
 import {
   ConceptIcon,
   PersonIcon,
@@ -14,7 +15,7 @@ import {
   TermIcon,
 } from "@/components/icons";
 
-// Dynamic route — pre-render node ที่มีใน registry และรองรับ slug ใหม่ตอน runtime
+// Dynamic route — รองรับ slug ใหม่ตอน runtime
 export const dynamicParams = true;
 
 const NODE_LABEL: Record<string, string> = {
@@ -36,7 +37,11 @@ const NODE_ICON: Record<string, ComponentType<{ className?: string }>> = {
 };
 
 export function generateStaticParams() {
-  return conceptRegistry.map((c) => ({ slug: c.slug }));
+  const slugs = new Set<string>([
+    ...conceptRegistry.map((c) => c.slug),
+    ...entries.map((e) => e.slug),
+  ]);
+  return Array.from(slugs).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -45,12 +50,47 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  const entry = getEntryBySlug(slug);
   const node = getConceptBySlug(slug);
+  const title = entry?.title ?? node?.title;
   return {
-    title: node
-      ? `${node.title} — The Soul's Compass`
+    title: title
+      ? `${title} — The Soul's Compass`
       : "ไม่พบหน้า — The Soul's Compass",
   };
+}
+
+// บล็อก backlinks — บทความ/เนื้อหาที่อ้างถึงแนวคิดนี้
+function Backlinks({ slug }: { slug: string }) {
+  const backlinks = getBacklinksForConcept(slug, entries).filter(
+    (a) => a.slug !== slug,
+  );
+  return (
+    <section className="mx-auto mt-4 max-w-2xl border-t border-white/10 px-6 pt-10">
+      <h2 className="font-serif text-xl text-ivory">บทความที่ใช้แนวคิดนี้</h2>
+      {backlinks.length === 0 ? (
+        <p className="mt-3 text-sm text-muted">ยังไม่มีบทความอื่นอ้างถึงแนวคิดนี้</p>
+      ) : (
+        <ul className="mt-4 space-y-3">
+          {backlinks.map((a) => (
+            <li key={a.slug}>
+              <Link
+                href={`/articles/${a.slug}`}
+                className="text-soft-ivory transition-colors hover:text-soft-gold"
+              >
+                {a.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+      <div className="mt-8">
+        <Link href="/concepts" className="text-sm text-soft-gold hover:underline">
+          ← กลับคลังแนวคิดทั้งหมด
+        </Link>
+      </div>
+    </section>
+  );
 }
 
 export default async function ConceptNodePage({
@@ -59,11 +99,23 @@ export default async function ConceptNodePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const entry = getEntryBySlug(slug);
+
+  // ถ้ามีเนื้อหาเต็ม → render รูปแบบเดียวกับ Article (ReadingPage) + backlinks
+  if (entry) {
+    return (
+      <div className="pb-24">
+        <ReadingPage entry={entry} />
+        <Backlinks slug={slug} />
+      </div>
+    );
+  }
+
+  // ยังไม่มีเนื้อหาเต็ม → stub จาก registry
   const node = getConceptBySlug(slug);
   if (!node) {
     notFound();
   }
-  const backlinks = getBacklinksForConcept(slug, entries);
   const Icon = NODE_ICON[node.nodeType];
   const label = NODE_LABEL[node.nodeType] ?? node.nodeType;
 
@@ -78,6 +130,7 @@ export default async function ConceptNodePage({
         {node.description ? (
           <p className="mt-5 text-base leading-relaxed text-soft-ivory">{node.description}</p>
         ) : null}
+        <p className="mt-4 text-sm text-muted">ยังไม่มีหน้าอ่านเต็มสำหรับแนวคิดนี้ — กำลังจัดเตรียมเนื้อหา</p>
       </header>
 
       <section className="mx-auto max-w-2xl space-y-10 px-6">
@@ -105,33 +158,9 @@ export default async function ConceptNodePage({
             </div>
           ) : null}
         </dl>
-
-        <div>
-          <h2 className="font-serif text-xl text-ivory">บทความที่ใช้แนวคิดนี้</h2>
-          {backlinks.length === 0 ? (
-            <p className="mt-3 text-sm text-muted">ยังไม่มีบทความอ้างถึงแนวคิดนี้</p>
-          ) : (
-            <ul className="mt-4 space-y-3">
-              {backlinks.map((a) => (
-                <li key={a.slug}>
-                  <Link
-                    href={`/articles/${a.slug}`}
-                    className="text-soft-ivory transition-colors hover:text-soft-gold"
-                  >
-                    {a.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-
-        <div className="border-t border-white/10 pt-6">
-          <Link href="/concepts" className="text-sm text-soft-gold hover:underline">
-            ← กลับคลังแนวคิดทั้งหมด
-          </Link>
-        </div>
       </section>
+
+      <Backlinks slug={slug} />
     </main>
   );
 }

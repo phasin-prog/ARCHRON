@@ -12,6 +12,7 @@ import {
 import { SearchableSelect } from "@/components/studio/searchable-select";
 import { SearchableMultiSelect } from "@/components/studio/searchable-multi-select";
 import { RelatedConceptPicker } from "@/components/studio/related-concept-picker";
+import { InternalLinkSuggestionPanel } from "@/components/studio/internal-link-suggestion-panel";
 
 const CONTENT_TYPES = [
   "article", "concept", "reading-set", "source-note",
@@ -155,7 +156,7 @@ export default function StudioEditorPage() {
               <textarea className={inputClass} rows={4} value={draft.visualExplanation} onChange={(e) => set("visualExplanation", e.target.value)} placeholder="อธิบายด้วยภาษาที่เห็นภาพ ไม่ลงศัพท์เทคนิคหนัก หลีกเลี่ยงคำสวยลอย ๆ" />
             </div>
             <div>
-              <Label>ความหมายทางวิชาการ / เทคนิค</Label>
+              <Label>ความหมายทางวิชาการ / เทคนิค (รองรับ [[Shadow]] / [[Carl Jung|ยุง]])</Label>
               <textarea className={inputClass} rows={4} value={draft.technicalMeaning} onChange={(e) => set("technicalMeaning", e.target.value)} placeholder="นิยามเชิงทฤษฎี ขอบเขตของคำ — แยกกรอบนักคิดกับการตีความของเว็บ" />
             </div>
           </section>
@@ -242,6 +243,15 @@ export default function StudioEditorPage() {
               </p>
             ) : null}
           </div>
+          <InternalLinkSuggestionPanel
+            text={`${draft.visualExplanation} ${draft.technicalMeaning}`}
+            onInsert={(term) =>
+              set(
+                "technicalMeaning",
+                draft.technicalMeaning + (draft.technicalMeaning ? " " : "") + `[[${term}]]`,
+              )
+            }
+          />
         </aside>
       </div>
     </div>

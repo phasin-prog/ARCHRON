@@ -1,4 +1,4 @@
-# The Soul's Compass — Content Architecture v0.1
+# ARCHRON — Content Architecture v0.1
 
 > Phase 3 · จัดทำโดย Orchestrator (draft) · อิง Brand v0.1 + Reading Page Template v1
 > ⚠️ draft — Content Architecture Agent (ร่วมกับ Wiki Architecture) เป็นเจ้าของจริง ให้ review เป็น v1

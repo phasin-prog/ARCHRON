@@ -3,18 +3,18 @@ import Link from "next/link";
 const PILLARS = [
   {
     icon: "account_tree",
-    title: "ศึกษาเป็นระบบ",
-    desc: "อ่านแนวคิดสำคัญจากหลายสำนัก โดยไม่ตัดขาดจากบริบทเดิมของมัน เพื่อให้เข้าใจรากฐานที่มาอย่างแท้จริง",
+    title: "เชื่อมศาสตร์ที่ถูกแยกขาด",
+    desc: "จิตวิทยาศึกษาจิตใจ ปรัชญาศึกษาความจริง ภาษาศาสตร์ศึกษาภาษา แต่มนุษย์ไม่เคยดำรงอยู่เป็นเสี้ยวส่วน ARCHRON เชื่อมศาสตร์เหล่านี้กลับเป็นองค์รวม",
   },
   {
     icon: "history_edu",
-    title: "ตรวจสอบแหล่งที่มา",
-    desc: "แยกข้อเท็จจริง งานต้นทาง และการตีความออกจากกัน เพื่อให้ความรู้ไม่กลายเป็นคำกล่าวลอย ๆ ที่ไร้น้ำหนัก",
+    title: "อ่านต้นฉบับ เข้าใจบริบท",
+    desc: "อ่านจากงานต้นทางในบริบทประวัติศาสตร์ของมัน แยกข้อเท็จจริง แหล่งที่มา และการตีความออกจากกัน เพื่อให้ความรู้ไม่กลายเป็นคำกล่าวลอย ๆ ที่ไร้น้ำหนัก",
   },
   {
     icon: "all_inclusive",
-    title: "เชื่อมโยงข้ามศาสตร์",
-    desc: "เห็นความสัมพันธ์ระหว่างจิตวิทยา ปรัชญา ภาษา สัญลักษณ์ และชีวิตภายในของมนุษย์ที่ถักทอเข้าด้วยกัน",
+    title: "เปรียบเทียบ สังเคราะห์ ตั้งคำถามใหม่",
+    desc: "ความจริงปรากฏผ่านการเปรียบเทียบ การวิพากษ์ และการสังเคราะห์ ที่อื่นเชี่ยวชาญเฉพาะทาง — ARCHRON บูรณาการและจัดระเบียบความรู้ขึ้นใหม่",
   },
 ];
 
@@ -43,15 +43,15 @@ export default function HomePage() {
           <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-transparent via-transparent to-deep-navy" />
           <div className="relative z-10 mx-auto max-w-5xl py-24">
             <span className="scroll-reveal mb-8 block text-xs font-semibold tracking-[0.05em] text-burnished-gold/80">
-              คลังความรู้เพื่อศึกษาจิตใจมนุษย์อย่างมีบริบท
+              สำนักศึกษามนุษย์ ข้ามผ่านห้วงเวลาและศาสตร์วิชา
             </span>
             <h1 className="scroll-reveal stagger-1 mb-10 font-serif text-[36px] font-semibold leading-[1.15] text-on-surface md:text-[64px] md:tracking-[-0.02em]">
-              อ่านจิตใจมนุษย์ โดยไม่ลดทอนให้เหลือเพียง{" "}
-              <span className="italic text-burnished-gold">ป้ายกำกับ</span>
+              เข้าใจมนุษย์ โดยไม่แยกออกเป็น{" "}
+              <span className="italic text-burnished-gold">เสี้ยวส่วน</span>
             </h1>
             <p className="scroll-reveal stagger-2 mx-auto mb-12 max-w-3xl text-lg leading-[1.8] text-on-surface-variant/80">
-              ARCHRON คือพื้นที่ศึกษาจิตวิทยา จิตวิเคราะห์ ปรัชญา ประสาทวิทยาศาสตร์
-              และทฤษฎีความรู้ โดยแยกแหล่งที่มา ข้อเท็จจริง และการตีความออกจากกัน
+              ARCHRON คือสำนักศึกษามนุษย์ที่เชื่อมจิตวิทยา จิตวิเคราะห์ ปรัชญา ประวัติศาสตร์ ภาษา
+              และประสาทวิทยาศาสตร์เข้าด้วยกัน โดยแยกแหล่งที่มา ข้อเท็จจริง และการตีความออกจากกัน
             </p>
             <div className="scroll-reveal stagger-3 flex flex-col justify-center gap-6 sm:flex-row">
               <Link
@@ -156,13 +156,13 @@ export default function HomePage() {
             </span>
           </div>
           <h2 className="mb-12 font-serif text-[32px] italic leading-[1.6] text-on-surface">
-            “เราไม่รีบทำให้ความซับซ้อนกลายเป็นคำตอบง่าย ๆ”
+            “ARCHRON ไม่ได้ถามว่าควรคิดอะไร แต่ถามว่ามนุษย์เรียนรู้ที่จะคิดมาอย่างไร”
           </h2>
           <div className="mx-auto mb-12 h-px w-16 bg-burnished-gold/20" />
           <p className="mx-auto mb-16 max-w-3xl text-lg leading-[1.9] text-on-surface-variant/80">
-            ความรู้เกี่ยวกับจิตใจมนุษย์ไม่ควรถูกลดทอนเหลือเพียงป้ายกำกับ ประเภทบุคลิกภาพ
-            หรือสูตรสำเร็จในการใช้ชีวิต ARCHRON จึงพยายามวางแนวคิดไว้ในบริบทเดิมของมัน
-            พร้อมเปิดพื้นที่ให้การตีความ การเปรียบเทียบ และการตั้งคำถามเกิดขึ้นอย่างรับผิดชอบ
+            ARCHRON ไม่ได้ให้คำตอบสุดท้าย แต่ให้คำถามที่ดีกว่า แผนที่ความรู้ที่ดีกว่า
+            และภาษาสำหรับเข้าใจตนเองและโลกที่ดีกว่า — โดยวางแนวคิดไว้ในบริบทเดิมของมัน
+            พร้อมเปิดพื้นที่ให้การเปรียบเทียบและการตั้งคำถามเกิดขึ้นอย่างรับผิดชอบ
           </p>
           <Link
             href="/manifesto"

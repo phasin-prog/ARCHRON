@@ -1,4 +1,4 @@
-# The Soul's Compass — Typography Rules v0.1
+# ARCHRON — Typography Rules v0.1
 
 > อ้างอิงหลัก editorial typography (Hierarchy · Contrast · Alignment · White Space · Consistency)
 > นำมาใช้บน **โทน midnight ของแบรนด์** (ไม่ใช่ครีม) และ **Thai-first**

@@ -1,4 +1,4 @@
-# The Soul's Compass — Wiki Architecture v0.1
+# ARCHRON — Wiki Architecture v0.1
 
 > Phase 7 · จัดทำโดย Orchestrator (draft) · Wiki Architecture Agent เป็นเจ้าของจริง
 > โค้ด: `lib/content/concept-registry.ts`, `lib/content/related.ts`

@@ -1,4 +1,4 @@
-# The Soul's Compass — Design System v0.1
+# ARCHRON — Design System v0.1
 
 > Phase 2 — Design System · จัดทำโดย Orchestrator (draft) · อิง Brand Foundation v0.1
 > ⚠️ draft จาก Orchestrator — Design System Agent เป็นเจ้าของจริง ให้ review + รับรองเป็น v1

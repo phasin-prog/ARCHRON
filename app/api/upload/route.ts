@@ -47,9 +47,3 @@ export async function POST(request: Request) {
   return NextResponse.json({ url: result.url, key: result.key });
 }
 
-// Limit body size to 10 MB
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};

@@ -1,4 +1,4 @@
--- The Soul's Compass — Editor v1 / E0
+-- Archron — Editor v1 / E0
 -- รันใน Supabase SQL Editor (Project > SQL Editor > New query)
 -- สิทธิ์: ผู้ใช้สร้าง/แก้/ลบได้เฉพาะเนื้อหาของตน (author_id = Clerk user id), published อ่านได้ทุกคน
 

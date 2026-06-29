@@ -17,7 +17,7 @@ export async function GET(
     }
 
     const fileKey = resolvedParams.key.join("/");
-    const bucketName = process.env.R2_BUCKET_NAME || "the-souls-compass";
+    const bucketName = process.env.R2_BUCKET_NAME || "archron";
 
     const response = await r2Client.send(
       new GetObjectCommand({

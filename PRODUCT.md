@@ -5,7 +5,7 @@
 product
 
 ## Users
-Humanities researchers, writers, and Jungian psychology enthusiasts writing and publishing content for "The Soul's Compass". They need a clean, distraction-free environment to draft markdown articles, manage wiki links (`[[concept]]`), catalog academic references, and track edit histories.
+Humanities researchers, writers, and Jungian psychology enthusiasts writing and publishing content for "Archron". They need a clean, distraction-free environment to draft markdown articles, manage wiki links (`[[concept]]`), catalog academic references, and track edit histories.
 
 ## Product Purpose
 A robust, content-first studio editor (CMS) for creating, draft-saving, versioning, and publishing psychological concepts and articles.

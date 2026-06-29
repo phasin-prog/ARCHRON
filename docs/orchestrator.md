@@ -1,4 +1,4 @@
-# The Soul's Compass V1
+# Archron
 
 คลังความรู้จิตวิทยา ปรัชญา และจิตใจมนุษย์ (Thai-first knowledge archive)
 

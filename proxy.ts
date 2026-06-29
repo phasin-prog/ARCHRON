@@ -12,7 +12,7 @@ const isAuthRoute = createRouteMatcher([
   "/th/register(.*)",
 ]);
 
-// ถ้ายังไม่ได้ตั้งคีย์ Clerk ใน env ให้ middleware ผ่านเฉย ๆ (public site ไม่ล่ม 500)
+// ถ้ายังไม่ได้ตั้งคีย์ Clerk ใน env ให้ proxy ผ่านเฉย ๆ (public site ไม่ล่ม 500)
 // /studio จะถูกป้องกันจริงเมื่อใส่คีย์ครบ
 const hasClerk =
   !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY &&
@@ -24,7 +24,8 @@ const clerk = clerkMiddleware(async (auth, req) => {
   }
 });
 
-export default function middleware(req: NextRequest, event: NextFetchEvent) {
+// Next.js 16.3+ — "middleware" file convention เปลี่ยนเป็น "proxy"
+export default function proxy(req: NextRequest, event: NextFetchEvent) {
   if (!hasClerk) {
     return NextResponse.next();
   }

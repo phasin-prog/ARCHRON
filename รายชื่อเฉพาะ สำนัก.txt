@@ -151,7 +151,7 @@
 39. Political Philosophy
 40. Aesthetics / Philosophy of Art
 41. Philosophy of Religion
-# The Soul’s Compass Knowledge Taxonomy
+# Archron Knowledge Taxonomy
 
 ## 1. Depth Psychology
 ## 2. Psychoanalysis

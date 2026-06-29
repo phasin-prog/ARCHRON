@@ -4,7 +4,7 @@
 > Frontend/QA (หรือเจ้าของ) รันยืนยันครั้งแรก แล้วรายงานผลกลับ
 
 ## Stack
-- **Next.js 16.2.9** (App Router) · **React 19.2**
+- **Next.js 16.3.0-preview.5** (App Router) · **React 19.2**
 - **Tailwind CSS v4** (CSS-first `@theme` ใน app/globals.css — ไม่มี tailwind.config.ts)
 - **TypeScript 5** (>= 5.1) · **ESLint 9** (eslint-config-next 16)
 
@@ -16,8 +16,8 @@
 
 ## คำสั่ง (ตามลำดับ)
 ```bash
-git clone https://github.com/phasin-prog/the-souls-compass-v1.git
-cd the-souls-compass-v1
+git clone https://github.com/phasin-prog/ARCHRON.git
+cd ARCHRON
 npm install
 # (ทางเลือก) อัปอัตโนมัติเพิ่มเติม: npx @next/codemod@canary upgrade latest
 npx tsc --noEmit

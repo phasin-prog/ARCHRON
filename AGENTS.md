@@ -1,9 +1,9 @@
-# AGENTS.md — The Soul's Compass · Project Library & AI Guardrails
+# AGENTS.md — Archron · Project Library & AI Guardrails
 
 > ไฟล์นี้คือ "สารบัญโครงการ" สำหรับ AI / นักพัฒนา — ใช้หาตำแหน่ง Route และ Code ได้เร็ว
 > และเป็น **กฎควบคุมขอบเขตงาน** (ทำเฉพาะที่สั่ง ไม่ทำเกิน) อ่านไฟล์นี้ก่อนเริ่มทุกครั้ง
 
-The Soul's Compass — คลังความรู้ภาษาไทยเรื่องจิตใจมนุษย์ (Wiki/Knowledge-Graph แนว Obsidian)
+Archron — คลังความรู้ภาษาไทยเรื่องจิตใจมนุษย์ (Wiki/Knowledge-Graph แนว Obsidian)
 สแตก: **Next.js 16 (App Router) · React 19 · Tailwind v4 · Supabase · Clerk · TypeScript**
 
 ---
@@ -31,7 +31,7 @@ The Soul's Compass — คลังความรู้ภาษาไทยเ
 
 Chrome / โครงร่วม: `app/layout.tsx` (ฟอนต์ + SiteHeader/Footer + Material Symbols) ·
 `app/template.tsx` (route-fade + ScrollReveal กลาง) · `app/studio/layout.tsx` (ClerkProvider, force-dynamic) ·
-`middleware.ts` (Clerk ป้องกัน `/studio(.*)`)
+`proxy.ts` (Clerk ป้องกัน `/studio(.*)`)
 
 ---
 
@@ -43,7 +43,7 @@ Chrome / โครงร่วม: `app/layout.tsx` (ฟอนต์ + SiteHeade
 | `site-header.tsx` | glass-nav sticky · เมนู dropdown แบบกลุ่ม (hover/focus) + ค้นหา + CTA + เมนูมือถือ + scroll-aware | ✅ |
 | `site-footer.tsx` | footer 3 คอลัมน์ + จดหมายข่าว | — |
 | `page-header.tsx`, `page-nav.tsx` | header/nav ของหน้า list (articles/concepts/reading-sets/sources) | — |
-| `icons.tsx` | ชุดไอคอน SVG (Compass, Search, Menu, Concept, Person, Book, School, Symbol, Term, Source, Path) | — |
+| `icons.tsx` | ชุดไอคอน SVG (ArchronMark, Search, Menu, Concept, Person, Book, School, Symbol, Term, Source, Path) | — |
 | `scroll-reveal.tsx` | IntersectionObserver เปิด `.scroll-reveal`→`.visible` (เรียกครั้งเดียวจาก template) | ✅ |
 | `scroll-to-top.tsx` | ปุ่มเลื่อนขึ้นบนสุด (โผล่เมื่อ scroll ลง) เรนเดอร์ใน layout มีทุกหน้า | ✅ |
 | `tooltip.tsx` | Tooltip คำอธิบายสั้น (CSS hover/focus, ใช้ใน server component ได้) | — |
@@ -85,7 +85,7 @@ Chrome / โครงร่วม: `app/layout.tsx` (ฟอนต์ + SiteHeade
 | `types/content.ts` | `ContentEntry` + enum (`ArticleStatus`, `ContentType`, `RelationType`, ...) |
 | `supabase/schema.sql` | ตาราง `entries` + `entry_revisions` + RLS policies |
 | `app/globals.css` | Tailwind v4 `@theme` (design tokens) + component CSS + motion (`--ease/--dur`, scroll-reveal, glass-nav, ambient-glow) |
-| `middleware.ts` | Clerk protect `/studio(.*)` (ผ่านถ้าไม่มีคีย์) |
+| `proxy.ts` | Clerk protect `/studio(.*)` (ผ่านถ้าไม่มีคีย์) |
 | `eslint.config.mjs` | ESLint flat config (`eslint-config-next/core-web-vitals`) |
 | `docs/` | orchestrator.md · supabase-clerk-setup.md · verify-build-checklist.md |
 
@@ -93,7 +93,7 @@ Chrome / โครงร่วม: `app/layout.tsx` (ฟอนต์ + SiteHeade
 
 ## 3. Conventions (ทำตามนี้เสมอ)
 
-- **Thai-first:** UI ทุกส่วนเป็นภาษาไทย · `lang="th"` · ไม่มี i18n / locale switcher / EN routes · คงภาษาอังกฤษเฉพาะชื่อเฉพาะ (The Soul's Compass, Manifesto) และศัพท์วิชาการ (Ego, Psychological Types ฯลฯ)
+- **Thai-first:** UI ทุกส่วนเป็นภาษาไทย · `lang="th"` · ไม่มี i18n / locale switcher / EN routes · คงภาษาอังกฤษเฉพาะชื่อเฉพาะ (Archron, Manifesto) และศัพท์วิชาการ (Ego, Psychological Types ฯลฯ)
 - **Design tokens (`app/globals.css`):** พื้น `--color-deep-navy #080B16` / `--color-midnight #0B1020` / `surface-container*` · ทอง `--color-antique-gold #C8A85A` (เนื้อหา) · `--color-burnished-gold #D4AF37` (chrome/หน้าใหม่) · ตัวอักษร `--color-ivory` / `--color-on-surface` · เส้น `--color-slate-boundary`
 - **ฟอนต์:** หัวข้อ `--font-serif` (Noto Serif Thai) · เนื้อหา `--font-sans` (IBM Plex Sans Thai) · ไอคอน Material Symbols (โหลดใน layout)
 - **Motion:** ใช้ tokens `--ease-soft/--ease-out`, `--dur-fast/base/slow` · animate เฉพาะ `transform`/`opacity` · เคารพ `prefers-reduced-motion`

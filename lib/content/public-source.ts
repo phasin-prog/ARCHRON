@@ -81,7 +81,9 @@ export async function getPublicSchools(): Promise<School[]> {
               quote: t.visualExplanation ?? "",
               masterpieces: t.tags ?? [],
               bio: t.bodyMarkdown,
-              concept: t.technicalMeaning,
+              relationships: t.technicalMeaning,
+              r2ContentKey: t.r2ContentKey,
+              r2ContentUrl: t.r2ContentUrl,
             }));
 
           return {
@@ -89,6 +91,10 @@ export async function getPublicSchools(): Promise<School[]> {
             nameTh: schoolEntry.title,
             nameEn: schoolEntry.originalTerm ?? "",
             field: schoolEntry.framework as any,
+            description: schoolEntry.shortDescription,
+            history: schoolEntry.bodyMarkdown,
+            r2ContentKey: schoolEntry.r2ContentKey,
+            r2ContentUrl: schoolEntry.r2ContentUrl,
             thinkers,
           };
         });

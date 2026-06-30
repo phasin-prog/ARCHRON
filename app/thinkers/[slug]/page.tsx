@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { SCHOOLS, type Thinker, type School } from "@/lib/content/schools";
-import { getPublicEntries } from "@/lib/content/public-source";
+import type { Thinker, School } from "@/lib/content/schools";
+import { getPublicEntries, getPublicSchools } from "@/lib/content/public-source";
+import { readFromR2 } from "@/lib/storage";
 import { disciplineMeta } from "@/components/discipline-meta";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
-function findThinkerAndSchool(slug: string): { thinker: Thinker; school: School } | null {
-  for (const s of SCHOOLS) {
+function findThinkerAndSchool(slug: string, schools: School[]): { thinker: Thinker; school: School } | null {
+  for (const s of schools) {
     const t = s.thinkers.find((x) => x.nameEn.toLowerCase().replace(/\s+/g, "-") === slug);
     if (t) {
       return { thinker: t, school: s };
@@ -20,8 +21,9 @@ function findThinkerAndSchool(slug: string): { thinker: Thinker; school: School 
 }
 
 export async function generateStaticParams() {
+  const schools = await getPublicSchools();
   const params: { slug: string }[] = [];
-  for (const s of SCHOOLS) {
+  for (const s of schools) {
     for (const t of s.thinkers) {
       params.push({ slug: t.nameEn.toLowerCase().replace(/\s+/g, "-") });
     }
@@ -31,7 +33,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const res = findThinkerAndSchool(slug);
+  const schools = await getPublicSchools();
+  const res = findThinkerAndSchool(slug, schools);
   if (!res) return { title: "ไม่พบข้อมูลนักคิด — ARCHRON" };
   return {
     title: `ประวัตินักปราชญ์: ${res.thinker.nameTh} (${res.thinker.nameEn}) — ARCHRON`,
@@ -41,11 +44,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ThinkerDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const res = findThinkerAndSchool(slug);
+  const schools = await getPublicSchools();
+  const res = findThinkerAndSchool(slug, schools);
   if (!res) notFound();
 
   const { thinker: t, school: s } = res;
   const meta = disciplineMeta(s.field);
+
+  // ดึงประวัติชีวประวัติฉบับเต็มจาก R2 (ถ้ามี)
+  let bioContent = t.bio;
+  if (t.r2ContentKey) {
+    const r2Content = await readFromR2(t.r2ContentKey);
+    if (r2Content) {
+      bioContent = r2Content;
+    }
+  }
 
   // ค้นหาบทความและแนวคิดที่อ้างอิงถึงนักคิดคนนี้
   const allEntries = await getPublicEntries();
@@ -122,7 +135,7 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
             ประวัติและชีวิตเบื้องต้น
           </h2>
           <p className="mt-6 text-base leading-relaxed text-soft-ivory whitespace-pre-line">
-            {t.bio || "— ไม่มีข้อมูลประวัติชีวิตเพิ่มเติมในขณะนี้ —"}
+            {bioContent || "— ไม่มีข้อมูลประวัติชีวิตเพิ่มเติมในขณะนี้ —"}
           </p>
         </section>
 

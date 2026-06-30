@@ -1,23 +1,25 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { SCHOOLS } from "@/lib/content/schools";
-import { getPublicEntries } from "@/lib/content/public-source";
+import { getPublicEntries, getPublicSchools } from "@/lib/content/public-source";
 import { disciplineMeta } from "@/components/discipline-meta";
+import { readFromR2 } from "@/lib/storage";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
-  return SCHOOLS.map((s) => ({
+  const schools = await getPublicSchools();
+  return schools.map((s) => ({
     slug: s.id,
   }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const s = SCHOOLS.find((x) => x.id === slug);
+  const schools = await getPublicSchools();
+  const s = schools.find((x) => x.id === slug);
   if (!s) return { title: "ไม่พบสำนักคิด — ARCHRON" };
   return {
     title: `สำนักคิด: ${s.nameTh} (${s.nameEn}) — ARCHRON`,
@@ -27,11 +29,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function SchoolDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const s = SCHOOLS.find((x) => x.id === slug);
+  const schools = await getPublicSchools();
+  const s = schools.find((x) => x.id === slug);
   if (!s) notFound();
 
   const meta = disciplineMeta(s.field);
   const Icon = meta.Icon;
+
+  // ดึงประวัติความเป็นมาฉบับเต็มจาก R2 (ถ้ามี)
+  let historyContent = s.history;
+  if (s.r2ContentKey) {
+    const r2Content = await readFromR2(s.r2ContentKey);
+    if (r2Content) {
+      historyContent = r2Content;
+    }
+  }
 
   // ค้นหาบทความและแนวคิดที่เกี่ยวข้องกับสำนักคิดนี้
   const allEntries = await getPublicEntries();
@@ -102,7 +114,7 @@ export default async function SchoolDetailPage({ params }: PageProps) {
             ประวัติความเป็นมาและทฤษฎี
           </h2>
           <div className="mt-6 text-base leading-relaxed text-soft-ivory whitespace-pre-line">
-            {s.history || s.description || "— ไม่มีข้อมูลประวัติความเป็นมาเพิ่มเติม —"}
+            {historyContent || s.description || "— ไม่มีข้อมูลประวัติความเป็นมาเพิ่มเติม —"}
           </div>
         </section>
 

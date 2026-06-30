@@ -8,6 +8,8 @@ export type Thinker = {
   masterpieces: string[];
   bio?: string; // ประวัติชีวิต
   relationships?: string; // ความสัมพันธ์กับปราชญ์คนอื่น
+  r2ContentKey?: string;
+  r2ContentUrl?: string;
 };
 
 // ศาสตร์ประจำสำนักคิด — คีย์ตรงกับ DisciplineKey ใน components/discipline-meta
@@ -33,6 +35,8 @@ export type School = {
   thinkers: Thinker[];
   description?: string; // รายละเอียดสำนักคิดสั้นๆ
   history?: string; // ประวัติความเป็นมาฉบับเต็ม
+  r2ContentKey?: string;
+  r2ContentUrl?: string;
 };
 
 export const SCHOOLS: School[] = [

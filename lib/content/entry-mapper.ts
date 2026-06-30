@@ -38,6 +38,8 @@ export type EntryRow = {
   source_refs: SourceItem[] | null;
   related_cta: RelatedCTA | null;
   cover_image: string | null;
+  r2_content_key: string | null;
+  r2_content_url: string | null;
   created_at: string;
   updated_at: string | null;
   published_at: string | null;
@@ -74,5 +76,7 @@ export function rowToEntry(r: EntryRow): ContentEntry {
     relatedCTA: r.related_cta ?? undefined,
     bodyMarkdown: r.body_markdown ?? undefined,
     coverImage: r.cover_image ?? undefined,
+    r2ContentKey: r.r2_content_key ?? undefined,
+    r2ContentUrl: r.r2_content_url ?? undefined,
   };
 }

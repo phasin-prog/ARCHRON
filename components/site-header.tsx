@@ -46,7 +46,7 @@ export function SiteHeader() {
       >
         <Link
           href="/"
-          className="flex shrink-0 items-center gap-2.5 text-burnished-gold"
+          className="flex shrink-0 items-center gap-2.5 text-accent hover:opacity-85 transition-opacity"
           aria-label="ARCHRON หน้าแรก"
         >
           <ArchronLogomark className="h-7 w-7 shrink-0" />
@@ -55,25 +55,36 @@ export function SiteHeader() {
 
         {/* Desktop (lg+): ลิงก์แบนแยกเดี่ยว */}
         <div className="hidden items-center gap-0.5 lg:flex" aria-label="เมนูหลัก">
-          {NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="flex items-center gap-1.5 rounded-md px-2.5 py-2 text-[13px] tracking-[0.02em] text-on-surface-variant transition-colors hover:text-burnished-gold"
-            >
-              <span className="material-symbols-outlined text-[17px] text-burnished-gold/70">
-                {item.icon}
-              </span>
-              {item.label}
-            </Link>
-          ))}
+          {NAV.map((item) => {
+            const isActive = pathname === item.href || (item.href !== "/" && pathname?.startsWith(item.href));
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`group flex items-center gap-1.5 rounded-md px-2.5 py-2 text-[13px] tracking-[0.02em] transition-colors ${
+                  isActive ? "text-accent font-semibold" : "text-on-surface-variant hover:text-accent"
+                }`}
+              >
+                <span
+                  className={`material-symbols-outlined text-[17px] transition-colors ${
+                    isActive ? "text-accent" : "text-accent/60 group-hover:text-accent"
+                  }`}
+                >
+                  {item.icon}
+                </span>
+                {item.label}
+              </Link>
+            );
+          })}
         </div>
 
         <div className="flex items-center gap-3">
           <Link
             href="/search"
             aria-label="ค้นหา"
-            className="flex h-10 w-10 items-center justify-center text-on-surface-variant transition-colors hover:text-burnished-gold"
+            className={`flex h-10 w-10 items-center justify-center transition-colors ${
+              pathname === "/search" ? "text-accent" : "text-on-surface-variant hover:text-accent"
+            }`}
           >
             <span className="material-symbols-outlined text-[22px]">search</span>
           </Link>
@@ -81,7 +92,7 @@ export function SiteHeader() {
           <SignedOut>
             <Link
               href="/th/login"
-              className="hidden items-center gap-1.5 border border-antique-gold/30 bg-antique-gold/5 px-6 py-2.5 text-[10px] font-semibold tracking-[0.08em] text-antique-gold transition-all duration-500 hover:bg-antique-gold hover:text-prima lg:inline-flex"
+              className="hidden items-center gap-1.5 border border-accent/30 bg-accent/5 px-6 py-2.5 text-[10px] font-semibold tracking-[0.08em] text-accent transition-all duration-500 hover:bg-accent hover:text-prima lg:inline-flex"
             >
               <span className="material-symbols-outlined text-[15px]">login</span>
               เข้าสู่ระบบ
@@ -92,7 +103,7 @@ export function SiteHeader() {
             <div className="hidden items-center gap-2 lg:flex">
               <Link
                 href="/studio"
-                className="inline-flex items-center gap-1.5 border border-burnished-gold/30 bg-burnished-gold/10 px-6 py-2.5 text-[10px] font-semibold tracking-[0.08em] text-burnished-gold transition-all duration-500 hover:bg-burnished-gold hover:text-prima"
+                className="inline-flex items-center gap-1.5 border border-accent/30 bg-accent/10 px-6 py-2.5 text-[10px] font-semibold tracking-[0.08em] text-accent transition-all duration-500 hover:bg-accent hover:text-prima"
               >
                 <span className="material-symbols-outlined text-[15px]">edit_note</span>
                 Studio
@@ -110,8 +121,10 @@ export function SiteHeader() {
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="flex h-10 w-10 items-center justify-center text-on-surface lg:hidden"
-            aria-label={open ? "เปิดเมนู" : "เปิดเมนู"}
+            className={`flex h-10 w-10 items-center justify-center transition-colors lg:hidden ${
+              open ? "text-accent" : "text-on-surface hover:text-accent"
+            }`}
+            aria-label={open ? "ปิดเมนู" : "เปิดเมนู"}
             aria-expanded={open}
           >
             <span className="material-symbols-outlined text-2xl">{open ? "close" : "menu"}</span>
@@ -125,24 +138,33 @@ export function SiteHeader() {
           className="menu-in border-t border-slate-boundary/40 bg-deep-navy px-6 py-4 lg:hidden"
           aria-label="เมนูมือถือ"
         >
-          {NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setOpen(false)}
-              className="flex items-center gap-3 rounded px-1 py-2.5 text-base text-on-surface-variant hover:text-burnished-gold"
-            >
-              <span className="material-symbols-outlined text-[20px] text-burnished-gold/70">
-                {item.icon}
-              </span>
-              {item.label}
-            </Link>
-          ))}
+          {NAV.map((item) => {
+            const isActive = pathname === item.href || (item.href !== "/" && pathname?.startsWith(item.href));
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className={`flex items-center gap-3 rounded px-1 py-2.5 text-base transition-colors ${
+                  isActive ? "text-accent font-semibold" : "text-on-surface-variant hover:text-accent"
+                }`}
+              >
+                <span
+                  className={`material-symbols-outlined text-[20px] transition-colors ${
+                    isActive ? "text-accent" : "text-accent/70"
+                  }`}
+                >
+                  {item.icon}
+                </span>
+                {item.label}
+              </Link>
+            );
+          })}
           <SignedOut>
             <Link
               href="/th/login"
               onClick={() => setOpen(false)}
-              className="mt-3 inline-flex items-center gap-2 rounded border border-antique-gold/30 px-4 py-2.5 text-base font-medium text-antique-gold transition-colors hover:bg-antique-gold hover:text-prima"
+              className="mt-3 inline-flex items-center gap-2 rounded border border-accent/30 px-4 py-2.5 text-base font-medium text-accent transition-colors hover:bg-accent hover:text-prima"
             >
               <span className="material-symbols-outlined text-[20px]">login</span>
               เข้าสู่ระบบ
@@ -154,7 +176,7 @@ export function SiteHeader() {
               <Link
                 href="/studio"
                 onClick={() => setOpen(false)}
-                className="mt-3 inline-flex items-center gap-2 rounded border border-burnished-gold/30 px-4 py-2.5 text-base font-medium text-burnished-gold transition-colors hover:bg-burnished-gold hover:text-prima"
+                className="mt-3 inline-flex items-center gap-2 rounded border border-accent/30 px-4 py-2.5 text-base font-medium text-accent transition-colors hover:bg-accent hover:text-prima"
               >
                 <span className="material-symbols-outlined text-[20px]">edit_note</span>
                 Studio

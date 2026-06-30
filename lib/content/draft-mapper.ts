@@ -39,6 +39,8 @@ export function draftToRow(
     source_refs: d.references as unknown as EntryRow["source_refs"],
     roots: roots as EntryRow["roots"],
     cover_image: d.coverImage || null,
+    short_description: d.shortDescription || null,
+    school: d.school || null,
   };
 }
 
@@ -70,5 +72,7 @@ export function entryToDraft(entry: ContentEntry): EditorDraft {
     rootsMeaningShift: entry.roots?.meaningShift ?? "",
     rootsCaution: entry.roots?.caution ?? "",
     coverImage: entry.coverImage ?? "",
+    shortDescription: entry.shortDescription ?? "",
+    school: entry.school ?? "",
   };
 }

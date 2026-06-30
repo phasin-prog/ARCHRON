@@ -12,6 +12,8 @@ const ALLOWED_TYPES = [
   "image/gif",
   "image/svg+xml",
   "image/avif",
+  "text/markdown",
+  "text/plain",
 ];
 
 // Max file size: 10 MB

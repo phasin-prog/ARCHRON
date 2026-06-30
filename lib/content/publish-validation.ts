@@ -30,6 +30,8 @@ export type EditorDraft = {
   rootsMeaningShift: string;
   rootsCaution: string;
   coverImage: string;  // R2 URL or empty
+  shortDescription: string;
+  school: string;
 };
 
 export const EMPTY_DRAFT: EditorDraft = {
@@ -50,6 +52,8 @@ export const EMPTY_DRAFT: EditorDraft = {
   rootsMeaningShift: "",
   rootsCaution: "",
   coverImage: "",
+  shortDescription: "",
+  school: "",
 };
 
 export type ChecklistItem = { label: string; ok: boolean };

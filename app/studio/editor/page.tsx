@@ -80,6 +80,17 @@ const thinkerMeta = (val: string) => {
   };
 };
 
+const SCHOOL_OPTIONS = SCHOOLS.map((s) => ({
+  value: s.id,
+  label: `${s.nameTh} (${s.nameEn})`,
+}));
+const schoolMeta = (val: string) => {
+  return {
+    icon: "account_balance",
+    accent: "#C79A4A",
+  };
+};
+
 function Label({ children }: { children: React.ReactNode }) {
   return <label className="mb-1 block text-sm text-soft-ivory">{children}</label>;
 }
@@ -318,6 +329,10 @@ export default function StudioEditorPage() {
                 <button onClick={() => set("slug", slugify(draft.title))} className="shrink-0 rounded-md border border-ink/20 px-3 text-sm text-soft-ivory hover:border-antique-gold">สร้างจากชื่อ</button>
               </div>
             </div>
+            <div>
+              <Label>คำอธิบายสั้น / นิยามย่อ (Short Description)</Label>
+              <input className={inputClass} value={draft.shortDescription} onChange={(e) => set("shortDescription", e.target.value)} placeholder="คำอธิบายสั้นๆ สำหรับแสดงบนการ์ดหรือหน้ารวมบทความ" />
+            </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <Label>Status</Label>
@@ -354,6 +369,10 @@ export default function StudioEditorPage() {
             <div>
               <Label>นักคิดหลัก</Label>
               <SearchableSelect value={draft.mainThinker} onChange={(v) => set("mainThinker", v)} options={THINKER_OPTIONS} placeholder="เลือกหรือค้นหานักคิดที่เกี่ยวข้อง" meta={thinkerMeta} allowCustom />
+            </div>
+            <div>
+              <Label>สำนักคิดที่สังกัด (School)</Label>
+              <SearchableSelect value={draft.school} onChange={(v) => set("school", v)} options={SCHOOL_OPTIONS} placeholder="เลือกหรือระบุสำนักคิด" meta={schoolMeta} allowCustom />
             </div>
             <div>
               <Label>Tags</Label>

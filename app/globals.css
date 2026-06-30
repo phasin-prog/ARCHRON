@@ -501,7 +501,7 @@
   background: rgba(24, 27, 36, 0.72);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border-bottom: 1px solid rgba(181, 141, 74, 0.18);
+  border-bottom: 1px solid color-mix(in srgb, var(--cosmology-accent) 18%, transparent);
 }
 .material-symbols-outlined {
   font-family: "Material Symbols Outlined";
@@ -748,7 +748,7 @@
 }
 .glass-nav.is-scrolled {
   background: rgba(24, 27, 36, 0.92);
-  border-bottom-color: rgba(181, 141, 74, 0.28);
+  border-bottom-color: color-mix(in srgb, var(--cosmology-accent) 28%, transparent);
 }
 @keyframes mm-fade {
   from { opacity: 0; }

@@ -114,4 +114,6 @@ export type ContentEntry = {
   relatedCTA?: RelatedCTA;
   bodyMarkdown?: string;
   coverImage?: string;
+  r2ContentKey?: string;
+  r2ContentUrl?: string;
 };

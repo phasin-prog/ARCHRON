@@ -17,6 +17,7 @@ import { Tabbar } from "@/components/tabbar";
 import { Fab } from "@/components/fab";
 import { SkipToContent } from "@/components/skip-to-content";
 import { QuickOpen } from "@/components/quick-open";
+import { ClerkProvider } from "@clerk/nextjs";
 
 
 // ── Dynamic Typography (สองภาษา: อังกฤษขึ้นก่อน → ไทย) ──────────────────────
@@ -93,33 +94,35 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="th"
-      className={`${inter.variable} ${notoSansThai.variable} ${ibmPlexSerif.variable} ${notoSerifThai.variable} ${ibmPlexThai.variable} ${playfair.variable} ${cinzel.variable}`}
-    >
-      <head>
-        {/* eslint-disable-next-line @next/next/no-page-custom-font -- App Router ไม่มี pages/_document; โหลด Material Symbols ที่นี่ถูกต้องแล้ว */}
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
-        />
-        <meta name="color-scheme" content="dark" />
-        <noscript>
-          <style>{`.scroll-reveal{opacity:1!important;transform:none!important}`}</style>
-        </noscript>
-      </head>
-      <body className="min-h-screen bg-deep-navy pb-16 text-ivory antialiased md:pb-0">
-        <SkipToContent />
-        <AccentController />
-        <div className="accent-aura" aria-hidden="true" />
-        <SiteHeader />
-        {children}
-        <SiteFooter />
-        <ScrollToTop />
-        <Tabbar />
-        <Fab />
-        <QuickOpen />
-      </body>
-    </html>
+    <ClerkProvider>
+      <html
+        lang="th"
+        className={`${inter.variable} ${notoSansThai.variable} ${ibmPlexSerif.variable} ${notoSerifThai.variable} ${ibmPlexThai.variable} ${playfair.variable} ${cinzel.variable}`}
+      >
+        <head>
+          {/* eslint-disable-next-line @next/next/no-page-custom-font -- App Router ไม่มี pages/_document; โหลด Material Symbols ที่นี่ถูกต้องแล้ว */}
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+          />
+          <meta name="color-scheme" content="dark" />
+          <noscript>
+            <style>{`.scroll-reveal{opacity:1!important;transform:none!important}`}</style>
+          </noscript>
+        </head>
+        <body className="min-h-screen bg-deep-navy pb-16 text-ivory antialiased md:pb-0">
+          <SkipToContent />
+          <AccentController />
+          <div className="accent-aura" aria-hidden="true" />
+          <SiteHeader />
+          {children}
+          <SiteFooter />
+          <ScrollToTop />
+          <Tabbar />
+          <Fab />
+          <QuickOpen />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

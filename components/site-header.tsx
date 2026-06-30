@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArchronLogomark } from "@/components/icons";
+import { SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
 
 type NavItem = { label: string; href: string; icon: string };
 
@@ -21,6 +22,7 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const clerk = useClerk();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -75,18 +77,41 @@ export function SiteHeader() {
           >
             <span className="material-symbols-outlined text-[22px]">search</span>
           </Link>
-          <Link
-            href="/studio"
-            className="hidden items-center gap-1.5 border border-burnished-gold/30 bg-burnished-gold/10 px-6 py-2.5 text-[10px] font-semibold tracking-[0.08em] text-burnished-gold transition-all duration-500 hover:bg-burnished-gold hover:text-prima lg:inline-flex"
-          >
-            <span className="material-symbols-outlined text-[15px]">edit_note</span>
-            Studio
-          </Link>
+          
+          <SignedOut>
+            <Link
+              href="/th/login"
+              className="hidden items-center gap-1.5 border border-antique-gold/30 bg-antique-gold/5 px-6 py-2.5 text-[10px] font-semibold tracking-[0.08em] text-antique-gold transition-all duration-500 hover:bg-antique-gold hover:text-prima lg:inline-flex"
+            >
+              <span className="material-symbols-outlined text-[15px]">login</span>
+              เข้าสู่ระบบ
+            </Link>
+          </SignedOut>
+
+          <SignedIn>
+            <div className="hidden items-center gap-2 lg:flex">
+              <Link
+                href="/studio"
+                className="inline-flex items-center gap-1.5 border border-burnished-gold/30 bg-burnished-gold/10 px-6 py-2.5 text-[10px] font-semibold tracking-[0.08em] text-burnished-gold transition-all duration-500 hover:bg-burnished-gold hover:text-prima"
+              >
+                <span className="material-symbols-outlined text-[15px]">edit_note</span>
+                Studio
+              </Link>
+              <button
+                onClick={() => clerk.signOut()}
+                className="inline-flex items-center gap-1.5 border border-danger/30 bg-danger/5 px-5 py-2.5 text-[10px] font-semibold tracking-[0.08em] text-danger transition-all duration-500 hover:bg-danger hover:text-ivory cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-[15px]">logout</span>
+                ออกจากระบบ
+              </button>
+            </div>
+          </SignedIn>
+
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
             className="flex h-10 w-10 items-center justify-center text-on-surface lg:hidden"
-            aria-label={open ? "ปิดเมนู" : "เปิดเมนู"}
+            aria-label={open ? "เปิดเมนู" : "เปิดเมนู"}
             aria-expanded={open}
           >
             <span className="material-symbols-outlined text-2xl">{open ? "close" : "menu"}</span>
@@ -113,14 +138,39 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
-          <Link
-            href="/studio"
-            onClick={() => setOpen(false)}
-            className="mt-3 inline-flex items-center gap-2 rounded border border-burnished-gold/30 px-4 py-2.5 text-base font-medium text-burnished-gold transition-colors hover:bg-burnished-gold hover:text-prima"
-          >
-            <span className="material-symbols-outlined text-[20px]">edit_note</span>
-            Studio
-          </Link>
+          <SignedOut>
+            <Link
+              href="/th/login"
+              onClick={() => setOpen(false)}
+              className="mt-3 inline-flex items-center gap-2 rounded border border-antique-gold/30 px-4 py-2.5 text-base font-medium text-antique-gold transition-colors hover:bg-antique-gold hover:text-prima"
+            >
+              <span className="material-symbols-outlined text-[20px]">login</span>
+              เข้าสู่ระบบ
+            </Link>
+          </SignedOut>
+
+          <SignedIn>
+            <div className="flex flex-col gap-2">
+              <Link
+                href="/studio"
+                onClick={() => setOpen(false)}
+                className="mt-3 inline-flex items-center gap-2 rounded border border-burnished-gold/30 px-4 py-2.5 text-base font-medium text-burnished-gold transition-colors hover:bg-burnished-gold hover:text-prima"
+              >
+                <span className="material-symbols-outlined text-[20px]">edit_note</span>
+                Studio
+              </Link>
+              <button
+                onClick={() => {
+                  setOpen(false);
+                  clerk.signOut();
+                }}
+                className="inline-flex items-center gap-2 rounded border border-danger/30 px-4 py-2.5 text-base font-medium text-danger transition-colors hover:bg-danger hover:text-ivory cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-[20px]">logout</span>
+                ออกจากระบบ
+              </button>
+            </div>
+          </SignedIn>
         </nav>
       ) : null}
     </header>

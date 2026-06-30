@@ -15,13 +15,12 @@ export function hasRedis(): boolean {
 
 async function redisCommand<T>(
   command: string,
-  key: string,
   ...args: (string | number)[]
 ): Promise<T | null> {
   const cfg = getConfig();
   if (!cfg) return null;
 
-  const url = `${cfg.url}/${command}/${encodeURIComponent(key)}`;
+  const url = cfg.url;
   
   try {
     const res = await fetch(url, {
@@ -30,7 +29,7 @@ async function redisCommand<T>(
         Authorization: `Bearer ${cfg.token}`,
         "Content-Type": "application/json",
       },
-      body: args.length > 0 ? JSON.stringify(args) : undefined,
+      body: JSON.stringify([command, ...args]),
       // Next.js fetch cache — disable for Redis commands
       cache: "no-store",
     });
@@ -61,11 +60,11 @@ export async function redisSet(
   ttlSeconds?: number,
 ): Promise<boolean> {
   const raw = JSON.stringify(value);
-  const args: (string | number)[] = [raw];
+  const args: (string | number)[] = [key, raw];
   if (ttlSeconds && ttlSeconds > 0) {
     args.push("EX", ttlSeconds);
   }
-  const result = await redisCommand<string>("set", key, ...args);
+  const result = await redisCommand<string>("set", ...args);
   return result === "OK";
 }
 
@@ -83,21 +82,7 @@ export async function redisDelPattern(pattern: string): Promise<number> {
   let deleted = 0;
 
   try {
-    // Use KEYS command for simplicity (fine for moderate key counts in Upstash)
-    const keysUrl = `${cfg.url}/keys/${encodeURIComponent(pattern)}`;
-    const keysRes = await fetch(keysUrl, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${cfg.token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify([]),
-      cache: "no-store",
-    });
-
-    if (!keysRes.ok) return 0;
-    const keysData = await keysRes.json();
-    const keys: string[] = keysData.result ?? [];
+    const keys = await redisCommand<string[]>("keys", pattern) ?? [];
 
     // Delete in batches
     for (const key of keys) {

@@ -489,3 +489,100 @@ export function CivilizationIcon({ className = "h-5 w-5" }: IconProps) {
     </>,
   );
 }
+
+// ── ไอคอนหัวข้อหน้าอ่าน (Reading Section) — ภาษาเส้นเดียวกัน ใช้ currentColor คุมด้วย --accent ──
+
+// ความหมายให้เห็นภาพ — ดวงตา + จุดศูนย์กลาง (echo แบรนด์)
+export function VisualMeaningIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z" />
+      <circle cx="12" cy="12" r="2.7" />
+      <circle cx="12" cy="12" r="0.4" fill="currentColor" stroke="none" />
+    </>,
+  );
+}
+
+// ความหมายทางวิชาการ — หนังสือเปิดสองหน้า
+export function ScholarIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <path d="M12 6.5C10.4 5.3 7.9 4.8 4.5 5.2v12c3.4-.4 5.9.1 7.5 1.3" />
+      <path d="M12 6.5C13.6 5.3 16.1 4.8 19.5 5.2v12c-3.4-.4-5.9.1-7.5 1.3" />
+      <path d="M12 6.5v12" />
+    </>,
+  );
+}
+
+// ตัวอย่างในชีวิตจริง — ต้นอ่อน (ชีวิต)
+export function RealExampleIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <path d="M12 20.5V12" />
+      <path d="M12 13.5c0-3-2.4-5.4-5.4-5.4C6.6 11.1 9 13.5 12 13.5z" />
+      <path d="M12 11.2c0-2.6 2.1-4.7 4.7-4.7 0 2.6-2.1 4.7-4.7 4.7z" />
+      <path d="M5.5 20.5h13" />
+    </>,
+  );
+}
+
+// นำมาจากตำราไหน — เอกสารอ้างอิง
+export function SourceRefIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <path d="M7 4.5h6.5l4 4V19a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V5.5a1 1 0 0 1 1-1z" />
+      <path d="M13.3 4.5v4.2h4.2" />
+      <path d="M9 12.5h6M9 15.5h4.5" />
+    </>,
+  );
+}
+
+// รากแนวคิด — ราก
+export function RootIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <path d="M12 4.5v6" />
+      <path d="M12 10.5c0 2-1.6 3.1-3.2 4.1S5.5 16.5 5.5 19" />
+      <path d="M12 10.5c0 2 1.6 3.1 3.2 4.1S18.5 16.5 18.5 19" />
+      <circle cx="12" cy="4.3" r="1.4" fill="currentColor" stroke="none" />
+    </>,
+  );
+}
+
+// ผู้เขียน — ปากกา
+export function AuthorPenIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <path d="M4.5 19.5l1-3.8L15.7 5.5a1.9 1.9 0 0 1 2.8 2.8L8.3 18.5l-3.8 1z" />
+      <path d="M14 7.2l2.8 2.8" />
+    </>,
+  );
+}
+
+// เผยแพร่ — ปฏิทิน
+export function CalendarIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <rect x="4.5" y="5.5" width="15" height="14" rx="1.6" />
+      <path d="M4.5 9.5h15M8.5 3.5v3M15.5 3.5v3" />
+    </>,
+  );
+}
+
+// แก้ไขล่าสุด — นาฬิกา
+export function ClockIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <circle cx="12" cy="12" r="8" />
+      <path d="M12 8v4.2l2.6 1.6" />
+    </>,
+  );
+}

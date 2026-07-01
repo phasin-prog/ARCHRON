@@ -1,5 +1,5 @@
 // หน้าอ่าน Unified (articles/concepts) — ใช้ ReadingToc + ReadingDock (ดูไฟล์ในโฟลเดอร์เดียวกัน)
-import type { ReactNode } from "react";
+import type { ComponentType, ReactNode } from "react";
 import Link from "next/link";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -7,6 +7,20 @@ import type { ContentEntry, RelationType, SourceItem, Difficulty } from "@/types
 import { InternalLinkText } from "@/components/reading/internal-link-text";
 import { InternalConceptLink } from "@/components/reading/internal-concept-link";
 import { conceptTitle } from "@/lib/content/concept-registry";
+import {
+  VisualMeaningIcon,
+  ScholarIcon,
+  RealExampleIcon,
+  SourceRefIcon,
+  RootIcon,
+  AuthorPenIcon,
+  CalendarIcon,
+  ClockIcon,
+  PersonIcon,
+  SchoolIcon,
+  ConceptIcon,
+  ArrowRightIcon,
+} from "@/components/icons";
 import { Tooltip } from "@/components/tooltip";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ReadingToc } from "@/components/reading/reading-toc";
@@ -118,6 +132,122 @@ function MetaCell({ label, value }: { label: string; value: ReactNode }) {
   );
 }
 
+// หัวข้อ Header 3 พร้อมไอคอนเส้นในกรอบ accent (สีตาม Cosmology ของหน้าผ่าน --accent)
+function SectionH3({
+  icon: Icon,
+  children,
+  className = "",
+}: {
+  icon: ComponentType<{ className?: string }>;
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <h3 className={`flex items-center gap-3 font-serif text-fluid-h3 text-ivory ${className}`}>
+      <span
+        className="flex h-9 w-9 flex-none items-center justify-center rounded-lg border"
+        style={{
+          color: "var(--accent)",
+          borderColor: "color-mix(in srgb, var(--accent) 30%, transparent)",
+          backgroundColor: "color-mix(in srgb, var(--accent) 9%, transparent)",
+        }}
+      >
+        <Icon className="h-5 w-5" />
+      </span>
+      <span>{children}</span>
+    </h3>
+  );
+}
+
+// Meta Card — บริบทของแนวคิด: นักคิด · สำนักคิด · รากแนวคิด · เผยแพร่ · แก้ไข · ผู้เขียน
+function MetaCard({ entry, readingTime }: { entry: ContentEntry; readingTime: string }) {
+  const rootText =
+    entry.roots?.etymology ?? entry.languageRoot ?? entry.roots?.historicalUsage ?? null;
+  const accentIcon = { color: "var(--accent)" };
+
+  return (
+    <div className="archron-panel relative mt-8 overflow-hidden p-5 sm:p-6">
+      <span
+        className="absolute inset-y-0 left-0 w-[3px]"
+        style={{ backgroundColor: "var(--accent)" }}
+        aria-hidden="true"
+      />
+      <dl className="grid gap-x-6 gap-y-5 sm:grid-cols-2">
+        {entry.mainThinkers && entry.mainThinkers.length > 0 ? (
+          <div className="sm:col-span-2">
+            <dt className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.12em] text-muted">
+              <span style={accentIcon}><PersonIcon className="h-4 w-4" /></span>
+              นักคิดหลัก
+            </dt>
+            <dd className="mt-2 flex flex-wrap gap-2">
+              {entry.mainThinkers.map((t) => {
+                const thinkerSlug = t.toLowerCase().replace(/\s+/g, "-");
+                return (
+                  <Link
+                    key={t}
+                    href={`/thinkers/${thinkerSlug}`}
+                    className="inline-flex items-center gap-1 rounded-full border border-burnished-gold/25 bg-burnished-gold/10 px-2.5 py-0.5 text-xs text-burnished-gold transition-colors hover:bg-burnished-gold/20"
+                  >
+                    {t}
+                  </Link>
+                );
+              })}
+            </dd>
+          </div>
+        ) : null}
+
+        {entry.school || entry.framework ? (
+          <div>
+            <dt className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.12em] text-muted">
+              <span style={accentIcon}><SchoolIcon className="h-4 w-4" /></span>
+              สำนักคิด
+            </dt>
+            <dd className="mt-1 text-sm text-ivory">{entry.school ?? entry.framework}</dd>
+          </div>
+        ) : null}
+
+        {rootText ? (
+          <div>
+            <dt className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.12em] text-muted">
+              <span style={accentIcon}><RootIcon className="h-4 w-4" /></span>
+              รากแนวคิด
+            </dt>
+            <dd className="mt-1 text-sm leading-snug text-ivory">{rootText}</dd>
+          </div>
+        ) : null}
+
+        <div>
+          <dt className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.12em] text-muted">
+            <span style={accentIcon}><AuthorPenIcon className="h-4 w-4" /></span>
+            ผู้เขียน
+          </dt>
+          <dd className="mt-1 text-sm text-ivory">{entry.author ?? "Archron · Admin"}</dd>
+        </div>
+
+        {entry.publishedAt ? (
+          <div>
+            <dt className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.12em] text-muted">
+              <span style={accentIcon}><CalendarIcon className="h-4 w-4" /></span>
+              เผยแพร่
+            </dt>
+            <dd className="mt-1 text-sm text-ivory">{entry.publishedAt}</dd>
+          </div>
+        ) : null}
+
+        <div>
+          <dt className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.12em] text-muted">
+            <span style={accentIcon}><ClockIcon className="h-4 w-4" /></span>
+            แก้ไขล่าสุด
+          </dt>
+          <dd className="mt-1 text-sm text-ivory">
+            {entry.updatedAt ? `${entry.updatedAt} · ` : ""}อ่าน ~ {readingTime}
+          </dd>
+        </div>
+      </dl>
+    </div>
+  );
+}
+
 export async function ReadingPage({
   entry,
   section = "concepts",
@@ -136,6 +266,20 @@ export async function ReadingPage({
   const backlinks = getBacklinksForConcept(entry.slug, allEntries).filter(
     (a) => a.slug !== entry.slug,
   );
+
+  // ลำดับ ก่อนหน้า/ถัดไป ภายในหมวดเดียวกัน (เรียงใหม่→เก่า) — พาผู้อ่านเดินต่อในคลัง ไม่เป็นทางตัน
+  const navType = section === "articles" ? "article" : "concept";
+  const navPool = allEntries
+    .filter((e) => e.contentType === navType)
+    .sort(
+      (a, b) =>
+        (b.publishedAt ?? "").localeCompare(a.publishedAt ?? "") ||
+        a.title.localeCompare(b.title),
+    );
+  const navIdx = navPool.findIndex((e) => e.slug === entry.slug);
+  const prevEntry = navIdx > 0 ? navPool[navIdx - 1] : null;
+  const nextEntry =
+    navIdx >= 0 && navIdx < navPool.length - 1 ? navPool[navIdx + 1] : null;
 
   return (
     <div className="mx-auto grid max-w-6xl grid-cols-1 xl:grid-cols-[1fr_42rem_1fr] xl:gap-8">
@@ -196,14 +340,6 @@ export async function ReadingPage({
 
           <hr className="mt-6 border-slate-boundary/20" />
 
-          {entry.updatedAt || entry.author ? (
-            <div className="mt-3 flex items-center gap-4 text-xs text-subtle">
-              {entry.updatedAt ? <span>อัปเดตล่าสุด {entry.updatedAt}</span> : null}
-              {entry.author ? <span>เขียนโดย {entry.author}</span> : null}
-              <span>เวลาอ่าน ~ {readTime(entry)}</span>
-            </div>
-          ) : null}
-
           {themes.length > 0 ? (
             <div className="mt-4 flex flex-wrap items-center gap-2">
               <span className="text-xs text-muted">แก่นเรื่อง:</span>
@@ -225,31 +361,16 @@ export async function ReadingPage({
             </div>
           ) : null}
 
-          {entry.mainThinkers && entry.mainThinkers.length > 0 ? (
-            <div className="mt-4 flex flex-wrap items-center gap-2">
-              <span className="text-xs text-muted">นักคิดที่เกี่ยวข้อง:</span>
-              {entry.mainThinkers.map((t) => {
-                const thinkerSlug = t.toLowerCase().replace(/\s+/g, "-");
-                return (
-                  <Link
-                    key={t}
-                    href={`/thinkers/${thinkerSlug}`}
-                    className="inline-flex items-center gap-1 rounded bg-burnished-gold/10 border border-burnished-gold/25 px-2.5 py-0.5 text-xs text-burnished-gold transition-colors hover:bg-burnished-gold/20"
-                  >
-                    <span className="material-symbols-outlined text-[14px]">person</span>
-                    {t}
-                  </Link>
-                );
-              })}
-            </div>
-          ) : null}
         </header>
+
+        {/* Meta Card — บริบทของแนวคิด (นักคิด · สำนัก · ราก · เผยแพร่ · แก้ไข · ผู้เขียน) */}
+        <MetaCard entry={entry} readingTime={readTime(entry)} />
 
         {/* Main Content Zone */}
         {entry.visualExplanation ? (
           <section className="scroll-reveal mt-12">
             {/* คำอธิบายให้เห็นภาพ (Header 3) */}
-            <h3 className="font-serif text-fluid-h3 text-ivory">คำอธิบายให้เห็นภาพ</h3>
+            <SectionH3 icon={VisualMeaningIcon}>คำอธิบายให้เห็นภาพ</SectionH3>
             <div className="md-body mt-4 whitespace-pre-line">
               <InternalLinkText text={entry.visualExplanation} />
             </div>
@@ -259,9 +380,19 @@ export async function ReadingPage({
         {entry.technicalMeaning ? (
           <section className="scroll-reveal mt-12">
             {/* ความหมายทางวิชาการ / เทคนิค (Header 3) */}
-            <h3 className="font-serif text-fluid-h3 text-ivory">ความหมายทางวิชาการ / เทคนิค</h3>
+            <SectionH3 icon={ScholarIcon}>ความหมายทางวิชาการ / เทคนิค</SectionH3>
             <div className="md-body mt-4 whitespace-pre-line">
               <InternalLinkText text={entry.technicalMeaning} />
+            </div>
+          </section>
+        ) : null}
+
+        {/* ตัวอย่างในชีวิตจริง อิงจากตำรา (Header 3) — ช่องเนื้อหาใหม่ realWorldExamples */}
+        {entry.realWorldExamples ? (
+          <section className="scroll-reveal mt-12">
+            <SectionH3 icon={RealExampleIcon}>ตัวอย่างในชีวิตจริง (อิงจากตำรา)</SectionH3>
+            <div className="md-body mt-4 whitespace-pre-line">
+              <InternalLinkText text={entry.realWorldExamples} />
             </div>
           </section>
         ) : null}
@@ -291,7 +422,7 @@ export async function ReadingPage({
 
         {entry.roots && (entry.roots.etymology || entry.roots.historicalUsage || entry.roots.meaningShift) ? (
           <section className="scroll-reveal mt-12">
-            <h3 className="font-serif text-fluid-h3 text-ivory">ที่มาของคำและบริบท</h3>
+            <SectionH3 icon={RootIcon}>ที่มาของคำและบริบท</SectionH3>
             <ul className="mt-4 space-y-3 text-base leading-relaxed text-soft-ivory">
               {entry.roots.etymology ? (
                 <li className="flex gap-3">
@@ -315,11 +446,36 @@ export async function ReadingPage({
           </section>
         ) : null}
 
-        {/* Ecosystem & Relations Zone */}
+        {/* นำมาจากตำราไหน — เอกสารอ้างอิง (Header 3) · ⑦ อยู่ก่อนแนวคิดที่เกี่ยวข้อง */}
+        {entry.references.length > 0 ? (
+          <section className="scroll-reveal mt-14">
+            <SectionH3 icon={SourceRefIcon}>นำมาจากตำราไหน</SectionH3>
+            <ol className="mt-5 space-y-3">
+              {entry.references.map((s: SourceItem, i) => (
+                <li
+                  key={i}
+                  id={`ref-${i + 1}`}
+                  className="reference-item text-sm leading-relaxed text-soft-ivory"
+                >
+                  <span className="mr-2 text-antique-gold">{i + 1}.</span>
+                  <span className="mr-1 text-xs tracking-[0.04em] text-antique-gold/70">
+                    [{SOURCE_TYPE_LABEL[s.sourceType] ?? s.sourceType}]
+                  </span>
+                  <span className="text-ivory">{[s.author, s.title].filter(Boolean).join(", ")}</span>
+                  {s.year ? <span className="text-muted"> ({s.year})</span> : null}
+                  {s.relatedClaim ? (
+                    <span className="mt-1 block text-muted">รองรับ: {s.relatedClaim}</span>
+                  ) : null}
+                </li>
+              ))}
+            </ol>
+          </section>
+        ) : null}
+
+        {/* Ecosystem & Relations Zone — ⑧ แนวคิดที่เกี่ยวข้อง + แผนที่ความสัมพันธ์ */}
         {entry.relatedConcepts.length > 0 ? (
           <section className="mt-14">
-            {/* แนวคิดที่เกี่ยวข้อง (Header 3) */}
-            <h3 className="scroll-reveal font-serif text-fluid-h3 text-ivory">แนวคิดที่เกี่ยวข้อง</h3>
+            <SectionH3 icon={ConceptIcon} className="scroll-reveal">แนวคิดที่เกี่ยวข้อง</SectionH3>
             <LocalGraph entry={entry} />
             <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {relatedInline.map((rc, i) => (
@@ -345,33 +501,6 @@ export async function ReadingPage({
                 ดูแผนที่ความสัมพันธ์ทั้งหมด →
               </Link>
             ) : null}
-          </section>
-        ) : null}
-
-        {/* Footer Zone — References */}
-        {entry.references.length > 0 ? (
-          <section className="scroll-reveal mt-14">
-            {/* เอกสารอ้างอิง (Header 3) */}
-            <h3 className="font-serif text-fluid-h3 text-ivory">เอกสารอ้างอิง</h3>
-            <ol className="mt-5 space-y-3">
-              {entry.references.map((s: SourceItem, i) => (
-                <li
-                  key={i}
-                  id={`ref-${i + 1}`}
-                  className="reference-item text-sm leading-relaxed text-soft-ivory"
-                >
-                  <span className="mr-2 text-antique-gold">{i + 1}.</span>
-                  <span className="mr-1 text-xs tracking-[0.04em] text-antique-gold/70">
-                    [{SOURCE_TYPE_LABEL[s.sourceType] ?? s.sourceType}]
-                  </span>
-                  <span className="text-ivory">{[s.author, s.title].filter(Boolean).join(", ")}</span>
-                  {s.year ? <span className="text-muted"> ({s.year})</span> : null}
-                  {s.relatedClaim ? (
-                    <span className="mt-1 block text-muted">รองรับ: {s.relatedClaim}</span>
-                  ) : null}
-                </li>
-              ))}
-            </ol>
           </section>
         ) : null}
 
@@ -437,13 +566,41 @@ export async function ReadingPage({
           </section>
         )}
 
-        {section === "concepts" && (
-          <div className="mt-8">
-            <Link href="/concepts" className="text-sm text-soft-gold hover:underline">
-              ← กลับคลังแนวคิดทั้งหมด
+        {/* ⑬ แถบนำทาง ก่อนหน้า / กลับหน้าหลัก / ถัดไป (สลับตามหมวด บทความ/แนวคิด) */}
+        <nav
+          aria-label="นำทางระหว่างเนื้อหา"
+          className="mt-16 grid grid-cols-3 items-center gap-3 border-t border-slate-boundary/20 pt-8 text-sm"
+        >
+          <div className="justify-self-start">
+            {prevEntry ? (
+              <Link href={`/${section}/${prevEntry.slug}`} className="group inline-flex flex-col gap-0.5">
+                <span className="flex items-center gap-1 text-[11px] uppercase tracking-wide text-subtle">
+                  <ArrowRightIcon className="h-3.5 w-3.5 rotate-180" /> ก่อนหน้า
+                </span>
+                <span className="font-serif text-soft-ivory transition-colors group-hover:text-soft-gold">
+                  {prevEntry.mainTerm ?? prevEntry.title}
+                </span>
+              </Link>
+            ) : null}
+          </div>
+          <div className="justify-self-center text-center">
+            <Link href={`/${section}`} className="text-muted transition-colors hover:text-soft-gold">
+              กลับหน้าหลัก
             </Link>
           </div>
-        )}
+          <div className="justify-self-end text-right">
+            {nextEntry ? (
+              <Link href={`/${section}/${nextEntry.slug}`} className="group inline-flex flex-col gap-0.5">
+                <span className="flex items-center justify-end gap-1 text-[11px] uppercase tracking-wide text-subtle">
+                  ถัดไป <ArrowRightIcon className="h-3.5 w-3.5" />
+                </span>
+                <span className="font-serif text-soft-ivory transition-colors group-hover:text-soft-gold">
+                  {nextEntry.mainTerm ?? nextEntry.title}
+                </span>
+              </Link>
+            ) : null}
+          </div>
+        </nav>
       </main>
 
       {/* spacer คอลัมน์ขวา — รักษาบทความให้อยู่กึ่งกลาง grid */}

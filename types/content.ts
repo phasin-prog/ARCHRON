@@ -105,6 +105,7 @@ export type ContentEntry = {
   // Reading sections
   visualExplanation?: string;
   technicalMeaning?: string;
+  realWorldExamples?: string; // ตัวอย่างในชีวิตจริง อิงจากตำรา (Header 3 · รอเติมใน mapper/DB ภายหลัง)
 
   // Relations & references
   relatedConcepts: RelatedConcept[];

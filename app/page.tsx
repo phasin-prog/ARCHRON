@@ -5,6 +5,7 @@ import {
   ConceptIcon,
   ScholarIcon,
   SynthesisIcon,
+  ArrowRightIcon,
 } from "@/components/icons";
 import { RecentlyViewed } from "@/components/recently-viewed";
 import { LoopCarousel } from "@/components/loop-carousel";
@@ -256,30 +257,28 @@ export default function HomePage() {
         {/* Recently Viewed — continue reading */}
         <RecentlyViewed />
 
-        {/* Manifesto quote */}
-        <section className="scroll-reveal mx-auto max-w-5xl px-6 py-32 text-center md:py-40">
-          <div className="mb-12">
-            <span className="material-symbols-outlined text-[64px] text-burnished-gold/30">
-              format_quote
-            </span>
+        {/* ปฏิญญา — คำคมให้จดจำ (เน้นคำแก่นด้วยสีทอง) */}
+        <section className="scroll-reveal mx-auto max-w-4xl px-6 py-24 text-center md:py-28">
+          <div className="mb-4 font-serif text-[64px] leading-[0.3] text-burnished-gold/35" aria-hidden="true">
+            “
           </div>
-          <h2 className="mb-12 font-serif text-[32px] italic leading-[1.6] text-on-surface">
-            “ARCHRON ไม่ได้ถามว่าควรคิดอะไร แต่ถามว่ามนุษย์เรียนรู้ที่จะคิดมาอย่างไร”
+          <h2 className="font-serif text-fluid-h2 font-medium leading-[1.5] text-ivory">
+            ARCHRON ไม่ได้ถามว่า<span className="text-soft-gold">ควรคิดอะไร</span> แต่ถามว่ามนุษย์
+            <span className="text-soft-gold">เรียนรู้ที่จะคิด</span>มาอย่างไร
           </h2>
-          <div className="mx-auto mb-12 h-px w-16 bg-burnished-gold/20" />
-          <p className="mx-auto mb-16 max-w-3xl text-lg leading-[1.9] text-on-surface-variant/80">
-            ARCHRON ไม่ได้ให้คำตอบสุดท้าย แต่ให้คำถามที่ดีกว่า แผนที่ความรู้ที่ดีกว่า
-            และภาษาสำหรับเข้าใจตนเองและโลกที่ดีกว่า — โดยวางแนวคิดไว้ในบริบทเดิมของมัน
-            พร้อมเปิดพื้นที่ให้การเปรียบเทียบและการตั้งคำถามเกิดขึ้นอย่างรับผิดชอบ
+          <div className="mx-auto my-8 h-px w-16 bg-burnished-gold/30" />
+          <p className="mx-auto mb-10 max-w-2xl text-lg leading-[1.9] text-on-surface-variant/80">
+            ARCHRON ไม่ได้ให้<span className="text-soft-gold">คำตอบสุดท้าย</span> แต่ให้
+            <span className="text-soft-gold">คำถามที่ดีกว่า</span> แผนที่ความรู้ที่ดีกว่า
+            และภาษาสำหรับเข้าใจตนเองและโลกที่ดีกว่า — โดยวางแนวคิดไว้ใน
+            <span className="text-soft-gold">บริบทเดิม</span>ของมัน พร้อมเปิดพื้นที่ให้การเปรียบเทียบและการตั้งคำถามอย่างรับผิดชอบ
           </p>
           <Link
             href="/manifesto"
-            className="group inline-flex items-center gap-3 text-xs font-semibold tracking-[0.05em] text-burnished-gold transition-all hover:text-primary"
+            className="group inline-flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.08em] text-burnished-gold transition-all hover:gap-3"
           >
-            อ่าน Manifesto ฉบับเต็ม
-            <span className="material-symbols-outlined text-[20px] transition-transform group-hover:translate-x-2">
-              arrow_right_alt
-            </span>
+            อ่านปฏิญญาฉบับเต็ม
+            <ArrowRightIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
           </Link>
         </section>
     </main>

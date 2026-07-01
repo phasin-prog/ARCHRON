@@ -7,6 +7,8 @@ import {
   ScienceIcon,
   SymbolismIcon,
   LanguageIcon,
+  AuthorPenIcon,
+  ConceptIcon,
 } from "@/components/icons";
 import { RecentlyViewed } from "@/components/recently-viewed";
 import { CardCarousel } from "@/components/card-carousel";
@@ -72,36 +74,83 @@ export default function HomePage() {
           >
             <div className="absolute top-0 left-[45px] w-[170px] h-[170px] border border-[var(--color-antique-gold)] rounded-full" />
             <div className="absolute bottom-0 left-[45px] w-[170px] h-[170px] border border-[var(--color-antique-gold)] rounded-full" />
+            {/* หนังสือโบราณ — สัญลักษณ์ living library */}
+            <svg
+              className="absolute left-1/2 top-1/2 h-[118px] w-[118px] -translate-x-1/2 -translate-y-1/2"
+              viewBox="0 0 120 120"
+              fill="none"
+              stroke="var(--color-soft-gold)"
+              strokeWidth={1.4}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M60 40C50 32 36 29 22 31v54c14-2 28 1 38 9 10-8 24-11 38-9V31c-14-2-28 1-38 9z" />
+              <path d="M60 40v54" />
+            </svg>
           </div>
           <div className="relative z-10 mx-auto max-w-5xl py-24">
-            <span className="scroll-reveal mb-8 block text-xs font-semibold tracking-[0.05em] text-lumen/90">
-              สำนักศึกษามนุษย์ ข้ามผ่านห้วงเวลาและศาสตร์วิชา
+            {/* Tagline แบรนด์ */}
+            <span className="scroll-reveal mb-5 block font-serif text-xl italic text-soft-gold sm:text-2xl">
+              a living library of human understanding
             </span>
-            <h1 className="scroll-reveal stagger-1 mb-10 font-serif text-fluid-h1 font-semibold leading-[1.15] text-mist md:tracking-[-0.02em]">
+            {/* Positioning: คลังที่มีชีวิต ตั้งแต่จุดกำเนิดผ่านกาลเวลา (แทนคำว่า “สำนัก”) */}
+            <span className="scroll-reveal mb-8 block text-xs font-semibold tracking-[0.15em] text-lumen/90">
+              คลังความเข้าใจมนุษย์ที่มีชีวิต · ตั้งแต่จุดกำเนิด ผ่านกาลเวลา
+            </span>
+            <h1 className="scroll-reveal stagger-1 mb-8 font-serif text-fluid-h1 font-semibold leading-[1.15] text-mist md:tracking-[-0.02em]">
               จากความมืดของสิ่งที่ยังไม่รู้{" "}
               <span className="italic text-lumen">สู่แสงแห่งความเข้าใจ</span>
             </h1>
-            <p className="scroll-reveal stagger-2 mx-auto mb-12 max-w-3xl text-lg leading-[1.8] text-mist/75">
-              ARCHRON คือสำนักศึกษามนุษย์ที่เชื่อมจิตวิทยา จิตวิเคราะห์ ปรัชญา ประวัติศาสตร์ ภาษา
-              และประสาทวิทยาศาสตร์เข้าด้วยกัน โดยแยกแหล่งที่มา ข้อเท็จจริง และการตีความออกจากกัน
+            <p className="scroll-reveal stagger-2 mx-auto mb-8 max-w-3xl text-lg leading-[1.8] text-mist/75">
+              การทำความเข้าใจมนุษย์ ไม่อาจอาศัยศาสตร์ใดศาสตร์หนึ่งเพียงลำพัง — ARCHRON คือคลังที่ผมค่อย ๆ
+              เขียนและรวบรวม เชื่อมจิตวิทยา ปรัชญา มานุษยวิทยา ภาษา ประวัติศาสตร์ ตำนาน ศาสนา และวิทยาศาสตร์
+              ให้ค้นได้ เชื่อมโยงกัน และเติบโตต่อเนื่อง
             </p>
-            <div className="scroll-reveal stagger-3 flex flex-col justify-center gap-6 sm:flex-row">
+            {/* แถบรากศัพท์ — ที่มาของชื่อ ARCHRON (จุดจำ) */}
+            <div className="scroll-reveal stagger-2 mx-auto mb-12 flex max-w-2xl flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-on-surface-variant/70">
+              <span className="flex items-baseline gap-2">
+                <span className="font-serif text-lg text-soft-gold">ἀρχή</span> ARCHĒ — จุดกำเนิด
+              </span>
+              <span className="text-burnished-gold">+</span>
+              <span className="flex items-baseline gap-2">
+                <span className="font-serif text-lg text-soft-gold">Χρόνος</span> CHRONOS — กาลเวลา
+              </span>
+              <span className="text-burnished-gold">=</span>
+              <span className="tracking-[0.2em] text-ivory">ARCHRON</span>
+            </div>
+            {/* CTA — การ์ดลิงก์ (แทนปุ่มแบน) */}
+            <div className="scroll-reveal stagger-3 mx-auto grid max-w-2xl grid-cols-1 gap-4 sm:grid-cols-2">
               <Link
                 href="/articles"
-                className="group flex items-center justify-center gap-3 bg-sapientia px-10 py-5 text-xs font-semibold tracking-[0.05em] text-prima transition-all duration-500 hover:shadow-[0_0_34px_rgba(231, 215, 166,0.28)] focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
+                className="group relative overflow-hidden rounded-2xl border border-burnished-gold/40 bg-burnished-gold/10 p-6 text-left transition-all duration-500 hover:-translate-y-1.5 hover:border-burnished-gold/60 hover:shadow-[0_26px_52px_-28px_rgba(0,0,0,0.7)] focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
               >
-                เริ่มอ่านบทความ
-                <span className="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-1.5">
-                  arrow_forward
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-burnished-gold/35 bg-burnished-gold/10 text-burnished-gold">
+                  <AuthorPenIcon className="h-[22px] w-[22px]" />
                 </span>
+                <span className="mt-4 flex items-center justify-between font-serif text-xl text-ivory">
+                  อ่านงานเขียน
+                  <span className="text-burnished-gold transition-transform duration-300 group-hover:translate-x-1">→</span>
+                </span>
+                <span className="mt-1.5 block text-sm text-on-surface-variant/70">บทความและบทวิเคราะห์จากปลายปากกา</span>
               </Link>
               <Link
                 href="/concepts"
-                className="flex items-center justify-center gap-3 border border-lumen/40 px-10 py-5 text-xs font-semibold tracking-[0.05em] text-lumen transition-all duration-500 hover:bg-lumen/10 focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
+                className="group relative overflow-hidden rounded-2xl border border-slate-boundary/40 bg-white/[0.02] p-6 text-left transition-all duration-500 hover:-translate-y-1.5 hover:border-[#6E93A8]/50 hover:shadow-[0_26px_52px_-28px_rgba(0,0,0,0.7)] focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
               >
-                เปิดแผนที่แนวคิด
-                <span className="material-symbols-outlined text-[18px]">map</span>
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#6E93A8]/35 bg-[#6E93A8]/10 text-[#6E93A8]">
+                  <ConceptIcon className="h-[22px] w-[22px]" />
+                </span>
+                <span className="mt-4 flex items-center justify-between font-serif text-xl text-ivory">
+                  สำรวจคลังแนวคิด
+                  <span className="text-[#6E93A8] transition-transform duration-300 group-hover:translate-x-1">→</span>
+                </span>
+                <span className="mt-1.5 block text-sm text-on-surface-variant/70">แผนที่ความรู้ที่เชื่อมโยงถึงกัน</span>
               </Link>
+            </div>
+            {/* Byline — วางตัวเป็นนักเขียน */}
+            <div className="scroll-reveal mt-10 text-sm italic text-on-surface-variant/70">
+              บันทึกโดย{" "}
+              <span className="font-semibold not-italic tracking-[0.12em] text-soft-gold">Archeon</span> — ผู้แสวงหาต้นกำเนิด
             </div>
           </div>
         </section>

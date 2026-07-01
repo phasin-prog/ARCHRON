@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { ComponentType } from "react";
+import type { ComponentType, ReactNode } from "react";
 import {
   PsychologyIcon,
   MythologyIcon,
@@ -9,27 +9,69 @@ import {
   LanguageIcon,
   AuthorPenIcon,
   ConceptIcon,
+  ScholarIcon,
+  SynthesisIcon,
 } from "@/components/icons";
 import { RecentlyViewed } from "@/components/recently-viewed";
 import { CardCarousel } from "@/components/card-carousel";
 import { VesicaPattern } from "@/components/hero/vesica-pattern";
 import type { Cosmology } from "@/lib/content/cosmology";
 
-const PILLARS = [
+type Pillar = {
+  Icon: ComponentType<{ className?: string }>;
+  accent: string;
+  title: ReactNode;
+  desc: ReactNode;
+};
+
+// สามเสาหลัก “สิ่งที่เราทำ” — การ์ดมีลูกเล่น + ไอคอนเส้นเฉพาะ + เน้นคำสำคัญ (สีทอง)
+const PILLARS: Pillar[] = [
   {
-    icon: "account_tree",
-    title: "เชื่อมศาสตร์ที่ถูกแยกขาด",
-    desc: "จิตวิทยาศึกษาจิตใจ ปรัชญาศึกษาความจริง ภาษาศาสตร์ศึกษาภาษา แต่มนุษย์ไม่เคยดำรงอยู่เป็นเสี้ยวส่วน ARCHRON เชื่อมศาสตร์เหล่านี้กลับเป็นองค์รวม",
+    Icon: ConceptIcon,
+    accent: "#C79A4A",
+    title: (
+      <>
+        เชื่อม<span className="text-soft-gold">ศาสตร์ที่ถูกแยกขาด</span>
+      </>
+    ),
+    desc: (
+      <>
+        จิตวิทยาศึกษาจิตใจ ปรัชญาศึกษาความจริง ภาษาศาสตร์ศึกษาภาษา แต่มนุษย์ไม่เคยดำรงอยู่เป็น
+        <span className="font-medium text-soft-gold">เสี้ยวส่วน</span> — ARCHRON เชื่อมกลับเป็น
+        <span className="font-medium text-soft-gold">องค์รวม</span>
+      </>
+    ),
   },
   {
-    icon: "history_edu",
-    title: "อ่านต้นฉบับ เข้าใจบริบท",
-    desc: "อ่านจากงานต้นทางในบริบทประวัติศาสตร์ของมัน แยกข้อเท็จจริง แหล่งที่มา และการตีความออกจากกัน เพื่อให้ความรู้ไม่กลายเป็นคำกล่าวลอย ๆ ที่ไร้น้ำหนัก",
+    Icon: ScholarIcon,
+    accent: "#6E93A8",
+    title: (
+      <>
+        อ่านต้นฉบับ <span className="text-soft-gold">เข้าใจบริบท</span>
+      </>
+    ),
+    desc: (
+      <>
+        อ่านจากงาน<span className="font-medium text-soft-gold">ต้นทาง</span>ในบริบทประวัติศาสตร์ของมัน แยก
+        <span className="font-medium text-soft-gold">ข้อเท็จจริง แหล่งที่มา และการตีความ</span>ออกจากกัน
+        เพื่อให้ความรู้ไม่กลายเป็นคำกล่าวลอย ๆ ที่ไร้น้ำหนัก
+      </>
+    ),
   },
   {
-    icon: "all_inclusive",
-    title: "เปรียบเทียบ สังเคราะห์ ตั้งคำถามใหม่",
-    desc: "ความจริงปรากฏผ่านการเปรียบเทียบ การวิพากษ์ และการสังเคราะห์ ที่อื่นเชี่ยวชาญเฉพาะทาง — ARCHRON บูรณาการและจัดระเบียบความรู้ขึ้นใหม่",
+    Icon: SynthesisIcon,
+    accent: "#8AA395",
+    title: (
+      <>
+        เปรียบเทียบ <span className="text-soft-gold">สังเคราะห์</span> ตั้งคำถามใหม่
+      </>
+    ),
+    desc: (
+      <>
+        ความจริงปรากฏผ่านการ<span className="font-medium text-soft-gold">เปรียบเทียบ วิพากษ์ และสังเคราะห์</span> —
+        ARCHRON บูรณาการและจัดระเบียบความรู้ขึ้นใหม่
+      </>
+    ),
   },
 ];
 
@@ -155,21 +197,43 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Pillars */}
-        <section className="mx-auto max-w-[1200px] px-6 py-32 md:py-40">
-          <div className="grid grid-cols-1 gap-y-16 md:grid-cols-12 md:gap-x-12">
-            {PILLARS.map((p, i) => (
-              <div key={p.title} className={`group scroll-reveal stagger-${i + 1} md:col-span-4`}>
-                <div className="mb-8 h-px w-12 bg-burnished-gold/30" />
-                <div className="flex flex-col gap-6">
-                  <span className="material-symbols-outlined text-[40px] text-burnished-gold transition-transform duration-500 group-hover:scale-110">
-                    {p.icon}
+        {/* Pillars — สิ่งที่เราทำ (การ์ด + ไอคอนเส้นเฉพาะ + เน้นคำ) */}
+        <section className="mx-auto max-w-[1200px] px-6 py-28 md:py-36">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {PILLARS.map((p, i) => {
+              const Icon = p.Icon;
+              return (
+                <article
+                  key={i}
+                  className={`group relative overflow-hidden rounded-2xl border border-slate-boundary/25 bg-white/[0.02] p-7 transition-all duration-500 hover:-translate-y-1.5 hover:border-burnished-gold/40 hover:shadow-[0_28px_56px_-30px_rgba(0,0,0,0.7)] scroll-reveal stagger-${i + 1}`}
+                >
+                  {/* แถบ accent ซ้าย (ขึ้นเมื่อ hover) */}
+                  <span
+                    className="absolute inset-y-0 left-0 w-[3px] origin-top scale-y-0 transition-transform duration-500 group-hover:scale-y-100"
+                    style={{ backgroundColor: p.accent }}
+                    aria-hidden="true"
+                  />
+                  {/* แสงเรืองมุมบนขวา */}
+                  <span
+                    className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full opacity-40 transition-opacity duration-500 group-hover:opacity-90"
+                    style={{ background: `radial-gradient(circle, color-mix(in srgb, ${p.accent} 20%, transparent), transparent 70%)` }}
+                    aria-hidden="true"
+                  />
+                  <span
+                    className="flex h-14 w-14 items-center justify-center rounded-xl border transition-transform duration-500 group-hover:scale-105"
+                    style={{
+                      color: p.accent,
+                      borderColor: `color-mix(in srgb, ${p.accent} 30%, transparent)`,
+                      backgroundColor: `color-mix(in srgb, ${p.accent} 10%, transparent)`,
+                    }}
+                  >
+                    <Icon className="h-7 w-7" />
                   </span>
-                  <h3 className="font-serif text-[26px] font-medium text-on-surface">{p.title}</h3>
-                  <p className="text-lg leading-relaxed text-on-surface-variant/80">{p.desc}</p>
-                </div>
-              </div>
-            ))}
+                  <h3 className="mt-6 font-serif text-[24px] font-medium leading-snug text-on-surface">{p.title}</h3>
+                  <p className="mt-3 text-base leading-relaxed text-on-surface-variant/80">{p.desc}</p>
+                </article>
+              );
+            })}
           </div>
         </section>
 

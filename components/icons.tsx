@@ -586,3 +586,14 @@ export function ClockIcon({ className = "h-5 w-5" }: IconProps) {
     </>,
   );
 }
+
+// สังเคราะห์ — วงกลมสองวงประสานกัน (เปรียบเทียบ/บูรณาการ)
+export function SynthesisIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <circle cx="9" cy="12" r="5.5" />
+      <circle cx="15" cy="12" r="5.5" />
+    </>,
+  );
+}

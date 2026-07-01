@@ -478,6 +478,63 @@ Icons     → Material Symbols (font) + SVG ใน icons.tsx
 - motion: ใช้ `--ease-soft/--ease-out`, `--dur-fast/base/slow`; animate เฉพาะ `transform`/`opacity`; เคารพ `prefers-reduced-motion`
 - `@property --accent` คือหัวใจของ Dynamic Accent — อย่าลบ
 
+**Colour Mixing — Bridge Colors (สีผสมจาก Cosmology) · Design System handoff**
+
+> เพิ่มโดย Design System Agent — เป็น *สเปก* ให้ Frontend Engineering นำไป implement ใน `app/globals.css`
+> แนวคิด: สีผสมของสองศาสตร์ = สีของ **"เส้นเชื่อม/ความสัมพันธ์"** ระหว่าง node ในโครงข่ายความรู้ ทุกสีเกิดจาก 6 แกน Cosmology เท่านั้น (ไม่หลุด palette)
+
+**Base (canonical — ตรงกับ `COSMOLOGY_ACCENT` ใน `lib/content/cosmology.ts`)**
+
+| token | cosmology | hex |
+|---|---|---|
+| `--cos-prima` | prima | `#B9C2CE` |
+| `--cos-psyche` | psyche | `#6E93A8` |
+| `--cos-lumen` | lumen | `#E7D7A6` |
+| `--cos-sapientia` | sapientia | `#CBA45A` |
+| `--cos-mercurius` | mercurius | `#8AA395` |
+| `--cos-humanitas` | humanitas | `#C9C2B4` |
+
+**Bridge (สีผสม 50/50 — ใช้เฉพาะ edge/gradient/hover เท่านั้น ไม่ใช่สีพื้น/accent หลัก)**
+
+| token | คู่ผสม | hex | contrast บน `#0E1420` |
+|---|---|---|---|
+| `--mix-reflection` | psyche × sapientia | `#9C9C81` | 6.6 · AA |
+| `--mix-threshold` | prima × psyche | `#94AABB` | 7.7 · AA |
+| `--mix-illumination` | lumen × sapientia | `#D9BE80` | 10.2 · AA |
+| `--mix-dialogue` | psyche × mercurius | `#7C9B9E` | 6.2 · AA |
+| `--mix-praxis` | sapientia × mercurius | `#AAA478` | 7.3 · AA |
+| `--mix-manuscript` | prima × sapientia | `#C2B394` | 8.9 · AA |
+
+```css
+:root{
+  /* Base Cosmology (canonical) */
+  --cos-prima:#B9C2CE; --cos-psyche:#6E93A8; --cos-lumen:#E7D7A6;
+  --cos-sapientia:#CBA45A; --cos-mercurius:#8AA395; --cos-humanitas:#C9C2B4;
+
+  /* Bridge — edge/gradient/hover (สีผสม) */
+  --mix-reflection:#9C9C81;   /* psyche × sapientia */
+  --mix-threshold:#94AABB;    /* prima × psyche */
+  --mix-illumination:#D9BE80; /* lumen × sapientia */
+  --mix-dialogue:#7C9B9E;     /* psyche × mercurius */
+  --mix-praxis:#AAA478;       /* sapientia × mercurius */
+  --mix-manuscript:#C2B394;   /* prima × sapientia */
+}
+/* ทางเลือก: คำนวณจาก base เพื่อผูกที่มา (เนียนกว่าเวลาปรับสีฐาน) */
+/* --mix-reflection: color-mix(in srgb, var(--cos-psyche) 50%, var(--cos-sapientia)); */
+
+/* ตัวอย่าง edge ในกราฟความรู้ (ต้นทาง → ปลายทาง) */
+.edge-psyche-sapientia{
+  background:linear-gradient(90deg,var(--cos-psyche),var(--mix-reflection) 50%,var(--cos-sapientia));
+}
+```
+
+**ระวัง (Gotchas)**
+- Bridge ใช้เฉพาะ **edge/gradient/hover** — ห้ามใช้เป็นสีพื้นหรือ accent หลัก (กัน palette แตกทิศ)
+- ยึด token เสมอ ห้าม hardcode สี · ห้ามประกาศ `@property --accent` ซ้ำ
+- Bridge เป็นสีคงที่ของคู่ศาสตร์ (ไม่เปลี่ยนตาม `--accent`) — ต่างจาก Dynamic Accent
+- การนำเข้า `app/globals.css` จริง = งาน Frontend Engineering (guardrail #5: ไม่เปลี่ยน brand palette เดิม เป็นการ *เพิ่ม* token)
+- เอกสารอ้างอิงเต็ม: Hyperagent doc "Colour Cosmology — Handoff"
+
 ---
 
 ## 13) เส้นทางงาน: Themes — แก่นเรื่องข้ามศาสตร์ (B1)

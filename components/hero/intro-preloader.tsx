@@ -237,8 +237,9 @@ export function IntroPreloader() {
       <button
         ref={skipBtnRef}
         type="button"
-        onClick={() => {
-          window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+        onClick={(e) => {
+          e.stopPropagation();
+          skip();
         }}
         className="absolute right-5 top-5 z-10 rounded border border-slate-boundary/40 bg-surface-container/40 px-4 py-2 text-xs font-medium tracking-wider text-on-surface-variant/70 backdrop-blur transition-colors hover:text-soft-gold hover:border-burnished-gold/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold/50"
         aria-label="ข้ามการแนะนำ"

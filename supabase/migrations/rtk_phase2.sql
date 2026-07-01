@@ -78,3 +78,33 @@ create policy chunks_select on public.chunks
 -- 6) Grants
 grant select on public.library to anon, authenticated;
 grant select on public.chunks to anon, authenticated;
+
+-- 7) FTS search RPC functions (used by searchLibrary / searchChunks)
+create or replace function public.search_library_fts(p_q text, p_limit int default 5)
+returns setof public.library
+language sql
+stable
+set search_path = public
+as $$
+  select *
+  from public.library
+  where fts @@ plainto_tsquery('simple', p_q)
+  order by ts_rank(fts, plainto_tsquery('simple', p_q)) desc
+  limit p_limit;
+$$;
+
+create or replace function public.search_chunks_fts(p_q text, p_limit int default 5)
+returns setof public.chunks
+language sql
+stable
+set search_path = public
+as $$
+  select *
+  from public.chunks
+  where fts @@ plainto_tsquery('simple', p_q)
+  order by ts_rank(fts, plainto_tsquery('simple', p_q)) desc
+  limit p_limit;
+$$;
+
+grant execute on function public.search_library_fts(text, int) to anon, authenticated;
+grant execute on function public.search_chunks_fts(text, int) to anon, authenticated;

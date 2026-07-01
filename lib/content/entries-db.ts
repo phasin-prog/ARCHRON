@@ -2,6 +2,8 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import type { ContentEntry } from "@/types/content";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { rowToEntry, type EntryRow } from "./entry-mapper";
+import { refreshLibrary } from "@/lib/rtk/ingest";
+import { invalidateRTK } from "@/lib/rtk/cache";
 
 // ============ Public reads (server, anon) ============
 // ใช้แทน static entries.ts ใน E8 (ตอนนี้พร้อมใช้ ยังไม่สลับ)
@@ -70,11 +72,29 @@ export async function upsertEntryRow(
   sb: SupabaseClient,
   row: Partial<EntryRow> & { slug: string; title: string; author_id: string },
 ) {
-  return sb.from("entries").upsert(row, { onConflict: "slug" }).select().maybeSingle();
+  const result = await sb
+    .from("entries")
+    .upsert(row, { onConflict: "slug" })
+    .select()
+    .maybeSingle();
+
+  // Fire-and-forget: if this is a published entry, reindex into RTK
+  if (row.status === "published") {
+    refreshLibrary(row.slug).catch((e) => {
+      console.error(`[RTK_REFRESH_ERROR] slug=${row.slug}:`, e);
+    });
+  }
+
+  return result;
 }
 
 export async function deleteEntry(sb: SupabaseClient, id: string) {
-  return sb.from("entries").delete().eq("id", id);
+  const result = await sb.from("entries").delete().eq("id", id);
+
+  // Invalidate RTK cache — FK cascade removes library + chunks rows
+  invalidateRTK().catch(() => {});
+
+  return result;
 }
 
 // ============ Revisions (version history — ใช้ใน E6) ============

@@ -4,6 +4,7 @@ import type { ContentEntry } from "@/types/content";
 import { draftToRow, entryToDraft } from "@/lib/content/draft-mapper";
 import { rowToEntry, type EntryRow } from "@/lib/content/entry-mapper";
 import { getMyProfile } from "@/lib/content/profile-db";
+import { refreshLibrary } from "@/lib/rtk/ingest";
 
 // ชั้น persistence ของ editor (E3) — เรียกด้วย Supabase service-role client
 // service role ข้าม RLS ได้ จึงต้องตรวจสอบ ownership เองทุก operation
@@ -112,9 +113,16 @@ export async function publishEntry(
     published_at: publishedAt,
   };
 
-  return sb
+  const result = await sb
     .from("entries")
     .upsert(row, { onConflict: "slug" })
     .select()
     .maybeSingle();
+
+  // Fire-and-forget: reindex this entry into RTK library + chunks
+  refreshLibrary(draft.slug).catch((e) => {
+    console.error(`[RTK_REFRESH_ERROR] slug=${draft.slug}:`, e);
+  });
+
+  return result;
 }

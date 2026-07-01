@@ -26,6 +26,8 @@ export function IntroPreloader() {
   const coverWordRef = useRef<HTMLDivElement>(null);
   const wordRefs = useRef<(HTMLDivElement | null)[]>([]);
   const skipBtnRef = useRef<HTMLButtonElement>(null);
+  const skipRef = useRef<() => void>(() => {});
+  const skip = () => skipRef.current();
 
   useEffect(() => {
     let alreadyPlayed = false;
@@ -202,6 +204,7 @@ export function IntroPreloader() {
       ctx.kill();
       finish();
     }
+    skipRef.current = skip;
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape" || e.key === "Enter" || e.key === " ") {
@@ -223,7 +226,9 @@ export function IntroPreloader() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[100] flex items-center justify-center"
+      id="intro-overlay"
+      onClick={skip}
+      className="fixed inset-0 z-[100] flex items-center justify-center cursor-pointer"
       style={{ backgroundColor: "var(--color-deep-navy)" }}
       aria-hidden="true"
       role="presentation"

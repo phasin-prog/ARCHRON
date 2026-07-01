@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -17,27 +17,50 @@ import {
   LoginIcon,
   EditIcon,
   LogoutIcon,
+  PersonIcon,
 } from "@/components/icons";
 import { SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
 
 type IconComponent = React.ComponentType<{ className?: string }>;
-type NavItem = { label: string; href: string; Icon: IconComponent };
+type Tier = "primary" | "standard" | "utility" | "support";
+type NavItem = { label: string; href: string; Icon: IconComponent; tier: Tier };
 
-// ลิงก์ระดับบนทั้งหมด — แยกเป็นลิงก์เดี่ยว ไม่มี dropdown
+// ลิงก์ระดับบน — จัดลำดับด้วย tier (primary เด่นสุด → utility จางสุด, support = pill)
 const NAV: NavItem[] = [
-  { label: "เข้าสู่คลังความรู้", href: "/knowledge", Icon: KnowledgeHubIcon },
-  { label: "ปฏิญญา", href: "/manifesto", Icon: ManifestoIcon },
-  { label: "แหล่งอ้างอิง", href: "/sources", Icon: QuoteIcon },
-  { label: "ทรัพยากรภายนอก", href: "/external-links", Icon: ExternalLinkIcon },
-  { label: "คำถามที่พบบ่อย", href: "/faq", Icon: HelpIcon },
-  { label: "สนับสนุนโครงการ", href: "/support", Icon: HeartIcon },
+  { label: "เข้าสู่คลังความรู้", href: "/knowledge", Icon: KnowledgeHubIcon, tier: "primary" },
+  { label: "ปฏิญญา", href: "/manifesto", Icon: ManifestoIcon, tier: "standard" },
+  { label: "แหล่งอ้างอิง", href: "/sources", Icon: QuoteIcon, tier: "standard" },
+  { label: "ทรัพยากรภายนอก", href: "/external-links", Icon: ExternalLinkIcon, tier: "utility" },
+  { label: "คำถามที่พบบ่อย", href: "/faq", Icon: HelpIcon, tier: "utility" },
+  { label: "สนับสนุนโครงการ", href: "/support", Icon: HeartIcon, tier: "support" },
 ];
+
+const MAIN_NAV = NAV.filter((i) => i.tier !== "support");
+const SUPPORT = NAV.find((i) => i.tier === "support");
+
+// สีลิงก์เดสก์ท็อปตาม tier (ไม่มีไอคอนบนเดสก์ท็อป — ลดความแน่น)
+function tierClass(tier: Tier, isActive: boolean): string {
+  if (isActive) return "text-accent font-semibold";
+  switch (tier) {
+    case "primary":
+      return "text-on-surface hover:text-accent";
+    case "utility":
+      return "text-on-surface-variant/55 hover:text-accent";
+    default:
+      return "text-on-surface-variant hover:text-accent";
+  }
+}
 
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [acctOpen, setAcctOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const acctRef = useRef<HTMLDivElement>(null);
   const clerk = useClerk();
+
+  const isActive = (href: string) =>
+    pathname === href || (href !== "/" && !!pathname?.startsWith(href));
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -49,14 +72,34 @@ export function SiteHeader() {
     };
   }, []);
 
+  // ปิด dropdown บัญชีเมื่อคลิกนอก / กด Esc
+  useEffect(() => {
+    if (!acctOpen) return;
+    const onDoc = (e: MouseEvent) => {
+      if (acctRef.current && !acctRef.current.contains(e.target as Node)) setAcctOpen(false);
+    };
+    const onEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setAcctOpen(false);
+    };
+    document.addEventListener("mousedown", onDoc);
+    document.addEventListener("keydown", onEsc);
+    return () => {
+      document.removeEventListener("mousedown", onDoc);
+      document.removeEventListener("keydown", onEsc);
+    };
+  }, [acctOpen]);
+
   // หน้า Studio เป็นพื้นที่ทำงาน (มี chrome ของตัวเอง) — ซ่อน header สาธารณะ
   if (pathname?.startsWith("/studio")) return null;
+
+  const menuItem =
+    "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-[13.5px] text-on-surface-variant transition-colors hover:bg-white/5 hover:text-on-surface";
 
   return (
     <header className={`sticky top-0 z-50 glass-nav ${scrolled ? "is-scrolled" : ""}`}>
       <nav
         className={`mx-auto flex max-w-[1280px] items-center justify-between gap-4 px-6 transition-all duration-500 ${
-          scrolled ? "py-3" : "py-5"
+          scrolled ? "py-2.5" : "py-4"
         }`}
       >
         <Link
@@ -68,69 +111,113 @@ export function SiteHeader() {
           <span className="font-wordmark text-[21px] font-semibold tracking-[0.2em]">ARCHRON</span>
         </Link>
 
-        {/* Desktop (lg+): ลิงก์แบนแยกเดี่ยว */}
-        <div className="hidden items-center gap-0.5 lg:flex" aria-label="เมนูหลัก">
-          {NAV.map((item) => {
-            const isActive = pathname === item.href || (item.href !== "/" && pathname?.startsWith(item.href));
-            return (
+        {/* Desktop (lg+): เห็นเมนูครบทุกอัน จัดลำดับด้วยสี ไม่มีไอคอน */}
+        <div className="hidden items-center gap-1 lg:flex" aria-label="เมนูหลัก">
+          {MAIN_NAV.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`rounded-md px-3 py-2 text-[13.5px] tracking-[0.01em] transition-colors ${tierClass(
+                item.tier,
+                isActive(item.href),
+              )}`}
+            >
+              {item.label}
+            </Link>
+          ))}
+          {SUPPORT ? (
+            <>
+              <span className="mx-1.5 h-5 w-px bg-slate-boundary/40" aria-hidden="true" />
               <Link
-                key={item.href}
-                href={item.href}
-                className={`group flex items-center gap-1.5 rounded-md px-2.5 py-2 text-[13px] tracking-[0.02em] transition-colors ${
-                  isActive ? "text-accent font-semibold" : "text-on-surface-variant hover:text-accent"
-                }`}
+                href={SUPPORT.href}
+                className="rounded-full border border-accent/30 px-4 py-1.5 text-[13px] text-soft-gold transition-colors hover:bg-accent/10 hover:text-ivory"
               >
-                <item.Icon
-                  className={`h-[17px] w-[17px] shrink-0 transition-colors ${
-                    isActive ? "text-accent" : "text-accent/60 group-hover:text-accent"
-                  }`}
-                />
-                {item.label}
+                สนับสนุน
               </Link>
-            );
-          })}
+            </>
+          ) : null}
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <Link
             href="/search"
             aria-label="ค้นหา"
-            className={`flex h-10 w-10 items-center justify-center transition-colors ${
+            className={`flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-white/5 ${
               pathname === "/search" ? "text-accent" : "text-on-surface-variant hover:text-accent"
             }`}
           >
             <SearchIcon className="h-[22px] w-[22px]" />
           </Link>
 
-          <SignedOut>
-            <Link
-              href="/th/login"
-              className="hidden items-center gap-1.5 border border-accent/30 bg-accent/5 px-6 py-2.5 text-[10px] font-semibold tracking-[0.08em] text-accent transition-all duration-500 hover:bg-accent hover:text-prima lg:inline-flex"
+          {/* Account dropdown (lg+) — รวม เข้าสู่ระบบ / Studio / ออกจากระบบ */}
+          <div className="relative hidden lg:block" ref={acctRef}>
+            <button
+              type="button"
+              onClick={() => setAcctOpen((v) => !v)}
+              aria-expanded={acctOpen}
+              aria-haspopup="menu"
+              aria-label="เมนูบัญชี"
+              className="flex items-center gap-2 rounded-full border border-slate-boundary/40 bg-white/[0.03] py-1.5 pl-2 pr-2.5 text-on-surface-variant transition-colors hover:border-accent/40 hover:text-on-surface"
             >
-              <LoginIcon className="h-3.5 w-3.5" />
-              เข้าสู่ระบบ
-            </Link>
-          </SignedOut>
-
-          <SignedIn>
-            <div className="hidden items-center gap-2 lg:flex">
-              <Link
-                href="/studio"
-                className="inline-flex items-center gap-1.5 border border-accent/30 bg-accent/10 px-6 py-2.5 text-[10px] font-semibold tracking-[0.08em] text-accent transition-all duration-500 hover:bg-accent hover:text-prima"
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-accent/10 text-accent">
+                <PersonIcon className="h-[18px] w-[18px]" />
+              </span>
+              <span className="text-[13px]">บัญชี</span>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.6}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={`h-4 w-4 transition-transform duration-200 ${acctOpen ? "rotate-180" : ""}`}
               >
-                <EditIcon className="h-3.5 w-3.5" />
-                Studio
-              </Link>
-              <button
-                onClick={() => clerk.signOut()}
-                className="inline-flex items-center gap-1.5 border border-danger/30 bg-danger/5 px-5 py-2.5 text-[10px] font-semibold tracking-[0.08em] text-danger transition-all duration-500 hover:bg-danger hover:text-ivory cursor-pointer"
-              >
-                <LogoutIcon className="h-3.5 w-3.5" />
-                ออกจากระบบ
-              </button>
-            </div>
-          </SignedIn>
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
 
+            {acctOpen ? (
+              <div
+                role="menu"
+                className="glass-nav-panel absolute right-0 top-[calc(100%+10px)] min-w-[214px] rounded-xl border border-slate-boundary/40 p-1.5 shadow-[0_24px_50px_-24px_rgba(0,0,0,0.85)]"
+              >
+                <SignedOut>
+                  <p className="px-3 pb-1 pt-2 font-mono text-[10px] uppercase tracking-[0.12em] text-on-surface-variant/50">
+                    ยินดีต้อนรับ
+                  </p>
+                  <Link href="/th/login" onClick={() => setAcctOpen(false)} className={menuItem} role="menuitem">
+                    <LoginIcon className="h-[18px] w-[18px] text-accent" />
+                    เข้าสู่ระบบ
+                  </Link>
+                </SignedOut>
+
+                <SignedIn>
+                  <p className="px-3 pb-1 pt-2 font-mono text-[10px] uppercase tracking-[0.12em] text-on-surface-variant/50">
+                    บัญชีของคุณ
+                  </p>
+                  <Link href="/studio" onClick={() => setAcctOpen(false)} className={menuItem} role="menuitem">
+                    <EditIcon className="h-[18px] w-[18px] text-accent" />
+                    Studio
+                  </Link>
+                  <span className="my-1.5 block h-px bg-slate-boundary/30" aria-hidden="true" />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setAcctOpen(false);
+                      clerk.signOut();
+                    }}
+                    className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-[13.5px] text-danger transition-colors hover:bg-danger/10"
+                    role="menuitem"
+                  >
+                    <LogoutIcon className="h-[18px] w-[18px]" />
+                    ออกจากระบบ
+                  </button>
+                </SignedIn>
+              </div>
+            ) : null}
+          </div>
+
+          {/* Mobile / tablet (< lg): hamburger */}
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
@@ -145,37 +232,37 @@ export function SiteHeader() {
         </div>
       </nav>
 
-      {/* Mobile / tablet (< lg): ลิงก์แยกเดี่ยว + Studio */}
+      {/* Mobile / tablet (< lg): เมนูเต็ม (ไอคอน+ข้อความ ครบ เพื่อการหาทางที่ง่าย) */}
       {open ? (
         <nav
           className="menu-in glass-nav-panel border-t border-slate-boundary/40 px-6 py-4 lg:hidden"
           aria-label="เมนูมือถือ"
         >
-          {NAV.map((item) => {
-            const isActive = pathname === item.href || (item.href !== "/" && pathname?.startsWith(item.href));
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className={`flex items-center gap-3 rounded px-1 py-2.5 text-base transition-colors ${
-                  isActive ? "text-accent font-semibold" : "text-on-surface-variant hover:text-accent"
+          {NAV.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={() => setOpen(false)}
+              className={`flex items-center gap-3 rounded px-1 py-2.5 text-base transition-colors ${
+                isActive(item.href) ? "text-accent font-semibold" : "text-on-surface-variant hover:text-accent"
+              }`}
+            >
+              <item.Icon
+                className={`h-5 w-5 shrink-0 transition-colors ${
+                  isActive(item.href) ? "text-accent" : "text-accent/70"
                 }`}
-              >
-                <item.Icon
-                  className={`h-5 w-5 shrink-0 transition-colors ${
-                    isActive ? "text-accent" : "text-accent/70"
-                  }`}
-                />
-                {item.label}
-              </Link>
-            );
-          })}
+              />
+              {item.label}
+            </Link>
+          ))}
+
+          <span className="my-3 block h-px bg-slate-boundary/40" aria-hidden="true" />
+
           <SignedOut>
             <Link
               href="/th/login"
               onClick={() => setOpen(false)}
-              className="mt-3 inline-flex items-center gap-2 rounded border border-accent/30 px-4 py-2.5 text-base font-medium text-accent transition-colors hover:bg-accent hover:text-prima"
+              className="inline-flex items-center gap-2 rounded border border-accent/30 px-4 py-2.5 text-base font-medium text-accent transition-colors hover:bg-accent hover:text-prima"
             >
               <LoginIcon className="h-5 w-5" />
               เข้าสู่ระบบ
@@ -187,7 +274,7 @@ export function SiteHeader() {
               <Link
                 href="/studio"
                 onClick={() => setOpen(false)}
-                className="mt-3 inline-flex items-center gap-2 rounded border border-accent/30 px-4 py-2.5 text-base font-medium text-accent transition-colors hover:bg-accent hover:text-prima"
+                className="inline-flex items-center gap-2 rounded border border-accent/30 px-4 py-2.5 text-base font-medium text-accent transition-colors hover:bg-accent hover:text-prima"
               >
                 <EditIcon className="h-5 w-5" />
                 Studio

@@ -25,7 +25,7 @@ export function LocalGraph({ entry }: { entry: ContentEntry }) {
   });
 
   return (
-    <figure className="mt-6 rounded-md border border-slate-boundary/40 bg-surface-container/30 p-4">
+    <figure className="archron-panel mt-6 p-4">
       <figcaption className="mb-2 flex items-center gap-1.5 text-xs text-on-surface-variant/60">
         <span className="material-symbols-outlined text-[16px] text-burnished-gold/70">hub</span>
         แผนที่ความสัมพันธ์เฉพาะหน้านี้
@@ -59,7 +59,7 @@ export function LocalGraph({ entry }: { entry: ContentEntry }) {
             key={p.slug}
             href={`/concepts/${p.slug}`}
             title={`${p.label}${p.relation ? ` · ${RELATION_LABEL[p.relation]}` : ""}`}
-            className="group absolute flex max-w-[40%] -translate-x-1/2 -translate-y-1/2 items-center gap-1.5 rounded-full border border-ink/10 bg-surface-container/90 px-2.5 py-1 text-xs text-on-surface-variant transition-colors hover:border-burnished-gold/50 hover:text-burnished-gold"
+            className="group absolute flex max-w-[40%] -translate-x-1/2 -translate-y-1/2 items-center gap-1.5 rounded-full border border-ink/10 bg-surface-container/90 px-3.5 py-2 text-xs text-on-surface-variant transition-colors hover:border-burnished-gold/50 hover:text-burnished-gold focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
             style={{ left: `${p.x}%`, top: `${p.y}%` }}
           >
             <span

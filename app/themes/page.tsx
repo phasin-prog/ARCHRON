@@ -30,13 +30,9 @@ export default async function ThemesPage() {
               <Link
                 key={t.key}
                 href={`/themes/${t.key}`}
-                className="archron-card group overflow-hidden p-6"
+                className="archron-card group p-6 transition-all focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
+                style={{ borderColor: `${t.accent}44` }}
               >
-                <span
-                  className="absolute inset-y-0 left-0 w-[3px]"
-                  style={{ backgroundColor: t.accent }}
-                  aria-hidden="true"
-                />
                 <div className="flex items-center justify-between gap-3">
                   <h2
                     className="font-serif text-xl group-hover:opacity-90"

@@ -18,9 +18,9 @@ export default async function SchoolsPage() {
     <main className="px-6 pb-24 pt-10">
       <div className="mx-auto max-w-[1100px]">
         <nav aria-label="เส้นทางนำทาง" className="flex flex-wrap items-center gap-1 text-xs text-muted">
-          <Link href="/" className="transition-colors hover:text-soft-gold">หน้าแรก</Link>
-          <span className="material-symbols-outlined text-[16px] text-subtle">chevron_right</span>
-          <span className="text-soft-ivory">สำนักคิดและนักปราชญ์</span>
+          <Link href="/" className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:text-soft-gold focus-visible:outline-none">หน้าแรก</Link>
+          <span className="material-symbols-outlined text-[16px] text-subtle" aria-hidden="true">chevron_right</span>
+          <span className="px-2 py-1.5 text-soft-ivory">สำนักคิดและนักปราชญ์</span>
         </nav>
 
         <header className="scroll-reveal mt-6">

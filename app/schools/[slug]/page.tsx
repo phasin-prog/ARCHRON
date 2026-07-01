@@ -61,22 +61,21 @@ export default async function SchoolDetailPage({ params }: PageProps) {
       <div className="mx-auto max-w-[900px]">
         {/* Breadcrumb */}
         <nav aria-label="เส้นทางนำทาง" className="flex flex-wrap items-center gap-1 text-xs text-muted">
-          <Link href="/" className="transition-colors hover:text-soft-gold">หน้าแรก</Link>
-          <span className="material-symbols-outlined text-[16px] text-subtle">chevron_right</span>
-          <Link href="/schools" className="transition-colors hover:text-soft-gold">สำนักคิดและนักปราชญ์</Link>
-          <span className="material-symbols-outlined text-[16px] text-subtle">chevron_right</span>
-          <span className="text-soft-ivory">{s.nameTh}</span>
+          <Link href="/" className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:text-soft-gold focus-visible:outline-none">หน้าแรก</Link>
+          <span className="material-symbols-outlined text-[16px] text-subtle" aria-hidden="true">chevron_right</span>
+          <Link href="/schools" className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:text-soft-gold focus-visible:outline-none">สำนักคิดและนักปราชญ์</Link>
+          <span className="material-symbols-outlined text-[16px] text-subtle" aria-hidden="true">chevron_right</span>
+          <span className="px-2 py-1.5 text-soft-ivory">{s.nameTh}</span>
         </nav>
 
         {/* School Header */}
-        <header className="mt-8 relative overflow-hidden rounded-md border border-slate-boundary/50 bg-surface-container/30 p-8 md:p-10">
+        <header 
+          className="mt-8 relative overflow-hidden rounded-md border bg-surface-container/30 p-8 md:p-10"
+          style={{ borderColor: `${meta.accent}44` }}
+        >
           <div
             className="absolute -right-16 -top-16 h-48 w-48 rounded-full blur-[80px]"
             style={{ backgroundColor: `${meta.accent}1c` }}
-          />
-          <span
-            className="absolute inset-y-0 left-0 w-[4px]"
-            style={{ backgroundColor: meta.accent }}
           />
 
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -130,7 +129,7 @@ export default async function SchoolDetailPage({ params }: PageProps) {
                 <Link
                   key={t.nameEn}
                   href={`/thinkers/${thinkerSlug}`}
-                  className="archron-card group relative p-6 block overflow-hidden transition-all duration-300 hover:border-burnished-gold/45"
+                  className="archron-card group relative p-6 block transition-all duration-300 hover:border-burnished-gold/45 focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
                 >
                   <h3 className="font-serif text-xl font-medium text-on-surface group-hover:text-burnished-gold flex items-center justify-between">
                     {t.nameTh}
@@ -178,7 +177,7 @@ export default async function SchoolDetailPage({ params }: PageProps) {
                 <Link
                   key={e.slug}
                   href={e.contentType === "article" ? `/articles/${e.slug}` : `/concepts/${e.slug}`}
-                  className="flex items-center justify-between rounded-md border border-slate-boundary/30 bg-surface-container/20 p-5 transition-colors hover:bg-surface-container/50 hover:border-burnished-gold/25"
+                  className="flex items-center justify-between rounded-md border border-slate-boundary/30 bg-surface-container/20 p-5 transition-colors hover:bg-surface-container/50 hover:border-burnished-gold/25 focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
                 >
                   <div>
                     <span className="inline-flex rounded-full bg-burnished-gold/10 px-2 py-0.5 text-[10px] font-semibold text-burnished-gold mb-1">

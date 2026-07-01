@@ -197,7 +197,7 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
           <h2 className="font-serif text-2xl font-semibold text-ivory border-b border-slate-boundary/20 pb-3">
             ผลงานและเอกสารวิชาการสำคัญ
           </h2>
-          <div className="mt-6 rounded-md border border-slate-boundary/30 bg-surface-container/20 p-6">
+          <div className="archron-panel mt-6 p-6">
             <ul className="space-y-3">
               {t.masterpieces.map((m) => (
                 <li key={m} className="flex items-start gap-2.5 text-sm leading-relaxed text-soft-ivory">

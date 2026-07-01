@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { PageNav } from "@/components/page-nav";
 import { ViewBadge } from "@/components/view-badge";
+import { EmptyState } from "@/components/empty-state";
 import { getPublicEntries } from "@/lib/content/public-source";
 import { nodeTypeCosmology } from "@/lib/content/cosmology";
 
@@ -26,17 +27,18 @@ export default async function ArticlesPage() {
       />
       <section className="scroll-reveal stagger-1 mx-auto max-w-6xl px-6">
         {articles.length === 0 ? (
-          <div className="rounded-md border border-ink/10 bg-surface-1/50 p-10 text-center">
-            <p className="text-soft-ivory">ยังไม่มีบทความเผยแพร่ — กำลังจัดเตรียมเนื้อหาชุดแรก</p>
-            <p className="mt-2 text-sm text-muted">เนื้อหาเริ่มต้นจะถูกเพิ่มใน Phase 13 (Initial Content Seed)</p>
-          </div>
+          <EmptyState
+            icon="article"
+            title="ยังไม่มีบทความเผยแพร่ — กำลังจัดเตรียมเนื้อหาชุดแรก"
+            description="เนื้อหาเริ่มต้นจะถูกเพิ่มใน Phase 13 (Initial Content Seed)"
+          />
         ) : (
           <div className="grid gap-6 md:grid-cols-2">
             {articles.map((e) => (
               <Link
                 key={e.slug}
                 href={`/articles/${e.slug}`}
-                className={`archron-card archron-card--${nodeTypeCosmology(e.contentType)} group flex min-h-[220px] flex-col justify-between p-6`}
+                className={`archron-card archron-card--${nodeTypeCosmology(e.contentType)} group flex min-h-[220px] flex-col justify-between p-6 focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none`}
               >
                 <div>
                   <span className="text-[10px] font-semibold uppercase tracking-widest text-[var(--cosmology-accent,#CBA45A)] opacity-85">

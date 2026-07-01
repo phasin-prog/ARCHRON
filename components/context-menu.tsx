@@ -147,7 +147,7 @@ export function ContextMenu({
                     it.onSelect();
                     close();
                   }}
-                  className="flex w-full items-center gap-2.5 px-3.5 py-2 text-left text-sm text-on-surface transition-colors hover:bg-burnished-gold/12 hover:text-burnished-gold focus:bg-burnished-gold/12 focus:text-burnished-gold focus:outline-none"
+                  className="flex w-full items-center gap-2.5 px-4 py-3 text-left text-sm text-on-surface transition-colors hover:bg-burnished-gold/12 hover:text-burnished-gold focus:bg-burnished-gold/12 focus:text-burnished-gold focus:outline-none"
                 >
                   {it.icon ? (
                     <span className="material-symbols-outlined text-[18px] text-burnished-gold">

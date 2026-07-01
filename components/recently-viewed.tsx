@@ -76,7 +76,7 @@ export function RecentlyViewed() {
           <Link
             key={item.slug}
             href={`/${item.section}/${item.slug}`}
-            className="group flex items-center gap-4 rounded-lg border border-slate-boundary/30 bg-surface-container-low px-5 py-4 transition-all duration-300 hover:border-burnished-gold/40 hover:bg-surface-container"
+            className="group flex items-center gap-4 rounded-lg border border-slate-boundary/30 bg-surface-container-low px-5 py-4 transition-all duration-300 hover:border-burnished-gold/40 hover:bg-surface-container focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
           >
             <span className="material-symbols-outlined shrink-0 text-[24px] text-burnished-gold/50 transition-colors group-hover:text-burnished-gold">
               {item.section === "articles" ? "article" : "neurology"}

@@ -52,11 +52,10 @@ const ATLAS: AtlasItem[] = [
 export default function HomePage() {
   return (
     <main>
-        {/* Hero — Prima Materia (night sea journey) → แสง Lumen → ละลายสู่พื้น Humanitas */}
         <section 
           className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden px-6 text-center text-mist"
           style={{
-            background: "radial-gradient(circle at center, #121826 30%, #0B0D12 100%)"
+            background: "radial-gradient(circle at center, var(--color-deep-navy) 30%, var(--color-surface-container-lowest) 100%)"
           }}
         >
           {/* Ambient Glow: แสงเรืองรองจางๆ (ไม่มี Animation) */}
@@ -70,8 +69,8 @@ export default function HomePage() {
           <div 
             className="pointer-events-none absolute left-1/2 top-[45%] z-0 h-[260px] w-[260px] -translate-x-1/2 -translate-y-1/2 opacity-15"
           >
-            <div className="absolute top-0 left-[45px] w-[170px] h-[170px] border border-[#C79A4A] rounded-full" />
-            <div className="absolute bottom-0 left-[45px] w-[170px] h-[170px] border border-[#C79A4A] rounded-full" />
+            <div className="absolute top-0 left-[45px] w-[170px] h-[170px] border border-[var(--color-antique-gold)] rounded-full" />
+            <div className="absolute bottom-0 left-[45px] w-[170px] h-[170px] border border-[var(--color-antique-gold)] rounded-full" />
           </div>
           <div className="relative z-10 mx-auto max-w-5xl py-24">
             <span className="scroll-reveal mb-8 block text-xs font-semibold tracking-[0.05em] text-lumen/90">
@@ -88,7 +87,7 @@ export default function HomePage() {
             <div className="scroll-reveal stagger-3 flex flex-col justify-center gap-6 sm:flex-row">
               <Link
                 href="/articles"
-                className="group flex items-center justify-center gap-3 bg-sapientia px-10 py-5 text-xs font-semibold tracking-[0.05em] text-prima transition-all duration-500 hover:shadow-[0_0_34px_rgba(231, 215, 166,0.28)]"
+                className="group flex items-center justify-center gap-3 bg-sapientia px-10 py-5 text-xs font-semibold tracking-[0.05em] text-prima transition-all duration-500 hover:shadow-[0_0_34px_rgba(231, 215, 166,0.28)] focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
               >
                 เริ่มอ่านบทความ
                 <span className="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-1.5">
@@ -97,7 +96,7 @@ export default function HomePage() {
               </Link>
               <Link
                 href="/concepts"
-                className="flex items-center justify-center gap-3 border border-lumen/40 px-10 py-5 text-xs font-semibold tracking-[0.05em] text-lumen transition-all duration-500 hover:bg-lumen/10"
+                className="flex items-center justify-center gap-3 border border-lumen/40 px-10 py-5 text-xs font-semibold tracking-[0.05em] text-lumen transition-all duration-500 hover:bg-lumen/10 focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
               >
                 เปิดแผนที่แนวคิด
                 <span className="material-symbols-outlined text-[18px]">map</span>
@@ -163,16 +162,12 @@ export default function HomePage() {
                   <Link
                     key={c.no}
                     href="/concepts"
-                    className={`archron-card archron-card--${c.cosmology} group relative flex min-h-[300px] flex-col justify-between overflow-hidden p-10 scroll-reveal stagger-${i + 1}`}
+                    className={`archron-card archron-card--${c.cosmology} group relative flex min-h-[300px] flex-col justify-between p-10 scroll-reveal stagger-${i + 1} focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none`}
                   >
-                    <div
-                      className="absolute left-0 top-0 h-0 w-[3px] transition-all duration-700 group-hover:h-full"
-                      style={{ backgroundColor: c.accent }}
-                    />
                     <div>
                       <span
                         className="mb-6 block text-[10px] font-semibold tracking-[0.1em]"
-                        style={{ color: c.accent }}
+                        style={{ color: "var(--cosmology-accent)" }}
                       >
                         {c.no} / {c.kicker}
                       </span>
@@ -182,7 +177,7 @@ export default function HomePage() {
                     <div className="mt-8 flex items-center justify-between">
                       <span
                         className="opacity-80 transition-transform duration-500 group-hover:scale-110"
-                        style={{ color: c.accent }}
+                        style={{ color: "var(--cosmology-accent)" }}
                       >
                         <Icon className="h-8 w-8" />
                       </span>

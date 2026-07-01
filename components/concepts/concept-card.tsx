@@ -40,7 +40,7 @@ export function ConceptCard({ c }: { c: ConceptRegistryItem }) {
   const router = useRouter();
   const [copied, setCopied] = useState(false);
   const Icon = NODE_ICON[c.nodeType];
-  const accent = NODE_TYPE_COLOR[c.nodeType] ?? "#B58D4A"; // สี cosmology ประจำหมวด
+  const accent = NODE_TYPE_COLOR[c.nodeType] ?? "var(--color-antique-gold)"; // สี cosmology ประจำหมวด
   const href = `/concepts/${c.slug}`;
 
   const items: ContextMenuItem[] = [
@@ -70,7 +70,7 @@ export function ConceptCard({ c }: { c: ConceptRegistryItem }) {
     <ContextMenu items={items} className="relative">
       <Link
         href={href}
-        className={`archron-card archron-card--${nodeTypeCosmology(c.nodeType)} group flex min-h-[190px] flex-col justify-between p-5`}
+        className={`archron-card archron-card--${nodeTypeCosmology(c.nodeType)} group flex min-h-[190px] flex-col justify-between p-5 focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none`}
       >
         <div>
           <div className="flex items-center justify-between gap-3">
@@ -86,7 +86,10 @@ export function ConceptCard({ c }: { c: ConceptRegistryItem }) {
             </div>
             <span
               className="shrink-0 rounded-full px-2.5 py-0.5 text-[11px] font-medium"
-              style={{ backgroundColor: `${accent}14`, color: accent }}
+              style={{
+                backgroundColor: "color-mix(in srgb, var(--cosmology-accent) 10%, transparent)",
+                color: "var(--cosmology-accent)",
+              }}
             >
               {NODE_LABEL[c.nodeType] ?? c.nodeType}
             </span>

@@ -409,12 +409,12 @@
 .md-body li::marker {
   color: var(--color-gold);
 }
-/* Core-Epiphany blockquote — ผิว surface มืด + เส้นทอง Sapientia */
+/* Core-Epiphany blockquote — ผิว surface มืด + กรอบ hairline หม่น */
 .md-body blockquote {
   position: relative;
   margin: 2rem 0;
   padding: 1.5rem 1.75rem 1.5rem 2.6rem;
-  border-left: 3px solid var(--color-gold);
+  border: 1px solid var(--color-slate-boundary);
   border-radius: 0.5rem;
   background: var(--color-surface-container);
   color: var(--color-on-surface);
@@ -693,6 +693,40 @@
 }
 .archron-card--link:hover {
   transform: translateY(-1px);
+}
+
+/* ── Lite variant — สำหรับกริดใหญ่ (50+ cards)
+   ถอด ::before (gradient mask) + ::after (corner brackets) + backdrop-blur
+   เพื่อลด paint cost · คงขอบ + พื้น cosmology + hover lift ── */
+.archron-card--lite::before,
+.archron-card--lite::after {
+  content: none;
+}
+.archron-card--lite {
+  backdrop-filter: none;
+}
+
+/* ── Panel — functional container (non-content) · ใช้แทน ad-hoc `rounded-md border-ink/10`
+   สำหรับกล่องเครื่องมือ/กล่องข้อมูล ที่ไม่ใช่ "การ์ดเนื้อหา" (meta-grid cell, comment input,
+   masterpieces list, local-graph) · ขอบมนสมมาตร · ไม่มี corner brackets · ไม่ lift ── */
+.archron-panel {
+  border: 1px solid color-mix(in srgb, var(--color-ink) 10%, var(--color-slate-boundary));
+  border-radius: 0.375rem;
+  background: color-mix(in srgb, var(--color-ink) 4%, var(--color-surface-container));
+}
+
+/* ── Tag pill — ป้ายหมวด/แท็ก รูปแบบเดียวทั่วเว็บ
+   สีพื้น/ตัวอักษรอิง cosmology accent ผ่าน var(--cosmology-accent) ── */
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  padding: 0.125rem 0.625rem;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.4;
+  background: color-mix(in srgb, var(--cosmology-accent, var(--color-burnished-gold)) 10%, transparent);
+  color: var(--cosmology-accent, var(--color-burnished-gold));
 }
 
 @media (prefers-reduced-motion: reduce) {

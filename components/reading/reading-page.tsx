@@ -111,7 +111,7 @@ const mdComponents: Components = {
 
 function MetaCell({ label, value }: { label: string; value: ReactNode }) {
   return (
-    <div className="rounded-md border border-ink/10 bg-surface-1/40 p-4">
+    <div className="archron-panel p-4">
       <dt className="text-[11px] tracking-[0.04em] text-muted">{label}</dt>
       <dd className="mt-1 text-sm leading-snug text-ivory">{value}</dd>
     </div>
@@ -152,21 +152,21 @@ export async function ReadingPage({
       <main id="reading-article" className="w-full max-w-2xl px-6 pb-24 pt-10 xl:mx-0 mx-auto">
         {/* Breadcrumb */}
         <nav aria-label="เส้นทางนำทาง" className="scroll-reveal flex flex-wrap items-center gap-1 text-xs text-muted">
-          <Link href="/" className="transition-colors hover:text-soft-gold">หน้าแรก</Link>
-          <span className="material-symbols-outlined text-[16px] text-subtle">chevron_right</span>
-          <Link href={`/${section}`} className="transition-colors hover:text-soft-gold">
+          <Link href="/" className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:text-soft-gold focus-visible:outline-none">หน้าแรก</Link>
+          <span className="material-symbols-outlined text-[16px] text-subtle" aria-hidden="true">chevron_right</span>
+          <Link href={`/${section}`} className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:text-soft-gold focus-visible:outline-none">
             {SECTION_LABEL[section]}
           </Link>
-          <span className="material-symbols-outlined text-[16px] text-subtle">chevron_right</span>
-          <span className="text-soft-ivory">{entry.mainTerm ?? entry.title}</span>
+          <span className="material-symbols-outlined text-[16px] text-subtle" aria-hidden="true">chevron_right</span>
+          <span className="px-2 py-1.5 text-soft-ivory">{entry.mainTerm ?? entry.title}</span>
         </nav>
 
         {/* Header Zone */}
         <header className="scroll-reveal stagger-1 mt-7">
-          {/* ชื่อภาษาอังกฤษ (Header 2) */}
-          <h2 className="font-serif text-fluid-h2 font-semibold text-ivory">
+          {/* ชื่อภาษาอังกฤษ (Header 1) */}
+          <h1 className="font-serif text-fluid-h2 font-semibold text-ivory">
             {entry.mainTerm ?? entry.title}
-          </h2>
+          </h1>
 
           {/* คำอธิบายแบบกระชับ */}
           {entry.shortDescription ? (
@@ -182,7 +182,7 @@ export async function ReadingPage({
                 entry.framework ? `กรอบทฤษฎี: ${entry.framework}` : null,
                 entry.originalTerm ? `ชื่อเรียกอื่น: ${entry.originalTerm}` : null
               ].filter(Boolean).join(" — ")}
-              {entry.ipa ? <span className="text-muted/60"> ({entry.ipa})</span> : null}
+              {entry.ipa ? <span className="text-on-surface-variant/70"> ({entry.ipa})</span> : null}
             </p>
           ) : null}
 
@@ -276,8 +276,8 @@ export async function ReadingPage({
 
         {/* ความเข้าใจผิดที่พบบ่อย (Caution) */}
         {entry.roots?.caution ? (
-          <section className="scroll-reveal mt-12 border-l-2 border-amber-500/40 pl-4 bg-amber-500/5 p-4 rounded-r-md">
-            <h3 className="font-serif text-fluid-h3 text-amber-400/90 flex items-center gap-2">
+          <section className="scroll-reveal mt-12 border border-warning/20 bg-warning/5 p-5 rounded-md">
+            <h3 className="font-serif text-fluid-h3 text-warning/90 flex items-center gap-2">
               <span className="material-symbols-outlined text-[20px]">warning</span>
               ความเข้าใจผิดที่พบบ่อย / ข้อควรระวัง
             </h3>
@@ -374,8 +374,8 @@ export async function ReadingPage({
         ) : null}
 
         {/* CTA — guide การเข้าใจตัวตน */}
-        <aside className="scroll-reveal mt-16 overflow-hidden rounded-md border border-antique-gold/30 bg-surface-1/50">
-          <div className="border-l-2 border-antique-gold p-7 md:p-9">
+        <aside className="scroll-reveal mt-16 overflow-hidden rounded-md border border-antique-gold/30 bg-surface-1/50 p-7 md:p-9">
+          <div>
             <span className="text-xs tracking-[0.05em] text-antique-gold">
               Psychological Types · การอ่านตัวตน
             </span>
@@ -390,12 +390,12 @@ export async function ReadingPage({
             <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
               <Link
                 href={GUIDE_CTA_HREF}
-                className="inline-flex items-center gap-2 rounded-sm bg-gradient-to-br from-antique-gold to-soft-gold px-6 py-3 text-sm font-semibold text-prima transition-transform hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 rounded-sm bg-gradient-to-br from-antique-gold to-soft-gold px-6 py-3 text-sm font-semibold text-prima transition-transform hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
               >
                 เริ่มสำรวจประเภททางจิตวิทยาของคุณ
                 <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
               </Link>
-              <Link href="/articles" className="text-sm text-soft-gold hover:underline">
+              <Link href="/articles" className="text-sm text-soft-gold hover:underline focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:outline-none">
                 อ่านบทความที่เกี่ยวข้อง →
               </Link>
             </div>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
 import { PageNav } from "@/components/page-nav";
+import { EmptyState } from "@/components/empty-state";
 
 export const metadata: Metadata = {
   title: "แหล่งอ้างอิง — ARCHRON",
@@ -26,16 +27,18 @@ export default function SourcesPage() {
           {SOURCE_GROUPS.map((g) => (
             <article
               key={g.title}
-              className="archron-card overflow-hidden p-6 pl-7"
+              className="archron-card p-6"
             >
-              <span className="absolute inset-y-0 left-0 w-[3px]" style={{ backgroundColor: g.accent }} />
               <h2 className="font-serif text-lg" style={{ color: g.accent }}>{g.title}</h2>
               <p className="mt-2 text-sm leading-relaxed text-soft-ivory">{g.desc}</p>
             </article>
           ))}
         </div>
-        <div className="mt-8 rounded-md border border-ink/10 bg-surface-1/50 p-10 text-center">
-          <p className="text-soft-ivory">ยังไม่มีบันทึกแหล่งอ้างอิงเผยแพร่</p>
+        <div className="mt-8">
+          <EmptyState
+            icon="menu_book"
+            title="ยังไม่มีบันทึกแหล่งอ้างอิงเผยแพร่"
+          />
         </div>
       </section>
       <PageNav current="/sources" />

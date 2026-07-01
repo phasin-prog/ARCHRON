@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getPublicEntries } from "@/lib/content/public-source";
 import { THEMES, themeByKey, entriesForTheme } from "@/lib/content/themes";
 import { contentTypeMeta } from "@/lib/content/cosmology";
+import { EmptyState } from "@/components/empty-state";
 
 export const dynamicParams = true;
 export const revalidate = 300;
@@ -73,12 +74,11 @@ export default async function ThemePage({
 
         <section className="scroll-reveal stagger-1 mt-10">
           {matched.length === 0 ? (
-            <div className="rounded-md border border-ink/10 bg-surface-1/50 p-10 text-center">
-              <p className="text-soft-ivory">ยังไม่มีเนื้อหาเผยแพร่ภายใต้แก่นเรื่องนี้</p>
-              <p className="mt-2 text-sm text-muted">
-                เนื้อหาจะปรากฏเมื่อมีบทความ/แนวคิดติดแท็กแก่นเรื่อง “{theme.label}”
-              </p>
-            </div>
+            <EmptyState
+              icon="category"
+              title="ยังไม่มีเนื้อหาเผยแพร่ภายใต้แก่นเรื่องนี้"
+              description={`เนื้อหาจะปรากฏเมื่อมีบทความ/แนวคิดติดแท็กแก่นเรื่อง “${theme.label}”`}
+            />
           ) : (
             <div className="grid gap-4 md:grid-cols-2">
               {matched.map((e) => {

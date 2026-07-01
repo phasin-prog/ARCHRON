@@ -9,6 +9,7 @@ import {
   LanguageIcon,
 } from "@/components/icons";
 import { RecentlyViewed } from "@/components/recently-viewed";
+import { CardCarousel } from "@/components/card-carousel";
 import { VesicaPattern } from "@/components/hero/vesica-pattern";
 import type { Cosmology } from "@/lib/content/cosmology";
 
@@ -155,14 +156,14 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-              {ATLAS.map((c, i) => {
+            <CardCarousel ariaLabel="แผนที่ความรู้ — หกแขนงของการศึกษาจิตใจมนุษย์">
+              {ATLAS.map((c) => {
                 const Icon = c.Icon;
                 return (
                   <Link
                     key={c.no}
                     href="/concepts"
-                    className={`archron-card archron-card--${c.cosmology} group relative flex min-h-[300px] flex-col justify-between p-10 scroll-reveal stagger-${i + 1} focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none`}
+                    className={`archron-card archron-card--${c.cosmology} group relative flex h-full w-full min-h-[300px] flex-col justify-between p-10 focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none`}
                   >
                     <div>
                       <span
@@ -188,7 +189,7 @@ export default function HomePage() {
                   </Link>
                 );
               })}
-            </div>
+            </CardCarousel>
           </div>
         </section>
 

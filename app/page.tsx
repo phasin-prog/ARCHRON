@@ -1,12 +1,6 @@
 import Link from "next/link";
 import type { ComponentType, ReactNode } from "react";
 import {
-  PsychologyIcon,
-  MythologyIcon,
-  PhilosophyIcon,
-  ScienceIcon,
-  SymbolismIcon,
-  LanguageIcon,
   AuthorPenIcon,
   ConceptIcon,
   ScholarIcon,
@@ -14,8 +8,9 @@ import {
 } from "@/components/icons";
 import { RecentlyViewed } from "@/components/recently-viewed";
 import { LoopCarousel } from "@/components/loop-carousel";
+import { DisciplineCard } from "@/components/discipline-card";
+import { DISCIPLINES } from "@/lib/content/disciplines";
 import { VesicaPattern } from "@/components/hero/vesica-pattern";
-import type { Cosmology } from "@/lib/content/cosmology";
 
 type Pillar = {
   Icon: ComponentType<{ className?: string }>;
@@ -73,25 +68,6 @@ const PILLARS: Pillar[] = [
       </>
     ),
   },
-];
-
-type AtlasItem = {
-  no: string;
-  kicker: string;
-  title: string;
-  desc: string;
-  Icon: ComponentType<{ className?: string }>;
-  accent: string;
-  cosmology: Cosmology;
-};
-
-const ATLAS: AtlasItem[] = [
-  { no: "01", kicker: "แนวคิด", title: "จิตวิทยาเชิงลึก", desc: "สำรวจชั้นที่อยู่ใต้ความรู้สึกตัว แรงขับ และโครงสร้างภายในของจิต", Icon: PsychologyIcon, accent: "#6E93A8", cosmology: "psyche" },
-  { no: "02", kicker: "ทฤษฎี", title: "จิตวิเคราะห์", desc: "อ่านความฝัน ความขัดแย้ง และภาษาของจิตไร้สำนึกตามสายงานต้นทาง", Icon: MythologyIcon, accent: "#B9C2CE", cosmology: "prima" },
-  { no: "03", kicker: "ปรัชญา", title: "ปรัชญา", desc: "ตั้งคำถามต่อความหมาย เสรีภาพ และการดำรงอยู่ของมนุษย์", Icon: PhilosophyIcon, accent: "#CBA45A", cosmology: "sapientia" },
-  { no: "04", kicker: "วิทยาศาสตร์", title: "ประสาทวิทยาศาสตร์", desc: "เชื่อมประสบการณ์ภายในเข้ากับการทำงานของสมองและระบบประสาท", Icon: ScienceIcon, accent: "#7FB08A", cosmology: "mercurius" },
-  { no: "05", kicker: "สัญลักษณ์", title: "สัญลักษณ์และตำนาน", desc: "ถอดรหัสภาพแทน เรื่องเล่า และแบบแผนร่วมของมนุษยชาติ", Icon: SymbolismIcon, accent: "#C9A24A", cosmology: "sapientia" },
-  { no: "06", kicker: "ภาษา", title: "ภาษาและการตีความ", desc: "เข้าใจว่าความหมายถูกสร้าง ส่งผ่าน และตีความอย่างไร", Icon: LanguageIcon, accent: "#8AA395", cosmology: "mercurius" },
 ];
 
 export default function HomePage() {
@@ -245,63 +221,34 @@ export default function HomePage() {
             className="absolute inset-0 h-full w-full"
           />
           <div className="relative z-10 mx-auto max-w-[1200px]">
-            <div className="mb-20 grid grid-cols-1 items-end gap-8 md:grid-cols-12">
+            <div className="mb-16 grid grid-cols-1 items-end gap-8 md:grid-cols-12">
               <div className="md:col-span-8">
                 <span className="mb-4 block text-xs font-semibold tracking-[0.05em] text-burnished-gold/60">
                   แผนที่ความรู้
                 </span>
                 <h2 className="mb-6 font-serif text-fluid-h2 font-medium text-on-surface">
-                  แผนที่ความรู้ของจิตใจมนุษย์
+                  สิบสองแขนงของการเข้าใจมนุษย์
                 </h2>
                 <p className="max-w-2xl text-lg text-on-surface-variant/70">
-                  หกหมวดหลักที่เชื่อมโยงกันเป็นระบบ ดั่งคลังเอกสารและหอดูดาวของชีวิตภายในที่สะท้อนถึงการดำรงอยู่ของเรา
+                  การเข้าใจมนุษย์ไม่อาจอาศัยศาสตร์เดียว — แต่ละแขนงส่องสว่างซึ่งกันและกัน วางอยู่ในแผนที่เดียวที่เชื่อมโยงถึงกัน
                 </p>
               </div>
               <div className="md:col-span-4 md:text-right">
                 <Link
-                  href="/concepts"
+                  href="/disciplines"
                   className="group inline-flex items-center gap-3 border-b border-burnished-gold/0 pb-2 text-xs font-semibold tracking-[0.05em] text-burnished-gold transition-all duration-500 hover:border-burnished-gold/40"
                 >
-                  เปิดคลังแนวคิดทั้งหมด
+                  ดูศาสตร์ทั้งหมด
                   <span className="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-1.5">
                     arrow_forward
                   </span>
                 </Link>
               </div>
             </div>
-            <LoopCarousel ariaLabel="แผนที่ความรู้ — หกแขนงของการศึกษาจิตใจมนุษย์">
-              {ATLAS.map((c) => {
-                const Icon = c.Icon;
-                return (
-                  <Link
-                    key={c.no}
-                    href="/concepts"
-                    className={`archron-card archron-card--${c.cosmology} group relative flex h-full w-full min-h-[300px] flex-col justify-between p-10 focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none`}
-                  >
-                    <div>
-                      <span
-                        className="mb-6 block text-[10px] font-semibold tracking-[0.1em]"
-                        style={{ color: "var(--cosmology-accent)" }}
-                      >
-                        {c.no} / {c.kicker}
-                      </span>
-                      <h4 className="mb-4 font-serif text-[24px] text-on-surface">{c.title}</h4>
-                      <p className="text-base leading-relaxed text-on-surface-variant/70">{c.desc}</p>
-                    </div>
-                    <div className="mt-8 flex items-center justify-between">
-                      <span
-                        className="opacity-80 transition-transform duration-500 group-hover:scale-110"
-                        style={{ color: "var(--cosmology-accent)" }}
-                      >
-                        <Icon className="h-8 w-8" />
-                      </span>
-                      <span className="material-symbols-outlined -translate-x-4 text-burnished-gold opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100">
-                        arrow_right_alt
-                      </span>
-                    </div>
-                  </Link>
-                );
-              })}
+            <LoopCarousel ariaLabel="สิบสองแขนงของการเข้าใจมนุษย์ — เลื่อนวนได้">
+              {DISCIPLINES.map((d) => (
+                <DisciplineCard key={d.key} entry={d} href="/disciplines" />
+              ))}
             </LoopCarousel>
           </div>
         </section>

@@ -10,8 +10,8 @@ import { SectionHeading } from "@/components/section-heading";
 import type { BreadcrumbItem } from "@/components/breadcrumb";
 
 type PageScaffoldProps = {
-  /** ชื่อหน้า (h1) */
-  title: string;
+  /** ชื่อหน้า (h1) — เว้นว่างได้เมื่อหน้านั้นมี hero ของตัวเอง (เช่น /knowledge) */
+  title?: string;
   /** ป้ายเล็กเหนือชื่อ (uppercase tracking กว้าง สี accent) */
   kicker?: string;
   /** คำโปรยใต้ชื่อ */
@@ -40,7 +40,9 @@ export function PageScaffold({
     <main className={`relative pb-24 ${className}`}>
       {ambient ? <div className="ambient-observatory" aria-hidden="true" /> : null}
       <div className="relative z-10">
-        <PageHeader kicker={kicker} title={title} lead={lead} breadcrumb={breadcrumb} />
+        {title ? (
+          <PageHeader kicker={kicker} title={title} lead={lead} breadcrumb={breadcrumb} />
+        ) : null}
         {children}
         {navCurrent ? <PageNav current={navCurrent} /> : null}
       </div>

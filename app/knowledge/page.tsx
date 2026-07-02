@@ -3,6 +3,19 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { Breadcrumb } from "@/components/breadcrumb";
 import { ArrowRightIcon } from "@/components/icons";
+import { PageScaffold } from "@/components/page-scaffold";
+import { COSMOLOGY_ACCENT, type Cosmology } from "@/lib/content/cosmology";
+import { conceptRegistry } from "@/lib/content/concept-registry";
+import {
+  getPublicEntries,
+  getPublicReadingSets,
+  getPublicSchools,
+} from "@/lib/content/public-source";
+import { THEMES } from "@/lib/content/themes";
+import { DISCIPLINE_META } from "@/components/discipline-meta";
+
+// ตัวเลขบนการ์ดมาจากข้อมูลจริง (DB → cache → seed) — รีเฟรชตามรอบ ISR เดียวกับหน้าเนื้อหา (§3)
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "เข้าสู่คลังความรู้ — ARCHRON",
@@ -25,7 +38,8 @@ type KnowledgeCard = {
   description: string;
   href: string;
   icon: ReactNode;
-  accent: string; // Colour Cosmology
+  /** สีการ์ดอ้าง Colour Cosmology จาก lib/content/cosmology.ts เท่านั้น (single source of truth) */
+  cosmology: Cosmology;
   isNew?: boolean;
 };
 
@@ -35,7 +49,7 @@ const KNOWLEDGE_SECTIONS: KnowledgeCard[] = [
     engTitle: "Articles",
     description: "บทความที่อธิบายและตีความแนวคิดสำคัญในบริบทของมัน",
     href: "/articles",
-    accent: "#CBA45A", // sapientia
+    cosmology: "sapientia",
     icon: (
       <Ico>
         <path d="M12 6C10.5 4.8 8.5 4 6 4v13c2.5 0 4.5.8 6 2 1.5-1.2 3.5-2 6-2V4c-2.5 0-4.5.8-6 2z" />
@@ -48,7 +62,7 @@ const KNOWLEDGE_SECTIONS: KnowledgeCard[] = [
     engTitle: "Concepts",
     description: "ระบบความรู้แบบเชื่อมโยง รวบรวมพื้นฐานของแต่ละศาสตร์",
     href: "/concepts",
-    accent: "#6E93A8", // psyche
+    cosmology: "psyche",
     icon: (
       <Ico>
         <circle cx="6" cy="7" r="2" />
@@ -63,7 +77,7 @@ const KNOWLEDGE_SECTIONS: KnowledgeCard[] = [
     engTitle: "Schools & Thinkers",
     description: "ประวัติ แนวคิดสำคัญ และคุณูปการของนักคิดผู้บุกเบิก",
     href: "/schools",
-    accent: "#8AA395", // mercurius
+    cosmology: "mercurius",
     icon: (
       <Ico>
         <path d="M4 9l8-4 8 4-8 4z" />
@@ -76,7 +90,7 @@ const KNOWLEDGE_SECTIONS: KnowledgeCard[] = [
     engTitle: "Constellation",
     description: "สำรวจปฏิสัมพันธ์ระหว่างแนวคิดในรูปโครงข่ายความรู้",
     href: "/constellation",
-    accent: "#B9C2CE", // prima
+    cosmology: "prima",
     icon: (
       <Ico>
         <circle cx="5" cy="6" r="1.6" />
@@ -92,7 +106,7 @@ const KNOWLEDGE_SECTIONS: KnowledgeCard[] = [
     engTitle: "Reading Paths",
     description: "ลำดับการอ่านที่เรียงจากพื้นฐานสู่ความเข้าใจระดับลึก",
     href: "/reading-sets",
-    accent: "#C9A24A", // sapientia เข้ม
+    cosmology: "sapientia",
     icon: (
       <Ico>
         <path d="M6 4v11a3 3 0 0 0 3 3h6" />
@@ -108,7 +122,7 @@ const KNOWLEDGE_SECTIONS: KnowledgeCard[] = [
     engTitle: "Themes",
     description: "แก่นความคิดข้ามศาสตร์ที่ปรากฏซ้ำ เช่น จิตไร้สำนึก เสรีภาพ ความหมาย",
     href: "/themes",
-    accent: "#B9C2CE", // prima
+    cosmology: "prima",
     icon: (
       <Ico>
         <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z" />
@@ -121,7 +135,7 @@ const KNOWLEDGE_SECTIONS: KnowledgeCard[] = [
     engTitle: "Disciplines",
     description: "สิบสองแขนงของการเข้าใจมนุษย์ — จิตวิทยา ปรัชญา ตำนาน วิทยาศาสตร์ และอื่น ๆ",
     href: "/disciplines",
-    accent: "#C79A4A", // gold
+    cosmology: "humanitas",
     isNew: true,
     icon: (
       <Ico>
@@ -134,10 +148,32 @@ const KNOWLEDGE_SECTIONS: KnowledgeCard[] = [
   },
 ];
 
-export default function KnowledgeHubPage() {
+export default async function KnowledgeHubPage() {
+  // นับจากแหล่งเดียวกับหน้าเนื้อหาจริง — Supabase (published) → cache → seed fallback
+  const [entries, schools, readingSets] = await Promise.all([
+    getPublicEntries(),
+    getPublicSchools(),
+    getPublicReadingSets(),
+  ]);
+  const articleCount = entries.filter((e) => e.contentType === "article").length;
+  const thinkerCount = schools.reduce((n, s) => n + s.thinkers.length, 0);
+  const nodeCount = conceptRegistry.length;
+
+  // ป้ายจำนวนจริงต่อการ์ด — ส่วนที่ยังไม่มีข้อมูลบอกสถานะตรง ๆ ไม่โชว์ 0 ปลอม
+  const CARD_STAT: Record<string, string> = {
+    "/articles": articleCount > 0 ? `${articleCount} บทความ` : "เตรียมเผยแพร่",
+    "/concepts": `${nodeCount} รายการ`,
+    "/schools": `${schools.length} สำนัก · ${thinkerCount} นักคิด`,
+    "/constellation": `${nodeCount} โหนดความรู้`,
+    "/reading-sets":
+      readingSets.length > 0 ? `${readingSets.length} ซีรีส์` : "เตรียมเปิดให้อ่าน",
+    "/themes": `${THEMES.length} แก่นเรื่อง`,
+    "/disciplines": `${Object.keys(DISCIPLINE_META).length} ศาสตร์`,
+  };
+
   return (
-    <main className="px-6 py-24">
-      <div className="mx-auto max-w-5xl">
+    <PageScaffold ambient navCurrent="/knowledge">
+      <div className="mx-auto max-w-5xl px-6 pt-24">
         <Breadcrumb
           items={[{ label: "หน้าแรก", href: "/" }, { label: "คลังความรู้" }]}
           className="mb-10"
@@ -158,60 +194,67 @@ export default function KnowledgeHubPage() {
           </p>
         </header>
 
-        {/* การ์ดกลุ่มคลังความรู้ (ธีมมืด + accent cosmology) */}
+        {/* การ์ดกลุ่มคลังความรู้ (ธีมมืด + accent จาก COSMOLOGY_ACCENT เท่านั้น) */}
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {KNOWLEDGE_SECTIONS.map((section) => (
-            <Link
-              key={section.href}
-              href={section.href}
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-boundary/25 bg-white/[0.02] p-6 transition-all duration-500 hover:-translate-y-1.5 hover:border-burnished-gold/40 hover:shadow-[0_28px_56px_-30px_rgba(0,0,0,0.7)] focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
-            >
-              {/* แถบ accent บน — ขึ้นตอน hover */}
-              <span
-                className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100"
-                style={{ backgroundColor: section.accent }}
-                aria-hidden="true"
-              />
-              {/* แสงเรืองมุมบนขวา */}
-              <span
-                className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full opacity-40 transition-opacity duration-500 group-hover:opacity-90"
-                style={{ background: `radial-gradient(circle, color-mix(in srgb, ${section.accent} 18%, transparent), transparent 70%)` }}
-                aria-hidden="true"
-              />
-              <div className="flex items-center justify-between">
-                <span
-                  className="flex h-12 w-12 items-center justify-center rounded-xl border"
-                  style={{
-                    color: section.accent,
-                    borderColor: `color-mix(in srgb, ${section.accent} 30%, transparent)`,
-                    backgroundColor: `color-mix(in srgb, ${section.accent} 10%, transparent)`,
-                  }}
-                >
-                  {section.icon}
-                </span>
-                {section.isNew ? (
-                  <span className="rounded-md bg-soft-gold px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.1em] text-prima">
-                    ใหม่
-                  </span>
-                ) : (
-                  <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-on-surface-variant/45">
-                    {section.engTitle}
-                  </span>
-                )}
-              </div>
-              <h2 className="mt-5 font-serif text-xl text-ivory">{section.title}</h2>
-              <p className="mt-2.5 text-sm leading-relaxed text-on-surface-variant/75">
-                {section.description}
-              </p>
-              <span
-                className="mt-6 inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.08em] transition-all duration-300 group-hover:gap-2.5"
-                style={{ color: section.accent }}
+          {KNOWLEDGE_SECTIONS.map((section) => {
+            const accent = COSMOLOGY_ACCENT[section.cosmology];
+            return (
+              <Link
+                key={section.href}
+                href={section.href}
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-boundary/25 bg-white/[0.02] p-6 transition-all duration-500 hover:-translate-y-1.5 hover:border-burnished-gold/40 hover:shadow-[0_28px_56px_-30px_rgba(0,0,0,0.7)] focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
               >
-                เข้าสู่ส่วนนี้
-                <ArrowRightIcon className="h-3.5 w-3.5" />
-              </span>
-            </Link>
-          ))}
+                {/* แถบ accent บน — ขึ้นตอน hover */}
+                <span
+                  className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100"
+                  style={{ backgroundColor: accent }}
+                  aria-hidden="true"
+                />
+                {/* แสงเรืองมุมบนขวา */}
+                <span
+                  className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full opacity-40 transition-opacity duration-500 group-hover:opacity-90"
+                  style={{ background: `radial-gradient(circle, color-mix(in srgb, ${accent} 18%, transparent), transparent 70%)` }}
+                  aria-hidden="true"
+                />
+                <div className="flex items-center justify-between">
+                  <span
+                    className="flex h-12 w-12 items-center justify-center rounded-xl border"
+                    style={{
+                      color: accent,
+                      borderColor: `color-mix(in srgb, ${accent} 30%, transparent)`,
+                      backgroundColor: `color-mix(in srgb, ${accent} 10%, transparent)`,
+                    }}
+                  >
+                    {section.icon}
+                  </span>
+                  {section.isNew ? (
+                    <span className="rounded-md bg-soft-gold px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.1em] text-prima">
+                      ใหม่
+                    </span>
+                  ) : (
+                    <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-on-surface-variant/45">
+                      {section.engTitle}
+                    </span>
+                  )}
+                </div>
+                <h2 className="mt-5 font-serif text-xl text-ivory">{section.title}</h2>
+                <p className="mt-2.5 flex-1 text-sm leading-relaxed text-on-surface-variant/75">
+                  {section.description}
+                </p>
+                {/* จำนวนจริงจาก data layer (รีเฟรชตาม ISR 300s) */}
+                <span className="mt-4 font-mono text-[10px] uppercase tracking-[0.14em] text-on-surface-variant/50">
+                  {CARD_STAT[section.href]}
+                </span>
+                <span
+                  className="mt-3 inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.08em] transition-all duration-300 group-hover:gap-2.5"
+                  style={{ color: accent }}
+                >
+                  เข้าสู่ส่วนนี้
+                  <ArrowRightIcon className="h-3.5 w-3.5" />
+                </span>
+              </Link>
+            );
+          })}
         </div>
 
         {/* ท้ายหน้า — เชื่อมไปปฏิญญา */}
@@ -225,6 +268,6 @@ export default function KnowledgeHubPage() {
           </Link>
         </footer>
       </div>
-    </main>
+    </PageScaffold>
   );
 }

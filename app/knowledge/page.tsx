@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { Breadcrumb } from "@/components/breadcrumb";
-import { ArrowRightIcon } from "@/components/icons";
+import { PageHeader } from "@/components/page-header";
+import { PlateBackdrop } from "@/components/plate/plate-backdrop";
+import { PlateEmblem } from "@/components/plate/plate-emblem";
+import { ArrowRightIcon, KnowledgeHubIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "เข้าสู่คลังความรู้ — ARCHRON",
@@ -10,7 +12,7 @@ export const metadata: Metadata = {
     "สารบัญนำทางคลังความรู้ของ ARCHRON — งานเขียน คลังแนวคิด สำนักคิด แผนที่ความสัมพันธ์ เส้นทางการอ่าน แก่นเรื่อง และศาสตร์ที่เราศึกษา",
 };
 
-// ไอคอนเส้นเฉพาะของหน้านี้ (ตาม mockup ที่อนุมัติ) — currentColor คุมด้วยสี accent
+// ไอคอนเส้นเฉพาะของหน้านี้ — currentColor คุมด้วยสี accent
 function Ico({ children }: { children: ReactNode }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7">
@@ -25,7 +27,7 @@ type KnowledgeCard = {
   description: string;
   href: string;
   icon: ReactNode;
-  accent: string; // Colour Cosmology
+  accent: string; // Colour Cosmology token เท่านั้น (var(--cos-*) / var(--color-*))
   isNew?: boolean;
 };
 
@@ -35,7 +37,7 @@ const KNOWLEDGE_SECTIONS: KnowledgeCard[] = [
     engTitle: "Articles",
     description: "บทความที่อธิบายและตีความแนวคิดสำคัญในบริบทของมัน",
     href: "/articles",
-    accent: "#CBA45A", // sapientia
+    accent: "var(--cos-sapientia)",
     icon: (
       <Ico>
         <path d="M12 6C10.5 4.8 8.5 4 6 4v13c2.5 0 4.5.8 6 2 1.5-1.2 3.5-2 6-2V4c-2.5 0-4.5.8-6 2z" />
@@ -48,7 +50,7 @@ const KNOWLEDGE_SECTIONS: KnowledgeCard[] = [
     engTitle: "Concepts",
     description: "ระบบความรู้แบบเชื่อมโยง รวบรวมพื้นฐานของแต่ละศาสตร์",
     href: "/concepts",
-    accent: "#6E93A8", // psyche
+    accent: "var(--cos-psyche)",
     icon: (
       <Ico>
         <circle cx="6" cy="7" r="2" />
@@ -63,7 +65,7 @@ const KNOWLEDGE_SECTIONS: KnowledgeCard[] = [
     engTitle: "Schools & Thinkers",
     description: "ประวัติ แนวคิดสำคัญ และคุณูปการของนักคิดผู้บุกเบิก",
     href: "/schools",
-    accent: "#8AA395", // mercurius
+    accent: "var(--cos-mercurius)",
     icon: (
       <Ico>
         <path d="M4 9l8-4 8 4-8 4z" />
@@ -76,7 +78,7 @@ const KNOWLEDGE_SECTIONS: KnowledgeCard[] = [
     engTitle: "Constellation",
     description: "สำรวจปฏิสัมพันธ์ระหว่างแนวคิดในรูปโครงข่ายความรู้",
     href: "/constellation",
-    accent: "#B9C2CE", // prima
+    accent: "var(--cos-prima)",
     icon: (
       <Ico>
         <circle cx="5" cy="6" r="1.6" />
@@ -92,7 +94,7 @@ const KNOWLEDGE_SECTIONS: KnowledgeCard[] = [
     engTitle: "Reading Paths",
     description: "ลำดับการอ่านที่เรียงจากพื้นฐานสู่ความเข้าใจระดับลึก",
     href: "/reading-sets",
-    accent: "#C9A24A", // sapientia เข้ม
+    accent: "var(--color-gold)",
     icon: (
       <Ico>
         <path d="M6 4v11a3 3 0 0 0 3 3h6" />
@@ -108,7 +110,7 @@ const KNOWLEDGE_SECTIONS: KnowledgeCard[] = [
     engTitle: "Themes",
     description: "แก่นความคิดข้ามศาสตร์ที่ปรากฏซ้ำ เช่น จิตไร้สำนึก เสรีภาพ ความหมาย",
     href: "/themes",
-    accent: "#B9C2CE", // prima
+    accent: "var(--cos-prima)",
     icon: (
       <Ico>
         <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z" />
@@ -121,7 +123,7 @@ const KNOWLEDGE_SECTIONS: KnowledgeCard[] = [
     engTitle: "Disciplines",
     description: "สิบสองแขนงของการเข้าใจมนุษย์ — จิตวิทยา ปรัชญา ตำนาน วิทยาศาสตร์ และอื่น ๆ",
     href: "/disciplines",
-    accent: "#C79A4A", // gold
+    accent: "var(--color-gold)",
     isNew: true,
     icon: (
       <Ico>
@@ -136,75 +138,54 @@ const KNOWLEDGE_SECTIONS: KnowledgeCard[] = [
 
 export default function KnowledgeHubPage() {
   return (
-    <main className="px-6 py-24">
-      <div className="mx-auto max-w-5xl">
-        <Breadcrumb
-          items={[{ label: "หน้าแรก", href: "/" }, { label: "คลังความรู้" }]}
-          className="mb-10"
+    <main className="relative pb-24">
+      {/* ฉากหลังเพลทแบบจาง — เทมเพลตกลางสำหรับหน้าเนื้อหา */}
+      <PlateBackdrop density="subtle" />
+
+      <div className="relative">
+        <PageHeader
+          breadcrumb={[{ label: "หน้าแรก", href: "/" }, { label: "คลังความรู้" }]}
+          kickerEn="Knowledge Atlas"
+          kicker="คลังความรู้"
+          title="เข้าสู่คลังความรู้"
+          lead="สารบัญนำทางสู่การทำความเข้าใจโลกภายในของมนุษย์ — เลือกเส้นทางที่อยากเริ่มต้น แต่ละส่วนมีสีประจำตาม Cosmology ของตัวเอง"
+          emblem={
+            <PlateEmblem accent="var(--color-gold)" size={108}>
+              <KnowledgeHubIcon className="h-9 w-9" />
+            </PlateEmblem>
+          }
         />
 
-        {/* หัวข้อหน้าและบทนำ */}
-        <header className="mb-14 space-y-5 text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-burnished-gold/30 px-4 py-1.5 text-[11px] uppercase tracking-[0.2em] text-burnished-gold">
-            <span className="h-[5px] w-[5px] rounded-full bg-burnished-gold" aria-hidden="true" />
-            Knowledge Atlas
-          </span>
-          <h1 className="font-serif text-4xl tracking-tight text-ivory sm:text-5xl">
-            เข้าสู่คลังความรู้
-          </h1>
-          <p className="mx-auto max-w-xl text-base leading-relaxed text-on-surface-variant/80">
-            สารบัญนำทางสู่การทำความเข้าใจโลกภายในของมนุษย์ — เลือกเส้นทางที่อยากเริ่มต้น
-            แต่ละส่วนมีสีประจำตาม Cosmology ของตัวเอง
-          </p>
-        </header>
-
-        {/* การ์ดกลุ่มคลังความรู้ (ธีมมืด + accent cosmology) */}
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {/* การ์ดกลุ่มคลังความรู้ — การ์ดหน้ากระดาษ (card-plate) + accent cosmology */}
+        <div className="mx-auto grid max-w-6xl gap-5 px-6 sm:grid-cols-2 lg:grid-cols-3">
           {KNOWLEDGE_SECTIONS.map((section) => (
             <Link
               key={section.href}
               href={section.href}
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-boundary/25 bg-white/[0.02] p-6 transition-all duration-500 hover:-translate-y-1.5 hover:border-burnished-gold/40 hover:shadow-[0_28px_56px_-30px_rgba(0,0,0,0.7)] focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
+              className="card-plate group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold"
             >
-              {/* แถบ accent บน — ขึ้นตอน hover */}
-              <span
-                className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100"
-                style={{ backgroundColor: section.accent }}
-                aria-hidden="true"
-              />
-              {/* แสงเรืองมุมบนขวา */}
-              <span
-                className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full opacity-40 transition-opacity duration-500 group-hover:opacity-90"
-                style={{ background: `radial-gradient(circle, color-mix(in srgb, ${section.accent} 18%, transparent), transparent 70%)` }}
-                aria-hidden="true"
-              />
-              <div className="flex items-center justify-between">
-                <span
-                  className="flex h-12 w-12 items-center justify-center rounded-xl border"
-                  style={{
-                    color: section.accent,
-                    borderColor: `color-mix(in srgb, ${section.accent} 30%, transparent)`,
-                    backgroundColor: `color-mix(in srgb, ${section.accent} 10%, transparent)`,
-                  }}
-                >
+              <span className="plate-tick" data-corner="tl" aria-hidden="true" />
+              <span className="plate-tick" data-corner="br" aria-hidden="true" />
+              <div className="flex items-start justify-between gap-4">
+                {/* ไอคอนเส้นเปล่า + เส้นนำสายตา (ไม่มีกล่อง tile) */}
+                <span className="flex items-center gap-3" style={{ color: section.accent }}>
                   {section.icon}
+                  <span
+                    className="h-px w-10 opacity-25"
+                    style={{ backgroundColor: "currentcolor" }}
+                    aria-hidden="true"
+                  />
                 </span>
                 {section.isNew ? (
-                  <span className="rounded-md bg-soft-gold px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.1em] text-prima">
-                    ใหม่
-                  </span>
+                  <span className="text-[11px] font-semibold text-soft-gold">ใหม่</span>
                 ) : (
-                  <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-on-surface-variant/45">
-                    {section.engTitle}
-                  </span>
+                  <span className="kicker-en !text-[10px] text-on-surface-variant/45">{section.engTitle}</span>
                 )}
               </div>
-              <h2 className="mt-5 font-serif text-xl text-ivory">{section.title}</h2>
-              <p className="mt-2.5 text-sm leading-relaxed text-on-surface-variant/75">
-                {section.description}
-              </p>
+              <h2 className="mt-5 font-serif text-xl font-semibold text-ivory">{section.title}</h2>
+              <p className="mt-2.5 text-sm leading-relaxed text-on-surface-variant/75">{section.description}</p>
               <span
-                className="mt-6 inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.08em] transition-all duration-300 group-hover:gap-2.5"
+                className="mt-6 inline-flex items-center gap-1.5 text-[12px] font-semibold transition-[gap] duration-300 group-hover:gap-2.5"
                 style={{ color: section.accent }}
               >
                 เข้าสู่ส่วนนี้
@@ -215,7 +196,7 @@ export default function KnowledgeHubPage() {
         </div>
 
         {/* ท้ายหน้า — เชื่อมไปปฏิญญา */}
-        <footer className="mt-16 border-t border-slate-boundary/40 pt-10 text-center">
+        <footer className="mx-auto mt-16 max-w-6xl border-t border-slate-boundary/40 px-6 pt-10 text-center">
           <Link
             href="/manifesto"
             className="inline-flex items-center gap-2 text-xs text-on-surface-variant/60 transition-colors duration-300 hover:text-burnished-gold"

@@ -22,6 +22,8 @@ import type { ContentEntry } from "@/types/content";
 
 export const metadata: Metadata = {
   title: "โปรไฟล์ของฉัน — ARCHRON",
+  description:
+    "หน้าโปรไฟล์นักอ่าน ARCHRON — ติดตามระดับการอ่าน เหรียญตรา ประวัติการอ่าน และงานเขียนของคุณ",
 };
 
 // /profile เป็นหน้า Private เท่านั้น — ไม่ cache (ข้อมูลรายบุคคล)
@@ -135,6 +137,16 @@ export default async function ProfilePage() {
               </span>
             </div>
           </div>
+          {/* ทางลัดแก้ไขข้อมูลโปรไฟล์ (จัดการใน Studio) */}
+          <Link
+            href="/studio/profile"
+            className="inline-flex flex-none items-center gap-1.5 rounded-full border border-slate-boundary/40 px-3.5 py-1.5 text-xs text-soft-ivory transition-colors hover:border-burnished-gold/50 hover:text-soft-gold sm:ml-auto"
+          >
+            <span className="material-symbols-outlined text-[15px]" aria-hidden="true">
+              edit
+            </span>
+            แก้ไขโปรไฟล์
+          </Link>
         </div>
 
         {/* แท็บ */}
@@ -169,11 +181,19 @@ function ReadingTab({
       {/* การ์ดระดับ + แถบความคืบหน้า */}
       <section className="archron-card p-6 sm:p-7">
         <div className="flex items-end justify-between gap-4">
-          <div>
-            <p className="text-xs uppercase tracking-[0.12em] text-muted">ระดับปัจจุบัน</p>
-            <p className="mt-1 font-serif text-2xl text-ivory">
-              {lp.level} · {lp.name}
-            </p>
+          <div className="flex items-center gap-4">
+            {/* ไอคอน 3 มิติ "หอวงโคจร" — ระดับการอ่าน (sprite เฟส 0) */}
+            <span className="icon-tile" aria-hidden="true">
+              <svg className="icon-3d">
+                <use href="/icons/archron-icons.svg#level" />
+              </svg>
+            </span>
+            <div>
+              <p className="text-xs uppercase tracking-[0.12em] text-muted">ระดับปัจจุบัน</p>
+              <p className="mt-1 font-serif text-2xl text-ivory">
+                {lp.level} · {lp.name}
+              </p>
+            </div>
           </div>
           <div className="text-right">
             <p className="font-serif text-3xl text-soft-gold">{stats.completed}</p>
@@ -231,7 +251,15 @@ function ReadingTab({
 
       {/* กริดเหรียญตรา */}
       <section>
-        <h3 className="font-serif text-fluid-h3 text-ivory">เหรียญตรา</h3>
+        <h3 className="flex items-center gap-3 font-serif text-fluid-h3 text-ivory">
+          {/* ไอคอน 3 มิติ "ดาวรัศมี" — เหรียญตรา (sprite เฟส 0) */}
+          <span className="icon-tile" aria-hidden="true">
+            <svg className="icon-3d">
+              <use href="/icons/archron-icons.svg#achievement" />
+            </svg>
+          </span>
+          เหรียญตรา
+        </h3>
         <p className="mt-1 text-sm text-muted">
           ปลดล็อก {unlockedKeys.size} จาก {ACHIEVEMENTS.length} เหรียญ
         </p>
@@ -271,7 +299,15 @@ function ReadingTab({
 
       {/* ประวัติการอ่าน */}
       <section>
-        <h3 className="font-serif text-fluid-h3 text-ivory">ประวัติการอ่าน</h3>
+        <h3 className="flex items-center gap-3 font-serif text-fluid-h3 text-ivory">
+          {/* ไอคอน 3 มิติ "ตั้งหนังสือ" — ประวัติการอ่าน (sprite เฟส 0) */}
+          <span className="icon-tile" aria-hidden="true">
+            <svg className="icon-3d">
+              <use href="/icons/archron-icons.svg#reading-set" />
+            </svg>
+          </span>
+          ประวัติการอ่าน
+        </h3>
         {history.length === 0 ? (
           <div className="mt-4">
             <EmptyState

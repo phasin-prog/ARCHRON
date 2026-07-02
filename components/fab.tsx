@@ -2,7 +2,6 @@
 
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { conceptRegistry } from "@/lib/content/concept-registry";
 
 type FabAction = {
   key: string;
@@ -40,7 +39,10 @@ export function Fab() {
     setOpen(false);
   };
 
-  const randomConcept = () => {
+  // Performance: registry โหลดแบบ dynamic import เฉพาะตอนกดสุ่มจริง
+  // → data ~30KB ไม่ถูกฝังใน First Load JS ของทุกหน้า (Fab อยู่ใน root layout)
+  const randomConcept = async () => {
+    const { conceptRegistry } = await import("@/lib/content/concept-registry");
     const c = conceptRegistry[Math.floor(Math.random() * conceptRegistry.length)];
     if (c) router.push(`/concepts/${c.slug}`);
   };

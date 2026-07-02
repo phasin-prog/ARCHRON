@@ -244,6 +244,9 @@
     -webkit-font-smoothing: antialiased;
     text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
+    /* กัน double-tap zoom แบบ CSS (แทน JS touch listener เดิมใน layout)
+       — browser จัดการเองที่ compositor ไม่กินงาน main thread */
+    touch-action: manipulation;
   }
 
   h1,
@@ -820,3 +823,23 @@
   }
 }
 
+
+/* ============================================================================
+   Intro overlay — fade เข้านุ่ม ๆ หลัง hydration
+   (overlay ไม่ถูก SSR แล้ว เพื่อให้ first paint เป็นเนื้อหาจริง — ดีต่อ LCP) */
+.intro-overlay-in {
+  animation: intro-overlay-in 0.35s ease-out;
+}
+@keyframes intro-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .intro-overlay-in {
+    animation: none;
+  }
+}

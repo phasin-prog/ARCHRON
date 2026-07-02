@@ -5,7 +5,7 @@
 
 create extension if not exists vector with schema extensions;
 
--- embedding: OpenAI text-embedding-3-small = 1536 มิติ
+-- embedding: 1536 มิติ (Gemini gemini-embedding-001 outputDimensionality=1536 + L2-normalize)
 alter table public.library add column if not exists embedding extensions.vector(1536);
 alter table public.chunks  add column if not exists embedding extensions.vector(1536);
 

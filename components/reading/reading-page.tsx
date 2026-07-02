@@ -22,7 +22,6 @@ import {
   ArrowRightIcon,
 } from "@/components/icons";
 import { Tooltip } from "@/components/tooltip";
-import { ClerkProvider } from "@clerk/nextjs";
 import { ReadingToc } from "@/components/reading/reading-toc";
 import { ReadingDock } from "@/components/reading/reading-dock";
 import { ReadingProgress } from "@/components/reading/reading-progress";
@@ -539,10 +538,8 @@ export async function ReadingPage({
           <ViewCounter slug={entry.slug} title={entry.title} section={section} />
         </div>
 
-        {/* ระบบความคิดเห็น (island — ครอบ ClerkProvider เฉพาะส่วนนี้) */}
-        <ClerkProvider>
-          <CommentSection section={section} slug={entry.slug} />
-        </ClerkProvider>
+        {/* ระบบความคิดเห็น — ใช้ ClerkProvider จาก root layout (ไม่ต้องซ้อน provider ซ้ำ) */}
+        <CommentSection section={section} slug={entry.slug} />
 
         {/* บทความที่ใช้แนวคิดนี้ (Backlinks) — แสดงเฉพาะแนวคิด (concepts) */}
         {section === "concepts" && (

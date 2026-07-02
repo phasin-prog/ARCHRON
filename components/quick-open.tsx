@@ -2,9 +2,6 @@
 
 import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { conceptRegistry } from "@/lib/content/concept-registry";
-import { NODE_TYPE_LABEL } from "@/lib/content/graph";
-import { EXTERNAL_CATEGORIES } from "@/lib/content/external-links";
 
 type Item = {
   id: string;
@@ -20,7 +17,28 @@ type Item = {
 const lc = (parts: (string | undefined | null)[]) =>
   parts.filter(Boolean).join(" ").toLowerCase();
 
-function buildIndex(): Item[] {
+// Performance: concept registry + ลิงก์ภายนอก + label กราฟ โหลดแบบ dynamic import
+// ตอนเปิด palette ครั้งแรกเท่านั้น → data ก้อนนี้หลุดออกจาก First Load JS ของทุกหน้า
+// (cache ไว้ที่ module scope — เปิดครั้งถัดไปไม่ต้อง import ซ้ำ)
+let indexPromise: Promise<Item[]> | null = null;
+
+function loadIndex(): Promise<Item[]> {
+  if (indexPromise) return indexPromise;
+  indexPromise = Promise.all([
+    import("@/lib/content/concept-registry"),
+    import("@/lib/content/graph"),
+    import("@/lib/content/external-links"),
+  ]).then(([{ conceptRegistry }, { NODE_TYPE_LABEL }, { EXTERNAL_CATEGORIES }]) =>
+    buildIndex(conceptRegistry, NODE_TYPE_LABEL, EXTERNAL_CATEGORIES),
+  );
+  return indexPromise;
+}
+
+function buildIndex(
+  conceptRegistry: (typeof import("@/lib/content/concept-registry"))["conceptRegistry"],
+  NODE_TYPE_LABEL: (typeof import("@/lib/content/graph"))["NODE_TYPE_LABEL"],
+  EXTERNAL_CATEGORIES: (typeof import("@/lib/content/external-links"))["EXTERNAL_CATEGORIES"],
+): Item[] {
   const items: Item[] = [];
 
   for (const c of conceptRegistry) {
@@ -87,7 +105,19 @@ export function QuickOpen() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
-  const index = useMemo(() => buildIndex(), []);
+
+  // ดัชนีค้นหา — โหลดตอนเปิดครั้งแรก (dynamic import, ดูคอมเมนต์ที่ loadIndex)
+  const [index, setIndex] = useState<Item[] | null>(null);
+  useEffect(() => {
+    if (!open || index) return;
+    let cancelled = false;
+    loadIndex().then((items) => {
+      if (!cancelled) setIndex(items);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [open, index]);
 
   // Cmd+K / Ctrl+K to toggle
   useEffect(() => {
@@ -119,8 +149,9 @@ export function QuickOpen() {
   }, [query]);
 
   const matched = useMemo(() => {
-    if (terms.length === 0) return index.slice(0, 8); // show top 8 when no query
-    return index
+    const items = index ?? []; // ระหว่างดัชนียังโหลด (หลัก ms) แสดง state ว่างไปก่อน
+    if (terms.length === 0) return items.slice(0, 8); // show top 8 when no query
+    return items
       .filter((it) => terms.every((t) => it.keywords.includes(t)))
       .slice(0, 12);
   }, [index, terms]);

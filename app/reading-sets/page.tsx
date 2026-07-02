@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { PageNav } from "@/components/page-nav";
 import { getPublicReadingSets } from "@/lib/content/public-source";
@@ -24,8 +25,33 @@ export default async function ReadingSetsPage() {
       <section className="scroll-reveal stagger-1 mx-auto max-w-4xl px-6">
         {readingSets.length === 0 ? (
           <div className="rounded-md border border-slate-boundary/40 bg-paper/50 p-10 text-center">
-            <p className="text-soft-ivory">ยังไม่มีเส้นทางการอ่านเผยแพร่</p>
-            <p className="mt-2 text-sm text-muted">ตัวอย่างที่วางแผนไว้ เช่น เริ่มต้นกับ Jung จาก Ego ถึง Self</p>
+            <p className="font-serif text-lg text-ivory">ยังไม่เปิดเส้นทางการอ่านในขณะนี้</p>
+            <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-muted">
+              เรากำลังเรียบเรียงลำดับการอ่านให้พาคุณจากพื้นฐานไปสู่ความลึกอย่างมีบริบท — ระหว่างนี้เริ่มเดินสำรวจได้จากพื้นที่เหล่านี้
+            </p>
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              <Link
+                href="/concepts"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-burnished-gold/40 bg-burnished-gold/10 px-4 py-2 text-sm font-semibold text-burnished-gold transition-colors hover:bg-burnished-gold/20"
+              >
+                คลังแนวคิด
+                <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </Link>
+              <Link
+                href="/schools"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-slate-boundary/50 px-4 py-2 text-sm text-soft-ivory transition-colors hover:border-burnished-gold/40 hover:text-burnished-gold"
+              >
+                สำนักคิด
+                <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </Link>
+              <Link
+                href="/knowledge"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-slate-boundary/50 px-4 py-2 text-sm text-soft-ivory transition-colors hover:border-burnished-gold/40 hover:text-burnished-gold"
+              >
+                แผนที่ความรู้
+                <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </Link>
+            </div>
           </div>
         ) : (
           <div className="space-y-8">

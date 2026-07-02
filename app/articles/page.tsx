@@ -34,9 +34,26 @@ export default async function ArticlesPage() {
         {articles.length === 0 ? (
           <EmptyState
             icon="article"
-            title="ยังไม่มีบทความเผยแพร่ — กำลังจัดเตรียมเนื้อหาชุดแรก"
-            description="เนื้อหาเริ่มต้นจะถูกเพิ่มใน Phase 13 (Initial Content Seed)"
-          />
+            title="ยังไม่มีบทความเผยแพร่ในขณะนี้"
+            description="เรากำลังเรียบเรียงบทความชุดแรกอย่างพิถีพิถัน — ระหว่างนี้เริ่มสำรวจคลังแนวคิดและสำนักคิดได้เลย"
+          >
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              <Link
+                href="/concepts"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-burnished-gold/40 bg-burnished-gold/10 px-4 py-2 text-sm font-semibold text-burnished-gold transition-colors hover:bg-burnished-gold/20"
+              >
+                สำรวจคลังแนวคิด
+                <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </Link>
+              <Link
+                href="/schools"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-slate-boundary/50 px-4 py-2 text-sm text-soft-ivory transition-colors hover:border-burnished-gold/40 hover:text-burnished-gold"
+              >
+                ดูสำนักคิด
+                <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </Link>
+            </div>
+          </EmptyState>
         ) : (
           <div className="grid gap-6 md:grid-cols-2">
             {articles.map((e) => (

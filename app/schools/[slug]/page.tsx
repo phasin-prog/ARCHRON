@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { getPublicEntries, getPublicSchools } from "@/lib/content/public-source";
 import { disciplineMeta } from "@/components/discipline-meta";
 import { readFromR2 } from "@/lib/storage";
@@ -112,8 +114,10 @@ export default async function SchoolDetailPage({ params }: PageProps) {
           <h2 className="font-serif text-2xl font-semibold text-ivory border-b border-slate-boundary/20 pb-3">
             ประวัติความเป็นมาและทฤษฎี
           </h2>
-          <div className="mt-6 text-base leading-relaxed text-soft-ivory whitespace-pre-line">
-            {historyContent || s.description || "— ไม่มีข้อมูลประวัติความเป็นมาเพิ่มเติม —"}
+          <div className="markdown-body prose prose-invert max-w-none mt-6 text-base leading-relaxed text-soft-ivory">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {historyContent || s.description || "— ไม่มีข้อมูลประวัติความเป็นมาเพิ่มเติม —"}
+            </ReactMarkdown>
           </div>
         </section>
 

@@ -52,9 +52,6 @@ export default function ConceptsPage() {
             <span className="text-xs text-muted">{breakdown.join(" · ")}</span>
           ) : null}
         </div>
-        <p className="mb-4 text-xs text-muted">
-          เคล็ดลับ: คลิกขวา (หรือกดค้างบนมือถือ) ที่การ์ดแนวคิด เพื่อเปิดเมนูลัด
-        </p>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {conceptRegistry.map((c) => (
             <ConceptCard key={c.slug} c={c} />

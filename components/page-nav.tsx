@@ -2,11 +2,15 @@ import Link from "next/link";
 import { ArrowRightIcon } from "@/components/icons";
 
 export const PAGE_ORDER = [
-  { href: "/articles", label: "บทความ" },
+  { href: "/knowledge", label: "คลังความรู้" },
   { href: "/concepts", label: "คลังแนวคิด" },
+  { href: "/schools", label: "สำนักคิด" },
+  { href: "/articles", label: "บทความ" },
   { href: "/reading-sets", label: "ซีรีส์" },
   { href: "/sources", label: "แหล่งอ้างอิง" },
-  { href: "/manifesto", label: "Manifesto" },
+  { href: "/external-links", label: "ลิงก์ภายนอก" },
+  { href: "/constellation", label: "แผนที่ความรู้" },
+  { href: "/manifesto", label: "ปฏิญญา" },
   { href: "/support", label: "สนับสนุน" },
 ];
 

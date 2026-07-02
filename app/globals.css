@@ -100,15 +100,31 @@
     --accent: #C79A4A;
     transition: --accent 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 
-    /* Dynamic Typography — Fluid scale (clamp) */
+    /* Dynamic Typography — Fluid scale (clamp) · ช่วง H1 ตาม typography-rules v0.1 (2.6–4.8rem) */
     --text-base: clamp(1rem, 0.95vw + 0.8rem, 1.25rem);
-    --text-h1: clamp(2rem, 4vw + 1rem, 3.5rem);
+    --text-display: clamp(3rem, 7.4vw, 5.4rem); /* wordmark/hero plate เท่านั้น */
+    --text-h1: clamp(2.6rem, 3.2vw + 1.3rem, 4.4rem);
     --text-h2: clamp(1.5rem, 2vw + 1rem, 2.5rem);
     --text-h3: clamp(1.25rem, 1.2vw + 0.9rem, 1.75rem);
     --text-lg: clamp(1.125rem, 1.07rem + 0.23vw, 1.25rem);
 
     /* Reading measure — ความยาวคอลัมน์อ่าน ~60–75 ตัวอักษร/บรรทัด (single source) */
     --measure: 68ch;
+
+    /* Colour Mixing — Base Cosmology + Bridge (สเปกจาก AGENT-HANDOFF.md §12)
+       Bridge ใช้เฉพาะ edge/gradient/hover เท่านั้น — ไม่ใช่สีพื้น/accent หลัก */
+    --cos-prima: #B9C2CE;
+    --cos-psyche: #6E93A8;
+    --cos-lumen: #E7D7A6;
+    --cos-sapientia: #CBA45A;
+    --cos-mercurius: #8AA395;
+    --cos-humanitas: #C9C2B4;
+    --mix-reflection: #9C9C81;   /* psyche × sapientia */
+    --mix-threshold: #94AABB;    /* prima × psyche */
+    --mix-illumination: #D9BE80; /* lumen × sapientia */
+    --mix-dialogue: #7C9B9E;     /* psyche × mercurius */
+    --mix-praxis: #AAA478;       /* sapientia × mercurius */
+    --mix-manuscript: #C2B394;   /* prima × sapientia */
 
     /* Motion tokens */
     --ease-soft: cubic-bezier(0.21, 0.6, 0.35, 1);
@@ -239,7 +255,7 @@
     font-family: var(--font-body);
     font-synthesis: none;
     font-size: var(--text-base);
-    line-height: 1.6; /* ระยะห่างบรรทัดที่พอดีกับภาษาไทย */
+    line-height: 1.75; /* ฐาน UI — เนื้อความอ่านยาวใช้ .md-body (1.9) ตาม typography-rules */
     letter-spacing: 0.1px;
     -webkit-font-smoothing: antialiased;
     text-size-adjust: 100%;
@@ -843,3 +859,109 @@
     animation: none;
   }
 }
+
+/* ============================================================================
+   ARCHRON UI Kit — Redesign "แผ่นจารดาราศาสตร์" (เฟส 1 foundation)
+   ระบบ kicker · ปุ่ม · กรอบเพลท · การ์ดหน้ากระดาษ — ใช้ design tokens เท่านั้น
+   ========================================================================= */
+
+/* ── Kicker (eyebrow) ระบบเดียวทั้งเว็บ ──
+   ไทย: น้ำหนัก+สีนำสายตา ไม่ letterspace (อักษรไทยไม่ควรถูกถ่างระยะ)
+   ละติน: ตัวพิมพ์ใหญ่ tracking 0.16em ตาม typography-rules v0.1 */
+.kicker {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-gold);
+  line-height: 1.6;
+}
+.kicker-en {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  line-height: 1.6;
+}
+
+/* ── ระบบปุ่ม (design-system.md · Component Rules) ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.9rem 1.9rem;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: filter var(--dur-fast) var(--ease-soft),
+    border-color var(--dur-fast) var(--ease-soft),
+    color var(--dur-fast) var(--ease-soft);
+}
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-paper-sunken), 0 0 0 4px var(--color-gold);
+}
+.btn-primary {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--color-gold) 82%, #F4F1EA), var(--color-gold));
+  color: #171207;
+  box-shadow: 0 10px 30px -14px color-mix(in srgb, var(--color-gold) 50%, transparent);
+}
+.btn-primary:hover { filter: brightness(1.06); }
+.btn-ghost {
+  color: var(--color-ink);
+  border: 1px solid color-mix(in srgb, var(--color-gold) 35%, transparent);
+  background: transparent;
+}
+.btn-ghost:hover {
+  border-color: color-mix(in srgb, var(--color-gold) 70%, transparent);
+  color: var(--color-soft-gold);
+}
+
+/* ── กรอบเพลท + ขีดมุม (โครงจารแผนที่ดาราศาสตร์) ── */
+.plate-frame {
+  position: absolute;
+  inset: 14px;
+  border: 1px solid color-mix(in srgb, var(--color-gold) 30%, transparent);
+  pointer-events: none;
+}
+.plate-frame::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid color-mix(in srgb, var(--color-gold) 14%, transparent);
+}
+.plate-tick {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 0 solid color-mix(in srgb, var(--color-gold) 55%, transparent);
+}
+.plate-tick[data-corner="tl"] { top: -1px; left: -1px; border-top-width: 1px; border-left-width: 1px; }
+.plate-tick[data-corner="tr"] { top: -1px; right: -1px; border-top-width: 1px; border-right-width: 1px; }
+.plate-tick[data-corner="bl"] { bottom: -1px; left: -1px; border-bottom-width: 1px; border-left-width: 1px; }
+.plate-tick[data-corner="br"] { bottom: -1px; right: -1px; border-bottom-width: 1px; border-right-width: 1px; }
+
+/* ── การ์ด "หน้ากระดาษ" (article-plate) — แทนสูตรการ์ด icon-tile เดิม ──
+   hover เอฟเฟกต์เดียว: ขอบ+พื้นสว่างขึ้น (เว็บนิ่ง ตาม design-system.md) */
+.card-plate {
+  position: relative;
+  display: block;
+  background-color: var(--color-paper);
+  background-image: repeating-linear-gradient(
+    180deg, transparent 0 31px, color-mix(in srgb, var(--color-ink) 2.5%, transparent) 31px 32px);
+  border: 1px solid color-mix(in srgb, var(--color-gold) 28%, transparent);
+  padding: 1.9rem 1.9rem 1.6rem;
+  transition: border-color var(--dur-fast) var(--ease-soft),
+    background-color var(--dur-fast) var(--ease-soft);
+}
+.card-plate:hover {
+  border-color: color-mix(in srgb, var(--color-gold) 60%, transparent);
+  background-color: var(--color-surface-container);
+}
+.card-plate .plate-tick { width: 10px; height: 10px; }

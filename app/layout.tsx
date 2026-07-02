@@ -113,9 +113,9 @@ export default function RootLayout({
           {/* preconnect → fonts CSS + ไฟล์ฟอนต์ของ Material Symbols เริ่ม handshake ทันที */}
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-          {/* eslint-disable-next-line @next/next/no-page-custom-font -- App Router ไม่มี pages/_document; โหลด Material Symbols ที่นี่ถูกต้องแล้ว */}
           {/* ล็อกแกน variable ให้ตรงกับที่ใช้จริงใน globals.css (FILL 0, wght 300, GRAD 0, opsz 24)
               → ไฟล์ฟอนต์เล็กลงมากเมื่อเทียบกับการโหลดครบทุกช่วงแกน 20..48/100..700/0..1/-50..200 */}
+          {/* eslint-disable-next-line @next/next/no-page-custom-font -- App Router ไม่มี pages/_document; โหลด Material Symbols ที่นี่ถูกต้องแล้ว */}
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0&display=swap"

@@ -68,8 +68,9 @@ export default function StudioProfilePage() {
     }
   }
 
+  // โทนเดียวกับระบบฟอร์มหลัก — surface tokens (เดิมใช้ charcoal/ink ซึ่งเป็น alias ยุคเก่า)
   const inputClass =
-    "w-full rounded-md border border-ink/10 bg-charcoal/40 px-3 py-2 text-ivory outline-none focus:border-antique-gold/50";
+    "w-full rounded-md border border-slate-boundary/50 bg-surface-container-low px-3 py-2 text-ivory outline-none transition-colors focus:border-burnished-gold/50";
 
   return (
     <main className="mx-auto max-w-2xl px-6 py-20">
@@ -77,13 +78,13 @@ export default function StudioProfilePage() {
         <span className="text-[11px] uppercase tracking-[0.2em] text-burnished-gold/70">
           Studio · โปรไฟล์
         </span>
-        <h1 className="mt-2 font-serif text-3xl text-on-surface">โปรไฟล์ของฉัน</h1>
+        <h1 className="mt-2 font-serif text-3xl text-ivory">โปรไฟล์ของฉัน</h1>
         <p className="mt-2 text-sm text-on-surface-variant/70">
           ตั้งชื่อผู้ใช้ ชื่อที่แสดง และยศของคุณบน ARCHRON
         </p>
       </header>
 
-      <div className="mb-8 flex items-center justify-between rounded-md border border-slate-boundary/50 bg-surface-1/50 p-4">
+      <div className="archron-panel mb-8 flex items-center justify-between p-4">
         <div className="flex items-center gap-3">
           <span
             className="flex h-10 w-10 items-center justify-center rounded-md"
@@ -133,8 +134,8 @@ export default function StudioProfilePage() {
       </div>
 
       {role === "user" ? (
-        <div className="mt-10 rounded-md border border-slate-boundary/50 bg-surface-1/40 p-5">
-          <h2 className="font-serif text-lg text-on-surface">อยากร่วมเป็นนักเขียน?</h2>
+        <div className="archron-panel mt-10 p-5">
+          <h2 className="font-serif text-lg text-ivory">อยากร่วมเป็นนักเขียน?</h2>
           <p className="mt-2 text-sm leading-relaxed text-on-surface-variant/70">
             ผู้ใช้ทั่วไปอ่านได้ทุกอย่าง หากต้องการเขียนและเรียบเรียงเนื้อหา ส่งคำขอเป็นนักเขียนเพื่อให้แอดมินพิจารณา
           </p>

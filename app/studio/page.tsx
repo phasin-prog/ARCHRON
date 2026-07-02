@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { SignIn, SignedIn, SignedOut, useUser, useClerk } from "@clerk/nextjs";
+import { ClerkLoading, SignIn, SignedIn, SignedOut, useUser, useClerk } from "@clerk/nextjs";
 import { ArchronLogomark } from "@/components/icons";
 import { roleFromMetadata, isAdmin } from "@/lib/content/roles";
 
@@ -21,6 +21,19 @@ export default function StudioLandingPage() {
       <div 
         className="pointer-events-none absolute right-1/4 bottom-1/3 -z-10 h-[450px] w-[450px] rounded-full bg-antique-gold/6 blur-[130px]" 
       />
+
+      {/* กัน flash จอเปล่าระหว่าง Clerk โหลด — SignedIn/SignedOut ยังไม่เรนเดอร์จนกว่า SDK พร้อม */}
+      <ClerkLoading>
+        <div className="w-full max-w-md" role="status" aria-label="กำลังเตรียมห้องเขียน">
+          <div className="rounded-md border border-antique-gold/20 bg-paper-raised/80 p-8 text-center shadow-2xl backdrop-blur-md">
+            <div className="mx-auto h-20 w-20 animate-pulse rounded-full bg-surface-3" />
+            <div className="mx-auto mt-4 h-6 w-44 animate-pulse rounded bg-surface-3" />
+            <div className="mx-auto mt-3 h-4 w-56 animate-pulse rounded bg-surface-3" />
+            <div className="mx-auto mt-8 h-11 w-full animate-pulse rounded bg-surface-3" />
+            <p className="mt-4 text-xs text-muted">กำลังเตรียมห้องเขียน…</p>
+          </div>
+        </div>
+      </ClerkLoading>
 
       <SignedOut>
         <div className="mx-auto grid w-full max-w-5xl grid-cols-1 md:grid-cols-12 gap-8 lg:gap-16 items-center">
@@ -64,14 +77,17 @@ export default function StudioLandingPage() {
                 signUpUrl="/th/register"
                 fallbackRedirectUrl="/studio/editor"
                 appearance={{
+                  // ⚠️ ข้อยกเว้น design token: Clerk คำนวณเฉดสีต่อยอดจากค่าเหล่านี้ จึงใช้ var() ไม่ได้
+                  // ค่า hex ทุกตัวอิง token ปัจจุบันของระบบ (ห้ามใส่ค่านอก palette):
+                  // gold #C79A4A · paper-raised #1C2335 · ivory #F4F1EA · soft-ivory #DEDAD2 · muted #8A8F98
                   variables: {
-                    colorPrimary: "#B58D4A",
-                    colorBackground: "#2E3349",
+                    colorPrimary: "#C79A4A", // --color-gold (Archron Gold)
+                    colorBackground: "#1C2335", // --color-paper-raised
                     colorInputBackground: "rgba(255, 255, 255, 0.06)",
-                    colorInputText: "#F3EEE5",
-                    colorText: "#E7E2D8",
-                    colorTextSecondary: "#9A948A",
-                    fontFamily: "var(--font-ibm-plex-thai), sans-serif",
+                    colorInputText: "#F4F1EA", // --color-ivory
+                    colorText: "#DEDAD2", // --color-soft-ivory
+                    colorTextSecondary: "#8A8F98", // --color-muted
+                    fontFamily: "var(--font-body), sans-serif", // ฟอนต์ใช้ var() ได้ (ไม่มีการคำนวณ)
                   },
                   elements: {
                     cardBox: "shadow-none border-0",

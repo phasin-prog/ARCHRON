@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+<defs><radialGradient id="ln-f" cx="0.5" cy="0.45" r="0.8"><stop offset="0" stop-color="var(--ico-ivory,#F4F1EA)"/><stop offset="0.55" stop-color="var(--ico-light,#E7D7A6)"/><stop offset="1" stop-color="var(--ico-main,#C79A4A)"/></radialGradient></defs><path d="M21.76 29.52 L40.96 39.12 L26.24 46.48 L7.04 36.88 Z" fill="var(--ico-main,#C79A4A)" opacity="0.1"/>
+<line x1="16.85" y1="31.97" x2="36.05" y2="41.57" stroke="var(--ico-main,#C79A4A)" stroke-width="0.8" stroke-linecap="round" opacity="0.22"/>
+<line x1="11.95" y1="34.43" x2="31.15" y2="44.03" stroke="var(--ico-main,#C79A4A)" stroke-width="0.8" stroke-linecap="round" opacity="0.22"/>
+<line x1="28.16" y1="32.72" x2="13.44" y2="40.08" stroke="var(--ico-main,#C79A4A)" stroke-width="0.8" stroke-linecap="round" opacity="0.22"/>
+<line x1="34.56" y1="35.92" x2="19.84" y2="43.28" stroke="var(--ico-main,#C79A4A)" stroke-width="0.8" stroke-linecap="round" opacity="0.22"/>
+<path d="M21.76 29.52 L40.96 39.12 L26.24 46.48 L7.04 36.88 Z" fill="none" stroke="var(--ico-main,#C79A4A)" stroke-width="1" stroke-opacity="0.5"/>
+<ellipse cx="24.0" cy="39.0" rx="11" ry="4.6" fill="var(--ico-light,#E7D7A6)" opacity="0.2"/>
+<ellipse cx="24.0" cy="39.2" rx="8.5" ry="3.4" fill="#0B0D12" opacity="0.22"/>
+<path d="M14.4 37.36 L25.28 42.8 L25.28 41.24 L14.4 35.8 Z" fill="var(--ico-main,#C79A4A)"/>
+<path d="M33.6 38.64 L25.28 42.8 L25.28 41.24 L33.6 37.08 Z" fill="var(--ico-deep,#6E5528)"/>
+<path d="M22.72 31.64 L33.6 37.08 L25.28 41.24 L14.4 35.8 Z" fill="var(--ico-light,#E7D7A6)"/>
+<circle cx="24.0" cy="31.84" r="6.0" fill="var(--ico-light,#E7D7A6)" opacity="0.22"/>
+<path d="M24.0 26.84 c3.1 2.7 2.3 6.5 0 8.1 c-2.3 -1.6 -3.1 -5.4 0 -8.1 z" fill="url(#ln-f)" stroke="var(--ico-deep,#6E5528)" stroke-width="0.6" stroke-opacity="0.45"/>
+<path d="M24.0 22.36 L31.36 26.04 L24.0 29.72 L16.64 26.04 Z" fill="var(--ico-light,#E7D7A6)" opacity="0.28"/>
+<line x1="31.36" y1="36.44" x2="31.36" y2="26.04" stroke="var(--ico-main,#C79A4A)" stroke-width="1.2" stroke-linecap="round" opacity="0.9"/>
+<line x1="24.0" y1="40.12" x2="24.0" y2="29.72" stroke="var(--ico-main,#C79A4A)" stroke-width="1.2" stroke-linecap="round" opacity="0.9"/>
+<line x1="16.64" y1="36.44" x2="16.64" y2="26.04" stroke="var(--ico-main,#C79A4A)" stroke-width="1.2" stroke-linecap="round" opacity="0.9"/>
+<path d="M24.0 22.36 L31.36 26.04 L24.0 29.72 L16.64 26.04 Z" fill="none" stroke="var(--ico-main,#C79A4A)" stroke-width="1.2" stroke-opacity="0.9"/>
+<line x1="31.36" y1="36.44" x2="24.0" y2="40.12" stroke="var(--ico-main,#C79A4A)" stroke-width="1.2" stroke-linecap="round" opacity="0.9"/>
+<line x1="24.0" y1="40.12" x2="16.64" y2="36.44" stroke="var(--ico-main,#C79A4A)" stroke-width="1.2" stroke-linecap="round" opacity="0.9"/>
+<path d="M20.4 25.64 Q24.0 19.439999999999998 27.6 25.64" stroke="var(--ico-deep,#6E5528)" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+</svg>

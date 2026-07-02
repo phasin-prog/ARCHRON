@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
+  <!-- ARCHRON · Ambient Observatory — ชั้นเส้นกลุ่มดาว · ใช้เป็น "mask"
+       สีจริงมาจาก CSS: background-color = var(--cosmology-accent) → Dynamic Colour ตามหน้า
+       พิกัดปลายเส้นตรงกับดาวใน observatory-stars.svg -->
+  <g stroke="#000" stroke-width="1.6" stroke-linecap="round">
+    <line x1="128" y1="108" x2="384" y2="162" opacity=".8"/>
+    <line x1="384" y1="162" x2="528" y2="81" opacity=".9"/>
+    <line x1="528" y1="81" x2="256" y2="63" opacity=".65"/>
+    <line x1="976" y1="117" x2="1120" y2="72" opacity=".7"/>
+    <line x1="1120" y1="72" x2="1264" y2="153" opacity=".9"/>
+    <line x1="1264" y1="153" x2="1408" y2="90" opacity=".75"/>
+  </g>
+</svg>

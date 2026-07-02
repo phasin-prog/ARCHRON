@@ -820,3 +820,101 @@
   }
 }
 
+
+/* ════════════════════════════════════════════════════════════════════════════
+   Dynamic 3D Icon — ไอคอน 2.5D จาก sprite (public/icons/archron-icons.svg)
+   ----------------------------------------------------------------------------
+   ใช้:  <svg class="icon-3d" aria-hidden="true"><use href="/icons/archron-icons.svg#lantern"/></svg>
+   ไอคอนวาดหลายโทน (เนื้อวัสดุไล่เฉด + เงาลึก + ไฮไลต์งาช้าง) — ทุกโทนคำนวณจาก
+   cosmology accent ของหน้าผ่าน color-mix → Dynamic Colour เต็มรูปแบบ และ morph
+   ตอนเปลี่ยนหน้าเพราะ --cosmology-accent เป็น registered @property
+   หมายเหตุ: ถ้าใช้เป็น <img src> จะได้โทนทองมาตรฐาน (ค่า fallback ในไฟล์) — ไม่ dynamic
+   ════════════════════════════════════════════════════════════════════════════ */
+.icon-3d {
+  --ico-main: var(--cosmology-accent);
+  --ico-light: color-mix(in srgb, var(--cosmology-accent) 45%, var(--color-ivory));
+  --ico-deep: color-mix(in srgb, var(--cosmology-accent) 55%, var(--color-prima));
+  --ico-ivory: var(--color-ivory);
+  display: inline-block;
+  width: 1.375rem;
+  height: 1.375rem;
+  flex: none;
+}
+
+/* Icon Tile — "พื้นหลังไอคอน" จานรองมุมอสมมาตร (ภาษาเดียวกับ .archron-card)
+   ผิว/ขอบ/เงาผสมจาก cosmology accent ของหน้า → Dynamic Colour ทั้งชุด
+   ใช้:  <span class="icon-tile"><svg class="icon-3d"><use href="/icons/archron-icons.svg#level"/></svg></span> */
+.icon-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: none;
+  border: 1px solid color-mix(in srgb, var(--cosmology-accent) 26%, var(--color-slate-boundary));
+  border-radius: 0.9rem 0.3rem;
+  background: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--cosmology-accent) 14%, var(--color-surface-container-low)) 0%,
+    color-mix(in srgb, var(--cosmology-accent) 4%, var(--color-surface-container-lowest)) 100%
+  );
+  box-shadow: inset 0 1px 1px color-mix(in srgb, var(--cosmology-accent) 12%, transparent);
+  transition:
+    border-color 1.2s var(--ease-out),
+    background 1.2s var(--ease-out);
+}
+.icon-tile .icon-3d {
+  width: 1.55rem;
+  height: 1.55rem;
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   Ambient Observatory — พื้นหลังหอดูดาวจากไฟล์ SVG (opt-in ต่อหน้า)
+   ----------------------------------------------------------------------------
+   ใช้:  <div class="ambient-observatory" aria-hidden="true"></div>
+        (วางเป็นลูกแรกใน <main class="relative"> — เนื้อหาห่อด้วย .relative.z-10)
+   ชั้นดาว   : public/backgrounds/observatory-stars.svg (ivory คงที่ + vignette CSS)
+   ชั้นเส้นโยง: public/backgrounds/constellation-links.svg ใช้เป็น mask →
+              สีจริง = var(--cosmology-accent) → Dynamic Colour ตามหน้า
+   ทำงานร่วมกับ .accent-aura ของ layout ได้ทันที · ไม่มี palette ใหม่
+   ════════════════════════════════════════════════════════════════════════════ */
+.ambient-observatory {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+/* ดาว ivory + vignette จมสู่ Shadow Black ให้เนื้อหากลางหน้าเด่น */
+.ambient-observatory::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      120% 90% at 50% 30%,
+      transparent 55%,
+      color-mix(in srgb, var(--color-prima) 55%, transparent) 100%
+    ),
+    url("/backgrounds/observatory-stars.svg") center top / cover no-repeat;
+}
+/* เส้นกลุ่มดาว — Dynamic Colour ผ่าน mask + เรืองช้า ๆ ตามจังหวะ ambient */
+.ambient-observatory::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: color-mix(in srgb, var(--cosmology-accent) 34%, transparent);
+  -webkit-mask: url("/backgrounds/constellation-links.svg") center top / cover no-repeat;
+  mask: url("/backgrounds/constellation-links.svg") center top / cover no-repeat;
+  transition: background-color 1.2s var(--ease-out);
+  animation: ao-glimmer var(--dur-ambient) var(--ease-soft) infinite;
+}
+@keyframes ao-glimmer {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ambient-observatory::after {
+    animation: none !important;
+  }
+}

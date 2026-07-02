@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+<defs><radialGradient id="ac-s" cx="0.35" cy="0.3" r="1"><stop offset="0" stop-color="var(--ico-light,#E7D7A6)"/><stop offset="0.55" stop-color="var(--ico-main,#C79A4A)"/><stop offset="1" stop-color="var(--ico-deep,#6E5528)"/></radialGradient></defs><path d="M21.76 29.52 L40.96 39.12 L26.24 46.48 L7.04 36.88 Z" fill="var(--ico-main,#C79A4A)" opacity="0.1"/>
+<line x1="16.85" y1="31.97" x2="36.05" y2="41.57" stroke="var(--ico-main,#C79A4A)" stroke-width="0.8" stroke-linecap="round" opacity="0.22"/>
+<line x1="11.95" y1="34.43" x2="31.15" y2="44.03" stroke="var(--ico-main,#C79A4A)" stroke-width="0.8" stroke-linecap="round" opacity="0.22"/>
+<line x1="28.16" y1="32.72" x2="13.44" y2="40.08" stroke="var(--ico-main,#C79A4A)" stroke-width="0.8" stroke-linecap="round" opacity="0.22"/>
+<line x1="34.56" y1="35.92" x2="19.84" y2="43.28" stroke="var(--ico-main,#C79A4A)" stroke-width="0.8" stroke-linecap="round" opacity="0.22"/>
+<path d="M21.76 29.52 L40.96 39.12 L26.24 46.48 L7.04 36.88 Z" fill="none" stroke="var(--ico-main,#C79A4A)" stroke-width="1" stroke-opacity="0.5"/>
+<ellipse cx="24.0" cy="38.0" rx="10.5" ry="4.2" fill="#0B0D12" opacity="0.28"/>
+<path d="M13.44 37.2 L25.6 43.28 L25.6 41.2 L13.44 35.12 Z" fill="var(--ico-main,#C79A4A)"/>
+<path d="M34.56 38.8 L25.6 43.28 L25.6 41.2 L34.56 36.72 Z" fill="var(--ico-deep,#6E5528)"/>
+<path d="M22.4 30.64 L34.56 36.72 L25.6 41.2 L13.44 35.12 Z" fill="var(--ico-light,#E7D7A6)"/>
+<path d="M17.6 35.44 L24.96 39.12 L24.96 37.04 L17.6 33.36 Z" fill="var(--ico-main,#C79A4A)"/>
+<path d="M30.4 36.4 L24.96 39.12 L24.96 37.04 L30.4 34.32 Z" fill="var(--ico-deep,#6E5528)"/>
+<path d="M23.04 30.64 L30.4 34.32 L24.96 37.04 L17.6 33.36 Z" fill="var(--ico-light,#E7D7A6)"/>
+<ellipse cx="24.0" cy="34.440000000000005" rx="4.6" ry="1.9" fill="#0B0D12" opacity="0.24"/>
+<line x1="24.0" y1="17.300000000000004" x2="24.0" y2="14.870000000000003" stroke="var(--ico-light,#E7D7A6)" stroke-width="1.6" stroke-linecap="round" opacity="0.9"/>
+<line x1="24.0" y1="27.380000000000003" x2="24.0" y2="29.810000000000002" stroke="var(--ico-light,#E7D7A6)" stroke-width="1.6" stroke-linecap="round" opacity="0.9"/>
+<line x1="18.4" y1="22.340000000000003" x2="15.7" y2="22.340000000000003" stroke="var(--ico-light,#E7D7A6)" stroke-width="1.6" stroke-linecap="round" opacity="0.9"/>
+<line x1="29.6" y1="22.340000000000003" x2="32.3" y2="22.340000000000003" stroke="var(--ico-light,#E7D7A6)" stroke-width="1.6" stroke-linecap="round" opacity="0.9"/>
+<line x1="19.968" y1="18.711200000000005" x2="18.024" y2="16.961600000000004" stroke="var(--ico-light,#E7D7A6)" stroke-width="1.6" stroke-linecap="round" opacity="0.9"/>
+<line x1="28.032" y1="18.711200000000005" x2="29.976" y2="16.961600000000004" stroke="var(--ico-light,#E7D7A6)" stroke-width="1.6" stroke-linecap="round" opacity="0.9"/>
+<line x1="19.968" y1="25.9688" x2="18.024" y2="27.718400000000003" stroke="var(--ico-light,#E7D7A6)" stroke-width="1.6" stroke-linecap="round" opacity="0.9"/>
+<line x1="28.032" y1="25.9688" x2="29.976" y2="27.718400000000003" stroke="var(--ico-light,#E7D7A6)" stroke-width="1.6" stroke-linecap="round" opacity="0.9"/>
+<circle cx="24.0" cy="22.340000000000003" r="7.6" fill="var(--ico-main,#C79A4A)" opacity="0.16"/>
+<circle cx="24.0" cy="22.340000000000003" r="3.4" fill="url(#ac-s)"/>
+<circle cx="22.878" cy="21.218000000000004" r="1.02" fill="var(--ico-ivory,#F4F1EA)" opacity="0.85"/>
+</svg>

@@ -36,7 +36,7 @@ const NODE_ICON: Record<string, ComponentType<{ className?: string }>> = {
 };
 
 // การ์ดแนวคิด + เมนูลัด wiki (คลิกขวา / กดค้าง)
-export function ConceptCard({ c }: { c: ConceptRegistryItem }) {
+export function ConceptCard({ c, hasRealContent = false }: { c: ConceptRegistryItem; hasRealContent?: boolean }) {
   const router = useRouter();
   const [copied, setCopied] = useState(false);
   const Icon = NODE_ICON[c.nodeType];
@@ -70,7 +70,7 @@ export function ConceptCard({ c }: { c: ConceptRegistryItem }) {
     <ContextMenu items={items} className="relative">
       <Link
         href={href}
-        className={`archron-card archron-card--${nodeTypeCosmology(c.nodeType)} group flex min-h-[190px] flex-col justify-between p-5 focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none`}
+        className={`archron-card archron-card--${nodeTypeCosmology(c.nodeType)} group flex min-h-[190px] flex-col justify-between p-5 focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none ${!hasRealContent ? 'opacity-70 hover:opacity-100' : ''}`}
       >
         <div>
           <div className="flex items-center justify-between gap-3">
@@ -87,11 +87,15 @@ export function ConceptCard({ c }: { c: ConceptRegistryItem }) {
             <span
               className="shrink-0 rounded-full px-2.5 py-0.5 text-[11px] font-medium"
               style={{
-                backgroundColor: "color-mix(in srgb, var(--cosmology-accent) 10%, transparent)",
-                color: "var(--cosmology-accent)",
+                backgroundColor: hasRealContent
+                  ? "color-mix(in srgb, var(--cosmology-accent) 12%, transparent)"
+                  : "color-mix(in srgb, var(--color-slate-boundary) 20%, transparent)",
+                color: hasRealContent
+                  ? "var(--cosmology-accent)"
+                  : "var(--color-muted)",
               }}
             >
-              {NODE_LABEL[c.nodeType] ?? c.nodeType}
+              {NODE_LABEL[c.nodeType] ?? c.nodeType}{!hasRealContent && " · โครงร่าง"}
             </span>
           </div>
           {c.thaiTitle ? <p className="mt-1 text-xs font-medium text-muted">{c.thaiTitle}</p> : null}

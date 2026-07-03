@@ -12,7 +12,7 @@ const COSMOLOGY_ACCENT: Record<Cosmology, string> = {
   prima: "#B9C2CE",
   psyche: "#6E93A8",
   lumen: "#E7D7A6",
-  sapientia: "#CBA45A",
+  sapientia: "#C79A4A",
   mercurius: "#8AA395",
   humanitas: "#C9C2B4",
 };

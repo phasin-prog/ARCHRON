@@ -59,12 +59,18 @@ export function CardCarousel({
   useEffect(() => {
     const t = trackRef.current;
     if (!t) return;
-    update();
-    t.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
+    let rafId: number;
+    const handleScroll = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(update);
+    };
+    handleScroll();
+    t.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
     return () => {
-      t.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
+      cancelAnimationFrame(rafId);
+      t.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
     };
   }, [update]);
 

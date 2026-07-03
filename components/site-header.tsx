@@ -63,11 +63,15 @@ export function SiteHeader() {
     pathname === href || (href !== "/" && !!pathname?.startsWith(href));
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    const id = requestAnimationFrame(onScroll);
+    let rafId: number;
+    const onScroll = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => setScrolled(window.scrollY > 12));
+    };
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
-      cancelAnimationFrame(id);
+      cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", onScroll);
     };
   }, []);
@@ -142,7 +146,7 @@ export function SiteHeader() {
           <Link
             href="/search"
             aria-label="ค้นหา"
-            className={`flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-white/5 ${
+            className={`flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:bg-white/5 ${
               pathname === "/search" ? "text-accent" : "text-on-surface-variant hover:text-accent"
             }`}
           >
@@ -154,7 +158,7 @@ export function SiteHeader() {
             <Link
               href="/profile"
               aria-label="โปรไฟล์ของฉัน"
-              className={`hidden h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-white/5 lg:flex ${
+              className={`hidden h-11 w-11 items-center justify-center rounded-full transition-colors hover:bg-white/5 lg:flex ${
                 isActive("/profile") ? "text-accent" : "text-on-surface-variant hover:text-accent"
               }`}
             >
@@ -169,6 +173,7 @@ export function SiteHeader() {
               onClick={() => setAcctOpen((v) => !v)}
               aria-expanded={acctOpen}
               aria-haspopup="menu"
+              aria-controls="account-menu"
               aria-label="เมนูบัญชี"
               className="flex items-center gap-2 rounded-full border border-slate-boundary/40 bg-white/[0.03] py-1.5 pl-2 pr-2.5 text-on-surface-variant transition-colors hover:border-accent/40 hover:text-on-surface"
             >
@@ -191,6 +196,7 @@ export function SiteHeader() {
 
             {acctOpen ? (
               <div
+                id="account-menu"
                 role="menu"
                 className="glass-nav-panel absolute right-0 top-[calc(100%+10px)] min-w-[214px] rounded-xl border border-slate-boundary/40 p-1.5 shadow-[0_24px_50px_-24px_rgba(0,0,0,0.85)]"
               >
@@ -238,11 +244,12 @@ export function SiteHeader() {
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className={`flex h-10 w-10 items-center justify-center transition-colors lg:hidden ${
+            className={`flex h-11 w-11 items-center justify-center transition-colors lg:hidden ${
               open ? "text-accent" : "text-on-surface hover:text-accent"
             }`}
             aria-label={open ? "ปิดเมนู" : "เปิดเมนู"}
             aria-expanded={open}
+            aria-controls="mobile-nav"
           >
             {open ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
           </button>
@@ -252,6 +259,7 @@ export function SiteHeader() {
       {/* Mobile / tablet (< lg): เมนูเต็ม (ไอคอน+ข้อความ ครบ เพื่อการหาทางที่ง่าย) */}
       {open ? (
         <nav
+          id="mobile-nav"
           className="menu-in glass-nav-panel border-t border-slate-boundary/40 px-6 py-4 lg:hidden"
           aria-label="เมนูมือถือ"
         >

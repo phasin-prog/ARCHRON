@@ -80,7 +80,7 @@ export function ViewBadge({ slug, className }: { slug: string; className?: strin
         className ??
         "inline-flex items-center gap-1 text-xs text-on-surface-variant/55"
       }
-      title="จำนวนผู้เยี่ยมชม"
+      role="status" aria-live="polite"
     >
       <span className="material-symbols-outlined text-[14px] text-burnished-gold/70">
         visibility

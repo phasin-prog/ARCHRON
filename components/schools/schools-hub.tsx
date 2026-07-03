@@ -106,7 +106,7 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
           onChange={(e) => setQuery(e.target.value)}
           placeholder="ค้นหาสำนักคิด นักปราชญ์ หรือชื่อผลงาน..."
           aria-label="ค้นหา"
-          className="w-full bg-transparent text-base text-on-surface placeholder:text-on-surface-variant/55 focus:outline-none"
+          className="w-full bg-transparent text-base text-on-surface placeholder:text-on-surface-variant/55 focus-visible:ring-2 focus-visible:ring-burnished-gold/30 focus:outline-none"
         />
         {query ? (
           <button
@@ -164,16 +164,10 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
                   />
 
                   <div className="flex items-center justify-between gap-3">
-                    <span
-                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border"
-                      style={{
-                        color: meta.accent,
-                        borderColor: `${meta.accent}40`,
-                        backgroundColor: `${meta.accent}14`,
-                      }}
-                      title={meta.label}
-                    >
-                      <Icon className="h-6 w-6" />
+                    <span className="icon-tile scale-90" style={{ borderColor: `color-mix(in srgb, ${meta.accent} 26%, var(--color-slate-boundary))` }} title={meta.label}>
+                      <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": meta.accent } as React.CSSProperties}>
+                        <use href="/icons/archron-icons.svg#level" />
+                      </svg>
                     </span>
                     {s.thinkers.length > 0 ? (
                       <span

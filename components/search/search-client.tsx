@@ -47,7 +47,7 @@ export function SearchClient({ items }: { items: SearchItem[] }) {
           onChange={(e) => setQuery(e.target.value)}
           placeholder="ค้นหาแนวคิด บทความ ทรัพยากร หรือหน้า..."
           aria-label="ค้นหา"
-          className="w-full bg-transparent text-base text-on-surface placeholder:text-on-surface-variant/55 focus:outline-none"
+          className="w-full bg-transparent text-base text-on-surface placeholder:text-on-surface-variant/55 focus-visible:ring-2 focus-visible:ring-burnished-gold/30 focus:outline-none"
         />
         {query ? (
           <button

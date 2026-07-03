@@ -116,26 +116,37 @@ export default async function ProfilePage() {
 
       <div className="mx-auto max-w-6xl px-6">
         {/* หัวโปรไฟล์ — monogram avatar + ชื่อ + ยศ */}
-        <div className="archron-card flex flex-col items-center gap-4 p-7 sm:flex-row sm:items-center sm:gap-6">
-          <div
-            className="flex h-20 w-20 flex-none items-center justify-center rounded-full border text-3xl font-serif text-soft-gold"
-            style={{
-              borderColor: "color-mix(in srgb, var(--accent) 45%, transparent)",
-              backgroundColor: "color-mix(in srgb, var(--accent) 12%, transparent)",
-            }}
-            aria-hidden="true"
-          >
-            {monogram(displayName)}
-          </div>
-          <div className="text-center sm:text-left">
-            <h2 className="font-serif text-2xl text-ivory">{displayName}</h2>
-            <div className="mt-2 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
-              <span className="tag-pill">{title}</span>
-              <span className="inline-flex items-center gap-1 rounded-full border border-burnished-gold/30 bg-burnished-gold/10 px-2.5 py-0.5 text-[11px] text-burnished-gold">
-                <span className="material-symbols-outlined text-[14px]">military_tech</span>
-                ระดับ {lp.level} · {lp.name}
-              </span>
+        <div className="archron-card flex flex-col items-center justify-between gap-4 p-7 sm:flex-row sm:gap-6">
+          <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-center sm:gap-6">
+            <div
+              className="flex h-20 w-20 flex-none items-center justify-center rounded-full border text-3xl font-serif text-soft-gold"
+              style={{
+                borderColor: "color-mix(in srgb, var(--accent) 45%, transparent)",
+                backgroundColor: "color-mix(in srgb, var(--accent) 12%, transparent)",
+              }}
+              aria-hidden="true"
+            >
+              {monogram(displayName)}
             </div>
+            <div className="text-center sm:text-left">
+              <h2 className="font-serif text-2xl text-ivory">{displayName}</h2>
+              <div className="mt-2 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
+                <span className="tag-pill">{title}</span>
+                <span className="inline-flex items-center gap-1 rounded-full border border-burnished-gold/30 bg-burnished-gold/10 px-2.5 py-0.5 text-[11px] text-burnished-gold">
+                  <span className="material-symbols-outlined text-[14px]">military_tech</span>
+                  ระดับ {lp.level} · {lp.name}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="mt-4 sm:mt-0">
+            <Link
+              href="/studio/profile"
+              className="inline-flex items-center gap-1.5 rounded-md border border-slate-boundary/30 bg-surface-container/30 px-4 py-2 text-xs text-soft-ivory hover:border-burnished-gold/45 hover:text-soft-gold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold"
+            >
+              <span className="material-symbols-outlined text-[16px]">edit</span>
+              แก้ไขโปรไฟล์
+            </Link>
           </div>
           {/* ทางลัดแก้ไขข้อมูลโปรไฟล์ (จัดการใน Studio) */}
           <Link
@@ -228,7 +239,7 @@ function ReadingTab({
             return (
               <li
                 key={lv.level}
-                className={`rounded-md border px-2 py-2.5 text-center ${
+                className={`rounded-md border px-2 py-3 text-center flex flex-col items-center justify-center ${
                   isCurrent
                     ? "border-burnished-gold/60 bg-burnished-gold/10"
                     : reached
@@ -236,7 +247,12 @@ function ReadingTab({
                       : "border-slate-boundary/20 opacity-55"
                 }`}
               >
-                <p className={`text-[11px] ${reached ? "text-soft-gold" : "text-muted"}`}>
+                <span className="icon-tile scale-75 mb-1.5" style={!reached ? { borderColor: "color-mix(in srgb, var(--color-slate-boundary) 60%, transparent)" } : undefined}>
+                  <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": reached ? "var(--cosmology-accent)" : "var(--color-muted)" } as React.CSSProperties}>
+                    <use href="/icons/archron-icons.svg#level" />
+                  </svg>
+                </span>
+                <p className={`text-[11px] ${reached ? "text-soft-gold font-semibold" : "text-muted"}`}>
                   {lv.level}
                 </p>
                 <p className={`mt-0.5 text-[11px] leading-tight ${reached ? "text-ivory" : "text-muted"}`}>
@@ -273,21 +289,10 @@ function ReadingTab({
                   unlocked ? "" : "opacity-45"
                 }`}
               >
-                <span
-                  className="flex h-14 w-14 items-center justify-center rounded-full border"
-                  style={{
-                    color: unlocked ? "var(--accent)" : "var(--color-muted)",
-                    borderColor: unlocked
-                      ? "color-mix(in srgb, var(--accent) 45%, transparent)"
-                      : "color-mix(in srgb, var(--color-slate-boundary) 60%, transparent)",
-                    backgroundColor: unlocked
-                      ? "color-mix(in srgb, var(--accent) 12%, transparent)"
-                      : "transparent",
-                  }}
-                >
-                  <span className="material-symbols-outlined text-[26px]" aria-hidden="true">
-                    {unlocked ? a.icon : "lock"}
-                  </span>
+                <span className="icon-tile scale-110 mb-2" style={!unlocked ? { borderColor: "color-mix(in srgb, var(--color-slate-boundary) 60%, transparent)" } : undefined}>
+                  <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": unlocked ? "var(--cosmology-accent)" : "var(--color-muted)" } as React.CSSProperties}>
+                    <use href="/icons/archron-icons.svg#achievement" />
+                  </svg>
                 </span>
                 <p className="mt-3 text-sm font-medium text-ivory">{a.title}</p>
                 <p className="mt-1 text-xs leading-snug text-muted">{a.description}</p>

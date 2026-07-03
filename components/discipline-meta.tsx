@@ -40,15 +40,15 @@ export type DisciplineMeta = {
 
 export const DISCIPLINE_META: Record<DisciplineKey, DisciplineMeta> = {
   psychology: { Icon: PsychologyIcon, accent: "#6E93A8", label: "จิตวิทยา" },
-  philosophy: { Icon: PhilosophyIcon, accent: "#CBA45A", label: "ปรัชญา" },
+  philosophy: { Icon: PhilosophyIcon, accent: "#C79A4A", label: "ปรัชญา" },
   anthropology: { Icon: AnthropologyIcon, accent: "#8AA395", label: "มานุษยวิทยา" },
   history: { Icon: HistoryIcon, accent: "#B9C2CE", label: "ประวัติศาสตร์" },
   language: { Icon: LanguageIcon, accent: "#8AA395", label: "ภาษาและการตีความ" },
   mythology: { Icon: MythologyIcon, accent: "#B9C2CE", label: "ตำนาน" },
-  religion: { Icon: ReligionIcon, accent: "#C9A24A", label: "ศาสนา" },
+  religion: { Icon: ReligionIcon, accent: "#C79A4A", label: "ศาสนา" },
   science: { Icon: ScienceIcon, accent: "#7FB08A", label: "วิทยาศาสตร์" },
-  symbol: { Icon: SymbolismIcon, accent: "#C9A24A", label: "สัญลักษณ์" },
-  art: { Icon: ArtIcon, accent: "#CBA45A", label: "ศิลปะ" },
+  symbol: { Icon: SymbolismIcon, accent: "#C79A4A", label: "สัญลักษณ์" },
+  art: { Icon: ArtIcon, accent: "#C79A4A", label: "ศิลปะ" },
   "ai-future": { Icon: AIFutureIcon, accent: "#6E93A8", label: "ปัญญาประดิษฐ์และอนาคต" },
   civilization: { Icon: CivilizationIcon, accent: "#8AA395", label: "อารยธรรม" },
 };

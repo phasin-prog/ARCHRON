@@ -2,9 +2,6 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Intro Preloader Full Suite', () => {
   test.beforeEach(async ({ page }) => {
-    // Mark tests as slow to triple timeout (from 30s to 90s)
-    test.slow();
-
     // Clear sessionStorage once per test, but not on reload
     await page.addInitScript(() => {
       if (!window.sessionStorage.getItem('bypass-clear')) {
@@ -15,7 +12,7 @@ test.describe('Intro Preloader Full Suite', () => {
   });
 
   test('should skip preloader when clicking anywhere on the screen', async ({ page }) => {
-    await page.goto('http://localhost:3000');
+    await page.goto('/');
     
     const overlay = page.locator('#intro-overlay');
     await expect(overlay).toBeVisible();
@@ -29,12 +26,13 @@ test.describe('Intro Preloader Full Suite', () => {
   });
 
   test('normal flow - should complete animation in 9 seconds', async ({ page }, testInfo) => {
-    await page.goto('http://localhost:3000');
+    test.slow();
+    await page.goto('/');
     const overlay = page.locator('#intro-overlay');
     await expect(overlay).toBeVisible();
 
     // Check text existence
-    const archeText = page.locator('text=Arche');
+    const archeText = page.locator('#intro-overlay').getByText('Arche');
     await expect(archeText).toBeVisible();
 
     // Wait for complete 9-second window
@@ -46,7 +44,7 @@ test.describe('Intro Preloader Full Suite', () => {
   });
 
   test('should skip when clicking explicit skip button', async ({ page }) => {
-    await page.goto('http://localhost:3000');
+    await page.goto('/');
     const overlay = page.locator('#intro-overlay');
     await expect(overlay).toBeVisible();
 
@@ -58,7 +56,7 @@ test.describe('Intro Preloader Full Suite', () => {
   });
 
   test('should skip when pressing Escape key', async ({ page }) => {
-    await page.goto('http://localhost:3000');
+    await page.goto('/');
     const overlay = page.locator('#intro-overlay');
     await expect(overlay).toBeVisible();
 
@@ -70,7 +68,7 @@ test.describe('Intro Preloader Full Suite', () => {
   });
 
   test('session storage - should bypass preloader on reload', async ({ page }) => {
-    await page.goto('http://localhost:3000');
+    await page.goto('/');
     const overlay = page.locator('#intro-overlay');
     await expect(overlay).toBeVisible();
 
@@ -88,7 +86,7 @@ test.describe('Intro Preloader Full Suite', () => {
     // Create a context that emulates reduced motion at creation time
     const context = await browser.newContext({ reducedMotion: 'reduce' });
     const page = await context.newPage();
-    await page.goto('http://localhost:3000');
+    await page.goto('/');
     
     const overlay = page.locator('#intro-overlay');
     await expect(overlay).toBeHidden();

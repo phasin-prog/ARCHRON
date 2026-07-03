@@ -69,7 +69,7 @@ export function ProfileTabs({
               aria-controls={`profile-panel-${t.key}`}
               tabIndex={isActive ? 0 : -1}
               onClick={() => setActive(t.key)}
-              className={`-mb-px inline-flex items-center gap-2 border-b-2 px-4 py-3 text-sm font-medium transition-colors ${
+              className={`-mb-px inline-flex items-center gap-2 border-b-2 px-4 py-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:border-burnished-gold/60 focus-visible:text-soft-gold ${
                 isActive
                   ? "border-burnished-gold text-soft-gold"
                   : "border-transparent text-muted hover:text-soft-ivory"
@@ -90,7 +90,9 @@ export function ProfileTabs({
           role="tabpanel"
           id="profile-panel-reading"
           aria-labelledby="profile-tab-reading"
+          tabIndex={0}
           hidden={active !== "reading"}
+          className="focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-burnished-gold/30 rounded"
         >
           {reading}
         </div>
@@ -99,7 +101,9 @@ export function ProfileTabs({
             role="tabpanel"
             id="profile-panel-work"
             aria-labelledby="profile-tab-work"
+            tabIndex={0}
             hidden={active !== "work"}
+            className="focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-burnished-gold/30 rounded"
           >
             {work}
           </div>

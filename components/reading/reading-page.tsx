@@ -570,7 +570,7 @@ export async function ReadingPage({
         {/* ⑬ แถบนำทาง ก่อนหน้า / กลับหน้าหลัก / ถัดไป (สลับตามหมวด บทความ/แนวคิด) */}
         <nav
           aria-label="นำทางระหว่างเนื้อหา"
-          className="mt-16 grid grid-cols-3 items-center gap-3 border-t border-slate-boundary/20 pt-8 text-sm"
+          className="mt-16 grid grid-cols-1 items-center gap-4 border-t border-slate-boundary/20 pt-8 text-sm sm:grid-cols-3 sm:gap-3"
         >
           <div className="justify-self-start">
             {prevEntry ? (

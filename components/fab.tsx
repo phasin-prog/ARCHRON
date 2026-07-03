@@ -57,6 +57,7 @@ export function Fab() {
 
   return (
     <div
+      id="fab-actions"
       className="fixed bottom-6 left-6 z-40 hidden md:block"
       onClick={(e) => e.stopPropagation()}
     >
@@ -88,6 +89,7 @@ export function Fab() {
         type="button"
         aria-label={open ? "ปิดเมนูลัด" : "เปิดเมนูลัด"}
         aria-expanded={open}
+        aria-controls="fab-actions"
         onClick={() => setOpen((v) => !v)}
         className="relative flex h-14 w-14 items-center justify-center rounded-full border border-burnished-gold/40 bg-gradient-to-br from-burnished-gold to-soft-gold text-prima shadow-[0_10px_30px_-8px_rgba(0,0,0,0.7)] transition-transform duration-300 hover:scale-105 motion-reduce:transition-none"
       >

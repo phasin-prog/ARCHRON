@@ -53,7 +53,7 @@ export function RelatedConceptPicker({
             <span className="ml-2 text-xs text-antique-gold">{r.relationType}</span>
             {r.reason ? <p className="mt-1 text-muted">{r.reason}</p> : null}
           </div>
-          <button type="button" onClick={() => onChange(value.filter((_, j) => j !== i))} className="text-xs text-danger">ลบ</button>
+          <button type="button" onClick={() => onChange(value.filter((_, j) => j !== i))} className="text-xs text-danger" aria-label={`ลบความสัมพันธ์ ${r.conceptSlug}`}>ลบ</button>
         </div>
       ))}
 
@@ -65,6 +65,7 @@ export function RelatedConceptPicker({
             setSlug("");
           }}
           placeholder="ค้นหาแนวคิดจาก Concept Registry..."
+          aria-label="ค้นหาแนวคิด"
           className={inputClass}
         />
         {q !== "" && slug === "" ? (
@@ -94,10 +95,10 @@ export function RelatedConceptPicker({
 
         {slug !== "" ? (
           <div className="mt-3 grid gap-2 sm:grid-cols-[1fr_2fr_auto]">
-            <select className={inputClass} value={rel} onChange={(e) => setRel(e.target.value)}>
+            <select className={inputClass} value={rel} onChange={(e) => setRel(e.target.value)} aria-label="ประเภทความสัมพันธ์">
               {RELATION_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
             </select>
-            <input className={inputClass} value={reason} onChange={(e) => setReason(e.target.value)} placeholder="เหตุผลที่เชื่อมโยง (ห้ามเชื่อมเพราะชื่อคล้าย)" />
+            <input className={inputClass} value={reason} onChange={(e) => setReason(e.target.value)} placeholder="เหตุผลที่เชื่อมโยง (ห้ามเชื่อมเพราะชื่อคล้าย)" aria-label="เหตุผลที่เชื่อมโยง" />
             <button type="button" onClick={add} className="rounded-md border border-ink/20 px-3 text-sm text-soft-ivory hover:border-antique-gold">เพิ่ม</button>
           </div>
         ) : null}

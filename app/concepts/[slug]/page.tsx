@@ -109,7 +109,7 @@ export default async function ConceptNodePage({
       </header>
 
       <section className="mx-auto max-w-2xl space-y-10 px-6">
-        <dl className="grid grid-cols-2 gap-4 border-y border-ink/10 py-6 text-sm">
+        <dl className="grid grid-cols-1 gap-4 border-y border-ink/10 py-6 text-sm sm:grid-cols-2">
           {node.thaiTitle ? (
             <div>
               <dt className="text-muted">ชื่อไทย</dt>

@@ -24,6 +24,15 @@ export function ScrollReveal() {
       });
     };
 
+    // ปิดเอฟเฟกต์แอนิเมชันทันทีบนหน้าจอขนาดเล็ก (Mobile/Tablet) เพื่อลดภาระการประมวลผลและการเลื่อนกระตุก
+    if (typeof window !== "undefined" && window.innerWidth <= 768) {
+      root.classList.add("js-reveal");
+      document.querySelectorAll(".scroll-reveal").forEach((el) => {
+        el.classList.add("visible");
+      });
+      return;
+    }
+
     // เปิดโหมดซ่อน-แล้วเผย จากนั้นเผย element ที่อยู่ในจอทันที (sync, ก่อน paint รอบถัดไป → ไม่วาบ)
     root.classList.add("js-reveal");
     revealInView();

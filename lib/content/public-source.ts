@@ -108,13 +108,19 @@ export async function getPublicSchools(): Promise<School[]> {
   return staticSchools;
 }
 
+import { READING_SETS, type ReadingSetItem } from "@/lib/content/reading-sets";
+
 // ดึงรายการเส้นทางการอ่าน (Reading Sets) ทั้งหมด
-export async function getPublicReadingSets(): Promise<ContentEntry[]> {
-  try {
-    const all = await getPublicEntries();
-    return all.filter((e) => e.contentType === "reading-set");
-  } catch {
-    return [];
+export async function getPublicReadingSets(): Promise<ReadingSetItem[]> {
+  if (hasSupabaseEnv()) {
+    try {
+      const all = await getPublicEntries();
+      const dbSets = all.filter((e) => e.contentType === "reading-set") as ReadingSetItem[];
+      if (dbSets.length > 0) return dbSets;
+    } catch {
+      // DB เข้าถึงไม่ได้
+    }
   }
+  return READING_SETS;
 }
 

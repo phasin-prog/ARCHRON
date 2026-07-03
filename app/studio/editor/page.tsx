@@ -91,8 +91,8 @@ const schoolMeta = (val: string) => {
   };
 };
 
-function Label({ children }: { children: React.ReactNode }) {
-  return <label className="mb-1 block text-sm text-soft-ivory">{children}</label>;
+function Label({ children, htmlFor }: { children: React.ReactNode; htmlFor?: string }) {
+  return <label htmlFor={htmlFor} className="mb-1 block text-sm text-soft-ivory">{children}</label>;
 }
 
 const inputClass =
@@ -115,6 +115,7 @@ export default function StudioEditorPage() {
   const [ref, setRef] = useState({ sourceType: "primary-source", title: "", relatedClaim: "" });
   const [publishing, setPublishing] = useState(false);
   const [displayName, setDisplayName] = useState<string | null>(null);
+  const [loadingDraft, setLoadingDraft] = useState(false);
 
   const canSave = draft.slug.trim() !== "" && draft.title.trim() !== "";
 
@@ -137,9 +138,20 @@ export default function StudioEditorPage() {
         : null;
     if (!slug) return;
     let active = true;
+    setLoadingDraft(true);
     (async () => {
-      const { draft: loaded } = await loadDraftAction(slug);
-      if (active && loaded) setDraft(loaded);
+      try {
+        const { draft: loaded } = await loadDraftAction(slug);
+        if (active && loaded) {
+          setDraft(loaded);
+        }
+      } catch (err) {
+        if (active) {
+          showError(`โหลดเนื้อหาไม่สำเร็จ: ${err instanceof Error ? err.message : "ข้อผิดพลาดไม่ทราบสาเหตุ"}`);
+        }
+      } finally {
+        if (active) setLoadingDraft(false);
+      }
     })();
     return () => {
       active = false;
@@ -299,15 +311,25 @@ export default function StudioEditorPage() {
             {draft.status}
           </span>
           <div className="flex items-center gap-2">
-            <button onClick={handleManualSave} className="rounded-sm border border-ink/20 px-4 py-2 text-sm text-ivory hover:border-antique-gold">บันทึก + เวอร์ชัน</button>
-            <button onClick={() => setPreview((v) => !v)} disabled={!canPreview} className="rounded-sm border border-ink/20 px-4 py-2 text-sm text-ivory hover:border-antique-gold disabled:opacity-40">{preview ? "ปิดพรีวิว" : "พรีวิว"}</button>
-            <button onClick={handlePublish} disabled={publishing} className="rounded-sm bg-gradient-to-br from-antique-gold to-soft-gold px-4 py-2 text-sm font-semibold text-prima disabled:opacity-50">{publishing ? "กำลังเผยแพร่..." : "เผยแพร่"}</button>
+            <button onClick={handleManualSave} disabled={loadingDraft || publishing} className="rounded-sm border border-ink/20 px-4 py-2 text-sm text-ivory hover:border-antique-gold disabled:opacity-40">บันทึก + เวอร์ชัน</button>
+            <button onClick={() => setPreview((v) => !v)} disabled={!canPreview || loadingDraft} className="rounded-sm border border-ink/20 px-4 py-2 text-sm text-ivory hover:border-antique-gold disabled:opacity-40">{preview ? "ปิดพรีวิว" : "พรีวิว"}</button>
+            <button onClick={handlePublish} disabled={publishing || loadingDraft} className="rounded-sm bg-gradient-to-br from-antique-gold to-soft-gold px-4 py-2 text-sm font-semibold text-prima disabled:opacity-50">{publishing ? "กำลังเผยแพร่..." : "เผยแพร่"}</button>
             <UserButton afterSignOutUrl="/" />
           </div>
         </div>
       </div>
 
-      <div className="mx-auto grid max-w-6xl gap-8 px-6 py-10 pb-28 md:grid-cols-[1fr_320px] lg:pb-10">
+      {loadingDraft ? (
+        <div className="mx-auto max-w-6xl px-6 py-20 text-center">
+          <div className="inline-flex flex-col items-center gap-4">
+            <span className="material-symbols-outlined animate-spin text-[48px] text-burnished-gold">
+              progress_activity
+            </span>
+            <p className="text-lg text-soft-ivory">กำลังโหลดเนื้อหา...</p>
+          </div>
+        </div>
+      ) : (
+        <div className="mx-auto grid max-w-6xl gap-8 px-6 py-10 pb-28 md:grid-cols-[1fr_320px] lg:pb-10">
         <main className="space-y-10">
           <p className="text-xs text-muted">
             เขียนในชื่อ: <span className="text-soft-ivory">{displayName ?? userId ?? "— (ยังไม่ได้ login)"}</span>
@@ -319,19 +341,19 @@ export default function StudioEditorPage() {
           <section className="space-y-4">
             <h2 className="font-serif text-xl text-ivory">ข้อมูลพื้นฐาน</h2>
             <div>
-              <Label>Title</Label>
-              <input className={inputClass} value={draft.title} onChange={(e) => set("title", e.target.value)} placeholder="เช่น Psyche ในจิตวิทยาเชิงลึก" />
+              <Label htmlFor="entry-title">Title</Label>
+              <input id="entry-title" className={inputClass} value={draft.title} onChange={(e) => set("title", e.target.value)} placeholder="เช่น Psyche ในจิตวิทยาเชิงลึก" />
             </div>
             <div>
-              <Label>Slug</Label>
+              <Label htmlFor="entry-slug">Slug</Label>
               <div className="flex gap-2">
-                <input className={inputClass} value={draft.slug} onChange={(e) => set("slug", e.target.value)} placeholder="psyche" />
+                <input id="entry-slug" className={inputClass} value={draft.slug} onChange={(e) => set("slug", e.target.value)} placeholder="psyche" />
                 <button onClick={() => set("slug", slugify(draft.title))} className="shrink-0 rounded-md border border-ink/20 px-3 text-sm text-soft-ivory hover:border-antique-gold">สร้างจากชื่อ</button>
               </div>
             </div>
             <div>
-              <Label>คำอธิบายสั้น / นิยามย่อ (Short Description)</Label>
-              <input className={inputClass} value={draft.shortDescription} onChange={(e) => set("shortDescription", e.target.value)} placeholder="คำอธิบายสั้นๆ สำหรับแสดงบนการ์ดหรือหน้ารวมบทความ" />
+              <Label htmlFor="entry-short-description">คำอธิบายสั้น / นิยามย่อ (Short Description)</Label>
+              <input id="entry-short-description" className={inputClass} value={draft.shortDescription} onChange={(e) => set("shortDescription", e.target.value)} placeholder="คำอธิบายสั้นๆ สำหรับแสดงบนการ์ดหรือหน้ารวมบทความ" />
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
@@ -383,16 +405,17 @@ export default function StudioEditorPage() {
           <section className="space-y-4">
             <h2 className="font-serif text-xl text-ivory">เนื้อหา</h2>
             <div>
-              <Label>คำอธิบายให้เห็นภาพ</Label>
-              <textarea className={inputClass} rows={4} value={draft.visualExplanation} onChange={(e) => set("visualExplanation", e.target.value)} placeholder="อธิบายด้วยภาษาที่เห็นภาพ ไม่ลงศัพท์เทคนิคหนัก หลีกเลี่ยงคำสวยลอย ๆ" />
+              <Label htmlFor="entry-visual-explanation">คำอธิบายให้เห็นภาพ</Label>
+              <textarea id="entry-visual-explanation" className={inputClass} rows={4} value={draft.visualExplanation} onChange={(e) => set("visualExplanation", e.target.value)} placeholder="อธิบายด้วยภาษาที่เห็นภาพ ไม่ลงศัพท์เทคนิคหนัก หลีกเลี่ยงคำสวยลอย ๆ" />
             </div>
             <div>
-              <Label>ความหมายทางวิชาการ / เทคนิค (รองรับ [[Shadow]] / [[Carl Jung|ยุง]])</Label>
-              <textarea className={inputClass} rows={4} value={draft.technicalMeaning} onChange={(e) => set("technicalMeaning", e.target.value)} placeholder="นิยามเชิงทฤษฎี ขอบเขตของคำ — แยกกรอบนักคิดกับการตีความของเว็บ" />
+              <Label htmlFor="entry-technical-meaning">ความหมายทางวิชาการ / เทคนิค (รองรับ [[Shadow]] / [[Carl Jung|ยุง]])</Label>
+              <textarea id="entry-technical-meaning" className={inputClass} rows={4} value={draft.technicalMeaning} onChange={(e) => set("technicalMeaning", e.target.value)} placeholder="นิยามเชิงทฤษฎี ขอบเขตของคำ — แยกกรอบนักคิดกับการตีความของเว็บ" />
             </div>
             <div>
-              <Label>เนื้อหาเต็ม (Markdown)</Label>
+              <Label htmlFor="entry-body-markdown">เนื้อหาเต็ม (Markdown)</Label>
               <textarea
+                id="entry-body-markdown"
                 className={`${inputClass} font-mono text-sm leading-relaxed`}
                 rows={16}
                 value={draft.bodyMarkdown}
@@ -440,8 +463,8 @@ export default function StudioEditorPage() {
             ))}
             <div className="grid gap-2 sm:grid-cols-[1fr_1fr_2fr_auto]">
               <SearchableSelect value={ref.sourceType} onChange={(v) => setRef({ ...ref, sourceType: v })} options={SOURCE_TYPES} placeholder="ชนิดแหล่ง" meta={sourceTypeMeta} />
-              <input className={inputClass} value={ref.title} onChange={(e) => setRef({ ...ref, title: e.target.value })} placeholder="ชื่อแหล่ง/งาน" />
-              <input className={inputClass} value={ref.relatedClaim} onChange={(e) => setRef({ ...ref, relatedClaim: e.target.value })} placeholder="รองรับ claim ใด" />
+              <input id="ref-title" className={inputClass} value={ref.title} onChange={(e) => setRef({ ...ref, title: e.target.value })} placeholder="ชื่อแหล่ง/งาน" aria-label="ชื่อแหล่ง/งาน" />
+              <input id="ref-related-claim" className={inputClass} value={ref.relatedClaim} onChange={(e) => setRef({ ...ref, relatedClaim: e.target.value })} placeholder="รองรับ claim ใด" aria-label="รองรับ claim ใด" />
               <button
                 onClick={() => {
                   if (ref.title.trim() === "") return;
@@ -449,6 +472,7 @@ export default function StudioEditorPage() {
                   setRef({ sourceType: "primary-source", title: "", relatedClaim: "" });
                 }}
                 className="rounded-md border border-ink/20 px-3 text-sm text-soft-ivory hover:border-antique-gold"
+                aria-label="เพิ่มเอกสารอ้างอิง"
               >
                 เพิ่ม
               </button>
@@ -457,9 +481,9 @@ export default function StudioEditorPage() {
 
           <section className="space-y-4">
             <h2 className="font-serif text-xl text-ivory">Roots — ที่มาของคำ</h2>
-            <div><Label>รากศัพท์ (Etymology)</Label><textarea className={inputClass} rows={2} value={draft.rootsEtymology} onChange={(e) => set("rootsEtymology", e.target.value)} /></div>
-            <div><Label>การเปลี่ยนความหมาย</Label><textarea className={inputClass} rows={2} value={draft.rootsMeaningShift} onChange={(e) => set("rootsMeaningShift", e.target.value)} /></div>
-            <div><Label>ข้อควรระวัง</Label><textarea className={inputClass} rows={2} value={draft.rootsCaution} onChange={(e) => set("rootsCaution", e.target.value)} placeholder="อย่าใช้รากศัพท์แทนนิยามทฤษฎี" /></div>
+            <div><Label htmlFor="entry-roots-etymology">รากศัพท์ (Etymology)</Label><textarea id="entry-roots-etymology" className={inputClass} rows={2} value={draft.rootsEtymology} onChange={(e) => set("rootsEtymology", e.target.value)} /></div>
+            <div><Label htmlFor="entry-roots-meaning-shift">การเปลี่ยนความหมาย</Label><textarea id="entry-roots-meaning-shift" className={inputClass} rows={2} value={draft.rootsMeaningShift} onChange={(e) => set("rootsMeaningShift", e.target.value)} /></div>
+            <div><Label htmlFor="entry-roots-caution">ข้อควรระวัง</Label><textarea id="entry-roots-caution" className={inputClass} rows={2} value={draft.rootsCaution} onChange={(e) => set("rootsCaution", e.target.value)} placeholder="อย่าใช้รากศัพท์แทนนิยามทฤษฎี" /></div>
           </section>
 
           {preview ? (
@@ -471,7 +495,7 @@ export default function StudioEditorPage() {
               {draft.coverImage ? (
                 <div className="mt-4">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={draft.coverImage} alt="ภาพปก" className="h-48 w-full rounded-md object-cover" />
+                  <img src={draft.coverImage} alt={draft.title ? `ภาพปก: ${draft.title}` : "ภาพปก"} className="h-48 w-full rounded-md object-cover" />
                 </div>
               ) : null}
               {draft.visualExplanation ? <p className="mt-4 whitespace-pre-line text-soft-ivory">{draft.visualExplanation}</p> : null}
@@ -535,6 +559,7 @@ export default function StudioEditorPage() {
           />
         </aside>
       </div>
+      )}
 
       {/* แถบปุ่มล่างสำหรับมือถือ */}
       <div className="fixed inset-x-0 bottom-0 z-50 border-t border-burnished-gold/15 bg-midnight/90 px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur lg:hidden">
@@ -542,19 +567,20 @@ export default function StudioEditorPage() {
           <button
             onClick={handleManualSave}
             className="flex-1 rounded-sm border border-ink/20 px-3 py-2 text-sm text-ivory hover:border-antique-gold"
+            disabled={loadingDraft || publishing}
           >
             บันทึก
           </button>
           <button
             onClick={() => setPreview((v) => !v)}
-            disabled={!canPreview}
+            disabled={!canPreview || loadingDraft}
             className="flex-1 rounded-sm border border-ink/20 px-3 py-2 text-sm text-ivory hover:border-antique-gold disabled:opacity-40"
           >
             {preview ? "ปิดพรีวิว" : "พรีวิว"}
           </button>
           <button
             onClick={handlePublish}
-            disabled={publishing}
+            disabled={publishing || loadingDraft}
             className="flex-1 rounded-sm bg-gradient-to-br from-antique-gold to-soft-gold px-3 py-2 text-sm font-semibold text-prima disabled:opacity-50"
           >
             {publishing ? "..." : "เผยแพร่"}

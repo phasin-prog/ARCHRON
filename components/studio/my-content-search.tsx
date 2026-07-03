@@ -48,6 +48,7 @@ export function MyContentSearch({ userId }: { userId: string | null }) {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="ค้นหาชื่อ / slug..."
+            aria-label="ค้นหาเนื้อหาของฉัน"
             className="mt-3 w-full rounded-md border border-ink/10 bg-charcoal/40 px-3 py-2 text-sm text-ivory outline-none focus:border-antique-gold/50"
           />
           <ul className="mt-3 max-h-64 space-y-1 overflow-auto">

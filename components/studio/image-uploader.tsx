@@ -95,7 +95,7 @@ export function ImageUploader({ onInsertImage }: ImageUploaderProps) {
         {file && !uploading && (
           <button
             onClick={handleUpload}
-            className="w-full rounded-sm bg-gradient-to-br from-antique-gold to-soft-gold py-1.5 text-xs font-semibold text-[#1a1306] hover:brightness-110 cursor-pointer transition-all"
+            className="w-full rounded-sm bg-gradient-to-br from-antique-gold to-soft-gold py-1.5 text-xs font-semibold text-deep-navy hover:brightness-110 cursor-pointer transition-all"
           >
             อัปโหลดไปยัง Cloudflare R2
           </button>

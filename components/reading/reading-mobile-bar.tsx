@@ -39,7 +39,7 @@ export function ReadingMobileBar({ slug }: { slug: string }) {
         <span className="material-symbols-outlined text-[18px]">
           {copied ? "check" : "link"}
         </span>
-        <span className="hidden sm:inline">{copied ? "คัดลอกแล้ว" : "คัดลอกลิงก์"}</span>
+        <span className="hidden sm:inline" aria-live="polite" aria-atomic="true">{copied ? "คัดลอกแล้ว" : "คัดลอกลิงก์"}</span>
       </button>
 
       <button

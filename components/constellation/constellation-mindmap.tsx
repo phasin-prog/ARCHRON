@@ -14,10 +14,10 @@ import {
 
 // ARCHRON Color Cosmology — สีเส้นความสัมพันธ์ตามสถานะการสืบค้น
 const RELATION_COLOR: Record<RelationType, string> = {
-  prerequisite: "#C9A24A", // Sapientia เข้ม
-  "part-of": "#CBA45A", // Sapientia
-  "source-of": "#8AA395", // Mercurius
-  "influenced-by": "#6E93A8", // Psyche
+  prerequisite: "#C79A4A",
+  "part-of": "#C79A4A",
+  "source-of": "#8AA395",
+  "influenced-by": "#6E93A8",
   "contrasts-with": "#C9776A",
   "used-in": "#6E93A8",
   related: "#A9A399",
@@ -125,7 +125,7 @@ export function ConstellationMindmap({
             onChange={(e) => setQuery(e.target.value)}
             placeholder="ค้นหาแนวคิดเพื่อตั้งเป็นศูนย์กลาง..."
             aria-label="ค้นหาแนวคิดเพื่อตั้งเป็นศูนย์กลาง"
-            className="w-full bg-transparent text-sm text-on-surface placeholder:text-on-surface-variant/55 focus:outline-none"
+            className="w-full bg-transparent text-sm text-on-surface placeholder:text-on-surface-variant/55 focus-visible:ring-2 focus-visible:ring-burnished-gold/30 focus:outline-none"
           />
         </form>
       </div>

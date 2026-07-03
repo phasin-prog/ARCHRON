@@ -42,6 +42,7 @@ export function SearchableMultiSelect({
         value={q}
         onChange={(e) => setQ(e.target.value)}
         placeholder={placeholder}
+        aria-label={placeholder}
         className="w-full bg-transparent px-1 py-1 text-sm text-ivory outline-none"
       />
       {q !== "" ? (

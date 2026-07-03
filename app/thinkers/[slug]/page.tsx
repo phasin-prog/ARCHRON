@@ -145,7 +145,10 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
               {t.nameTh}
             </h1>
             <p className="mt-1 text-sm text-on-surface-variant/60">
-              {t.nameEn} · {t.era}
+              {t.nameEn} · {t.era} · สังกัดสำนัก{" "}
+              <Link href={`/schools/${s.id}`} className="text-burnished-gold hover:underline transition-colors focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:outline-none rounded px-0.5">
+                {s.nameTh} ({s.nameEn})
+              </Link>
             </p>
           </div>
 

@@ -22,7 +22,7 @@ export function FeedbackToast({
   if (!feedback) return null;
 
   const ok = feedback.type === "success";
-  const accent = ok ? "#7FB08A" : "#C9776A"; // เขียว / แดง
+  const accent = ok ? "var(--color-success)" : "var(--color-danger)";
   const icon = ok ? "check_circle" : "error";
 
   return (

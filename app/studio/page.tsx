@@ -7,9 +7,27 @@ import { roleFromMetadata, isAdmin } from "@/lib/content/roles";
 
 // หน้า Studio landing/login เฉพาะนักเขียน — ปรับโฉมเป็น 2 คอลัมน์พรีเมียมตามจิตวิทยาสีและการเล่าเรื่อง
 export default function StudioLandingPage() {
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
   const clerk = useClerk();
   const admin = isAdmin(roleFromMetadata(user?.publicMetadata));
+
+  if (!isLoaded) {
+    return (
+      <main className="relative flex min-h-[85vh] flex-col items-center justify-center overflow-hidden px-4 py-16">
+        <div className="mx-auto w-full max-w-5xl grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-16 items-center">
+          <div className="md:col-span-7 flex flex-col justify-center text-left opacity-30 animate-pulse">
+            <div className="h-8 w-48 bg-surface-3 rounded mb-6" />
+            <div className="h-4 w-28 bg-surface-3 rounded mb-4" />
+            <div className="h-12 w-96 bg-surface-3 rounded mb-4" />
+            <div className="h-20 w-full bg-surface-3 rounded" />
+          </div>
+          <div className="md:col-span-5 flex flex-col justify-center md:items-end">
+            <div className="w-full max-w-sm h-[400px] animate-pulse rounded-lg border border-slate-boundary/20 bg-surface-container/20 p-6" />
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="relative flex min-h-[85vh] flex-col items-center justify-center overflow-hidden px-4 py-16">

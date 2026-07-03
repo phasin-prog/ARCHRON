@@ -19,7 +19,7 @@ const MAX_ITEMS = 3;
 
 // meta ต่อหมวด — ไอคอนเส้น + สี cosmology + ป้าย
 const SECTION_META: Record<Section, { label: string; accent: string; Icon: ComponentType<{ className?: string }> }> = {
-  articles: { label: "บทความ", accent: "#CBA45A", Icon: BookIcon },
+  articles: { label: "บทความ", accent: "#C79A4A", Icon: BookIcon },
   concepts: { label: "คลังแนวคิด", accent: "#6E93A8", Icon: ConceptIcon },
 };
 

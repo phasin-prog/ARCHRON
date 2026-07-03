@@ -9,11 +9,15 @@ export function ScrollToTop() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setShow(window.scrollY > 400);
-    const id = requestAnimationFrame(onScroll); // เช็คตำแหน่งเริ่มต้นนอก effect body
+    let rafId: number;
+    const onScroll = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => setShow(window.scrollY > 400));
+    };
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
-      cancelAnimationFrame(id);
+      cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", onScroll);
     };
   }, []);

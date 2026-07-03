@@ -1,51 +1,85 @@
-# 🧭 AGENT-HANDOFF.md — แผนที่เส้นทางงานสำหรับ AI ตัวถัดไป
+# 🧭 AGENT-HANDOFF.md — รัฐธรรมนูญปฏิบัติการและแผนที่เส้นทางงานสำหรับ AI (ARCHRON Master Operational Constitution)
 
-> ไฟล์นี้คือ **"index library" แบบ task-oriented** — บอก AI/นักพัฒนาที่เข้ามาทำงานต่อได้เลยว่า
-> **"จะทำงานประเภทนี้ ต้องเปิดไฟล์ไหน แบบไหน (server/client) และเชื่อมกับอะไรบ้าง"**
+> **สถานะ:** รัฐธรรมนูญปฏิบัติการสูงสุด (Master Operational Constitution & Task-Oriented Index Library)  
+> **เป้าหมาย:** ชี้แนะแนวทางสำหรับ AI และนักพัฒนาทุกระบบ (Claude, ChatGPT, Gemini, DeepSeek, Cursor, Windsurf, Codex) ให้เข้าใจโครงสร้างสถาปัตยกรรม ลำดับการทำงาน และข้อบังคับทางปรัชญาของโครงการ ARCHRON ได้อย่างแม่นยำ ไร้รอยต่อ และยั่งยืนเหนือกาลเวลา
 >
-> อ่านลำดับนี้ก่อนเริ่มทุกครั้ง: `AGENTS.md` (กฎ/ขอบเขต) → ไฟล์นี้ (เส้นทางงาน) → `docs/code-index.md` (รายการไฟล์โดยละเอียด)
->
-> สถานะ: อัปเดตให้ตรงกับโค้ดจริง (รวม R2/Redis/API routes/themes/studio comments·users·profile/server-auth refactor)
-> ภาพรวมดีไซน์/ระบบดูที่ [`../README.md`](../README.md) · กฎการทำงานดูที่ [`../AGENTS.md`](../AGENTS.md)
+> **ลำดับการอ่านก่อนเริ่มงานทุกครั้ง:**  
+> 1. `AGENTS.md` (กฎเหล็กและขอบเขตงานห้ามทำเกิน)  
+> 2. **`docs/AGENT-HANDOFF.md` (ไฟล์นี้ — เส้นทางงานและข้อบังคับสถาปัตยกรรมรวม)**  
+> 3. รัฐธรรมนูญเฉพาะด้านใน Root/Docs (`PRD.md`, `Sitemap.md`, `VOS.md`, `SYMBOLS.md`, `AES.md`, `EDS.md`)  
+> 4. `docs/code-index.md` (รายการไฟล์ฉบับละเอียดเชิงลึก)
 
-สแตก: **Next.js 16 (App Router/RSC/ISR) · React 19 · Tailwind v4 · Supabase (RLS) · Clerk · Cloudflare R2 · Upstash Redis · TypeScript**
+สแตกเทคโนโลยีหลัก: **Next.js 16 (App Router/RSC/ISR) · React 19 · Tailwind v4 · Supabase (RLS) · Clerk · Cloudflare R2 · Upstash Redis · TypeScript**
 
 ---
 
-## 0) วิธีอ่านไฟล์นี้
+## 0) โครงสร้างรัฐธรรมนูญและสารานุกรมคำจำกัดความ (Constitutional Architecture & Canonical Terminology)
 
-แต่ละ "เส้นทางงาน" (§2 เป็นต้นไป) มีโครงสร้าง:
-- **เปิด (Open):** ไฟล์ที่ต้องแก้/ดูเป็นหลัก + ป้าย `🔵 server`/`🟢 client`/`🔷 data`/`🟣 infra`
-- **เชื่อม (Wires):** โมดูลที่ไฟล์หลัก import/เรียก ต้องเข้าใจด้วย
-- **ไหล (Flow):** data flow สั้นๆ ของระบบนั้น
-- **ระวัง (Gotchas):** กับดัก/รูปแบบบังคับ
+เพื่อป้องกันความสับสนและลดความซ้ำซ้อนของข้อมูลในระบบ (Hallucination & Duplication Prevention) โครงการ ARCHRON ได้แยกโครงสร้างรัฐธรรมนูญออกเป็นโมดูลเฉพาะด้านที่เชื่อมโยงถึงกันอย่างเป็นระบบ:
+
+### 📐 แผนผังรัฐธรรมนูญความรู้ (Hierarchy of Sources of Truth)
+| รัฐธรรมนูญเฉพาะด้าน | ตำแหน่งไฟล์ | ขอบเขตความรับผิดชอบหลัก |
+|---|---|---|
+| **Product Requirements Document** | `/PRD.md` · `/docs/PRD.md` | วิสัยทัศน์โครงการ, กลุ่มเป้าหมาย Personas, ขอบเขตฟีเจอร์ MVP/V1/V2 |
+| **Dynamic Route Architecture** | `/Sitemap.md` · `/docs/Sitemap.md` | โครงสร้างเส้นทาง Dynamic Routes v3.0 ครบทั้ง 6 แกนระบบ |
+| **Visual Operating System** | `/VOS.md` · `/docs/VOS.md` | ปรัชญาดีไซน์ AVOS, ระบบสี Colour Cosmology, โทเค็น, ระบบฟอนต์ |
+| **Symbol Dictionary** | `/SYMBOLS.md` · `/docs/SYMBOLS.md` | ไวยากรณ์สัญลักษณ์ 17 วัตถุความรู้ และสัญลักษณ์ปฏิสัมพันธ์สากล |
+| **Editorial Experience System** | `/AES.md` · `/docs/AES.md` | ประสบการณ์การอ่าน, ลำดับชั้นข้อมูล, ต้นแบบการ์ด 5 หมวด, ความกว้างเลย์เอาต์ |
+| **Editorial DNA System** | `/EDS.md` · `/docs/EDS.md` | รหัสพันธุกรรมงานบรรณาธิการ 6 ลำดับชั้น (Identity → Navigation) |
+
+### 📚 สารานุกรมคำจำกัดความมาตรฐาน (Canonical Terminology Dictionary)
+AI ทุกตัวต้องใช้คำศัพท์เหล่านี้ในความหมายเดียวอย่างเคร่งครัด ห้ามปะปนกัน:
+* **Entry (`ContentEntry`):** ระเบียนข้อมูลดิบที่เป็นบรรทัดฐานในฐานข้อมูล Supabase ตาราง `entries` ครอบคลุมเนื้อหาทุกประเภท
+* **Article:** บทความยาวเชิงวิเคราะห์ การตีความ หรือบทความเชิงลึกที่เรนเดอร์ผ่านระบบ `ReadingPage`
+* **Concept (`ConceptNode`):** มโนทัศน์หรือแนวคิดหลักทางจิตวิทยาและปรัชญาที่ลงทะเบียนใน `concept-registry.ts` (เช่น Unconscious, Shadow, Ego)
+* **Thinker:** นักคิด นักปราชญ์ หรือนักจิตวิทยาผู้เป็นเจ้าของทฤษฎี (เช่น Carl Jung, Sigmund Freud)
+* **School:** สำนักคิดหรือประเพณีทางปัญญาที่รวบรวมนักคิดและแนวคิดไว้ด้วยกัน (เรนเดอร์ผ่าน `SchoolsHub`)
+* **Reference:** หลักฐานอ้างอิง หนังสือ หรือข้อความปฐมภูมิ/ทุติยภูมิที่รับรองความถูกต้องของเนื้อหา
+* **Theme:** แก่นเรื่องข้ามศาสตร์ (Cross-discipline cluster) ที่เชื่อมโยงแนวคิดและบทความหลายหมวดเข้าด้วยกัน (`themes.ts`)
 
 ---
 
-## 1) แผนที่โค้ดรวม (รายการไฟล์ครบถ้วน · อ้างอิงไขว้)
+## 0.1) วิธีอ่านและใช้งานเส้นทางงาน (Operational Pathways Navigation)
 
-### ราก (root)
+แต่ละ "เส้นทางงาน" (§2 เป็นต้นไป) ถูกออกแบบเชิงระบบ (Systems Thinking) ประกอบด้วย:
+* **เปิด (Open):** ไฟล์เป้าหมายที่ต้องแก้ไขหรือตรวจสอบเป็นหลัก + ป้ายกำกับสถาปัตยกรรม (`🔵 server`, `🟢 client`, `🔷 data`, `🟣 infra`)
+* **เชื่อม (Wires):** โมดูลภายนอกที่เชื่อมโยงและส่งผลกระทบถึงกัน
+* **ไหล (Flow):** กระแสการไหลของข้อมูล (Data Flow) ตั้งแต่ต้นน้ำถึงปลายน้ำ
+* **ระวัง (Gotchas):** กฎเหล็กและข้อพึงระวังตามรัฐธรรมนูญ
+
+---
+
+## 1) แผนที่โค้ดรวม (Comprehensive Code Map & Cross References)
+
+### ราก (Root Infrastructure)
 | ไฟล์ | โหมด | หน้าที่ |
 |---|---|---|
 | `proxy.ts` | 🟣 | **Clerk middleware** (ป้องกัน `/studio/editor·users·comments(.*)` ต้อง login · `/th/login·register` auth route · ปล่อยผ่านถ้าไม่มีคีย์ Clerk) — ⚠️ ชื่อไฟล์คือ `proxy.ts` **ไม่ใช่** `middleware.ts` |
 | `next.config.mjs` | 🟣 | Next config (ตั้ง `turbopack.root` เลี่ยงสแกน parent lockfile) |
 | `eslint.config.mjs` · `postcss.config.mjs` | 🟣 | ESLint flat config · PostCSS (Tailwind v4) |
-| `test-concurrent.js` · `test-fetch.js` | 🔷 | สคริปต์ทดสอบชั่วคราว (ไม่ใช้ใน build) |
 
-### `app/` — หน้าสาธารณะ
+### `app/` — หน้าสาธารณะ (Public Pages)
 | Route | ไฟล์ | โหมด | หน้าที่ |
 |---|---|---|---|
 | `/` | `app/page.tsx` | 🔵 | หน้าแรก (hero, pillars, ATLAS, manifesto, quick links) |
-| `/knowledge` | `app/knowledge/page.tsx` | 🔵 | สารบัญคลังความรู้ (การ์ดนำทาง) |
+| `/knowledge` | `app/knowledge/page.tsx` | 🔵 | สารบัญคลังความรู้ (การ์ดนำทางตามหลัก EDS) |
 | `/articles` | `app/articles/page.tsx` + `loading.tsx` | 🔵 (ISR 5m) | รายการบทความ (DB published → fallback seed) |
-| `/articles/[slug]` | `app/articles/[slug]/page.tsx` | 🔵 (SSG+ISR) | หน้าอ่านบทความ (`ReadingPage`, section="articles") |
+| `/articles/[slug]` | `app/articles/[slug]/page.tsx` | 🔵 (SSG+ISR) | หน้าอ่านบทความ (`ReadingPage`, section="articles" ตามหลัก AES) |
 | `/concepts` | `app/concepts/page.tsx` | 🔵 | รายการแนวคิด (จาก concept-registry) |
 | `/concepts/[slug]` | `app/concepts/[slug]/page.tsx` | 🔵 (SSG+ISR) | หน้าอ่านแนวคิด (entry→`ReadingPage`+Backlinks; ไม่มี entry→stub registry) |
 | `/constellation` | `app/constellation/page.tsx` | 🔵 (dynamic) | Radial focus-map + no-JS fallback |
 | `/themes` · `/themes/[slug]` | `app/themes/page.tsx` · `app/themes/[slug]/page.tsx` | 🔵 | แก่นเรื่องข้ามศาสตร์ (B1) |
 | `/external-links` | `app/external-links/page.tsx` | 🔵 | ทรัพยากรภายนอก (6 หมวด) |
+| `/schools` | `app/schools/page.tsx` | 🔵 | สำนักคิด/นักปราชญ์ (เรียก `SchoolsHub`) |
+| `/faq` | `app/faq/page.tsx` | 🔵 | คำถามที่พบบ่อย (`Accordion`) |
+| `/guide` | `app/guide/page.tsx` | 🔵 | บริการ Jungian Type Analysis |
+| `/manifesto` | `app/manifesto/page.tsx` | 🔵 | ปฏิญญาโครงการ |
+| `/reading-sets` | `app/reading-sets/page.tsx` | 🔵 | เส้นทางการอ่าน/ซีรีส์ (placeholder) |
+| `/search` | `app/search/page.tsx` + `loading.tsx` | 🔵 | ค้นหากลาง (`SearchClient`) |
+| `/sources` | `app/sources/page.tsx` | 🔵 | แหล่งอ้างอิงภายใน |
+| `/support` | `app/support/page.tsx` | 🔵 | สนับสนุนโครงการ |
 
-### `app/studio/` — เขียน/ดูแล (Clerk)
+### `app/studio/` — เครื่องมือนักเขียนและผู้ดูแล (Authed Studio)
 | Route | ไฟล์ | โหมด | หน้าที่ |
 |---|---|---|---|
 | `/studio` | `app/studio/page.tsx` · `layout.tsx` | 🟢/🔵 | Landing/Login นักเขียน + chrome เฉพาะ studio (ซ่อน header/footer สาธารณะ, force-dynamic) |
@@ -54,18 +88,19 @@
 | `/studio/users` | `app/studio/users/page.tsx` · `actions.ts` | 🟢 page · 🔵 actions | จัดการผู้ใช้ (admin) ตั้งบทบาทผ่าน clerkClient |
 | `/studio/comments` | `app/studio/comments/page.tsx` · `actions.ts` | 🟢 page · 🔵 actions | โมเดอเรชันคอมเมนต์ (admin) ซ่อน/แสดง/ลบ |
 
-### `app/th/` — บัญชีนักอ่าน (Clerk)
+### `app/th/` — บัญชีนักอ่าน (Reader Accounts)
 | Route | ไฟล์ | โหมด | หน้าที่ |
 |---|---|---|---|
 | `/th/login` | `app/th/login/[[...login]]/page.tsx` · `app/th/layout.tsx` | 🟢 | เข้าสู่ระบบบัญชีนักอ่าน |
 | `/th/register` | `app/th/register/[[...register]]/page.tsx` | 🟢 | สมัครบัญชีนักอ่าน |
 
-### `app/api/` — API routes
+### `app/api/` — API Routes
 | Endpoint | ไฟล์ | โหมด | หน้าที่ |
 |---|---|---|---|
 | `POST /api/upload` | `app/api/upload/route.ts` | 🔵 | อัปโหลดรูปขึ้น R2 (ต้อง login + `canWrite`) |
+| `GET /api/media/[...key]` | `app/api/media/[...key]/route.ts` | 🔵 | proxy ดึงไฟล์จาก R2 (private bucket) |
 
-### `lib/content/` — data layer (🔷 data ส่วนใหญ่)
+### `lib/content/` — Data Layer & Core Logic (🔷)
 | ไฟล์ | exports หลัก |
 |---|---|
 | `entries.ts` | seed entries (static) + `getEntryBySlug`, `allEntrySlugs` |
@@ -86,12 +121,14 @@
 | `comments-db.ts` | `Comment`, `CommentInput`, `listComments`, `addComment`, `deleteComment` |
 | `comments-actions.ts` | 🔵 server actions: `listCommentsAction`, `addCommentAction`, `deleteCommentAction` |
 | `views-db.ts` | `incrementPageView`, `getPageView`, `getTotalPageViews` (RPC) |
+| `themes.ts` | `Theme`, `THEMES`, `THEME_TAG_SUGGESTIONS` (แก่นเรื่องข้ามศาสตร์ B1) |
+| `server-auth.ts` | 🔵 `getAuthedSupabase()` — **service-role client + ตรวจ ownership เอง** |
 
 ### `lib/supabase/` · `lib/storage/` · `lib/cache/`
 | ไฟล์ | โหมด | หน้าที่ |
 |---|---|---|
-| `lib/supabase/client.ts` | 🔷 | `createClerkSupabaseClient(getToken)` — browser, แนบ Clerk token (ใช้ในหน้า client เก่าที่ยังไม่ refactor) |
-| `lib/supabase/server.ts` | 🔵 | `createServerSupabase` (anon, อ่าน published) + `createServiceSupabase` (service-role, ข้าม RLS, admin actions) |
+| `lib/supabase/client.ts` | 🔷 | `createClerkSupabaseClient(getToken)` — browser, แนบ Clerk token |
+| `lib/supabase/server.ts` | 🔵 | `createServerSupabase` (anon, อ่าน published) + `createServiceSupabase` (service-role, ข้าม RLS) |
 | `lib/r2.ts` | 🔷 | `r2Client` (S3Client, lazy — null ถ้าไม่มี env) |
 | `lib/storage/r2-client.ts` | 🔷 | `getR2Client`, `getR2Bucket`, `getR2PublicUrl` |
 | `lib/storage/upload.ts` | 🔵 | `uploadToR2` (ตรวจ MIME/size, prefix `uploads/`) |
@@ -101,37 +138,25 @@
 | `lib/cache/cache.ts` | 🔵 | `KEYS`, `getCached`/`setCached`/`invalidateEntry` (TTL 300s, fallback ถ้าไม่มี Redis) |
 | `lib/cache/index.ts` | 🔷 | barrel export |
 | `lib/hooks/use-isomorphic-layout-effect.ts` | 🟢 | hook ฝั่ง client |
-| `themes.ts` | `Theme`, `THEMES`, `THEME_TAG_SUGGESTIONS` (แก่นเรื่องข้ามศาสตร์ B1) |
-| `server-auth.ts` | 🔵 `getAuthedSupabase()` — **service-role client + ตรวจ ownership เอง** (ไม่ใช้ Clerk JWT template แล้ว) |
-| `GET /api/media/[...key]` | `app/api/media/[...key]/route.ts` | 🔵 | proxy ดึงไฟล์จาก R2 (private bucket) |
-| `/schools` | `app/schools/page.tsx` | 🔵 | สำนักคิด/นักปราชญ์ (เรียก `SchoolsHub`) |
-| `/faq` | `app/faq/page.tsx` | 🔵 | คำถามที่พบบ่อย (`Accordion`) |
-| `/guide` | `app/guide/page.tsx` | 🔵 | บริการ Jungian Type Analysis |
-| `/manifesto` | `app/manifesto/page.tsx` | 🔵 | ปฏิญญาโครงการ |
-| `/reading-sets` | `app/reading-sets/page.tsx` | 🔵 | เส้นทางการอ่าน/ซีรีส์ (placeholder) |
-| `/search` | `app/search/page.tsx` + `loading.tsx` | 🔵 | ค้นหากลาง (`SearchClient`) |
-| `/sources` | `app/sources/page.tsx` | 🔵 | แหล่งอ้างอิงภายใน |
-| `/support` | `app/support/page.tsx` | 🔵 | สนับสนุนโครงการ |
 
-> สัญลักษณ์: `🔵 server` = Server Component/Action/API route · `🟢 client` = `"use client"` · `🔷 data` = pure data logic · `🟣 infra` = config/middleware/schema
+> **สัญลักษณ์:** `🔵 server` = Server Component/Action/API route · `🟢 client` = `"use client"` · `🔷 data` = pure data logic · `🟣 infra` = config/middleware/schema
 
 ---
 
-## 2) เส้นทางงาน: แก้/เพิ่มหน้าสาธารณะ (static page)
+## 2) เส้นทางงาน: แก้/เพิ่มหน้าสาธารณะ (Static & Dynamic Pages)
 
 **เปิด (Open)**
-- `app/<route>/page.tsx` 🔵 — หน้าที่จะเพิ่ม/แก้ (Server Component เริ่มต้น)
-- `components/page-header.tsx` · `components/section-heading.tsx` · `components/empty-state.tsx` — ชิ้นส่วนหัว/ส่วนทั่วไป
-- `app/globals.css` 🟣 — เรียก design tokens (`--color-*`, `--accent`)
+* `app/<route>/page.tsx` 🔵 — หน้าที่จะเพิ่ม/แก้ (Server Component เริ่มต้น)
+* `components/page-header.tsx` · `components/section-heading.tsx` · `components/empty-state.tsx`
+* `app/globals.css` 🟣 — เรียก design tokens (`--color-*`, `--accent`)
 
 **เชื่อม (Wires)**
-- `lib/content/cosmology.ts` → `routeCosmology(pathname)` เป็น single source ของ accent ตามเส้นทาง
-- `components/accent-controller.tsx` 🟢 — ตั้ง `--accent` + `data-cosmology` บน `<html>` (mount ใน `app/layout.tsx`)
-- `app/template.tsx` — route-fade + เปิด `.scroll-reveal`→`.visible` (ScrollReveal กลาง)
-- `components/site-header.tsx` — เมนูนำทาง (⚠️ global chrome — ห้ามแตะโดยไม่ได้รับคำสั่ง, กฎ §2 ใน AGENTS.md)
+* `lib/content/cosmology.ts` → `routeCosmology(pathname)` เป็น single source ของ accent ตามเส้นทาง
+* `components/accent-controller.tsx` 🟢 — ตั้ง `--accent` + `data-cosmology` บน `<html>`
+* `app/template.tsx` — route-fade + เปิด `.scroll-reveal`→`.visible`
 
 **ไหล (Flow)**
-```
+```text
 request → app/<route>/page.tsx (server)
        → accent-controller อ่าน pathname → routeCosmology() → ตั้ง --accent
        → เพจใช้ tokens (var(--color-on-surface), var(--accent)…)
@@ -139,531 +164,332 @@ request → app/<route>/page.tsx (server)
 ```
 
 **ระวัง (Gotchas)**
-- Thai-first: ภาษาไทยเป็นหลัก `lang="th"` (ตั้งใน layout) ห้ามเพิ่ม EN route/switcher
-- ใช้ design tokens เสมอ ห้าม hardcode สี — brand palette/โทนต้องไม่เปลี่ยน (guardrail #5)
-- ลิงก์ภายนอกใช้ `target="_blank" rel="noopener noreferrer"`
-- หน้าที่ดึง DB ให้ `export const revalidate = 300` (ตรง cache TTL) และใช้ `getPublicEntries` (§3) ไม่ใช่ seed ตรงๆ
-- อย่าแตะ global chrome (`site-header`/`site-footer`/`layout`/`template`) โดยไม่ได้สั่ง
+* **Thai-first:** ภาษาไทยเป็นหลัก `lang="th"` ห้ามเพิ่ม EN route/switcher
+* **Token Compliance:** ต้องใช้ design tokens เสมอ อ้างอิง `VOS.md` ห้าม hardcode สี
+* **Global Chrome:** อย่าแตะ global chrome (`site-header`/`site-footer`/`layout`/`template`) โดยไม่ได้สั่ง
 
 ---
 
-## 3) เส้นทางงาน: แสดงเนื้อหา published บนหน้าสาธารณะ (DB → cache → seed)
+## 3) เส้นทางงาน: แสดงเนื้อหา Published บนหน้าสาธารณะ (DB → Cache → Seed)
 
 **เปิด (Open)**
-- `lib/content/public-source.ts` 🔷 — `getPublicEntries()` / `getPublicEntryBySlug(slug)` (แหล่งเดียวที่หน้า public ควรเรียก)
-- `app/articles/page.tsx` · `app/articles/[slug]/page.tsx` · `app/concepts/[slug]/page.tsx` 🔵
+* `lib/content/public-source.ts` 🔷 — `getPublicEntries()`, `getPublicEntryBySlug(slug)`
+* `app/articles/page.tsx` 🔵 — รายการบทความ
+* `app/articles/[slug]/page.tsx` 🔵 — อ่านบทความเดี่ยว
 
 **เชื่อม (Wires)**
-- `lib/content/entries-db.ts` 🔷 → `getPublishedEntries` / `getPublishedEntryBySlug` / `getPublishedSlugs` (ใช้ `createServerSupabase` = anon, RLS อนุญาตอ่าน `status=published` ทุกคน)
-- `lib/cache/cache.ts` 🔵 → `cached(key, fetchFresh, ttl=300)`, `KEYS.entries` / `KEYS.entryBySlug(slug)`, `invalidateEntry(slug)`
-- `lib/content/entries.ts` 🔷 — seed static (fallback เมื่อไม่มี DB/env)
-- `lib/content/entry-mapper.ts` 🔷 → `rowToEntry` (แปลง DB row → `ContentEntry`)
-- `types/content.ts` — โมเดล `ContentEntry`
+* `lib/content/entries-db.ts` → ดึงจาก Supabase (anon client, เฉพาะ `status='published'`)
+* `lib/cache/cache.ts` → `cached()` หุ้ม DB call (TTL 300s)
+* `lib/content/entries.ts` → seed data เป็น fallback ถ้า DB ว่างหรือ error
 
 **ไหล (Flow)**
-```
-page (server) → getPublicEntries()
-  → hasSupabaseEnv()? 
-     ใช่ → cached(KEYS.entries, () => getPublishedEntries())  // Upstash 300s
-           → DB anon เลือก status=published → rowToEntry ทุกแถว
-           → ถ้า DB ว่าง/null → คืน null → cached ไม่จด → ตกไป seed
-     ไม่ใช่ → staticPublished() (seed entries.ts ที่ status=published)
+```text
+หน้าสาธารณะ → getPublicEntries()
+           → cached(KEYS.entries, () => getPublishedEntries())
+           → Hit Redis? คืนทันที
+           → Miss? ดึง Supabase → ถ้ามีข้อมูลเก็บ Redis → ถ้าว่าง/error ใช้ seed entries
 ```
 
 **ระวัง (Gotchas)**
-- public-source อ่าน **เฉพาะ `status=published`** เท่านั้น — draft ส่วนตัวของนักเขียน **ห้ามหลุด** สู่ public (guardrail #7)
-- `getPublishedEntries` ใช้ anon client (RLS อนุญาต) — ห้ามใช้ service-role ฝั่งอ่านสาธารณะ
-- TTL 300s ตรงกับ `revalidate = 300` — เมื่อ publish ต้อง `invalidateEntry(slug)` + `revalidatePath` (ดู §5) ไม่งั้นสาธารณะเห็นของเก่า
-- fallback seed ทำให้ build ผ่านแม้ยังไม่ตั้ง Supabase — อย่าลบชั้นนี้
+* หน้าที่ใช้ `public-source` ต้องใส่ `export const revalidate = 300;` เพื่อให้ Next.js ISR สอดคล้องกับ Redis TTL
+* ห้ามดึง draft ในหน้านี้เด็ดขาด
 
 ---
 
-## 4) เส้นทางงาน: หน้าอ่านบทความ/แนวคิด + Reading features (A1–A3)
+## 4) เส้นทางงาน: แก้หน้าอ่าน / ระบบ Reading (TOC · Cited · Links)
 
 **เปิด (Open)**
-- `components/reading/reading-page.tsx` 🔵 — **หน้าอ่าน Unified** (ใช้ทั้ง article/concept) — breadcrumb, meta-grid, markdown, related, refs, CTA
-- `app/articles/[slug]/page.tsx` · `app/concepts/[slug]/page.tsx` 🔵 — server-fetch แล้วส่ง `<ReadingPage entry={…} section="articles"|"concepts" />`
+* `components/reading/reading-page.tsx` 🔵 — หน้าอ่านหลัก (ใช้ร่วมทั้ง article และ concept ตามหลัก `AES.md`)
+* `components/reading/internal-link-text.tsx` 🔵 — แปลง `[[wikilink]]` เป็นลิงก์
+* `components/reading/table-of-contents.tsx` 🟢 — สารบัญตาม H2/H3
+* `components/reading/citation-block.tsx` 🟢 — กล่องคัดลอกอ้างอิงบรรณานุกรม
 
 **เชื่อม (Wires)**
-- ส่วนประกอบในโฟลเดอร์เดียวกัน:
-  - `reading-toc.tsx` · `floating-toc.tsx` — สารบัญ + ลอย (A3)
-  - `reading-progress.tsx` · `reading-dock.tsx` · `reading-mobile-bar.tsx` — ความคืบหน้าการอ่าน (A3)
-  - `internal-link-text.tsx` — render `[[wikilink]]` ในเนื้อหา
-  - `internal-concept-link.tsx` 🟢 — glossary hover (A2)
-  - `comment-section.tsx` 🟢 — คอมเมนต์ (ดู §8)
-  - `view-counter.tsx` 🟢 — นับวิว (ดู §9)
-  - `local-graph.tsx` — กราฟความสัมพันธ์ใกล้ตัว
-- `lib/content/related.ts` → `getBacklinksForConcept` (backlinks เฉพาะ concepts)
-- `lib/content/themes.ts` → `themesForEntry` (แท็กแก่นเรื่อง)
-- `lib/content/concept-registry.ts` → `conceptTitle` (ชื่อ node)
-- Markdown: `react-markdown` + `remark-gfm` (mdComponents ฉีด `InternalLinkText`/`InternalConceptLink`/`Tooltip` + ฟังก์ชัน `citeify` สำหรับ `[[cite:N]]` → A1)
+* `lib/content/internal-links.ts` → `parseInternalLinks`
+* `lib/content/concept-registry.ts` → เช็กว่าคำใน `[[ ]]` เป็นแนวคิดหรือไม่
+* `lib/content/cosmology.ts` → อ่านสีประจำสาขาวิชา
 
 **ไหล (Flow)**
-```
-page (server) → getPublicEntryBySlug(slug)
-  → ส่ง entry + section ให้ ReadingPage
-  → ReadingPage วาด: breadcrumb · meta-grid · markdown(mdComponents)
-     · related concepts · refs · TOC(headings) · ReadingProgress
-     · CommentSection (client island, ห่อ ClerkProvider) · ViewCounter · LocalGraph
+```text
+ReadingPage รับ ContentEntry
+  → แยกลำดับชั้น Identity Block → Metadata Card ตามรัฐธรรมนูญ AES.md
+  → Render Markdown content ผ่าน InternalLinkText
+  → แสดง Knowledge Connections (สูงสุด 6 การ์ด)
 ```
 
 **ระวัง (Gotchas)**
-- `ReadingPage` เป็น Server Component แต่ **ห่อ client islands** (`CommentSection`, `ViewCounter`) ใน `ClerkProvider` — อย่าดึง `auth()` ในตัวมันโดยตรง
-- Reading systems: **A1** citation `[[cite:N]]` (ฟังก์ชัน `citeify` ใน reading-page) · **A2** glossary hover (`internal-concept-link`) · **A3** TOC/progress
-- `section` ตั้งค่า label breadcrumb (`SECTION_LABEL`) และเปิด backlinks **เฉพาะ concepts**
-- ห้ามดึง draft มาแสดงที่นี่ — ใช้ `getPublicEntryBySlug` (published เท่านั้น)
+* ต้องปฏิบัติตาม **Editorial Experience System (`AES.md`)** และ **Editorial DNA (`EDS.md`)** อย่างเคร่งครัด
+* ความกว้างหน้าอ่านต้องจำกัดที่ `760px` เพื่อไม่ให้สายตาล้า
 
 ---
 
-## 5) เส้นทางงาน: Studio Editor — เขียน / บันทึก / เผยแพร่เนื้อหา
+## 5) เส้นทางงาน: เขียน / บันทึก / เผยแพร่ใน Studio (Editor Flow)
 
 **เปิด (Open)**
-- `app/studio/editor/page.tsx` 🟢 — ตัวแก้เนื้อหา (client: autosave, markdown, dropdown, my-content-search)
-- `app/studio/editor/actions.ts` 🔵 — server actions: `saveDraftAction`, `saveDraftWithRevisionAction`, `loadDraftAction`, `publishAction`, `revalidatePublic`
-- `components/studio/*` — `my-content-search`, `related-concept-picker`, `internal-link-suggestion-panel`, `revision-panel`, `image-uploader`/`image-picker` (ดู §10), `searchable-select`/`searchable-multi-select`, `feedback-toast`
+* `app/studio/editor/page.tsx` 🟢 — UI Editor
+* `app/studio/editor/actions.ts` 🔵 — Server actions (`saveDraftAction`, `publishAction`)
+* `lib/content/draft-db.ts` 🔵 — `saveDraft`, `publishEntry`
 
 **เชื่อม (Wires)**
-- `lib/content/server-auth.ts` 🔵 → `getAuthedSupabase()` — **service-role client + ตรวจ ownership เอง** (คืน `{ userId, supabase }`)
-- `lib/content/draft-db.ts` 🔷 → `saveDraft` (ownership guard), `loadDraftBySlug`, `listMyDrafts`, `publishEntry` (ownership guard) — ทุก op ตรวจ `author_id === userId`
-- `lib/content/entries-db.ts` 🔷 → `addRevision`, `getRevisions`, `listMyEntries`, `getMyEntryBySlug`, `upsertEntryRow`, `deleteEntry`
-- `lib/content/publish-validation.ts` 🔷 → `EditorDraft`, `EMPTY_DRAFT`, `canPublish`, `getPublishChecklist`, `slugify`
-- `lib/content/draft-mapper.ts` 🔷 → `draftToRow` / `entryToDraft`
-- `lib/cache/cache.ts` → `invalidateEntry(slug)` (ล้าง Redis หลัง publish)
-- `next/cache` → `revalidatePath`
+* `lib/content/server-auth.ts` → `getAuthedSupabase()` ตรวจสอบความเป็นเจ้าของ (Ownership guard)
+* `lib/cache/cache.ts` → `invalidateEntry(slug)` ล้างแคชเมื่อ publish
 
 **ไหล (Flow)**
-```
-page(client) → autosave/บันทึก
-  → saveDraftAction(draft) → getAuthedSupabase() (service role)
-  → saveDraftDb(supabase, userId, draft) → upsert entries (status=draft, ตรวจ ownership)
-  → (บันทึกด้วยตนเอง) addRevision(snapshot, "บันทึกด้วยตนเอง")
-
-publish → publishAction(draft)
-  → getAuthedSupabase() → publishEntry (ownership) → status=published
-  → addRevision({...draft, status:"published"}, "เผยแพร่")
-  → invalidateEntry(slug)        // ล้าง Upstash
-  → revalidatePublic(slug)       // revalidatePath /articles,/concepts,/[slug]
+```text
+Editor (Autosave) → saveDraftAction() → ตรวจ ownership → upsert ลงตาราง entries (status='draft')
+Publish         → publishAction()   → ตรวจ checklist → อัปเดต status='published' → addRevision() → invalidateEntry()
 ```
 
 **ระวัง (Gotchas)**
-- service-role **ข้าม RLS** → ownership ต้องตรวจใน data layer เสมอ (`draft-db.ts` ใช้ `getExistingAuthor`) — มิฉะนั้นผู้ใช้ A เขียนทับงาน B ได้
-- **เลิกใช้ Clerk JWT template แล้ว** (เคยทำให้เกิด error "No suitable key or wrong key type") — ใช้ `getAuthedSupabase` แทน
-- draft **ต้องไม่หลุด** สู่ public — `public-source` กรอง `status=published` เท่านั้น
-- หลัง publish ต้อง `invalidateEntry` + `revalidatePublic` ทุกครั้ง (ไม่งั้นสาธารณะเห็นของเก่า)
-- ตรวจ `canPublish(draft)` ก่อน publish และใช้ `slugify` สร้าง slug
+* ตรวจสอบสิทธิ์ด้วย `server-auth.ts` เสมอ ห้ามให้ผู้เขียนคนอื่นแก้ draft ที่ตนไม่ได้เป็นเจ้าของ
+* หลัง publish ต้องเรียก `invalidateEntry(slug)` ทุกครั้ง ไม่เช่นนั้นหน้าสาธารณะจะแสดงข้อมูลเก่า
 
 ---
 
-## 6) เส้นทางงาน: Auth & Roles (Clerk + Supabase)
+## 6) เส้นทางงาน: Auth / Roles / การป้องกันเส้นทาง (Clerk + Supabase)
 
 **เปิด (Open)**
-- `proxy.ts` 🟣 — **Clerk middleware** (⚠️ ไฟล์ชื่อ `proxy.ts` **ไม่ใช่** `middleware.ts` — Next 16.3 convention)
-- `lib/content/roles.ts` 🔷 — `Role` (`admin`/`writer`/`user`), `roleFromMetadata`, `canWrite`, `isAdmin`, `ROLE_META`
-- `lib/content/server-auth.ts` 🔵 — `getAuthedSupabase()`, `getUserRole()`
-- `lib/supabase/server.ts` 🔵 — `createServerSupabase` (anon, อ่าน published) + `createServiceSupabase` (service-role, admin)
-- `app/studio/layout.tsx` — `ClerkProvider` + force-dynamic + ซ่อน chrome สาธารณะ
-- `app/th/login` · `app/th/register` 🟢 — บัญชีนักอ่าน (Clerk)
+* `proxy.ts` 🟣 — Clerk middleware ป้องกันเส้นทาง `/studio/*` และ `/th/*`
+* `lib/content/roles.ts` 🔷 — `Role` (`admin`/`writer`/`user`), `canWrite`, `isAdmin`
+* `lib/content/server-auth.ts` 🔵 — `getAuthedSupabase()` สำหรับ Server Actions
 
 **เชื่อม (Wires)**
-- `@clerk/nextjs/server` → `auth()`, `clerkClient()` (set role ผ่าน `users.updateUserMetadata({ publicMetadata:{ role } })`)
-- role เก็บใน **Clerk `publicMetadata.role`**
-
-**ไหล (Flow)**
-```
-request → proxy.ts
-  → hasClerk? (มี publishable+secret key)
-     ไม่มี → NextResponse.next() (ปล่อยผ่าน เว็บไม่ 500)
-     มี   → clerkMiddleware → isProtectedRoute(/studio/editor·users·comments)? → auth.protect()
-            isAuthRoute(/th/login·register)? → ปล่อยไปหน้า Clerk
-
-server action → getAuthedSupabase() → auth() เอา userId → createClient(service role) → ตรวจ ownership ใน data layer
-admin action  → getUserRole() ต้องเป็น admin → createServiceSupabase() → ทำงาน
-```
+* `@clerk/nextjs/server` → `auth()`, `currentUser()`
+* Supabase Service Role Key (ใช้งานเฉพาะฝั่งเซิร์ฟเวอร์เพื่อข้าม RLS ในงาน Admin)
 
 **ระวัง (Gotchas)**
-- ชื่อไฟล์ **`proxy.ts`** — ห้ามสร้าง `middleware.ts` ซ้ำ
-- ถ้าไม่มี Clerk env → proxy ปล่อยผ่าน (public site ไม่ล่ม) — `/studio` จะถูกป้องกันจริงเมื่อใส่คีย์ครบ
-- route ที่ป้องกัน: `/studio/editor`, `/studio/users`, `/studio/comments` — `/studio` (landing) เปิดสาธารณะ
-- `SUPABASE_SERVICE_ROLE_KEY` server-only **ห้าม** prefix `NEXT_PUBLIC_`
-- role default `"user"`; `canWrite` = admin|writer; `isAdmin` = admin เท่านั้น
+* **ห้ามเปิดเผย `SUPABASE_SERVICE_ROLE_KEY` สู่หน้า Browser หรือใส่ prefix `NEXT_PUBLIC_` เด็ดขาด**
+* การตรวจสอบสิทธิ์ Admin ต้องทำที่ Server Action/API Route เสมอ ไม่ใช่แค่ซ่อน UI
 
 ---
 
-## 7) เส้นทางงาน: Wiki / Knowledge Graph (Concepts · Constellation · Internal links)
+## 7) เส้นทางงาน: กราฟความรู้ Constellation & Wikilinks
 
 **เปิด (Open)**
-- `lib/content/concept-registry.ts` 🔷 — `conceptRegistry`, `NodeType`, `getConceptBySlug`, `resolveConcept`, `conceptTitle` (single source ของ node)
-- `app/concepts/page.tsx` · `app/concepts/[slug]/page.tsx` 🔵
-- `app/constellation/page.tsx` 🔵 + `components/constellation/constellation-mindmap.tsx` 🟢
+* `app/constellation/page.tsx` 🔵 — หน้าแผนผังเรดาร์
+* `components/constellation/constellation-mindmap.tsx` 🟢 — เรนเดอร์ SVG เส้นโยงและชิปโหนด
+* `lib/content/graph.ts` 🔷 — `buildGraph()` คำนวณความสัมพันธ์
 
 **เชื่อม (Wires)**
-- `lib/content/graph.ts` 🔷 → `buildGraph`, `NODE_TYPE_LABEL/COLOR`, `RELATION_LABEL`
-- `lib/content/internal-links.ts` 🔷 → `parseInternalLinks`, `findDeadLinks`, `findLinkSuggestions`
-- `lib/content/related.ts` 🔷 → `getBacklinksForConcept` (backlinks เฉพาะ concepts)
-- `components/reading/internal-link-text.tsx` — render `[[wikilink]]`
-- `components/reading/local-graph.tsx` — กราฟใกล้ตัวบนหน้าอ่าน
-
-**ไหล (Flow)**
-```
-/concepts        → รายการจาก conceptRegistry
-/concepts/[slug] → resolveConcept(slug)
-   มี entry (published) → ReadingPage(section="concepts") + getBacklinksForConcept
-   ไม่มี entry          → stub จาก registry
-/constellation   → buildGraph(registry) → constellation-mindmap (client)
-   → SVG เส้นโยง + HTML node chips · คลิกย้ายศูนย์กลาง (?focus=) · no-JS fallback
-เนื้อหา [[wikilink]] → parseInternalLinks → InternalLinkText render (link หรือ dead-link)
-```
+* `lib/content/concept-registry.ts` → ฐานข้อมูลแนวคิดหลัก
+* `lib/content/public-source.ts` → บทความที่เชื่อมโยง
 
 **ระวัง (Gotchas)**
-- `concept-registry` เป็น canonical node list — **เพิ่ม node ที่นี่ก่อน** แล้วค่อยเขียน entry
-- relation type ใช้ `RelationType` (prerequisite/related/contrasts-with/part-of/source-of/used-in/influenced-by)
-- ใช้ `findDeadLinks` ตรวจลิงก์เสียก่อน publish
-- `constellation-mindmap` เป็น client component และต้องมี **no-JS fallback**
-- ห้ามแต่งเนื้อหาแนวคิดขึ้นเองโดยไม่มีข้อมูลจริง (guardrail #3 — ถามก่อน)
-
+* รองรับ No-JS fallback สำหรับโหมดที่ปิด JavaScript
+* เส้นเชื่อมระหว่างศาสตร์ต้องใช้สีผสม Bridge Colors ตามสเปก Cosmology
 
 ---
 
-## 8) เส้นทางงาน: คอมเมนต์ (Comments)
+## 8) เส้นทางงาน: ระบบคอมเมนต์ (Comments System)
 
 **เปิด (Open)**
-- `components/reading/comment-section.tsx` 🟢 — UI คอมเมนต์ท้ายหน้าอ่าน (client island ใน ReadingPage)
-- `lib/content/comments-actions.ts` 🔵 — server actions: `listCommentsAction`, `addCommentAction`, `deleteCommentAction`
-- `lib/content/comments-db.ts` 🔷 — `listComments`, `addComment`, `deleteComment`, `Comment`, `CommentInput`
-
-**เชื่อม (Wires)**
-- `lib/supabase/server.ts` → `createServerSupabase` (anon) สำหรับ **อ่าน** (RLS อนุญาตอ่าน `status=visible`)
-- `lib/content/server-auth.ts` → `getAuthedSupabase()` (service role) สำหรับ **เขียน/ลบ** + ตรวจ ownership
-- `@clerk/nextjs/server` → `auth()`, `clerkClient()` (ดึง `authorName` จาก Clerk)
-- `supabase/schema.sql` — ตาราง `comments` + RLS
-
-**ไหล (Flow)**
-```
-อ่าน → listCommentsAction(section, slug) → createServerSupabase (anon)
-     → listComments (status=visible) → คืน null เมื่อผิดพลาด → UI ซ่อน
-เขียน → addCommentAction(section, slug, body)
-     → auth() → getAuthedSupabase() → clerkClient เอา authorName
-     → addComment (insert clerk_user_id=userId)
-ลบ   → deleteCommentAction → getAuthedSupabase() → ตรวจ clerk_user_id===userId ก่อนลบ
-```
+* `components/comments/comments-section.tsx` 🟢 — UI รายการและฟอร์มส่งคอมเมนต์
+* `lib/content/comments-actions.ts` 🔵 — `listCommentsAction`, `addCommentAction`, `deleteCommentAction`
+* `lib/content/comments-db.ts` 🔷 — ลอจิกติดต่อตาราง `comments`
 
 **ระวัง (Gotchas)**
-- ต้องรัน `supabase/schema.sql` (สร้างตาราง `comments` + RLS) ก่อน — ไม่งั้น `listComments` คืน null → UI ซ่อนไปอย่างนุ่มนวล (ไม่ 500)
-- RLS: ล็อกอินแล้วคอมเมนต์ได้; แก้/ลบเฉพาะของตน
-- กรอง `status=visible` เสมอ (มีโหมด hidden สำหรับ moderation — ดู §14)
-- เขียน/ลบใช้ service role → **ต้องตรวจ ownership ในโค้ด** (`clerk_user_id === userId`)
+* คอมเมนต์ใหม่จะแสดงทันทีหรือผ่านการกรองตามสถานะ `visible`
+* ผู้ใช้ทั่วไปลบได้เฉพาะคอมเมนต์ของตนเอง ส่วน Admin ลบได้ทั้งหมดผ่าน Studio
 
 ---
 
-## 9) เส้นทางงาน: ตัวนับผู้เยี่ยมชม (Page Views)
+## 9) เส้นทางงาน: ตัวนับผู้เยี่ยมชม (Page Views Counter)
 
 **เปิด (Open)**
-- `components/reading/view-counter.tsx` 🟢 — นับวิวรายชิ้น (บนหน้าอ่าน)
-- `components/view-badge.tsx` — ป้ายวิวบนการ์ด
-- `components/site-footer.tsx` — ยอดรวมทั้งเว็บ
-- `lib/content/views-db.ts` 🔷 — `incrementPageView`, `getPageView`, `getTotalPageViews`
-
-**เชื่อม (Wires)**
-- ใช้ Supabase **RPC**: `increment_page_view` (SECURITY DEFINER), `total_page_views`
-- `supabase/schema.sql` — ตาราง `page_views` + RPC `increment_page_view` / `total_page_views`
-- รับ `SupabaseClient` เข้ามา (anon สำหรับอ่าน; increment ผ่าน RPC ที่ SECURITY DEFINER)
-
-**ไหล (Flow)**
-```
-view-counter (mount) → incrementPageView(supabase, slug) → RPC increment_page_view(p_slug)
-                     → คืนยอดใหม่ (fire-and-forget)
-แสดงรายชิ้น → getPageView(supabase, slug)
-ยอดรวม      → getTotalPageViews(supabase) → RPC total_page_views → site-footer
-```
+* `lib/content/views-db.ts` 🔵 — `incrementPageView(slug)`, `getPageView(slug)`
+* `components/reading/page-view-counter.tsx` 🟢 — UI แสดงยอดอ่านบนหน้าบทความ
 
 **ระวัง (Gotchas)**
-- ต้องสร้างตาราง `page_views` + RPC ใน `supabase/schema.sql` ก่อน (รันใน Supabase SQL Editor)
-- คืน `null` เมื่อผิดพลาด → UI **ซ่อน** ได้ (ไม่แสดง 0 ปลอม)
-- increment เป็น fire-and-forget — ไม่บล็อกการ render
+* ทำงานแบบ Fire-and-forget ไม่บล็อกการ render หน้าเว็บ
+* หาก RPC หรือฐานข้อมูล error ให้คืนค่า `null` และซ่อน UI ทันที (ห้ามแสดงเลข 0 ปลอม)
 
 ---
 
-## 10) เส้นทางงาน: อัปโหลด / ลบ / แสดงรูป (Cloudflare R2)
+## 10) เส้นทางงาน: อัปโหลดและจัดการสื่อ (Cloudflare R2)
 
 **เปิด (Open)**
-- `app/api/upload/route.ts` 🔵 — `POST /api/upload` (multipart `file`)
-- `app/api/media/[...key]/route.ts` 🔵 — `GET /api/media/[...key]` proxy ดึงจาก private bucket
-- `lib/storage/upload.ts` 🔵 → `uploadToR2` (ตรวจ MIME/size, prefix `uploads/`)
-- `lib/storage/delete.ts` 🔵 → `deleteFromR2` (จำกัด `uploads/` เท่านั้น), `keyFromUrl`
-- `lib/storage/r2-client.ts` 🔷 → `getR2Client`, `getR2Bucket`, `getR2PublicUrl`
-- `lib/r2.ts` 🔷 → `r2Client` (lazy — `null` ถ้าไม่มี env)
-- `components/studio/image-uploader.tsx` · `image-picker.tsx` — UI ใน editor
-
-**เชื่อม (Wires)**
-- `lib/content/roles.ts` → `canWrite` (ตรวจใน `/api/upload`)
-- `@clerk/nextjs/server` → `auth()`, `clerkClient()` (role check)
-- env: `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`
-
-**ไหล (Flow)**
-```
-image-uploader → POST /api/upload (multipart "file")
-  → auth() + canWrite? (admin/writer เท่านั้น)
-  → uploadToR2(buffer, {mime,size}) → key = uploads/… → คืน { url }
-แสดง → GET /api/media/[...key] → GetObjectCommand(r2Client) → stream→Buffer → Response
-ลบ   → deleteFromR2(keyFromUrl(url)) — จำกัด uploads/ เท่านั้น
-```
+* `app/api/upload/route.ts` 🔵 — รับไฟล์และตรวจสอบสิทธิ์ `canWrite`
+* `app/api/media/[...key]/route.ts` 🔵 — Proxy ดึงไฟล์จาก Private Bucket
+* `lib/storage/upload.ts` 🔵 — `uploadToR2()` บีบอัดและตั้ง prefix `uploads/`
 
 **ระวัง (Gotchas)**
-- R2 เป็น **private bucket** → รูปไม่เปิด public URL ตรงๆ ต้องผ่าน `/api/media` proxy
-- `r2Client` lazy — เป็น `null` ถ้าไม่มี env (UI/route ต้องจัดการ)
-- อัปโหลดได้เฉพาะ `canWrite` (admin/writer); key ต้องขึ้นต้น `uploads/`; ลบจำกัด `uploads/` เท่านั้น (ป้องกันลบผิดวัตถุ)
+* R2 ถูกตั้งเป็น **Private Bucket** เพื่อความปลอดภัย ห้ามเข้าถึงผ่าน Public URL โดยตรง ต้องผ่าน Proxy `/api/media/`
+* อนุญาตเฉพาะผู้ใช้ที่มีสิทธิ์ `canWrite` (Writer/Admin) เท่านั้น
 
 ---
 
-## 11) เส้นทางงาน: Cache (Upstash Redis)
+## 11) เส้นทางงาน: ระบบแคช (Upstash Redis)
 
 **เปิด (Open)**
-- `lib/cache/cache.ts` 🔵 — `cached(key, fetchFresh, ttl=300)`, `KEYS`, `invalidateEntry`
-- `lib/cache/redis.ts` 🔵 — `hasRedis`, `redisGet/Set/Del/DelPattern`
-- `lib/cache/index.ts` 🔷 — barrel export
-
-**เชื่อม (Wires)**
-- ผู้ใช้: `lib/content/public-source.ts` (`KEYS.entries`, `KEYS.entryBySlug`, `KEYS.schools`, `KEYS.searchIndex`)
-- ผู้ล้าง: `app/studio/editor/actions.ts` → `invalidateEntry(slug)` หลัง publish (ดู §5)
-- env: `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`
-
-**ไหล (Flow)**
-```
-getPublicEntries → cached(KEYS.entries, () => getPublishedEntries())
-  → hasRedis? 
-     ใช่ → redisGet(key) → hit? คืนเลย
-                miss → fetchFresh() → ถ้าไม่ null → redisSet fire-and-forget (TTL 300s)
-     ไม่ใช่ → fetchFresh() ตรงๆ (ข้าม cache)
-publish → invalidateEntry(slug) → redisDel(KEYS.entryBySlug(slug)) + redisDelPattern
-```
+* `lib/cache/cache.ts` 🔵 — ตัวจัดการแคชหลัก (`cached`, `invalidateEntry`)
+* `lib/cache/redis.ts` 🔵 — Wrapper สำหรับ Upstash Redis REST API
 
 **ระวัง (Gotchas)**
-- TTL 300s ตรงกับ ISR `revalidate = 300`
-- **Graceful fallback** — ไม่มี Redis env → ไม่ cache แต่ยังทำงานได้
-- cache write เป็น fire-and-forget (ไม่บล็อก response)
-- หลัง publish ต้อง `invalidateEntry` เสมอ ไม่งั้นสาธารณะเห็นของเก่า
-- **ห้าม cache ข้อมูล authed/draft** — cache เฉพาะ published เท่านั้น
-
+* **Graceful Fallback:** หากไม่มีตัวแปรสภาพแวดล้อม Redis ระบบต้องทำงานต่อได้โดยดึงจาก Supabase โดยตรง ไม่ล่ม
+* ห้ามแคชข้อมูล Draft หรือข้อมูลส่วนบุคคลของนักเขียนเด็ดขาด
 
 ---
 
-## 12) เส้นทางงาน: ระบบดีไซน์ — Cosmology · Dynamic Accent · Typography · Icons
+## 12) เส้นทางงาน: ระบบดีไซน์และสีแต้ม (Cosmology & Tokens)
 
 **เปิด (Open)**
-- `app/globals.css` 🟣 — Cosmology v2 tokens, `@property --accent` (Dynamic Accent), Dynamic Typography (fluid `clamp()`), `.md-body`, Citation/Glossary/footnote styles, motion tokens (`--ease-*`, `--dur-*`)
-- `lib/content/cosmology.ts` 🔷 — `Cosmology` (prima/psyche/lumen/sapientia/mercurius/humanitas), `COSMOLOGY_ACCENT`, `routeCosmology`, `routeAccent`, `contentTypeMeta`, `statusMeta`, `difficultyMeta`, `sourceTypeMeta`, `frameworkMeta`, `nodeTypeAccent`
-- `components/accent-controller.tsx` 🟢 — ตั้ง `--accent` + `data-cosmology` บน `<html>` (mount ใน layout)
-- `components/icons.tsx` — ชุดไอคอน SVG ลายเส้น ARCHRON
-- `components/discipline-meta.tsx` — ICON LANGUAGE (12 ศาสตร์)
+* `app/globals.css` 🟣 — ศูนย์รวม Design Tokens, `@property --accent`, Fluid Typography `clamp()`
+* `lib/content/cosmology.ts` 🔷 — ศาสตร์สีทั้ง 6 (Prima, Psyche, Lumen, Sapientia, Mercurius, Humanitas)
+* `components/accent-controller.tsx` 🟢 — ควบคุมสีแต้มตาม URL Pathname
 
-**เชื่อม (Wires)**
-- `app/layout.tsx` — โหลดฟอนต์ (Noto Serif Thai/IBM Plex Sans Thai + Material Symbols) + mount `AccentController`
-- `app/page.tsx` — ATLAS ใช้สี cosmology
-- globals.css อ่าน `--accent` ผ่าน `@property` → cascade ไปทุก component
-
-**ไหล (Flow)**
-```
-pathname → accent-controller → routeCosmology(pathname)
-  → ตั้ง documentElement.style.--accent = COSMOLOGY_ACCENT[cosmology]
-  → ตั้ง data-cosmology attribute
-  → CSS @property --accent cascade → components ใช้ var(--accent)
-Typography → fluid clamp() (ขนาดปรับตาม viewport)
-Icons     → Material Symbols (font) + SVG ใน icons.tsx
-```
-
-**ระวัง (Gotchas)**
-- ใช้ tokens (`--color-*`, `--accent`) เสมอ — ห้าม hardcode สี
-- brand palette/โทน **ต้องไม่เปลี่ยน** โดยไม่ขอ (guardrail #5)
-- ฟอนต์ Thai-first: serif หัวข้อ, sans เนื้อหา
-- motion: ใช้ `--ease-soft/--ease-out`, `--dur-fast/base/slow`; animate เฉพาะ `transform`/`opacity`; เคารพ `prefers-reduced-motion`
-- `@property --accent` คือหัวใจของ Dynamic Accent — อย่าลบ
-
-**Colour Mixing — Bridge Colors (สีผสมจาก Cosmology) · Design System handoff**
-
-> เพิ่มโดย Design System Agent — เป็น *สเปก* ให้ Frontend Engineering นำไป implement ใน `app/globals.css`
-> แนวคิด: สีผสมของสองศาสตร์ = สีของ **"เส้นเชื่อม/ความสัมพันธ์"** ระหว่าง node ในโครงข่ายความรู้ ทุกสีเกิดจาก 6 แกน Cosmology เท่านั้น (ไม่หลุด palette)
-
-**Base (canonical — ตรงกับ `COSMOLOGY_ACCENT` ใน `lib/content/cosmology.ts`)**
-
-| token | cosmology | hex |
-|---|---|---|
-| `--cos-prima` | prima | `#B9C2CE` |
-| `--cos-psyche` | psyche | `#6E93A8` |
-| `--cos-lumen` | lumen | `#E7D7A6` |
-| `--cos-sapientia` | sapientia | `#CBA45A` |
-| `--cos-mercurius` | mercurius | `#8AA395` |
-| `--cos-humanitas` | humanitas | `#C9C2B4` |
-
-**Bridge (สีผสม 50/50 — ใช้เฉพาะ edge/gradient/hover เท่านั้น ไม่ใช่สีพื้น/accent หลัก)**
-
-| token | คู่ผสม | hex | contrast บน `#0E1420` |
+### 🎨 สเปกสีผสมข้ามศาสตร์ (Bridge Colors Spec)
+ใช้สำหรับเส้นเชื่อมโยง (Edges) และเอฟเฟกต์การไล่สีเมื่อเชื่อม 2 ศาสตร์เข้าด้วยกัน:
+| Token | คู่ผสมศาสตร์ | Hex Value | Contrast |
 |---|---|---|---|
-| `--mix-reflection` | psyche × sapientia | `#9C9C81` | 6.6 · AA |
-| `--mix-threshold` | prima × psyche | `#94AABB` | 7.7 · AA |
-| `--mix-illumination` | lumen × sapientia | `#D9BE80` | 10.2 · AA |
-| `--mix-dialogue` | psyche × mercurius | `#7C9B9E` | 6.2 · AA |
-| `--mix-praxis` | sapientia × mercurius | `#AAA478` | 7.3 · AA |
-| `--mix-manuscript` | prima × sapientia | `#C2B394` | 8.9 · AA |
+| `--mix-reflection` | Psyche × Sapientia | `#9C9C81` | 6.6 · AA |
+| `--mix-threshold` | Prima × Psyche | `#94AABB` | 7.7 · AA |
+| `--mix-illumination` | Lumen × Sapientia | `#D9BE80` | 10.2 · AA |
+| `--mix-dialogue` | Psyche × Mercurius | `#7C9B9E` | 6.2 · AA |
+| `--mix-praxis` | Sapientia × Mercurius | `#AAA478` | 7.3 · AA |
+| `--mix-manuscript` | Prima × Sapientia | `#C2B394` | 8.9 · AA |
 
-```css
-:root{
-  /* Base Cosmology (canonical) */
-  --cos-prima:#B9C2CE; --cos-psyche:#6E93A8; --cos-lumen:#E7D7A6;
-  --cos-sapientia:#CBA45A; --cos-mercurius:#8AA395; --cos-humanitas:#C9C2B4;
-
-  /* Bridge — edge/gradient/hover (สีผสม) */
-  --mix-reflection:#9C9C81;   /* psyche × sapientia */
-  --mix-threshold:#94AABB;    /* prima × psyche */
-  --mix-illumination:#D9BE80; /* lumen × sapientia */
-  --mix-dialogue:#7C9B9E;     /* psyche × mercurius */
-  --mix-praxis:#AAA478;       /* sapientia × mercurius */
-  --mix-manuscript:#C2B394;   /* prima × sapientia */
-}
-/* ทางเลือก: คำนวณจาก base เพื่อผูกที่มา (เนียนกว่าเวลาปรับสีฐาน) */
-/* --mix-reflection: color-mix(in srgb, var(--cos-psyche) 50%, var(--cos-sapientia)); */
-
-/* ตัวอย่าง edge ในกราฟความรู้ (ต้นทาง → ปลายทาง) */
-.edge-psyche-sapientia{
-  background:linear-gradient(90deg,var(--cos-psyche),var(--mix-reflection) 50%,var(--cos-sapientia));
-}
-```
-
-**ระวัง (Gotchas)**
-- Bridge ใช้เฉพาะ **edge/gradient/hover** — ห้ามใช้เป็นสีพื้นหรือ accent หลัก (กัน palette แตกทิศ)
-- ยึด token เสมอ ห้าม hardcode สี · ห้ามประกาศ `@property --accent` ซ้ำ
-- Bridge เป็นสีคงที่ของคู่ศาสตร์ (ไม่เปลี่ยนตาม `--accent`) — ต่างจาก Dynamic Accent
-- การนำเข้า `app/globals.css` จริง = งาน Frontend Engineering (guardrail #5: ไม่เปลี่ยน brand palette เดิม เป็นการ *เพิ่ม* token)
-- เอกสารอ้างอิงเต็ม: Hyperagent doc "Colour Cosmology — Handoff"
+> **กฎเหล็กดีไซน์:** สีพื้นหลังหลักต้องคงความเป็นกลางที่ลุ่มลึก (`--color-deep-navy` / `#080B16`) เสมอ ห้ามเปลี่ยนสีพื้นหลังตามศาสตร์
 
 ---
 
-## 13) เส้นทางงาน: Themes — แก่นเรื่องข้ามศาสตร์ (B1)
+## 13) เส้นทางงาน: แก่นเรื่องข้ามศาสตร์ (Themes / B1)
 
 **เปิด (Open)**
-- `lib/content/themes.ts` 🔷 — `Theme`, `THEMES`, `THEME_TAG_SUGGESTIONS`, `themesForEntry`
-- `app/themes/page.tsx` · `app/themes/[slug]/page.tsx` 🔵
-
-**เชื่อม (Wires)**
-- `components/reading/reading-page.tsx` → `themesForEntry(entry)` (แสดงแท็กแก่นเรื่องบนหน้าอ่าน)
-- Studio editor ใช้ `THEME_TAG_SUGGESTIONS` แนะนำแท็กตอน tag entry
-
-**ไหล (Flow)**
-```
-/themes        → รายการ THEMES
-/themes/[slug] → รายละเอียด theme + entries ที่ tag แก่นเรื่องนั้น
-หน้าอ่าน       → themesForEntry(entry) → แสดงแก่นเรื่องที่เกี่ยวข้อง
-```
+* `lib/content/themes.ts` 🔷 — นิยามแก่นเรื่องข้ามศาสตร์ (`THEMES`)
+* `app/themes/page.tsx` · `app/themes/[slug]/page.tsx` 🔵
 
 **ระวัง (Gotchas)**
-- B1 = แก่นเรื่องข้ามศาสตร์ (cross-discipline)
-- ห้ามแต่ง theme/ข้อมูลขึ้นเอง (guardrail #3)
-
+* แก่นเรื่องทำหน้าที่เป็นสะพานเชื่อมมโนทัศน์ที่ต่างสำนักกัน ห้ามสร้างข้อมูลแก่นเรื่องเท็จขึ้นเองโดยไม่มีอ้างอิง
 
 ---
 
-## 14) เส้นทางงาน: Admin Studio — จัดการผู้ใช้ / โมเดเดอเรชันคอมเมนต์
+## 14) เส้นทางงาน: Admin Studio (จัดการผู้ใช้และโมเดอเรชัน)
 
 **เปิด (Open)**
-- `app/studio/users/page.tsx` 🟢 + `app/studio/users/actions.ts` 🔵 — จัดการผู้ใช้ (ตั้งบทบาทผ่าน `clerkClient`)
-- `app/studio/comments/page.tsx` 🟢 + `app/studio/comments/actions.ts` 🔵 — โมเดอเรชัน (ซ่อน/แสดง/ลบ)
-- `app/studio/profile/page.tsx` 🟢 + `app/studio/profile/actions.ts` 🔵 — โปรไฟล์ตนเอง + ขอเป็นนักเขียน (`requestWriter`)
-
-**เชื่อม (Wires)**
-- `lib/content/roles.ts` → `isAdmin`, `canWrite`, `roleFromMetadata`
-- `lib/content/server-auth.ts` → `getUserRole()` (ตรวจ admin ก่อนทำ)
-- `lib/supabase/server.ts` → `createServiceSupabase()` (ข้าม RLS — admin actions)
-- `@clerk/nextjs/server` → `clerkClient().users.updateUserMetadata({ publicMetadata:{ role } })`
-- `lib/content/profile-db.ts` → `getMyProfile`, `upsertMyProfile`, `requestWriter`
-
-**ไหล (Flow)**
-```
-users admin   → getUserRole() ต้องเป็น admin → createServiceSupabase()
-             → รายชั้นผู้ใช้ (Clerk) → ตั้ง role ผ่าน clerkClient.updateUserMetadata
-comments mod  → admin → createServiceSupabase → ตั้ง status (visible/hidden) หรือลบ
-profile       → getAuthedSupabase() → getMyProfile/upsertMyProfile; requestWriter ขอยกระดับ
-```
+* `app/studio/users/page.tsx` · `actions.ts` — ตั้งค่าบทบาทผู้ใช้ผ่าน Clerk Client
+* `app/studio/comments/page.tsx` · `actions.ts` — จัดการและคัดกรองความคิดเห็น
 
 **ระวัง (Gotchas)**
-- admin-only — ตรวจ `isAdmin` **ก่อน** ทุก action
-- ใช้ `createServiceSupabase` (ข้าม RLS) → **ต้อง** verify role ก่อนเสมอ
-- role เก็บใน Clerk `publicMetadata.role`
-- ห้าม expose service-role client ฝั่ง browser
+* ตรวจสอบสิทธิ์ `isAdmin` ใน Server Action ก่อนดำเนินการทุกครั้ง
 
 ---
 
-## 15) เส้นทางงาน: ค้นหา (Search)
+## 15) เส้นทางงาน: ระบบค้นหากลาง (Global & Semantic Search)
 
 **เปิด (Open)**
-- `app/search/page.tsx` + `loading.tsx` 🔵 — หน้าค้นหากลาง
-- `components/search/search-client.tsx` 🟢 — UI filter + ผลลัพธ์จัดกลุ่ม
-
-**เชื่อม (Wires)**
-- `lib/content/search-index.ts` 🔷 → `buildSearchIndex`, `SEARCH_TYPE_LABEL`
-- แหล่งข้อมูล: `public-source.ts` (articles), `concept-registry.ts` (concepts), `external-links.ts` (resources), รายการหน้า
-
-**ไหล (Flow)**
-```
-page (server) → buildSearchIndex() (concepts/articles/resources/pages)
-  → ส่งให้ SearchClient → filter + จัดกลุ่มผลลัพธ์ (label จาก SEARCH_TYPE_LABEL)
-```
-
-**ระวัง (Gotchas)**
-- index สร้างจาก **ข้อมูลสาธารณะเท่านั้น**
-- `SEARCH_TYPE_LABEL` สำหรับ label กลุ่มผลลัพธ์
+* `app/search/page.tsx` 🔵 — หน้าค้นหาหลัก
+* `components/search/search-client.tsx` 🟢 — UI ค้นหาและกรองตามประเภท (`SEARCH_TYPE_LABEL`)
+* `lib/content/search-index.ts` 🔷 — รวบรวมดัชนีการค้นหาจากข้อมูล Published
 
 ---
 
-## 16) เส้นทางงาน: Env / ตั้งค่า / Build & Lint checklist
+## 16) เส้นทางงาน: Env / Build / Lint Checklist
 
-**เปิด (Open)**
-- `.env` (local) · env บน Vercel
-- `supabase/schema.sql` 🟣 — ตาราง `entries`, `entry_revisions`, `profiles`, `comments`, `page_views` + RLS + RPC
-- `eslint.config.mjs` 🟣 — ESLint flat config (`eslint-config-next/core-web-vitals`)
-- `package.json` — scripts
-
-**เชื่อม (Wires) — env ที่ต้องตั้ง**
-| ตัวแปร | ใช้ทำอะไร |
-|---|---|
-| `NEXT_PUBLIC_SUPABASE_URL` · `NEXT_PUBLIC_SUPABASE_ANON_KEY` | อ่าน published, คอมเมนต์, นับวิว (anon, RLS) |
-| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` · `CLERK_SECRET_KEY` | Auth (Studio, บัญชีนักอ่าน, คอมเมนต์) |
-| `SUPABASE_SERVICE_ROLE_KEY` | **server-only** — studio actions/admin (ข้าม RLS) · ห้าม prefix `NEXT_PUBLIC_` |
-| `R2_ACCOUNT_ID` · `R2_ACCESS_KEY_ID` · `R2_SECRET_ACCESS_KEY` · `R2_BUCKET_NAME` | Cloudflare R2 (อัปโหลด/แสดงรูป) |
-| `UPSTASH_REDIS_REST_URL` · `UPSTASH_REDIS_REST_TOKEN` | cache (ไม่มีก็ทำงานได้ — fallback) |
-
-**ไหล (Flow)**
+รายการตัวแปรสภาพแวดล้อมที่จำเป็นต้องตรวจสอบ:
+```text
+NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY, CLERK_SECRET_KEY
+SUPABASE_SERVICE_ROLE_KEY (Server-only ห้ามเปิดเผย)
+R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET_NAME
+UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN
 ```
-ตั้ง env → รัน supabase/schema.sql ใน Supabase SQL Editor (หลังเพิ่มตาราง)
-       → npm run build && npm run lint ต้องเขียว → ค่อย commit
-```
-
-**ระวัง (Gotchas)**
-- `SUPABASE_SERVICE_ROLE_KEY` server-only **ห้าม** prefix `NEXT_PUBLIC_` (guardrail #8)
-- หลังเพิ่มตารางใหม่ ต้องรัน `schema.sql` ใน Supabase SQL Editor ก่อน ระบบคอมเมนต์/วิวจึงทำงาน
-- `npm run build` + `npm run lint` ต้อง **เขียวก่อน commit** (guardrail #9)
-- ห้ามใส่ secret/API key ลง repo (guardrail #8) — ใช้ env เท่านั้น
-- ห้ามลบ/เขียนทับไฟล์ที่ไม่เกี่ยวกับงาน (guardrail #9)
 
 ---
 
-## 17) สารบัญเส้นทางงาน (Quick Index)
+## 17) สารบัญด่วนเส้นทางงาน (Quick Route Index)
 
-| จะทำ… | ไปที่ |
-|---|---|
-| เพิ่ม/แก้หน้า static สาธารณะ | §2 |
-| แสดงเนื้อหา published บนหน้า public | §3 |
-| แก้หน้าอ่าน / ระบบ Reading (TOC/cite/glossary) | §4 |
-| เขียน/บันทึก/เผยแพร่ใน Studio | §5 |
-| Auth/Roles/ป้องกันเส้นทาง | §6 |
-| เพิ่ม node/แก้ Constellation/wikilink | §7 |
-| คอมเมนต์ | §8 |
-| ตัวนับผู้เยี่ยม | §9 |
-| อัปโหลด/ลบ/แสดงรูป (R2) | §10 |
-| Cache (Redis) | §11 |
-| ดีไซน์/สี/ฟอนต์/ไอคอน | §12 |
-| แก่นเรื่องข้ามศาสตร์ (Themes) | §13 |
-| Admin: ผู้ใช้/โมเดอเรชัน | §14 |
-| ค้นหา | §15 |
-| ตั้ง env / build / lint | §16 |
+| หากต้องการทำงานเกี่ยวกับ... | ไปที่หัวข้อ | รัฐธรรมนูญที่ต้องตรวจสอบควบคู่ |
+|---|---|---|
+| เพิ่ม/แก้หน้า Public Static | §2 | `VOS.md`, `Sitemap.md` |
+| แสดงเนื้อหา Published / หน้าอ่าน | §3, §4 | `AES.md`, `EDS.md`, `SYMBOLS.md` |
+| ระบบเขียน/เผยแพร่ Studio | §5 | `PRD.md`, `EDS.md` |
+| ระบบ Auth / Roles / Guard | §6 | `AGENTS.md` |
+| กราฟ Constellation / Wikilinks | §7 | `SYMBOLS.md`, `VOS.md` |
+| คอมเมนต์ / ตัวนับวิว | §8, §9 | `EDS.md` |
+| รูปภาพและสื่อ R2 | §10 | `VOS.md` |
+| แคช Redis / Dynamic Accent | §11, §12 | `VOS.md` |
+| Admin Studio / ค้นหา | §14, §15 | `PRD.md`, `Sitemap.md` |
 
-> อ่านก่อนเริ่มทุกครั้ง: `AGENTS.md` (กฎ/ขอบเขต) → ไฟล์นี้ (เส้นทางงาน) → `docs/code-index.md` (รายการไฟล์โดยละเอียด)
+---
 
+## 18) รัฐธรรมนูญแม่บทแห่ง ARCHRON (Master Web Design Constitution & Psychology Pillars)
+
+> **ศูนย์รวมปรัชญาและข้อบังคับสถาปัตยกรรม (Structured Constitutional Hub)**  
+> AI และนักพัฒนาต้องทำความเข้าใจ 7 มิติยุทธศาสตร์ด้านล่าง ซึ่งจัดกลุ่มจากข้อกำหนด 70 เฟส เพื่อให้การพัฒนาระบบมีความสอดคล้อง ลุ่มลึก และเป็นหนึ่งเดียวกันทั่วทั้งจักรวาล ARCHRON
+
+### 18.1 เสาหลักจิตวิทยาการรับรู้ 8 ประการ (Cognitive & Psychology Pillars)
+1. **Interaction Psychology:** ทุกการตอบสนองต้องสม่ำเสมอ คาดเดาได้ และให้ความรู้สึกมั่นคงควบคุมได้
+2. **Visual Psychology:** ใช้สัดส่วนที่สงบเงียบ โทนสีดาราศาสตร์ยามค่ำคืน เพื่อสมาธิสูงสุด
+3. **Reading Psychology:** ออกแบบเพื่อ Long-form Reading โดยเฉพาะ ระยะบรรทัดสมดุล ช่องว่างพักสายตาโปร่งสบาย
+4. **Knowledge Psychology:** จัดโครงสร้างให้เห็นความเชื่อมโยงข้ามสายใยปัญญา (Connectivity of Knowledge)
+5. **Curiosity Psychology:** กระตุ้นความสงสัยใคร่รู้ เปิดช่องทางให้สืบค้นลึกลงไปทีละขั้น
+6. **Decision Fatigue Reduction:** ลดความวุ่นวายทางสายตาและตัวเลือกที่มากเกินไปในหนึ่งหน้าจอ
+7. **Progressive Disclosure:** เปิดเผยความซับซ้อนทีละระดับ (Layered Information) นำเสนอสิ่งสำคัญก่อนเสมอ
+8. **Recognition over Recall:** อาศัยสัญลักษณ์ (`SYMBOLS.md`) และสีประจำศาสตร์ เพื่อให้รับรู้ความหมายได้ทันทีโดยไม่ต้องจำ
+
+---
+
+### 18.2 ห่วงโซ่บรรทัดฐานระบบความรู้ (Invariant Knowledge Chain Ontology)
+ลำดับชั้นการสืบค้นข้อมูลในระบบ ARCHRON ต้องเรียงตามแกนความลึกนี้อย่างเคร่งครัด:
+```text
+Thinker (นักคิด) → School (สำนักคิด) → Concept (มโนทัศน์) → Theory (ทฤษฎี) → Article (บทความ) → Reference (อ้างอิง) → Book (ผลงาน) → Timeline (เส้นเวลา) → Related Concept (มโนทัศน์ขนาน) → Criticism (ข้อวิพากษ์) → Modern Research (วิจัยปัจจุบัน)
+```
+
+---
+
+### 18.3 โครงสร้างรัฐธรรมนูญ 70 เฟส (7 Strategic Constitutional Dimensions)
+
+#### 🌌 มิติที่ 1: อัตลักษณ์แบรนด์และปรัชญา (Dimension I: Brand Identity & Philosophy)
+* **ครอบคลุม:** Phase 1 (Brand DNA), Phase 2 (Design Philosophy), Phase 40 (Master Constitution), Phase 70 (Final Constitution)
+* **แกนหลัก:** ARCHRON คือคลังความรู้แห่งความเข้าใจมนุษย์อันยั่งยืน (Timeless Human Knowledge Library) ความงามต้องรับใช้ความเข้าใจ (Beauty serves understanding)
+
+#### 🎨 มิติที่ 2: ระบบปฏิบัติการภาพและโทเค็น (Dimension II: Visual Operating System & Tokens)
+* **ครอบคลุม:** Phase 3 (Visual Language), Phase 4 (Color Cosmology), Phase 5 (Typography), Phase 6-8 (Spacing/Grid/Layout), Phase 9 (Component Philosophy), Phase 10 (Motion), Phase 48-50 (Microinteraction/Illustration/Image), Phase 61 (Design Tokens)
+* **อ้างอิงหลัก:** ดูรายละเอียดเต็มที่ `VOS.md` และ `SYMBOLS.md` ห้าม hardcode สีหรือขนาดเด็ดขาด
+
+#### 🧭 มิติที่ 3: สถาปัตยกรรมความรู้และโครงข่าย (Dimension III: Knowledge Architecture & Ontology)
+* **ครอบคลุม:** Phase 11 (Knowledge System), Phase 23 (Thinker System), Phase 24 (School System), Phase 25 (Concept System), Phase 39 (Knowledge Integrity), Phase 41 (Information Architecture), Phase 44-46 (Knowledge Graph/Relationship/Visualization)
+* **อ้างอิงหลัก:** ดูรายละเอียดโครงสร้างที่ `PRD.md` และ `Sitemap.md` แยกระหว่างข้อเท็จจริงกับการตีความอย่างชัดเจน
+
+#### 📖 มิติที่ 4: ประสบการณ์การอ่านและงานบรรณาธิการ (Dimension IV: Editorial Experience & UX)
+* **ครอบคลุม:** Phase 13 (Editor Experience), Phase 14 (Library Experience), Phase 15 (Search Philosophy), Phase 27-28 (Editor/Search System), Phase 42-43 (Cognitive/Reading Psychology), Phase 47 (Interaction Language), Phase 51-53 (Card/Dashboard/Writing Psychology)
+* **อ้างอิงหลัก:** ดูรายละเอียดเต็มที่ `AES.md` (จังหวะการอ่าน 10 ขั้น) และ `EDS.md` (ดีเอ็นเอการ์ด 6 ชั้น)
+
+#### ⚙️ มิติที่ 5: วิศวกรรมระบบและประสิทธิภาพ (Dimension V: Full-Stack Engineering & Performance)
+* **ครอบคลุม:** Phase 12, Phase 18-21, Phase 29-34, Phase 56-59, Phase 62-65 (Architecture, Database, Caching, SEO, Naming Conventions, API Constitution)
+* **เป้าหมาย:** บรรทัดฐานสูง (Normalized DB), Lighthouse 95+, รองรับ Offline/Edge Cache
+
+#### 🛠️ มิติที่ 6: การบริหารจัดการ Studio (Dimension VI: Studio Workflow & Administration)
+* **ครอบคลุม:** Phase 16 (Profile), Phase 17 (Studio Dashboard), Phase 26 (Dashboard Psychology), Phase 54 (Research Workflow)
+
+#### 🤝 มิติที่ 7: การประกันคุณภาพและ AI ร่วมพัฒนา (Dimension VII: Quality Assurance & AI Collaboration)
+* **ครอบคลุม:** Phase 22 (Final UX Audit), Phase 35 (Design Audit), Phase 36 (AI Coding Constitution), Phase 37 (Production Checklist), Phase 38 (QA), Phase 55 (AI Integration), Phase 66-69 (Testing/Doc/Deployment/AI Collaboration)
+
+---
+
+### 18.4 กฎทองคำสูงสุด 18 ประการแห่ง ARCHRON (Invariant Golden Rules)
+1. **Knowledge before decoration** — ความรู้อยู่เหนือการตกแต่ง
+2. **Meaning before aesthetics** — ความหมายอยู่เหนือสุนทรียะ
+3. **Consistency before creativity** — ความสม่ำเสมออยู่เหนือความคิดสร้างสรรค์เฉพาะตัว
+4. **Structure before complexity** — โครงสร้างอยู่เหนือความซับซ้อน
+5. **Curiosity before certainty** — ความอยากรู้ใคร่ครวญอยู่เหนือความยึดมั่นตายตัว
+6. **Evidence before assumption** — ประจักษ์พยานอยู่เหนือสมมติฐาน
+7. **Clarity before cleverness** — ความกระจ่างแจ้งอยู่เหนือลูกเล่นแพรวพราว
+8. **Accessibility before preference** — การเข้าถึงได้ของคนทุกคนอยู่เหนือความชอบส่วนบุคคล
+9. **Reuse before reinvention** — การใช้ซ้ำสิ่งที่มีอยู่เหนือการประดิษฐ์ซ้ำซ้อน
+10. **Performance before visual excess** — ประสิทธิภาพความลื่นไหลอยู่เหนือความตระการตาที่ฟุ่มเฟือย
+11. **Design with intention** — ออกแบบด้วยความตั้งใจและมีเป้าประสงค์
+12. **Write with precision** — เขียนเรียบเรียงเนื้อหาและโค้ดด้วยความแม่นยำ
+13. **Connect knowledge** — เชื่อมโยงโครงข่ายความรู้เข้าด้วยกันเสมอ
+14. **Question assumptions** — ตั้งคำถามและตรวจสอบสมมติฐานเสมอ
+15. **Respect history** — เคารพรากเหง้าทางประวัติศาสตร์และปัญญาชน
+16. **Remain timeless** — ดำรงความยั่งยืนเหนือกาลเวลา ไม่ผันแปรตามกระแสฉาบฉวย
+17. **Every decision must have a reason.** — ทุกการตัดสินใจต้องมีเหตุผลรองรับเสมอ
+18. **Everything belongs to one coherent universe.** — ทุกสิ่งทุกอย่างหลอมรวมเป็นหนึ่งจักรวาลเดียวกัน
+
+---
+
+### 18.5 โปรโตคอลการส่งมอบงานร่วมกันระหว่าง AI (AI Collaboration & Governance Protocol)
+* **Zero Architectural Regression:** AI ตัวถัดไปห้ามรื้อโครงสร้างหรือปรับเปลี่ยนพฤติกรรมระบบเดิมโดยไม่ได้รับคำสั่ง
+* **Strict Token Inheritance:** UI ใหม่ทุกชิ้นต้องอ้างอิง Design Tokens ใน `app/globals.css` และปฏิบัติตามสเปก `VOS.md`, `AES.md`, `EDS.md`
+* **Mandatory Green Verification:** ก่อนเสร็จสิ้นภารกิจ AI ต้องรันคำสั่ง `npm run lint` และตรวจสอบให้แน่ใจว่าผ่าน 100% โดยไม่มีข้อผิดพลาดใดๆ

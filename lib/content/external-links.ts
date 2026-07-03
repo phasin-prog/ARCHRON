@@ -6,6 +6,7 @@ export type ExternalLink = {
   description: string;
   url: string;
   tags: string[];
+  checkedAt?: string;
 };
 
 export type ExternalCategory = {
@@ -29,6 +30,7 @@ export const EXTERNAL_CATEGORIES: ExternalCategory[] = [
           "สมาคมวิชาชีพและศูนย์กลางการรับรองนักจิตวิทยาวิเคราะห์สายตรงของ Carl Jung ในระดับสากล",
         url: "https://iaap.org",
         tags: ["Official Organization", "Jungian"],
+        checkedAt: "2026-07-02",
       },
       {
         title: "Philemon Foundation",
@@ -36,6 +38,7 @@ export const EXTERNAL_CATEGORIES: ExternalCategory[] = [
           "มูลนิธิที่อุทิศตนเพื่อชำระ รวบรวม และแปลต้นฉบับงานเขียนที่ยังไม่เคยเผยแพร่ของ Carl Jung ออกมาเป็น Collected Works",
         url: "https://philemonfoundation.org",
         tags: ["Manuscripts", "Research"],
+        checkedAt: "2026-07-02",
       },
     ],
   },
@@ -51,6 +54,7 @@ export const EXTERNAL_CATEGORIES: ExternalCategory[] = [
           "องค์กรระดับโลกที่ก่อตั้งโดย Sigmund Freud เพื่อวางรากฐานและรับรองมาตรฐานการฝึกฝนวิชาชีพจิตวิเคราะห์",
         url: "https://www.ipa.world",
         tags: ["Freudian", "Psychoanalysis"],
+        checkedAt: "2026-07-02",
       },
     ],
   },
@@ -66,6 +70,7 @@ export const EXTERNAL_CATEGORIES: ExternalCategory[] = [
           "คลังทรัพยากร ข้อมูลงานวิจัย และมาตรฐานทางวิชาการที่ใหญ่ที่สุดในด้านจิตวิทยาร่วมสมัย",
         url: "https://www.apa.org",
         tags: ["Academic", "Standard"],
+        checkedAt: "2026-07-02",
       },
     ],
   },
@@ -81,6 +86,7 @@ export const EXTERNAL_CATEGORIES: ExternalCategory[] = [
           "แหล่งอ้างอิงและสารานุกรมปรัชญาออนไลน์ที่ผ่านการ Peer-review โดยนักวิชาการอย่างเข้มข้น ครอบคลุมทั้งญาณวิทยาและจิตวิทยาเชิงปรัชญา",
         url: "https://plato.stanford.edu",
         tags: ["Encyclopedia", "Epistemology"],
+        checkedAt: "2026-07-02",
       },
     ],
   },
@@ -96,6 +102,7 @@ export const EXTERNAL_CATEGORIES: ExternalCategory[] = [
           "ฐานข้อมูลและสมาคมวิจัยที่มุ่งเน้นการศึกษาโครงสร้างทางชีวภาพของสมองและระบบประสาทที่ส่งผลต่อพฤติกรรมและจิตใจ",
         url: "https://www.sfn.org",
         tags: ["Neuroscience", "Research"],
+        checkedAt: "2026-07-02",
       },
     ],
   },
@@ -111,6 +118,7 @@ export const EXTERNAL_CATEGORIES: ExternalCategory[] = [
           "คลังวารสารและงานวิจัยเชิงมานุษยวิทยา วัฒนธรรม และตำนานวิทยา ซึ่งเป็นประโยชน์อย่างยิ่งในการศึกษา Archetype ร่วมของมนุษยชาติ",
         url: "https://anthrosource.onlinelibrary.wiley.com",
         tags: ["Culture", "Mythology", "Journals"],
+        checkedAt: "2026-07-02",
       },
     ],
   },

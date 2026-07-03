@@ -93,7 +93,8 @@ export function FloatingToc({ containerId = "reading-article" }: { containerId?:
         onClick={() => setOpen((v) => !v)}
         aria-label="สารบัญ"
         aria-expanded={open}
-        className="fixed bottom-[calc(7rem+env(safe-area-inset-bottom))] right-4 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-burnished-gold/30 bg-surface-container/90 text-burnished-gold shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)] backdrop-blur transition-all duration-300 hover:bg-burnished-gold hover:text-prima xl:hidden print:hidden"
+        aria-controls="floating-toc-panel"
+        className="fixed bottom-[calc(7rem+env(safe-area-inset-bottom))] right-4 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-burnished-gold/30 bg-surface-container/90 text-burnished-gold shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)] backdrop-blur transition-all duration-300 hover:bg-burnished-gold hover:text-prima lg:hidden print:hidden"
       >
         <span className="material-symbols-outlined text-[22px]">
           {open ? "close" : "toc"}
@@ -103,7 +104,7 @@ export function FloatingToc({ containerId = "reading-article" }: { containerId?:
       {/* Backdrop */}
       {open ? (
         <div
-          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm xl:hidden"
+          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm lg:hidden"
           onClick={() => setOpen(false)}
           aria-hidden="true"
         />
@@ -111,8 +112,9 @@ export function FloatingToc({ containerId = "reading-article" }: { containerId?:
 
       {/* Bottom sheet */}
       <nav
+        id="floating-toc-panel"
         aria-label="สารบัญในหน้านี้"
-        className={`fixed inset-x-0 bottom-0 z-50 max-h-[60vh] overflow-y-auto rounded-t-2xl border-t border-slate-boundary/40 bg-surface-container px-5 pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-4 shadow-[0_-10px_30px_-10px_rgba(0,0,0,0.5)] transition-transform duration-300 ease-out xl:hidden ${
+        className={`fixed inset-x-0 bottom-0 z-50 max-h-[60vh] overflow-y-auto rounded-t-2xl border-t border-slate-boundary/40 bg-surface-container px-5 pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-4 shadow-[0_-10px_30px_-10px_rgba(0,0,0,0.5)] transition-transform duration-300 ease-out lg:hidden ${
           open ? "translate-y-0" : "translate-y-full"
         }`}
       >

@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import dynamic from "next/dynamic";
 import {
   Inter,
   IBM_Plex_Serif,
@@ -18,8 +19,12 @@ import { Tabbar } from "@/components/tabbar";
 import { Fab } from "@/components/fab";
 import { SkipToContent } from "@/components/skip-to-content";
 import { QuickOpen } from "@/components/quick-open";
-import { IntroPreloader } from "@/components/hero/intro-preloader";
 import { ClerkProvider } from "@clerk/nextjs";
+
+const IntroPreloader = dynamic(
+  () =>
+    import("@/components/hero/intro-preloader").then((m) => m.IntroPreloader),
+);
 
 
 // ── Dynamic Typography (สองภาษา: อังกฤษขึ้นก่อน → ไทย) ──────────────────────
@@ -89,8 +94,6 @@ const ebGaramond = EB_Garamond({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
 };
 
 export const metadata: Metadata = {
@@ -121,28 +124,7 @@ export default function RootLayout({
           <noscript>
             <style>{`.scroll-reveal{opacity:1!important;transform:none!important}`}</style>
           </noscript>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                // Prevent double-tap zoom
-                let lastTouchEnd = 0;
-                document.addEventListener('touchend', function (event) {
-                  const now = (new Date()).getTime();
-                  if (now - lastTouchEnd <= 300) {
-                    event.preventDefault();
-                  }
-                  lastTouchEnd = now;
-                }, false);
 
-                // Prevent pinch-to-zoom
-                document.addEventListener('touchstart', function (event) {
-                  if (event.touches.length > 1) {
-                    event.preventDefault();
-                  }
-                }, { passive: false });
-              `,
-            }}
-          />
         </head>
         <body className="min-h-screen bg-deep-navy pb-16 text-ivory antialiased md:pb-0">
           <IntroPreloader />

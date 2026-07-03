@@ -154,14 +154,14 @@ export default function HomePage() {
               </Link>
               <Link
                 href="/concepts"
-                className="group relative overflow-hidden rounded-2xl border border-slate-boundary/40 bg-white/[0.02] p-6 text-left transition-all duration-500 hover:-translate-y-1.5 hover:border-[#6E93A8]/50 hover:shadow-[0_26px_52px_-28px_rgba(0,0,0,0.7)] focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
+                className="group relative overflow-hidden rounded-2xl border border-slate-boundary/40 bg-white/[0.02] p-6 text-left transition-all duration-500 hover:-translate-y-1.5 hover:border-psyche/50 hover:shadow-[0_26px_52px_-28px_rgba(0,0,0,0.7)] focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#6E93A8]/35 bg-[#6E93A8]/10 text-[#6E93A8]">
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-psyche/35 bg-psyche/10 text-psyche">
                   <ConceptIcon className="h-[22px] w-[22px]" />
                 </span>
                 <span className="mt-4 flex items-center justify-between font-serif text-xl text-ivory">
                   สำรวจคลังแนวคิด
-                  <span className="text-[#6E93A8] transition-transform duration-300 group-hover:translate-x-1">→</span>
+                  <span className="text-psyche transition-transform duration-300 group-hover:translate-x-1">→</span>
                 </span>
                 <span className="mt-1.5 block text-sm text-on-surface-variant/70">แผนที่ความรู้ที่เชื่อมโยงถึงกัน</span>
               </Link>
@@ -175,7 +175,8 @@ export default function HomePage() {
         </section>
 
         {/* Pillars — สิ่งที่เราทำ (การ์ด + ไอคอนเส้นเฉพาะ + เน้นคำ) */}
-        <section className="mx-auto max-w-[1200px] px-6 py-28 md:py-36">
+        <section className="mx-auto max-w-[1200px] px-6 py-28 md:py-36" aria-labelledby="pillars-heading">
+          <h2 id="pillars-heading" className="sr-only">เสาหลักของ ARCHRON</h2>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {PILLARS.map((p, i) => {
               const Icon = p.Icon;

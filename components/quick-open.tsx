@@ -204,7 +204,7 @@ export function QuickOpen() {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="ค้นหาแนวคิด บทความ หรือหน้า..."
-            className="flex-1 border-none bg-transparent text-base text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:ring-0"
+            className="flex-1 border-none bg-transparent text-base text-on-surface placeholder:text-on-surface-variant/50 focus-visible:ring-2 focus-visible:ring-burnished-gold/30 focus:outline-none"
             aria-label="ค้นหาแบบเร็ว"
           />
           <kbd className="hidden rounded border border-slate-boundary/40 px-1.5 py-0.5 text-[10px] text-on-surface-variant/60 sm:inline">

@@ -86,11 +86,10 @@ export default function StudioProfilePage() {
 
       <div className="archron-panel mb-8 flex items-center justify-between p-4">
         <div className="flex items-center gap-3">
-          <span
-            className="flex h-10 w-10 items-center justify-center rounded-md"
-            style={{ backgroundColor: `${roleMeta.accent}1f`, color: roleMeta.accent }}
-          >
-            <span className="material-symbols-outlined text-[22px]">{roleMeta.icon}</span>
+          <span className="icon-tile" style={{ borderColor: `color-mix(in srgb, ${roleMeta.accent} 26%, var(--color-slate-boundary))` }}>
+            <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": roleMeta.accent } as React.CSSProperties}>
+              <use href="/icons/archron-icons.svg#achievement" />
+            </svg>
           </span>
           <div>
             <p className="text-xs text-on-surface-variant/60">บทบาท</p>
@@ -102,7 +101,7 @@ export default function StudioProfilePage() {
         {canWrite(role) ? (
           <Link
             href="/studio/editor"
-            className="inline-flex items-center gap-1.5 border border-burnished-gold/30 bg-burnished-gold/10 px-4 py-2 text-xs font-semibold tracking-[0.05em] text-burnished-gold transition-colors hover:bg-burnished-gold hover:text-prima"
+            className="inline-flex items-center gap-1.5 rounded-md border border-burnished-gold/30 bg-burnished-gold/10 px-4 py-2 text-xs font-semibold tracking-[0.05em] text-burnished-gold transition-colors hover:bg-burnished-gold hover:text-prima focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold"
           >
             <span className="material-symbols-outlined text-[16px]">edit_note</span>
             เข้าห้องเขียน
@@ -116,18 +115,18 @@ export default function StudioProfilePage() {
 
       <div className="space-y-5">
         <div>
-          <label className="mb-1 block text-sm text-soft-ivory">ชื่อผู้ใช้ (Username)</label>
-          <input className={inputClass} value={username} onChange={(e) => setUsername(e.target.value)} placeholder="เช่น phasin" />
+          <label htmlFor="username-input" className="mb-1 block text-sm text-soft-ivory">ชื่อผู้ใช้ (Username)</label>
+          <input id="username-input" className={inputClass} value={username} onChange={(e) => setUsername(e.target.value)} placeholder="เช่น phasin" />
         </div>
         <div>
-          <label className="mb-1 block text-sm text-soft-ivory">ชื่อที่แสดง</label>
-          <input className={inputClass} value={displayName} onChange={(e) => setDisplayName(e.target.value)} placeholder="ชื่อที่ปรากฏบนงานเขียน" />
+          <label htmlFor="display-name-input" className="mb-1 block text-sm text-soft-ivory">ชื่อที่แสดง</label>
+          <input id="display-name-input" className={inputClass} value={displayName} onChange={(e) => setDisplayName(e.target.value)} placeholder="ชื่อที่ปรากฏบนงานเขียน" />
         </div>
         <div>
-          <label className="mb-1 block text-sm text-soft-ivory">ยศ / ตำแหน่ง</label>
-          <input className={inputClass} value={title} onChange={(e) => setTitle(e.target.value)} placeholder="เช่น ผู้สนับสนุน, นักเขียนกิตติมศักดิ์" />
+          <label htmlFor="title-input" className="mb-1 block text-sm text-soft-ivory">ยศ / ตำแหน่ง</label>
+          <input id="title-input" className={inputClass} value={title} onChange={(e) => setTitle(e.target.value)} placeholder="เช่น ผู้สนับสนุน, นักเขียนกิตติมศักดิ์" />
         </div>
-        <button onClick={handleSave} disabled={saving} className="inline-flex items-center gap-2 bg-gradient-to-br from-antique-gold to-burnished-gold px-6 py-2.5 text-sm font-semibold text-prima transition-transform hover:-translate-y-0.5 disabled:opacity-50">
+        <button onClick={handleSave} disabled={saving} className="inline-flex items-center gap-2 bg-gradient-to-br from-antique-gold to-burnished-gold rounded px-6 py-2.5 text-sm font-semibold text-prima transition-transform hover:-translate-y-0.5 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold">
           <span className="material-symbols-outlined text-[18px]">save</span>
           {saving ? "กำลังบันทึก..." : "บันทึกโปรไฟล์"}
         </button>
@@ -139,7 +138,7 @@ export default function StudioProfilePage() {
           <p className="mt-2 text-sm leading-relaxed text-on-surface-variant/70">
             ผู้ใช้ทั่วไปอ่านได้ทุกอย่าง หากต้องการเขียนและเรียบเรียงเนื้อหา ส่งคำขอเป็นนักเขียนเพื่อให้แอดมินพิจารณา
           </p>
-          <button onClick={handleRequestWriter} disabled={writerRequested} className="mt-4 inline-flex items-center gap-2 rounded border border-burnished-gold/40 px-4 py-2 text-sm text-burnished-gold transition-colors hover:bg-burnished-gold/10 disabled:opacity-50">
+          <button onClick={handleRequestWriter} disabled={writerRequested} className="mt-4 inline-flex items-center gap-2 rounded border border-burnished-gold/45 px-4 py-2 text-sm text-burnished-gold transition-colors hover:bg-burnished-gold/10 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold">
             <span className="material-symbols-outlined text-[18px]">how_to_reg</span>
             {writerRequested ? "ส่งคำขอแล้ว — รออนุมัติ" : "ขอเป็นนักเขียน"}
           </button>

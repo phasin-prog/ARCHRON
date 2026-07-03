@@ -31,6 +31,7 @@ export function Accordion({
               type="button"
               onClick={() => toggle(it.id)}
               aria-expanded={isOpen}
+              aria-controls={`accordion-content-${it.id}`}
               className="flex w-full items-center justify-between gap-4 p-5 text-left transition-colors hover:bg-surface-container/70"
             >
               <span className="font-serif text-lg leading-snug text-on-surface">{it.title}</span>
@@ -43,6 +44,7 @@ export function Accordion({
               </span>
             </button>
             <div
+              id={`accordion-content-${it.id}`}
               className={`grid transition-[grid-template-rows] duration-300 ease-out ${
                 isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
               }`}

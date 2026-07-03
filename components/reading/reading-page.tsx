@@ -283,7 +283,7 @@ export async function ReadingPage({
     navIdx >= 0 && navIdx < navPool.length - 1 ? navPool[navIdx + 1] : null;
 
   return (
-    <div className="mx-auto grid max-w-6xl grid-cols-1 xl:grid-cols-[1fr_42rem_1fr] xl:gap-8">
+    <div className="mx-auto grid max-w-7xl grid-cols-1 xl:grid-cols-[1fr_760px_1fr] xl:gap-8">
       {/* แถบความคืบหน้าการอ่าน (ทุกจอ) */}
       <ReadingProgress />
 
@@ -294,7 +294,7 @@ export async function ReadingPage({
         </div>
       </aside>
 
-      <main id="reading-article" className="w-full max-w-2xl px-6 pb-24 pt-10 xl:mx-0 mx-auto">
+      <main id="reading-article" className="w-full max-w-[760px] px-6 pb-24 pt-10 xl:mx-0 mx-auto">
         {/* Breadcrumb */}
         <nav aria-label="เส้นทางนำทาง" className="scroll-reveal flex flex-wrap items-center gap-1 text-xs text-muted">
           <Link href="/" className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:text-soft-gold focus-visible:outline-none">หน้าแรก</Link>

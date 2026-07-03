@@ -18,6 +18,9 @@ import {
   EditIcon,
   LogoutIcon,
   PersonIcon,
+  HistoryIcon,
+  SynthesisIcon,
+  GridIcon,
 } from "@/components/icons";
 import { SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
 
@@ -27,10 +30,13 @@ type NavItem = { label: string; href: string; Icon: IconComponent; tier: Tier };
 
 // ลิงก์ระดับบน — จัดลำดับด้วย tier (primary เด่นสุด → utility จางสุด, support = pill)
 const NAV: NavItem[] = [
-  { label: "เข้าสู่คลังความรู้", href: "/knowledge", Icon: KnowledgeHubIcon, tier: "primary" },
-  { label: "ปฏิญญา", href: "/manifesto", Icon: ManifestoIcon, tier: "standard" },
-  { label: "แหล่งอ้างอิง", href: "/sources", Icon: QuoteIcon, tier: "standard" },
-  { label: "ทรัพยากรภายนอก", href: "/external-links", Icon: ExternalLinkIcon, tier: "utility" },
+  { label: "คลังความรู้", href: "/knowledge", Icon: KnowledgeHubIcon, tier: "primary" },
+  { label: "สำรวจ", href: "/explore", Icon: SearchIcon, tier: "standard" },
+  { label: "ค้นพบ", href: "/discover", Icon: GridIcon, tier: "standard" },
+  { label: "เปรียบเทียบ", href: "/compare", Icon: SynthesisIcon, tier: "standard" },
+  { label: "เส้นเวลา", href: "/timeline", Icon: HistoryIcon, tier: "standard" },
+  { label: "ปฏิญญา", href: "/manifesto", Icon: ManifestoIcon, tier: "utility" },
+  { label: "แหล่งอ้างอิง", href: "/sources", Icon: QuoteIcon, tier: "utility" },
   { label: "คำถามที่พบบ่อย", href: "/faq", Icon: HelpIcon, tier: "utility" },
   { label: "สนับสนุนโครงการ", href: "/support", Icon: HeartIcon, tier: "support" },
 ];

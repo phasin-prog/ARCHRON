@@ -3,6 +3,8 @@ import { ArrowRightIcon } from "@/components/icons";
 
 export const PAGE_ORDER = [
   { href: "/knowledge", label: "คลังความรู้" },
+  { href: "/explore", label: "สำรวจ" },
+  { href: "/compare", label: "เปรียบเทียบ" },
   { href: "/concepts", label: "คลังแนวคิด" },
   { href: "/schools", label: "สำนักคิด" },
   { href: "/articles", label: "บทความ" },

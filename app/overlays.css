@@ -1,0 +1,293 @@
+/* ============================================================================
+   ARCHRON — Overlay System (Phase 36 · Design Phase 17)
+   ----------------------------------------------------------------------------
+   อ้างอิง: VOS.md §06 Layout Engine — overlays, modals, drawers, popovers
+   - Backdrop, Modal, Drawer, Popover, Toast, Tooltip
+   ============================================================================ */
+
+/* ---- Backdrop ---- */
+.archron-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 100;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.archron-backdrop.open {
+  opacity: 1;
+}
+
+/* ---- Modal ---- */
+.archron-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  max-width: 32rem;
+  max-height: 85vh;
+  background: var(--color-surface-container-low);
+  border: 1px solid var(--color-slate-boundary);
+  border-radius: 12px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+  z-index: 110;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.archron-modal.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.archron-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.archron-modal-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-ivory);
+}
+
+.archron-modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  background: transparent;
+  color: var(--color-muted);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.archron-modal-close:hover {
+  color: var(--color-ivory);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.archron-modal-body {
+  padding: 1.25rem;
+  overflow-y: auto;
+  flex: 1;
+  color: var(--color-soft-ivory);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.archron-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 1rem 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ---- Drawer ---- */
+.archron-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 90vw;
+  max-width: 24rem;
+  background: var(--color-surface-container-low);
+  border-left: 1px solid var(--color-slate-boundary);
+  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.3);
+  z-index: 110;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+}
+
+.archron-drawer.open {
+  transform: translateX(0);
+}
+
+.archron-drawer-left {
+  left: 0;
+  right: auto;
+  border-left: none;
+  border-right: 1px solid var(--color-slate-boundary);
+  transform: translateX(-100%);
+}
+
+.archron-drawer-left.open {
+  transform: translateX(0);
+}
+
+.archron-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.archron-drawer-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-ivory);
+}
+
+.archron-drawer-body {
+  padding: 1.25rem;
+  overflow-y: auto;
+  flex: 1;
+  color: var(--color-soft-ivory);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+/* ---- Popover ---- */
+.archron-popover {
+  position: absolute;
+  width: max-content;
+  max-width: 20rem;
+  background: var(--color-surface-container-low);
+  border: 1px solid var(--color-slate-boundary);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  z-index: 120;
+  padding: 0.75rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.archron-popover.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.archron-popover-title {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-ivory);
+  margin-bottom: 0.5rem;
+}
+
+.archron-popover-content {
+  font-size: 0.8125rem;
+  color: var(--color-soft-ivory);
+  line-height: 1.5;
+}
+
+/* ---- Toast / Snackbar ---- */
+.archron-toast-container {
+  position: fixed;
+  bottom: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+
+@media (min-width: 1025px) {
+  .archron-toast-container {
+    bottom: 1.5rem;
+    left: auto;
+    right: 1.5rem;
+    transform: none;
+  }
+}
+
+.archron-toast {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.75rem 1rem;
+  background: var(--color-surface-container-low);
+  border: 1px solid var(--color-slate-boundary);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  font-size: 0.8125rem;
+  color: var(--color-ivory);
+  pointer-events: auto;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: toast-in 0.2s ease forwards;
+}
+
+.archron-toast.removing {
+  animation: toast-out 0.2s ease forwards;
+}
+
+@keyframes toast-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toast-out {
+  to {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.archron-toast-success {
+  border-left: 3px solid #4caf50;
+}
+
+.archron-toast-error {
+  border-left: 3px solid var(--color-danger);
+}
+
+.archron-toast-info {
+  border-left: 3px solid var(--color-lumen);
+}
+
+/* ---- Tooltip (CSS-only) ---- */
+.archron-tooltip {
+  position: relative;
+}
+
+.archron-tooltip::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  padding: 0.375rem 0.625rem;
+  background: var(--color-surface-container-high);
+  border: 1px solid var(--color-slate-boundary);
+  border-radius: 6px;
+  font-size: 0.6875rem;
+  color: var(--color-ivory);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 130;
+}
+
+.archron-tooltip:hover::before,
+.archron-tooltip:focus-visible::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-8px);
+}

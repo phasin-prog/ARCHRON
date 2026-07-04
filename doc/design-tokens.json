@@ -1,0 +1,162 @@
+{
+  "$schema": "https://design-tokens.org/schema.json",
+  "name": "ARCHRON Design Tokens",
+  "version": "1.0.0",
+  "description": "Visual Operating System (VOS) tokens — ระบบโทเค็นการออกแบบสำหรับ ARCHRON",
+  "metadata": {
+    "project": "ARCHRON",
+    "framework": "Next.js 16 + Tailwind v4",
+    "reference": "VOS.md §05-§09"
+  },
+  "color": {
+    "primitive": {
+      "prima": { "value": "#0B0D12", "description": "Shadow Black: สิ่งที่ยังไม่รู้/พื้นหลังมืดล่างสุด" },
+      "psyche": { "value": "#6E93A8", "description": "Psyche: สีน้ำลึก/โลกภายใน" },
+      "lumen": { "value": "#E7D7A6", "description": "Lumen: สีเหลืองนวล/แสงแรกแห่งความเข้าใจ" },
+      "sapientia": { "value": "#C79A4A", "description": "Archron Gold: สีทองปัญญาโบราณ" },
+      "mercurius": { "value": "#8AA395", "description": "Mercurius: สีสนิมทองแดง/ผู้ส่งสาร" },
+      "humanitas": { "value": "#F4F1EA", "description": "Ivory: มนุษย์/ภาษา/ตัวอักษรหลัก" },
+      "ink-neutral": { "value": "#2A2A2A", "description": "หมึกกลาง" },
+      "dust": { "value": "#CFC8BC", "description": "ฝุ่น" },
+      "ash": { "value": "#8A8F98", "description": "Stone Gray: เหตุผล/วิทยาศาสตร์" },
+      "mist": { "value": "#F4F1EA", "description": "หมอก" },
+      "charcoal-ink": { "value": "#0B0D12", "description": "ถ่านหมึก" }
+    },
+    "semantic": {
+      "paper": { "value": "#121826", "description": "Midnight Blue: ฉากหลังการ์ด/พื้นที่อารมณ์ร่วม" },
+      "paper-raised": { "value": "#1C2335", "description": "พื้นยกเด่น" },
+      "paper-sunken": { "value": "#0B0D12", "description": "พื้นจมลึก" },
+      "ink": { "value": "#F4F1EA", "description": "Ivory: ตัวอักษรสีงาช้างสว่าง" },
+      "gold": { "value": "#C79A4A", "description": "Archron Gold" },
+      "gold-deep": { "value": "#9B7735", "description": "ทองลึก" },
+      "verdigris": { "value": "#6E93A8", "description": "สีเขียวคราม" },
+      "line": { "value": "#222C41", "description": "เส้นขอบ" },
+      "muted": { "value": "#8A8F98", "description": "Stone Gray" },
+      "soft-ivory": { "value": "#DEDAD2", "description": "Ivory หม่นสำหรับ body content" },
+      "soft-gold": { "value": "#E7D7A6", "description": "Lumen" }
+    },
+    "domain": {
+      "psychology": { "value": "#7B6B8D", "description": "Royal Violet: ม่วงราชสำนักอันลึกลับแห่งจิตใต้สำนึก" },
+      "philosophy": { "value": "#4A5A8A", "description": "Indigo: ครามลุ่มลึกแห่งการขบคิดสัจธรรม" },
+      "history": { "value": "#8B7355", "description": "Bronze: สำริดโบราณแห่งกาลเวลาที่ผ่านพ้น" },
+      "religion": { "value": "#8B3A3A", "description": "Crimson: แดงชาดแห่งศรัทธาและพิธีกรรมศักดิ์สิทธิ์" },
+      "mythology": { "value": "#B8860B", "description": "Amber: อำพันเรืองรองแห่งตำนานและปกรณัม" },
+      "anthropology": { "value": "#A0522D", "description": "Terracotta: ดินเผาอบอุ่นแห่งอารยธรรมมนุษย์" },
+      "linguistics": { "value": "#2E8B57", "description": "Emerald: มรกตแห่งวิวัฒนาการภาษาและถ้อยคำ" },
+      "neuroscience": { "value": "#20B2AA", "description": "Cyan: ฟ้าครามสว่างแห่งกระแสประสาทและการรับรู้" },
+      "ai": { "value": "#4169E1", "description": "Azure: ครามสว่างแห่งโครงข่ายปัญญาสังเคราะห์" }
+    },
+    "state": {
+      "hover": { "value": "color-mix(in srgb, {color.accent} 90%, white)", "description": "เมื่อวางเมาส์" },
+      "active": { "value": "color-mix(in srgb, {color.accent} 80%, black)", "description": "เมื่อกด" },
+      "focus": { "value": "var(--color-gold)", "description": "โฟกัสคีย์บอร์ด" },
+      "disabled": { "value": "opacity-40", "description": "ปิดใช้งาน" },
+      "success": { "value": "#7FB08A", "description": "สำเร็จ" },
+      "warning": { "value": "#D8B56A", "description": "คำเตือน" },
+      "danger": { "value": "#C9776A", "description": "อันตราย" },
+      "info": { "value": "#6E93A8", "description": "ข้อมูล" }
+    }
+  },
+  "elevation": {
+    "0": { "value": "0 0 0 0 transparent", "description": "Background" },
+    "1": { "value": "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)", "description": "Surface" },
+    "2": { "value": "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)", "description": "Card" },
+    "3": { "value": "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)", "description": "Panel" },
+    "4": { "value": "0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)", "description": "Floating" },
+    "5": { "value": "0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)", "description": "Modal/Overlay" }
+  },
+  "borderRadius": {
+    "none": { "value": "0", "description": "ไม่มีขอบมน" },
+    "sm": { "value": "0.25rem", "description": "4px — ปุ่ม, input" },
+    "md": { "value": "0.5rem", "description": "8px — การ์ดเล็ก, tag" },
+    "lg": { "value": "0.85rem", "description": "14px — การ์ดบทความ" },
+    "xl": { "value": "1.15rem", "description": "18px — การ์ดขนาดใหญ่" },
+    "2xl": { "value": "1.5rem", "description": "24px — hero section" },
+    "full": { "value": "9999px", "description": "ปุ่ม rounded, avatar" }
+  },
+  "spacing": {
+    "0": { "value": "0" },
+    "1": { "value": "0.25rem", "description": "4px" },
+    "2": { "value": "0.5rem", "description": "8px" },
+    "3": { "value": "0.75rem", "description": "12px" },
+    "4": { "value": "1rem", "description": "16px" },
+    "5": { "value": "1.5rem", "description": "24px" },
+    "6": { "value": "2rem", "description": "32px" },
+    "7": { "value": "2.5rem", "description": "40px" },
+    "8": { "value": "3rem", "description": "48px" },
+    "9": { "value": "4rem", "description": "64px" },
+    "10": { "value": "5rem", "description": "80px" },
+    "11": { "value": "6rem", "description": "96px" },
+    "12": { "value": "8rem", "description": "128px" }
+  },
+  "density": {
+    "compact": { "value": "0.75", "description": "ระยะกระชับ" },
+    "comfortable": { "value": "1", "description": "ระยะสบาย (default)" },
+    "spacious": { "value": "1.25", "description": "ระยะโปร่ง" }
+  },
+  "opacity": {
+    "0": { "value": "0" },
+    "5": { "value": "0.05" },
+    "10": { "value": "0.1" },
+    "25": { "value": "0.25" },
+    "50": { "value": "0.5" },
+    "75": { "value": "0.75" },
+    "100": { "value": "1" }
+  },
+  "typography": {
+    "fontFamily": {
+      "heading": { "value": "var(--font-ibm-plex-serif), var(--font-noto-serif-thai), Georgia, serif", "description": "หัวข้อ — IBM Plex Serif + Noto Serif Thai" },
+      "body": { "value": "var(--font-inter), var(--font-noto-sans-thai), system-ui, sans-serif", "description": "เนื้อหา — Inter + Noto Sans Thai" },
+      "display": { "value": "var(--font-playfair), Playfair Display, Georgia, serif", "description": "Display heading" },
+      "wordmark": { "value": "var(--font-cinzel), Cinzel, Trajan Pro, Georgia, serif", "description": "Wordmark/Logo" }
+    },
+    "fontSize": {
+      "base": { "value": "clamp(1rem, 0.95vw + 0.8rem, 1.25rem)", "description": "ขนาดตัวอักษรหลัก (fluid)" },
+      "h1": { "value": "clamp(2rem, 4vw + 1rem, 3.5rem)", "description": "หัวข้อ 1" },
+      "h2": { "value": "clamp(1.5rem, 2vw + 1rem, 2.5rem)", "description": "หัวข้อ 2" },
+      "h3": { "value": "clamp(1.25rem, 1.2vw + 0.9rem, 1.75rem)", "description": "หัวข้อ 3" },
+      "lg": { "value": "clamp(1.125rem, 1.07rem + 0.23vw, 1.25rem)", "description": "ตัวอักษรขนาดใหญ่" }
+    },
+    "lineHeight": {
+      "body": { "value": "1.6", "description": "ระยะห่างบรรทัดเนื้อหา" },
+      "heading": { "value": "1.3", "description": "ระยะห่างบรรทัดหัวข้อ" },
+      "reading": { "value": "1.9", "description": "ระยะห่างบรรทัดอ่านบทความยาว" }
+    },
+    "letterSpacing": {
+      "body": { "value": "0.1px", "description": "ระยะห่างตัวอักษรเนื้อหา" }
+    }
+  },
+  "motion": {
+    "easing": {
+      "soft": { "value": "cubic-bezier(0.21, 0.6, 0.35, 1)", "description": " easing นุ่มนวล" },
+      "out": { "value": "cubic-bezier(0.16, 1, 0.3, 1)", "description": " easing ออก" }
+    },
+    "duration": {
+      "fast": { "value": "200ms", "description": "UI โต้ตอบ" },
+      "base": { "value": "450ms", "description": "เปลี่ยนหน้า/เปิดแผง" },
+      "slow": { "value": "850ms", "description": "โหลดกลุ่มดาว" },
+      "ambient": { "value": "8s", "description": "บรรยากาศพื้นหลัง" }
+    }
+  },
+  "grid": {
+    "columns": {
+      "desktop": { "value": "12", "description": "Desktop columns" },
+      "tablet": { "value": "8", "description": "Tablet columns" },
+      "mobile": { "value": "4", "description": "Mobile columns" }
+    },
+    "gutter": {
+      "sm": { "value": "8px" },
+      "md": { "value": "16px" },
+      "lg": { "value": "24px" },
+      "xl": { "value": "32px" },
+      "2xl": { "value": "48px" }
+    }
+  },
+  "breakpoint": {
+    "sm": { "value": "640px" },
+    "md": { "value": "768px" },
+    "lg": { "value": "1024px" },
+    "xl": { "value": "1280px" },
+    "2xl": { "value": "1536px" }
+  }
+}

@@ -5,7 +5,7 @@ import type { ComponentType } from "react";
 import Link from "next/link";
 import { BookIcon, ConceptIcon, ClockIcon, ArrowRightIcon } from "@/components/icons";
 
-type Section = "articles" | "concepts";
+type Section = "articles" | "concepts" | "books";
 
 type RecentItem = {
   slug: string;
@@ -21,6 +21,7 @@ const MAX_ITEMS = 3;
 const SECTION_META: Record<Section, { label: string; accent: string; Icon: ComponentType<{ className?: string }> }> = {
   articles: { label: "บทความ", accent: "#C79A4A", Icon: BookIcon },
   concepts: { label: "คลังแนวคิด", accent: "#6E93A8", Icon: ConceptIcon },
+  books: { label: "หนังสือ", accent: "#C79A4A", Icon: BookIcon },
 };
 
 // อ่านรายการที่ดูล่าสุดจาก localStorage

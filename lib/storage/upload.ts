@@ -29,11 +29,12 @@ export type UploadResult = {
 };
 
 // Upload a file buffer to R2
-// Returns the public URL on success
+// entryId: ถ้ามี จะใช้เป็น path (entries/{id}/...) แทน timestamp
 export async function uploadToR2(
   file: Buffer,
   fileName: string,
   contentType: string,
+  entryId?: string,
 ): Promise<UploadResult> {
   // Validate MIME type
   if (!ALLOWED_TYPES.includes(contentType)) {
@@ -45,9 +46,11 @@ export async function uploadToR2(
     return { ok: false, error: `ไฟล์ใหญ่เกิน 10 MB — กรุณาลดขนาดไฟล์` };
   }
 
-  // Generate unique key
+  // Generate key — ใช้ entryId ถ้ามี
   const ext = fileName.split(".").pop()?.toLowerCase() || "jpg";
-  const key = `uploads/${Date.now()}-${crypto.randomUUID().slice(0, 8)}.${ext}`;
+  const key = entryId
+    ? `entries/${entryId}/${Date.now()}.${ext}`
+    : `uploads/${Date.now()}-${crypto.randomUUID().slice(0, 8)}.${ext}`;
 
   try {
     const client = getR2Client();

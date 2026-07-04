@@ -1,0 +1,291 @@
+/* ============================================================================
+   ARCHRON — Input System (Phase 36 · Design Phase 14)
+   ----------------------------------------------------------------------------
+   Form inputs, textareas, selects, search bars, file upload, validation states
+   ============================================================================ */
+
+/* ---- Base Input ---- */
+.archron-input {
+  display: block;
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-ivory);
+  background: var(--color-surface-container-low);
+  border: 1px solid var(--color-slate-boundary);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.archron-input::placeholder {
+  color: var(--color-muted);
+}
+
+.archron-input:focus {
+  outline: none;
+  border-color: var(--color-burnished-gold);
+  box-shadow: 0 0 0 3px rgba(199, 154, 74, 0.15);
+}
+
+/* ---- Sizes ---- */
+.input-sm {
+  padding: 0.375rem 0.625rem;
+  font-size: 0.75rem;
+  min-height: 32px;
+}
+
+.input-md {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  min-height: 40px;
+}
+
+.input-lg {
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  min-height: 48px;
+}
+
+/* ---- Textarea ---- */
+.archron-textarea {
+  display: block;
+  width: 100%;
+  min-height: 120px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-ivory);
+  background: var(--color-surface-container-low);
+  border: 1px solid var(--color-slate-boundary);
+  border-radius: 6px;
+  padding: 0.75rem;
+  resize: vertical;
+  line-height: 1.6;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.archron-textarea::placeholder {
+  color: var(--color-muted);
+}
+
+.archron-textarea:focus {
+  outline: none;
+  border-color: var(--color-burnished-gold);
+  box-shadow: 0 0 0 3px rgba(199, 154, 74, 0.15);
+}
+
+/* ---- Select ---- */
+.archron-select {
+  display: block;
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-ivory);
+  background: var(--color-surface-container-low);
+  border: 1px solid var(--color-slate-boundary);
+  border-radius: 6px;
+  padding: 0.5rem 2rem 0.5rem 0.75rem;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2394a3b8' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.archron-select:focus {
+  outline: none;
+  border-color: var(--color-burnished-gold);
+  box-shadow: 0 0 0 3px rgba(199, 154, 74, 0.15);
+}
+
+/* ---- Search Input ---- */
+.archron-search {
+  position: relative;
+}
+
+.archron-search .search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-muted);
+  pointer-events: none;
+}
+
+.archron-search .archron-input {
+  padding-left: 2.25rem;
+}
+
+/* ---- Input Group ---- */
+.input-group {
+  display: flex;
+  align-items: stretch;
+}
+
+.input-group .archron-input {
+  border-radius: 0;
+  flex: 1;
+}
+
+.input-group .archron-input:first-child {
+  border-radius: 6px 0 0 6px;
+}
+
+.input-group .archron-input:last-child {
+  border-radius: 0 6px 6px 0;
+}
+
+.input-group .archron-btn {
+  border-radius: 0;
+}
+
+.input-group .archron-btn:first-child {
+  border-radius: 6px 0 0 6px;
+}
+
+.input-group .archron-btn:last-child {
+  border-radius: 0 6px 6px 0;
+}
+
+/* ---- Validation States ---- */
+.input-error {
+  border-color: var(--color-danger) !important;
+}
+
+.input-error:focus {
+  box-shadow: 0 0 0 3px rgba(201, 119, 106, 0.15) !important;
+}
+
+.input-success {
+  border-color: #4caf50 !important;
+}
+
+.input-success:focus {
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15) !important;
+}
+
+/* ---- Labels ---- */
+.archron-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-muted);
+  margin-bottom: 0.375rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.archron-label-required::after {
+  content: " *";
+  color: var(--color-danger);
+}
+
+/* ---- Help / Error Text ---- */
+.archron-help {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  margin-top: 0.25rem;
+}
+
+.archron-error {
+  font-size: 0.75rem;
+  color: var(--color-danger);
+  margin-top: 0.25rem;
+}
+
+/* ---- Fieldset ---- */
+.archron-fieldset {
+  border: 1px solid var(--color-slate-boundary);
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+
+.archron-fieldset legend {
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-ivory);
+  padding: 0 0.5rem;
+}
+
+/* ---- Disabled State ---- */
+.input-disabled,
+.archron-input:disabled,
+.archron-textarea:disabled,
+.archron-select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--color-surface-container);
+}
+
+/* ---- Checkbox & Radio ---- */
+.archron-checkbox,
+.archron-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-ivory);
+  cursor: pointer;
+}
+
+.archron-checkbox input[type="checkbox"],
+.archron-radio input[type="radio"] {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--color-burnished-gold);
+  cursor: pointer;
+}
+
+/* ---- Switch Toggle ---- */
+.archron-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.archron-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.archron-switch-slider {
+  position: absolute;
+  inset: 0;
+  background: var(--color-surface-container-high);
+  border: 1px solid var(--color-slate-boundary);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.archron-switch-slider::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 2px;
+  bottom: 2px;
+  background: var(--color-muted);
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.archron-switch input:checked + .archron-switch-slider {
+  background: var(--color-burnished-gold);
+  border-color: var(--color-burnished-gold);
+}
+
+.archron-switch input:checked + .archron-switch-slider::before {
+  transform: translateX(20px);
+  background: var(--color-prima);
+}
+
+.archron-switch input:focus-visible + .archron-switch-slider {
+  outline: 2px solid var(--color-burnished-gold);
+  outline-offset: 2px;
+}

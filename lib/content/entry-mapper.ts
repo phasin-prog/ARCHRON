@@ -40,6 +40,10 @@ export type EntryRow = {
   cover_image: string | null;
   r2_content_key: string | null;
   r2_content_url: string | null;
+  row_id: string | null;
+  row_i: number | null;
+  row_code: string | null;
+  row_name: string | null;
   created_at: string;
   updated_at: string | null;
   published_at: string | null;
@@ -63,6 +67,7 @@ export function rowToEntry(r: EntryRow): ContentEntry {
     languageRoot: r.language_root ?? undefined,
     ipa: r.ipa ?? undefined,
     shortDescription: r.short_description ?? undefined,
+    subtitle: r.short_description ?? undefined,
     framework: r.framework ?? undefined,
     mainThinkers: r.main_thinkers ?? undefined,
     school: r.school ?? undefined,
@@ -78,5 +83,9 @@ export function rowToEntry(r: EntryRow): ContentEntry {
     coverImage: r.cover_image ?? undefined,
     r2ContentKey: r.r2_content_key ?? undefined,
     r2ContentUrl: r.r2_content_url ?? undefined,
+    rowId: r.row_id ?? undefined,
+    rowI: r.row_i ?? undefined,
+    rowCode: r.row_code ?? undefined,
+    rowName: r.row_name ?? undefined,
   };
 }

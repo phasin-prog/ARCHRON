@@ -13,6 +13,7 @@ export type EditorReference = {
 };
 
 export type EditorDraft = {
+  id: string;                   // UUID — สร้างอัตโนมัติเมื่อเปิดบทความใหม่
   title: string;
   slug: string;
   status: string;
@@ -32,9 +33,12 @@ export type EditorDraft = {
   coverImage: string;  // R2 URL or empty
   shortDescription: string;
   school: string;
+  rowName: string;     // ชื่อแสดง (auto: title ถ้าไม่ใส่)
+  rowCode: string;     // รหัสสั้น (auto: ART-001, CON-003 — ไม่แก้เอง)
 };
 
 export const EMPTY_DRAFT: EditorDraft = {
+  id: "",
   title: "",
   slug: "",
   status: "draft",
@@ -54,6 +58,8 @@ export const EMPTY_DRAFT: EditorDraft = {
   coverImage: "",
   shortDescription: "",
   school: "",
+  rowName: "",
+  rowCode: "",
 };
 
 export type ChecklistItem = { label: string; ok: boolean };

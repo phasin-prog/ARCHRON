@@ -1,159 +1,390 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import type { ContentEntry, Difficulty } from "@/types/content";
-import { disciplineMeta, type DisciplineKey } from "@/components/discipline-meta";
+import { useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowRightIcon, BookIcon, ConceptIcon } from "@/components/icons";
+import type { ContentEntry } from "@/types/content";
+import type { School } from "@/lib/content/schools";
+import type { ConceptRegistryItem } from "@/lib/content/concept-registry";
+import { ViewBadge } from "@/components/view-badge";
 
-function frameworkToDiscipline(framework?: string): DisciplineKey {
-  if (!framework) return "philosophy";
-  const fw = framework.toLowerCase();
-  if (fw.includes("psychology") || fw.includes("psychoanalysis")) return "psychology";
-  if (fw.includes("philosophy") || fw.includes("existentialism") || fw.includes("phenomenology")) return "philosophy";
-  if (fw.includes("symbol") || fw.includes("myth")) return "symbol";
-  if (fw.includes("anthropology")) return "anthropology";
-  if (fw.includes("history")) return "history";
-  if (fw.includes("language")) return "language";
-  if (fw.includes("religion")) return "religion";
-  if (fw.includes("science")) return "science";
-  if (fw.includes("art")) return "art";
-  return "philosophy";
+interface DiscoverGridProps {
+  entries: ContentEntry[];
+  schools: School[];
+  concepts: ConceptRegistryItem[];
 }
 
-export function DiscoverGrid({ entries }: { entries: ContentEntry[] }) {
-  const [selectedDiscipline, setSelectedDiscipline] = useState<string>("all");
-  const [selectedDifficulty, setSelectedDifficulty] = useState<string>("all");
+type DiscoverCategory =
+  | "all"
+  | "articles"
+  | "concepts"
+  | "thinkers"
+  | "schools"
+  | "books"
+  | "timeline";
 
-  const disciplines: { id: string; label: string }[] = [
-    { id: "all", label: "ทุกสาขาวิชา" },
-    { id: "psychology", label: "จิตวิทยา & จิตวิเคราะห์" },
-    { id: "philosophy", label: "ปรัชญา & อัตถิภาวนิยม" },
-    { id: "symbol", label: "สัญลักษณ์ & ปรัมปราวิทยา" },
-    { id: "science", label: "วิทยาศาสตร์ & ประสาทวิทยา" },
-  ];
+const CATEGORY_CONFIG: Record<
+  DiscoverCategory,
+  { label: string; icon: string; color: string }
+> = {
+  all: { label: "ทั้งหมด", icon: "apps", color: "var(--color-burnished-gold)" },
+  articles: { label: "บทความ", icon: "article", color: "var(--color-sapientia)" },
+  concepts: { label: "แนวคิด", icon: "psychology", color: "var(--color-psyche)" },
+  thinkers: { label: "นักคิด", icon: "person", color: "var(--color-mercurius)" },
+  schools: { label: "สำนักคิด", icon: "school", color: "var(--color-lumen)" },
+  books: { label: "หนังสือ", icon: "book", color: "var(--color-antique-gold)" },
+  timeline: { label: "เส้นเวลา", icon: "timeline", color: "var(--color-burnished-gold)" },
+};
 
-  const difficulties: { id: string; label: string }[] = [
-    { id: "all", label: "ทุกระดับความยาก" },
-    { id: "beginner", label: "ผู้เริ่มต้น (Beginner)" },
-    { id: "intermediate", label: "ระดับกลาง (Intermediate)" },
-    { id: "advanced", label: "อ่านเชิงลึก (Advanced)" },
-  ];
+const DIFFICULTY_LABEL: Record<string, string> = {
+  beginner: "เริ่มต้น",
+  intermediate: "กลาง",
+  advanced: "ลึก",
+  "source-note": "อ้างอิง",
+};
 
+const DIFFICULTY_COLOR: Record<string, string> = {
+  beginner: "#4caf50",
+  intermediate: "var(--color-burnished-gold)",
+  advanced: "var(--color-danger)",
+  "source-note": "var(--color-muted)",
+};
+
+export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) {
+  const [category, setCategory] = useState<DiscoverCategory>("all");
+  const [query, setQuery] = useState("");
+
+  const q = query.trim().toLowerCase();
+
+  // Filter entries by category and query
   const filteredEntries = useMemo(() => {
-    return entries.filter((e) => {
-      if (selectedDiscipline !== "all") {
-        const discKey = frameworkToDiscipline(e.framework);
-        if (discKey !== selectedDiscipline) return false;
-      }
-      if (selectedDifficulty !== "all" && e.difficulty !== selectedDifficulty) {
-        return false;
-      }
-      return true;
+    if (category === "timeline") return [];
+
+    let filtered = entries.filter((e) => e.status === "published");
+
+    if (category === "articles") {
+      filtered = filtered.filter((e) => e.contentType === "article");
+    } else if (category === "concepts") {
+      filtered = filtered.filter((e) => e.contentType !== "article");
+    } else if (category === "books") {
+      filtered = filtered.filter((e) => e.contentType === "book");
+    } else if (category === "thinkers" || category === "schools") {
+      return [];
+    }
+
+    if (q) {
+      filtered = filtered.filter(
+        (e) =>
+          e.title.toLowerCase().includes(q) ||
+          e.shortDescription?.toLowerCase().includes(q) ||
+          e.subtitle?.toLowerCase().includes(q) ||
+          e.framework?.toLowerCase().includes(q) ||
+          e.tags?.some((t) => t.toLowerCase().includes(q)),
+      );
+    }
+
+    return filtered.sort((a, b) => {
+      const au = a.updatedAt ?? "";
+      const bu = b.updatedAt ?? "";
+      return bu.localeCompare(au);
     });
-  }, [entries, selectedDiscipline, selectedDifficulty]);
+  }, [entries, category, q]);
+
+  // Filter schools
+  const filteredSchools = useMemo(() => {
+    if (category !== "all" && category !== "schools") return [];
+
+    let filtered = schools;
+    if (q) {
+      filtered = filtered.filter(
+        (s) =>
+          s.nameTh.toLowerCase().includes(q) ||
+          s.nameEn.toLowerCase().includes(q) ||
+          s.field?.toLowerCase().includes(q),
+      );
+    }
+    return filtered;
+  }, [schools, category, q]);
+
+  // Filter concepts
+  const filteredConcepts = useMemo(() => {
+    if (category !== "all" && category !== "concepts") return [];
+
+    let filtered = concepts;
+    if (q) {
+      filtered = filtered.filter(
+        (c) =>
+          c.title.toLowerCase().includes(q) ||
+          c.thaiTitle?.toLowerCase().includes(q) ||
+          c.description?.toLowerCase().includes(q),
+      );
+    }
+    return filtered.slice(0, 24);
+  }, [concepts, category, q]);
+
+  // Extract unique thinkers from schools
+  const filteredThinkers = useMemo(() => {
+    if (category !== "all" && category !== "thinkers") return [];
+
+    const thinkers = schools.flatMap((s) =>
+      s.thinkers.map((t) => ({
+        ...t,
+        schoolNameTh: s.nameTh,
+        schoolNameEn: s.nameEn,
+        field: s.field,
+      })),
+    );
+
+    if (q) {
+      return thinkers.filter(
+        (t) =>
+          t.nameTh.toLowerCase().includes(q) ||
+          t.nameEn.toLowerCase().includes(q) ||
+          t.schoolNameTh.toLowerCase().includes(q),
+      );
+    }
+    return thinkers.slice(0, 24);
+  }, [schools, category, q]);
 
   return (
-    <div className="space-y-8">
-      {/* Faceted Filter Bar */}
-      <div className="grid gap-4 sm:grid-cols-2 rounded-xl bg-surface-container/40 p-4 border border-ink/10">
-        <div>
-          <label className="block text-[11px] uppercase tracking-widest text-muted mb-1.5">
-            กรองตามสาขาวิชาหลัก
-          </label>
-          <select
-            value={selectedDiscipline}
-            onChange={(e) => setSelectedDiscipline(e.target.value)}
-            className="w-full rounded-md border border-ink/20 bg-surface-container px-3 py-2 text-sm text-ivory outline-none focus:border-burnished-gold"
-          >
-            {disciplines.map((d) => (
-              <option key={d.id} value={d.id}>{d.label}</option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-[11px] uppercase tracking-widest text-muted mb-1.5">
-            ระดับความลึกซึ้งในการอ่าน
-          </label>
-          <select
-            value={selectedDifficulty}
-            onChange={(e) => setSelectedDifficulty(e.target.value)}
-            className="w-full rounded-md border border-ink/20 bg-surface-container px-3 py-2 text-sm text-ivory outline-none focus:border-burnished-gold"
-          >
-            {difficulties.map((df) => (
-              <option key={df.id} value={df.id}>{df.label}</option>
-            ))}
-          </select>
+    <div>
+      {/* Search Bar */}
+      <div className="mb-8">
+        <div className="relative">
+          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-muted">
+            search
+          </span>
+          <input
+            type="text"
+            placeholder="ค้นหาบทความ แนวคิด นักคิด สำนักคิด..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="w-full rounded-lg border border-slate-boundary bg-surface-container-low py-3 pl-10 pr-4 text-sm text-ivory placeholder-muted transition-colors focus:border-burnished-gold focus:outline-none focus:ring-2 focus:ring-burnished-gold/20"
+          />
         </div>
       </div>
 
-      {/* สถิติผลลัพธ์ */}
-      <div className="flex items-center justify-between text-xs text-muted border-b border-ink/10 pb-2">
-        <span>ค้นพบทั้งหมด {filteredEntries.length} รายการ</span>
-        <span>จัดแสดงตามรหัสพันธุกรรม EDS.md (6-Layer Genome)</span>
+      {/* Category Tabs */}
+      <div className="mb-8 flex flex-wrap gap-2">
+        {(Object.keys(CATEGORY_CONFIG) as DiscoverCategory[]).map((cat) => {
+          const config = CATEGORY_CONFIG[cat];
+          return (
+            <button
+              key={cat}
+              onClick={() => setCategory(cat)}
+              className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+                category === cat
+                  ? "bg-burnished-gold/15 text-burnished-gold"
+                  : "text-muted hover:bg-surface-container hover:text-ivory"
+              }`}
+            >
+              <span className="material-symbols-outlined text-[18px]">
+                {config.icon}
+              </span>
+              {config.label}
+            </button>
+          );
+        })}
       </div>
 
-      {/* Grid การ์ดมาตรฐาน EDS.md */}
-      {filteredEntries.length === 0 ? (
-        <div className="rounded-xl border border-ink/10 bg-surface-container/30 p-12 text-center text-sm text-muted">
-          ไม่พบเนื้อหาที่ตรงกับเงื่อนไขการค้นพบที่เลือก
-        </div>
-      ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredEntries.map((e) => {
-            const discKey = frameworkToDiscipline(e.framework);
-            const meta = disciplineMeta(discKey);
-            const href = e.contentType === "concept" ? `/concepts/${e.slug}` : `/articles/${e.slug}`;
+      {/* Results Count */}
+      <div className="mb-4 text-xs text-muted">
+        {category === "all" && (
+          <span>
+            {filteredEntries.length + filteredSchools.length + filteredConcepts.length + filteredThinkers.length} รายการ
+          </span>
+        )}
+        {category === "articles" && <span>{filteredEntries.length} บทความ</span>}
+        {category === "concepts" && <span>{filteredConcepts.length} แนวคิด</span>}
+        {category === "thinkers" && <span>{filteredThinkers.length} นักคิด</span>}
+        {category === "schools" && <span>{filteredSchools.length} สำนักคิด</span>}
+        {category === "books" && <span>{filteredEntries.length} หนังสือ</span>}
+        {category === "timeline" && (
+          <Link href="/timeline" className="text-burnished-gold hover:underline">
+            ไปที่เส้นเวลา →
+          </Link>
+        )}
+      </div>
 
-            return (
-              <Link
-                key={e.slug}
-                href={href}
-                className="archron-card group relative flex flex-col justify-between p-6 transition-all duration-300 hover:-translate-y-1 hover:border-burnished-gold/50"
-              >
-                <span
-                  aria-hidden
-                  className="absolute inset-y-0 left-0 w-[3px] rounded-l"
-                  style={{ backgroundColor: meta.accent }}
-                />
+      {/* Entries Grid */}
+      {(category === "all" || category === "articles" || category === "books") &&
+        filteredEntries.length > 0 && (
+          <div className="mb-12">
+            {category === "all" && (
+              <h3 className="mb-4 font-serif text-lg font-semibold text-ivory">
+                บทความล่าสุด
+              </h3>
+            )}
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {filteredEntries.slice(0, category === "all" ? 6 : undefined).map((entry) => (
+                <Link
+                  key={entry.slug}
+                  href={`/articles/${entry.slug}`}
+                  className="group rounded-lg border border-slate-boundary bg-surface-container p-4 transition-colors hover:border-burnished-gold/30 hover:bg-surface-container-high"
+                >
+                  <div className="mb-2 flex items-center gap-2">
+                    <span className="text-xs text-muted">{entry.framework}</span>
+                    {entry.difficulty && (
+                      <span
+                        className="rounded px-1.5 py-0.5 text-[10px] font-medium"
+                        style={{
+                          backgroundColor: `${DIFFICULTY_COLOR[entry.difficulty]}20`,
+                          color: DIFFICULTY_COLOR[entry.difficulty],
+                        }}
+                      >
+                        {DIFFICULTY_LABEL[entry.difficulty]}
+                      </span>
+                    )}
+                  </div>
+                  <h4 className="mb-1 font-serif text-sm font-semibold text-ivory transition-colors group-hover:text-burnished-gold">
+                    {entry.title}
+                  </h4>
+                  <p className="line-clamp-2 text-xs text-muted">
+                    {entry.shortDescription || entry.subtitle}
+                  </p>
+                  {entry.tags && entry.tags.length > 0 && (
+                    <div className="mt-3 flex flex-wrap gap-1">
+                      {entry.tags.slice(0, 3).map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded bg-surface-container-high px-1.5 py-0.5 text-[10px] text-muted"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
 
-                <div className="space-y-3">
-                  {/* Layer 1: Identity */}
-                  <div className="flex items-center justify-between gap-2 text-[11px] font-medium tracking-wider text-muted">
-                    <span className="uppercase font-semibold" style={{ color: meta.accent }}>
-                      {e.framework ?? e.contentType}
-                    </span>
-                    <span className="rounded bg-surface-container/80 px-2 py-0.5 text-[10px] text-on-surface-variant uppercase">
-                      {e.difficulty}
+      {/* Concepts Grid */}
+      {(category === "all" || category === "concepts") &&
+        filteredConcepts.length > 0 && (
+          <div className="mb-12">
+            {category === "all" && (
+              <h3 className="mb-4 font-serif text-lg font-semibold text-ivory">
+                คลังแนวคิด
+              </h3>
+            )}
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {filteredConcepts.slice(0, category === "all" ? 8 : undefined).map((concept) => (
+                <Link
+                  key={concept.slug}
+                  href={`/concepts/${concept.slug}`}
+                  className="rounded-lg border border-slate-boundary bg-surface-container p-3 transition-colors hover:border-psyche/30 hover:bg-surface-container-high"
+                >
+                  <div className="mb-1 flex items-center gap-2">
+                    <span
+                      className="h-2 w-2 rounded-full"
+                      style={{
+                        backgroundColor:
+                          concept.nodeType === "concept"
+                            ? "var(--color-psyche)"
+                            : concept.nodeType === "person"
+                              ? "var(--color-mercurius)"
+                              : "var(--color-lumen)",
+                      }}
+                    />
+                    <span className="text-[10px] text-muted">
+                      {concept.nodeType === "concept"
+                        ? "แนวคิด"
+                        : concept.nodeType === "person"
+                          ? "นักคิด"
+                          : concept.nodeType === "school"
+                            ? "สำนัก"
+                            : concept.nodeType}
                     </span>
                   </div>
-
-                  <h3 className="font-serif text-lg leading-snug text-ivory transition-colors group-hover:text-soft-gold">
-                    {e.title}
-                  </h3>
-
-                  {/* Layer 2: Context */}
-                  {e.subtitle && (
-                    <p className="line-clamp-2 text-xs leading-relaxed text-muted">
-                      {e.subtitle}
+                  <h4 className="text-sm font-semibold text-ivory">
+                    {concept.thaiTitle || concept.title}
+                  </h4>
+                  {concept.description && (
+                    <p className="mt-1 line-clamp-2 text-xs text-muted">
+                      {concept.description}
                     </p>
                   )}
-                </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
 
-                {/* Layer 5 & 6: Evidence & Navigation */}
-                <div className="mt-6 flex items-center justify-between border-t border-ink/10 pt-3 text-xs text-muted">
-                  <span className="truncate max-w-[140px]">{e.mainThinkers?.[0] ?? "ARCHRON Library"}</span>
-                  <span className="inline-flex items-center gap-1 text-soft-gold opacity-80 group-hover:opacity-100 transition-opacity shrink-0">
-                    เข้าสู่เนื้อหา
-                    <ArrowRightIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-                  </span>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      )}
+      {/* Thinkers Grid */}
+      {(category === "all" || category === "thinkers") &&
+        filteredThinkers.length > 0 && (
+          <div className="mb-12">
+            {category === "all" && (
+              <h3 className="mb-4 font-serif text-lg font-semibold text-ivory">
+                นักปราชญ์
+              </h3>
+            )}
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {filteredThinkers.slice(0, category === "all" ? 8 : undefined).map((thinker) => (
+                <Link
+                  key={thinker.nameEn}
+                  href={`/thinkers/${thinker.nameEn.toLowerCase().replace(/\s+/g, "-")}`}
+                  className="rounded-lg border border-slate-boundary bg-surface-container p-3 transition-colors hover:border-mercurius/30 hover:bg-surface-container-high"
+                >
+                  <h4 className="text-sm font-semibold text-ivory">
+                    {thinker.nameTh}
+                  </h4>
+                  <p className="text-xs text-muted">{thinker.nameEn}</p>
+                  <p className="mt-1 text-[10px] text-burnished-gold">
+                    {thinker.schoolNameTh}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
+      {/* Schools Grid */}
+      {(category === "all" || category === "schools") &&
+        filteredSchools.length > 0 && (
+          <div className="mb-12">
+            {category === "all" && (
+              <h3 className="mb-4 font-serif text-lg font-semibold text-ivory">
+                สำนักคิด
+              </h3>
+            )}
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {filteredSchools.slice(0, category === "all" ? 6 : undefined).map((school) => (
+                <Link
+                  key={school.id}
+                  href={`/schools/${school.id}`}
+                  className="rounded-lg border border-slate-boundary bg-surface-container p-4 transition-colors hover:border-lumen/30 hover:bg-surface-container-high"
+                >
+                  <h4 className="font-serif text-sm font-semibold text-ivory">
+                    {school.nameTh}
+                  </h4>
+                  <p className="text-xs text-muted">{school.nameEn}</p>
+                  <p className="mt-1 text-[10px] text-burnished-gold">{school.field}</p>
+                  <p className="mt-2 line-clamp-2 text-xs text-muted">
+                    {school.description}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
+      {/* Empty State */}
+      {filteredEntries.length === 0 &&
+        filteredConcepts.length === 0 &&
+        filteredThinkers.length === 0 &&
+        filteredSchools.length === 0 &&
+        category !== "timeline" && (
+          <div className="py-12 text-center">
+            <span className="material-symbols-outlined mb-4 text-4xl text-muted">
+              search_off
+            </span>
+            <p className="text-sm text-muted">
+              ไม่พบเนื้อหาที่ตรงกับคำค้นหา
+            </p>
+          </div>
+        )}
     </div>
   );
 }

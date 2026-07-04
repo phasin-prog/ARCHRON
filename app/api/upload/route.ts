@@ -36,9 +36,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "ไม่พบไฟล์ — กรุณาส่งไฟล์ในช่อง file" }, { status: 400 });
   }
 
+  // entryId — ถ้าส่งมา จะใช้เป็น path แทน timestamp
+  const entryId = formData.get("entryId")?.toString() || undefined;
+
   // --- Upload ---
   const buffer = Buffer.from(await file.arrayBuffer());
-  const result = await uploadToR2(buffer, file.name, file.type);
+  const result = await uploadToR2(buffer, file.name, file.type, entryId);
 
   if (!result.ok) {
     return NextResponse.json({ error: result.error }, { status: 400 });

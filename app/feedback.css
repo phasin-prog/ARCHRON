@@ -1,0 +1,366 @@
+/* ============================================================================
+   ARCHRON — Feedback System (Phase 36 · Design Phase 18)
+   ----------------------------------------------------------------------------
+   อ้างอิง: EDS.md §10 Visual Rhythm · VOS.md §11 Motion Engine
+   - Alerts, Inline Validation, Progress, Spinner, Empty State, Badge, Status
+   ============================================================================ */
+
+/* ---- Alert ---- */
+.archron-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  border: 1px solid transparent;
+}
+
+.archron-alert-icon {
+  flex-shrink: 0;
+  font-size: 1.125rem;
+  margin-top: 1px;
+}
+
+.archron-alert-content {
+  flex: 1;
+}
+
+.archron-alert-title {
+  font-weight: 600;
+  margin-bottom: 0.125rem;
+}
+
+.archron-alert-info {
+  background: rgba(105, 145, 210, 0.1);
+  border-color: rgba(105, 145, 210, 0.25);
+  color: #b3c7e6;
+}
+
+.archron-alert-info .archron-alert-icon {
+  color: var(--color-lumen);
+}
+
+.archron-alert-success {
+  background: rgba(76, 175, 80, 0.1);
+  border-color: rgba(76, 175, 80, 0.25);
+  color: #b5d6b5;
+}
+
+.archron-alert-success .archron-alert-icon {
+  color: #4caf50;
+}
+
+.archron-alert-warning {
+  background: rgba(201, 154, 74, 0.1);
+  border-color: rgba(201, 154, 74, 0.25);
+  color: #d4c49a;
+}
+
+.archron-alert-warning .archron-alert-icon {
+  color: var(--color-antique-gold);
+}
+
+.archron-alert-error {
+  background: rgba(201, 119, 106, 0.1);
+  border-color: rgba(201, 119, 106, 0.25);
+  color: #d4a9a3;
+}
+
+.archron-alert-error .archron-alert-icon {
+  color: var(--color-danger);
+}
+
+.archron-alert-close {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: none;
+  background: transparent;
+  color: inherit;
+  opacity: 0.6;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.archron-alert-close:hover {
+  opacity: 1;
+}
+
+/* ---- Inline Validation ---- */
+.archron-inline-error {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  color: var(--color-danger);
+  margin-top: 0.25rem;
+}
+
+.archron-inline-success {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  color: #4caf50;
+  margin-top: 0.25rem;
+}
+
+/* ---- Progress Bar ---- */
+.archron-progress {
+  width: 100%;
+  height: 6px;
+  background: var(--color-surface-container-high);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.archron-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-antique-gold), var(--color-burnished-gold));
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.archron-progress-indeterminate .archron-progress-bar {
+  width: 40%;
+  animation: progress-indeterminate 1.5s ease-in-out infinite;
+}
+
+@keyframes progress-indeterminate {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(350%); }
+}
+
+/* ---- Circular Progress / Spinner ---- */
+.archron-spinner {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid var(--color-slate-boundary);
+  border-top-color: var(--color-burnished-gold);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+.archron-spinner-sm {
+  width: 1rem;
+  height: 1rem;
+  border-width: 1.5px;
+}
+
+.archron-spinner-lg {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-width: 3px;
+}
+
+/* ---- Dots Loading ---- */
+.archron-dots {
+  display: inline-flex;
+  gap: 0.25rem;
+}
+
+.archron-dots span {
+  width: 6px;
+  height: 6px;
+  background: var(--color-burnished-gold);
+  border-radius: 50%;
+  animation: dots-bounce 1.2s ease-in-out infinite;
+}
+
+.archron-dots span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.archron-dots span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes dots-bounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+/* ---- Status Dot ---- */
+.archron-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  color: var(--color-muted);
+}
+
+.archron-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.archron-status-online .archron-status-dot {
+  background: #4caf50;
+  box-shadow: 0 0 6px rgba(76, 175, 80, 0.4);
+}
+
+.archron-status-offline .archron-status-dot {
+  background: var(--color-muted);
+}
+
+.archron-status-busy .archron-status-dot {
+  background: var(--color-danger);
+  box-shadow: 0 0 6px rgba(201, 119, 106, 0.4);
+}
+
+/* ---- Badge ---- */
+.archron-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.375rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: var(--color-prima);
+  background: var(--color-burnished-gold);
+  border-radius: 9999px;
+}
+
+.archron-badge-sm {
+  min-width: 1rem;
+  height: 1rem;
+  padding: 0 0.25rem;
+  font-size: 0.5625rem;
+}
+
+.archron-badge-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  min-width: auto;
+}
+
+.archron-badge-danger {
+  background: var(--color-danger);
+}
+
+.archron-badge-info {
+  background: var(--color-lumen);
+  color: var(--color-prima);
+}
+
+/* ---- Empty State ---- */
+.archron-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.archron-empty-icon {
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(199, 154, 74, 0.08);
+  color: var(--color-burnished-gold);
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+.archron-empty-icon .material-symbols-rounded {
+  font-size: 2rem;
+}
+
+.archron-empty-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-ivory);
+  margin-bottom: 0.375rem;
+}
+
+.archron-empty-desc {
+  font-size: 0.8125rem;
+  color: var(--color-muted);
+  max-width: 20rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+/* ---- Skeleton Loading ---- */
+.archron-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-container) 25%,
+    var(--color-surface-container-low) 50%,
+    var(--color-surface-container) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: 4px;
+}
+
+.archron-skeleton-text {
+  height: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.archron-skeleton-title {
+  height: 1.25rem;
+  width: 50%;
+  margin-bottom: 0.75rem;
+}
+
+.archron-skeleton-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+}
+
+.archron-skeleton-card {
+  height: 8rem;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ---- Count Up / Number ---- */
+.archron-count {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Pulse Ring (attention) ---- */
+.archron-pulse-ring {
+  position: relative;
+}
+
+.archron-pulse-ring::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border: 2px solid var(--color-burnished-gold);
+  border-radius: inherit;
+  animation: pulse-ring 2s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse-ring {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.15); }
+}

@@ -12,7 +12,7 @@ export async function getPublishedEntries(): Promise<ContentEntry[]> {
   const sb = createServerSupabase();
   const { data, error } = await sb
     .from("entries")
-    .select("id, slug, title, status, content_type, author_id, main_term, thai_name, original_term, part_of_speech, language_root, ipa, short_description, framework, main_thinkers, school, difficulty, tags, cover_image, roots, related_concepts, source_refs, related_cta, created_at, updated_at, published_at, r2_content_key, r2_content_url")
+    .select("id, slug, title, status, content_type, author_id, main_term, thai_name, original_term, part_of_speech, language_root, ipa, short_description, framework, main_thinkers, school, difficulty, tags, cover_image, roots, related_concepts, source_refs, related_cta, created_at, updated_at, published_at, r2_content_key, r2_content_url, row_id, row_i, row_code, row_name")
     .eq("status", "published")
     .order("published_at", { ascending: false });
   if (error || !data) return [];

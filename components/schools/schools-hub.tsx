@@ -12,7 +12,6 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
 
   const q = query.trim().toLowerCase();
 
-  // สถิติรวม — คำนวณสดจากข้อมูลจริง (ไม่ hardcode)
   const totalThinkers = useMemo(
     () => schools.reduce((n, s) => n + s.thinkers.length, 0),
     [schools],
@@ -22,7 +21,6 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
     [schools],
   );
 
-  // ตัวอักษรที่ "มี" สำนักจริง (ใช้เปิด/หรี่ในแถบดัชนี)
   const availableLetters = useMemo(() => {
     const set = new Set<string>();
     for (const s of schools) {
@@ -32,7 +30,6 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
     return set;
   }, [schools]);
 
-  // ค้นหายังครอบคลุมชื่อนักคิด/ผลงาน เพื่อ "กรองระดับสำนัก" (แต่ไม่เรนเดอร์การ์ดนักคิด)
   const matchSchool = (s: School): boolean => {
     if (!q) return true;
     if (s.nameTh.toLowerCase().includes(q) || s.nameEn.toLowerCase().includes(q)) return true;
@@ -81,7 +78,6 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
 
   return (
     <div className="mt-8">
-      {/* สถิติรวม (นับสด) */}
       <div className="mb-6 flex flex-wrap gap-3">
         {[
           { n: schools.length, l: "สำนักคิด" },
@@ -98,7 +94,6 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
         ))}
       </div>
 
-      {/* Search — ยังกรองด้วยชื่อนักคิด/ผลงานได้ (กรองระดับสำนัก) */}
       <div className="flex items-center gap-3 rounded-md border border-ink/12 bg-surface-container/60 px-4 py-3 focus-within:border-burnished-gold/40">
         <span className="material-symbols-outlined text-[22px] text-burnished-gold">search</span>
         <input
@@ -120,7 +115,6 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
         ) : null}
       </div>
 
-      {/* A-Z index */}
       <div className="mt-4 flex flex-wrap items-center gap-1">
         <button
           type="button"
@@ -138,8 +132,6 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
         {EN_LETTERS.map((ch) => letterBtn(ch))}
       </div>
 
-      {/* Grid ของ "การ์ดสำนัก" — คลิกทั้งใบเข้า /schools/[slug] เพื่อดู Thinkers
-          (ไม่เรนเดอร์การ์ดนักคิด inline อีกต่อไป เพื่อความเร็วเมื่อมีนักคิดจำนวนมาก) */}
       <div className="mt-8">
         {filtered.length === 0 ? (
           <p className="rounded-md border border-ink/10 bg-surface-container/40 p-8 text-center text-sm text-on-surface-variant/60">
@@ -149,59 +141,70 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((s) => {
               const meta = disciplineMeta(s.field);
-              const Icon = meta.Icon;
               return (
                 <Link
                   key={s.id}
                   href={`/schools/${s.id}`}
-                  className="archron-card group relative flex flex-col overflow-hidden p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-burnished-gold/45"
+                  className="archron-card group relative flex flex-col justify-between overflow-hidden p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-burnished-gold/45 focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
+                  style={{
+                    background: `linear-gradient(160deg, color-mix(in srgb, ${meta.accent} 7%, #181C2A) 0%, #181C2A 100%)`,
+                  }}
                 >
-                  {/* แถบสีประจำศาสตร์ */}
-                  <span
-                    aria-hidden
-                    className="absolute inset-y-0 left-0 w-[3px]"
-                    style={{ backgroundColor: meta.accent }}
-                  />
+                  <div>
+                    <h2 className="font-serif text-2xl font-bold leading-tight text-ivory transition-colors group-hover:text-soft-gold">
+                      {s.nameTh}
+                    </h2>
 
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="icon-tile scale-90" style={{ borderColor: `color-mix(in srgb, ${meta.accent} 26%, var(--color-slate-boundary))` }} title={meta.label}>
-                      <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": meta.accent } as React.CSSProperties}>
-                        <use href="/icons/archron-icons.svg#level" />
-                      </svg>
-                    </span>
+                    <div className="mt-1 flex items-center gap-2 text-xs font-mono text-on-surface-variant/55">
+                      <span>{s.nameEn}</span>
+                      {s.field ? (
+                        <>
+                          <span aria-hidden>·</span>
+                          <span
+                            className="font-medium"
+                            style={{ color: meta.accent }}
+                          >
+                            {meta.label}
+                          </span>
+                        </>
+                      ) : null}
+                    </div>
+
+                    {s.description ? (
+                      <p className="mt-3 text-sm leading-relaxed text-soft-ivory/75 line-clamp-3">
+                        {s.description}
+                      </p>
+                    ) : null}
+
                     {s.thinkers.length > 0 ? (
-                      <span
-                        className="rounded-full border px-2.5 py-0.5 text-[11px]"
-                        style={{
-                          color: meta.accent,
-                          borderColor: `${meta.accent}44`,
-                          backgroundColor: `${meta.accent}12`,
-                        }}
-                      >
-                        {s.thinkers.length} นักคิด
-                      </span>
+                      <div className="mt-4 flex flex-wrap items-center gap-2">
+                        {s.thinkers.slice(0, 4).map((t) => (
+                          <span
+                            key={t.nameEn}
+                            className="inline-flex items-center gap-1 rounded-full bg-white/[0.04] px-2.5 py-1 text-[11px] text-soft-ivory/80 border border-slate-boundary/15 transition-colors group-hover:border-slate-boundary/25"
+                          >
+                            {t.nameTh}
+                          </span>
+                        ))}
+                        {s.thinkers.length > 4 ? (
+                          <span className="text-[11px] text-muted font-mono">+{s.thinkers.length - 4}</span>
+                        ) : null}
+                      </div>
                     ) : null}
                   </div>
 
-                  <h2 className="mt-4 font-serif text-xl font-semibold leading-snug text-on-surface group-hover:text-burnished-gold">
-                    {s.nameTh}
-                  </h2>
-                  <span className="mt-1 block text-[11px] uppercase tracking-[0.08em] text-on-surface-variant/45">
-                    {s.nameEn} · {meta.label}
-                  </span>
-
-                  {s.description ? (
-                    <p className="mt-3 overflow-hidden text-sm leading-relaxed text-on-surface-variant/75 [-webkit-box-orient:vertical] [-webkit-line-clamp:3] [display:-webkit-box]">
-                      {s.description}
-                    </p>
-                  ) : null}
-
-                  <span className="mt-auto flex items-center gap-1 border-t border-ink/5 pt-4 text-xs font-semibold text-burnished-gold">
-                    ดูนักคิดและประวัติเต็ม
-                    <span className="material-symbols-outlined text-[14px] transition-transform duration-300 group-hover:translate-x-0.5">
-                      arrow_forward
+                  <div className="mt-5 flex items-center justify-between border-t border-slate-boundary/15 pt-4">
+                    <span
+                      className="flex items-center gap-1 text-xs font-semibold transition-all duration-300 group-hover:gap-2"
+                      style={{ color: meta.accent }}
+                    >
+                      เข้าสู่สำนักคิด
+                      <span className="material-symbols-outlined text-[16px]">
+                        arrow_forward
+                      </span>
                     </span>
-                  </span>
+                    <span className="text-[11px] font-mono text-muted">{s.thinkers.length} ปราชญ์</span>
+                  </div>
                 </Link>
               );
             })}

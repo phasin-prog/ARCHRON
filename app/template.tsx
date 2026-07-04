@@ -4,7 +4,7 @@ import { ScrollReveal } from "@/components/scroll-reveal";
 // re-scan .scroll-reveal ของหน้าใหม่ (ScrollReveal ทำงานครบทุกหน้าโดยไม่ต้องวางซ้ำ)
 export default function Template({ children }: { children: React.ReactNode }) {
   return (
-    <div id="main-content" tabIndex={-1} className="route-fade">
+    <div id="main-content" tabIndex={-1} className="route-fade relative">
       {children}
       <ScrollReveal />
     </div>

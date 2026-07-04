@@ -6,12 +6,13 @@ type ImagePickerProps = {
   value: string; // current URL (empty = no image)
   onChange: (url: string) => void; // called with new URL after upload
   onRemove: () => void; // called to clear image
+  entryId?: string; // entry UUID สำหรับ path บน R2
   className?: string;
 };
 
 // ImagePicker — drag-and-drop + click to upload image to R2 via /api/upload
 // แสดง preview เมื่อมีรูป, loading ขณะอัปโหลด, error เมื่อไม่สำเร็จ
-export function ImagePicker({ value, onChange, onRemove, className = "" }: ImagePickerProps) {
+export function ImagePicker({ value, onChange, onRemove, entryId, className = "" }: ImagePickerProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [dragOver, setDragOver] = useState(false);
@@ -35,6 +36,7 @@ export function ImagePicker({ value, onChange, onRemove, className = "" }: Image
     try {
       const form = new FormData();
       form.append("file", file);
+      if (entryId) form.append("entryId", entryId);
 
       const res = await fetch("/api/upload", {
         method: "POST",

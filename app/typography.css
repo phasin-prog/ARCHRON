@@ -1,0 +1,452 @@
+/* ============================================================================
+   ARCHRON — Typography System (Phase 31)
+   ----------------------------------------------------------------------------
+   อ้างอิง: VOS.md §07 Typography System · ROADMAP Phase 31
+   - Font Stack: Editorial (Noto Serif Thai) · UI (IBM Plex Sans Thai) · Mono (JetBrains Mono)
+   - Type Scale: modular scale for headings + body
+   - Thai Font Considerations: ขนาด, line-height, weight สำหรับอักษรไทย
+   - Heading Hierarchy: H1-H6 rules
+   - Body Text Rules: ขนาด, ระยะบรรทัด, ความกว้างบรรทัด
+   ============================================================================ */
+
+:root {
+  /* ---- Font Stack Definitions ---- */
+  /* Editorial / Reading: Noto Serif Thai (Thai) + IBM Plex Serif (English) */
+  --font-editorial: var(--font-noto-serif-thai), var(--font-ibm-plex-serif),
+    "Noto Serif Thai", "IBM Plex Serif", Georgia, serif;
+
+  /* UI / Interface: IBM Plex Sans Thai (Thai) + Inter (English) */
+  --font-ui: var(--font-ibm-plex-thai), var(--font-inter),
+    "IBM Plex Sans Thai", "Inter", system-ui, sans-serif;
+
+  /* Body / Content: Noto Sans Thai (Thai) + Inter (English) */
+  --font-body: var(--font-noto-sans-thai), var(--font-inter),
+    "Noto Sans Thai", "Inter", system-ui, sans-serif;
+
+  /* Heading: Noto Serif Thai (Thai) + IBM Plex Serif (English) */
+  --font-heading: var(--font-noto-serif-thai), var(--font-ibm-plex-serif),
+    "Noto Serif Thai", "IBM Plex Serif", Georgia, serif;
+
+  /* Display: Playfair Display (English only) */
+  --font-display: var(--font-playfair), "Playfair Display", Georgia, serif;
+
+  /* Wordmark: Cinzel (English only - brand name) */
+  --font-wordmark: var(--font-cinzel), "Cinzel", "Trajan Pro", Georgia, serif;
+
+  /* Mono: system monospace */
+  --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", "Cascadia Code",
+    ui-monospace, monospace;
+
+  /* ---- Type Scale (Modular Scale 1.25) ---- */
+  --text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.75rem);      /* 11-12px */
+  --text-sm: clamp(0.8rem, 0.75rem + 0.25vw, 0.875rem);     /* 12-14px */
+  --text-base: clamp(0.95rem, 0.9rem + 0.25vw, 1rem);       /* 15-16px */
+  --text-lg: clamp(1.05rem, 1rem + 0.25vw, 1.125rem);       /* 16-18px */
+  --text-xl: clamp(1.15rem, 1.05rem + 0.5vw, 1.25rem);      /* 18-20px */
+  --text-2xl: clamp(1.35rem, 1.15rem + 1vw, 1.5rem);        /* 21-24px */
+  --text-3xl: clamp(1.6rem, 1.3rem + 1.5vw, 1.875rem);      /* 25-30px */
+  --text-4xl: clamp(1.9rem, 1.4rem + 2.5vw, 2.25rem);       /* 30-36px */
+  --text-5xl: clamp(2.25rem, 1.6rem + 3.25vw, 2.75rem);     /* 36-44px */
+
+  /* ---- Heading Hierarchy ---- */
+  --h1-size: var(--text-5xl);
+  --h1-weight: 700;
+  --h1-leading: 1.15;
+  --h1-tracking: -0.02em;
+
+  --h2-size: var(--text-4xl);
+  --h2-weight: 600;
+  --h2-leading: 1.2;
+  --h2-tracking: -0.01em;
+
+  --h3-size: var(--text-3xl);
+  --h3-weight: 600;
+  --h3-leading: 1.25;
+  --h3-tracking: 0;
+
+  --h4-size: var(--text-2xl);
+  --h4-weight: 600;
+  --h4-leading: 1.3;
+  --h4-tracking: 0;
+
+  --h5-size: var(--text-xl);
+  --h5-weight: 500;
+  --h5-leading: 1.35;
+  --h5-tracking: 0;
+
+  --h6-size: var(--text-lg);
+  --h6-weight: 500;
+  --h6-leading: 1.4;
+  --h6-tracking: 0;
+
+  /* ---- Body Text Rules ---- */
+  --body-size: var(--text-base);
+  --body-leading: 1.7;           /* Thai needs more line-height */
+  --body-tracking: 0.01em;
+  --body-max-width: 68ch;        /* Reading measure */
+
+  /* ---- Thai-Specific Adjustments ---- */
+  /* Thai script needs more line-height and slightly larger size */
+  --thai-leading: 1.8;
+  --thai-body-size: calc(var(--body-size) * 1.02);
+
+  /* ---- Caption / Footnote ---- */
+  --caption-size: var(--text-xs);
+  --caption-leading: 1.5;
+  --caption-tracking: 0.02em;
+
+  /* ---- Code Typography ---- */
+  --code-size: 0.875em;
+  --code-leading: 1.6;
+  --code-background: rgba(255, 255, 255, 0.06);
+  --code-padding: 0.2em 0.4em;
+  --code-radius: 4px;
+}
+
+/* ---- Base Typography Styles ---- */
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--body-size);
+  line-height: var(--body-leading);
+  letter-spacing: var(--body-tracking);
+  color: var(--color-ivory);
+}
+
+/* ---- Heading Styles ---- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-ivory);
+  font-weight: var(--h1-weight);
+  line-height: var(--h1-leading);
+  letter-spacing: var(--h1-tracking);
+}
+
+h1 {
+  font-size: var(--h1-size);
+  font-weight: var(--h1-weight);
+  line-height: var(--h1-leading);
+  letter-spacing: var(--h1-tracking);
+}
+
+h2 {
+  font-size: var(--h2-size);
+  font-weight: var(--h2-weight);
+  line-height: var(--h2-leading);
+  letter-spacing: var(--h2-tracking);
+}
+
+h3 {
+  font-size: var(--h3-size);
+  font-weight: var(--h3-weight);
+  line-height: var(--h3-leading);
+  letter-spacing: var(--h3-tracking);
+}
+
+h4 {
+  font-size: var(--h4-size);
+  font-weight: var(--h4-weight);
+  line-height: var(--h4-leading);
+  letter-spacing: var(--h4-tracking);
+}
+
+h5 {
+  font-size: var(--h5-size);
+  font-weight: var(--h5-weight);
+  line-height: var(--h5-leading);
+  letter-spacing: var(--h5-tracking);
+}
+
+h6 {
+  font-size: var(--h6-size);
+  font-weight: var(--h6-weight);
+  line-height: var(--h6-leading);
+  letter-spacing: var(--h6-tracking);
+}
+
+/* ---- Paragraph ---- */
+p {
+  margin-bottom: 1em;
+}
+
+/* ---- Links ---- */
+a {
+  color: var(--color-soft-gold);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-lumen);
+}
+
+/* ---- Strong / Emphasis ---- */
+strong, b {
+  font-weight: 600;
+  color: var(--color-ivory);
+}
+
+em, i {
+  font-style: italic;
+}
+
+/* ---- Lists ---- */
+ul, ol {
+  margin-bottom: 1em;
+  padding-left: 1.5em;
+}
+
+li {
+  margin-bottom: 0.25em;
+}
+
+/* ---- Blockquote ---- */
+blockquote {
+  border-left: 3px solid var(--color-burnished-gold);
+  padding-left: 1em;
+  margin: 1.5em 0;
+  font-style: italic;
+  color: var(--color-soft-ivory);
+}
+
+/* ---- Code (inline) ---- */
+code {
+  font-family: var(--font-mono);
+  font-size: var(--code-size);
+  line-height: var(--code-leading);
+  background: var(--code-background);
+  padding: var(--code-padding);
+  border-radius: var(--code-radius);
+  color: var(--color-lumen);
+}
+
+/* ---- Code (block) ---- */
+pre {
+  font-family: var(--font-mono);
+  font-size: var(--code-size);
+  line-height: var(--code-leading);
+  background: var(--color-surface-container);
+  padding: 1em;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.5em 0;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+/* ---- Horizontal Rule ---- */
+hr {
+  border: none;
+  border-top: 1px solid var(--color-slate-boundary);
+  margin: 2em 0;
+}
+
+/* ---- Small / Caption ---- */
+small, .text-caption {
+  font-size: var(--caption-size);
+  line-height: var(--caption-leading);
+  letter-spacing: var(--caption-tracking);
+  color: var(--color-muted);
+}
+
+/* ---- Mark / Highlight ---- */
+mark {
+  background: rgba(199, 154, 74, 0.3);
+  color: var(--color-ivory);
+  padding: 0.1em 0.2em;
+  border-radius: 2px;
+}
+
+/* ---- Subscript / Superscript ---- */
+sub, sup {
+  font-size: 0.75em;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+/* ---- Typography Utility Classes ---- */
+/* Font families */
+.font-editorial { font-family: var(--font-editorial); }
+.font-ui { font-family: var(--font-ui); }
+.font-body { font-family: var(--font-body); }
+.font-heading { font-family: var(--font-heading); }
+.font-display { font-family: var(--font-display); }
+.font-wordmark { font-family: var(--font-wordmark); }
+.font-mono { font-family: var(--font-mono); }
+
+/* Type scale */
+.text-fluid-xs { font-size: var(--text-xs); }
+.text-fluid-sm { font-size: var(--text-sm); }
+.text-fluid-base { font-size: var(--text-base); }
+.text-fluid-lg { font-size: var(--text-lg); }
+.text-fluid-xl { font-size: var(--text-xl); }
+.text-fluid-2xl { font-size: var(--text-2xl); }
+.text-fluid-3xl { font-size: var(--text-3xl); }
+.text-fluid-4xl { font-size: var(--text-4xl); }
+.text-fluid-5xl { font-size: var(--text-5xl); }
+
+/* Reading measure */
+.measure-narrow { max-width: 55ch; }
+.measure { max-width: 68ch; }
+.measure-wide { max-width: 80ch; }
+
+/* Thai-specific */
+.thai-leading { line-height: var(--thai-leading); }
+
+/* ---- Markdown Body (for content pages) ---- */
+.md-body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--body-leading);
+  color: var(--color-soft-ivory);
+}
+
+.md-body h1 {
+  font-size: var(--h1-size);
+  font-weight: var(--h1-weight);
+  line-height: var(--h1-leading);
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+
+.md-body h2 {
+  font-size: var(--h2-size);
+  font-weight: var(--h2-weight);
+  line-height: var(--h2-leading);
+  margin-top: 1.75em;
+  margin-bottom: 0.5em;
+}
+
+.md-body h3 {
+  font-size: var(--h3-size);
+  font-weight: var(--h3-weight);
+  line-height: var(--h3-leading);
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.md-body p {
+  margin-bottom: 1.25em;
+}
+
+.md-body ul, .md-body ol {
+  margin-bottom: 1.25em;
+}
+
+.md-body li {
+  margin-bottom: 0.5em;
+}
+
+.md-body blockquote {
+  margin: 1.5em 0;
+  padding: 1em 1.25em;
+  background: rgba(255, 255, 255, 0.03);
+  border-left: 3px solid var(--color-burnished-gold);
+  border-radius: 0 8px 8px 0;
+}
+
+.md-body code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.15em 0.35em;
+  border-radius: 4px;
+  color: var(--color-lumen);
+}
+
+.md-body pre {
+  background: var(--color-surface-container);
+  padding: 1.25em;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.5em 0;
+}
+
+.md-body pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+.md-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1.5em 0;
+}
+
+.md-body a {
+  color: var(--color-soft-gold);
+  text-decoration: underline;
+  text-decoration-color: rgba(231, 215, 166, 0.3);
+  text-underline-offset: 2px;
+  transition: text-decoration-color 0.2s ease;
+}
+
+.md-body a:hover {
+  text-decoration-color: var(--color-soft-gold);
+}
+
+.md-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+}
+
+.md-body th, .md-body td {
+  padding: 0.75em 1em;
+  border: 1px solid var(--color-slate-boundary);
+  text-align: left;
+}
+
+.md-body th {
+  background: var(--color-surface-container);
+  font-weight: 600;
+  color: var(--color-ivory);
+}
+
+.md-body td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* ---- Serif Heading Style (for article titles) ---- */
+.font-serif-heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+/* ---- Display Style (for hero/large text) ---- */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* ---- Wordmark Style (for brand name) ---- */
+.font-wordmark {
+  font-family: var(--font-wordmark);
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}

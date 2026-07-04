@@ -72,7 +72,7 @@ export default function GuidePage() {
   const [activeFunc, setActiveFunc] = useState<PsycheFunction>("ego");
 
   return (
-    <main className="min-h-screen bg-deep-navy pb-24 text-ivory">
+    <main className="atmo-base atmo-temple min-h-screen bg-deep-navy pb-24 text-ivory">
       {/* Hero & Interactive Compass Container */}
       <section className="relative overflow-hidden border-b border-slate-boundary/30 px-6 py-20 lg:py-28">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(199,154,74,0.06)_0%,transparent_70%)]" />

@@ -109,63 +109,72 @@ export function SourcesBrowser({ sources }: { sources: SourceItemWithId[] }) {
             return (
               <div
                 key={s.id}
-                className="relative overflow-hidden archron-card flex flex-col gap-4 p-6 sm:flex-row sm:items-start sm:gap-6"
+                className="group relative overflow-hidden archron-card flex flex-col justify-between gap-4 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-burnished-gold/45"
               >
                 {/* แถบข้างระบุสี cosmology */}
                 <span
                   aria-hidden
-                  className="absolute inset-y-0 left-0 w-[3px]"
+                  className="absolute inset-y-0 left-0 w-[3px] transition-all duration-300 group-hover:w-[4px]"
                   style={{ backgroundColor: accent }}
                 />
 
-                {/* 3D ICON GRID */}
-                <span
-                  className="icon-tile shrink-0 scale-100"
-                  style={{ borderColor: `color-mix(in srgb, ${accent} 26%, var(--color-slate-boundary))` }}
-                >
-                  <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": accent } as React.CSSProperties}>
-                    <use href={`/icons/archron-icons.svg#${iconId}`} />
-                  </svg>
-                </span>
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
+                  {/* 3D ICON GRID */}
+                  <span
+                    className="icon-tile shrink-0 scale-90 transition-transform duration-300 group-hover:scale-100"
+                    style={{ borderColor: `color-mix(in srgb, ${accent} 26%, var(--color-slate-boundary))` }}
+                  >
+                    <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": accent } as React.CSSProperties}>
+                      <use href={`/icons/archron-icons.svg#${iconId}`} />
+                    </svg>
+                  </span>
 
-                <div className="min-w-0 flex-1 space-y-2">
-                  <div className="flex flex-wrap items-baseline gap-2">
-                    <span
-                      className="rounded px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider"
-                      style={{
-                        color: accent,
-                        backgroundColor: `${accent}16`,
-                        border: `1px solid ${accent}33`,
-                      }}
-                    >
-                      {label}
-                    </span>
-                    {s.year && (
-                      <span className="text-xs font-mono text-on-surface-variant/50">ปีพิมพ์: {s.year}</span>
+                  <div className="min-w-0 flex-1 space-y-2">
+                    <div className="flex flex-wrap items-baseline gap-2">
+                      <span
+                        className="rounded px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider font-mono"
+                        style={{
+                          color: accent,
+                          backgroundColor: `${accent}16`,
+                          border: `1px solid ${accent}33`,
+                        }}
+                      >
+                        {label}
+                      </span>
+                      {s.year && (
+                        <span className="text-xs font-mono text-on-surface-variant/50">ปีพิมพ์: {s.year}</span>
+                      )}
+                    </div>
+
+                    <h3 className="font-serif text-lg font-bold leading-snug text-ivory group-hover:text-soft-gold transition-colors">
+                      {s.title}
+                    </h3>
+
+                    {s.author && (
+                      <p className="text-sm text-soft-ivory">
+                        ผู้สร้างสรรค์: <span className="text-soft-gold font-medium">{s.author}</span>
+                      </p>
+                    )}
+
+                    {s.citationNote && (
+                      <p className="text-xs text-on-surface-variant/80 leading-relaxed bg-white/[0.02] border border-slate-boundary/15 rounded p-3 font-mono">
+                        {s.citationNote}
+                      </p>
+                    )}
+
+                    {s.relatedClaim && (
+                      <p className="text-xs text-muted">
+                        ◦ <span className="font-medium text-burnished-gold/80">ขอบเขตเนื้อหา:</span> {s.relatedClaim}
+                      </p>
                     )}
                   </div>
+                </div>
 
-                  <h3 className="font-serif text-lg font-semibold leading-snug text-ivory">
-                    {s.title}
-                  </h3>
-
-                  {s.author && (
-                    <p className="text-sm text-soft-ivory">
-                      ผู้สร้างสรรค์: <span className="text-soft-gold font-medium">{s.author}</span>
-                    </p>
-                  )}
-
-                  {s.citationNote && (
-                    <p className="text-xs text-on-surface-variant/80 leading-relaxed bg-white/[0.01] border border-slate-boundary/10 rounded p-2.5">
-                      {s.citationNote}
-                    </p>
-                  )}
-
-                  {s.relatedClaim && (
-                    <p className="text-xs text-muted">
-                      ◦ <span className="font-medium text-burnished-gold/80">ขอบเขตเนื้อหา:</span> {s.relatedClaim}
-                    </p>
-                  )}
+                <div className="mt-4 flex items-center justify-between border-t border-slate-boundary/20 pt-3 text-xs font-semibold" style={{ color: accent }}>
+                  <span className="flex items-center gap-1 transition-all duration-300 group-hover:gap-2">
+                    ตรวจสอบหลักฐานปฐมภูมิ <span className="material-symbols-outlined text-[15px]">verified</span>
+                  </span>
+                  <span className="font-mono text-[11px] text-muted">{s.sourceType.toUpperCase()}</span>
                 </div>
               </div>
             );

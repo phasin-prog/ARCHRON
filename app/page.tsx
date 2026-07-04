@@ -73,9 +73,9 @@ const PILLARS: Pillar[] = [
 
 export default function HomePage() {
   return (
-    <main>
+    <main className="atmo-base atmo-observatory">
         <section 
-          className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden px-6 text-center text-mist"
+          className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden px-6 text-center text-mist texture-grain"
           style={{
             background: "radial-gradient(circle at center, var(--color-deep-navy) 30%, var(--color-surface-container-lowest) 100%)"
           }}
@@ -175,7 +175,7 @@ export default function HomePage() {
         </section>
 
         {/* Pillars — สิ่งที่เราทำ (การ์ด + ไอคอนเส้นเฉพาะ + เน้นคำ) */}
-        <section className="mx-auto max-w-[1200px] px-6 py-28 md:py-36" aria-labelledby="pillars-heading">
+        <section className="relative mx-auto max-w-[1200px] px-6 py-28 md:py-36 texture-parchment texture-glow-gold" aria-labelledby="pillars-heading">
           <h2 id="pillars-heading" className="sr-only">เสาหลักของ ARCHRON</h2>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {PILLARS.map((p, i) => {
@@ -216,7 +216,7 @@ export default function HomePage() {
         </section>
 
         {/* Knowledge Atlas */}
-        <section className="relative overflow-hidden border-y border-slate-boundary/30 bg-surface-container-lowest px-6 py-20">
+        <section className="relative overflow-hidden border-y border-slate-boundary/30 bg-surface-container-lowest px-6 py-20 texture-grain texture-vignette">
           {/* Vesica pattern — สื่อการเชื่อมโยงของศาสตร์ (cosmology: prima = แผนที่/สัญลักษณ์) */}
           <VesicaPattern
             cosmology="prima"
@@ -259,7 +259,7 @@ export default function HomePage() {
         <RecentlyViewed />
 
         {/* ปฏิญญา — คำคมให้จดจำ (เน้นคำแก่นด้วยสีทอง) */}
-        <section className="scroll-reveal mx-auto max-w-4xl px-6 py-24 text-center md:py-28">
+        <section className="scroll-reveal relative mx-auto max-w-4xl px-6 py-24 text-center md:py-28 texture-glow-gold texture-parchment">
           <div className="mb-4 font-serif text-[64px] leading-[0.3] text-burnished-gold/35" aria-hidden="true">
             “
           </div>

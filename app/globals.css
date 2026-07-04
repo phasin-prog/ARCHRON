@@ -1,4 +1,21 @@
 @import "tailwindcss";
+@import "./grid.css";
+@import "./layout.css";
+@import "./spacing.css";
+@import "./containers.css";
+@import "./rhythm.css";
+@import "./motion.css";
+@import "./responsive.css";
+@import "./typography.css";
+@import "./texture.css";
+@import "./cards.css";
+@import "./buttons.css";
+@import "./inputs.css";
+@import "./navigation.css";
+@import "./overlays.css";
+@import "./feedback.css";
+@import "./interaction.css";
+@import "./animation.css";
 
 /* Dynamic Accent — สี accent ที่เปลี่ยนตามบริบท (หน้า/หมวด) และไล่สีได้นุ่ม ๆ
    @property ทำให้ transition ของ custom property สีทำงาน (morph เมื่อเปลี่ยนหน้า) */
@@ -117,6 +134,59 @@
     --dur-base: 450ms;
     --dur-slow: 850ms;
     --dur-ambient: 8s;
+
+    /* ── Elevation Scale (VOS.md §06 Surface Engine: 8 levels) ─────── */
+    --elevation-0: 0 0 0 0 transparent;                  /* Background */
+    --elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);  /* Surface */
+    --elevation-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);  /* Card */
+    --elevation-3: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23); /* Panel */
+    --elevation-4: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22); /* Floating */
+    --elevation-5: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22); /* Modal/Overlay */
+
+    /* ── Border Radius Scale (AES.md §14 Card Philosophy) ─────── */
+    --radius-none: 0;
+    --radius-sm: 0.25rem;    /* 4px — ปุ่ม, input */
+    --radius-md: 0.5rem;     /* 8px — การ์ดเล็ก, tag */
+    --radius-lg: 0.85rem;    /* 14px — การ์ดบทความ */
+    --radius-xl: 1.15rem;    /* 18px — การ์ดขนาดใหญ่ */
+    --radius-2xl: 1.5rem;    /* 24px — hero section */
+    --radius-full: 9999px;   /* ปุ่ม rounded, avatar */
+
+    /* ── Spacing Scale (8pt Grid — VOS.md §08) ─────── */
+    --space-0: 0;
+    --space-1: 0.25rem;   /* 4px */
+    --space-2: 0.5rem;    /* 8px */
+    --space-3: 0.75rem;   /* 12px */
+    --space-4: 1rem;      /* 16px */
+    --space-5: 1.5rem;    /* 24px */
+    --space-6: 2rem;      /* 32px */
+    --space-7: 2.5rem;    /* 40px */
+    --space-8: 3rem;      /* 48px */
+    --space-9: 4rem;      /* 64px */
+    --space-10: 5rem;     /* 80px */
+    --space-11: 6rem;     /* 96px */
+    --space-12: 8rem;     /* 128px */
+
+    /* ── Density Scale (EDS.md §12 Dynamic Density) ─────── */
+    --density-compact: 0.75;
+    --density-comfortable: 1;
+    --density-spacious: 1.25;
+
+    /* ── Opacity Scale (VOS.md §15 Background Engine: 2-6% rule) ─────── */
+    --opacity-0: 0;
+    --opacity-5: 0.05;
+    --opacity-10: 0.1;
+    --opacity-25: 0.25;
+    --opacity-50: 0.5;
+    --opacity-75: 0.75;
+    --opacity-100: 1;
+
+    /* ── Breakpoint Tokens (VOS.md §08 Grid System) ─────── */
+    --bp-sm: 640px;
+    --bp-md: 768px;
+    --bp-lg: 1024px;
+    --bp-xl: 1280px;
+    --bp-2xl: 1536px;
 
     /* ── Dynamic Colour — Cosmology variable ชุด (default = Sapientia) ─────── */
     --cosmology-accent: #C79A4A;
@@ -790,6 +860,10 @@
   background: color-mix(in srgb, var(--cosmology-accent) 12%, rgba(24, 27, 36, 0.92));
   border-bottom-color: color-mix(in srgb, var(--cosmology-accent) 28%, transparent);
 }
+@keyframes concept-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.6); }
+}
 @keyframes mm-fade {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -801,6 +875,7 @@
   .route-fade,
   .menu-in,
   .ambient-glow,
+  .concept-pulse,
   .mm-fade {
     animation: none !important;
   }
@@ -941,7 +1016,8 @@
   /* ปิดแอนิเมชันเปิดหน้าและย้ายศูนย์กลางแผนที่เพื่อความลื่นไหล */
   .route-fade,
   .mm-fade,
-  .menu-in {
+  .menu-in,
+  .concept-pulse {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
@@ -965,4 +1041,127 @@
     transform: none !important;
     transition: none !important;
   }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   Atmosphere Templates — 3D+Grid ตามประเภทหน้า
+   ----------------------------------------------------------------------------
+   แต่ละเทมเพลท = ambient-observatory (ดาว+เส้นกลุ่มดาว) + texture เฉพาะหน้า
+   - atmo-observatory : Homepage (ค่าเริ่มต้น — ทอง sapientia)
+   - atmo-magazine    : บทความ (grain + ทองอบอุ่น)
+   - atmo-dictionary  : แนวคิด (paper + น้ำเงิน-teal psyche)
+   - atmo-temple      : สำนักคิด / บริการ (parchment + เขียว sage mercurius + vignette)
+   - atmo-biography   : นักคิด (parchment + ทอง glow)
+   - atmo-museum      : เวลา (wide grain + bronze)
+   ============================================================================ */
+
+/* Base: 3D+Grid star-map (ใช้ร่วมกันทุกเทมเพลท) */
+.atmo-base {
+  position: relative;
+}
+.atmo-base::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 50% 30%, transparent 55%, color-mix(in srgb, var(--color-prima) 55%, transparent) 100%),
+    url("/backgrounds/observatory-stars.svg") center top / cover no-repeat;
+}
+.atmo-base::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: color-mix(in srgb, var(--cosmology-accent) 34%, transparent);
+  -webkit-mask: url("/backgrounds/constellation-links.svg") center top / cover no-repeat;
+  mask: url("/backgrounds/constellation-links.svg") center top / cover no-repeat;
+  transition: background-color 1.2s var(--ease-out);
+  animation: ao-glimmer var(--dur-ambient) var(--ease-soft) infinite;
+}
+
+/* ── Homepage: หอดูดาว ทอง — กว้าง โปร่ง ดาวเด่น ── */
+.atmo-observatory {
+  --cosmology-accent: #C79A4A;
+}
+.atmo-observatory > .relative.z-10::before {
+  content: "";
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 900px;
+  background: radial-gradient(circle, rgba(199, 154, 74, 0.08) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Magazine: บทความ — grain + ทองอบอุ่น + editorial feel ── */
+.atmo-magazine::before {
+  opacity: 0.85;
+}
+.atmo-magazine > .relative.z-10 {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(199, 154, 74, 0.04) 0%, transparent 50%),
+    linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--color-prima) 30%, transparent) 100%);
+}
+
+/* ── Dictionary: แนวคิด — paper + น้ำเงิน-teal + structured ── */
+.atmo-dictionary::before {
+  opacity: 0.7;
+}
+.atmo-dictionary::after {
+  background-color: color-mix(in srgb, var(--color-psyche) 30%, transparent) !important;
+}
+.atmo-dictionary > .relative.z-10 {
+  background:
+    radial-gradient(ellipse at 30% 10%, rgba(110, 147, 168, 0.05) 0%, transparent 50%),
+    linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--color-prima) 25%, transparent) 100%);
+}
+
+/* ── Temple: สำนักคิด / บริการ — grand + sage + vignette ── */
+.atmo-temple::before {
+  opacity: 0.6;
+}
+.atmo-temple::after {
+  background-color: color-mix(in srgb, var(--color-mercurius) 28%, transparent) !important;
+}
+.atmo-temple > .relative.z-10 {
+  background:
+    radial-gradient(ellipse at 50% 20%, rgba(138, 163, 149, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at center, transparent 40%, rgba(11, 13, 18, 0.5) 100%);
+}
+
+/* ── Biography: นักคิด — warm parchment + gold glow ── */
+.atmo-biography::before {
+  opacity: 0.75;
+}
+.atmo-biography > .relative.z-10 {
+  background:
+    radial-gradient(ellipse at 70% 15%, rgba(199, 154, 74, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 80%, rgba(231, 215, 166, 0.04) 0%, transparent 50%),
+    linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--color-prima) 20%, transparent) 100%);
+}
+
+/* ── Museum: เวลา — wide + bronze + layered ── */
+.atmo-museum::before {
+  opacity: 0.65;
+}
+.atmo-museum::after {
+  background-color: color-mix(in srgb, var(--color-mercurius) 25%, transparent) !important;
+}
+.atmo-museum > .relative.z-10 {
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(138, 163, 149, 0.05) 0%, transparent 50%),
+    linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--color-prima) 35%, transparent) 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atmo-base::after { animation: none !important; }
+}
+@media (max-width: 768px) {
+  .atmo-base::after { animation: none !important; opacity: 0.65 !important; }
 }

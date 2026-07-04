@@ -86,7 +86,9 @@ export function CompareMatrix({ entries }: { entries: ContentEntry[] }) {
         <dl className="grid grid-cols-1 gap-4 rounded-lg bg-surface-container/40 p-4 text-xs">
           <div>
             <dt className="flex items-center gap-1.5 font-semibold text-muted">
-              <PersonIcon className="h-4 w-4" style={{ color: meta.accent }} />
+              <span style={{ color: meta.accent }}>
+                <PersonIcon className="h-4 w-4" />
+              </span>
               นักคิดหลัก
             </dt>
             <dd className="mt-1 text-ivory">{item.mainThinkers?.join(", ") || "ไม่ระบุเฉพาะเจาะจง"}</dd>
@@ -94,7 +96,9 @@ export function CompareMatrix({ entries }: { entries: ContentEntry[] }) {
 
           <div>
             <dt className="flex items-center gap-1.5 font-semibold text-muted">
-              <SchoolIcon className="h-4 w-4" style={{ color: meta.accent }} />
+              <span style={{ color: meta.accent }}>
+                <SchoolIcon className="h-4 w-4" />
+              </span>
               สำนักคิด / กรอบแนวคิด
             </dt>
             <dd className="mt-1 text-ivory">{item.school ?? item.framework ?? "ทั่วไป"}</dd>

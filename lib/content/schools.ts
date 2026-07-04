@@ -10,6 +10,11 @@ export type Thinker = {
   relationships?: string; // ความสัมพันธ์กับปราชญ์คนอื่น
   r2ContentKey?: string;
   r2ContentUrl?: string;
+  timeline?: Array<{
+    year: string;
+    title: string;
+    description?: string;
+  }>;
 };
 
 // ศาสตร์ประจำสำนักคิด — คีย์ตรงกับ DisciplineKey ใน components/discipline-meta
@@ -37,6 +42,15 @@ export type School = {
   history?: string; // ประวัติความเป็นมาฉบับเต็ม
   r2ContentKey?: string;
   r2ContentUrl?: string;
+  keyIdeas?: Array<{
+    title: string;
+    description?: string;
+  }>;
+  timeline?: Array<{
+    year: string;
+    title: string;
+    description?: string;
+  }>;
 };
 
 export const SCHOOLS: School[] = [

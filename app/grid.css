@@ -1,0 +1,152 @@
+/* ============================================================================
+   ARCHRON Grid System — Phase 06
+   ----------------------------------------------------------------------------
+   โครงสร้างตาราง: 12 columns (desktop), 8 (tablet), 4 (mobile)
+   อ้างอิง: VOS.md §08 Grid System · 8pt Rhythm
+   ============================================================================ */
+
+/* ---- Grid System Tokens ---- */
+:root {
+  /* Column System */
+  --grid-columns: 12;
+  --grid-columns-tablet: 8;
+  --grid-columns-mobile: 4;
+
+  /* Gutter Scale (8pt Grid) */
+  --gutter-0: 0;
+  --gutter-1: 8px;
+  --gutter-2: 12px;
+  --gutter-3: 16px;
+  --gutter-4: 24px;
+  --gutter-5: 32px;
+  --gutter-6: 48px;
+
+  /* Margin Scale (responsive) */
+  --margin-mobile: 16px;
+  --margin-tablet: 24px;
+  --margin-desktop: 48px;
+  --margin-wide: 64px;
+}
+
+/* ---- Grid Container ---- */
+.grid-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--margin-mobile);
+  padding-right: var(--margin-mobile);
+}
+
+@media (min-width: 768px) {
+  .grid-container {
+    padding-left: var(--margin-tablet);
+    padding-right: var(--margin-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-container {
+    padding-left: var(--margin-desktop);
+    padding-right: var(--margin-desktop);
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid-container {
+    padding-left: var(--margin-wide);
+    padding-right: var(--margin-wide);
+  }
+}
+
+/* ---- Grid Rows & Columns ---- */
+.grid {
+  display: grid;
+  gap: var(--gutter-4);
+}
+
+/* Desktop: 12 columns */
+@media (min-width: 1024px) {
+  .grid-cols-12 {
+    grid-template-columns: repeat(12, 1fr);
+  }
+}
+
+/* Tablet: 8 columns */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .grid-cols-8 {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+
+/* Mobile: 4 columns */
+@media (max-width: 767px) {
+  .grid-cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ---- Grid Gaps ---- */
+.gap-0 { gap: var(--gutter-0); }
+.gap-1 { gap: var(--gutter-1); }
+.gap-2 { gap: var(--gutter-2); }
+.gap-3 { gap: var(--gutter-3); }
+.gap-4 { gap: var(--gutter-4); }
+.gap-5 { gap: var(--gutter-5); }
+.gap-6 { gap: var(--gutter-6); }
+
+/* ---- Column Span Utilities ---- */
+.col-span-1 { grid-column: span 1 / span 1; }
+.col-span-2 { grid-column: span 2 / span 2; }
+.col-span-3 { grid-column: span 3 / span 3; }
+.col-span-4 { grid-column: span 4 / span 4; }
+.col-span-5 { grid-column: span 5 / span 5; }
+.col-span-6 { grid-column: span 6 / span 6; }
+.col-span-7 { grid-column: span 7 / span 7; }
+.col-span-8 { grid-column: span 8 / span 8; }
+.col-span-9 { grid-column: span 9 / span 9; }
+.col-span-10 { grid-column: span 10 / span 10; }
+.col-span-11 { grid-column: span 11 / span 11; }
+.col-span-12 { grid-column: span 12 / span 12; }
+.col-span-full { grid-column: 1 / -1; }
+
+/* ---- Grid Variants ---- */
+
+/* Fixed Grid */
+.grid-fixed {
+  max-width: 1280px;
+}
+
+/* Fluid Grid */
+.grid-fluid {
+  width: 100%;
+}
+
+/* Content-Width Grid */
+.grid-content {
+  max-width: var(--measure);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ---- Nested Grid ---- */
+.grid-nested {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--gutter-3);
+}
+
+.grid-nested > * {
+  grid-column: span 12;
+}
+
+@media (min-width: 768px) {
+  .grid-nested > * {
+    grid-column: span 6;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-nested > * {
+    grid-column: span 4;
+  }
+}

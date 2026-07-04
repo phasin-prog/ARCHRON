@@ -15,7 +15,6 @@ import {
 } from "@/components/icons";
 import { NODE_TYPE_COLOR } from "@/lib/content/graph";
 import { ViewBadge } from "@/components/view-badge";
-import { nodeTypeCosmology } from "@/lib/content/cosmology";
 
 const NODE_LABEL: Record<string, string> = {
   concept: "แนวคิด",
@@ -35,12 +34,11 @@ const NODE_ICON: Record<string, ComponentType<{ className?: string }>> = {
   term: TermIcon,
 };
 
-// การ์ดแนวคิด + เมนูลัด wiki (คลิกขวา / กดค้าง)
 export function ConceptCard({ c, hasRealContent = false }: { c: ConceptRegistryItem; hasRealContent?: boolean }) {
   const router = useRouter();
   const [copied, setCopied] = useState(false);
   const Icon = NODE_ICON[c.nodeType];
-  const accent = NODE_TYPE_COLOR[c.nodeType] ?? "var(--color-antique-gold)"; // สี cosmology ประจำหมวด
+  const accent = NODE_TYPE_COLOR[c.nodeType] ?? "var(--color-antique-gold)";
   const href = `/concepts/${c.slug}`;
 
   const items: ContextMenuItem[] = [
@@ -70,42 +68,121 @@ export function ConceptCard({ c, hasRealContent = false }: { c: ConceptRegistryI
     <ContextMenu items={items} className="relative">
       <Link
         href={href}
-        className={`archron-card archron-card--${nodeTypeCosmology(c.nodeType)} group flex min-h-[190px] flex-col justify-between p-5 focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none ${!hasRealContent ? 'opacity-70 hover:opacity-100' : ''}`}
+        className={`group relative flex min-h-[240px] flex-col overflow-hidden rounded-lg border p-6 transition-all duration-300 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none ${
+          hasRealContent
+            ? "border-[color-mix(in_srgb,var(--color-slate-boundary)_35%,transparent)] bg-[linear-gradient(175deg,var(--color-surface-container-low)_0%,var(--color-surface-container)_100%)]"
+            : "border-dashed border-slate-boundary/30 bg-surface-container-low/30 opacity-70 hover:opacity-90 hover:border-slate-boundary/50"
+        }`}
+        style={{
+          boxShadow: hasRealContent
+            ? `0 2px 16px -4px rgba(0,0,0,0.5), inset 0 1px 2px color-mix(in srgb, ${accent} 6%, transparent)`
+            : `inset 0 1px 2px rgba(0,0,0,0.1)`,
+        } as React.CSSProperties}
       >
-        <div>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2.5">
-              {Icon ? (
-                <span style={{ color: accent }} className="flex items-center">
-                  <Icon className="h-5 w-5" />
-                </span>
-              ) : null}
-              <span className="font-serif text-lg text-ivory transition-colors group-hover:text-soft-gold">
-                {c.title}
-              </span>
-            </div>
+        {hasRealContent && (
+          <span
+            aria-hidden
+            className="absolute -right-3 -top-3 h-20 w-20 rounded-full opacity-[0.04] blur-2xl transition-opacity duration-700 group-hover:opacity-[0.09]"
+            style={{ backgroundColor: accent }}
+          />
+        )}
+
+        <span
+          aria-hidden
+          className="absolute right-4 top-4"
+        >
+          <span className="relative flex h-2 w-2">
             <span
-              className="shrink-0 rounded-full px-2.5 py-0.5 text-[11px] font-medium"
-              style={{
-                backgroundColor: hasRealContent
-                  ? "color-mix(in srgb, var(--cosmology-accent) 12%, transparent)"
-                  : "color-mix(in srgb, var(--color-slate-boundary) 20%, transparent)",
-                color: hasRealContent
-                  ? "var(--cosmology-accent)"
-                  : "var(--color-muted)",
-              }}
-            >
-              {NODE_LABEL[c.nodeType] ?? c.nodeType}{!hasRealContent && " · โครงร่าง"}
-            </span>
-          </div>
-          {c.thaiTitle ? <p className="mt-1 text-xs font-medium text-muted">{c.thaiTitle}</p> : null}
-          {c.description ? (
-            <p className="mt-3 text-sm leading-relaxed text-soft-ivory/80 line-clamp-3">{c.description}</p>
+              className="absolute inline-flex h-full w-full rounded-full opacity-30"
+              style={{ backgroundColor: accent, animation: hasRealContent ? "concept-pulse 3s ease-in-out infinite" : "none" }}
+            />
+            <span
+              className="relative inline-flex h-2 w-2 rounded-full"
+              style={{ backgroundColor: accent }}
+            />
+          </span>
+        </span>
+
+        {!hasRealContent && (
+          <span className="absolute left-4 top-4 rounded-full border border-dashed border-slate-boundary/30 bg-surface-container-low/60 px-2.5 py-0.5 text-[9px] font-medium text-on-surface-variant/45">
+            โครงร่าง
+          </span>
+        )}
+
+        <div className="mb-4 flex justify-center pt-2">
+          <span
+            className="inline-flex items-center justify-center rounded-xl border transition-all duration-300 group-hover:scale-105"
+            style={{
+              width: "3.5rem",
+              height: "3.5rem",
+              borderColor: `color-mix(in srgb, ${accent} ${hasRealContent ? "20%" : "12%"}, var(--color-slate-boundary))`,
+              background: hasRealContent
+                ? `linear-gradient(165deg, color-mix(in srgb, ${accent} 10%, var(--color-surface-container-low)) 0%, color-mix(in srgb, ${accent} 3%, var(--color-surface-container)) 100%)`
+                : "var(--color-surface-container-low)",
+              boxShadow: hasRealContent
+                ? `inset 0 1px 2px color-mix(in srgb, ${accent} 8%, transparent), 0 2px 8px rgba(0,0,0,0.2)`
+                : "inset 0 1px 1px rgba(0,0,0,0.1)",
+              color: hasRealContent ? accent : `color-mix(in srgb, ${accent} 40%, var(--color-on-surface-variant))`,
+            } as React.CSSProperties}
+          >
+            {Icon ? (
+              <Icon className="h-7 w-7 transition-colors duration-300" />
+            ) : null}
+          </span>
+        </div>
+
+        <div className="flex flex-col items-center text-center flex-1">
+          <span
+            className="mb-1 inline-block rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider transition-colors duration-300"
+            style={{
+              color: hasRealContent ? accent : `color-mix(in srgb, ${accent} 50%, var(--color-on-surface-variant))`,
+              backgroundColor: `color-mix(in srgb, ${accent} ${hasRealContent ? "10%" : "5%"}, transparent)`,
+            }}
+          >
+            {NODE_LABEL[c.nodeType] ?? c.nodeType}
+          </span>
+
+          <h2
+            className={`font-serif font-bold leading-snug transition-colors duration-300 ${
+              hasRealContent
+                ? "text-lg text-ivory group-hover:text-soft-gold"
+                : "text-lg text-on-surface-variant/60"
+            }`}
+          >
+            {c.title}
+          </h2>
+
+          {c.thaiTitle ? (
+            <p className={`mt-0.5 text-xs font-medium ${hasRealContent ? "text-on-surface-variant/60" : "text-on-surface-variant/35"}`}>
+              {c.thaiTitle}
+            </p>
           ) : null}
         </div>
-        <span className="mt-4 flex justify-end border-t border-slate-boundary/10 pt-3">
+
+        {c.description ? (
+          <p
+            className={`mt-4 flex-1 text-sm leading-relaxed line-clamp-3 ${
+              hasRealContent ? "text-soft-ivory/70" : "text-on-surface-variant/40"
+            }`}
+          >
+            {c.description}
+          </p>
+        ) : (
+          <div className="mt-4 flex-1" />
+        )}
+
+        <div className={`mt-4 flex items-center justify-between border-t pt-3.5 ${hasRealContent ? "border-slate-boundary/15" : "border-dashed border-slate-boundary/15"}`}>
+          <span
+            className="flex items-center gap-1 text-xs font-semibold transition-all duration-300 group-hover:gap-2"
+            style={{ color: hasRealContent ? accent : `color-mix(in srgb, ${accent} 50%, var(--color-on-surface-variant))` }}
+          >
+            {hasRealContent ? "สำรวจ" : "เปิดดู"}
+            <span className="material-symbols-outlined text-[15px]">
+              arrow_forward
+            </span>
+          </span>
           <ViewBadge slug={c.slug} />
-        </span>
+        </div>
       </Link>
       {copied ? (
         <span className="pointer-events-none absolute right-3 top-3 rounded bg-burnished-gold px-2 py-0.5 text-[11px] font-medium text-prima">

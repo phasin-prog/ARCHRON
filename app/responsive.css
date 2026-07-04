@@ -1,0 +1,280 @@
+/* ============================================================================
+   ARCHRON — Responsive System (Phase 30)
+   ----------------------------------------------------------------------------
+   อ้างอิง: VOS.md §08 Grid · §18 Accessibility · PRD §17 Mobile Snappy Mode
+   - Breakpoints: Mobile 0-640 · Tablet 641-1024 · Desktop 1025+
+   - Touch Targets: minimum 44x44px
+   - Responsive Typography: fluid type scale with clamp()
+   - Mobile Snappy Mode: ปิดแอนิเมชันหนักบนมือถือ
+   ============================================================================ */
+
+/* ---- Breakpoint Reference (Tailwind handles actual breakpoints) ----
+   Mobile:  0-640px    (base styles)
+   Tablet:  641-1024px (sm:, md:)
+   Desktop: 1025px+    (lg:, xl:)
+   ================================================================== */
+
+/* ---- Touch Target Minimum (44x44px per WCAG) ---- */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* ---- Responsive Typography (fluid scale) ---- */
+.text-fluid-xs {
+  font-size: clamp(0.7rem, 0.65rem + 0.25vw, 0.75rem);
+}
+
+.text-fluid-sm {
+  font-size: clamp(0.8rem, 0.75rem + 0.25vw, 0.875rem);
+}
+
+.text-fluid-base {
+  font-size: clamp(0.9rem, 0.85rem + 0.25vw, 1rem);
+}
+
+.text-fluid-lg {
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+}
+
+.text-fluid-xl {
+  font-size: clamp(1.15rem, 1rem + 0.75vw, 1.25rem);
+}
+
+.text-fluid-2xl {
+  font-size: clamp(1.35rem, 1.1rem + 1.25vw, 1.5rem);
+}
+
+.text-fluid-3xl {
+  font-size: clamp(1.6rem, 1.2rem + 2vw, 1.875rem);
+}
+
+.text-fluid-4xl {
+  font-size: clamp(1.9rem, 1.3rem + 3vw, 2.25rem);
+}
+
+/* ---- Responsive Spacing ---- */
+.space-fluid-sm {
+  gap: clamp(0.5rem, 0.4rem + 0.5vw, 0.75rem);
+}
+
+.space-fluid-md {
+  gap: clamp(0.75rem, 0.5rem + 1vw, 1.25rem);
+}
+
+.space-fluid-lg {
+  gap: clamp(1rem, 0.75rem + 1.25vw, 1.5rem);
+}
+
+.space-fluid-xl {
+  gap: clamp(1.5rem, 1rem + 2.5vw, 2rem);
+}
+
+/* ---- Mobile-First Base Styles ---- */
+
+/* ป้องกัน horizontal scroll บนมือถือ */
+html {
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Touch-friendly scroll */
+@media (pointer: coarse) {
+  /* เพิ่มขนาด touch targets บนอุปกรณ์สัมผัส */
+  button, a, input, select, textarea {
+    min-height: 44px;
+  }
+
+  /* เพิ่ม padding สำหรับปุ่มขนาดเล็ก */
+  .btn-sm, .btn-xs {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* ---- Tablet Adjustments (641px+) ---- */
+@media (min-width: 641px) {
+  /* ปรับ padding บน tablet */
+  .px-responsive {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* ---- Desktop Adjustments (1025px+) ---- */
+@media (min-width: 1025px) {
+  /* ปรับ padding บน desktop */
+  .px-responsive {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  /* Container max-widths */
+  .container-narrow {
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .container-standard {
+    max-width: 980px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .container-wide {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .container-full {
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* ---- Mobile Snappy Mode ----
+   ปิดแอนิเมชันหนักบนมือถือเพื่อความตอบสนองฉับไว
+   อ้างอิง: PRD §17, VOS.md §11 */
+@media (max-width: 640px) {
+  /* ปิด animation หนัก */
+  .animate-float,
+  .animate-orbit,
+  .animate-pulse-soft {
+    animation: none !important;
+  }
+
+  /* ลด transition duration */
+  * {
+    transition-duration: 100ms !important;
+  }
+
+  /* ปิด backdrop blur บนมือถือ (Performance) */
+  .backdrop-blur-md,
+  .backdrop-blur-lg {
+    backdrop-filter: none !important;
+  }
+
+  /*简化 scroll-reveal */
+  .scroll-reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---- Safe Area (Notch Support) ---- */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-area-left {
+    padding-left: env(safe-area-inset-left);
+  }
+
+  .safe-area-right {
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* ---- Responsive Grid Utilities ---- */
+.grid-responsive {
+  display: grid;
+  gap: clamp(1rem, 0.75rem + 1.25vw, 1.5rem);
+}
+
+@media (max-width: 640px) {
+  .grid-responsive {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .grid-responsive {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1025px) {
+  .grid-responsive {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ---- Responsive Typography for Headings ---- */
+.heading-responsive {
+  font-size: clamp(1.5rem, 1rem + 2.5vw, 2.25rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 640px) {
+  .heading-responsive {
+    font-size: clamp(1.35rem, 1.1rem + 1.25vw, 1.75rem);
+  }
+}
+
+/* ---- Mobile Navigation Helpers ---- */
+@media (max-width: 640px) {
+  /* ซ่อน desktop nav, แสดง mobile nav */
+  .desktop-only {
+    display: none !important;
+  }
+
+  /* Tab bar สำหรับมือถือ */
+  .mobile-tab-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: var(--color-midnight);
+    border-top: 1px solid var(--color-slate-boundary);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+@media (min-width: 641px) {
+  /* ซ่อน mobile nav */
+  .mobile-only {
+    display: none !important;
+  }
+
+  .desktop-only {
+    display: block;
+  }
+}
+
+/* ---- Focus Visible (Accessibility) ---- */
+:focus-visible {
+  outline: 2px solid var(--color-burnished-gold);
+  outline-offset: 2px;
+}
+
+/* Remove outline for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ---- Print Styles ---- */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  a {
+    text-decoration: underline;
+    color: black;
+  }
+}

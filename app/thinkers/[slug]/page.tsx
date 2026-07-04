@@ -105,7 +105,7 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
   );
 
   return (
-    <main className="px-6 pb-24 pt-10">
+    <main className="atmo-base atmo-biography px-6 pb-24 pt-10">
       <div className="mx-auto max-w-[800px]">
         {/* Breadcrumb */}
         <nav aria-label="เส้นทางนำทาง" className="text-xs text-muted">
@@ -213,6 +213,89 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
             </ul>
           </div>
         </section>
+
+        {/* Timeline Section */}
+        {t.timeline && t.timeline.length > 0 && (
+          <section className="mt-12">
+            <h2 className="font-serif text-2xl font-semibold text-ivory border-b border-slate-boundary/20 pb-3">
+              เส้นเวลาชีวิต
+            </h2>
+            <div className="mt-6 relative">
+              {/* Vertical Line */}
+              <div className="absolute left-4 top-0 bottom-0 w-px bg-slate-boundary/30" />
+              
+              <div className="space-y-6">
+                {t.timeline.map((event, idx) => (
+                  <div key={idx} className="relative pl-10">
+                    {/* Dot */}
+                    <div className="absolute left-2.5 top-1.5 h-3 w-3 rounded-full border-2 border-burnished-gold bg-deep-navy" />
+                    
+                    <div className="archron-panel p-4">
+                      <span className="text-xs font-semibold text-burnished-gold/80">
+                        {event.year}
+                      </span>
+                      <h3 className="mt-1 font-serif text-base font-medium text-on-surface">
+                        {event.title}
+                      </h3>
+                      {event.description && (
+                        <p className="mt-2 text-sm text-on-surface-variant/70 leading-relaxed">
+                          {event.description}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Related Thinkers */}
+        {(() => {
+          const relatedThinkers = schools
+            .flatMap((sch) => sch.thinkers.map((th) => ({ ...th, schoolId: sch.id, schoolNameTh: sch.nameTh })))
+            .filter((other) => {
+              if (other.nameEn === t.nameEn) return false;
+              return (
+                other.schoolId === s.id ||
+                t.relationships?.includes(other.nameEn) ||
+                other.relationships?.includes(t.nameEn)
+              );
+            })
+            .slice(0, 4);
+          
+          if (relatedThinkers.length === 0) return null;
+          
+          return (
+            <section className="mt-12">
+              <h2 className="font-serif text-2xl font-semibold text-ivory border-b border-slate-boundary/20 pb-3">
+                นักคิดที่เกี่ยวข้อง
+              </h2>
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                {relatedThinkers.map((other) => {
+                  const otherSlug = other.nameEn.toLowerCase().replace(/\s+/g, "-");
+                  return (
+                    <Link
+                      key={other.nameEn}
+                      href={`/thinkers/${otherSlug}`}
+                      className="archron-card p-4 transition-all hover:border-burnished-gold/45"
+                    >
+                      <h3 className="font-serif text-base font-medium text-on-surface hover:text-burnished-gold">
+                        {other.nameTh}
+                      </h3>
+                      <p className="mt-0.5 text-xs text-on-surface-variant/55">
+                        {other.nameEn} · {other.era}
+                      </p>
+                      <p className="mt-1 text-[10px] text-burnished-gold/70">
+                        สังกัด {other.schoolNameTh}
+                      </p>
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
+          );
+        })()}
 
         {/* Related Articles & Concepts */}
         <section className="mt-16">

@@ -30,8 +30,9 @@ export default async function ArticlesPage() {
       lead="งานอ่านที่อธิบาย วิเคราะห์ และตีความแนวคิดเกี่ยวกับจิตใจมนุษย์ โดยวางไว้ในบริบทเดิมและเชื่อมกลับไปยังแนวคิดและแหล่งอ้างอิง"
       ambient
       navCurrent="/articles"
+      className="atmo-base atmo-magazine"
     >
-      <section className="mx-auto max-w-6xl px-6">
+      <section className="texture-grain texture-glow-gold relative mx-auto max-w-6xl px-6">
         {articles.length === 0 ? (
           <EmptyState
             icon="article"

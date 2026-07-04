@@ -22,6 +22,7 @@ export function draftToRow(
     : null;
 
   return {
+    id: d.id || undefined,       // ใช้ UUID ที่สร้างไว้ (ใหม่) หรือที่โหลดมา (แก้ไข)
     slug: d.slug,
     title: d.title,
     author_id: authorId,
@@ -41,12 +42,14 @@ export function draftToRow(
     cover_image: d.coverImage || null,
     short_description: d.shortDescription || null,
     school: d.school || null,
+    row_name: d.rowName || null,
   };
 }
 
 // ContentEntry (จาก DB หรือ static) → EditorDraft สำหรับโหลดเข้าฟอร์มแก้ไข
 export function entryToDraft(entry: ContentEntry): EditorDraft {
   return {
+    id: entry.id ?? "",
     title: entry.title ?? "",
     slug: entry.slug ?? "",
     status: entry.status ?? "draft",
@@ -74,5 +77,7 @@ export function entryToDraft(entry: ContentEntry): EditorDraft {
     coverImage: entry.coverImage ?? "",
     shortDescription: entry.shortDescription ?? "",
     school: entry.school ?? "",
+    rowName: entry.rowName ?? "",
+    rowCode: entry.rowCode ?? "",
   };
 }

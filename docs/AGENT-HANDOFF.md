@@ -26,6 +26,7 @@
 | **Symbol Dictionary** | `/SYMBOLS.md` · `/docs/SYMBOLS.md` | ไวยากรณ์สัญลักษณ์ 17 วัตถุความรู้ และสัญลักษณ์ปฏิสัมพันธ์สากล |
 | **Editorial Experience System** | `/AES.md` · `/docs/AES.md` | ประสบการณ์การอ่าน, ลำดับชั้นข้อมูล, ต้นแบบการ์ด 5 หมวด, ความกว้างเลย์เอาต์ |
 | **Editorial DNA System** | `/EDS.md` · `/docs/EDS.md` | รหัสพันธุกรรมงานบรรณาธิการ 6 ลำดับชั้น (Identity → Navigation) |
+| **Context Engineering Roadmap** | `/ROADMAP.md` · `/docs/ROADMAP.md` | แผนที่ยุทธศาสตร์วิศวกรรมบริบท 70 เฟส ครอบคลุม 7 เลเยอร์สถาปัตยกรรม |
 
 ### 📚 สารานุกรมคำจำกัดความมาตรฐาน (Canonical Terminology Dictionary)
 AI ทุกตัวต้องใช้คำศัพท์เหล่านี้ในความหมายเดียวอย่างเคร่งครัด ห้ามปะปนกัน:

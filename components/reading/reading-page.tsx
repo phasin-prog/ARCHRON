@@ -34,11 +34,12 @@ import { themesForEntry } from "@/lib/content/themes";
 import { getPublicEntries } from "@/lib/content/public-source";
 import { getBacklinksForConcept } from "@/lib/content/related";
 
-type Section = "articles" | "concepts";
+type Section = "articles" | "concepts" | "books";
 
 const SECTION_LABEL: Record<Section, string> = {
   articles: "บทความ",
   concepts: "คลังแนวคิด",
+  books: "หนังสือ",
 };
 
 const RELATION_LABEL: Record<RelationType, string> = {
@@ -90,9 +91,6 @@ function citeify(md: string): string {
       .join(""),
   );
 }
-
-// ปลายทางปุ่ม CTA "สำรวจประเภททางจิตวิทยา" → หน้าบริการ Jungian Type Analysis
-const GUIDE_CTA_HREF = "/guide";
 
 // ประมาณเวลาอ่านจากความยาวเนื้อหา (ภาษาไทยไม่เว้นวรรค — ใช้จำนวนอักขระ ~400/นาที)
 function readTime(entry: ContentEntry): string {
@@ -252,9 +250,11 @@ function MetaCard({ entry, readingTime }: { entry: ContentEntry; readingTime: st
 export async function ReadingPage({
   entry,
   section = "concepts",
+  atmosphere = "",
 }: {
   entry: ContentEntry;
   section?: Section;
+  atmosphere?: string;
 }) {
   const relatedInline = entry.relatedConcepts.slice(0, MAX_RELATED_INLINE);
   const hasOverflow = entry.relatedConcepts.length > MAX_RELATED_INLINE;
@@ -283,7 +283,7 @@ export async function ReadingPage({
     navIdx >= 0 && navIdx < navPool.length - 1 ? navPool[navIdx + 1] : null;
 
   return (
-    <div className="mx-auto grid max-w-7xl grid-cols-1 xl:grid-cols-[1fr_760px_1fr] xl:gap-8">
+    <div className={`mx-auto grid max-w-7xl grid-cols-1 xl:grid-cols-[1fr_760px_1fr] xl:gap-8${atmosphere ? ` ${atmosphere}` : ""}`}>
       {/* แถบความคืบหน้าการอ่าน (ทุกจอ) */}
       <ReadingProgress />
 
@@ -294,7 +294,15 @@ export async function ReadingPage({
         </div>
       </aside>
 
-      <main id="reading-article" className="w-full max-w-[760px] px-6 pb-24 pt-10 xl:mx-0 mx-auto">
+      <main id="reading-article" className="texture-grain relative z-10 w-full max-w-[760px] px-6 pb-24 pt-10 xl:mx-0 mx-auto">
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-[600px] -z-10"
+          style={{
+            background:
+              "radial-gradient(ellipse 70% 55% at 50% 0%, color-mix(in srgb, var(--accent) 7%, transparent), transparent 100%)",
+          }}
+        />
         {/* Breadcrumb */}
         <nav aria-label="เส้นทางนำทาง" className="scroll-reveal flex flex-wrap items-center gap-1 text-xs text-muted">
           <Link href="/" className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:text-soft-gold focus-visible:outline-none">หน้าแรก</Link>
@@ -369,7 +377,7 @@ export async function ReadingPage({
 
         {/* Main Content Zone */}
         {entry.visualExplanation ? (
-          <section className="scroll-reveal mt-12">
+          <section className="scroll-reveal mt-14">
             {/* คำอธิบายให้เห็นภาพ (Header 3) */}
             <SectionH3 icon={VisualMeaningIcon}>คำอธิบายให้เห็นภาพ</SectionH3>
             <div className="md-body mt-4 whitespace-pre-line">
@@ -379,7 +387,7 @@ export async function ReadingPage({
         ) : null}
 
         {entry.technicalMeaning ? (
-          <section className="scroll-reveal mt-12">
+          <section className="scroll-reveal mt-14">
             {/* ความหมายทางวิชาการ / เทคนิค (Header 3) */}
             <SectionH3 icon={ScholarIcon}>ความหมายทางวิชาการ / เทคนิค</SectionH3>
             <div className="md-body mt-4 whitespace-pre-line">
@@ -390,7 +398,7 @@ export async function ReadingPage({
 
         {/* ตัวอย่างในชีวิตจริง อิงจากตำรา (Header 3) — ช่องเนื้อหาใหม่ realWorldExamples */}
         {entry.realWorldExamples ? (
-          <section className="scroll-reveal mt-12">
+          <section className="scroll-reveal mt-14">
             <SectionH3 icon={RealExampleIcon}>ตัวอย่างในชีวิตจริง (อิงจากตำรา)</SectionH3>
             <div className="md-body mt-4 whitespace-pre-line">
               <InternalLinkText text={entry.realWorldExamples} />
@@ -399,7 +407,7 @@ export async function ReadingPage({
         ) : null}
 
         {entry.bodyMarkdown && entry.bodyMarkdown.trim() !== "" ? (
-          <section className="scroll-reveal mt-12">
+          <section className="scroll-reveal mt-14">
             <div className="md-body">
               <ReactMarkdown remarkPlugins={[remarkGfm]} components={mdComponents}>
                 {citeify(entry.bodyMarkdown)}
@@ -410,7 +418,7 @@ export async function ReadingPage({
 
         {/* ความเข้าใจผิดที่พบบ่อย (Caution) */}
         {entry.roots?.caution ? (
-          <section className="scroll-reveal mt-12 border border-warning/20 bg-warning/5 p-5 rounded-md">
+          <section className="scroll-reveal mt-14 border border-warning/20 bg-warning/5 p-5 rounded-md">
             <h3 className="font-serif text-fluid-h3 text-warning/90 flex items-center gap-2">
               <span className="material-symbols-outlined text-[20px]">warning</span>
               ความเข้าใจผิดที่พบบ่อย / ข้อควรระวัง
@@ -422,7 +430,7 @@ export async function ReadingPage({
         ) : null}
 
         {entry.roots && (entry.roots.etymology || entry.roots.historicalUsage || entry.roots.meaningShift) ? (
-          <section className="scroll-reveal mt-12">
+          <section className="scroll-reveal mt-14">
             <SectionH3 icon={RootIcon}>ที่มาของคำและบริบท</SectionH3>
             <ul className="mt-4 space-y-3 text-base leading-relaxed text-soft-ivory">
               {entry.roots.etymology ? (
@@ -505,30 +513,28 @@ export async function ReadingPage({
           </section>
         ) : null}
 
-        {/* CTA — guide การเข้าใจตัวตน */}
-        <aside className="scroll-reveal mt-16 overflow-hidden rounded-md border border-antique-gold/30 bg-surface-1/50 p-7 md:p-9">
+        {/* CTA — สนับสนุนโครงการ */}
+        <aside className="scroll-reveal mt-16 overflow-hidden rounded-md border border-slate-boundary/30 bg-surface-container-low/50 p-7 md:p-9">
           <div>
-            <span className="text-xs tracking-[0.05em] text-antique-gold">
-              Psychological Types · การอ่านตัวตน
+            <span className="text-xs tracking-[0.05em] text-burnished-gold">
+              สนับสนุน ARCHRON
             </span>
             <h2 className="mt-3 font-serif text-2xl text-ivory">
-              ทำความเข้าใจแนวโน้มทางจิตของคุณ ผ่านกรอบ Psychological Types
+              สนับสนุนคลังความรู้ที่คุณกำลังอ่าน
             </h2>
             <p className="mt-3 max-w-xl text-base leading-relaxed text-soft-ivory">
-              บริการอ่านและให้คำแนะนำเชิงลึก โดยใช้ทฤษฎีประเภททางจิตวิทยา (Psychological Types)
-              ของ C. G. Jung เป็นกรอบในการ guide การเข้าใจตัวตน — อ่าน “แนวโน้ม”
-              อย่างมีบริบท ไม่ใช่ตัดสินด้วยป้ายประเภทสำเร็จรูป และแยกการตีความออกจากข้อเท็จจริงตามแนวทางของคลังความรู้นี้
+              ARCHRON เป็นโครงการคลังความรู้อิสระที่ยังเติบโตต่อเนื่อง — ทุกการสนับสนุนช่วยให้เราเขียนและเชื่อมโยงความรู้ได้มากขึ้น
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
               <Link
-                href={GUIDE_CTA_HREF}
+                href="/support"
                 className="inline-flex items-center gap-2 rounded-sm bg-gradient-to-br from-antique-gold to-soft-gold px-6 py-3 text-sm font-semibold text-prima transition-transform hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
               >
-                เริ่มสำรวจประเภททางจิตวิทยาของคุณ
+                สนับสนุนโครงการ
                 <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
               </Link>
-              <Link href="/articles" className="text-sm text-soft-gold hover:underline focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:outline-none">
-                อ่านบทความที่เกี่ยวข้อง →
+              <Link href="/guide" className="text-sm text-soft-gold hover:underline focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:outline-none">
+                ใช้บริการ Jungian Type Analysis →
               </Link>
             </div>
           </div>

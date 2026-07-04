@@ -1,0 +1,354 @@
+/* ============================================================================
+   ARCHRON — Navigation System (Phase 36 · Design Phase 16)
+   ----------------------------------------------------------------------------
+   อ้างอิง: SYMBOLS.md §5 Universal Interaction Symbols · VOS.md §06 Layout Engine
+   - Tabs, Breadcrumbs, Pagination, Sidebar Nav, Step Indicators, Back Link
+   ============================================================================ */
+
+/* ---- Tabs ---- */
+.archron-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--color-slate-boundary);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.archron-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.archron-tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.archron-tab:hover {
+  color: var(--color-ivory);
+}
+
+.archron-tab::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: transparent;
+  transition: background 0.2s ease;
+}
+
+.archron-tab[aria-selected="true"],
+.archron-tab.active {
+  color: var(--color-burnished-gold);
+}
+
+.archron-tab[aria-selected="true"]::after,
+.archron-tab.active::after {
+  background: var(--color-burnished-gold);
+}
+
+.archron-tab-count {
+  font-size: 0.625rem;
+  padding: 0.125rem 0.375rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-muted);
+  font-weight: 600;
+}
+
+.archron-tab[aria-selected="true"] .archron-tab-count {
+  background: rgba(199, 154, 74, 0.15);
+  color: var(--color-burnished-gold);
+}
+
+/* ---- Breadcrumbs ---- */
+.archron-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  color: var(--color-muted);
+}
+
+.archron-breadcrumb-item {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.archron-breadcrumb-link {
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.archron-breadcrumb-link:hover {
+  color: var(--color-burnished-gold);
+}
+
+.archron-breadcrumb-separator {
+  color: var(--color-slate-boundary);
+  user-select: none;
+}
+
+.archron-breadcrumb-current {
+  color: var(--color-ivory);
+  font-weight: 500;
+}
+
+/* ---- Pagination ---- */
+.archron-pagination {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.archron-page-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.archron-page-btn:hover {
+  color: var(--color-ivory);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.archron-page-btn[aria-current="page"],
+.archron-page-btn.active {
+  color: var(--color-burnished-gold);
+  border-color: var(--color-burnished-gold);
+  background: rgba(199, 154, 74, 0.1);
+}
+
+.archron-page-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.archron-page-ellipsis {
+  color: var(--color-slate-boundary);
+  user-select: none;
+  padding: 0 0.25rem;
+}
+
+/* ---- Sidebar Nav ---- */
+.archron-sidenav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.archron-sidenav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--color-muted);
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.archron-sidenav-item:hover {
+  color: var(--color-ivory);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.archron-sidenav-item.active {
+  color: var(--color-burnished-gold);
+  background: rgba(199, 154, 74, 0.08);
+}
+
+.archron-sidenav-item .material-symbols-rounded {
+  font-size: 1.25rem;
+}
+
+/* ---- Step Indicator ---- */
+.archron-steps {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.archron-step {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.archron-step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid var(--color-slate-boundary);
+  color: var(--color-muted);
+  background: transparent;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.archron-step.active .archron-step-number {
+  border-color: var(--color-burnished-gold);
+  color: var(--color-burnished-gold);
+  background: rgba(199, 154, 74, 0.1);
+}
+
+.archron-step.completed .archron-step-number {
+  border-color: var(--color-burnished-gold);
+  color: var(--color-prima);
+  background: var(--color-burnished-gold);
+}
+
+.archron-step-label {
+  font-size: 0.8125rem;
+  color: var(--color-muted);
+}
+
+.archron-step.active .archron-step-label {
+  color: var(--color-ivory);
+}
+
+.archron-step.completed .archron-step-label {
+  color: var(--color-soft-ivory);
+}
+
+.archron-step-connector {
+  flex: 1;
+  height: 1px;
+  background: var(--color-slate-boundary);
+  margin: 0 0.5rem;
+  min-width: 1.5rem;
+}
+
+.archron-step.completed + .archron-step-connector {
+  background: var(--color-burnished-gold);
+}
+
+/* ---- Back Link ---- */
+.archron-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.archron-back:hover {
+  color: var(--color-burnished-gold);
+}
+
+.archron-back .material-symbols-rounded {
+  font-size: 1.125rem;
+  transition: transform 0.2s ease;
+}
+
+.archron-back:hover .material-symbols-rounded {
+  transform: translateX(-2px);
+}
+
+/* ---- Pill Navigation (Horizontal) ---- */
+.archron-pill-nav {
+  display: flex;
+  gap: 0.25rem;
+  background: var(--color-surface-container-low);
+  padding: 0.25rem;
+  border-radius: 8px;
+}
+
+.archron-pill {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-muted);
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.archron-pill:hover {
+  color: var(--color-ivory);
+}
+
+.archron-pill.active {
+  color: var(--color-burnished-gold);
+  background: var(--color-surface-container);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* ---- Mobile Bottom Tabbar ---- */
+.archron-tabbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 56px;
+  background: rgba(8, 11, 22, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  z-index: 50;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+@media (min-width: 1025px) {
+  .archron-tabbar {
+    display: none;
+  }
+}
+
+.archron-tabbar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.125rem;
+  padding: 0.375rem 0.75rem;
+  color: var(--color-muted);
+  text-decoration: none;
+  font-size: 0.625rem;
+  transition: color 0.2s ease;
+}
+
+.archron-tabbar-item.active {
+  color: var(--color-burnished-gold);
+}
+
+.archron-tabbar-item .material-symbols-rounded {
+  font-size: 1.375rem;
+}

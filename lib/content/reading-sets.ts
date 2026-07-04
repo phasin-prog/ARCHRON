@@ -69,3 +69,12 @@ export const READING_SETS: ReadingSetItem[] = [
     ],
   },
 ];
+
+export function getReadingSetBySlug(slug: string): ReadingSetItem | undefined {
+  return READING_SETS.find((s) => s.slug === slug);
+}
+
+export function calculateReadingSetEstimatedMinutes(set: ReadingSetItem): number {
+  return (set.steps?.length ?? 0) * 8;
+}
+

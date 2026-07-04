@@ -94,6 +94,7 @@ export type ContentEntry = {
   languageRoot?: string;
   ipa?: string;
   shortDescription?: string;
+  subtitle?: string;
 
   // Framework / Theory
   framework?: string;
@@ -117,4 +118,8 @@ export type ContentEntry = {
   coverImage?: string;
   r2ContentKey?: string;
   r2ContentUrl?: string;
+  rowId?: string;
+  rowI?: number;
+  rowCode?: string;
+  rowName?: string;
 };

@@ -130,32 +130,33 @@ export default function StudioEditorPage() {
     return () => { active = false; };
   }, [userId]);
 
-  // โหลดเนื้อหาเดิมถ้ามี ?slug=
+  // โหลดเนื้อหาเดิมถ้ามี ?slug= หรือสร้าง UUID ใหม่
   useEffect(() => {
     const slug =
       typeof window !== "undefined"
         ? new URLSearchParams(window.location.search).get("slug")
         : null;
-    if (!slug) return;
-    let active = true;
-    setLoadingDraft(true);
-    (async () => {
-      try {
-        const { draft: loaded } = await loadDraftAction(slug);
-        if (active && loaded) {
-          setDraft(loaded);
+    if (slug) {
+      let active = true;
+      setLoadingDraft(true);
+      (async () => {
+        try {
+          const { draft: loaded } = await loadDraftAction(slug);
+          if (active && loaded) {
+            setDraft(loaded);
+          }
+        } catch (err) {
+          if (active) {
+            showError(`โหลดเนื้อหาไม่สำเร็จ: ${err instanceof Error ? err.message : "ข้อผิดพลาดไม่ทราบสาเหตุ"}`);
+          }
+        } finally {
+          if (active) setLoadingDraft(false);
         }
-      } catch (err) {
-        if (active) {
-          showError(`โหลดเนื้อหาไม่สำเร็จ: ${err instanceof Error ? err.message : "ข้อผิดพลาดไม่ทราบสาเหตุ"}`);
-        }
-      } finally {
-        if (active) setLoadingDraft(false);
-      }
-    })();
-    return () => {
-      active = false;
-    };
+      })();
+      return () => { active = false; };
+    }
+    // บทความใหม่ — สร้าง UUID ทันที
+    setDraft((d) => ({ ...d, id: crypto.randomUUID() }));
   }, []);
 
   function set<K extends keyof EditorDraft>(key: K, value: EditorDraft[K]) {
@@ -432,6 +433,7 @@ export default function StudioEditorPage() {
               value={draft.coverImage}
               onChange={(url) => set("coverImage", url)}
               onRemove={() => set("coverImage", "")}
+              entryId={draft.id || undefined}
             />
           </section>
 

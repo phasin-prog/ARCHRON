@@ -1,0 +1,241 @@
+/* ============================================================================
+   ARCHRON Layout System — Phase 07
+   ----------------------------------------------------------------------------
+   โครงสร้างหน้าจอ: 8 archetypes + section patterns
+   อ้างอิง: VOS.md §17 Layout Archetypes · AES.md §13 Layout Width
+   ============================================================================ */
+
+/* ---- Layout Tokens ---- */
+:root {
+  /* Width Rules (AES.md §13) */
+  --width-reading: 760px;        /* หน้าอ่านบทความ */
+  --width-reference: 980px;      /* หน้าอ้างอิง/สารบัญ */
+  --width-studio: 1280px;        /* หน้า Studio/ตัวเขียน */
+  --width-dashboard: 1440px;     /* หน้า Dashboard/ควบคุม */
+
+  /* Content Zones */
+  --zone-primary: 1fr;
+  --zone-secondary: 320px;
+  --zone-tertiary: 240px;
+}
+
+/* ---- Layout Base ---- */
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-main {
+  flex: 1;
+  width: 100%;
+}
+
+/* ---- Reading Layout (760px) ---- */
+.layout-reading {
+  max-width: var(--width-reading);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 var(--margin-mobile);
+}
+
+@media (min-width: 768px) {
+  .layout-reading {
+    padding: 0 var(--margin-tablet);
+  }
+}
+
+/* ---- Reference Layout (980px) ---- */
+.layout-reference {
+  max-width: var(--width-reference);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 var(--margin-mobile);
+}
+
+@media (min-width: 768px) {
+  .layout-reference {
+    padding: 0 var(--margin-tablet);
+  }
+}
+
+/* ---- Studio Layout (1280px) ---- */
+.layout-studio {
+  max-width: var(--width-studio);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 var(--margin-desktop);
+}
+
+/* ---- Dashboard Layout (1440px) ---- */
+.layout-dashboard {
+  max-width: var(--width-dashboard);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 var(--margin-wide);
+}
+
+/* ---- Section Patterns ---- */
+
+/* Hero Section */
+.section-hero {
+  padding: var(--space-9) 0;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .section-hero {
+    padding: var(--space-10) 0;
+  }
+}
+
+/* Content Section */
+.section-content {
+  padding: var(--space-6) 0;
+}
+
+@media (min-width: 768px) {
+  .section-content {
+    padding: var(--space-8) 0;
+  }
+}
+
+/* Sidebar Layout */
+.layout-sidebar {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 1024px) {
+  .layout-sidebar {
+    grid-template-columns: 1fr var(--zone-secondary);
+  }
+}
+
+.layout-sidebar-sticky {
+  position: sticky;
+  top: var(--space-6);
+  align-self: start;
+}
+
+/* Footer Section */
+.section-footer {
+  padding: var(--space-8) 0;
+  border-top: 1px solid var(--color-slate-boundary);
+}
+
+/* ---- Page Templates ---- */
+
+/* Article Layout */
+.template-article {
+  max-width: var(--width-reading);
+  margin: 0 auto;
+}
+
+/* Thinker Layout */
+.template-thinker {
+  max-width: var(--width-reference);
+  margin: 0 auto;
+}
+
+/* Concept Layout */
+.template-concept {
+  max-width: var(--width-reading);
+  margin: 0 auto;
+}
+
+/* Book Layout */
+.template-book {
+  max-width: var(--width-reference);
+  margin: 0 auto;
+}
+
+/* Timeline Layout */
+.template-timeline {
+  max-width: var(--width-dashboard);
+  margin: 0 auto;
+}
+
+/* Search Layout */
+.template-search {
+  max-width: var(--width-reference);
+  margin: 0 auto;
+}
+
+/* Studio Layout */
+.template-studio {
+  max-width: var(--width-studio);
+  margin: 0 auto;
+}
+
+/* Dashboard Layout */
+.template-dashboard {
+  max-width: var(--width-dashboard);
+  margin: 0 auto;
+}
+
+/* ---- Content Zones ---- */
+.zone-primary {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 1024px) {
+  .zone-primary {
+    grid-column: 1 / 9;
+  }
+  .zone-secondary {
+    grid-column: 9 / 13;
+  }
+}
+
+@media (min-width: 1280px) {
+  .zone-primary {
+    grid-column: 1 / 10;
+  }
+  .zone-secondary {
+    grid-column: 10 / 13;
+  }
+  .zone-tertiary {
+    grid-column: 1 / 4;
+  }
+}
+
+/* ---- Sidebar Rules ---- */
+.sidebar {
+  position: sticky;
+  top: var(--space-6);
+  max-height: calc(100vh - var(--space-9));
+  overflow-y: auto;
+}
+
+.sidebar-collapsed {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .sidebar-collapsed {
+    display: block;
+  }
+}
+
+/* ---- Footer Patterns ---- */
+.footer-minimal {
+  padding: var(--space-6) 0;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+.footer-full {
+  padding: var(--space-8) 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .footer-full {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

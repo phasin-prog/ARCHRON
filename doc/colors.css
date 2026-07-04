@@ -1,0 +1,217 @@
+/* ============================================================================
+   ARCHRON Color Cosmology — Phase 04
+   ----------------------------------------------------------------------------
+   Semantic Color System + Dynamic Color
+   อ้างอิง: VOS.md §05 · AGENT-HANDOFF §12 · AES.md §12 · EDS.md §11
+   ============================================================================ */
+
+/* ---- Core Palette (VOS.md §05 Base Palette) ---- */
+:root {
+  /* Canvas: โทนสีเข้มลุ่มลึกสำหรับพื้นหลังหลัก */
+  --color-canvas: #080B16;          /* Deep Navy: หินค่ำคืน */
+
+  /* Warm Ivory: สีงาช้างอบอุ่นสำหรับตัวอักษรหลัก */
+  --color-ivory-warm: #F4F1EA;      /* Humanitas */
+
+  /* Paper / Stone: สีของผิวกระดาษและหินคลาสสิก */
+  --color-paper-stone: #121826;     /* Midnight Blue */
+  --color-paper-stone-light: #1C2335;
+
+  /* Graphite: สีเทาเข้มขรึมสำหรับเส้นแบ่งเขตและเงา */
+  --color-graphite: #2C3852;        /* Slate Boundary */
+}
+
+/* ---- Domain Accents (VOS.md §05 Dynamic Domain Accents) ---- */
+:root {
+  /* 9 สาขาวิชาความรู้ */
+  --color-domain-psychology: #7B6B8D;    /* Royal Violet: ม่วงราชสำนัก */
+  --color-domain-philosophy: #4A5A8A;    /* Indigo: ครามลุ่มลึก */
+  --color-domain-history: #8B7355;       /* Bronze: สำริดโบราณ */
+  --color-domain-religion: #8B3A3A;      /* Crimson: แดงชาด */
+  --color-domain-mythology: #B8860B;     /* Amber: อำพันเรืองรอง */
+  --color-domain-anthropology: #A0522D;  /* Terracotta: ดินเผา */
+  --color-domain-linguistics: #2E8B57;   /* Emerald: มรกต */
+  --color-domain-neuroscience: #20B2AA;  /* Cyan: ฟ้าคราม */
+  --color-domain-ai: #4169E1;            /* Azure: ครามสว่าง */
+}
+
+/* ---- State Colors ---- */
+:root {
+  --color-state-hover: color-mix(in srgb, var(--cosmology-accent) 90%, white);
+  --color-state-active: color-mix(in srgb, var(--cosmology-accent) 80%, black);
+  --color-state-focus: var(--color-gold);
+  --color-state-disabled: rgba(138, 143, 152, 0.4);
+  --color-state-success: #7FB08A;
+  --color-state-warning: #D8B56A;
+  --color-state-danger: #C9776A;
+  --color-state-info: #6E93A8;
+}
+
+/* ---- Bridge Colors (AGENT-HANDOFF §12) ---- */
+:root {
+  /* 6 สีผสมข้ามศาสตร์ */
+  --color-bridge-reflection: #8B7355;    /* reflection: สำริด + คราม */
+  --color-bridge-threshold: #6E93A8;     /* threshold: น้ำลึก + แสง */
+  --color-bridge-illumination: #C79A4A;  /* illumination: ทอง + แสง */
+  --color-bridge-dialogue: #4A5A8A;      /* dialogue: คราม + ม่วง */
+  --color-bridge-praxis: #2E8B57;        /* praxis: มรกต + เขียว */
+  --color-bridge-manuscript: #8B3A3A;    /* manuscript: แดงชาด + ทอง */
+}
+
+/* ---- Dynamic Cosmology Colors ---- */
+:root {
+  --cosmology-accent: #C79A4A;           /* Default: Sapientia */
+  --cosmology-accent-soft: #C79A4A;
+  --surface-tint: color-mix(in srgb, #C79A4A 8%, var(--color-paper-raised));
+  --border-tint: color-mix(in srgb, #C79A4A 32%, var(--color-slate-boundary));
+  --glow-tint: #C79A4A;
+}
+
+/* ---- Cosmology Variants (route-based) ---- */
+:root[data-cosmology="prima"] {
+  --cosmology-accent: #8A8F98;
+  --cosmology-accent-soft: color-mix(in srgb, #8A8F98 70%, transparent);
+  --surface-tint: color-mix(in srgb, #8A8F98 7%, var(--color-paper-raised));
+  --border-tint: color-mix(in srgb, #8A8F98 30%, var(--color-slate-boundary));
+  --glow-tint: #8A8F98;
+}
+
+:root[data-cosmology="psyche"] {
+  --cosmology-accent: #6E93A8;
+  --cosmology-accent-soft: color-mix(in srgb, #6E93A8 70%, transparent);
+  --surface-tint: color-mix(in srgb, #6E93A8 9%, var(--color-paper-raised));
+  --border-tint: color-mix(in srgb, #6E93A8 32%, var(--color-slate-boundary));
+  --glow-tint: #6E93A8;
+}
+
+:root[data-cosmology="lumen"] {
+  --cosmology-accent: #E7D7A6;
+  --cosmology-accent-soft: color-mix(in srgb, #E7D7A6 70%, transparent);
+  --surface-tint: color-mix(in srgb, #E7D7A6 8%, var(--color-paper-raised));
+  --border-tint: color-mix(in srgb, #E7D7A6 34%, var(--color-slate-boundary));
+  --glow-tint: #E7D7A6;
+}
+
+:root[data-cosmology="sapientia"] {
+  --cosmology-accent: #C79A4A;
+  --cosmology-accent-soft: color-mix(in srgb, #C79A4A 70%, transparent);
+  --surface-tint: color-mix(in srgb, #C79A4A 8%, var(--color-paper-raised));
+  --border-tint: color-mix(in srgb, #C79A4A 34%, var(--color-slate-boundary));
+  --glow-tint: #C79A4A;
+}
+
+:root[data-cosmology="mercurius"] {
+  --cosmology-accent: #8AA395;
+  --cosmology-accent-soft: color-mix(in srgb, #8AA395 70%, transparent);
+  --surface-tint: color-mix(in srgb, #8AA395 8%, var(--color-paper-raised));
+  --border-tint: color-mix(in srgb, #8AA395 32%, var(--color-slate-boundary));
+  --glow-tint: #8AA395;
+}
+
+:root[data-cosmology="humanitas"] {
+  --cosmology-accent: #F4F1EA;
+  --cosmology-accent-soft: color-mix(in srgb, #F4F1EA 70%, transparent);
+  --surface-tint: color-mix(in srgb, #F4F1EA 7%, var(--color-paper-raised));
+  --border-tint: color-mix(in srgb, #F4F1EA 30%, var(--color-slate-boundary));
+  --glow-tint: #F4F1EA;
+}
+
+/* ---- Domain-Specific Cosmology ---- */
+:root[data-cosmology="psychology"] {
+  --cosmology-accent: #7B6B8D;
+  --cosmology-accent-soft: color-mix(in srgb, #7B6B8D 70%, transparent);
+  --surface-tint: color-mix(in srgb, #7B6B8D 8%, var(--color-paper-raised));
+  --border-tint: color-mix(in srgb, #7B6B8D 32%, var(--color-slate-boundary));
+  --glow-tint: #7B6B8D;
+}
+
+:root[data-cosmology="philosophy"] {
+  --cosmology-accent: #4A5A8A;
+  --cosmology-accent-soft: color-mix(in srgb, #4A5A8A 70%, transparent);
+  --surface-tint: color-mix(in srgb, #4A5A8A 8%, var(--color-paper-raised));
+  --border-tint: color-mix(in srgb, #4A5A8A 32%, var(--color-slate-boundary));
+  --glow-tint: #4A5A8A;
+}
+
+:root[data-cosmology="history"] {
+  --cosmology-accent: #8B7355;
+  --cosmology-accent-soft: color-mix(in srgb, #8B7355 70%, transparent);
+  --surface-tint: color-mix(in srgb, #8B7355 8%, var(--color-paper-raised));
+  --border-tint: color-mix(in srgb, #8B7355 32%, var(--color-slate-boundary));
+  --glow-tint: #8B7355;
+}
+
+:root[data-cosmology="religion"] {
+  --cosmology-accent: #8B3A3A;
+  --cosmology-accent-soft: color-mix(in srgb, #8B3A3A 70%, transparent);
+  --surface-tint: color-mix(in srgb, #8B3A3A 8%, var(--color-paper-raised));
+  --border-tint: color-mix(in srgb, #8B3A3A 32%, var(--color-slate-boundary));
+  --glow-tint: #8B3A3A;
+}
+
+:root[data-cosmology="mythology"] {
+  --cosmology-accent: #B8860B;
+  --cosmology-accent-soft: color-mix(in srgb, #B8860B 70%, transparent);
+  --surface-tint: color-mix(in srgb, #B8860B 8%, var(--color-paper-raised));
+  --border-tint: color-mix(in srgb, #B8860B 32%, var(--color-slate-boundary));
+  --glow-tint: #B8860B;
+}
+
+:root[data-cosmology="anthropology"] {
+  --cosmology-accent: #A0522D;
+  --cosmology-accent-soft: color-mix(in srgb, #A0522D 70%, transparent);
+  --surface-tint: color-mix(in srgb, #A0522D 8%, var(--color-paper-raised));
+  --border-tint: color-mix(in srgb, #A0522D 32%, var(--color-slate-boundary));
+  --glow-tint: #A0522D;
+}
+
+:root[data-cosmology="linguistics"] {
+  --cosmology-accent: #2E8B57;
+  --cosmology-accent-soft: color-mix(in srgb, #2E8B57 70%, transparent);
+  --surface-tint: color-mix(in srgb, #2E8B57 8%, var(--color-paper-raised));
+  --border-tint: color-mix(in srgb, #2E8B57 32%, var(--color-slate-boundary));
+  --glow-tint: #2E8B57;
+}
+
+:root[data-cosmology="neuroscience"] {
+  --cosmology-accent: #20B2AA;
+  --cosmology-accent-soft: color-mix(in srgb, #20B2AA 70%, transparent);
+  --surface-tint: color-mix(in srgb, #20B2AA 8%, var(--color-paper-raised));
+  --border-tint: color-mix(in srgb, #20B2AA 32%, var(--color-slate-boundary));
+  --glow-tint: #20B2AA;
+}
+
+:root[data-cosmology="ai"] {
+  --cosmology-accent: #4169E1;
+  --cosmology-accent-soft: color-mix(in srgb, #4169E1 70%, transparent);
+  --surface-tint: color-mix(in srgb, #4169E1 8%, var(--color-paper-raised));
+  --border-tint: color-mix(in srgb, #4169E1 32%, var(--color-slate-boundary));
+  --glow-tint: #4169E1;
+}
+
+/* ---- Color Transition (when changing routes) ---- */
+:root {
+  transition:
+    --cosmology-accent 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+    --surface-tint 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+    --border-tint 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---- @property for color transitions ---- */
+@property --cosmology-accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #C79A4A;
+}
+
+@property --surface-tint {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #182033;
+}
+
+@property --border-tint {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #2C3852;
+}

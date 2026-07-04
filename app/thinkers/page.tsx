@@ -37,8 +37,9 @@ export default async function ThinkersPage() {
       ]}
       ambient
       navCurrent="/schools"
+      className="atmo-base atmo-biography"
     >
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="texture-parchment texture-glow-gold relative mx-auto max-w-6xl px-6">
         <ThinkersHub thinkers={thinkers} />
       </div>
     </PageScaffold>

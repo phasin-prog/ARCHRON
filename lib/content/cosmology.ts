@@ -20,6 +20,17 @@ export const COSMOLOGY_ACCENT: Record<Cosmology, string> = {
   humanitas: "#C9C2B4", // Humanitas (มานุษยวิทยา/วัฒนธรรม — สว่างนวลบนพื้นมืด)
 };
 
+export type CosmologyKey = Cosmology;
+
+export const COSMOLOGY_KEYS: Record<CosmologyKey, { label: string; accent: string }> = {
+  prima: { label: "Prima Materia", accent: COSMOLOGY_ACCENT.prima },
+  psyche: { label: "Psyche", accent: COSMOLOGY_ACCENT.psyche },
+  lumen: { label: "Lumen", accent: COSMOLOGY_ACCENT.lumen },
+  sapientia: { label: "Sapientia", accent: COSMOLOGY_ACCENT.sapientia },
+  mercurius: { label: "Mercurius", accent: COSMOLOGY_ACCENT.mercurius },
+  humanitas: { label: "Humanitas", accent: COSMOLOGY_ACCENT.humanitas },
+};
+
 const DEFAULT_COSMOLOGY: Cosmology = "sapientia";
 const DEFAULT_ACCENT = COSMOLOGY_ACCENT[DEFAULT_COSMOLOGY]; // Sapientia (หน้าแรก/ทั่วไป)
 

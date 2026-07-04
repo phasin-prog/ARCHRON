@@ -62,7 +62,7 @@ export default async function SchoolDetailPage({ params }: PageProps) {
   );
 
   return (
-    <main className="px-6 pb-24 pt-10">
+    <main className="atmo-base atmo-temple px-6 pb-24 pt-10">
       <div className="mx-auto max-w-[900px]">
         {/* Breadcrumb */}
         <nav aria-label="เส้นทางนำทาง" className="flex flex-wrap items-center gap-1 text-xs text-muted">
@@ -123,6 +123,69 @@ export default async function SchoolDetailPage({ params }: PageProps) {
             </ReactMarkdown>
           </div>
         </section>
+
+        {/* Key Ideas Section */}
+        {s.keyIdeas && s.keyIdeas.length > 0 && (
+          <section className="mt-12">
+            <h2 className="font-serif text-2xl font-semibold text-ivory border-b border-slate-boundary/20 pb-3">
+              แนวคิดสำคัญ
+            </h2>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {s.keyIdeas.map((idea, idx) => (
+                <div
+                  key={idx}
+                  className="archron-panel p-4 border-l-4"
+                  style={{ borderLeftColor: meta.accent }}
+                >
+                  <h3 className="font-serif text-base font-medium text-on-surface">
+                    {idea.title}
+                  </h3>
+                  {idea.description && (
+                    <p className="mt-2 text-sm text-on-surface-variant/70 leading-relaxed">
+                      {idea.description}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Timeline Section */}
+        {s.timeline && s.timeline.length > 0 && (
+          <section className="mt-12">
+            <h2 className="font-serif text-2xl font-semibold text-ivory border-b border-slate-boundary/20 pb-3">
+              เส้นเวลาพัฒนาการ
+            </h2>
+            <div className="mt-6 relative">
+              {/* Vertical Line */}
+              <div className="absolute left-4 top-0 bottom-0 w-px bg-slate-boundary/30" />
+              
+              <div className="space-y-6">
+                {s.timeline.map((event, idx) => (
+                  <div key={idx} className="relative pl-10">
+                    {/* Dot */}
+                    <div className="absolute left-2.5 top-1.5 h-3 w-3 rounded-full border-2 border-burnished-gold bg-deep-navy" />
+                    
+                    <div className="archron-panel p-4">
+                      <span className="text-xs font-semibold text-burnished-gold/80">
+                        {event.year}
+                      </span>
+                      <h3 className="mt-1 font-serif text-base font-medium text-on-surface">
+                        {event.title}
+                      </h3>
+                      {event.description && (
+                        <p className="mt-2 text-sm text-on-surface-variant/70 leading-relaxed">
+                          {event.description}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Thinkers List */}
         <section className="mt-16">
@@ -205,6 +268,63 @@ export default async function SchoolDetailPage({ params }: PageProps) {
             </div>
           )}
         </section>
+
+        {/* Related Schools */}
+        {(() => {
+          const relatedSchools = schools
+            .filter((other) => {
+              if (other.id === s.id) return false;
+              // Check if same field or mentioned in description
+              return (
+                other.field === s.field ||
+                s.description?.includes(other.nameEn) ||
+                other.description?.includes(s.nameEn)
+              );
+            })
+            .slice(0, 3);
+          
+          if (relatedSchools.length === 0) return null;
+          
+          return (
+            <section className="mt-16">
+              <h2 className="font-serif text-2xl font-semibold text-ivory border-b border-slate-boundary/20 pb-3">
+                สำนักคิดที่เกี่ยวข้อง
+              </h2>
+              <div className="mt-6 grid gap-4 sm:grid-cols-3">
+                {relatedSchools.map((other) => {
+                  const otherMeta = disciplineMeta(other.field);
+                  return (
+                    <Link
+                      key={other.id}
+                      href={`/schools/${other.id}`}
+                      className="archron-card p-4 transition-all hover:border-burnished-gold/45"
+                    >
+                      <div className="flex items-center gap-2 mb-2">
+                        <span
+                          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md"
+                          style={{ backgroundColor: `${otherMeta.accent}1a`, color: otherMeta.accent }}
+                        >
+                          <otherMeta.Icon className="h-5 w-5" />
+                        </span>
+                        <div>
+                          <h3 className="font-serif text-base font-medium text-on-surface hover:text-burnished-gold">
+                            {other.nameTh}
+                          </h3>
+                          <p className="text-[10px] text-on-surface-variant/50">
+                            {other.nameEn}
+                          </p>
+                        </div>
+                      </div>
+                      <p className="text-xs text-on-surface-variant/60 line-clamp-2">
+                        {other.description}
+                      </p>
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
+          );
+        })()}
       </div>
     </main>
   );

@@ -1,34 +1,41 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageScaffold } from "@/components/page-scaffold";
 import { getPublicEntries } from "@/lib/content/public-source";
+import { conceptRegistry } from "@/lib/content/concept-registry";
+import { getPublicSchools } from "@/lib/content/public-source";
 import { DiscoverGrid } from "@/components/discover/discover-grid";
 
 export const metadata: Metadata = {
-  title: "ค้นพบความรู้เชิงลึก — ARCHRON",
+  title: "ค้นพบ — ARCHRON",
   description:
-    "ศูนย์รวมการค้นพบความรู้ (Faceted Discovery Portal) คัดกรองตามสาขาวิชา ระดับความลึกซึ้ง และต้นฉบับแนวคิด",
+    "สำรวจและค้นพบเนื้อหาใน ARCHRON ตามหมวดหมู่ แขนงวิชา และหัวข้อที่น่าสนใจ",
 };
 
 export const revalidate = 300;
 
 export default async function DiscoverPage() {
-  const entries = await getPublicEntries();
+  const published = await getPublicEntries();
+  const schools = await getPublicSchools();
 
   return (
     <PageScaffold
       breadcrumb={[
         { label: "หน้าแรก", href: "/" },
-        { label: "คลังความรู้", href: "/knowledge" },
-        { label: "ศูนย์รวมการค้นพบ" },
+        { label: "ค้นพบ" },
       ]}
-      kicker="DISCOVERY PORTAL"
-      title="ค้นพบมโนทัศน์และงานเขียน"
-      lead="สำรวจคลังความรู้ตามมิติสาขาวิชา ระดับความลึกซึ้งในการอ่าน และรหัสพันธุกรรมความรู้ (EDS 6-Layer Genome)"
+      kicker="DISCOVER"
+      title="ค้นพบ ARCHRON"
+      lead="สำรวจเนื้อหาตามหมวดหมู่ แขนงวิชา และหัวข้อที่สนใจ — เริ่มจากสิ่งที่อยากรู้ หรือเดินตามเส้นทางที่แนะนำ"
       ambient
       navCurrent="/discover"
     >
-      <section className="mx-auto max-w-7xl px-6">
-        <DiscoverGrid entries={entries} />
+      <section className="mx-auto max-w-6xl px-6">
+        <DiscoverGrid
+          entries={published}
+          schools={schools}
+          concepts={conceptRegistry}
+        />
       </section>
     </PageScaffold>
   );

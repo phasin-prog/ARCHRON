@@ -18,6 +18,8 @@ export type GraphNode = {
   inbound: number; // ลิงก์ขาเข้า (กฎ hub)
   degree: number; // in + out (กำหนดขนาด)
   isHub: boolean; // inbound > 6
+  clusterGroup?: string; // กลุ่มคลัสเตอร์ตาม Framework / Discipline
+  centralityScore?: number; // คะแนนความเป็นศูนย์กลาง (0-1)
 };
 
 export type GraphEdge = {
@@ -137,7 +139,15 @@ export function buildGraph(entries: ContentEntry[]): GraphData {
       t.inbound += 1;
     }
   }
-  for (const n of nodes.values()) n.isHub = n.inbound > HUB_THRESHOLD;
+  let maxDegree = 1;
+  for (const n of nodes.values()) {
+    if (n.degree > maxDegree) maxDegree = n.degree;
+  }
+  for (const n of nodes.values()) {
+    n.isHub = n.inbound > HUB_THRESHOLD;
+    n.centralityScore = Number((n.degree / maxDegree).toFixed(3));
+    n.clusterGroup = n.framework ?? n.nodeType ?? "general";
+  }
 
   return { nodes: [...nodes.values()], edges };
 }

@@ -1,0 +1,255 @@
+/* ============================================================================
+   ARCHRON — Motion System (Phase 29)
+   ----------------------------------------------------------------------------
+   อ้างอิง: VOS.md §11 Motion Engine · PRD §17 Animation Requirements
+   - Easing Curves: standard, enter, exit
+   - Duration Scale: Short 150ms, Normal 300ms, Long 500ms+
+   - Motion Types: Fade, Slide, Expand/Collapse, Scale, Float, Orbit, Reveal
+   - Reduced Motion: เคารพ prefers-reduced-motion → เปลี่ยนเป็น Fade
+   ============================================================================ */
+
+/* ---- Easing Curves ---- */
+:root {
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-enter: cubic-bezier(0, 0, 0.2, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --ease-soft: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-out: cubic-bezier(0, 0, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ---- Duration Scale ---- */
+  --dur-fast: 150ms;
+  --dur-normal: 250ms;
+  --dur-slow: 400ms;
+  --dur-slower: 600ms;
+}
+
+/* ---- Base Transition Utility ---- */
+.transition-archron {
+  transition-property: color, background-color, border-color, opacity, transform;
+  transition-timing-function: var(--ease-standard);
+  transition-duration: var(--dur-normal);
+}
+
+/* ---- Fade Animations ---- */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.animate-fade-in {
+  animation: fade-in var(--dur-normal) var(--ease-enter) both;
+}
+
+.animate-fade-out {
+  animation: fade-out var(--dur-normal) var(--ease-exit) both;
+}
+
+/* ---- Slide Animations ---- */
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-left {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-right {
+  from { opacity: 0; transform: translateX(-12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.animate-slide-up {
+  animation: slide-up var(--dur-slow) var(--ease-enter) both;
+}
+
+.animate-slide-down {
+  animation: slide-down var(--dur-slow) var(--ease-enter) both;
+}
+
+.animate-slide-left {
+  animation: slide-left var(--dur-slow) var(--ease-enter) both;
+}
+
+.animate-slide-right {
+  animation: slide-right var(--dur-slow) var(--ease-enter) both;
+}
+
+/* ---- Scale Animation ---- */
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes scale-out {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.95); }
+}
+
+.animate-scale-in {
+  animation: scale-in var(--dur-normal) var(--ease-enter) both;
+}
+
+.animate-scale-out {
+  animation: scale-out var(--dur-normal) var(--ease-exit) both;
+}
+
+/* ---- Expand/Collapse ---- */
+@keyframes expand {
+  from { opacity: 0; max-height: 0; }
+  to { opacity: 1; max-height: 500px; }
+}
+
+@keyframes collapse {
+  from { opacity: 1; max-height: 500px; }
+  to { opacity: 0; max-height: 0; }
+}
+
+.animate-expand {
+  animation: expand var(--dur-slow) var(--ease-standard) both;
+  overflow: hidden;
+}
+
+.animate-collapse {
+  animation: collapse var(--dur-slow) var(--ease-standard) both;
+  overflow: hidden;
+}
+
+/* ---- Float Animation (for ambient elements) ---- */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-float {
+  animation: float 6s var(--ease-in-out) infinite;
+}
+
+/* ---- Orbit Animation (for constellation/graph) ---- */
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(8px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(8px) rotate(-360deg); }
+}
+
+.animate-orbit {
+  animation: orbit 12s linear infinite;
+}
+
+/* ---- Pulse (for loading/ambient) ---- */
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2s var(--ease-in-out) infinite;
+}
+
+/* ---- Shimmer (for skeleton loading) ---- */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-container) 25%,
+    var(--color-surface-container-low) 50%,
+    var(--color-surface-container) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* ---- Scroll Reveal (IntersectionObserver driven) ---- */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity var(--dur-slow) var(--ease-enter),
+              transform var(--dur-slow) var(--ease-enter);
+}
+
+.scroll-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- Route Fade (page transitions via template.tsx) ---- */
+.route-fade-enter {
+  opacity: 0;
+}
+
+.route-fade-enter-active {
+  opacity: 1;
+  transition: opacity var(--dur-normal) var(--ease-enter);
+}
+
+.route-fade-exit {
+  opacity: 1;
+}
+
+.route-fade-exit-active {
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-exit);
+}
+
+/* ---- Stagger Children (for lists/grids) ---- */
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: slide-up var(--dur-slow) var(--ease-enter) both;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 50ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 100ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 150ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 200ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 250ms; }
+.stagger-children > *:nth-child(7) { animation-delay: 300ms; }
+.stagger-children > *:nth-child(8) { animation-delay: 350ms; }
+
+/* ============================================================================
+   REDUCED MOTION — เคารพ prefers-reduced-motion
+   ผู้ใช้ที่เปิด Reduced Motion จะเห็นเฉพาะ Fade แทน Motion ทั้งหมด
+   ============================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .scroll-reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .animate-float,
+  .animate-orbit {
+    animation: none;
+  }
+
+  .stagger-children > * {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}

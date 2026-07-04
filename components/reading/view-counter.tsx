@@ -7,7 +7,7 @@ import { recordView } from "@/components/recently-viewed";
 
 // ตัวนับผู้เยี่ยมชมต่อบทความ — เพิ่ม +1 ครั้งเดียวต่อ session ต่อ slug
 // ใช้ anon client (ไม่ต้องล็อกอิน) · ถ้าตาราง/RPC ยังไม่พร้อม จะซ่อนตัวเองอย่างนุ่มนวล
-export function ViewCounter({ slug, title, section }: { slug: string; title: string; section: "articles" | "concepts" }) {
+export function ViewCounter({ slug, title, section }: { slug: string; title: string; section: "articles" | "concepts" | "books" }) {
   const [views, setViews] = useState<number | null>(null);
 
   useEffect(() => {

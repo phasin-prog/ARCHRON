@@ -33,8 +33,8 @@ export function ExploreHub({ entries }: { entries: ContentEntry[] }) {
     
     if (activeTab === "latest") {
       return [...entries].sort((a, b) => {
-        const da = a.updatedAt || a.createdAt || "";
-        const db = b.updatedAt || b.createdAt || "";
+        const da = a.updatedAt || a.publishedAt || "";
+        const db = b.updatedAt || b.publishedAt || "";
         return db.localeCompare(da);
       });
     }

@@ -19,12 +19,10 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
 
   const q = query.trim().toLowerCase();
 
-  // สถิติรวม
   const totalThinkers = thinkers.length;
   const totalSchools = useMemo(() => new Set(thinkers.map((t) => t.schoolId)).size, [thinkers]);
   const totalFields = useMemo(() => new Set(thinkers.map((t) => t.field).filter(Boolean)).size, [thinkers]);
 
-  // ค้นหารายการทั้งหมดที่มีสำนัก/นักคิดนี้
   const availableLetters = useMemo(() => {
     const set = new Set<string>();
     for (const t of thinkers) {
@@ -34,23 +32,19 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
     return set;
   }, [thinkers]);
 
-  // ตัวกรองหลัก
   const filtered = useMemo(() => {
     return thinkers
       .filter((t) => {
-        // กรองตามหมวดอักษร
         if (letter) {
           const matchTh = t.nameTh.startsWith(letter);
           const matchEn = t.nameEn.toUpperCase().startsWith(letter);
           if (!matchTh && !matchEn) return false;
         }
 
-        // กรองตามศาสตร์
         if (selectedField !== "all" && t.field !== selectedField) {
           return false;
         }
 
-        // กรองตามคำค้นหา
         if (q) {
           const inNameTh = t.nameTh.toLowerCase().includes(q);
           const inNameEn = t.nameEn.toLowerCase().includes(q);
@@ -69,7 +63,6 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
       .sort((a, b) => a.nameTh.localeCompare(b.nameTh, "th"));
   }, [thinkers, letter, selectedField, q]);
 
-  // ดึงรายการศาสตร์ทั้งหมดที่มีนักคิดอยู่ในขณะนี้ เพื่อให้คลิกกรองได้
   const fields = useMemo(() => {
     const set = new Set<SchoolField>();
     for (const t of thinkers) {
@@ -102,7 +95,6 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
 
   return (
     <div className="mt-8 space-y-8">
-      {/* สถิติรวม */}
       <div className="flex flex-wrap gap-3">
         {[
           { n: totalThinkers, l: "นักปราชญ์ทั้งหมด" },
@@ -119,7 +111,6 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
         ))}
       </div>
 
-      {/* ค้นหา */}
       <div className="flex items-center gap-3 rounded-md border border-ink/12 bg-surface-container/60 px-4 py-3 focus-within:border-burnished-gold/40">
         <span className="material-symbols-outlined text-[22px] text-burnished-gold">search</span>
         <input
@@ -141,7 +132,6 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
         ) : null}
       </div>
 
-      {/* กรองตามศาสตร์หลัก */}
       <div className="flex flex-wrap items-center gap-2">
         <span className="text-xs text-on-surface-variant/70 mr-2">ศาสตร์วิชา:</span>
         <button
@@ -180,7 +170,6 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
         })}
       </div>
 
-      {/* A-Z index */}
       <div className="flex flex-wrap items-center gap-1 border-t border-slate-boundary/20 pt-4">
         <button
           type="button"
@@ -198,7 +187,6 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
         {EN_LETTERS.map((ch) => letterBtn(ch))}
       </div>
 
-      {/* Grid ของ "การ์ดนักคิด" */}
       <div>
         {filtered.length === 0 ? (
           <p className="rounded-md border border-ink/10 bg-surface-container/40 p-8 text-center text-sm text-on-surface-variant/60">
@@ -213,52 +201,41 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
                 <Link
                   key={t.nameEn}
                   href={`/thinkers/${thinkerSlug}`}
-                  className="archron-card group relative flex flex-col justify-between overflow-hidden p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-burnished-gold/45"
+                  className="archron-card group relative flex flex-col justify-between overflow-hidden p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-burnished-gold/45 focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
+                  style={{
+                    background: `linear-gradient(135deg, color-mix(in srgb, ${meta.accent} 5%, #141824) 0%, #141824 100%)`,
+                  }}
                 >
-                  {/* แถบสีประจำศาสตร์ */}
-                  <span
-                    aria-hidden
-                    className="absolute inset-y-0 left-0 w-[3px]"
-                    style={{ backgroundColor: meta.accent }}
-                  />
-
                   <div>
-                    <div className="flex items-start justify-between gap-3">
-                      {/* ICON GRID 3D จานรองมุมอสมมาตร */}
-                      <span className="icon-tile" style={{ borderColor: `color-mix(in srgb, ${meta.accent} 26%, var(--color-slate-boundary))` }}>
-                        <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": meta.accent } as React.CSSProperties}>
-                          <use href="/icons/archron-icons.svg#level" />
-                        </svg>
-                      </span>
-                      <span
-                        className="rounded-full border px-2.5 py-0.5 text-[10px] uppercase font-mono tracking-wider"
-                        style={{
-                          color: meta.accent,
-                          borderColor: `${meta.accent}44`,
-                          backgroundColor: `${meta.accent}12`,
-                        }}
-                      >
-                        {meta.label}
-                      </span>
-                    </div>
-
-                    <h2 className="mt-4 font-serif text-xl font-semibold leading-snug text-on-surface group-hover:text-burnished-gold">
+                    <h2 className="font-serif text-2xl font-bold leading-tight text-ivory transition-colors group-hover:text-soft-gold">
                       {t.nameTh}
                     </h2>
-                    <span className="mt-1 block text-xs text-on-surface-variant/50">
-                      {t.nameEn} · {t.era}
-                    </span>
 
-                    <p className="mt-2 block text-xs text-muted">
-                      สำนักคิด:{" "}
-                      <span className="text-soft-ivory group-hover:text-burnished-gold/80 transition-colors">
+                    <div className="mt-1 flex items-center gap-2 text-xs font-mono text-on-surface-variant/55">
+                      <span>{t.nameEn}</span>
+                      <span aria-hidden>·</span>
+                      <span>{t.era}</span>
+                    </div>
+
+                    <p className="mt-2.5 text-xs">
+                      <span className="text-muted">สำนักคิด </span>
+                      <span
+                        className="font-medium transition-colors group-hover:text-burnished-gold/80"
+                        style={{ color: meta.accent }}
+                      >
                         {t.schoolNameTh}
                       </span>
                     </p>
 
                     {t.quote ? (
-                      <blockquote className="mt-4 border-l border-burnished-gold/40 pl-3 text-xs italic text-on-surface-variant/70 line-clamp-2">
-                        “{t.quote}”
+                      <blockquote
+                        className="mt-4 rounded-r-sm border-l-2 pl-3 text-sm italic leading-relaxed text-on-surface-variant/80 line-clamp-3"
+                        style={{
+                          borderLeftColor: `color-mix(in srgb, ${meta.accent} 50%, transparent)`,
+                          background: `linear-gradient(90deg, color-mix(in srgb, ${meta.accent} 6%, transparent) 0%, transparent 100%)`,
+                        }}
+                      >
+                        &ldquo;{t.quote}&rdquo;
                       </blockquote>
                     ) : null}
 
@@ -267,16 +244,13 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
                         {t.masterpieces.slice(0, 2).map((m) => (
                           <span
                             key={m}
-                            className="inline-flex items-center gap-1 rounded bg-white/[0.03] px-2 py-0.5 text-[10px] text-on-surface-variant/80 border border-slate-boundary/20"
+                            className="inline-flex items-center gap-1 rounded-full bg-white/[0.04] px-2.5 py-0.5 text-[10px] text-on-surface-variant/70 border border-slate-boundary/15"
                           >
-                            <span className="material-symbols-outlined text-[12px] text-burnished-gold/70">
-                              menu_book
-                            </span>
                             {m}
                           </span>
                         ))}
                         {t.masterpieces.length > 2 ? (
-                          <span className="inline-flex items-center rounded bg-white/[0.03] px-2 py-0.5 text-[10px] text-muted">
+                          <span className="inline-flex items-center rounded-full bg-white/[0.04] px-2 py-0.5 text-[10px] text-muted font-mono">
                             +{t.masterpieces.length - 2}
                           </span>
                         ) : null}
@@ -284,12 +258,18 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
                     ) : null}
                   </div>
 
-                  <span className="mt-6 flex items-center gap-1 border-t border-ink/5 pt-4 text-xs font-semibold text-burnished-gold">
-                    ศึกษาประวัติชีวิตและผลงาน
-                    <span className="material-symbols-outlined text-[14px] transition-transform duration-300 group-hover:translate-x-0.5">
-                      arrow_forward
+                  <div className="mt-6 flex items-center justify-between border-t border-slate-boundary/15 pt-4">
+                    <span
+                      className="flex items-center gap-1 text-xs font-semibold transition-all duration-300 group-hover:gap-2"
+                      style={{ color: meta.accent }}
+                    >
+                      ศึกษาประวัติ
+                      <span className="material-symbols-outlined text-[16px]">
+                        arrow_forward
+                      </span>
                     </span>
-                  </span>
+                    <span className="text-[11px] font-mono text-muted">ปราชญ์</span>
+                  </div>
                 </Link>
               );
             })}

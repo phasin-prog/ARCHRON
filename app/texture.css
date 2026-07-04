@@ -1,0 +1,196 @@
+/* ============================================================================
+   ARCHRON — Texture Language (Phase 35)
+   ----------------------------------------------------------------------------
+   อ้างอิง: VOS.md §15 Background Engine · EDS.md §9 Texture
+   - Subtle grain & parchment textures
+   - 2-6% opacity for background textures
+   - Never overwhelming content
+   ============================================================================ */
+
+:root {
+  /* ---- Texture Tokens ---- */
+  --texture-grain-opacity: 0.04;
+  --texture-parchment-opacity: 0.03;
+  --texture-noise-opacity: 0.02;
+}
+
+/* ---- Grain Texture (subtle film grain effect) ---- */
+.texture-grain {
+  position: relative;
+}
+
+.texture-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: var(--texture-grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ---- Parchment Texture (old paper feel) ---- */
+.texture-parchment {
+  position: relative;
+}
+
+.texture-parchment::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: var(--texture-parchment-opacity);
+  background: 
+    radial-gradient(ellipse at 20% 30%, rgba(199, 154, 74, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(110, 147, 168, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(244, 241, 234, 0.04) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ---- Noise Texture (subtle digital noise) ---- */
+.texture-noise {
+  position: relative;
+}
+
+.texture-noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: var(--texture-noise-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 512px 512px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ---- Paper Texture (subtle paper feel) ---- */
+.texture-paper {
+  position: relative;
+  background: 
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.02) 0%,
+      rgba(255, 255, 255, 0) 50%,
+      rgba(0, 0, 0, 0.02) 100%
+    );
+}
+
+/* ---- Vignette (subtle edge darkening) ---- */
+.texture-vignette::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 60%,
+    rgba(11, 13, 18, 0.4) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ---- Ambient Glow (soft light sources) ---- */
+.texture-glow-gold {
+  position: relative;
+}
+
+.texture-glow-gold::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(
+    circle,
+    rgba(199, 154, 74, 0.08) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.texture-glow-psyche {
+  position: relative;
+}
+
+.texture-glow-psyche::before {
+  content: "";
+  position: absolute;
+  bottom: -100px;
+  left: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(
+    circle,
+    rgba(110, 147, 168, 0.08) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---- Gradient Overlays (for depth) ---- */
+.gradient-fade-bottom {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--color-deep-navy) 100%
+  );
+}
+
+.gradient-fade-top {
+  background: linear-gradient(
+    to top,
+    transparent 0%,
+    var(--color-deep-navy) 100%
+  );
+}
+
+.gradient-fade-edges {
+  background: linear-gradient(
+    to right,
+    var(--color-deep-navy) 0%,
+    transparent 15%,
+    transparent 85%,
+    var(--color-deep-navy) 100%
+  );
+}
+
+/* ---- Surface Treatments ---- */
+.surface-elevated {
+  background: var(--color-paper-raised);
+  box-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.surface-sunken {
+  background: var(--color-paper-sunken);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.surface-glass {
+  background: rgba(28, 35, 53, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ---- Decorative Borders ---- */
+.border-subtle {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.border-glow {
+  border: 1px solid rgba(199, 154, 74, 0.2);
+  box-shadow: 0 0 12px rgba(199, 154, 74, 0.1);
+}
+
+/* ---- Texture Utility Classes ---- */
+.texture-none { background-image: none; }
+.texture-grain { background-image: url("data:image/svg+xml,..."); }
+.texture-parchment { background-image: ...; }
+.texture-noise { background-image: url("data:image/svg+xml,..."); }

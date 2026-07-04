@@ -1,11 +1,12 @@
 // ชุดไอคอน line แบบ minimal — ใช้ currentColor (คุมสีด้วย Tailwind text-*)
 // ขนาดปรับผ่าน className (ดีฟอลต์ h-5 w-5)
 
-type IconProps = { className?: string };
+export type IconProps = { className?: string; style?: React.CSSProperties };
 
-const SVG = (className: string, children: React.ReactNode) => (
+const SVG = (className: string, children: React.ReactNode, style?: React.CSSProperties) => (
   <svg
     className={className}
+    style={style}
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"

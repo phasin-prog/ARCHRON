@@ -46,6 +46,18 @@ export function IntroPreloader() {
     document.body.style.overflow = "hidden";
 
     const ctx = gsap.context(() => {
+      if (
+        !pageRef.current ||
+        !coverRef.current ||
+        !spineRef.current ||
+        !edgeRef.current ||
+        !containerRef.current ||
+        !wordRefs.current[0] ||
+        !wordRefs.current[1]
+      ) {
+        return;
+      }
+
       const tl = gsap.timeline({
         onComplete: finish,
         defaults: { ease: "power2.out" },
@@ -55,136 +67,73 @@ export function IntroPreloader() {
       WORDS.forEach((_, i) => {
         const el = wordRefs.current[i];
         if (!el) return;
-        gsap.set(el.querySelectorAll(".word-char, .greek-char"), { opacity: 0, y: -4 });
-        gsap.set(el.querySelector(".separator"), { opacity: 0 });
-        gsap.set(el.querySelector(".meaning-text"), { opacity: 0, y: 3 });
+        const wordChars = el.querySelectorAll(".word-char, .greek-char");
+        const sep = el.querySelector(".separator");
+        const meaning = el.querySelector(".meaning-text");
+        if (wordChars.length) gsap.set(wordChars, { opacity: 0, y: -4 });
+        if (sep) gsap.set(sep, { opacity: 0 });
+        if (meaning) gsap.set(meaning, { opacity: 0, y: 3 });
       });
 
       gsap.set(spineRef.current, { opacity: 0 });
       gsap.set(edgeRef.current, { opacity: 0 });
       gsap.set(coverRef.current, { opacity: 0, scale: 0.85 });
-      gsap.set(coverWordRef.current, { opacity: 0, letterSpacing: "0.1em" });
+      if (coverWordRef.current) {
+        gsap.set(coverWordRef.current, { opacity: 0, letterSpacing: "0.1em" });
+      }
+
+      const word0Chars = wordRefs.current[0].querySelectorAll(".word-char");
+      const word0Sep = wordRefs.current[0].querySelector(".separator");
+      const word0Greek = wordRefs.current[0].querySelectorAll(".greek-char");
+      const word0Meaning = wordRefs.current[0].querySelector(".meaning-text");
+
+      const word1Chars = wordRefs.current[1].querySelectorAll(".word-char");
+      const word1Sep = wordRefs.current[1].querySelector(".separator");
+      const word1Greek = wordRefs.current[1].querySelectorAll(".greek-char");
+      const word1Meaning = wordRefs.current[1].querySelector(".meaning-text");
 
       // ── Phase 1 (0.5–3.4s): เขียนอักษรทีละตัว ──
-      // เขียน Arche
-      tl.to(
-        wordRefs.current[0]?.querySelectorAll(".word-char") ?? [],
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.15,
-          stagger: 0.08,
-          ease: "power1.out",
-        },
-        0.5,
-      );
+      if (word0Chars.length) {
+        tl.to(word0Chars, { opacity: 1, y: 0, duration: 0.15, stagger: 0.08, ease: "power1.out" }, 0.5);
+      }
+      if (word0Sep) {
+        tl.to(word0Sep, { opacity: 0.6, duration: 0.3 }, 0.9);
+      }
+      if (word0Greek.length) {
+        tl.to(word0Greek, { opacity: 1, y: 0, duration: 0.15, stagger: 0.08, ease: "power1.out" }, 1.0);
+      }
+      if (word0Meaning) {
+        tl.to(word0Meaning, { opacity: 1, y: 0, duration: 0.5 }, 1.4);
+      }
 
-      tl.to(
-        wordRefs.current[0]?.querySelector(".separator") ?? [],
-        { opacity: 0.6, duration: 0.3 },
-        0.9,
-      );
-
-      tl.to(
-        wordRefs.current[0]?.querySelectorAll(".greek-char") ?? [],
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.15,
-          stagger: 0.08,
-          ease: "power1.out",
-        },
-        1.0,
-      );
-
-      tl.to(
-        wordRefs.current[0]?.querySelector(".meaning-text") ?? [],
-        { opacity: 1, y: 0, duration: 0.5 },
-        1.4,
-      );
-
-      // เขียน Chronos
-      tl.to(
-        wordRefs.current[1]?.querySelectorAll(".word-char") ?? [],
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.15,
-          stagger: 0.08,
-          ease: "power1.out",
-        },
-        1.8,
-      );
-
-      tl.to(
-        wordRefs.current[1]?.querySelector(".separator") ?? [],
-        { opacity: 0.6, duration: 0.3 },
-        2.3,
-      );
-
-      tl.to(
-        wordRefs.current[1]?.querySelectorAll(".greek-char") ?? [],
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.15,
-          stagger: 0.08,
-          ease: "power1.out",
-        },
-        2.4,
-      );
-
-      tl.to(
-        wordRefs.current[1]?.querySelector(".meaning-text") ?? [],
-        { opacity: 1, y: 0, duration: 0.5 },
-        2.9,
-      );
+      if (word1Chars.length) {
+        tl.to(word1Chars, { opacity: 1, y: 0, duration: 0.15, stagger: 0.08, ease: "power1.out" }, 1.8);
+      }
+      if (word1Sep) {
+        tl.to(word1Sep, { opacity: 0.6, duration: 0.3 }, 2.3);
+      }
+      if (word1Greek.length) {
+        tl.to(word1Greek, { opacity: 1, y: 0, duration: 0.15, stagger: 0.08, ease: "power1.out" }, 2.4);
+      }
+      if (word1Meaning) {
+        tl.to(word1Meaning, { opacity: 1, y: 0, duration: 0.5 }, 2.9);
+      }
 
       // ── Phase 2 (3.5–4.5s): โน้มคำเข้าหากันตรงกลาง ──
-      tl.to(
-        wordRefs.current[0],
-        {
-          y: 40,
-          opacity: 0,
-          scale: 0.8,
-          duration: 1.0,
-          ease: "power2.in",
-        },
-        3.5,
-      );
-
-      tl.to(
-        wordRefs.current[1],
-        {
-          y: -40,
-          opacity: 0,
-          scale: 0.8,
-          duration: 1.0,
-          ease: "power2.in",
-        },
-        3.5,
-      );
+      tl.to(wordRefs.current[0], { y: 40, opacity: 0, scale: 0.8, duration: 1.0, ease: "power2.in" }, 3.5);
+      tl.to(wordRefs.current[1], { y: -40, opacity: 0, scale: 0.8, duration: 1.0, ease: "power2.in" }, 3.5);
 
       // ── Phase 3 (3.9–6.1s): หน้ากระดาษปิดตัวรวมร่างกลายเป็นปก Archron ──
-      tl.to(
-        pageRef.current,
-        { scale: 0.55, opacity: 0, duration: 1.0, ease: "power3.inOut" },
-        3.9,
-      )
+      tl.to(pageRef.current, { scale: 0.55, opacity: 0, duration: 1.0, ease: "power3.inOut" }, 3.9)
         .to(spineRef.current, { opacity: 0.8, duration: 0.6 }, 3.9)
         .to(edgeRef.current, { opacity: 0.8, duration: 0.6 }, 4.0)
         .to(spineRef.current, { opacity: 0, duration: 0.4 }, 4.5)
         .to(edgeRef.current, { opacity: 0, duration: 0.4 }, 4.5)
-        .to(
-          coverRef.current,
-          { opacity: 1, scale: 1, duration: 1.2, ease: "power3.out" },
-          4.5,
-        )
-        .to(
-          coverWordRef.current,
-          { opacity: 1, letterSpacing: "0.45em", duration: 1.4, ease: "power2.out" },
-          4.7,
-        );
+        .to(coverRef.current, { opacity: 1, scale: 1, duration: 1.2, ease: "power3.out" }, 4.5);
+
+      if (coverWordRef.current) {
+        tl.to(coverWordRef.current, { opacity: 1, letterSpacing: "0.45em", duration: 1.4, ease: "power2.out" }, 4.7);
+      }
 
       // ── Phase 4 (6.5–7.2s): ค่อยๆ จางหายไปเปิดหน้าโฮม ──
       tl.to(containerRef.current, { opacity: 0, duration: 0.7, ease: "power2.inOut" }, 6.5);

@@ -83,3 +83,21 @@ export const SOURCES: (SourceItem & { id: string })[] = [
     relatedClaim: "การสังเคราะห์เนื้อหาและจัดลำดับโครงสร้างทฤษฎีบนเว็บไซต์เพื่อการเรียนรู้เชิงลึก",
   },
 ];
+
+export type CitationStyle = "APA" | "Chicago";
+
+export function getSourceById(id: string) {
+  return SOURCES.find((s) => s.id === id);
+}
+
+export function formatCitation(source: (typeof SOURCES)[number], style: CitationStyle = "APA"): string {
+  const author = source.author || "Unknown Author";
+  const year = source.year || "n.d.";
+  const title = source.title || "Untitled";
+
+  if (style === "APA") {
+    return `${author}. (${year}). ${title}.`;
+  }
+  return `${author}, ${title} (${year}).`;
+}
+

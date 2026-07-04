@@ -33,7 +33,7 @@ export function RelatedConceptPicker({
     .slice(0, 8);
 
   const inputClass =
-    "w-full rounded-md border border-ink/10 bg-charcoal/40 px-3 py-2 text-ivory outline-none";
+    "w-full rounded-md border border-ink/10 bg-charcoal/40 px-3 py-2 text-ivory outline-none focus:border-antique-gold/50 focus:ring-2 focus:ring-antique-gold/20 transition-colors";
 
   function add() {
     if (slug.trim() === "") return;

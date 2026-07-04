@@ -29,7 +29,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "จิตวิทยาแอดเลอร์ / จิตวิทยาปัจเจกบุคคล",
     aliases: ["Adlerian", "จิตวิทยาปัจเจกบุคคล", "จิตวิทยาแอดเลอร์", "จิตวิทยาแอดเลอร์ / จิตวิทยาปัจเจกบุคคล"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: จิตวิทยาแอดเลอร์ / จิตวิทยาปัจเจกบุคคล",
+    description: "สำนักที่เน้นความรู้สึกด้อยกว่า (Inferiority) และแรงขับสู่ความสมบูรณ์ (Striving for Superiority) เป็นพลังขับเคลื่อนพัฒนาการของบุคคล",
   },
   {
     id: "school-aesthetics",
@@ -38,7 +38,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "สุนทรียศาสตร์ / ปรัชญาศิลปะ",
     aliases: ["Aesthetics", "ปรัชญาศิลปะ", "สุนทรียศาสตร์", "สุนทรียศาสตร์ / ปรัชญาศิลปะ"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: สุนทรียศาสตร์ / ปรัชญาศิลปะ",
+    description: "แขนงปรัชญาที่ศึกษาความงาม รสนิยม และคุณค่าของศิลปะ ว่าอะไรสวยงาม ทำไมเราจึงซาบซึ้ง และศิลปะทำหน้าที่อะไรในชีวิตมนุษย์",
   },
   {
     id: "school-ai-ethics",
@@ -47,7 +47,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "จริยธรรมปัญญาประดิษฐ์",
     aliases: ["AI Ethics", "จริยธรรมปัญญาประดิษฐ์"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: จริยธรรมปัญญาประดิษฐ์",
+    description: "แขนงจริยศาสตร์ที่ศึกษาผลกระทบทั้งดีและร้ายของ AI ต่อมนุษย์ สังคม และความยุติธรรม รวมถึงการออกแบบ AI ให้สอดคล้องกับคุณค่ามนุษย์",
   },
   {
     id: "school-analytic-philosophy",
@@ -56,7 +56,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปรัชญาวิเคราะห์ / ภาษาและตรรกวิทยา",
     aliases: ["Analytic Philosophy", "ปรัชญาวิเคราะห์", "ปรัชญาวิเคราะห์ / ภาษาและตรรกวิทยา", "ภาษาและตรรกวิทยา"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปรัชญาวิเคราะห์ / ภาษาและตรรกวิทยา",
+    description: "ประเพณีปรัชญาที่ใช้การวิเคราะห์ภาษาและตรรกวิทยาเพื่อคลี่คลายปัญหาเชิงปรัชญา เน้นความชัดเจนและข้อสนับสนุนเชิงตรรกะ",
   },
   {
     id: "school-analytical-psychology",
@@ -65,7 +65,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "จิตวิทยาเชิงลึกแนวคาร์ล ยุง",
     aliases: ["Analytical Psychology", "Jungian Psychology", "Jungian Thinkers Reference List", "จิตวิทยาวิเคราะห์", "จิตวิทยาสายยุง", "จิตวิทยาเชิงลึกแนวคาร์ล ยุง"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: จิตวิทยาเชิงลึกแนวคาร์ล ยุง",
+    description: "สำนักของ Carl Jung ที่ศึกษาจิตไร้สำนึกผ่านสัญลักษณ์ ตำนาน และ archetype เน้นกระบวนการปัจเจกภาพ (Individuation) เพื่อบูรณาการตัวตน",
   },
   {
     id: "school-animal-ethics",
@@ -74,7 +74,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "จริยธรรมสัตว์",
     aliases: ["Animal Ethics", "จริยธรรมสัตว์"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: จริยธรรมสัตว์",
+    description: "แขนงจริยศาสตร์ที่ตั้งคำถามว่ามนุษย์มีหน้าที่ทางจริยธรรมต่อสัตว์อย่างไร ครอบคลุมสวัสดิภาพสัตว์ สิทธิสัตว์ และความยุติธรรมข้ามสายพันธุ์",
   },
   {
     id: "school-archetypal-psychology",
@@ -83,7 +83,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "จิตวิทยาเชิงแม่แบบ",
     aliases: ["Archetypal Psychology", "จิตวิทยาเชิงแม่แบบ"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: จิตวิทยาเชิงแม่แบบ",
+    description: "สำนักที่ขยายงานของ Jung โดยเน้นมิติเชิงกวีและจินตนาการของจิต ใช้การเล่าเรื่องและสัญลักษณ์เป็นเครื่องมือทำความเข้าใจชีวิตภายใน",
   },
   {
     id: "school-aristotelianism",
@@ -92,7 +92,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ลัทธิอริสโตเติล",
     aliases: ["Aristotelianism", "ลัทธิอริสโตเติล"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ลัทธิอริสโตเติล",
+    description: "ประเพณีปรัชญาที่สืบทอดจากอริสโตเติล เน้นการสังเกตจากประสบการณ์จริง ตรรกวิทยา และแนวคิดเรื่องจุดประสงค์ชีวิต (Telos) และความดีงามสูงสุด (Eudaimonia)",
   },
   {
     id: "school-attachment-mentalization-developmental",
@@ -101,7 +101,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "จิตวิทยาพัฒนาการ / ความผูกพัน",
     aliases: ["Attachment / Mentalization / Developmental", "Attachment Mentalization Developmental", "ความผูกพัน", "จิตวิทยาพัฒนาการ", "จิตวิทยาพัฒนาการ / ความผูกพัน"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: จิตวิทยาพัฒนาการ / ความผูกพัน",
+    description: "กลุ่มสำนักที่ศึกษาความผูกพันระหว่างแม่-ลูก การพัฒนาความสามารถทางจิต (Mentalization) และผลกระทบที่มีต่อความสัมพันธ์ในวัยผู้ใหญ่",
   },
   {
     id: "school-behaviorism",
@@ -110,7 +110,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "พฤติกรรมนิยม",
     aliases: ["Behaviorism", "พฤติกรรมนิยม"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: พฤติกรรมนิยม",
+    description: "สำนักที่ศึกษาพฤติกรรมที่สังเกตได้เท่านั้น ไม่สนใจจิตภายใน เน้นการเสริมแรง (Reinforcement) และการเรียนรู้ผ่านเงื่อนไข (Conditioning)",
   },
   {
     id: "school-buddhist-philosophy",
@@ -119,7 +119,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปรัชญาพุทธ",
     aliases: ["Buddhist Philosophy", "ปรัชญาพุทธ"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปรัชญาพุทธ",
+    description: "ปรัชญาที่วิเคราะห์ความทุกข์ อนัตตา และการดับทุกข์ผ่านสมาธิและปัญญา ครอบคลุมนิกายเถรวาท มหายาน และวัชรยาน",
   },
   {
     id: "school-cbt",
@@ -128,7 +128,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "กลุ่มพฤติกรรมบำบัดและความคิด (CBT/ACT/DBT)",
     aliases: ["CBT", "CBT/ACT/DBT", "กลุ่มพฤติกรรมบำบัดและความคิด", "กลุ่มพฤติกรรมบำบัดและความคิด (CBT/ACT/DBT)"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: กลุ่มพฤติกรรมบำบัดและความคิด (CBT/ACT/DBT)",
+    description: "กลุ่มบำบัดที่เน้นการเปลี่ยนแปลงความคิดและพฤติกรรมที่ไม่ช่วยเหลือ รวมถึง CBT (เปลี่ยนความคิด), ACT (ยอมรับและทำตามคุณค่า), DBT (จัดการอารมณ์รุนแรง)",
   },
   {
     id: "school-chinese-philosophy",
@@ -137,7 +137,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปรัชญาจีน",
     aliases: ["Chinese Philosophy", "ปรัชญาจีน"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปรัชญาจีน",
+    description: "ประเพณีปรัชญาที่ครอบคลุมขงจื๊อ เตาซี และพุทธศาสนาจีน เน้นความกลมกลืนในสังคม ธรรมชาติ และชีวิตที่สมดุล",
   },
   {
     id: "school-christian-philosophy",
@@ -146,7 +146,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปรัชญาคริสต์",
     aliases: ["Christian Philosophy", "ปรัชญาคริสต์"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปรัชญาคริสต์",
+    description: "ประเพณีปรัชญาที่ผสานความเชื่อทางศาสนาคริสต์กับตรรกวิทยา ครอบคลุมเทววิทยา จริยศาสตร์ และปรัชญาจิตวิทยาของนักบุญออกัสตินและทอมัส อไควนัส",
   },
   {
     id: "school-classical-greek",
@@ -155,7 +155,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปรัชญากรีกโบราณ / ปรัชญาคลาสสิก",
     aliases: ["Ancient Greek Philosophy", "ปรัชญากรีกโบราณ", "ปรัชญากรีกโบราณ / ปรัชญาคลาสสิก", "ปรัชญาคลาสสิก"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปรัชญากรีกโบราณ / ปรัชญาคลาสสิก",
+    description: "รากฐานของปรัชญาตะวันตก จากโซเครติส เพลโต และอริสโตเติล ตั้งคำถามเรื่องความจริง ความดีงาม และความหมายของชีวิต",
   },
   {
     id: "school-critical-theory",
@@ -164,7 +164,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ทฤษฎีวิพากษ์ (สำนักแฟรงก์เฟิร์ต)",
     aliases: ["Critical Theory", "ทฤษฎีวิพากษ์", "ทฤษฎีวิพากษ์ (สำนักแฟรงก์เฟิร์ต)", "สำนักแฟรงก์เฟิร์ต"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ทฤษฎีวิพากษ์ (สำนักแฟรงก์เฟิร์ต)",
+    description: "สำนักที่วิพากษ์สังคมทุนนิยมและวัฒนธรรมมวลชน โดยผสานมาร์กซิสต์กับจิตวิเคราะห์ของฟรอยด์ เพื่อเปิดเผยอำนาจที่แฝงอยู่ในวัฒนธรรม",
   },
   {
     id: "school-cultural",
@@ -173,7 +173,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "จิตวิทยาวัฒนธรรม",
     aliases: ["Cultural", "จิตวิทยาวัฒนธรรม"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: จิตวิทยาวัฒนธรรม",
+    description: "สำนักที่ศึกษาอิทธิพลของวัฒนธรรมต่อพฤติกรรมและความคิดของมนุษย์ เปรียบเทียบค่านิยมและรูปแบบจิตใจข้ามสังคม",
   },
   {
     id: "school-cybernetics",
@@ -182,7 +182,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ไซเบอร์เนติกส์ / ทฤษฎีระบบ",
     aliases: ["Cybernetics", "ทฤษฎีระบบ", "ไซเบอร์เนติกส์", "ไซเบอร์เนติกส์ / ทฤษฎีระบบ"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ไซเบอร์เนติกส์ / ทฤษฎีระบบ",
+    description: "ศาสตร์ที่ศึกษาการควบคุมและการสื่อสารในระบบ ทั้งสัตว์ เครื่องจักร และสังคม โดยใช้แนวคิดป้อนกลับ (Feedback Loop) เพื่อทำความเข้าใจพฤติกรรม",
   },
   {
     id: "school-emotion-theory",
@@ -191,7 +191,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ทฤษฎีอารมณ์ความรู้สึก",
     aliases: ["Emotion Theory", "ทฤษฎีอารมณ์ความรู้สึก"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ทฤษฎีอารมณ์ความรู้สึก",
+    description: "แขนงจิตวิทยาที่ศึกษาธรรมชาติของอารมณ์ ทั้งที่มา กลไก และผลกระทบต่อพฤติกรรมและการตัดสินใจ ครอบคลุมทฤษฎีหลายแขนงตั้งแต่ James-Lange ถึง Appraisal Theory",
   },
   {
     id: "school-environmental-philosophy",
@@ -200,7 +200,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปรัชญาสิ่งแวดล้อม",
     aliases: ["Environmental Philosophy", "ปรัชญาสิ่งแวดล้อม"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปรัชญาสิ่งแวดล้อม",
+    description: "แขนงปรัชญาที่ตั้งคำถามเรื่องความสัมพันธ์ระหว่างมนุษย์กับธรรมชาติ คุณค่าของระบบนิเวศ และหน้าที่ทางจริยธรรมต่อสิ่งแวดล้อม",
   },
   {
     id: "school-epistemology",
@@ -209,7 +209,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ญาณวิทยา / ทฤษฎีความรู้",
     aliases: ["Epistemology", "ญาณวิทยา", "ญาณวิทยา / ทฤษฎีความรู้", "ทฤษฎีความรู้"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ญาณวิทยา / ทฤษฎีความรู้",
+    description: "แขนงปรัชญาที่ศึกษาธรรมชาติของความรู้ ว่าเรารู้อะไรได้อย่างไร อะไรคือความเชื่อที่ชอบธรรม และขีดจำกัดของความรู้มนุษย์",
   },
   {
     id: "school-ethics",
@@ -218,7 +218,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "จริยศาสตร์ / ปรัชญาศีลธรรม",
     aliases: ["Ethics", "จริยศาสตร์", "จริยศาสตร์ / ปรัชญาศีลธรรม", "ปรัชญาศีลธรรม"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: จริยศาสตร์ / ปรัชญาศีลธรรม",
+    description: "แขนงปรัชญาที่ศึกษาความถูกต้องและหน้าที่ทางศีลธรรม ครอบคลุมจริยศาสตร์ผลลัพธ์นิยม (Utilitarianism) จริยศาสตร์หน้าที่ (Deontology) และจริยศาสตร์คุณธรรม (Virtue Ethics)",
   },
   {
     id: "school-existentialism",
@@ -227,7 +227,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "อัตถิภาวนิยม / อับเซิร์ดดิสม์",
     aliases: ["Existentialism", "อัตถิภาวนิยม", "อัตถิภาวนิยม / อับเซิร์ดดิสม์", "อับเซิร์ดดิสม์"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: อัตถิภาวนิยม / อับเซิร์ดดิสม์",
+    description: "สำนักที่เน้นเสรีภาพของบุคคลและความรับผิดชอบในการเลือกสร้างความหมายชีวิตด้วยตนเอง ท่ามกลางโลกที่ไม่มีความหมายสำเร็จรูป (Sartre, Camus, Kierkegaard)",
   },
   {
     id: "school-family-systems",
@@ -236,7 +236,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ทฤษฎีระบบครอบครัวและการบำบัด",
     aliases: ["Family Systems", "ทฤษฎีระบบครอบครัวและการบำบัด"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ทฤษฎีระบบครอบครัวและการบำบัด",
+    description: "สำนักที่มองครอบครัวเป็นระบบหนึ่งเดียวที่มีกฎและบทบาทซ่อนเร้น ปัญหาของสมาชิกคนหนึ่งสะท้อนความผิดปกติของระบบครอบครัวทั้งหมด",
   },
   {
     id: "school-feminist-philosophy",
@@ -245,7 +245,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปรัชญาเฟมินิสต์",
     aliases: ["Feminist Philosophy", "ปรัชญาเฟมินิสต์"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปรัชญาเฟมินิสต์",
+    description: "แขนงปรัชญาที่วิเคราะห์ความไม่เท่าเทียมทางเพศ อำนาจของปิตาธิปไตย และการปลดปล่อยสตรี ผ่านมิติเชิงสังคม การเมือง และวัฒนธรรม",
   },
   {
     id: "school-hellenistic-philosophy",
@@ -254,7 +254,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปรัชญาเฮลเลนิสติก",
     aliases: ["Hellenistic Philosophy", "ปรัชญาเฮลเลนิสติก"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปรัชญาเฮลเลนิสติก",
+    description: "กลุ่มปรัชญาหลังอเล็กซานเดอร์มหาราช ได้แก่ สโตอิก อpicurean และ Skeptic เน้นการค้นหาความสงบใจ (Ataraxia) และชีวิตที่สมดุล",
   },
   {
     id: "school-hermeneutics",
@@ -263,7 +263,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ศาสตร์แห่งการตีความ",
     aliases: ["Hermeneutics", "ศาสตร์แห่งการตีความ"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ศาสตร์แห่งการตีความ",
+    description: "ศาสตร์ที่ศึกษาวิธีการตีความข้อความ ศิลปะ และเหตุการณ์ เน้นว่าผู้ตีความย่อมมีบริบทของตนเองที่ส่งผลต่อความเข้าใจ (Gadamer, Heidegger)",
   },
   {
     id: "school-humanistic-psychology",
@@ -272,7 +272,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "จิตวิทยามนุษยนิยม",
     aliases: ["Humanistic Psychology", "จิตวิทยามนุษยนิยม"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: จิตวิทยามนุษยนิยม",
+    description: "สำนักที่เน้นศักยภาพในการเติบโตของมนุษย์(Self-Actualization) มองมนุษย์ในฐานะผู้เลือกสร้างชะตากรรมตนเอง ไม่ใช่เหยื่อของสิ่งแวดล้อมหรือจิตไร้สำนึก (Rogers, Maslow)",
   },
   {
     id: "school-ifs",
@@ -281,7 +281,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "จิตบำบัดระบบครอบครัวภายใน (IFS)",
     aliases: ["IFS", "จิตบำบัดระบบครอบครัวภายใน", "จิตบำบัดระบบครอบครัวภายใน (IFS)"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: จิตบำบัดระบบครอบครัวภายใน (IFS)",
+    description: "สำนักบำบัดที่มองจิตใจเป็นระบบครอบครัวภายใน มีส่วนต่าง ๆ (Parts) ที่มีบทบาทและอารมณ์ของตนเอง และมี Self 作为ศูนย์กลางการรักษา",
   },
   {
     id: "school-indian-philosophy",
@@ -290,7 +290,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปรัชญาอินเดีย",
     aliases: ["Indian Philosophy", "ปรัชญาอินเดีย"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปรัชญาอินเดีย",
+    description: "ประเพณีปรัชญาที่ครอบคลุมเวดานตะ ยุค สรีมสคญา และพุทธศาสนา ตั้งคำถามเรื่องอัตลักษณ์ ความจริงสูงสุด และการหลุดพ้นจากวัฏจักร",
   },
   {
     id: "school-indigenous-philosophy",
@@ -299,7 +299,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปรัชญาชนเผ่าพื้นเมือง",
     aliases: ["Indigenous Philosophy", "ปรัชญาชนเผ่าพื้นเมือง"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปรัชญาชนเผ่าพื้นเมือง",
+    description: "ประเพณีปรัชญาของชนเผ่าพื้นเมืองทั่วโลก เน้นความเชื่อมโยงระหว่างมนุษย์กับธรรมชาติ จิตวิญญาณ และชุมชน มากกว่าตรรกวิทยาแบบตะวันตก",
   },
   {
     id: "school-islamic-philosophy",
@@ -308,7 +308,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปรัชญาอิสลาม",
     aliases: ["Islamic Philosophy", "ปรัชญาอิสลาม"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปรัชญาอิสลาม",
+    description: "ประเพณีปรัชญาที่ผสานอัลกุรอานกับปรัชญากรีก ครอบคลุมอัลกินดี อิบนซินา และอิbnรัชดี เน้นความสัมพันธ์ระหว่างเหตุผลกับศรัทธา",
   },
   {
     id: "school-jewish-philosophy",
@@ -317,7 +317,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปรัชญายิว",
     aliases: ["Jewish Philosophy", "ปรัชญายิว"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปรัชญายิว",
+    description: "ประเพณีปรัชญาที่ตีความ Torah และ Rabbinic Literature ผ่านตรรกวิทยา ครอบคลุมไมมอนิดีส สปโนซา และปรัชญาโมเดิร์นยิว",
   },
   {
     id: "school-lacanian-psychoanalysis-thinkers-reference-list",
@@ -326,7 +326,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "จิตวิเคราะห์แนวลากอง",
     aliases: ["Lacanian Psychoanalysis", "Lacanian", "Lacanian Psychoanalysis Thinkers Reference List", "จิตวิเคราะห์แนวลากอง"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: จิตวิเคราะห์แนวลากอง",
+    description: "สำนักจิตวิเคราะห์ของ Jacques Lacan ที่ผสานฟรอยด์กับภาษาศาสตร์และปรัชญา เน้นว่าจิตสำนึกถูกจัดรูปด้วยภาษา (The unconscious is structured like a language)",
   },
   {
     id: "school-metaphysics",
@@ -335,7 +335,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "อภิปรัชญา",
     aliases: ["Metaphysics", "อภิปรัชญา"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: อภิปรัชญา",
+    description: "แขนงปรัชญาที่ศึกษาธรรมชาติสูงสุดของความเป็นจริง ครอบคลุมontology (ธรรมชาติของสิ่งมีอยู่) และ cosmology (ธรรมชาติของ宇宙)",
   },
   {
     id: "school-narrative-psychology",
@@ -344,7 +344,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "จิตวิทยาเชิงเล่าเรื่อง",
     aliases: ["Narrative Psychology", "จิตวิทยาเชิงเล่าเรื่อง"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: จิตวิทยาเชิงเล่าเรื่อง",
+    description: "สำนักที่มองว่ามนุษย์สร้างความเข้าใจตนเองผ่านการเล่าเรื่อง (Life Story) เนื้อหาในชีวิตไม่ได้มีความหมายในตัวเอง แต่ได้ความหมายจากการเรียบเรียง",
   },
   {
     id: "school-neuroscience",
@@ -353,7 +353,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ประสาทวิทยาศาสตร์ / ประสาทจิตวิเคราะห์",
     aliases: ["Neuroscience", "ประสาทจิตวิเคราะห์", "ประสาทวิทยาศาสตร์", "ประสาทวิทยาศาสตร์ / ประสาทจิตวิเคราะห์"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ประสาทวิทยาศาสตร์ / ประสาทจิตวิเคราะห์",
+    description: "ศาสตร์ที่ศึกษาการทำงานของสมองและระบบประสาท เพื่ออธิบายพฤติกรรม ความคิด และอารมณ์ในเชิงชีวภาพ ครอบคลุม cognitive neuroscience และ neuropsychoanalysis",
   },
   {
     id: "school-object-relations",
@@ -362,7 +362,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ทฤษฎีความสัมพันธ์เชิงวัตถุ",
     aliases: ["Object Relations", "ทฤษฎีความสัมพันธ์เชิงวัตถุ"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ทฤษฎีความสัมพันธ์เชิงวัตถุ",
+    description: "สำนักจิตวิทยาเชิงลึกที่เน้นว่าความสัมพันธ์ระหว่างแม่-ลูกในวัยเด็กเป็นตัวกำหนดรูปแบบความสัมพันธ์ในวัยผู้ใหญ่ (Klein, Winnicott, Fairbairn)",
   },
   {
     id: "school-personality-psychology",
@@ -371,7 +371,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "จิตวิทยาบุคลิกภาพ",
     aliases: ["Personality Psychology", "จิตวิทยาบุคลิกภาพ"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: จิตวิทยาบุคลิกภาพ",
+    description: "แขนงจิตวิทยาที่ศึกษาแบบแผนพฤติกรรมและความคิดที่สม่ำเสมอของบุคคล ครอบคลุมทฤษฎี Big Five, MBTI และทฤษฎีบุคลิกภาพเชิงลึก",
   },
   {
     id: "school-phenomenology",
@@ -380,7 +380,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปรากฏการณ์วิทยา",
     aliases: ["Phenomenology", "ปรากฏการณ์วิทยา"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปรากฏการณ์วิทยา",
+    description: "แขนงปรัชญาที่ศึกษาประสบการณ์ตรงของจิตใจ โดยละวางสมมติฐานเกี่ยวกับโลกภายนอกเพื่อทำความเข้าใจปรากฏการณ์ในมิติที่มันปรากฏต่อจิตสำนึก (Husserl, Heidegger)",
   },
   {
     id: "school-phenomenology-of-psyche",
@@ -389,7 +389,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปรากฏการณ์วิทยาแห่งจิต",
     aliases: ["Phenomenology of Psyche", "Phenomenology Of psyche", "ปรากฏการณ์วิทยาแห่งจิต"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปรากฏการณ์วิทยาแห่งจิต",
+    description: "แขนงที่ผสานปรากฏการณ์วิทยากับจิตวิทยาเชิงลึก เพื่อทำความเข้าใจจิตใจในมิติที่มันปรากฏต่อตนเอง ไม่ใช่แค่พฤติกรรมภายนอก",
   },
   {
     id: "school-philosophy-of-language",
@@ -398,7 +398,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปรัชญาภาษา",
     aliases: ["Philosophy of Language", "ปรัชญาภาษา"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปรัชญาภาษา",
+    description: "แขนงปรัชญาที่ศึกษาความสัมพันธ์ระหว่างภาษา ความคิด และความเป็นจริง ตั้งคำถามว่าภาษาทำหน้าที่อะไรและมีขอบเขตอย่างไร (Wittgenstein, Austin, Derrida)",
   },
   {
     id: "school-philosophy-of-mind",
@@ -407,7 +407,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปรัชญาแห่งจิต",
     aliases: ["Philosophy of Mind", "ปรัชญาแห่งจิต"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปรัชญาแห่งจิต",
+    description: "แขนงปรัชญาที่ตั้งคำถามว่าจิตใจคืออะไร สัมพันธ์กับร่างกายอย่างไร ครอบคลุมปัญหาจิต-กาย (Mind-Body Problem) และจิตสำนึก (Consciousness)",
   },
   {
     id: "school-philosophy-of-race",
@@ -416,7 +416,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปรัชญาเรื่องชาติพันธุ์",
     aliases: ["Philosophy of Race", "ปรัชญาเรื่องชาติพันธุ์"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปรัชญาเรื่องชาติพันธุ์",
+    description: "แขนงปรัชญาที่วิเคราะห์แนวคิดเรื่องเชื้อชาติ การเหยียดผิว และอัตลักษณ์ทางเชื้อชาติว่าเป็นสิ่งก่อสร้างทางสังคม (Social Construction) หรือมีรากฐานทางชีวภาพ",
   },
   {
     id: "school-philosophy-of-religion",
@@ -425,7 +425,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปรัชญาศาสนา",
     aliases: ["Philosophy of Religion", "ปรัชญาศาสนา"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปรัชญาศาสนา",
+    description: "แขนงปรัชญาที่วิเคราะห์ความเชื่อทางศาสนาด้วยตรรกวิทยา ตั้งคำถามเรื่องการดำรงอยู่ของพระเจ้า ความชั่วร้าย และความสัมพันธ์ระหว่างศรัทธากับเหตุผล",
   },
   {
     id: "school-philosophy-of-science",
@@ -434,7 +434,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปรัชญาวิทยาศาสตร์",
     aliases: ["Philosophy of Science", "ปรัชญาวิทยาศาสตร์"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปรัชญาวิทยาศาสตร์",
+    description: "แขนงปรัชญาที่ศึกษาวิธีการและขอบเขตของวิทยาศาสตร์ ตั้งคำถามว่าอะไรนับเป็นวิทยาศาสตร์ อะไรคือการยืนยัน และทฤษฎีวิทยาศาสตร์เปลี่ยนแปลงอย่างไร (Kuhn, Popper, Lakatos)",
   },
   {
     id: "school-philosophy-of-technology",
@@ -443,7 +443,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปรัชญาเทคโนโลยี",
     aliases: ["Philosophy of Technology", "ปรัชญาเทคโนโลยี"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปรัชญาเทคโนโลยี",
+    description: "แขนงปรัชญาที่วิเคราะห์ความสัมพันธ์ระหว่างมนุษย์กับเทคโนโลยี ตั้งคำถามว่าเทคโนโลยีเปลี่ยนแปลงชีวิต จริยธรรม และตัวตนของเราอย่างไร (Heidegger, Ellul, Feenberg)",
   },
   {
     id: "school-platonism",
@@ -452,7 +452,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ลัทธิเพลโต",
     aliases: ["Platonism", "ลัทธิเพลโต"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ลัทธิเพลโต",
+    description: "ประเพณีปรัชญาที่สืบทอดจากเพลโต เน้นว่ามีโลกแห่งแบบ (Forms) ที่สมบูรณ์แบบและเป็นนิรันดร์ ซึ่งโลกแห่งประสาทสัมผัสเป็นเพียงเงาของโลกนั้น",
   },
   {
     id: "school-political-philosophy",
@@ -461,7 +461,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปรัชญาการเมือง",
     aliases: ["Political Philosophy", "ปรัชญาการเมือง"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปรัชญาการเมือง",
+    description: "แขนงปรัชญาที่วิเคราะห์รัฐ อำนาจ ความยุติธรรม และสิทธิเสรีภาพ ตั้งคำถามว่าอะไรคือสังคมที่ดีและเราควรมีชีวิตร่วมกันอย่างไร (Rawls, Nozick, Marx)",
   },
   {
     id: "school-positivism",
@@ -470,7 +470,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปฏิฐานนิยม",
     aliases: ["Positivism", "ปฏิฐานนิยม"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปฏิฐานนิยม",
+    description: "สำนักที่ยืนยันว่าความรู้ที่ถูกต้องต้องมาจากการสังเกตและพิสูจน์ได้เท่านั้น ปฏิเสธปรัชญาเชิงอภิปรัชญาที่พิสูจน์ไม่ได้ (Comte, Vienna Circle)",
   },
   {
     id: "school-postcolonial-philosophy",
@@ -479,7 +479,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปรัชญาหลังอาณานิคม",
     aliases: ["Postcolonial Philosophy", "ปรัชญาหลังอาณานิคม"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปรัชญาหลังอาณานิคม",
+    description: "แขนงปรัชญาที่วิพากษ์ผลกระทบทางวัฒนธรรมและการเมืองของการล่าอาณานิคม เปิดเผยอคติในความรู้แบบตะวันตกและเรียกร้องสิทธิในการเล่าเรื่องของตนเอง (Said, Spivak, Bhabha)",
   },
   {
     id: "school-posthumanism",
@@ -488,7 +488,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "แนวคิดหลังมนุษยนิยม",
     aliases: ["Posthumanism", "แนวคิดหลังมนุษยนิยม"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: แนวคิดหลังมนุษยนิยม",
+    description: "แขนงปรัชญาที่ท้าทายแนวคิดเรื่องมนุษย์เป็นศูนย์กลาง (Humanism) ตั้งคำถามว่าเทคโนโลยีชีวภาพและ AI กำลังเปลี่ยนนิยามของความเป็นมนุษย์อย่างไร",
   },
   {
     id: "school-pragmatism",
@@ -497,7 +497,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปฏิบัตินิยม",
     aliases: ["Pragmatism", "ปฏิบัตินิยม"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปฏิบัตินิยม",
+    description: "ประเพณีปรัชญาอเมริกันที่ตัดสินความจริงจากผลลัพธ์ในทางปฏิบัติ ไม่ใช่ตรรกวิทยาล้วน ความคิดมีค่าก็ต่อเมื่อมันช่วยให้เราใช้ชีวิตได้ดีขึ้น (James, Dewey, Peirce)",
   },
   {
     id: "school-process-philosophy",
@@ -506,7 +506,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ปรัชญากระบวนการ",
     aliases: ["Process Philosophy", "ปรัชญากระบวนการ"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ปรัชญากระบวนการ",
+    description: "ปรัชญาของ Alfred North Whitehead ที่มองว่าความเป็นจริงไม่ใช่สิ่งตายตัว แต่เป็นกระบวนการเปลี่ยนแปลงอยู่ตลอดเวลา ทุกสิ่งล้วนเชื่อมโยงกัน",
   },
   {
     id: "school-psychoanalysis",
@@ -515,7 +515,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "จิตวิเคราะห์แนวฟรอยด์",
     aliases: ["Psychoanalysis", "Freudian", "จิตวิเคราะห์", "จิตวิเคราะห์แนวฟรอยด์"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: จิตวิเคราะห์แนวฟรอยด์",
+    description: "สำนักของ Sigmund Freud ที่วิเคราะห์จิตผ่านความฝัน การแปลความ และแรงขับทางเพศ (Libido) เน้นความขัดแย้งระหว่าง Id, Ego และ Superego",
   },
   {
     id: "school-psychology-of-religion",
@@ -524,7 +524,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "จิตวิทยาศาสนา",
     aliases: ["Psychology of Religion", "จิตวิทยาศาสนา"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: จิตวิทยาศาสนา",
+    description: "แขนงจิตวิทยาที่ศึกษาประสบการณ์ทางศาสนาในมิติทางจิต ครอบคลุมความเชื่อ การสวดมนต์ นิมิต และผลกระทบต่อสุขภาพจิต (James, Jung, Maslow)",
   },
   {
     id: "school-queer-theory",
@@ -533,7 +533,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ทฤษฎีเควียร์ / เพศสภาพศึกษา",
     aliases: ["Queer Theory", "ทฤษฎีเควียร์", "ทฤษฎีเควียร์ / เพศสภาพศึกษา", "เพศสภาพศึกษา"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: ทฤษฎีเควียร์ / เพศสภาพศึกษา",
+    description: "แขนงทฤษฎีวิพากษ์ที่ตั้งคำถามกับเพศวิถีและอัตลักษณ์ทางเพศที่ถูกสังคมกำหนด เปิดพื้นที่ให้กับประสบการณ์ที่อยู่นอกระบบ binary (Butler, Sedgwick)",
   },
   {
     id: "school-social-psychology",
@@ -542,7 +542,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "จิตวิทยาสังคม",
     aliases: ["Social Psychology", "จิตวิทยาสังคม"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: จิตวิทยาสังคม",
+    description: "แขนงจิตวิทยาที่ศึกษาอิทธิพลของสังคมต่อพฤติกรรมและความคิดของบุคคล ครอบคลุมการเชื่อฟัง (Obedience), การหมู่ (Conformity) และอคติทางสังคม",
   },
   {
     id: "school-structuralism",
@@ -551,7 +551,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "โครงสร้างนิยม / หลังโครงสร้างนิยม",
     aliases: ["Structuralism", "หลังโครงสร้างนิยม", "โครงสร้างนิยม", "โครงสร้างนิยม / หลังโครงสร้างนิยม"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: โครงสร้างนิยม / หลังโครงสร้างนิยม",
+    description: "กลุ่มสำนักที่วิเคราะห์โครงสร้างซ่อนเร้นเบื้องหลังวัฒนธรรมและภาษา (Lévi-Strauss, Saussure) ต่อมาแตกเป็นหลังโครงสร้างนิยมที่ตั้งคำถามกับความหมายที่ตายตัว (Derrida, Foucault)",
   },
   {
     id: "school-transpersonal",
@@ -560,7 +560,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "จิตวิทยาข้ามบุคคล",
     aliases: ["Transpersonal", "จิตวิทยาข้ามบุคคล"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: จิตวิทยาข้ามบุคคล",
+    description: "สำนักที่ขยายขอบเขตจิตวิทยาให้รวมถึงประสบการณ์ทางจิตวิญญาณ การตระหนักรู้ข้ามตัวตน และสภาวะจิตที่อยู่เหนืออัตตา (Maslow, Wilber, Grof)",
   },
   {
     id: "school-trauma-somatic-dissociation",
@@ -569,7 +569,7 @@ const schoolRegistry: ConceptRegistryItem[] = [
     thaiTitle: "จิตวิทยาบาดแผลทางใจและกายสัมผัส",
     aliases: ["Trauma / Somatic / Dissociation", "Trauma Somatic Dissociation", "จิตวิทยาบาดแผลทางใจและกายสัมผัส"],
     nodeType: "school",
-    description: "สำนักคิด/สาย: จิตวิทยาบาดแผลทางใจและกายสัมผัส",
+    description: "กลุ่มสำนักที่ศึกษาบาดแผลทางใจ (Trauma) ในมิติของร่างกายและการแยกตัว (Dissociation) เน้นการบำบัดผ่านร่างกาย (Somatic Experiencing) ไม่ใช่แค่การพูดคุย",
   },
 ];
 
@@ -582,7 +582,7 @@ export const conceptRegistry: ConceptRegistryItem[] = [
     aliases: ["Psyche", "ไซคี", "psukhe"],
     nodeType: "concept",
     framework: "Analytical Psychology",
-    description: "ระบบชีวิตทางจิตทั้งหมด ทั้งส่วนที่รู้ตัวและไม่รู้ตัว",
+    description: "ชื่อเรียกพื้นที่ทั้งหมดของชีวิตภายใน ทั้งส่วนที่เรารู้ตัวและส่วนที่ยังทำงานอยู่ใต้ระดับการรู้ตัว ไม่จำกัดอยู่เฉพาะความคิดหรืออารมณ์",
   },
   {
     id: "concept-ego",
@@ -592,7 +592,7 @@ export const conceptRegistry: ConceptRegistryItem[] = [
     aliases: ["Ego", "อัตตา"],
     nodeType: "concept",
     framework: "Analytical Psychology",
-    description: "ศูนย์กลางของจิตสำนึก",
+    description: "จุดที่เรารู้สึกว่าเป็น ฉัน เป็นผู้ตัดสินใจและจดจำในแต่ละวัน แต่เป็นเพียงส่วนหนึ่งของชีวิตภายใน ไม่ใช่ทั้งหมด",
   },
   {
     id: "concept-shadow",
@@ -602,7 +602,7 @@ export const conceptRegistry: ConceptRegistryItem[] = [
     aliases: ["Shadow", "เงา", "Jungian Shadow"],
     nodeType: "concept",
     framework: "Analytical Psychology",
-    description: "ส่วนของชีวิตภายในที่ Ego ไม่ต้องการรับรู้หรือยอมรับ",
+    description: "ส่วนที่เราไม่อยากเห็นในตัวเอง มักปรากฏผ่านการตัดสินผู้อื่นอย่างรุนแรงโดยไม่รู้ตัว เป็นส่วนที่ถูกผลักออกจากระบบจิตสำนึก",
   },
   {
     id: "concept-persona",
@@ -612,7 +612,7 @@ export const conceptRegistry: ConceptRegistryItem[] = [
     aliases: ["Persona", "หน้ากากทางสังคม"],
     nodeType: "concept",
     framework: "Analytical Psychology",
-    description: "ภาพที่บุคคลแสดงต่อโลกภายนอก",
+    description: "หน้ากากที่เราสวมเมื่ออยู่ในบทบาทต่าง ๆ เช่น ที่ทำงานหรือในครอบครัว มีประโยชน์ในการเข้าสังคมแต่ไม่ใช่ตัวตนทั้งหมด",
   },
   {
     id: "concept-self",
@@ -622,7 +622,7 @@ export const conceptRegistry: ConceptRegistryItem[] = [
     aliases: ["Self", "ตัวตนทั้งหมด", "Selbst"],
     nodeType: "concept",
     framework: "Analytical Psychology",
-    description: "ภาพรวมของชีวิตทางจิต ไม่ใช่เพียง Ego",
+    description: "ศูนย์กลางและองค์รวมของชีวิตทางจิตทั้งหมด ทั้งที่รู้ตัวและไม่รู้ตัว ใหญ่กว่า Ego และเป็นเป้าหมายของกระบวนการปัจเจกภาพ",
   },
   {
     id: "concept-unconscious",
@@ -631,7 +631,7 @@ export const conceptRegistry: ConceptRegistryItem[] = [
     thaiTitle: "จิตไร้สำนึก",
     aliases: ["Unconscious", "จิตไร้สำนึก"],
     nodeType: "concept",
-    description: "ส่วนของจิตที่อยู่นอกการรู้ตัว",
+    description: "พื้นที่ของจิตที่อยู่นอกการรู้ตัว แต่มีอิทธิพลต่อความคิด อารมณ์ และพฤติกรรมของเราอยู่ตลอดเวลา",
   },
   {
     id: "concept-collective-unconscious",
@@ -641,7 +641,7 @@ export const conceptRegistry: ConceptRegistryItem[] = [
     aliases: ["Collective Unconscious", "จิตไร้สำนึกร่วม"],
     nodeType: "concept",
     framework: "Analytical Psychology",
-    description: "ชั้นของจิตไร้สำนึกที่มนุษย์มีร่วมกัน",
+    description: "ชั้นของจิตไร้สำนึกที่มนุษย์ทุกคนมีร่วมกัน เก็บแบบแผนและสัญลักษณ์สากลที่สืบทอดมาจากรุ่นสู่รุ่น",
   },
   {
     id: "concept-individuation",
@@ -651,7 +651,7 @@ export const conceptRegistry: ConceptRegistryItem[] = [
     aliases: ["Individuation", "กระบวนการปัจเจกภาพ"],
     nodeType: "concept",
     framework: "Analytical Psychology",
-    description: "กระบวนการที่ชีวิตภายในค่อย ๆ จัดความสัมพันธ์ของตัวเอง",
+    description: "กระบวนการที่ค่อย ๆ รับรู้และจัดความสัมพันธ์ระหว่างส่วนต่าง ๆ ของชีวิตภายในอย่างซื่อตรง ไม่ใช่การพัฒนาตัวเองให้สมบูรณ์แบบ",
   },
   {
     id: "concept-archetype",
@@ -661,7 +661,7 @@ export const conceptRegistry: ConceptRegistryItem[] = [
     aliases: ["Archetype", "แบบฉบับดั้งเดิม"],
     nodeType: "concept",
     framework: "Analytical Psychology",
-    description: "แบบแผนร่วมที่ปรากฏซ้ำในจิตไร้สำนึกและตำนาน",
+    description: "แบบแผนร่วมที่ปรากฏซ้ำในจิตไร้สำนึก ความฝัน และตำนานของมนุษยชาติ เช่น แม่ วีรบุรุษ หรือเงา ไม่ใช่ภาพสำเร็จรูปแต่เป็นแนวโน้มที่จัดรูปประสบการณ์",
   },
   {
     id: "term-libido",
@@ -670,7 +670,7 @@ export const conceptRegistry: ConceptRegistryItem[] = [
     thaiTitle: "ลิบิโด",
     aliases: ["Libido", "ลิบิโด"],
     nodeType: "term",
-    description: "พลังงานทางจิต (ความหมายต่างกันระหว่าง Freud และ Jung)",
+    description: "พลังงานทางจิต ฟรอยด์หมายถึงแรงขับทางเพศ แต่ยุงขยายเป็นพลังงานสร้างสรรค์กว้างกว่า",
   },
   {
     id: "person-carl-jung",
@@ -680,7 +680,7 @@ export const conceptRegistry: ConceptRegistryItem[] = [
     aliases: ["Carl Jung", "C. G. Jung", "Jung", "ยุง", "คาร์ล ยุง"],
     nodeType: "person",
     framework: "Analytical Psychology",
-    description: "นักจิตวิทยาผู้วางรากฐานจิตวิทยาวิเคราะห์",
+    description: "นักจิตวิทยาชาวสวิสผู้พัฒนาแนวคิด Shadow, Archetype, Individuation และจิตวิทยาวิเคราะห์ (Analytical Psychology) ซึ่งขยายขอบเขตจิตไร้สำนึกให้กว้างกว่าแรงขับทางเพศ",
   },
   {
     id: "person-sigmund-freud",
@@ -690,7 +690,7 @@ export const conceptRegistry: ConceptRegistryItem[] = [
     aliases: ["Sigmund Freud", "Freud", "ฟรอยด์"],
     nodeType: "person",
     framework: "Psychoanalysis",
-    description: "ผู้วางรากฐานจิตวิเคราะห์",
+    description: "แพทย์ชาวออสเตรียผู้วางรากฐานจิตวิเคราะห์ คิดค้นแนวคิด Id, Ego, Superego และเน้นบทบาทของแรงขับทางเพศในฐานะพลังขับเคลื่อนจิตใจ",
   },
   {
     id: "book-psychological-types",
@@ -699,7 +699,7 @@ export const conceptRegistry: ConceptRegistryItem[] = [
     aliases: ["Psychological Types"],
     nodeType: "book",
     framework: "Analytical Psychology",
-    description: "งานสำคัญของ Jung ว่าด้วยประเภททางจิตวิทยา",
+    description: "งานเขียนสำคัญของ Carl Jung ที่วางแนวคิดประเภททางจิตวิทยา (Thinking, Feeling, Sensation, Intuition) และทิศทางจิต (Introversion/Extraversion) ซึ่งเป็นรากฐานของ MBTI",
   },
   ...schoolRegistry,
 ];

@@ -108,6 +108,17 @@ export default function StudioDashboardPage() {
     return map[s] ?? "text-muted";
   };
 
+  const statusAccent = (s: string) => {
+    const map: Record<string, string> = {
+      draft: "#9A948A",
+      "needs-source-check": "#C9776A",
+      "ready-to-publish": "#D8B56A",
+      published: "#7FB08A",
+      archived: "#8A857D",
+    };
+    return map[s] ?? "#9A948A";
+  };
+
   const typeLabel = (t: string) => {
     const map: Record<string, string> = {
       article: "บทความ",
@@ -121,6 +132,19 @@ export default function StudioDashboardPage() {
       term: "ศัพท์",
     };
     return map[t] ?? t;
+  };
+
+  const typeAccent = (t: string) => {
+    const map: Record<string, string> = {
+      article: "#CBA45A",
+      concept: "#6E93A8",
+      person: "#8AA395",
+      school: "#7FB08A",
+      book: "#C9A24A",
+      symbol: "#B9C2CE",
+      term: "#9A948A",
+    };
+    return map[t] ?? "#CBA45A";
   };
 
   return (
@@ -144,57 +168,69 @@ export default function StudioDashboardPage() {
           <h2 className="mb-4 text-xs font-semibold uppercase tracking-wider text-on-surface-variant/50">
             การดำเนินการด่วน
           </h2>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             <Link
               href="/studio/editor"
-              className="archron-panel flex items-center gap-3 p-4 transition-all hover:border-burnished-gold/45"
+              className="archron-card archron-card--sapientia group flex items-center gap-4 p-5"
+              style={{ "--cosmology-accent": "#CBA45A" } as React.CSSProperties}
             >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-burnished-gold/10 text-burnished-gold">
-                <span className="material-symbols-outlined text-[20px]">edit_note</span>
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-transform group-hover:scale-110"
+                style={{ backgroundColor: "color-mix(in srgb, #CBA45A 12%, transparent)", color: "#CBA45A" }}
+              >
+                <span className="material-symbols-outlined text-[24px]">edit_note</span>
               </span>
               <div>
-                <p className="text-sm font-medium text-on-surface">เขียนใหม่</p>
-                <p className="text-[10px] text-on-surface-variant/50">ฉบับร่างใหม่</p>
+                <p className="text-sm font-semibold text-ivory group-hover:text-soft-gold transition-colors">เขียนใหม่</p>
+                <p className="text-[11px] text-on-surface-variant/60">ฉบับร่างใหม่</p>
               </div>
             </Link>
 
             <Link
               href="/studio/editor"
-              className="archron-panel flex items-center gap-3 p-4 transition-all hover:border-burnished-gold/45"
+              className="archron-card archron-card--psyche group flex items-center gap-4 p-5"
+              style={{ "--cosmology-accent": "#6E93A8" } as React.CSSProperties}
             >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-info/10 text-info">
-                <span className="material-symbols-outlined text-[20px]">description</span>
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-transform group-hover:scale-110"
+                style={{ backgroundColor: "color-mix(in srgb, #6E93A8 12%, transparent)", color: "#6E93A8" }}
+              >
+                <span className="material-symbols-outlined text-[24px]">description</span>
               </span>
               <div>
-                <p className="text-sm font-medium text-on-surface">เขียนต่อ</p>
-                <p className="text-[10px] text-on-surface-variant/50">{drafts.length} ฉบับรออยู่</p>
+                <p className="text-sm font-semibold text-ivory group-hover:text-soft-gold transition-colors">เขียนต่อ</p>
+                <p className="text-[11px] text-on-surface-variant/60">{drafts.length} ฉบับรออยู่</p>
               </div>
             </Link>
 
             <Link
               href="/studio/profile"
-              className="archron-panel flex items-center gap-3 p-4 transition-all hover:border-burnished-gold/45"
+              className="archron-card archron-card--mercurius group flex items-center gap-4 p-5"
+              style={{ "--cosmology-accent": "#8AA395" } as React.CSSProperties}
             >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-psyche/10 text-psyche">
-                <span className="material-symbols-outlined text-[20px]">person</span>
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-transform group-hover:scale-110"
+                style={{ backgroundColor: "color-mix(in srgb, #8AA395 12%, transparent)", color: "#8AA395" }}
+              >
+                <span className="material-symbols-outlined text-[24px]">person</span>
               </span>
               <div>
-                <p className="text-sm font-medium text-on-surface">โปรไฟล์</p>
-                <p className="text-[10px] text-on-surface-variant/50">จัดการข้อมูล</p>
+                <p className="text-sm font-semibold text-ivory group-hover:text-soft-gold transition-colors">โปรไฟล์</p>
+                <p className="text-[11px] text-on-surface-variant/60">จัดการข้อมูล</p>
               </div>
             </Link>
 
             {admin && (
               <Link
                 href="/studio/users"
-                className="archron-panel flex items-center gap-3 p-4 transition-all hover:border-burnished-gold/45"
+                className="archron-card archron-card--lumen group flex items-center gap-4 p-5"
+                style={{ "--cosmology-accent": "#E7D7A6" } as React.CSSProperties}
               >
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-warning/10 text-warning">
-                  <span className="material-symbols-outlined text-[20px]">shield_person</span>
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-transform group-hover:scale-110"
+                  style={{ backgroundColor: "color-mix(in srgb, #E7D7A6 12%, transparent)", color: "#E7D7A6" }}
+                >
+                  <span className="material-symbols-outlined text-[24px]">shield_person</span>
                 </span>
                 <div>
-                  <p className="text-sm font-medium text-on-surface">จัดการผู้ใช้</p>
-                  <p className="text-[10px] text-on-surface-variant/50">บทบาทและสิทธิ์</p>
+                  <p className="text-sm font-semibold text-ivory group-hover:text-soft-gold transition-colors">จัดการผู้ใช้</p>
+                  <p className="text-[11px] text-on-surface-variant/60">บทบาทและสิทธิ์</p>
                 </div>
               </Link>
             )}
@@ -207,36 +243,48 @@ export default function StudioDashboardPage() {
             สถิติภาพรวม
           </h2>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-            <div className="archron-panel p-5">
-              <div className="flex items-center gap-2 text-on-surface-variant/60">
-                <span className="material-symbols-outlined text-[18px]">edit</span>
-                <span className="text-xs">ฉบับร่าง</span>
+            <div className="archron-card p-5" style={{ "--cosmology-accent": "#9A948A" } as React.CSSProperties}>
+              <div className="flex items-center gap-2.5">
+                <span className="flex h-9 w-9 items-center justify-center rounded-lg"
+                  style={{ backgroundColor: "color-mix(in srgb, #9A948A 12%, transparent)", color: "#9A948A" }}
+                >
+                  <span className="material-symbols-outlined text-[18px]">edit</span>
+                </span>
+                <span className="text-xs text-on-surface-variant/60">ฉบับร่าง</span>
               </div>
-              <p className="mt-2 font-serif text-3xl text-ivory">{drafts.length}</p>
+              <p className="mt-3 font-serif text-4xl text-ivory">{drafts.length}</p>
             </div>
 
-            <div className="archron-panel p-5">
-              <div className="flex items-center gap-2 text-on-surface-variant/60">
-                <span className="material-symbols-outlined text-[18px]">publish</span>
-                <span className="text-xs">เผยแพร่แล้ว</span>
+            <div className="archron-card p-5" style={{ "--cosmology-accent": "#7FB08A" } as React.CSSProperties}>
+              <div className="flex items-center gap-2.5">
+                <span className="flex h-9 w-9 items-center justify-center rounded-lg"
+                  style={{ backgroundColor: "color-mix(in srgb, #7FB08A 12%, transparent)", color: "#7FB08A" }}
+                >
+                  <span className="material-symbols-outlined text-[18px]">publish</span>
+                </span>
+                <span className="text-xs text-on-surface-variant/60">เผยแพร่แล้ว</span>
               </div>
-              <p className="mt-2 font-serif text-3xl text-ivory">{published.length}</p>
+              <p className="mt-3 font-serif text-4xl text-ivory">{published.length}</p>
             </div>
 
-            <div className="archron-panel p-5">
-              <div className="flex items-center gap-2 text-on-surface-variant/60">
-                <span className="material-symbols-outlined text-[18px]">archive</span>
-                <span className="text-xs">เก็บถาวร</span>
+            <div className="archron-card p-5" style={{ "--cosmology-accent": "#8A857D" } as React.CSSProperties}>
+              <div className="flex items-center gap-2.5">
+                <span className="flex h-9 w-9 items-center justify-center rounded-lg"
+                  style={{ backgroundColor: "color-mix(in srgb, #8A857D 12%, transparent)", color: "#8A857D" }}
+                >
+                  <span className="material-symbols-outlined text-[18px]">archive</span>
+                </span>
+                <span className="text-xs text-on-surface-variant/60">เก็บถาวร</span>
               </div>
-              <p className="mt-2 font-serif text-3xl text-ivory">{archived.length}</p>
+              <p className="mt-3 font-serif text-4xl text-ivory">{archived.length}</p>
             </div>
           </div>
         </section>
 
         {loading ? (
-          <div className="space-y-4">
+          <div className="space-y-3">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="archron-panel h-20 animate-pulse" />
+              <div key={i} className="archron-card h-20 animate-pulse" />
             ))}
           </div>
         ) : (
@@ -247,7 +295,7 @@ export default function StudioDashboardPage() {
                 ฉบับร่างล่าสุด
               </h2>
               {recentDrafts.length === 0 ? (
-                <div className="archron-panel p-8 text-center">
+                <div className="archron-card p-8 text-center" style={{ "--cosmology-accent": "#9A948A" } as React.CSSProperties}>
                   <span className="material-symbols-outlined text-[40px] text-muted">
                     note_add
                   </span>
@@ -266,17 +314,23 @@ export default function StudioDashboardPage() {
                     <Link
                       key={d.id}
                       href={`/studio/editor?slug=${d.slug}`}
-                      className="archron-panel flex items-center justify-between p-4 transition-all hover:border-burnished-gold/45"
+                      className="archron-card archron-card--link group flex items-center justify-between p-4"
                     >
                       <div className="min-w-0">
-                        <p className="truncate text-sm font-medium text-on-surface">
+                        <p className="truncate text-sm font-medium text-on-surface group-hover:text-soft-gold transition-colors">
                           {d.title || d.slug}
                         </p>
-                        <p className="mt-0.5 text-[10px] text-on-surface-variant/50">
+                        <p className="mt-0.5 text-[11px] text-on-surface-variant/50">
                           อัปเดต {new Date(d.updated_at).toLocaleDateString("th-TH")}
                         </p>
                       </div>
-                      <span className={`shrink-0 text-[10px] font-semibold ${statusColor(d.status)}`}>
+                      <span
+                        className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
+                        style={{
+                          backgroundColor: `${statusAccent(d.status)}15`,
+                          color: statusAccent(d.status),
+                        }}
+                      >
                         {statusLabel(d.status)}
                       </span>
                     </Link>
@@ -291,7 +345,7 @@ export default function StudioDashboardPage() {
                 เผยแพร่ล่าสุด
               </h2>
               {recentEntries.length === 0 ? (
-                <div className="archron-panel p-8 text-center">
+                <div className="archron-card p-8 text-center" style={{ "--cosmology-accent": "#CBA45A" } as React.CSSProperties}>
                   <span className="material-symbols-outlined text-[40px] text-muted">
                     article
                   </span>
@@ -303,22 +357,28 @@ export default function StudioDashboardPage() {
                     <Link
                       key={e.id}
                       href={`/articles/${e.slug}`}
-                      className="archron-panel flex items-center justify-between p-4 transition-all hover:border-burnished-gold/45"
+                      className="archron-card archron-card--link group flex items-center justify-between p-4"
                     >
                       <div className="min-w-0">
                         <div className="flex items-center gap-2">
-                          <span className="inline-flex rounded-full bg-burnished-gold/10 px-2 py-0.5 text-[10px] font-semibold text-burnished-gold">
+                          <span
+                            className="inline-flex shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
+                            style={{
+                              backgroundColor: `${typeAccent(e.content_type)}15`,
+                              color: typeAccent(e.content_type),
+                            }}
+                          >
                             {typeLabel(e.content_type)}
                           </span>
-                          <p className="truncate text-sm font-medium text-on-surface">
+                          <p className="truncate text-sm font-medium text-on-surface group-hover:text-soft-gold transition-colors">
                             {e.title}
                           </p>
                         </div>
-                        <p className="mt-0.5 text-[10px] text-on-surface-variant/50">
+                        <p className="mt-0.5 text-[11px] text-on-surface-variant/50">
                           เผยแพร่ {new Date(e.published_at).toLocaleDateString("th-TH")}
                         </p>
                       </div>
-                      <span className="material-symbols-outlined text-[16px] text-muted">
+                      <span className="material-symbols-outlined text-[16px] text-muted group-hover:text-burnished-gold transition-colors">
                         open_in_new
                       </span>
                     </Link>

@@ -12,6 +12,7 @@ export function SearchableSelect({
   placeholder = "เลือก...",
   meta,
   allowCustom = false,
+  id,
 }: {
   value: string;
   onChange: (v: string) => void;
@@ -21,6 +22,8 @@ export function SearchableSelect({
   meta?: (value: string) => OptionMeta;
   // ออปชัน: อนุญาตให้พิมพ์สร้างค่าใหม่ที่ไม่อยู่ในรายการ (เช่น Framework)
   allowCustom?: boolean;
+  // ออปชัน: id สำหรับ label association (a11y)
+  id?: string;
 }) {
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
@@ -78,6 +81,7 @@ export function SearchableSelect({
     <div className="relative" ref={containerRef}>
       <button
         type="button"
+        id={id}
         onClick={() => setOpen((v) => !v)}
         className="flex w-full items-center justify-between rounded-md border border-ink/10 bg-charcoal/40 px-3 py-2 text-left text-ivory"
         aria-haspopup="listbox"
@@ -103,7 +107,7 @@ export function SearchableSelect({
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder={allowCustom ? "ค้นหา หรือพิมพ์สร้างใหม่..." : "ค้นหา..."}
-            className="w-full rounded border border-ink/10 bg-charcoal/60 px-2 py-1.5 text-sm text-ivory outline-none"
+            className="w-full rounded border border-ink/10 bg-charcoal/60 px-2 py-1.5 text-sm text-ivory outline-none focus:border-antique-gold/50 focus:ring-2 focus:ring-antique-gold/20 transition-colors"
             aria-label="ค้นหาตัวเลือก"
           />
           <ul className="mt-2 max-h-56 overflow-y-auto" role="listbox">

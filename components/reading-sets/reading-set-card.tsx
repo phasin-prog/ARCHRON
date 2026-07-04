@@ -77,8 +77,14 @@ export function ReadingSetCard({ set }: { set: ReadingSetItem }) {
               return (
                 <div key={step.slug} className="flex flex-col items-start md:flex-row md:items-center min-w-[150px] flex-1">
                   <Link
-                    href={`/concepts/${step.slug}`}
-                    className="w-full flex items-center gap-2.5 rounded border border-slate-boundary/30 bg-white/[0.01] px-3 py-2 text-xs text-soft-ivory hover:border-burnished-gold/45 hover:text-soft-gold transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-burnished-gold/50"
+                    href={
+                      step.type === "person"
+                        ? `/schools?person=${step.slug}`
+                        : step.type === "article"
+                          ? `/articles/${step.slug}`
+                          : `/concepts/${step.slug}`
+                    }
+                    className="w-full flex items-center gap-2.5 rounded border border-slate-boundary/30 bg-white/[0.01] px-3 py-2 text-xs text-soft-ivory hover:border-burnished-gold/45 hover:text-soft-gold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold/50 focus-visible:ring-offset-2 focus-visible:ring-offset-deep-navy"
                   >
                     <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-burnished-gold/15 text-[10px] font-bold text-burnished-gold font-mono">
                       {idx + 1}
@@ -110,6 +116,14 @@ export function ReadingSetCard({ set }: { set: ReadingSetItem }) {
             </ReactMarkdown>
           </div>
         )}
+
+        <Link
+          href={`/reading-sets/${set.slug}`}
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-burnished-gold/80 hover:text-burnished-gold transition-colors mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold/50 focus-visible:ring-offset-2 focus-visible:ring-offset-deep-navy rounded"
+        >
+          ดูรายละเอียดซีรีส์
+          <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+        </Link>
       </div>
     </article>
   );

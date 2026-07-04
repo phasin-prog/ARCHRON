@@ -2,69 +2,9 @@
    ARCHRON — Animation Language (Phase 39 · Design Phase 29 Extensions)
    ----------------------------------------------------------------------------
    อ้างอิง: VOS.md §11 Motion Engine · EDS.md §10 Visual Rhythm
-   - GSAP Intro Preloader, Scroll Reveal, Stagger Animations,
+   - Scroll Reveal, Stagger Animations,
    - Page Transitions, Micro-interactions, Loading Animations
    ============================================================================ */
-
-/* ---- Preloader ---- */
-.archron-preloader {
-  position: fixed;
-  inset: 0;
-  background: var(--color-deep-navy);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-
-.archron-preloader.hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.archron-preloader-mark {
-  width: 3rem;
-  height: 3rem;
-  animation: preloader-pulse 1.5s ease-in-out infinite;
-}
-
-@keyframes preloader-pulse {
-  0%, 100% { opacity: 0.4; transform: scale(0.95); }
-  50% { opacity: 1; transform: scale(1); }
-}
-
-.archron-preloader-text {
-  margin-top: 1rem;
-  font-family: var(--font-heading);
-  font-size: 0.875rem;
-  color: var(--color-muted);
-  letter-spacing: 0.1em;
-}
-
-.archron-preloader-bar {
-  margin-top: 1.5rem;
-  width: 8rem;
-  height: 2px;
-  background: var(--color-surface-container-high);
-  border-radius: 1px;
-  overflow: hidden;
-}
-
-.archron-preloader-bar-fill {
-  height: 100%;
-  background: var(--color-burnished-gold);
-  border-radius: 1px;
-  animation: preloader-fill 2s ease-in-out infinite;
-}
-
-@keyframes preloader-fill {
-  0% { width: 0%; transform: translateX(0); }
-  50% { width: 100%; }
-  100% { width: 0%; transform: translateX(8rem); }
-}
 
 /* ---- Scroll Reveal ---- */
 .scroll-reveal {
@@ -325,15 +265,6 @@
     opacity: 1;
     transform: none;
     transition: none;
-  }
-
-  .archron-preloader-mark {
-    animation: none;
-  }
-
-  .archron-preloader-bar-fill {
-    animation: none;
-    width: 100%;
   }
 
   .page-enter,

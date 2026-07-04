@@ -501,6 +501,77 @@ create policy chunks_select on public.chunks
   for select using (true);
 
 -- =========================================================
+-- 10) collections — คอลเลกชัน/เส้นทางการอ่าน
+-- =========================================================
+create table if not exists public.collections (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  slug text not null unique,
+  type text not null default 'curated' check (type in ('series', 'pathway', 'curated', 'auto', 'temporal')),
+  description text,
+  cover_url text,
+  is_published boolean default false,
+  sort_order int default 0,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+comment on table public.collections is 'คอลเลกชัน/เส้นทางการอ่าน (series, pathway, etc.)';
+
+-- =========================================================
+-- 11) collection_entries — ความสัมพันธ์ระหว่าง collections กับ entries
+-- =========================================================
+create table if not exists public.collection_entries (
+  collection_id uuid not null references public.collections(id) on delete cascade,
+  entry_id uuid not null references public.entries(id) on delete cascade,
+  sort_order int default 0,
+  notes text,
+  created_at timestamptz not null default now(),
+  primary key (collection_id, entry_id)
+);
+
+comment on table public.collection_entries is 'รายการ entries ในแต่ละคอลเลกชัน';
+
+-- =========================================================
+-- collections — indexes
+-- =========================================================
+create index if not exists collections_slug_idx on public.collections (slug);
+create index if not exists collections_type_idx on public.collections (type);
+create index if not exists collection_entries_entry_idx on public.collection_entries (entry_id);
+
+-- =========================================================
+-- collections — triggers
+-- =========================================================
+drop trigger if exists collections_set_updated_at on public.collections;
+create trigger collections_set_updated_at
+  before update on public.collections
+  for each row execute function public.set_updated_at();
+
+-- =========================================================
+-- collections — RLS
+-- =========================================================
+alter table public.collections enable row level security;
+alter table public.collection_entries enable row level security;
+
+drop policy if exists collections_select on public.collections;
+create policy collections_select on public.collections
+  for select using (is_published = true);
+
+drop policy if exists collection_entries_select on public.collection_entries;
+create policy collection_entries_select on public.collection_entries
+  for select using (
+    collection_id in (select id from public.collections where is_published = true)
+  );
+
+-- =========================================================
+-- collections — GRANTS
+-- =========================================================
+grant select on public.collections to anon, authenticated;
+grant insert, update, delete on public.collections to authenticated;
+grant select on public.collection_entries to anon, authenticated;
+grant insert, update, delete on public.collection_entries to authenticated;
+
+-- =========================================================
 -- GRANTS — table-level access
 -- =========================================================
 grant select on public.entries to anon, authenticated;
@@ -633,5 +704,6 @@ $$;
 -- SELECT table_name FROM information_schema.tables
 -- WHERE table_schema = 'public' ORDER BY table_name;
 --
--- ตารางทั้ง 9: chunks, comments, entries, entry_revisions,
---                library, page_views, profiles, reading_progress, user_achievements
+-- ตารางทั้ง 11: chunks, collection_entries, collections, comments,
+--                entries, entry_revisions, library, page_views,
+--                profiles, reading_progress, user_achievements

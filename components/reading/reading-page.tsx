@@ -30,6 +30,7 @@ import { ViewCounter } from "@/components/reading/view-counter";
 import { CommentSection } from "@/components/reading/comment-section";
 import { LocalGraph } from "@/components/reading/local-graph";
 import { ReadCompletionTracker } from "@/components/reading/read-completion-tracker";
+import { FontSizeControl } from "@/components/reading/font-size-control";
 import { themesForEntry } from "@/lib/content/themes";
 import { getPublicEntries } from "@/lib/content/public-source";
 import { getBacklinksForConcept } from "@/lib/content/related";
@@ -303,18 +304,21 @@ export async function ReadingPage({
               "radial-gradient(ellipse 70% 55% at 50% 0%, color-mix(in srgb, var(--accent) 7%, transparent), transparent 100%)",
           }}
         />
-        {/* Breadcrumb */}
-        <nav aria-label="เส้นทางนำทาง" className="scroll-reveal flex flex-wrap items-center gap-1 text-xs text-muted">
-          <Link href="/" className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:text-soft-gold focus-visible:outline-none">หน้าแรก</Link>
-          <span className="material-symbols-outlined text-[16px] text-subtle" aria-hidden="true">chevron_right</span>
-          <Link href="/knowledge" className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:text-soft-gold focus-visible:outline-none">คลังความรู้</Link>
-          <span className="material-symbols-outlined text-[16px] text-subtle" aria-hidden="true">chevron_right</span>
-          <Link href={`/${section}`} className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:text-soft-gold focus-visible:outline-none">
-            {SECTION_LABEL[section]}
-          </Link>
-          <span className="material-symbols-outlined text-[16px] text-subtle" aria-hidden="true">chevron_right</span>
-          <span className="px-2 py-1.5 text-soft-ivory">{entry.mainTerm ?? entry.title}</span>
-        </nav>
+        {/* Breadcrumb + Font Size */}
+        <div className="scroll-reveal flex flex-wrap items-center justify-between gap-3">
+          <nav aria-label="เส้นทางนำทาง" className="flex flex-wrap items-center gap-1 text-xs text-muted">
+            <Link href="/" className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:text-soft-gold focus-visible:outline-none">หน้าแรก</Link>
+            <span className="material-symbols-outlined text-[16px] text-subtle" aria-hidden="true">chevron_right</span>
+            <Link href="/knowledge" className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:text-soft-gold focus-visible:outline-none">คลังความรู้</Link>
+            <span className="material-symbols-outlined text-[16px] text-subtle" aria-hidden="true">chevron_right</span>
+            <Link href={`/${section}`} className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:text-soft-gold focus-visible:outline-none">
+              {SECTION_LABEL[section]}
+            </Link>
+            <span className="material-symbols-outlined text-[16px] text-subtle" aria-hidden="true">chevron_right</span>
+            <span className="px-2 py-1.5 text-soft-ivory">{entry.mainTerm ?? entry.title}</span>
+          </nav>
+          <FontSizeControl />
+        </div>
 
         {/* Header Zone */}
         <header className="scroll-reveal stagger-1 mt-7">

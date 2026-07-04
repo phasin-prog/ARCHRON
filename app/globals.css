@@ -1340,3 +1340,17 @@
 @media (max-width: 768px) {
   .atmo-base::after { animation: none !important; opacity: 0.65 !important; }
 }
+
+/* ── Reading Font Scale — ปรับขนาดตัวอักษรในหน้าอ่าน ── */
+#reading-article {
+  font-size: calc(var(--text-base) * var(--reading-font-scale, 1));
+}
+#reading-article h1 {
+  font-size: calc(var(--text-h1) * var(--reading-font-scale, 1));
+}
+#reading-article h2 {
+  font-size: calc(var(--text-h2) * var(--reading-font-scale, 1));
+}
+#reading-article h3 {
+  font-size: calc(var(--text-h3) * var(--reading-font-scale, 1));
+}

@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import dynamic from "next/dynamic";
 import {
   Inter,
   IBM_Plex_Serif,
@@ -8,7 +7,6 @@ import {
   Noto_Serif_Thai,
   Playfair_Display,
   Cinzel,
-  EB_Garamond,
 } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
@@ -20,11 +18,6 @@ import { Fab } from "@/components/fab";
 import { SkipToContent } from "@/components/skip-to-content";
 import { QuickOpen } from "@/components/quick-open";
 import { ClerkProvider } from "@clerk/nextjs";
-
-const IntroPreloader = dynamic(
-  () =>
-    import("@/components/hero/intro-preloader").then((m) => m.IntroPreloader),
-);
 
 
 // ── Dynamic Typography (สองภาษา: อังกฤษขึ้นก่อน → ไทย) ──────────────────────
@@ -82,18 +75,11 @@ const cinzel = Cinzel({
   display: "swap",
 });
 
-// EB Garamond — ฟอนต์ italic สำหรับ intro preloader (มี Greek + diacritics ครบ: ἀρχή ἄρχων Χρόνος)
-const ebGaramond = EB_Garamond({
-  subsets: ["greek", "latin"],
-  weight: ["400", "500"],
-  style: ["normal", "italic"],
-  variable: "--font-eb-garamond",
-  display: "swap",
-});
-
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export const metadata: Metadata = {
@@ -111,7 +97,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html
         lang="th"
-        className={`${inter.variable} ${notoSansThai.variable} ${ibmPlexSerif.variable} ${notoSerifThai.variable} ${ibmPlexThai.variable} ${playfair.variable} ${cinzel.variable} ${ebGaramond.variable}`}
+        className={`${inter.variable} ${notoSansThai.variable} ${ibmPlexSerif.variable} ${notoSerifThai.variable} ${ibmPlexThai.variable} ${playfair.variable} ${cinzel.variable}`}
       >
         <head>
           <meta charSet="utf-8" />
@@ -127,7 +113,6 @@ export default function RootLayout({
 
         </head>
         <body className="min-h-screen bg-deep-navy pb-16 text-ivory antialiased md:pb-0">
-          <IntroPreloader />
           <SkipToContent />
           <AccentController />
           <div className="accent-aura" aria-hidden="true" />

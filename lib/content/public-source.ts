@@ -108,7 +108,11 @@ export async function getPublicSchools(): Promise<School[]> {
   return staticSchools;
 }
 
-import { READING_SETS, type ReadingSetItem } from "@/lib/content/reading-sets";
+import {
+  READING_SETS,
+  getReadingSetBySlug as getStaticReadingSetBySlug,
+  type ReadingSetItem,
+} from "@/lib/content/reading-sets";
 
 // ดึงรายการเส้นทางการอ่าน (Reading Sets) ทั้งหมด
 export async function getPublicReadingSets(): Promise<ReadingSetItem[]> {
@@ -121,5 +125,24 @@ export async function getPublicReadingSets(): Promise<ReadingSetItem[]> {
     }
   }
   return READING_SETS;
+}
+
+// ดึงข้อมูลเส้นทางการอ่านตาม slug
+export async function getPublicReadingSetBySlug(
+  slug: string,
+): Promise<ReadingSetItem | null> {
+  if (hasSupabaseEnv()) {
+    try {
+      const dbEntry = await cached(`${KEYS.entryBySlug}:rs:${slug}`, async () => {
+        return getPublishedEntryBySlug(slug);
+      });
+      if (dbEntry !== null && dbEntry.contentType === "reading-set") {
+        return dbEntry as ReadingSetItem;
+      }
+    } catch {
+      // DB เข้าถึงไม่ได้ — fallback ไป static
+    }
+  }
+  return getStaticReadingSetBySlug(slug) ?? null;
 }
 

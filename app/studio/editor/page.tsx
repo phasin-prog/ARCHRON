@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useAuth, useUser, UserButton } from "@clerk/nextjs";
@@ -104,6 +105,7 @@ const textareaClass = `${inputClass} resize-y`;
 export default function StudioEditorPage() {
   const { userId } = useAuth();
   const { user } = useUser();
+  const searchParams = useSearchParams();
 
   const [draft, setDraft] = useState<EditorDraft>(EMPTY_DRAFT);
   const [entryId, setEntryId] = useState<string | null>(null);
@@ -138,12 +140,8 @@ export default function StudioEditorPage() {
 
   // โหลดเนื้อหาเดิมถ้ามี ?slug= หรือ ?type= หรือสร้าง UUID ใหม่
   useEffect(() => {
-    const params =
-      typeof window !== "undefined"
-        ? new URLSearchParams(window.location.search)
-        : null;
-    const slug = params?.get("slug");
-    const type = params?.get("type");
+    const slug = searchParams.get("slug");
+    const type = searchParams.get("type");
 
     if (slug) {
       // โหลดเนื้อหาเดิม
@@ -179,7 +177,7 @@ export default function StudioEditorPage() {
       }));
     }
     // ถ้าไม่มี slug และไม่มี type — แสดง selector
-  }, []);
+  }, [searchParams]);
 
   function set<K extends keyof EditorDraft>(key: K, value: EditorDraft[K]) {
     setDraft((d) => ({ ...d, [key]: value }));

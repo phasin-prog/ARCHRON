@@ -413,7 +413,7 @@ export default function StudioEditorPage() {
         <div className="mx-auto grid max-w-6xl gap-8 px-6 py-10 pb-28 md:grid-cols-[1fr_320px] lg:pb-10">
         <main className="space-y-10">
           <p className="text-xs text-muted">
-            เขียนในชื่อ: <span className="text-soft-ivory">{displayName ?? userId ?? "— (ยังไม่ได้ login)"}</span>
+            เขียนในชื่อ: <span className="text-soft-ivory">{displayName || user?.fullName || user?.username || "นักเขียน"}</span>
             {autoState === "saving" ? <span> · กำลังบันทึกอัตโนมัติ...</span> : null}
             {autoState === "saved" && savedAt ? <span> · บันทึกอัตโนมัติแล้ว {savedAt}</span> : null}
           </p>

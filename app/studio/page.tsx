@@ -22,7 +22,28 @@ export default function StudioLandingPage() {
             <div className="h-20 w-full bg-surface-3 rounded" />
           </div>
           <div className="md:col-span-5 flex flex-col justify-center md:items-end">
-            <div className="w-full max-w-sm h-[400px] animate-pulse rounded-lg border border-slate-boundary/20 bg-surface-container/20 p-6" />
+            <div className="w-full max-w-lg overflow-hidden rounded-2xl border border-slate-boundary/20 bg-surface-container-lowest/40">
+              <div className="h-1 w-full bg-surface-3" />
+              <div className="px-8 pt-8 pb-6 space-y-4">
+                <div className="flex items-start gap-5">
+                  <div className="h-20 w-20 shrink-0 animate-pulse rounded-xl bg-surface-3" />
+                  <div className="flex-1 space-y-3 pt-1">
+                    <div className="h-6 w-40 animate-pulse rounded bg-surface-3" />
+                    <div className="h-3 w-52 animate-pulse rounded bg-surface-3" />
+                    <div className="h-5 w-24 animate-pulse rounded-full bg-surface-3" />
+                  </div>
+                </div>
+              </div>
+              <div className="mx-8 h-px bg-surface-3/40" />
+              <div className="px-8 py-6 space-y-3">
+                <div className="h-12 w-full animate-pulse rounded-xl bg-surface-3" />
+                <div className="h-14 w-full animate-pulse rounded-xl bg-surface-3" />
+                <div className="flex gap-2.5">
+                  <div className="h-10 flex-1 animate-pulse rounded-xl bg-surface-3" />
+                  <div className="h-10 flex-1 animate-pulse rounded-xl bg-surface-3" />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </main>
@@ -141,76 +162,132 @@ export default function StudioLandingPage() {
       </SignedOut>
 
       <SignedIn>
-        <div className="w-full max-w-md">
-          {/* การ์ดสรุปโปรไฟล์และปุ่มจัดการบัญชี/ออกจากระบบที่ออกแบบใหม่ */}
-          <div className="rounded-md border border-antique-gold/20 bg-paper-raised/80 p-8 text-center shadow-2xl backdrop-blur-md">
-            <div className="flex flex-col items-center">
-              {user?.imageUrl ? (
-                /* eslint-disable-next-line @next/next/no-img-element */
-                <img
-                  src={user.imageUrl}
-                  alt={user.fullName || "รูปภาพโปรไฟล์"}
-                  className="h-20 w-20 rounded-full border-2 border-antique-gold/40 object-cover shadow-lg"
-                />
-              ) : (
-                <span className="material-symbols-outlined text-[72px] text-muted">account_circle</span>
-              )}
-              <h2 className="mt-4 font-serif text-2xl text-ivory font-medium">
-                {user?.fullName || user?.username || "เพื่อนผู้ร่วมเขียน"}
-              </h2>
-              <p className="mt-1 text-xs text-muted font-mono">{user?.primaryEmailAddress?.emailAddress}</p>
-              
-              <span className="mt-3 inline-block rounded-full bg-antique-gold/12 border border-antique-gold/30 px-3.5 py-0.5 text-[11px] font-semibold text-antique-gold uppercase tracking-wider">
-                {admin ? "ผู้ดูแลระบบ (Admin)" : "นักเขียน (Writer)"}
-              </span>
+        <div className="w-full max-w-lg">
+          {/* การ์ดโปรไฟล์ — Premium Dashboard Card */}
+          <div className="group relative overflow-hidden rounded-2xl border border-slate-boundary/30 bg-surface-container-lowest/60 shadow-2xl backdrop-blur-xl">
+            {/* Gradient accent bar ด้านบน */}
+            <div className="h-1 w-full bg-gradient-to-r from-antique-gold via-burnished-gold to-antique-gold/40" />
+
+            {/* Header section — Avatar + Identity */}
+            <div className="relative px-8 pt-8 pb-6">
+              {/* Background glow */}
+              <div
+                className="pointer-events-none absolute -right-20 -top-20 h-60 w-60 rounded-full opacity-30 blur-[80px] transition-opacity duration-700 group-hover:opacity-50"
+                style={{ background: "radial-gradient(circle, var(--color-antique-gold), transparent 70%)" }}
+                aria-hidden="true"
+              />
+
+              <div className="relative z-10 flex items-start gap-5">
+                {/* Avatar */}
+                {user?.imageUrl ? (
+                  <div className="relative shrink-0">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={user.imageUrl}
+                      alt={user.fullName || "รูปภาพโปรไฟล์"}
+                      className="h-20 w-20 rounded-xl border-2 border-antique-gold/30 object-cover shadow-lg transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                    {/* Online indicator */}
+                    <span className="absolute -bottom-1 -right-1 h-4 w-4 rounded-full border-2 border-surface-container-lowest bg-verdigris" />
+                  </div>
+                ) : (
+                  <span className="material-symbols-outlined text-[72px] text-muted">account_circle</span>
+                )}
+
+                {/* Name + Email + Role */}
+                <div className="min-w-0 flex-1 pt-1">
+                  <h2 className="truncate font-serif text-2xl font-medium text-ivory">
+                    {user?.fullName || user?.username || "เพื่อนผู้ร่วมเขียน"}
+                  </h2>
+                  <p className="mt-1 truncate font-mono text-xs text-on-surface-variant/60">
+                    {user?.primaryEmailAddress?.emailAddress}
+                  </p>
+                  <span className="mt-2.5 inline-flex items-center gap-1.5 rounded-full border border-antique-gold/25 bg-antique-gold/8 px-3 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-antique-gold">
+                    <span className={`h-1.5 w-1.5 rounded-full ${admin ? "bg-verdigris" : "bg-burnished-gold"}`} />
+                    {admin ? "ผู้ดูแลระบบ" : "นักเขียน"}
+                  </span>
+                </div>
+              </div>
             </div>
 
-            <div className="mt-8 flex flex-col gap-3">
+            {/* Divider */}
+            <div className="mx-8 h-px bg-gradient-to-r from-transparent via-slate-boundary/40 to-transparent" />
+
+            {/* Actions */}
+            <div className="px-8 py-6 space-y-3">
+              {/* Primary CTA — เข้าสู่ห้องเขียน */}
               <Link
                 href="/studio/editor"
-                className="inline-flex items-center justify-center gap-2 rounded-sm bg-gradient-to-br from-antique-gold to-burnished-gold px-8 py-3 text-sm font-semibold text-prima transition-transform hover:-translate-y-0.5 shadow-md"
+                className="group/btn relative flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-xl bg-gradient-to-br from-antique-gold to-burnished-gold px-6 py-3.5 text-sm font-semibold text-prima shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-antique-gold/20 focus-visible:ring-2 focus-visible:ring-antique-gold focus-visible:outline-none"
               >
                 <span className="material-symbols-outlined text-[20px]">edit_note</span>
                 เข้าสู่ห้องเขียน
+                <span className="material-symbols-outlined text-[18px] transition-transform duration-300 group-hover/btn:translate-x-1">
+                  arrow_forward
+                </span>
               </Link>
 
+              {/* Admin grid — จัดการผู้ใช้ / ดูแลความเห็น */}
               {admin ? (
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-2.5">
                   <Link
                     href="/studio/users"
-                    className="inline-flex items-center justify-center gap-2 rounded-sm border border-slate-boundary bg-paper-sunken/40 px-4 py-2.5 text-xs text-ivory transition-colors hover:bg-paper-raised"
+                    className="group/admin flex items-center gap-2.5 rounded-xl border border-slate-boundary/30 bg-white/[0.02] px-4 py-3 text-left text-xs font-medium text-ivory transition-all duration-300 hover:-translate-y-0.5 hover:border-psyche/40 hover:bg-psyche/5 hover:shadow-lg hover:shadow-psyche/5"
                   >
-                    <span className="material-symbols-outlined text-[16px]">shield_person</span>
-                    จัดการผู้ใช้
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-psyche/20 bg-psyche/10 text-psyche transition-transform duration-300 group-hover/admin:scale-110">
+                      <span className="material-symbols-outlined text-[16px]">shield_person</span>
+                    </span>
+                    <div>
+                      <span className="block text-[11px] text-ivory">จัดการผู้ใช้</span>
+                      <span className="block text-[10px] text-on-surface-variant/50">User Management</span>
+                    </div>
                   </Link>
                   <Link
                     href="/studio/comments"
-                    className="inline-flex items-center justify-center gap-2 rounded-sm border border-slate-boundary bg-paper-sunken/40 px-4 py-2.5 text-xs text-ivory transition-colors hover:bg-paper-raised"
+                    className="group/admin flex items-center gap-2.5 rounded-xl border border-slate-boundary/30 bg-white/[0.02] px-4 py-3 text-left text-xs font-medium text-ivory transition-all duration-300 hover:-translate-y-0.5 hover:border-mercurius/40 hover:bg-mercurius/5 hover:shadow-lg hover:shadow-mercurius/5"
                   >
-                    <span className="material-symbols-outlined text-[16px]">forum</span>
-                    ดูแลความเห็น
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-mercurius/20 bg-mercurius/10 text-mercurius transition-transform duration-300 group-hover/admin:scale-110">
+                      <span className="material-symbols-outlined text-[16px]">forum</span>
+                    </span>
+                    <div>
+                      <span className="block text-[11px] text-ivory">ดูแลความเห็น</span>
+                      <span className="block text-[10px] text-on-surface-variant/50">Comments</span>
+                    </div>
                   </Link>
                 </div>
               ) : null}
 
-              <div className="mt-5 grid grid-cols-2 gap-3 border-t border-slate-boundary/60 pt-5">
+              {/* Secondary actions — จัดการบัญชี / ออกจากระบบ */}
+              <div className="flex gap-2.5 pt-1">
                 <button
                   onClick={() => clerk.openUserProfile()}
-                  className="inline-flex items-center justify-center gap-1.5 rounded-sm border border-antique-gold/30 px-4 py-2 text-xs font-semibold text-antique-gold hover:bg-antique-gold/10 transition-colors"
+                  className="group/sec flex flex-1 items-center justify-center gap-2 rounded-xl border border-slate-boundary/30 bg-white/[0.015] px-4 py-2.5 text-[11px] font-medium text-on-surface-variant/70 transition-all duration-300 hover:border-antique-gold/30 hover:text-ivory hover:bg-white/[0.04]"
                 >
-                  <span className="material-symbols-outlined text-[16px]">settings</span>
+                  <span className="material-symbols-outlined text-[15px] transition-transform duration-300 group-hover/sec:rotate-45">
+                    settings
+                  </span>
                   จัดการบัญชี
                 </button>
                 <button
                   onClick={() => clerk.signOut({ redirectUrl: "/studio" })}
-                  className="inline-flex items-center justify-center gap-1.5 rounded-sm border border-danger/30 px-4 py-2 text-xs font-semibold text-danger hover:bg-danger/10 transition-colors"
+                  className="group/sec flex flex-1 items-center justify-center gap-2 rounded-xl border border-slate-boundary/30 bg-white/[0.015] px-4 py-2.5 text-[11px] font-medium text-on-surface-variant/70 transition-all duration-300 hover:border-danger/30 hover:text-danger hover:bg-danger/5"
                 >
-                  <span className="material-symbols-outlined text-[16px]">logout</span>
+                  <span className="material-symbols-outlined text-[15px] transition-transform duration-300 group-hover/sec:-translate-x-0.5">
+                    logout
+                  </span>
                   ออกจากระบบ
                 </button>
               </div>
             </div>
           </div>
+
+          {/* Byline */}
+          <p className="mt-6 text-center text-[11px] text-on-surface-variant/40">
+            สำหรับการอ่านและเก็บบทความ ไปที่{" "}
+            <Link href="/th/login" className="text-antique-gold/70 hover:text-antique-gold font-medium transition-colors">
+              บัญชีนักอ่าน
+            </Link>
+          </p>
         </div>
       </SignedIn>
     </main>

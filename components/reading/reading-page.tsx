@@ -15,6 +15,7 @@ import { ReadingProgress } from "@/components/reading/reading-progress";
 import { ViewCounter } from "@/components/reading/view-counter";
 import { CommentSection } from "@/components/reading/comment-section";
 import { LocalGraph } from "@/components/reading/local-graph";
+import { TakeawayCard } from "@/components/reading/takeaway-card";
 import { themesForEntry } from "@/lib/content/themes";
 
 type Section = "articles" | "concepts";
@@ -169,9 +170,6 @@ export function ReadingPage({
             {entry.ipa ? <span className="text-muted"> {entry.ipa}</span> : null}
           </p>
         ) : null}
-        {entry.shortDescription ? (
-          <p className="mt-5 text-fluid-lg leading-relaxed text-soft-ivory">{entry.shortDescription}</p>
-        ) : null}
         {entry.updatedAt ? (
           <p className="mt-3 text-xs text-subtle">อัปเดตล่าสุด {entry.updatedAt}</p>
         ) : null}
@@ -215,6 +213,9 @@ export function ReadingPage({
         />
         <MetaCell label="เวลาอ่านโดยประมาณ" value={readTime(entry)} />
       </dl>
+
+      {/* Takeaway Card — Executive Summary Box */}
+      <TakeawayCard entry={entry} />
 
       {/* Main Content Zone */}
       {entry.visualExplanation ? (

@@ -25,11 +25,12 @@ function staticPublished(): ContentEntry[] {
   return staticEntries.filter((e) => e.status === "published");
 }
 
-export async function getPublicEntries(): Promise<ContentEntry[]> {
+export async function getPublicEntries(contentType?: string): Promise<ContentEntry[]> {
+  const cacheKey = contentType ? `${KEYS.entries}:${contentType}` : KEYS.entries;
   if (hasSupabaseEnv()) {
     try {
-      const cachedEntries = await cached(KEYS.entries, async () => {
-        const fromDb = await getPublishedEntries();
+      const cachedEntries = await cached(cacheKey, async () => {
+        const fromDb = await getPublishedEntries(contentType);
         return fromDb.length > 0 ? fromDb : null;
       });
       if (cachedEntries) return cachedEntries;
@@ -37,7 +38,9 @@ export async function getPublicEntries(): Promise<ContentEntry[]> {
       // DB เข้าถึงไม่ได้ — ใช้ static แทน
     }
   }
-  return staticPublished();
+  return contentType
+    ? staticPublished().filter((e) => e.contentType === contentType)
+    : staticPublished();
 }
 
 export async function getPublicEntryBySlug(
@@ -63,13 +66,10 @@ export async function getPublicSchools(): Promise<School[]> {
   if (hasSupabaseEnv()) {
     try {
       const cachedSchools = await cached(KEYS.schools, async () => {
-        const allEntries = await getPublicEntries();
-        const dbSchools = allEntries.filter((e) => e.contentType === "school");
-        const dbThinkers = allEntries.filter(
-          (e) => e.contentType === "person"
-        );
-
+        const dbSchools = await getPublishedEntries("school");
         if (dbSchools.length === 0) return null;
+
+        const dbThinkers = await getPublishedEntries("person");
 
         return dbSchools.map((schoolEntry) => {
           const thinkers = dbThinkers
@@ -114,9 +114,8 @@ import { READING_SETS, type ReadingSetItem } from "@/lib/content/reading-sets";
 export async function getPublicReadingSets(): Promise<ReadingSetItem[]> {
   if (hasSupabaseEnv()) {
     try {
-      const all = await getPublicEntries();
-      const dbSets = all.filter((e) => e.contentType === "reading-set") as ReadingSetItem[];
-      if (dbSets.length > 0) return dbSets;
+      const dbSets = await getPublicEntries("reading-set");
+      if (dbSets.length > 0) return dbSets as ReadingSetItem[];
     } catch {
       // DB เข้าถึงไม่ได้
     }

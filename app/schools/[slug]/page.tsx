@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { getPublicEntries, getPublicSchools } from "@/lib/content/public-source";
+import { SCHOOLS } from "@/lib/content/schools";
 import { disciplineMeta } from "@/components/discipline-meta";
 import { readFromR2 } from "@/lib/storage";
 
@@ -11,11 +12,10 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+export const revalidate = 300;
+
 export async function generateStaticParams() {
-  const schools = await getPublicSchools();
-  return schools.map((s) => ({
-    slug: s.id,
-  }));
+  return SCHOOLS.map((s) => ({ slug: s.id }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

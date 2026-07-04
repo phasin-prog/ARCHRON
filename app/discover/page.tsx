@@ -15,8 +15,10 @@ export const metadata: Metadata = {
 export const revalidate = 300;
 
 export default async function DiscoverPage() {
-  const published = await getPublicEntries();
-  const schools = await getPublicSchools();
+  const [published, schools] = await Promise.all([
+    getPublicEntries(),
+    getPublicSchools(),
+  ]);
 
   return (
     <PageScaffold

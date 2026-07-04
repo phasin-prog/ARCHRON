@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { Thinker, School } from "@/lib/content/schools";
+import { SCHOOLS } from "@/lib/content/schools";
 import { getPublicEntries, getPublicSchools } from "@/lib/content/public-source";
 import { readFromR2 } from "@/lib/storage";
 import { disciplineMeta } from "@/components/discipline-meta";
@@ -45,12 +46,11 @@ function findThinkerAndSchool(slug: string, schools: School[]): { thinker: Think
   return null;
 }
 
+export const revalidate = 300;
+
 export async function generateStaticParams() {
-  const schools = await getPublicSchools();
   const params: { slug: string }[] = [];
-  const seedSchoolIds = ["classical-greek", "positivism", "behaviorism", "psychoanalysis", "analytical-psychology"];
-  for (const s of schools) {
-    if (!seedSchoolIds.includes(s.id)) continue;
+  for (const s of SCHOOLS) {
     for (const t of s.thinkers) {
       params.push({ slug: t.nameEn.toLowerCase().replace(/\s+/g, "-") });
     }

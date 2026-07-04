@@ -30,7 +30,7 @@ export const THEMES: Theme[] = [
   {
     key: "self",
     label: "ตัวตน",
-    description: "ศูนย์รวมและความเป็นทั้งหมดของจิต — อัตตาและตัวตนที่ลึกกว่า",
+    description: "ศูนย์รวมและความเป็นทั้งหมดของจิต , อัตตาและตัวตนที่ลึกกว่า",
     accent: "#C9A24A",
     aliases: ["self", "ego", "persona", "ตัวตน", "อัตตา"],
   },

@@ -113,7 +113,7 @@ export const EXTERNAL_CATEGORIES: ExternalCategory[] = [
     icon: "public",
     items: [
       {
-        title: "AnthroSource — American Anthropological Association",
+        title: "AnthroSource , American Anthropological Association",
         description:
           "คลังวารสารและงานวิจัยเชิงมานุษยวิทยา วัฒนธรรม และตำนานวิทยา ซึ่งเป็นประโยชน์อย่างยิ่งในการศึกษา Archetype ร่วมของมนุษยชาติ",
         url: "https://anthrosource.onlinelibrary.wiley.com",

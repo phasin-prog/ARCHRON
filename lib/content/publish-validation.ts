@@ -13,7 +13,7 @@ export type EditorReference = {
 };
 
 export type EditorDraft = {
-  id: string;                   // UUID — สร้างอัตโนมัติเมื่อเปิดบทความใหม่
+  id: string;                   // UUID , สร้างอัตโนมัติเมื่อเปิดบทความใหม่
   title: string;
   slug: string;
   status: string;
@@ -34,7 +34,7 @@ export type EditorDraft = {
   shortDescription: string;
   school: string;
   rowName: string;     // ชื่อแสดง (auto: title ถ้าไม่ใส่)
-  rowCode: string;     // รหัสสั้น (auto: ART-001, CON-003 — ไม่แก้เอง)
+  rowCode: string;     // รหัสสั้น (auto: ART-001, CON-003 , ไม่แก้เอง)
 };
 
 export const EMPTY_DRAFT: EditorDraft = {

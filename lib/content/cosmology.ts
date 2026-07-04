@@ -17,7 +17,7 @@ export const COSMOLOGY_ACCENT: Record<Cosmology, string> = {
   lumen: "#E7D7A6", // Lumen (ปฏิญญา/แสงแห่งความเข้าใจ)
   sapientia: "#CBA45A", // Sapientia (ปรัชญา/บทความ/ปัญญา)
   mercurius: "#8AA395", // Mercurius (สำนักคิด/ภาษา/การแปรเปลี่ยน)
-  humanitas: "#C9C2B4", // Humanitas (มานุษยวิทยา/วัฒนธรรม — สว่างนวลบนพื้นมืด)
+  humanitas: "#C9C2B4", // Humanitas (มานุษยวิทยา/วัฒนธรรม , สว่างนวลบนพื้นมืด)
 };
 
 export type CosmologyKey = Cosmology;
@@ -86,11 +86,11 @@ const fallback = (): Meta => ({ icon: "circle", accent: DEFAULT_ACCENT });
 
 // Status — สถานะการเผยแพร่
 const STATUS_META: Record<string, Meta> = {
-  draft: { icon: "edit_note", accent: "#9A948A" }, // เทา — ร่าง
-  "needs-source-check": { icon: "report", accent: "#C9776A" }, // แดง — ต้องตรวจแหล่ง
-  "ready-to-publish": { icon: "schedule", accent: "#D8B56A" }, // เหลือง — รอเผยแพร่
-  published: { icon: "check_circle", accent: "#7FB08A" }, // เขียว — เผยแพร่แล้ว
-  archived: { icon: "inventory_2", accent: "#8A857D" }, // เทาจาง — เก็บเข้าคลัง
+  draft: { icon: "edit_note", accent: "#9A948A" }, // เทา , ร่าง
+  "needs-source-check": { icon: "report", accent: "#C9776A" }, // แดง , ต้องตรวจแหล่ง
+  "ready-to-publish": { icon: "schedule", accent: "#D8B56A" }, // เหลือง , รอเผยแพร่
+  published: { icon: "check_circle", accent: "#7FB08A" }, // เขียว , เผยแพร่แล้ว
+  archived: { icon: "inventory_2", accent: "#8A857D" }, // เทาจาง , เก็บเข้าคลัง
 };
 export const statusMeta = (v: string): Meta => STATUS_META[v] ?? fallback();
 

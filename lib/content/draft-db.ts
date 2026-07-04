@@ -34,7 +34,7 @@ export async function saveDraft(
   if (existingAuthor !== null && existingAuthor !== authorId) {
     return {
       data: null,
-      error: { message: "slug นี้เป็นของผู้เขียนคนอื่น — ใช้ slug อื่น" } as {
+      error: { message: "slug นี้เป็นของผู้เขียนคนอื่น , ใช้ slug อื่น" } as {
         message: string;
       },
     };
@@ -90,7 +90,7 @@ export async function publishEntry(
   if (existingAuthor !== null && existingAuthor !== authorId) {
     return {
       data: null,
-      error: { message: "slug นี้เป็นของผู้เขียนคนอื่น — ไม่สามารถเผยแพร่ได้" } as {
+      error: { message: "slug นี้เป็นของผู้เขียนคนอื่น , ไม่สามารถเผยแพร่ได้" } as {
         message: string;
       },
     };

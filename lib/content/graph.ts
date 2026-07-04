@@ -45,11 +45,11 @@ export const NODE_TYPE_LABEL: Record<NodeType, string> = {
 
 // ARCHRON Color Cosmology — สีโหนดตามสถานะการสืบค้น (เข้มพอให้คอนทราสต์บน Humanitas)
 export const NODE_TYPE_COLOR: Record<NodeType, string> = {
-  concept: "#6E93A8", // Psyche — โลกภายใน/การวิเคราะห์
-  person: "#8AA395", // Mercurius — บทสนทนา/การแปรเปลี่ยน
-  book: "#C9A24A", // Sapientia เข้ม — ปัญญาสะสม
+  concept: "#6E93A8", // Psyche , โลกภายใน/การวิเคราะห์
+  person: "#8AA395", // Mercurius , บทสนทนา/การแปรเปลี่ยน
+  book: "#C9A24A", // Sapientia เข้ม , ปัญญาสะสม
   school: "#7FB08A", // การบูรณาการ
-  symbol: "#B9C2CE", // Prima Materia — ตำนาน/สัญลักษณ์
+  symbol: "#B9C2CE", // Prima Materia , ตำนาน/สัญลักษณ์
   term: "#9A948A", // Charcoal-gray
 };
 

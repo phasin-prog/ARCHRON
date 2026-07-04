@@ -195,8 +195,9 @@ create table if not exists public.chunks (
 -- =========================================================
 create index if not exists entries_author_idx on public.entries (author_id);
 create index if not exists entries_author_name_idx on public.entries (author_name);
-create index if not exists entries_status_idx on public.entries (status);
-create index if not exists entries_slug_idx on public.entries (slug);
+-- partial index สำหรับ query ที่บ่อยที่สุด (ไม่ต้อง scan ทั้งตาราง)
+drop index if exists public.entries_status_idx;
+create index if not exists entries_published_idx on public.entries (published_at desc) where status = 'published';
 create index if not exists entries_row_code_idx on public.entries (row_code);
 create index if not exists entries_row_i_idx on public.entries (content_type, row_i);
 create index if not exists entries_row_id_idx on public.entries (row_id);
@@ -212,6 +213,9 @@ create index if not exists library_category_idx on public.library (category);
 create index if not exists library_indexed_at_idx on public.library (indexed_at desc);
 create index if not exists chunks_fts_idx on public.chunks using gin (fts);
 create index if not exists chunks_library_idx on public.chunks (library_id);
+-- FK indexes สำหรับ CASCADE delete/UPDATE
+create index if not exists page_views_slug_idx on public.page_views (slug);
+create index if not exists collection_entries_collection_idx on public.collection_entries (collection_id);
 
 -- =========================================================
 -- TRIGGER FUNCTION: updated_at

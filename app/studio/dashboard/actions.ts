@@ -12,7 +12,7 @@ export async function listMyDraftsAction() {
     .eq("author_id", userId)
     .eq("status", "draft")
     .order("updated_at", { ascending: false })
-    .limit(20);
+    .limit(50);
 
   return data ?? [];
 }
@@ -26,7 +26,20 @@ export async function listMyEntriesAction() {
     .select("id, slug, title, status, content_type, published_at")
     .eq("author_id", userId)
     .order("published_at", { ascending: false })
-    .limit(20);
+    .limit(50);
+
+  return data ?? [];
+}
+
+export async function listAllPublishedEntriesAction() {
+  const { supabase } = await getAuthedSupabase();
+
+  const { data } = await supabase
+    .from("entries")
+    .select("id, slug, title, status, content_type, author_id, author_name, published_at")
+    .eq("status", "published")
+    .order("published_at", { ascending: false })
+    .limit(100);
 
   return data ?? [];
 }

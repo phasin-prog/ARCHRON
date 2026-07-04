@@ -1,5 +1,6 @@
 // ARCHRON — ความคิดเห็นท้ายบทความ/แนวคิด ผ่าน Supabase (RLS: คอมเมนต์ได้เมื่อล็อกอิน, แก้/ลบเฉพาะของตน)
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { randomUUID } from "crypto";
 
 export type Comment = {
   id: string;
@@ -43,6 +44,7 @@ export async function addComment(
   const body = input.body.trim();
   if (!body) return { error: { message: "ยังไม่ได้พิมพ์ข้อความ" } };
   const { error } = await supabase.from("comments").insert({
+    id: randomUUID(),
     section: input.section,
     slug: input.slug,
     clerk_user_id: input.userId,

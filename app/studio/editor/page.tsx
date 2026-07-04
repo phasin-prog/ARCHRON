@@ -350,7 +350,7 @@ export default function StudioEditorPage() {
     <div className="min-h-screen">
       <div className="sticky top-0 z-40 border-b border-antique-gold/15 bg-midnight/80 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-6 py-3">
-          <Link href="/" className="text-sm text-soft-ivory hover:text-soft-gold">← กลับหน้าแรก</Link>
+          <Link href="/studio" className="text-sm text-soft-ivory hover:text-soft-gold">← กลับห้องเขียน</Link>
           <span
             className="tag-pill gap-1.5"
             style={{ backgroundColor: `${statusMeta(draft.status).accent}1f`, color: statusMeta(draft.status).accent }}

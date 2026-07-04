@@ -148,16 +148,6 @@ export default async function ProfilePage() {
               แก้ไขโปรไฟล์
             </Link>
           </div>
-          {/* ทางลัดแก้ไขข้อมูลโปรไฟล์ (จัดการใน Studio) */}
-          <Link
-            href="/studio/profile"
-            className="inline-flex flex-none items-center gap-1.5 rounded-full border border-slate-boundary/40 px-3.5 py-1.5 text-xs text-soft-ivory transition-colors hover:border-burnished-gold/50 hover:text-soft-gold sm:ml-auto"
-          >
-            <span className="material-symbols-outlined text-[15px]" aria-hidden="true">
-              edit
-            </span>
-            แก้ไขโปรไฟล์
-          </Link>
         </div>
 
         {/* แท็บ */}

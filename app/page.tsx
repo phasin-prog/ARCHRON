@@ -12,6 +12,7 @@ import { LoopCarousel } from "@/components/loop-carousel";
 import { DisciplineCard } from "@/components/discipline-card";
 import { DISCIPLINES } from "@/lib/content/disciplines";
 import { VesicaPattern } from "@/components/hero/vesica-pattern";
+import { HeroGrid3D } from "@/components/hero/hero-grid-3d";
 
 type Pillar = {
   Icon: ComponentType<{ className?: string }>;
@@ -80,7 +81,10 @@ export default function HomePage() {
             background: "radial-gradient(circle at center, var(--color-deep-navy) 30%, var(--color-surface-container-lowest) 100%)"
           }}
         >
-          {/* Ambient Glow: แสงเรืองรองจางๆ (ไม่มี Animation) */}
+          {/* 3D Grid Background — พื้นหลัง Grid 3D แบบ full-page */}
+          <HeroGrid3D />
+
+          {/* Ambient Glow: แสงเรืองรองจางๆ */}
           <div
             className="pointer-events-none absolute left-1/2 top-[42%] z-0 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full"
             style={{

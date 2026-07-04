@@ -985,6 +985,173 @@
   }
 }
 
+/* ════════════════════════════════════════════════════════════════════════════
+   Hero Grid 3D — พื้นหลัง Grid 3D แบบ full-page สำหรับ hero section
+   ----------------------------------------------------------------------------
+   ใช้ CSS perspective + multiple grid layers สร้างมิติลึก
+   mouse-tracking ผ่าน custom properties --mx/--my (อัปเดตโดย client JS)
+   ครอบคลุมทั้ง hero section ไม่ใช่แค่ layer บางๆ
+   ════════════════════════════════════════════════════════════════════════════ */
+.hero-grid-3d {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  perspective: 900px;
+  perspective-origin: 50% 45%;
+}
+
+/* ชั้นหลัก: grid ที่หมุนตาม mouse — สร้างพื้น 3D ที่เอียงเข้าหาผู้ชม */
+.hero-grid-3d__base {
+  position: absolute;
+  inset: -40%;
+  transform-style: preserve-3d;
+  transform:
+    rotateX(58deg)
+    rotateY(var(--mx, 0deg))
+    translateZ(-80px);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 59px,
+      color-mix(in srgb, var(--color-antique-gold) 10%, transparent) 59px,
+      color-mix(in srgb, var(--color-antique-gold) 10%, transparent) 60px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 59px,
+      color-mix(in srgb, var(--color-antique-gold) 10%, transparent) 59px,
+      color-mix(in srgb, var(--color-antique-gold) 10%, transparent) 60px
+    );
+  background-size: 60px 60px;
+  opacity: 0.6;
+  animation: hero-grid-drift 20s linear infinite;
+  will-change: transform;
+}
+
+/* ชั้นที่ 2: secondary grid จางกว่า + เลื่อนช้า (depth layers) */
+.hero-grid-3d__depth {
+  position: absolute;
+  inset: -60%;
+  transform-style: preserve-3d;
+  transform:
+    rotateX(62deg)
+    rotateY(calc(var(--mx, 0deg) * -0.5))
+    translateZ(-180px);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 119px,
+      color-mix(in srgb, var(--color-burnished-gold) 5%, transparent) 119px,
+      color-mix(in srgb, var(--color-burnished-gold) 5%, transparent) 120px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 119px,
+      color-mix(in srgb, var(--color-burnished-gold) 5%, transparent) 119px,
+      color-mix(in srgb, var(--color-burnished-gold) 5%, transparent) 120px
+    );
+  background-size: 120px 120px;
+  opacity: 0.35;
+  animation: hero-grid-drift 35s linear infinite reverse;
+  will-change: transform;
+}
+
+/* ชั้นที่ 3: glow lines — เส้นสว่างตัดกันเป็นจุด */
+.hero-grid-3d__glow {
+  position: absolute;
+  inset: -50%;
+  transform-style: preserve-3d;
+  transform:
+    rotateX(60deg)
+    rotateY(calc(var(--mx, 0deg) * 0.3))
+    translateZ(-120px);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 239px,
+      color-mix(in srgb, var(--color-antique-gold) 14%, transparent) 239px,
+      color-mix(in srgb, var(--color-antique-gold) 14%, transparent) 241px,
+      transparent 241px,
+      transparent 242px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 239px,
+      color-mix(in srgb, var(--color-antique-gold) 14%, transparent) 239px,
+      color-mix(in srgb, var(--color-antique-gold) 14%, transparent) 241px,
+      transparent 241px,
+      transparent 242px
+    );
+  background-size: 240px 240px;
+  opacity: 0.5;
+  animation: hero-grid-drift 28s linear infinite;
+  will-change: transform;
+}
+
+/* จุด intersection — radial-gradient ซ้ำเป็น grid ของจุดสว่าง */
+.hero-grid-3d__dots {
+  position: absolute;
+  inset: -45%;
+  transform-style: preserve-3d;
+  transform:
+    rotateX(59deg)
+    rotateY(calc(var(--mx, 0deg) * -0.2))
+    translateZ(-60px);
+  background-image:
+    radial-gradient(
+      circle,
+      color-mix(in srgb, var(--color-soft-gold) 30%, transparent) 1px,
+      transparent 1.5px
+    );
+  background-size: 60px 60px;
+  background-position: 30px 30px;
+  opacity: 0.7;
+  animation: hero-grid-drift 22s linear infinite;
+  will-change: transform;
+}
+
+/* Vignette — เจือจางขอบบน-ล่าง-ซ้าย-ขวา ให้ content เด่น */
+.hero-grid-3d__vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 80% 70% at 50% 50%,
+      transparent 30%,
+      color-mix(in srgb, var(--color-deep-navy) 85%, transparent) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-deep-navy) 60%, transparent) 0%,
+      transparent 20%,
+      transparent 80%,
+      color-mix(in srgb, var(--color-deep-navy) 80%, transparent) 100%
+    );
+}
+
+@keyframes hero-grid-drift {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 60px 60px, 60px 60px; }
+}
+
+/* Reduced motion — ปิด animation ทั้งหมด */
+@media (prefers-reduced-motion: reduce) {
+  .hero-grid-3d__base,
+  .hero-grid-3d__depth,
+  .hero-grid-3d__glow,
+  .hero-grid-3d__dots {
+    animation: none !important;
+  }
+}
+
 /* ===== Mobile Snappy Mode (Disable Heavy Animations/Transitions/Transforms) ===== */
 @media (max-width: 768px) {
   /* ปิดเอฟเฟกต์เบลอพื้นหลังการ์ดเพื่อประสิทธิภาพสูงสุดในการเลื่อนหน้าจอบนมือถือ */
@@ -1027,6 +1194,14 @@
   .ambient-observatory::after {
     animation: none !important;
     opacity: 0.65 !important;
+  }
+
+  /* ปิด 3D grid animation บนมือถือเพื่อ performance */
+  .hero-grid-3d__base,
+  .hero-grid-3d__depth,
+  .hero-grid-3d__glow,
+  .hero-grid-3d__dots {
+    animation: none !important;
   }
   .ambient-glow,
   .accent-aura {

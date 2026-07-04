@@ -5,7 +5,7 @@ import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useAuth, useUser, UserButton } from "@clerk/nextjs";
-import { roleFromMetadata, canWrite } from "@/lib/content/roles";
+import { roleFromMetadata, canWrite, isAdmin } from "@/lib/content/roles";
 import {
   EMPTY_DRAFT,
   getPublishChecklist,
@@ -120,6 +120,8 @@ export default function StudioEditorPage() {
   const [displayName, setDisplayName] = useState<string | null>(null);
   const [loadingDraft, setLoadingDraft] = useState(false);
   const [showSelector, setShowSelector] = useState(true);
+  const [originalAuthorId, setOriginalAuthorId] = useState<string | null>(null);
+  const [originalAuthorName, setOriginalAuthorName] = useState<string | null>(null);
 
   const canSave = draft.slug.trim() !== "" && draft.title.trim() !== "";
 
@@ -150,9 +152,11 @@ export default function StudioEditorPage() {
       setLoadingDraft(true);
       (async () => {
         try {
-          const { draft: loaded } = await loadDraftAction(slug);
+          const { draft: loaded, authorId, authorName } = await loadDraftAction(slug);
           if (active && loaded) {
             setDraft(loaded);
+            setOriginalAuthorId(authorId);
+            setOriginalAuthorName(authorName);
           }
         } catch (err) {
           if (active) {
@@ -413,6 +417,12 @@ export default function StudioEditorPage() {
             {autoState === "saving" ? <span> · กำลังบันทึกอัตโนมัติ...</span> : null}
             {autoState === "saved" && savedAt ? <span> · บันทึกอัตโนมัติแล้ว {savedAt}</span> : null}
           </p>
+          {isAdmin(role) && originalAuthorId && originalAuthorId !== userId && (
+            <div className="mt-2 rounded-md border border-burnished-gold/30 bg-burnished-gold/5 px-3 py-2 text-xs text-burnished-gold">
+              <span className="material-symbols-outlined mr-1 align-middle text-[14px]">admin_panel_settings</span>
+              กำลังแก้ไขเนื้อหาของ: <span className="font-semibold">{originalAuthorName || originalAuthorId}</span>
+            </div>
+          )}
           <FeedbackToast feedback={feedback} onClose={() => setFeedback(null)} />
 
           <section className="space-y-4">

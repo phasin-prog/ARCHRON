@@ -1,5 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { ContentEntry } from "@/types/content";
+import type { Role } from "@/lib/content/roles";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { rowToEntry, type EntryRow } from "./entry-mapper";
 import { refreshLibrary } from "@/lib/rtk/ingest";
@@ -45,12 +46,13 @@ export async function getPublishedSlugs(): Promise<string[]> {
 export async function listMyEntries(
   sb: SupabaseClient,
   authorId: string,
+  role?: Role,
 ): Promise<ContentEntry[]> {
-  const { data } = await sb
-    .from("entries")
-    .select("*")
-    .eq("author_id", authorId)
-    .order("updated_at", { ascending: false });
+  let query = sb.from("entries").select("*");
+  if (role !== "admin") {
+    query = query.eq("author_id", authorId);
+  }
+  const { data } = await query.order("updated_at", { ascending: false });
   return ((data ?? []) as EntryRow[]).map(rowToEntry);
 }
 

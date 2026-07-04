@@ -1,6 +1,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { EditorDraft } from "@/lib/content/publish-validation";
 import type { ContentEntry } from "@/types/content";
+import type { Role } from "@/lib/content/roles";
 import { draftToRow, entryToDraft } from "@/lib/content/draft-mapper";
 import { rowToEntry, type EntryRow } from "@/lib/content/entry-mapper";
 import { getMyProfile } from "@/lib/content/profile-db";
@@ -25,13 +26,15 @@ async function getExistingAuthor(
 
 // บันทึก/อัปเดตฉบับร่าง (upsert ตาม slug)
 // ถ้า entry มีอยู่แล้ว author_id ต้องตรงกับผู้เขียนปัจจุบัน (ป้องกันเขียนทับของคนอื่น)
+// admin สามารถแก้ไข entry ของคนอื่นได้
 export async function saveDraft(
   sb: SupabaseClient,
   authorId: string,
   draft: EditorDraft,
+  role?: Role,
 ) {
   const existingAuthor = await getExistingAuthor(sb, draft.slug);
-  if (existingAuthor !== null && existingAuthor !== authorId) {
+  if (existingAuthor !== null && existingAuthor !== authorId && role !== "admin") {
     return {
       data: null,
       error: { message: "slug นี้เป็นของผู้เขียนคนอื่น , ใช้ slug อื่น" } as {
@@ -66,28 +69,31 @@ export async function loadDraftBySlug(
 }
 
 // รายการเนื้อหาของผู้ใช้ (สำหรับหน้า /studio รายการของฉัน)
+// admin สามารถเห็น entry ทั้งหมดได้
 export async function listMyDrafts(
   sb: SupabaseClient,
   authorId: string,
+  role?: Role,
 ): Promise<ContentEntry[]> {
-  const { data } = await sb
-    .from("entries")
-    .select("*")
-    .eq("author_id", authorId)
-    .order("updated_at", { ascending: false });
+  let query = sb.from("entries").select("*");
+  if (role !== "admin") {
+    query = query.eq("author_id", authorId);
+  }
+  const { data } = await query.order("updated_at", { ascending: false });
   return ((data ?? []) as EntryRow[]).map(rowToEntry);
 }
 
 // เผยแพร่จริง (E7): ตั้ง status=published + published_at
 // คงวันเผยแพร่ครั้งแรกไว้ถ้าเคยเผยแพร่แล้ว (ไม่รีเซ็ตทุกครั้งที่กดเผยแพร่ซ้ำ)
-// ตรวจ ownership ก่อน publish
+// ตรวจ ownership ก่อน publish (admin ข้ามได้)
 export async function publishEntry(
   sb: SupabaseClient,
   authorId: string,
   draft: EditorDraft,
+  role?: Role,
 ) {
   const existingAuthor = await getExistingAuthor(sb, draft.slug);
-  if (existingAuthor !== null && existingAuthor !== authorId) {
+  if (existingAuthor !== null && existingAuthor !== authorId && role !== "admin") {
     return {
       data: null,
       error: { message: "slug นี้เป็นของผู้เขียนคนอื่น , ไม่สามารถเผยแพร่ได้" } as {

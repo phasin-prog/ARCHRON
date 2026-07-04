@@ -25,6 +25,7 @@ interface EntryItem {
   status: string;
   content_type: string;
   published_at: string;
+  author_name?: string | null;
 }
 
 interface AllEntryItem extends EntryItem {

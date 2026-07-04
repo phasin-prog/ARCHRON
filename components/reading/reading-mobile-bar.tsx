@@ -29,7 +29,7 @@ export function ReadingMobileBar({ slug }: { slug: string }) {
   };
 
   return (
-    <div className="fixed inset-x-0 bottom-[calc(3.5rem+env(safe-area-inset-bottom))] z-30 flex items-center justify-center gap-1 border-t border-slate-boundary/30 bg-deep-navy/95 px-2 py-2 backdrop-blur lg:hidden print:hidden">
+    <div className="fixed inset-x-0 bottom-[56px] z-30 flex items-center justify-center gap-1 border-t border-slate-boundary/30 bg-deep-navy/95 px-2 py-2 backdrop-blur [bottom:calc(56px+env(safe-area-inset-bottom))] lg:hidden print:hidden">
       <button
         type="button"
         onClick={handleCopy}

@@ -32,7 +32,7 @@ export function Tabbar() {
       aria-label="นำทางหลัก"
       className="glass-nav fixed inset-x-0 bottom-0 z-40 border-t border-accent/12 pb-[env(safe-area-inset-bottom)] md:hidden"
     >
-      <ul className="mx-auto flex max-w-md items-stretch justify-around px-2">
+      <ul className="mx-auto flex max-w-lg items-stretch justify-around px-2 sm:px-4">
         {ITEMS.map((it) => {
           const active = isActive(pathname, it.href);
           return (
@@ -40,10 +40,10 @@ export function Tabbar() {
               <Link
                 href={it.href}
                 aria-current={active ? "page" : undefined}
-                className="group flex flex-col items-center gap-0.5 px-1 py-2"
+                className="group flex flex-col items-center gap-0.5 px-1 py-2.5 min-h-[48px]"
               >
                 <span
-                  className={`flex h-8 w-12 items-center justify-center rounded-full transition-all duration-300 ${
+                  className={`flex h-9 w-12 items-center justify-center rounded-full transition-all duration-300 ${
                     active
                       ? "scale-105 bg-accent/15 text-accent"
                       : "text-on-surface-variant/65 group-hover:text-on-surface"

@@ -43,10 +43,14 @@ export function ScrollReveal() {
       frame = requestAnimationFrame(revealInView);
     };
 
-    // เผยซ้ำหลัง layout settle (กัน race scroll-restoration ตอนนำทาง / ฟอนต์-ภาพโหลดช้า)
+    // เผยซ้ำเมื่อ layout settle — ใช้ ResizeObserver + rAF loop แทน setTimeout
+    const ro = new ResizeObserver(() => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(revealInView);
+    });
+    ro.observe(document.body);
+
     const r1 = requestAnimationFrame(() => requestAnimationFrame(revealInView));
-    const t1 = window.setTimeout(revealInView, 200);
-    const t2 = window.setTimeout(revealInView, 600);
 
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
@@ -54,8 +58,7 @@ export function ScrollReveal() {
     return () => {
       cancelAnimationFrame(frame);
       cancelAnimationFrame(r1);
-      window.clearTimeout(t1);
-      window.clearTimeout(t2);
+      ro.disconnect();
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };

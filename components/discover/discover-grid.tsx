@@ -43,7 +43,7 @@ const DIFFICULTY_LABEL: Record<string, string> = {
 };
 
 const DIFFICULTY_COLOR: Record<string, string> = {
-  beginner: "#4caf50",
+  beginner: "var(--color-success)",
   intermediate: "var(--color-burnished-gold)",
   advanced: "var(--color-danger)",
   "source-note": "var(--color-muted)",

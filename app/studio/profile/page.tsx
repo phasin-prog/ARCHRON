@@ -188,15 +188,15 @@ export default function StudioProfilePage() {
         <div className="space-y-5">
           <h2 className="font-serif text-xl text-ivory">ข้อมูลส่วนตัว</h2>
           <div>
-            <label htmlFor="username-input" className="mb-1 block text-sm text-soft-ivory">ชื่อผู้ใช้ (Username)</label>
-            <input id="username-input" className={inputClass} value={username} onChange={(e) => setUsername(e.target.value)} placeholder="เช่น phasin" />
+            <label htmlFor="username-input" className="mb-1.5 block text-sm font-medium text-soft-ivory">ชื่อผู้ใช้ (Username)</label>
+            <input id="username-input" autoComplete="username" className={inputClass} value={username} onChange={(e) => setUsername(e.target.value)} placeholder="เช่น phasin" />
           </div>
           <div>
-            <label htmlFor="display-name-input" className="mb-1 block text-sm text-soft-ivory">ชื่อที่แสดง</label>
-            <input id="display-name-input" className={inputClass} value={displayName} onChange={(e) => setDisplayName(e.target.value)} placeholder="ชื่อที่ปรากฏบนงานเขียน" />
+            <label htmlFor="display-name-input" className="mb-1.5 block text-sm font-medium text-soft-ivory">ชื่อที่แสดง</label>
+            <input id="display-name-input" autoComplete="name" className={inputClass} value={displayName} onChange={(e) => setDisplayName(e.target.value)} placeholder="ชื่อที่ปรากฏบนงานเขียน" />
           </div>
           <div>
-            <label htmlFor="title-input" className="mb-1 block text-sm text-soft-ivory">ยศ / ตำแหน่ง</label>
+            <label htmlFor="title-input" className="mb-1.5 block text-sm font-medium text-soft-ivory">ยศ / ตำแหน่ง</label>
             <input id="title-input" className={inputClass} value={title} onChange={(e) => setTitle(e.target.value)} placeholder="เช่น ผู้สนับสนุน, นักเขียนกิตติมศักดิ์" />
           </div>
           <button onClick={handleSave} disabled={saving} className="inline-flex items-center gap-2 bg-gradient-to-br from-antique-gold to-burnished-gold rounded px-6 py-2.5 text-sm font-semibold text-prima transition-transform hover:-translate-y-0.5 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold">

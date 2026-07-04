@@ -40,21 +40,21 @@ export function SearchClient({ items }: { items: SearchItem[] }) {
   return (
     <div className="mt-8">
       {/* Search box */}
-      <div className="flex items-center gap-3 rounded-md border border-ink/12 bg-surface-container/60 px-4 py-3 focus-within:border-burnished-gold/40">
-        <span className="material-symbols-outlined text-[22px] text-burnished-gold">search</span>
+      <div className="flex items-center gap-3 rounded-lg border border-ink/12 bg-surface-container/60 px-4 py-3 focus-within:border-burnished-gold/40 focus-within:ring-1 focus-within:ring-burnished-gold/20 transition-colors">
+        <span className="material-symbols-outlined text-[22px] text-burnished-gold" aria-hidden="true">search</span>
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="ค้นหาแนวคิด บทความ ทรัพยากร หรือหน้า..."
           aria-label="ค้นหา"
-          className="w-full bg-transparent text-base text-on-surface placeholder:text-on-surface-variant/55 focus-visible:ring-2 focus-visible:ring-burnished-gold/30 focus:outline-none"
+          className="w-full bg-transparent text-base text-on-surface placeholder:text-on-surface-variant/50 focus-visible:outline-none"
         />
         {query ? (
           <button
             type="button"
             onClick={() => setQuery("")}
             aria-label="ล้างคำค้น"
-            className="text-on-surface-variant/60 transition-colors hover:text-on-surface"
+            className="rounded-md p-1 text-on-surface-variant/60 transition-colors hover:text-on-surface hover:bg-surface-container focus-visible:ring-2 focus-visible:ring-burnished-gold/40 focus-visible:outline-none"
           >
             <span className="material-symbols-outlined text-[20px]">close</span>
           </button>

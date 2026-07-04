@@ -196,10 +196,13 @@
 }
 
 .prose blockquote {
-  border-left: 3px solid var(--cosmology-accent);
-  padding-left: var(--spacing-4);
+  border: 1px solid color-mix(in srgb, var(--cosmology-accent) 20%, transparent);
+  border-top: 2px solid var(--cosmology-accent);
+  padding: var(--spacing-4);
   margin-left: 0;
   margin-right: 0;
+  background: color-mix(in srgb, var(--cosmology-accent) 6%, transparent);
+  border-radius: 0.375rem;
   font-style: italic;
   color: var(--color-soft-ivory);
 }

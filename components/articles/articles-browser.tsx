@@ -221,7 +221,7 @@ export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
                     </h2>
 
                     {e.shortDescription ? (
-                      <p className="mt-3 text-[0.82rem] leading-relaxed text-soft-ivory/60 line-clamp-2">
+                      <p className="mt-3 text-sm leading-relaxed text-soft-ivory/60 line-clamp-2">
                         {e.shortDescription}
                       </p>
                     ) : null}
@@ -234,7 +234,7 @@ export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
                             {readMin} นาที
                           </span>
                           <span
-                            className="inline-block rounded-sm px-2 py-0.5 text-[10px] font-semibold font-mono"
+                            className="inline-block rounded-sm px-2 py-0.5 text-xs font-semibold font-mono"
                             style={{
                               color: meta.accent,
                               backgroundColor: `color-mix(in srgb, ${meta.accent} 8%, transparent)`,

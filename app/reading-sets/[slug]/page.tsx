@@ -55,21 +55,25 @@ export default async function ReadingSetDetailPage({
   return (
     <main className="atmo-base atmo-dictionary pb-24">
       {/* Breadcrumb */}
-      <nav className="mx-auto max-w-[760px] px-6 pt-20 text-xs text-muted">
+      <nav aria-label="เส้นทางนำทาง" className="mx-auto max-w-[760px] px-4 sm:px-6 pt-20 text-xs text-muted">
         <ol className="flex items-center gap-1.5">
           <li>
-            <Link href="/" className="hover:text-ivory transition-colors">
+            <Link href="/" className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:outline-none">
               หน้าแรก
             </Link>
           </li>
-          <li aria-hidden className="text-on-surface-variant/30">/</li>
+          <li aria-hidden className="text-on-surface-variant/30">
+            <span className="material-symbols-outlined text-[16px]">chevron_right</span>
+          </li>
           <li>
-            <Link href="/reading-sets" className="hover:text-ivory transition-colors">
+            <Link href="/reading-sets" className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:outline-none">
               ซีรีส์
             </Link>
           </li>
-          <li aria-hidden className="text-on-surface-variant/30">/</li>
-          <li className="text-ivory truncate max-w-[200px]">{set.title}</li>
+          <li aria-hidden className="text-on-surface-variant/30">
+            <span className="material-symbols-outlined text-[16px]">chevron_right</span>
+          </li>
+          <li className="px-2 py-1.5 text-soft-ivory truncate max-w-[200px]">{set.title}</li>
         </ol>
       </nav>
 

@@ -25,7 +25,7 @@
 .archron-input:focus {
   outline: none;
   border-color: var(--color-burnished-gold);
-  box-shadow: 0 0 0 3px rgba(199, 154, 74, 0.15);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-burnished-gold) 15%, transparent);
 }
 
 /* ---- Sizes ---- */
@@ -71,7 +71,7 @@
 .archron-textarea:focus {
   outline: none;
   border-color: var(--color-burnished-gold);
-  box-shadow: 0 0 0 3px rgba(199, 154, 74, 0.15);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-burnished-gold) 15%, transparent);
 }
 
 /* ---- Select ---- */
@@ -96,7 +96,7 @@
 .archron-select:focus {
   outline: none;
   border-color: var(--color-burnished-gold);
-  box-shadow: 0 0 0 3px rgba(199, 154, 74, 0.15);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-burnished-gold) 15%, transparent);
 }
 
 /* ---- Search Input ---- */
@@ -154,15 +154,15 @@
 }
 
 .input-error:focus {
-  box-shadow: 0 0 0 3px rgba(201, 119, 106, 0.15) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-danger) 15%, transparent) !important;
 }
 
 .input-success {
-  border-color: #4caf50 !important;
+  border-color: var(--color-success) !important;
 }
 
 .input-success:focus {
-  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-success) 15%, transparent) !important;
 }
 
 /* ---- Labels ---- */

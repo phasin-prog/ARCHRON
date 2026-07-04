@@ -36,7 +36,7 @@ export function FontSizeControl() {
         type="button"
         disabled={!canDown}
         onClick={() => canDown && apply(step - 1)}
-        className="flex h-7 w-7 items-center justify-center rounded text-ivory transition-colors hover:bg-white/10 disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold/50"
+        className="flex h-11 w-11 items-center justify-center rounded text-ivory transition-colors hover:bg-white/10 disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold/50"
         aria-label="ลดขนาดตัวอักษร"
       >
         <span className="material-symbols-outlined text-[16px]">remove</span>
@@ -48,7 +48,7 @@ export function FontSizeControl() {
         type="button"
         disabled={!canUp}
         onClick={() => canUp && apply(step + 1)}
-        className="flex h-7 w-7 items-center justify-center rounded text-ivory transition-colors hover:bg-white/10 disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold/50"
+        className="flex h-11 w-11 items-center justify-center rounded text-ivory transition-colors hover:bg-white/10 disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold/50"
         aria-label="เพิ่มขนาดตัวอักษร"
       >
         <span className="material-symbols-outlined text-[16px]">add</span>

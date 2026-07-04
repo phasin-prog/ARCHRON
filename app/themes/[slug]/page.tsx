@@ -48,11 +48,11 @@ export default async function ThemePage({
       <div className="mx-auto max-w-5xl">
         {/* Breadcrumb */}
         <nav aria-label="เส้นทางนำทาง" className="flex flex-wrap items-center gap-1 text-xs text-muted">
-          <Link href="/" className="transition-colors hover:text-soft-gold">หน้าแรก</Link>
-          <span className="material-symbols-outlined text-[16px] text-subtle">chevron_right</span>
-          <Link href="/themes" className="transition-colors hover:text-soft-gold">แก่นเรื่อง</Link>
-          <span className="material-symbols-outlined text-[16px] text-subtle">chevron_right</span>
-          <span className="text-soft-ivory">{theme.label}</span>
+          <Link href="/" className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:outline-none">หน้าแรก</Link>
+          <span className="material-symbols-outlined text-[16px] text-subtle" aria-hidden="true">chevron_right</span>
+          <Link href="/themes" className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:outline-none">แก่นเรื่อง</Link>
+          <span className="material-symbols-outlined text-[16px] text-subtle" aria-hidden="true">chevron_right</span>
+          <span className="px-2 py-1.5 text-soft-ivory">{theme.label}</span>
         </nav>
 
         <header className="scroll-reveal mt-6">

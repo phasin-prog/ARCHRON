@@ -24,14 +24,14 @@ import { ClerkProvider } from "@clerk/nextjs";
 // สาย Body (Modern Minimal): Inter (อังกฤษ) → Noto Sans Thai (ไทย)
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
   variable: "--font-inter",
   display: "swap",
 });
 
 const notoSansThai = Noto_Sans_Thai({
   subsets: ["thai", "latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
   variable: "--font-noto-sans-thai",
   display: "swap",
 });
@@ -39,14 +39,14 @@ const notoSansThai = Noto_Sans_Thai({
 // สาย Heading (Serif): IBM Plex Serif (อังกฤษ) → Noto Serif Thai (ไทย)
 const ibmPlexSerif = IBM_Plex_Serif({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["500", "600", "700"],
   variable: "--font-ibm-plex-serif",
   display: "swap",
 });
 
 const notoSerifThai = Noto_Serif_Thai({
   subsets: ["thai", "latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["500", "600", "700"],
   variable: "--font-noto-serif-thai",
   display: "swap",
 });
@@ -54,7 +54,7 @@ const notoSerifThai = Noto_Serif_Thai({
 // IBM Plex Sans Thai — คงไว้สำหรับ UI ฝั่ง Clerk (login / register / studio)
 const ibmPlexThai = IBM_Plex_Sans_Thai({
   subsets: ["thai", "latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
   variable: "--font-ibm-plex-thai",
   display: "swap",
 });
@@ -70,7 +70,7 @@ const playfair = Playfair_Display({
 // Cinzel — wordmark ARCHRON ตาม brand board (ตระกูลโรมันคลาสสิก ใช้กับชื่อแบรนด์ละตินเท่านั้น)
 const cinzel = Cinzel({
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["600", "700"],
   variable: "--font-cinzel",
   display: "swap",
 });
@@ -78,8 +78,6 @@ const cinzel = Cinzel({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
 };
 
 export const metadata: Metadata = {

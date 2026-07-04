@@ -105,24 +105,24 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
   );
 
   return (
-    <main className="atmo-base atmo-biography px-6 pb-24 pt-10">
+    <main className="atmo-base atmo-biography px-4 sm:px-6 pb-24 pt-10">
       <div className="mx-auto max-w-[800px]">
         {/* Breadcrumb */}
         <nav aria-label="เส้นทางนำทาง" className="text-xs text-muted">
           <ol className="flex flex-wrap items-center gap-1">
             <li className="inline-flex items-center gap-0.5">
-              <Link href="/" className="rounded px-1.5 py-1 transition-colors hover:text-soft-gold">หน้าแรก</Link>
+              <Link href="/" className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:outline-none">หน้าแรก</Link>
               <span aria-hidden="true" className="material-symbols-outlined text-[16px] text-subtle">chevron_right</span>
             </li>
             <li className="inline-flex items-center gap-0.5">
-              <Link href="/schools" className="rounded px-1.5 py-1 transition-colors hover:text-soft-gold">สำนักคิดและนักปราชญ์</Link>
+              <Link href="/schools" className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:outline-none">สำนักคิดและนักปราชญ์</Link>
               <span aria-hidden="true" className="material-symbols-outlined text-[16px] text-subtle">chevron_right</span>
             </li>
             <li className="inline-flex items-center gap-0.5">
-              <Link href={`/schools/${s.id}`} className="rounded px-1.5 py-1 transition-colors hover:text-soft-gold">{s.nameTh}</Link>
+              <Link href={`/schools/${s.id}`} className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:outline-none">{s.nameTh}</Link>
               <span aria-hidden="true" className="material-symbols-outlined text-[16px] text-subtle">chevron_right</span>
             </li>
-            <li className="px-1.5 py-1 text-soft-ivory" aria-current="page">{t.nameTh}</li>
+            <li className="px-2 py-1.5 text-soft-ivory" aria-current="page">{t.nameTh}</li>
           </ol>
         </nav>
 

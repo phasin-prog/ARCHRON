@@ -9,7 +9,7 @@
 .archron-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: color-mix(in srgb, var(--color-prima) 60%, transparent);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   z-index: 100;
@@ -33,7 +33,7 @@
   background: var(--color-surface-container-low);
   border: 1px solid var(--color-slate-boundary);
   border-radius: 12px;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 16px 48px color-mix(in srgb, var(--color-prima) 40%, transparent);
   z-index: 110;
   overflow: hidden;
   display: flex;
@@ -54,7 +54,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1.25rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-ivory) 6%, transparent);
 }
 
 .archron-modal-title {
@@ -80,7 +80,7 @@
 
 .archron-modal-close:hover {
   color: var(--color-ivory);
-  background: rgba(255, 255, 255, 0.08);
+  background: color-mix(in srgb, var(--color-ivory) 8%, transparent);
 }
 
 .archron-modal-body {
@@ -98,7 +98,7 @@
   justify-content: flex-end;
   gap: 0.5rem;
   padding: 1rem 1.25rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid color-mix(in srgb, var(--color-ivory) 6%, transparent);
 }
 
 /* ---- Drawer ---- */
@@ -111,7 +111,7 @@
   max-width: 24rem;
   background: var(--color-surface-container-low);
   border-left: 1px solid var(--color-slate-boundary);
-  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.3);
+  box-shadow: -8px 0 24px color-mix(in srgb, var(--color-prima) 30%, transparent);
   z-index: 110;
   display: flex;
   flex-direction: column;
@@ -140,7 +140,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1.25rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-ivory) 6%, transparent);
 }
 
 .archron-drawer-title {
@@ -167,7 +167,7 @@
   background: var(--color-surface-container-low);
   border: 1px solid var(--color-slate-boundary);
   border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--color-prima) 30%, transparent);
   z-index: 120;
   padding: 0.75rem;
   opacity: 0;
@@ -223,7 +223,7 @@
   background: var(--color-surface-container-low);
   border: 1px solid var(--color-slate-boundary);
   border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--color-prima) 30%, transparent);
   font-size: 0.8125rem;
   color: var(--color-ivory);
   pointer-events: auto;
@@ -251,15 +251,18 @@
 }
 
 .archron-toast-success {
-  border-left: 3px solid #4caf50;
+  border: 1px solid color-mix(in srgb, var(--color-success) 40%, transparent);
+  background: color-mix(in srgb, var(--color-success) 8%, var(--color-surface-container-low));
 }
 
 .archron-toast-error {
-  border-left: 3px solid var(--color-danger);
+  border: 1px solid color-mix(in srgb, var(--color-danger) 40%, transparent);
+  background: color-mix(in srgb, var(--color-danger) 8%, var(--color-surface-container-low));
 }
 
 .archron-toast-info {
-  border-left: 3px solid var(--color-lumen);
+  border: 1px solid color-mix(in srgb, var(--color-lumen) 40%, transparent);
+  background: color-mix(in srgb, var(--color-lumen) 8%, var(--color-surface-container-low));
 }
 
 /* ---- Tooltip (CSS-only) ---- */

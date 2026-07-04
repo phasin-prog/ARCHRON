@@ -28,20 +28,23 @@ type IconComponent = React.ComponentType<{ className?: string }>;
 type Tier = "primary" | "standard" | "utility" | "support";
 type NavItem = { label: string; href: string; Icon: IconComponent; tier: Tier };
 
-// ลิงก์ระดับบน — จัดลำดับด้วย tier (primary เด่นสุด → utility จางสุด, support = pill)
+// ลิงก์ระดับบน — ลดเหลือ 5-6 จุดตัดสินใจ (Hick's Law / Miller's Law)
+// primary = เด่นสุด, standard = ปานกลาง, utility = dropdown "เพิ่มเติม", support = pill
 const NAV: NavItem[] = [
-  { label: "คลังความรู้", href: "/knowledge", Icon: KnowledgeHubIcon, tier: "primary" },
-  { label: "สำรวจ", href: "/explore", Icon: SearchIcon, tier: "standard" },
-  { label: "ค้นพบ", href: "/discover", Icon: GridIcon, tier: "standard" },
-  { label: "เปรียบเทียบ", href: "/compare", Icon: SynthesisIcon, tier: "standard" },
-  { label: "เส้นเวลา", href: "/timeline", Icon: HistoryIcon, tier: "standard" },
+  { label: "คลังความรู้", href: "/articles", Icon: KnowledgeHubIcon, tier: "primary" },
+  { label: "สำรวจ", href: "/concepts", Icon: SearchIcon, tier: "standard" },
+  { label: "ศาสตร์", href: "/schools", Icon: GridIcon, tier: "standard" },
   { label: "ปฏิญญา", href: "/manifesto", Icon: ManifestoIcon, tier: "utility" },
   { label: "แหล่งอ้างอิง", href: "/sources", Icon: QuoteIcon, tier: "utility" },
   { label: "คำถามที่พบบ่อย", href: "/faq", Icon: HelpIcon, tier: "utility" },
+  { label: "แผนที่ความสัมพันธ์", href: "/constellation", Icon: HistoryIcon, tier: "utility" },
   { label: "สนับสนุนโครงการ", href: "/support", Icon: HeartIcon, tier: "support" },
 ];
 
-const MAIN_NAV = NAV.filter((i) => i.tier !== "support");
+// Desktop: แสดง 3 หลัก + dropdown "เพิ่มเติม" + support pill
+const PRIMARY_NAV = NAV.filter((i) => i.tier === "primary");
+const STANDARD_NAV = NAV.filter((i) => i.tier === "standard");
+const UTILITY_NAV = NAV.filter((i) => i.tier === "utility");
 const SUPPORT = NAV.find((i) => i.tier === "support");
 
 // สีลิงก์เดสก์ท็อปตาม tier (ไม่มีไอคอนบนเดสก์ท็อป — ลดความแน่น)
@@ -61,8 +64,10 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [acctOpen, setAcctOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const acctRef = useRef<HTMLDivElement>(null);
+  const moreMenuRef = useRef<HTMLDivElement>(null);
   const clerk = useClerk();
 
   const isActive = (href: string) =>
@@ -99,16 +104,33 @@ export function SiteHeader() {
     };
   }, [acctOpen]);
 
+  // ปิด dropdown "เพิ่มเติม" เมื่อคลิกนอก / กด Esc
+  useEffect(() => {
+    if (!moreOpen) return;
+    const onDoc = (e: MouseEvent) => {
+      if (moreMenuRef.current && !moreMenuRef.current.contains(e.target as Node)) setMoreOpen(false);
+    };
+    const onEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMoreOpen(false);
+    };
+    document.addEventListener("mousedown", onDoc);
+    document.addEventListener("keydown", onEsc);
+    return () => {
+      document.removeEventListener("mousedown", onDoc);
+      document.removeEventListener("keydown", onEsc);
+    };
+  }, [moreOpen]);
+
   // หน้า Studio เป็นพื้นที่ทำงาน (มี chrome ของตัวเอง) — ซ่อน header สาธารณะ
   if (pathname?.startsWith("/studio")) return null;
 
   const menuItem =
-    "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-[13.5px] text-on-surface-variant transition-colors hover:bg-white/5 hover:text-on-surface";
+    "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-on-surface-variant transition-colors hover:bg-white/5 hover:text-on-surface";
 
   return (
     <header className={`sticky top-0 z-50 glass-nav ${scrolled ? "is-scrolled" : ""}`}>
       <nav
-        className={`mx-auto flex max-w-[1280px] items-center justify-between gap-4 px-6 transition-all duration-500 ${
+        className={`mx-auto flex max-w-[1280px] items-center justify-between gap-4 px-4 sm:px-6 transition-all duration-500 ${
           scrolled ? "py-2.5" : "py-4"
         }`}
       >
@@ -121,13 +143,13 @@ export function SiteHeader() {
           <span className="font-wordmark text-[21px] font-semibold tracking-[0.2em]">ARCHRON</span>
         </Link>
 
-        {/* Desktop (lg+): เห็นเมนูครบทุกอัน จัดลำดับด้วยสี ไม่มีไอคอน */}
+        {/* Desktop (lg+): 3 หลัก + dropdown "เพิ่มเติม" + support pill */}
         <div className="hidden items-center gap-1 lg:flex" aria-label="เมนูหลัก">
-          {MAIN_NAV.map((item) => (
+          {PRIMARY_NAV.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className={`rounded-md px-3 py-2 text-[13.5px] tracking-[0.01em] transition-colors ${tierClass(
+              className={`rounded-md px-3 py-2 text-sm font-medium tracking-[0.01em] transition-colors ${tierClass(
                 item.tier,
                 isActive(item.href),
               )}`}
@@ -135,12 +157,71 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
+          {STANDARD_NAV.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`rounded-md px-3 py-2 text-sm tracking-[0.01em] transition-colors ${tierClass(
+                item.tier,
+                isActive(item.href),
+              )}`}
+            >
+              {item.label}
+            </Link>
+          ))}
+          {/* Dropdown "เพิ่มเติม" สำหรับ utility items */}
+          {UTILITY_NAV.length > 0 ? (
+            <div className="relative" ref={moreMenuRef}>
+              <button
+                type="button"
+                onClick={() => setMoreOpen((v) => !v)}
+                aria-expanded={moreOpen}
+                aria-haspopup="menu"
+                aria-controls="more-menu"
+                className="flex items-center gap-1 rounded-md px-3 py-2 text-sm text-on-surface-variant/55 transition-colors hover:text-accent"
+              >
+                เพิ่มเติม
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.6}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className={`h-3.5 w-3.5 transition-transform duration-200 ${moreOpen ? "rotate-180" : ""}`}
+                >
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </button>
+              {moreOpen ? (
+                <div
+                  id="more-menu"
+                  role="menu"
+                  className="glass-nav-panel absolute right-0 top-[calc(100%+8px)] min-w-[200px] rounded-xl border border-slate-boundary/40 p-1.5 shadow-[0_24px_50px_-24px_rgba(0,0,0,0.85)]"
+                >
+                  {UTILITY_NAV.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setMoreOpen(false)}
+                      className={menuItem}
+                      role="menuitem"
+                    >
+                      <item.Icon className="h-[18px] w-[18px] text-accent" />
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          ) : null}
           {SUPPORT ? (
             <>
               <span className="mx-1.5 h-5 w-px bg-slate-boundary/40" aria-hidden="true" />
               <Link
                 href={SUPPORT.href}
-                className="rounded-full border border-accent/30 px-4 py-1.5 text-[13px] text-soft-gold transition-colors hover:bg-accent/10 hover:text-ivory"
+                className="rounded-full border border-accent/30 px-4 py-1.5 text-sm text-soft-gold transition-colors hover:bg-accent/10 hover:text-ivory"
               >
                 สนับสนุน
               </Link>
@@ -186,8 +267,9 @@ export function SiteHeader() {
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-accent/10 text-accent">
                 <PersonIcon className="h-[18px] w-[18px]" />
               </span>
-              <span className="text-[13px]">บัญชี</span>
+              <span className="text-sm">บัญชี</span>
               <svg
+                aria-hidden="true"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -207,7 +289,7 @@ export function SiteHeader() {
                 className="glass-nav-panel absolute right-0 top-[calc(100%+10px)] min-w-[214px] rounded-xl border border-slate-boundary/40 p-1.5 shadow-[0_24px_50px_-24px_rgba(0,0,0,0.85)]"
               >
                 <SignedOut>
-                  <p className="px-3 pb-1 pt-2 font-mono text-[10px] uppercase tracking-[0.12em] text-on-surface-variant/50">
+                  <p className="px-3 pb-1 pt-2 font-mono text-xs uppercase tracking-[0.12em] text-on-surface-variant/50">
                     ยินดีต้อนรับ
                   </p>
                   <Link href="/th/login" onClick={() => setAcctOpen(false)} className={menuItem} role="menuitem">
@@ -217,7 +299,7 @@ export function SiteHeader() {
                 </SignedOut>
 
                 <SignedIn>
-                  <p className="px-3 pb-1 pt-2 font-mono text-[10px] uppercase tracking-[0.12em] text-on-surface-variant/50">
+                  <p className="px-3 pb-1 pt-2 font-mono text-xs uppercase tracking-[0.12em] text-on-surface-variant/50">
                     บัญชีของคุณ
                   </p>
                   <Link href="/profile" onClick={() => setAcctOpen(false)} className={menuItem} role="menuitem">
@@ -235,7 +317,7 @@ export function SiteHeader() {
                       setAcctOpen(false);
                       clerk.signOut();
                     }}
-                    className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-[13.5px] text-danger transition-colors hover:bg-danger/10"
+                    className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-danger transition-colors hover:bg-danger/10"
                     role="menuitem"
                   >
                     <LogoutIcon className="h-[18px] w-[18px]" />
@@ -262,14 +344,38 @@ export function SiteHeader() {
         </div>
       </nav>
 
-      {/* Mobile / tablet (< lg): เมนูเต็ม (ไอคอน+ข้อความ ครบ เพื่อการหาทางที่ง่าย) */}
+      {/* Mobile / tablet (< lg): เมนูเต็ม (จัดกลุ่มลด cognitive load) */}
       {open ? (
         <nav
           id="mobile-nav"
-          className="menu-in glass-nav-panel border-t border-slate-boundary/40 px-6 py-4 lg:hidden"
+          className="menu-in glass-nav-panel border-t border-slate-boundary/40 px-4 sm:px-6 py-4 lg:hidden"
           aria-label="เมนูมือถือ"
         >
-          {NAV.map((item) => (
+          {/* Primary + Standard */}
+          {[...PRIMARY_NAV, ...STANDARD_NAV].map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={() => setOpen(false)}
+              className={`flex items-center gap-3 rounded px-1 py-2.5 text-base transition-colors ${
+                isActive(item.href) ? "text-accent font-semibold" : "text-on-surface-variant hover:text-accent"
+              }`}
+            >
+              <item.Icon
+                className={`h-5 w-5 shrink-0 transition-colors ${
+                  isActive(item.href) ? "text-accent" : "text-accent/70"
+                }`}
+              />
+              {item.label}
+            </Link>
+          ))}
+
+          {/* Utility section */}
+          <span className="my-2 block border-t border-slate-boundary/30" aria-hidden="true" />
+          <span className="mb-1 block px-1 font-mono text-xs uppercase tracking-[0.12em] text-on-surface-variant/40">
+            เพิ่มเติม
+          </span>
+          {UTILITY_NAV.map((item) => (
             <Link
               key={item.href}
               href={item.href}

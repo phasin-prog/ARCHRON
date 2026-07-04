@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { getPublicEntries } from "@/lib/content/public-source";
 import { buildSearchIndex } from "@/lib/content/search-index";
 import { SearchClient } from "@/components/search/search-client";
+import { PageScaffold } from "@/components/page-scaffold";
 
 export const revalidate = 300;
 
@@ -16,25 +16,19 @@ export default async function SearchPage() {
   const index = buildSearchIndex(await getPublicEntries());
 
   return (
-    <main className="px-6 pb-24 pt-10">
-      <div className="mx-auto max-w-3xl">
-        <nav aria-label="เส้นทางนำทาง" className="flex flex-wrap items-center gap-1 text-xs text-muted">
-          <Link href="/" className="transition-colors hover:text-soft-gold">หน้าแรก</Link>
-          <span className="material-symbols-outlined text-[16px] text-subtle">chevron_right</span>
-          <span className="text-soft-ivory">ค้นหา</span>
-        </nav>
-
-        <header className="scroll-reveal mt-6">
-          <h1 className="font-serif text-4xl font-bold text-ivory">ค้นหา</h1>
-          <p className="mt-3 text-base leading-relaxed text-soft-ivory">
-            ค้นทั่วทั้งคลังความรู้ — แนวคิด บทความ ทรัพยากรภายนอก และหน้าต่าง ๆ ในที่เดียว
-          </p>
-        </header>
-
-        <div className="scroll-reveal stagger-1">
-          <SearchClient items={index} />
-        </div>
-      </div>
-    </main>
+    <PageScaffold
+      breadcrumb={[
+        { label: "หน้าแรก", href: "/" },
+        { label: "ค้นหา" },
+      ]}
+      kicker="Search"
+      title="ค้นหา"
+      lead="ค้นทั่วทั้งคลังความรู้ — แนวคิด บทความ ทรัพยากรภายนอก และหน้าต่าง ๆ ในที่เดียว"
+      className="atmo-base atmo-observatory"
+    >
+      <section className="mx-auto max-w-3xl px-6">
+        <SearchClient items={index} />
+      </section>
+    </PageScaffold>
   );
 }

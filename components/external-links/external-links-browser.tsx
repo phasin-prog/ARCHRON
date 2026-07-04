@@ -60,17 +60,17 @@ export function ExternalLinksBrowser({ categories }: { categories: ExternalCateg
   return (
     <div className="mt-8 space-y-6">
       {/* แท่งค้นหา */}
-      <div className="flex items-center gap-3 rounded-md border border-ink/12 bg-surface-container/60 px-4 py-2.5 focus-within:border-burnished-gold/45">
-        <span className="material-symbols-outlined text-[20px] text-burnished-gold">search</span>
+      <div className="flex items-center gap-3 rounded-lg border border-ink/12 bg-surface-container/60 px-4 py-2.5 focus-within:border-burnished-gold/40 focus-within:ring-1 focus-within:ring-burnished-gold/20 transition-colors">
+        <span className="material-symbols-outlined text-[20px] text-burnished-gold" aria-hidden="true">search</span>
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="ค้นหาแหล่งข้อมูลภายนอก ชื่อหน่วยงาน แท็ก หรือเว็บไซต์..."
           aria-label="ค้นหาแหล่งข้อมูลภายนอก"
-          className="w-full bg-transparent text-sm text-on-surface outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold/30 placeholder:text-on-surface-variant/50"
+          className="w-full bg-transparent text-sm text-on-surface focus-visible:outline-none placeholder:text-on-surface-variant/50"
         />
         {query ? (
-          <button type="button" onClick={() => setQuery("")} className="text-on-surface-variant hover:text-soft-gold">
+          <button type="button" onClick={() => setQuery("")} aria-label="ล้างคำค้น" className="rounded-md p-1 text-on-surface-variant hover:text-soft-gold hover:bg-surface-container focus-visible:ring-2 focus-visible:ring-burnished-gold/40 focus-visible:outline-none">
             <span className="material-symbols-outlined text-[18px]">close</span>
           </button>
         ) : null}

@@ -53,49 +53,59 @@ export function ImageUploader({ onInsertImage }: ImageUploaderProps) {
       const data = await res.json();
       setUploadedUrl(data.url);
       setFile(null);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
-      setError(err.message || "อัปโหลดไม่สำเร็จ");
+      setError(err instanceof Error ? err.message : "อัปโหลดไม่สำเร็จ");
     } finally {
       setUploading(false);
     }
   };
 
-  const copyMarkdown = (url: string) => {
+  const copyMarkdown = async (url: string) => {
     const md = `![คำอธิบายรูปภาพ](${url})`;
-    navigator.clipboard.writeText(md);
-    alert("คัดลอก Markdown เรียบร้อยแล้ว!");
+    await navigator.clipboard.writeText(md);
   };
 
   return (
-    <div className="rounded-md border border-white/10 bg-surface-1/40 p-5 space-y-4">
+    <div className="archron-panel p-5 space-y-4">
       <h3 className="font-serif text-base text-ivory flex items-center gap-2">
-        <span className="text-antique-gold text-lg">✦</span> อัปโหลดรูปภาพ (R2)
+        <span className="material-symbols-outlined text-[20px] text-burnished-gold" aria-hidden="true">image</span>
+        อัปโหลดรูปภาพ (R2)
       </h3>
 
       <div className="space-y-3">
         {/* Dropzone / File Select Box */}
-        <label className="flex flex-col items-center justify-center border border-dashed border-white/20 rounded-md p-4 cursor-pointer hover:border-antique-gold/40 transition-colors bg-charcoal/20">
+        <label className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-boundary/40 bg-surface-container-low/30 p-6 cursor-pointer hover:border-burnished-gold/40 hover:bg-surface-container-low/50 transition-colors focus-within:ring-2 focus-within:ring-burnished-gold/40 focus-within:outline-none">
           <input
             type="file"
             accept="image/*"
-            className="hidden"
+            className="sr-only"
             onChange={handleFileChange}
+            aria-label="เลือกรูปภาพ"
           />
-          <span className="text-xs text-soft-ivory text-center truncate max-w-full px-2">
+          <span className="material-symbols-outlined text-[28px] text-on-surface-variant/40 mb-2" aria-hidden="true">
+            cloud_upload
+          </span>
+          <span className="text-sm text-on-surface text-center">
             {file ? `เลือกรูปภาพแล้ว: ${file.name}` : "คลิกเลือกรูปภาพ หรือลากมาวาง"}
           </span>
-          <span className="text-[10px] text-muted mt-1">PNG, JPG, WEBP (สูงสุด 5MB)</span>
+          <span className="text-xs text-on-surface-variant/60 mt-1">PNG, JPG, WEBP (สูงสุด 5MB)</span>
         </label>
 
         {/* Error message */}
-        {error && <p className="text-xs text-danger">{error}</p>}
+        {error && (
+          <p className="flex items-center gap-1.5 text-xs text-danger" role="alert">
+            <span className="material-symbols-outlined text-[14px]" aria-hidden="true">error</span>
+            {error}
+          </p>
+        )}
 
         {/* Upload Button */}
         {file && !uploading && (
           <button
+            type="button"
             onClick={handleUpload}
-            className="w-full rounded-sm bg-gradient-to-br from-antique-gold to-soft-gold py-1.5 text-xs font-semibold text-deep-navy hover:brightness-110 cursor-pointer transition-all"
+            className="w-full rounded-lg bg-gradient-to-br from-antique-gold to-burnished-gold py-2.5 text-sm font-semibold text-prima hover:brightness-110 cursor-pointer transition-all focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
           >
             อัปโหลดไปยัง Cloudflare R2
           </button>
@@ -103,29 +113,31 @@ export function ImageUploader({ onInsertImage }: ImageUploaderProps) {
 
         {/* Uploading Status */}
         {uploading && (
-          <div className="text-center text-xs text-soft-gold py-1.5 animate-pulse">
+          <div className="flex items-center justify-center gap-2 text-sm text-burnished-gold py-2" role="status">
+            <span className="material-symbols-outlined animate-spin text-[18px]" aria-hidden="true">progress_activity</span>
             กำลังอัปโหลด...
           </div>
         )}
 
         {/* Success state */}
         {uploadedUrl && (
-          <div className="rounded-md bg-charcoal/30 p-3 border border-white/5 space-y-2">
-            <p className="text-xs text-success flex items-center gap-1 font-semibold">
-              ✓ อัปโหลดสำเร็จ!
+          <div className="rounded-lg bg-success/10 border border-success/30 p-3 space-y-2">
+            <p className="text-xs text-success flex items-center gap-1.5 font-semibold">
+              <span className="material-symbols-outlined text-[16px]" aria-hidden="true">check_circle</span>
+              อัปโหลดสำเร็จ!
             </p>
             <div className="flex gap-2">
               <button
                 type="button"
                 onClick={() => onInsertImage(uploadedUrl)}
-                className="flex-1 min-h-[40px] rounded-sm border border-antique-gold/30 bg-antique-gold/10 px-3 py-2 text-xs text-antique-gold hover:bg-antique-gold/20 cursor-pointer transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-antique-gold flex items-center justify-center font-medium"
+                className="flex-1 min-h-[40px] rounded-lg border border-burnished-gold/40 bg-burnished-gold/10 px-3 py-2 text-xs text-burnished-gold hover:bg-burnished-gold/20 cursor-pointer transition-colors focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none flex items-center justify-center font-medium"
               >
                 แทรกในเนื้อหา
               </button>
               <button
                 type="button"
                 onClick={() => copyMarkdown(uploadedUrl)}
-                className="flex-1 min-h-[40px] rounded-sm border border-white/10 bg-white/5 px-3 py-2 text-xs text-soft-ivory hover:bg-white/10 cursor-pointer transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-antique-gold flex items-center justify-center font-medium"
+                className="flex-1 min-h-[40px] rounded-lg border border-slate-boundary/40 bg-surface-container/40 px-3 py-2 text-xs text-on-surface hover:bg-surface-container cursor-pointer transition-colors focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none flex items-center justify-center font-medium"
               >
                 คัดลอกลิงก์
               </button>
@@ -134,7 +146,8 @@ export function ImageUploader({ onInsertImage }: ImageUploaderProps) {
               type="text"
               readOnly
               value={uploadedUrl}
-              className="w-full text-[10px] text-muted bg-black/30 border border-white/5 px-2 py-1 rounded outline-none select-all"
+              aria-label="URL ของรูปภาพ"
+              className="w-full text-[10px] text-on-surface-variant/60 bg-surface-container-low/50 border border-slate-boundary/20 px-2 py-1.5 rounded-lg select-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-burnished-gold/40"
             />
           </div>
         )}

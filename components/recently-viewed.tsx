@@ -101,7 +101,7 @@ export function RecentlyViewed() {
                 >
                   <Icon className="h-[18px] w-[18px]" />
                 </span>
-                <span className="font-mono text-[10px] uppercase tracking-[0.14em]" style={{ color: meta.accent }}>
+                <span className="font-mono text-xs uppercase tracking-[0.14em]" style={{ color: meta.accent }}>
                   {meta.label}
                 </span>
               </div>
@@ -111,9 +111,9 @@ export function RecentlyViewed() {
               </span>
 
               <div className="mt-auto flex items-center justify-between border-t border-slate-boundary/20 pt-3">
-                <span className="text-[11.5px] text-on-surface-variant/60">{timeAgo(item.timestamp)}</span>
+                <span className="text-xs text-on-surface-variant/60">{timeAgo(item.timestamp)}</span>
                 <span
-                  className="inline-flex items-center gap-1 font-mono text-[11px] transition-all group-hover:gap-2"
+                  className="inline-flex items-center gap-1 font-mono text-xs transition-all group-hover:gap-2"
                   style={{ color: meta.accent }}
                 >
                   อ่านต่อ

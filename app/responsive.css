@@ -9,7 +9,7 @@
    ============================================================================ */
 
 /* ---- Breakpoint Reference (Tailwind handles actual breakpoints) ----
-   Mobile:  0-640px    (base styles)
+   Mobile:  0-768px    (base styles)
    Tablet:  641-1024px (sm:, md:)
    Desktop: 1025px+    (lg:, xl:)
    ================================================================== */
@@ -70,12 +70,23 @@
   gap: clamp(1.5rem, 1rem + 2.5vw, 2rem);
 }
 
-/* ---- Mobile-First Base Styles ---- */
+/* Mobile-First Base Styles */
 
-/* ป้องกัน horizontal scroll บนมือถือ */
+/* ป้องกัน horizontal scroll บนมือถือ — ใช้ overflow-x: clip แทน hidden เพื่อไม่ overflow content ที่ตั้งใจ */
 html {
-  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-text-size-adjust: 100%;
+}
+
+body {
+  overflow-x: clip;
+}
+
+/* ป้องกัน overflow จาก absolutely positioned elements */
+.atmo-base,
+.atmo-base::before,
+.atmo-base::after {
+  overflow: hidden;
 }
 
 /* Touch-friendly scroll */
@@ -138,7 +149,7 @@ html {
 /* ---- Mobile Snappy Mode ----
    ปิดแอนิเมชันหนักบนมือถือเพื่อความตอบสนองฉับไว
    อ้างอิง: PRD §17, VOS.md §11 */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   /* ปิด animation หนัก */
   .animate-float,
   .animate-orbit,
@@ -146,9 +157,11 @@ html {
     animation: none !important;
   }
 
-  /* ลด transition duration */
-  * {
-    transition-duration: 100ms !important;
+  /* ลด transition duration เฉพาะ hover/transform — ไม่แตะ opacity/color/width */
+  .archron-card,
+  .archron-panel,
+  .group {
+    transition-duration: 150ms !important;
   }
 
   /* ปิด backdrop blur บนมือถือ (Performance) */
@@ -161,6 +174,11 @@ html {
   .scroll-reveal {
     opacity: 1;
     transform: none;
+  }
+
+  /* ลดขนาด hero section บนมือถือ */
+  .section-hero {
+    padding: var(--space-6) 0;
   }
 }
 
@@ -189,13 +207,13 @@ html {
   gap: clamp(1rem, 0.75rem + 1.25vw, 1.5rem);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .grid-responsive {
     grid-template-columns: 1fr;
   }
 }
 
-@media (min-width: 641px) and (max-width: 1024px) {
+@media (min-width: 769px) and (max-width: 1024px) {
   .grid-responsive {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -214,14 +232,14 @@ html {
   letter-spacing: -0.01em;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .heading-responsive {
     font-size: clamp(1.35rem, 1.1rem + 1.25vw, 1.75rem);
   }
 }
 
 /* ---- Mobile Navigation Helpers ---- */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   /* ซ่อน desktop nav, แสดง mobile nav */
   .desktop-only {
     display: none !important;

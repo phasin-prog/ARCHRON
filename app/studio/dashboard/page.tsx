@@ -50,6 +50,33 @@ export default function StudioDashboardPage() {
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [typeFilter, setTypeFilter] = useState<string>("all");
 
+  // Filtered entries for "บทความของฉัน"
+  const myFilteredEntries = useMemo(() => {
+    let result = [...entries];
+    if (statusFilter !== "all") {
+      result = result.filter((e) => e.status === statusFilter);
+    }
+    if (typeFilter !== "all") {
+      result = result.filter((e) => e.content_type === typeFilter);
+    }
+    return result.sort((a, b) => b.published_at.localeCompare(a.published_at));
+  }, [entries, statusFilter, typeFilter]);
+
+  // Filtered entries for "บทความทั้งหมด"
+  const allFilteredEntries = useMemo(() => {
+    let result = [...allEntries];
+    if (typeFilter !== "all") {
+      result = result.filter((e) => e.content_type === typeFilter);
+    }
+    return result;
+  }, [allEntries, typeFilter]);
+
+  // Unique types for filter
+  const availableTypes = useMemo(() => {
+    const types = new Set(allEntries.map((e) => e.content_type));
+    return Array.from(types).sort();
+  }, [allEntries]);
+
   useEffect(() => {
     if (!userId || !writer) return;
     let active = true;
@@ -151,35 +178,8 @@ export default function StudioDashboardPage() {
     return map[t] ?? "#CBA45A";
   };
 
-  // Filtered entries for "บทความของฉัน"
-  const myFilteredEntries = useMemo(() => {
-    let result = [...entries];
-    if (statusFilter !== "all") {
-      result = result.filter((e) => e.status === statusFilter);
-    }
-    if (typeFilter !== "all") {
-      result = result.filter((e) => e.content_type === typeFilter);
-    }
-    return result.sort((a, b) => b.published_at.localeCompare(a.published_at));
-  }, [entries, statusFilter, typeFilter]);
-
-  // Filtered entries for "บทความทั้งหมด"
-  const allFilteredEntries = useMemo(() => {
-    let result = [...allEntries];
-    if (typeFilter !== "all") {
-      result = result.filter((e) => e.content_type === typeFilter);
-    }
-    return result;
-  }, [allEntries, typeFilter]);
-
-  // Unique types for filter
-  const availableTypes = useMemo(() => {
-    const types = new Set(allEntries.map((e) => e.content_type));
-    return Array.from(types).sort();
-  }, [allEntries]);
-
   return (
-    <main className="px-6 pb-24 pt-10">
+    <main className="px-4 sm:px-6 pb-24 pt-10">
       <div className="mx-auto max-w-[1200px]">
         {/* Header */}
         <header className="mb-8">

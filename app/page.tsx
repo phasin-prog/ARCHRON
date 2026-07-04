@@ -76,7 +76,7 @@ export default function HomePage() {
   return (
     <main className="atmo-base atmo-observatory">
         <section 
-          className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden px-6 text-center text-mist texture-grain"
+          className="relative flex min-h-[80vh] sm:min-h-[90vh] flex-col items-center justify-center overflow-hidden px-4 sm:px-6 text-center text-mist texture-grain"
           style={{
             background: "radial-gradient(circle at center, var(--color-deep-navy) 30%, var(--color-surface-container-lowest) 100%)"
           }}
@@ -111,13 +111,13 @@ export default function HomePage() {
               <path d="M60 40v54" />
             </svg>
           </div>
-          <div className="relative z-10 mx-auto max-w-5xl py-24">
+          <div className="relative z-10 mx-auto max-w-5xl py-16 sm:py-24">
             {/* Tagline แบรนด์ */}
             <span className="scroll-reveal mb-5 block font-serif text-xl italic text-soft-gold sm:text-2xl">
               a living library of human understanding
             </span>
             {/* Positioning: คลังที่มีชีวิต ตั้งแต่จุดกำเนิดผ่านกาลเวลา (แทนคำว่า “สำนัก”) */}
-            <span className="scroll-reveal mb-8 block text-xs font-semibold tracking-[0.15em] text-lumen/90">
+            <span className="scroll-reveal mb-8 block text-sm font-semibold tracking-[0.15em] text-lumen/90">
               คลังความเข้าใจมนุษย์ที่มีชีวิต · ตั้งแต่จุดกำเนิด ผ่านกาลเวลา
             </span>
             <h1 className="scroll-reveal stagger-1 mb-8 font-serif text-fluid-h1 font-semibold leading-[1.15] text-mist md:tracking-[-0.02em]">
@@ -179,7 +179,7 @@ export default function HomePage() {
         </section>
 
         {/* Pillars — สิ่งที่เราทำ (การ์ด + ไอคอนเส้นเฉพาะ + เน้นคำ) */}
-        <section className="relative mx-auto max-w-[1200px] px-6 py-28 md:py-36 texture-parchment texture-glow-gold" aria-labelledby="pillars-heading">
+        <section className="relative mx-auto max-w-[1200px] px-4 sm:px-6 py-20 sm:py-28 md:py-36 texture-parchment texture-glow-gold" aria-labelledby="pillars-heading">
           <h2 id="pillars-heading" className="sr-only">เสาหลักของ ARCHRON</h2>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {PILLARS.map((p, i) => {
@@ -220,7 +220,7 @@ export default function HomePage() {
         </section>
 
         {/* Knowledge Atlas */}
-        <section className="relative overflow-hidden border-y border-slate-boundary/30 bg-surface-container-lowest px-6 py-20 texture-grain texture-vignette">
+        <section className="relative overflow-hidden border-y border-slate-boundary/30 bg-surface-container-lowest px-4 sm:px-6 py-16 sm:py-20 texture-grain texture-vignette">
           {/* Vesica pattern — สื่อการเชื่อมโยงของศาสตร์ (cosmology: prima = แผนที่/สัญลักษณ์) */}
           <VesicaPattern
             cosmology="prima"
@@ -263,8 +263,8 @@ export default function HomePage() {
         <RecentlyViewed />
 
         {/* ปฏิญญา — คำคมให้จดจำ (เน้นคำแก่นด้วยสีทอง) */}
-        <section className="scroll-reveal relative mx-auto max-w-4xl px-6 py-24 text-center md:py-28 texture-glow-gold texture-parchment">
-          <div className="mb-4 font-serif text-[64px] leading-[0.3] text-burnished-gold/35" aria-hidden="true">
+        <section className="scroll-reveal relative mx-auto max-w-4xl px-4 sm:px-6 py-16 sm:py-24 text-center md:py-28 texture-glow-gold texture-parchment">
+          <div className="mb-4 font-serif text-[clamp(40px,8vw,64px)] leading-[0.3] text-burnished-gold/35" aria-hidden="true">
             “
           </div>
           <h2 className="font-serif text-fluid-h2 font-medium leading-[1.5] text-ivory">
@@ -280,7 +280,7 @@ export default function HomePage() {
           </p>
           <Link
             href="/manifesto"
-            className="group inline-flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.08em] text-burnished-gold transition-all hover:gap-3"
+            className="group inline-flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-[0.08em] text-burnished-gold transition-all hover:gap-3"
           >
             อ่านปฏิญญาฉบับเต็ม
             <ArrowRightIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />

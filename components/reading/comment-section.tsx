@@ -97,21 +97,27 @@ export function CommentSection({ section, slug }: { section: string; slug: strin
               rows={3}
               maxLength={2000}
               placeholder="เขียนความคิดเห็นของคุณ…"
-              className="w-full resize-y bg-transparent text-base text-on-surface placeholder:text-on-surface-variant/75 focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none rounded p-2 border border-slate-boundary/20"
+              aria-describedby={error ? "comment-error" : undefined}
+              aria-invalid={!!error}
+              className="w-full resize-y rounded-lg border border-slate-boundary/30 bg-surface-container-low/50 p-3 text-base text-on-surface placeholder:text-on-surface-variant/50 focus-visible:ring-2 focus-visible:ring-burnished-gold/40 focus-visible:outline-none focus-visible:border-burnished-gold/50 transition-colors"
             />
             <div className="mt-3 flex items-center justify-between">
-              <span className="text-xs text-on-surface-variant/75">ในนาม {authorName}</span>
+              <span className="text-xs text-on-surface-variant/65">ในนาม {authorName}</span>
               <button
                 type="button"
                 onClick={handleSubmit}
                 disabled={busy || !body.trim()}
-                className="inline-flex items-center gap-2 bg-gradient-to-br from-antique-gold to-burnished-gold px-5 py-2 text-sm font-semibold text-prima transition-transform hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none disabled:opacity-50"
+                className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-br from-antique-gold to-burnished-gold px-5 py-2 text-sm font-semibold text-prima transition-all hover:-translate-y-0.5 hover:shadow-md focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none disabled:opacity-50 disabled:transform-none"
               >
-                <span className="material-symbols-outlined text-[18px]">send</span>
+                {busy ? (
+                  <span className="material-symbols-outlined animate-spin text-[18px]">progress_activity</span>
+                ) : (
+                  <span className="material-symbols-outlined text-[18px]">send</span>
+                )}
                 {busy ? "กำลังส่ง…" : "ส่งความคิดเห็น"}
               </button>
             </div>
-            {error ? <p className="mt-2 text-sm text-danger">{error}</p> : null}
+            {error ? <p id="comment-error" className="mt-2 text-sm text-danger">{error}</p> : null}
           </div>
         </SignedIn>
         <SignedOut>

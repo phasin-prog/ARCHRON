@@ -134,8 +134,8 @@ export default async function SchoolDetailPage({ params }: PageProps) {
               {s.keyIdeas.map((idea, idx) => (
                 <div
                   key={idx}
-                  className="archron-panel p-4 border-l-4"
-                  style={{ borderLeftColor: meta.accent }}
+                  className="archron-panel p-4 border-t-4"
+                  style={{ borderTopColor: meta.accent }}
                 >
                   <h3 className="font-serif text-base font-medium text-on-surface">
                     {idea.title}

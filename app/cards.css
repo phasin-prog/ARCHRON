@@ -5,58 +5,36 @@
    - 24 Card Families
    - ความหนาแน่น 3 ระดับ: Light, Medium, Heavy
    - สัมผัสคล้าย "ป้ายคำอธิบายในพิพิธภัณฑ์"
+
+   NOTE: Base .archron-card and .archron-panel are defined in globals.css
+   This file provides variant classes, density levels, and card component utilities.
    ============================================================================ */
-
-/* ---- Base Card ---- */
-.archron-card {
-  position: relative;
-  display: block;
-  border: 1px solid var(--color-slate-boundary);
-  border-radius: 8px;
-  background: var(--color-surface-container);
-  padding: 1.25rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.archron-card:hover {
-  border-color: rgba(199, 154, 74, 0.35);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-/* ---- Card Panel (elevated) ---- */
-.archron-panel {
-  position: relative;
-  border: 1px solid var(--color-slate-boundary);
-  border-radius: 8px;
-  background: var(--color-surface-container);
-  padding: 1rem;
-}
 
 /* ---- Card Variants ---- */
 
 /* Article Card */
 .card-article {
-  border-left: 3px solid var(--color-burnished-gold);
+  border-top: 2px solid var(--color-burnished-gold);
 }
 
 /* Concept Card */
 .card-concept {
-  border-left: 3px solid var(--color-psyche);
+  border-top: 2px solid var(--color-psyche);
 }
 
 /* Thinker Card */
 .card-thinker {
-  border-left: 3px solid var(--color-mercurius);
+  border-top: 2px solid var(--color-mercurius);
 }
 
 /* School Card */
 .card-school {
-  border-left: 3px solid var(--color-lumen);
+  border-top: 2px solid var(--color-lumen);
 }
 
 /* Book Card */
 .card-book {
-  border-left: 3px solid var(--color-sapientia);
+  border-top: 2px solid var(--color-sapientia);
 }
 
 /* ---- Card Density Levels ---- */
@@ -90,7 +68,7 @@
 
 .card-selected {
   border-color: var(--color-burnished-gold);
-  box-shadow: 0 0 0 2px rgba(199, 154, 74, 0.2);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-burnished-gold) 20%, transparent);
 }
 
 /* ---- Card Components ---- */
@@ -107,8 +85,8 @@
   justify-content: center;
   width: 2.5rem;
   height: 2.5rem;
-  border-radius: 6px;
-  background: rgba(199, 154, 74, 0.1);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--color-burnished-gold) 10%, transparent);
   color: var(--color-burnished-gold);
   flex-shrink: 0;
 }
@@ -139,7 +117,7 @@
   justify-content: space-between;
   margin-top: 1rem;
   padding-top: 0.75rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid color-mix(in srgb, var(--color-ivory) 6%, transparent);
 }
 
 /* ---- Card Grid ---- */
@@ -198,20 +176,20 @@
 .card-skeleton-text {
   height: 0.75rem;
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.06);
+  background: color-mix(in srgb, var(--color-ivory) 6%, transparent);
 }
 
 .card-skeleton-title {
   height: 1rem;
   width: 60%;
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.08);
+  background: color-mix(in srgb, var(--color-ivory) 8%, transparent);
   margin-bottom: 0.5rem;
 }
 
 .card-skeleton-icon {
   width: 2.5rem;
   height: 2.5rem;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--color-ivory) 6%, transparent);
 }

@@ -8,6 +8,7 @@ import {
   type GraphNode,
 } from "@/lib/content/graph";
 import { ConstellationMindmap } from "@/components/constellation/constellation-mindmap";
+import { PageScaffold } from "@/components/page-scaffold";
 
 export const metadata: Metadata = {
   title: "แผนที่ความสัมพันธ์ — ARCHRON",
@@ -37,31 +38,26 @@ export default async function ConstellationPage({
   })).filter((g) => g.items.length > 0);
 
   return (
-    <main className="px-6 pb-24 pt-10">
-      <div className="mx-auto max-w-[1200px]">
-        <nav aria-label="เส้นทางนำทาง" className="flex flex-wrap items-center gap-1 text-xs text-muted">
-          <Link href="/" className="transition-colors hover:text-soft-gold">หน้าแรก</Link>
-          <span className="material-symbols-outlined text-[16px] text-subtle">chevron_right</span>
-          <Link href="/concepts" className="transition-colors hover:text-soft-gold">คลังแนวคิด</Link>
-          <span className="material-symbols-outlined text-[16px] text-subtle">chevron_right</span>
-          <span className="text-soft-ivory">แผนที่ความสัมพันธ์</span>
-        </nav>
-
-        <header className="mt-6">
-          <h1 className="font-serif text-4xl font-bold text-ivory">แผนที่ความสัมพันธ์</h1>
-          <p className="mt-3 max-w-2xl text-base leading-relaxed text-soft-ivory">
-            เลือกแนวคิดเป็น “ศูนย์กลาง” แล้วดูว่ามันเชื่อมโยงกับแนวคิดใดบ้าง — คลิกแนวคิดรอบ ๆ
-            เพื่อย้ายศูนย์กลางและสำรวจต่อทีละก้าว หรือเปิดหน้าเต็มเพื่ออ่านรายละเอียด
-          </p>
-        </header>
-
+    <PageScaffold
+      breadcrumb={[
+        { label: "หน้าแรก", href: "/" },
+        { label: "คลังความรู้", href: "/knowledge" },
+        { label: "แผนที่ความสัมพันธ์" },
+      ]}
+      kicker="Knowledge Graph"
+      title="แผนที่ความสัมพันธ์"
+      lead="เลือกแนวคิดเป็น 'ศูนย์กลาง' แล้วดูว่ามันเชื่อมโยงกับแนวคิดใดบ้าง — คลิกแนวคิดรอบ ๆ เพื่อย้ายศูนย์กลางและสำรวจต่อทีละก้าว หรือเปิดหน้าเต็มเพื่ออ่านรายละเอียด"
+      ambient
+      className="atmo-base atmo-observatory"
+    >
+      <section className="mx-auto max-w-[1200px] px-6">
         {initialFocus ? (
           <ConstellationMindmap data={graph} initialFocus={initialFocus} />
         ) : null}
 
         {/* Fallback (no-JS / a11y): รายการ node จัดกลุ่มตามชนิด เป็นลิงก์ */}
         <noscript>
-          <section className="mt-10">
+          <div className="mt-10">
             <p className="text-sm text-muted">
               แผนที่ต้องใช้ JavaScript — ด้านล่างคือรายการแนวคิดทั้งหมดแบบลิงก์
             </p>
@@ -82,9 +78,9 @@ export default async function ConstellationPage({
                 </ul>
               </div>
             ))}
-          </section>
+          </div>
         </noscript>
-      </div>
-    </main>
+      </section>
+    </PageScaffold>
   );
 }

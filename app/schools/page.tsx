@@ -28,7 +28,7 @@ export default async function SchoolsPage() {
       navCurrent="/schools"
       className="atmo-base atmo-temple"
     >
-      <section className="texture-grain texture-parchment texture-glow-gold texture-vignette relative mx-auto max-w-[1100px] px-6">
+      <section className="texture-grain texture-parchment texture-glow-gold texture-vignette relative mx-auto max-w-[1100px] px-4 sm:px-6">
         {schools.length === 0 ? (
           <EmptyState
             icon="groups_2"

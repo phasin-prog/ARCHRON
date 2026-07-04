@@ -107,7 +107,7 @@ export function ConstellationMindmap({
           type="button"
           onClick={back}
           disabled={history.length === 0}
-          className="inline-flex items-center gap-1.5 rounded-md border border-ink/12 px-3 py-2 text-sm text-on-surface-variant transition-colors hover:border-burnished-gold/40 hover:text-on-surface disabled:cursor-default disabled:opacity-35"
+          className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-1.5 rounded-md border border-ink/12 px-3 py-2 text-sm text-on-surface-variant transition-colors hover:border-burnished-gold/40 hover:text-on-surface disabled:cursor-default disabled:opacity-35"
         >
           <span className="material-symbols-outlined text-[18px]">arrow_back</span>
           ย้อนกลับ
@@ -117,15 +117,15 @@ export function ConstellationMindmap({
             e.preventDefault();
             runSearch(query);
           }}
-          className="flex flex-1 items-center gap-2 rounded-md border border-ink/12 bg-surface-container/60 px-3 py-2 focus-within:border-burnished-gold/40"
+          className="flex min-h-[44px] flex-1 items-center gap-2 rounded-lg border border-ink/12 bg-surface-container/60 px-3 py-2 focus-within:border-burnished-gold/40 focus-within:ring-1 focus-within:ring-burnished-gold/20 transition-colors"
         >
-          <span className="material-symbols-outlined text-[18px] text-burnished-gold">search</span>
+          <span className="material-symbols-outlined text-[18px] text-burnished-gold" aria-hidden="true">search</span>
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="ค้นหาแนวคิดเพื่อตั้งเป็นศูนย์กลาง..."
             aria-label="ค้นหาแนวคิดเพื่อตั้งเป็นศูนย์กลาง"
-            className="w-full bg-transparent text-sm text-on-surface placeholder:text-on-surface-variant/55 focus-visible:ring-2 focus-visible:ring-burnished-gold/30 focus:outline-none"
+            className="w-full bg-transparent text-sm text-on-surface placeholder:text-on-surface-variant/50 focus-visible:outline-none"
           />
         </form>
       </div>
@@ -134,6 +134,7 @@ export function ConstellationMindmap({
       <div
         key={focus}
         className="mm-fade relative mx-auto mt-6 h-[520px] max-w-[900px] sm:h-[620px]"
+        style={{ touchAction: "pan-x pan-y" }}
       >
         <svg
           viewBox="0 0 100 100"
@@ -170,7 +171,7 @@ export function ConstellationMindmap({
         >
         <Link
           href={`/concepts/${focusNode.id}`}
-          className="group flex flex-col items-center"
+          className="group flex min-h-[44px] min-w-[44px] flex-col items-center justify-center"
         >
           <span
             className="flex h-24 w-24 items-center justify-center rounded-full border-2 bg-deep-navy/85 backdrop-blur"
@@ -215,7 +216,7 @@ export function ConstellationMindmap({
                 onClick={() => goTo(p.id)}
                 onMouseEnter={() => setHover(p.id)}
                 onMouseLeave={() => setHover(null)}
-                className="flex max-w-[160px] flex-col items-center gap-1 rounded-md border border-ink/10 bg-surface-container/85 px-3 py-2 text-center backdrop-blur transition-colors hover:border-burnished-gold/50 hover:bg-surface-container"
+                className="flex min-h-[44px] min-w-[44px] max-w-[160px] flex-col items-center justify-center gap-1 rounded-md border border-ink/10 bg-surface-container/85 px-3 py-2 text-center backdrop-blur transition-colors hover:border-burnished-gold/50 hover:bg-surface-container"
               >
                 <span className="flex items-center gap-1.5">
                   <span

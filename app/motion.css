@@ -13,15 +13,14 @@
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-enter: cubic-bezier(0, 0, 0.2, 1);
   --ease-exit: cubic-bezier(0.4, 0, 1, 1);
-  --ease-soft: cubic-bezier(0.25, 0.1, 0.25, 1);
-  --ease-out: cubic-bezier(0, 0, 0.3, 1);
+  /* --ease-soft and --ease-out are defined in globals.css as the canonical source */
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 
-  /* ---- Duration Scale ---- */
-  --dur-fast: 150ms;
-  --dur-normal: 250ms;
-  --dur-slow: 400ms;
-  --dur-slower: 600ms;
+  /* ---- Duration Scale (aligned with globals.css) ---- */
+  --dur-fast: 200ms;
+  --dur-normal: 350ms;
+  --dur-slow: 600ms;
+  --dur-slower: 850ms;
 }
 
 /* ---- Base Transition Utility ---- */
@@ -108,23 +107,41 @@
 
 /* ---- Expand/Collapse ---- */
 @keyframes expand {
-  from { opacity: 0; max-height: 0; }
-  to { opacity: 1; max-height: 500px; }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes collapse {
-  from { opacity: 1; max-height: 500px; }
-  to { opacity: 0; max-height: 0; }
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
 .animate-expand {
-  animation: expand var(--dur-slow) var(--ease-standard) both;
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows var(--dur-slow) var(--ease-standard),
+              opacity var(--dur-fast) var(--ease-standard);
   overflow: hidden;
 }
 
+.animate-expand.open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
 .animate-collapse {
-  animation: collapse var(--dur-slow) var(--ease-standard) both;
+  display: grid;
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transition: grid-template-rows var(--dur-slow) var(--ease-standard),
+              opacity var(--dur-fast) var(--ease-standard);
   overflow: hidden;
+}
+
+.animate-collapse.open {
+  grid-template-rows: 0fr;
+  opacity: 0;
 }
 
 /* ---- Float Animation (for ambient elements) ---- */

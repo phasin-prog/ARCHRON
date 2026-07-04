@@ -72,17 +72,17 @@ export function ConceptsBrowser({ concepts, publishedSlugs }: ConceptsBrowserPro
       {/* แท่งค้นหาและตัวกรอง */}
       <div className="grid gap-4 sm:grid-cols-[2fr_1fr]">
         {/* ค้นหา */}
-        <div className="flex items-center gap-3 rounded-md border border-ink/12 bg-surface-container/60 px-4 py-2.5 focus-within:border-burnished-gold/45">
-          <span className="material-symbols-outlined text-[20px] text-burnished-gold">search</span>
+        <div className="flex items-center gap-3 rounded-lg border border-ink/12 bg-surface-container/60 px-4 py-2.5 focus-within:border-burnished-gold/40 focus-within:ring-1 focus-within:ring-burnished-gold/20 transition-colors">
+          <span className="material-symbols-outlined text-[20px] text-burnished-gold" aria-hidden="true">search</span>
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="ค้นหาชื่อแนวคิด คำแปล หรือคำอธิบายย่อ..."
             aria-label="ค้นหาแนวคิด"
-            className="w-full bg-transparent text-sm text-on-surface outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold/30 placeholder:text-on-surface-variant/50"
+            className="w-full bg-transparent text-sm text-on-surface focus-visible:outline-none placeholder:text-on-surface-variant/50"
           />
           {query ? (
-            <button type="button" onClick={() => setQuery("")} className="text-on-surface-variant hover:text-soft-gold">
+            <button type="button" onClick={() => setQuery("")} aria-label="ล้างคำค้น" className="rounded-md p-1 text-on-surface-variant hover:text-soft-gold hover:bg-surface-container focus-visible:ring-2 focus-visible:ring-burnished-gold/40 focus-visible:outline-none">
               <span className="material-symbols-outlined text-[18px]">close</span>
             </button>
           ) : null}
@@ -93,7 +93,7 @@ export function ConceptsBrowser({ concepts, publishedSlugs }: ConceptsBrowserPro
           value={selectedType}
           onChange={(e) => setSelectedType(e.target.value as any)}
           aria-label="กรองตามประเภท"
-          className="rounded-md border border-ink/12 bg-surface-container/60 px-3 py-2.5 text-sm text-on-surface outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold/30 focus:border-burnished-gold/45"
+          className="rounded-lg border border-ink/12 bg-surface-container/60 px-3 py-2.5 text-sm text-on-surface focus-visible:ring-2 focus-visible:ring-burnished-gold/30 focus-visible:outline-none focus:border-burnished-gold/45 transition-colors"
         >
           <option value="all">ประเภททั้งหมด</option>
           {(Object.keys(NODE_LABEL) as NodeType[]).map((t) => (

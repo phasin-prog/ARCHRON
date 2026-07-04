@@ -126,7 +126,7 @@ const mdComponents: Components = {
 function MetaCell({ label, value }: { label: string; value: ReactNode }) {
   return (
     <div className="archron-panel p-4">
-      <dt className="text-[11px] tracking-[0.04em] text-muted">{label}</dt>
+      <dt className="text-xs tracking-[0.04em] text-muted">{label}</dt>
       <dd className="mt-1 text-sm leading-snug text-ivory">{value}</dd>
     </div>
   );
@@ -175,7 +175,7 @@ function MetaCard({ entry, readingTime }: { entry: ContentEntry; readingTime: st
       <dl className="grid gap-x-6 gap-y-5 sm:grid-cols-2">
         {entry.mainThinkers && entry.mainThinkers.length > 0 ? (
           <div className="sm:col-span-2">
-            <dt className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.12em] text-muted">
+            <dt className="flex items-center gap-1.5 text-xs uppercase tracking-[0.12em] text-muted">
               <span style={accentIcon}><PersonIcon className="h-4 w-4" /></span>
               นักคิดหลัก
             </dt>
@@ -198,7 +198,7 @@ function MetaCard({ entry, readingTime }: { entry: ContentEntry; readingTime: st
 
         {entry.school || entry.framework ? (
           <div>
-            <dt className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.12em] text-muted">
+            <dt className="flex items-center gap-1.5 text-xs uppercase tracking-[0.12em] text-muted">
               <span style={accentIcon}><SchoolIcon className="h-4 w-4" /></span>
               สำนักคิด
             </dt>
@@ -208,7 +208,7 @@ function MetaCard({ entry, readingTime }: { entry: ContentEntry; readingTime: st
 
         {rootText ? (
           <div>
-            <dt className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.12em] text-muted">
+            <dt className="flex items-center gap-1.5 text-xs uppercase tracking-[0.12em] text-muted">
               <span style={accentIcon}><RootIcon className="h-4 w-4" /></span>
               รากแนวคิด
             </dt>
@@ -217,7 +217,7 @@ function MetaCard({ entry, readingTime }: { entry: ContentEntry; readingTime: st
         ) : null}
 
         <div>
-          <dt className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.12em] text-muted">
+          <dt className="flex items-center gap-1.5 text-xs uppercase tracking-[0.12em] text-muted">
             <span style={accentIcon}><AuthorPenIcon className="h-4 w-4" /></span>
             ผู้เขียน
           </dt>
@@ -226,7 +226,7 @@ function MetaCard({ entry, readingTime }: { entry: ContentEntry; readingTime: st
 
         {entry.publishedAt ? (
           <div>
-            <dt className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.12em] text-muted">
+            <dt className="flex items-center gap-1.5 text-xs uppercase tracking-[0.12em] text-muted">
               <span style={accentIcon}><CalendarIcon className="h-4 w-4" /></span>
               เผยแพร่
             </dt>
@@ -235,7 +235,7 @@ function MetaCard({ entry, readingTime }: { entry: ContentEntry; readingTime: st
         ) : null}
 
         <div>
-          <dt className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.12em] text-muted">
+          <dt className="flex items-center gap-1.5 text-xs uppercase tracking-[0.12em] text-muted">
             <span style={accentIcon}><ClockIcon className="h-4 w-4" /></span>
             แก้ไขล่าสุด
           </dt>
@@ -284,18 +284,18 @@ export async function ReadingPage({
     navIdx >= 0 && navIdx < navPool.length - 1 ? navPool[navIdx + 1] : null;
 
   return (
-    <div className={`mx-auto grid max-w-7xl grid-cols-1 xl:grid-cols-[1fr_760px_1fr] xl:gap-8${atmosphere ? ` ${atmosphere}` : ""}`}>
+    <div className={`mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 sm:px-6 lg:grid-cols-[1fr_min(760px,100%)_1fr] lg:gap-8${atmosphere ? ` ${atmosphere}` : ""}`}>
       {/* แถบความคืบหน้าการอ่าน (ทุกจอ) */}
       <ReadingProgress />
 
-      {/* Sticky TOC (เฉพาะ xl+ · ซ่อนบนจอเล็ก · ขึ้นเมื่อมีหัวข้อ >= 3) */}
-      <aside className="hidden xl:block">
+      {/* Sticky TOC (เฉพาะ lg+ · ซ่อนบนจอเล็ก · ขึ้นเมื่อมีหัวข้อ >= 3) */}
+      <aside className="hidden lg:block">
         <div className="sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto py-10 pr-2">
           <ReadingToc />
         </div>
       </aside>
 
-      <main id="reading-article" className="texture-grain relative z-10 w-full max-w-[760px] px-6 pb-24 pt-10 xl:mx-0 mx-auto">
+      <main id="reading-article" className="texture-grain relative z-10 w-full max-w-[760px] px-4 sm:px-6 pb-24 pt-10 lg:mx-0 mx-auto">
         <span
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 top-0 h-[600px] -z-10"
@@ -307,15 +307,15 @@ export async function ReadingPage({
         {/* Breadcrumb + Font Size */}
         <div className="scroll-reveal flex flex-wrap items-center justify-between gap-3">
           <nav aria-label="เส้นทางนำทาง" className="flex flex-wrap items-center gap-1 text-xs text-muted">
-            <Link href="/" className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:text-soft-gold focus-visible:outline-none">หน้าแรก</Link>
+            <Link href="/" className="rounded px-2 py-2 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:text-soft-gold focus-visible:outline-none">หน้าแรก</Link>
             <span className="material-symbols-outlined text-[16px] text-subtle" aria-hidden="true">chevron_right</span>
-            <Link href="/knowledge" className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:text-soft-gold focus-visible:outline-none">คลังความรู้</Link>
+            <Link href="/knowledge" className="rounded px-2 py-2 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:text-soft-gold focus-visible:outline-none">คลังความรู้</Link>
             <span className="material-symbols-outlined text-[16px] text-subtle" aria-hidden="true">chevron_right</span>
-            <Link href={`/${section}`} className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:text-soft-gold focus-visible:outline-none">
+            <Link href={`/${section}`} className="rounded px-2 py-2 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:text-soft-gold focus-visible:outline-none">
               {SECTION_LABEL[section]}
             </Link>
             <span className="material-symbols-outlined text-[16px] text-subtle" aria-hidden="true">chevron_right</span>
-            <span className="px-2 py-1.5 text-soft-ivory">{entry.mainTerm ?? entry.title}</span>
+            <span className="px-2 py-2 text-soft-ivory">{entry.mainTerm ?? entry.title}</span>
           </nav>
           <FontSizeControl />
         </div>
@@ -500,7 +500,7 @@ export async function ReadingPage({
                   <span className="font-serif text-lg text-ivory group-hover:text-soft-gold">
                     {conceptTitle(rc.conceptSlug)}
                   </span>
-                  <span className="mt-2 inline-block w-fit rounded-full border border-antique-gold/30 px-2.5 py-0.5 text-[11px] text-antique-gold">
+                  <span className="mt-2 inline-block w-fit rounded-full border border-antique-gold/30 px-2.5 py-0.5 text-xs text-antique-gold">
                     {RELATION_LABEL[rc.relationType]}
                   </span>
                   {rc.reason ? (
@@ -585,7 +585,7 @@ export async function ReadingPage({
           <div className="justify-self-start">
             {prevEntry ? (
               <Link href={`/${section}/${prevEntry.slug}`} className="group inline-flex flex-col gap-0.5">
-                <span className="flex items-center gap-1 text-[11px] uppercase tracking-wide text-subtle">
+                <span className="flex items-center gap-1 text-xs uppercase tracking-wide text-subtle">
                   <ArrowRightIcon className="h-3.5 w-3.5 rotate-180" /> ก่อนหน้า
                 </span>
                 <span className="font-serif text-soft-ivory transition-colors group-hover:text-soft-gold">
@@ -602,7 +602,7 @@ export async function ReadingPage({
           <div className="justify-self-end text-right">
             {nextEntry ? (
               <Link href={`/${section}/${nextEntry.slug}`} className="group inline-flex flex-col gap-0.5">
-                <span className="flex items-center justify-end gap-1 text-[11px] uppercase tracking-wide text-subtle">
+                <span className="flex items-center justify-end gap-1 text-xs uppercase tracking-wide text-subtle">
                   ถัดไป <ArrowRightIcon className="h-3.5 w-3.5" />
                 </span>
                 <span className="font-serif text-soft-ivory transition-colors group-hover:text-soft-gold">
@@ -618,8 +618,63 @@ export async function ReadingPage({
         <ReadCompletionTracker slug={entry.slug} contentType={entry.contentType} />
       </main>
 
-      {/* spacer คอลัมน์ขวา — รักษาบทความให้อยู่กึ่งกลาง grid */}
-      <div className="hidden xl:block" aria-hidden="true" />
+      {/* spacer คอลัมน์ขวา — รักษาบทความให้อยู่กึ่งกลาง grid (บน lg) และแสดง Mini-Graph (บน xl) */}
+      <div className="hidden lg:block xl:hidden" aria-hidden="true" />
+
+      {/* ข้อมูลเสริมคอลัมน์ขวา (Sticky Mini-Graph & Quick Nav สำหรับจอ Ultra-wide xl >= 1280px) */}
+      <aside className="hidden xl:block">
+        <div className="sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto py-10 pl-2 space-y-6">
+          {entry.relatedConcepts.length > 0 ? (
+            <div className="archron-panel p-5">
+              <h4 className="flex items-center gap-2 font-serif text-base font-semibold text-ivory">
+                <span className="material-symbols-outlined text-[18px] text-burnished-gold">hub</span>
+                แผนที่ความเชื่อมโยง
+              </h4>
+              <p className="mt-1.5 text-xs text-muted">เชื่อมโยงกับ {entry.relatedConcepts.length} แนวคิดในคลัง</p>
+              <div className="mt-4 space-y-2.5">
+                {entry.relatedConcepts.slice(0, 5).map((rc) => (
+                  <Link
+                    key={rc.conceptSlug}
+                    href={`/concepts/${rc.conceptSlug}`}
+                    className="block rounded-md border border-slate-boundary/30 bg-surface-container/60 p-2.5 text-xs text-soft-ivory hover:border-burnished-gold/40 hover:bg-surface-container hover:text-soft-gold transition-colors"
+                  >
+                    <div className="font-serif font-medium text-ivory">{conceptTitle(rc.conceptSlug)}</div>
+                    <div className="mt-1 flex items-center justify-between text-[10px] text-antique-gold/90">
+                      <span>{RELATION_LABEL[rc.relationType]}</span>
+                      <span className="material-symbols-outlined text-[12px]">arrow_forward</span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              <Link
+                href={`/constellation?focus=${entry.slug}`}
+                className="mt-4 inline-flex w-full items-center justify-center gap-1.5 rounded-md border border-burnished-gold/30 bg-burnished-gold/10 px-3 py-2 text-xs font-medium text-burnished-gold transition-colors hover:bg-burnished-gold/20"
+              >
+                <span className="material-symbols-outlined text-[16px]">explore</span>
+                เปิด Constellation Map
+              </Link>
+            </div>
+          ) : null}
+
+          {backlinks.length > 0 ? (
+            <div className="archron-panel p-5">
+              <h4 className="flex items-center gap-2 font-serif text-base font-semibold text-ivory">
+                <span className="material-symbols-outlined text-[18px] text-burnished-gold">link</span>
+                อ้างถึงในบทความ ({backlinks.length})
+              </h4>
+              <ul className="mt-3 space-y-2 text-xs">
+                {backlinks.slice(0, 5).map((a) => (
+                  <li key={a.slug}>
+                    <Link href={`/articles/${a.slug}`} className="block truncate text-soft-ivory hover:text-soft-gold transition-colors">
+                      • {a.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+        </div>
+      </aside>
 
       {/* แถบเครื่องมือหน้าอ่าน (desktop) */}
       <ReadingDock slug={entry.slug} />

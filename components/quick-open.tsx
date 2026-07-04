@@ -80,6 +80,8 @@ function escapeRegex(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+const INDEX = buildIndex();
+
 export function QuickOpen() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -87,7 +89,6 @@ export function QuickOpen() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
-  const index = useMemo(() => buildIndex(), []);
 
   // Cmd+K / Ctrl+K to toggle
   useEffect(() => {
@@ -119,11 +120,11 @@ export function QuickOpen() {
   }, [query]);
 
   const matched = useMemo(() => {
-    if (terms.length === 0) return index.slice(0, 8); // show top 8 when no query
-    return index
+    if (terms.length === 0) return INDEX.slice(0, 8);
+    return INDEX
       .filter((it) => terms.every((t) => it.keywords.includes(t)))
       .slice(0, 12);
-  }, [index, terms]);
+  }, [terms]);
 
   // Reset selection when results change
   useEffect(() => {
@@ -194,7 +195,7 @@ export function QuickOpen() {
       <div className="relative z-10 w-full max-w-xl rounded-xl border border-slate-boundary/50 bg-surface-container shadow-[0_20px_60px_-20px_rgba(0,0,0,0.7)]">
         {/* Search input */}
         <div className="flex items-center gap-3 border-b border-slate-boundary/30 px-4 py-3">
-          <span className="material-symbols-outlined text-[20px] text-burnished-gold/70">
+          <span className="material-symbols-outlined text-[20px] text-burnished-gold/70" aria-hidden="true">
             search
           </span>
           <input
@@ -204,8 +205,12 @@ export function QuickOpen() {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="ค้นหาแนวคิด บทความ หรือหน้า..."
-            className="flex-1 border-none bg-transparent text-base text-on-surface placeholder:text-on-surface-variant/50 focus-visible:ring-2 focus-visible:ring-burnished-gold/30 focus:outline-none"
+            className="flex-1 border-none bg-transparent text-base text-on-surface placeholder:text-on-surface-variant/50 focus-visible:outline-none"
             aria-label="ค้นหาแบบเร็ว"
+            role="combobox"
+            aria-expanded={matched.length > 0}
+            aria-controls="quick-open-listbox"
+            aria-autocomplete="list"
           />
           <kbd className="hidden rounded border border-slate-boundary/40 px-1.5 py-0.5 text-[10px] text-on-surface-variant/60 sm:inline">
             ESC
@@ -216,6 +221,7 @@ export function QuickOpen() {
         {matched.length > 0 ? (
           <ul
             ref={listRef}
+            id="quick-open-listbox"
             className="max-h-[360px] overflow-y-auto py-2"
             role="listbox"
             aria-label="ผลลัพธ์การค้นหา"

@@ -7,25 +7,28 @@ export function EmptyState({
   icon = "inbox",
   title,
   description,
+  action,
   children,
 }: {
   icon?: string;
   title: string;
   description?: string;
+  action?: ReactNode;
   children?: ReactNode;
 }) {
   return (
-    <div className="rounded-md border border-ink/10 bg-surface-1/50 p-10 text-center">
+    <div className="rounded-xl border border-slate-boundary/25 bg-surface-container-low/50 p-10 text-center sm:p-12">
       <span
-        className="material-symbols-outlined text-[32px] text-on-surface-variant/40"
+        className="material-symbols-outlined text-[40px] text-burnished-gold/30"
         aria-hidden="true"
       >
         {icon}
       </span>
-      <p className="mt-4 text-lg font-serif text-soft-ivory">{title}</p>
+      <p className="mt-4 font-serif text-lg text-ivory">{title}</p>
       {description ? (
-        <p className="mt-2 text-sm leading-relaxed text-muted">{description}</p>
+        <p className="mt-2 text-sm leading-relaxed text-on-surface-variant/65">{description}</p>
       ) : null}
+      {action ? <div className="mt-5">{action}</div> : null}
       {children ? <div className="mt-4">{children}</div> : null}
     </div>
   );

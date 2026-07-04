@@ -132,7 +132,7 @@ export default async function ProfilePage() {
               <h2 className="font-serif text-2xl text-ivory">{displayName}</h2>
               <div className="mt-2 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
                 <span className="tag-pill">{title}</span>
-                <span className="inline-flex items-center gap-1 rounded-full border border-burnished-gold/30 bg-burnished-gold/10 px-2.5 py-0.5 text-[11px] text-burnished-gold">
+                <span className="inline-flex items-center gap-1 rounded-full border border-burnished-gold/30 bg-burnished-gold/10 px-2.5 py-0.5 text-xs text-burnished-gold">
                   <span className="material-symbols-outlined text-[14px]">military_tech</span>
                   ระดับ {lp.level} · {lp.name}
                 </span>
@@ -242,13 +242,13 @@ function ReadingTab({
                     <use href="/icons/archron-icons.svg#level" />
                   </svg>
                 </span>
-                <p className={`text-[11px] ${reached ? "text-soft-gold font-semibold" : "text-muted"}`}>
+                <p className={`text-xs ${reached ? "text-soft-gold font-semibold" : "text-muted"}`}>
                   {lv.level}
                 </p>
-                <p className={`mt-0.5 text-[11px] leading-tight ${reached ? "text-ivory" : "text-muted"}`}>
+                <p className={`mt-0.5 text-xs leading-tight ${reached ? "text-ivory" : "text-muted"}`}>
                   {lv.name}
                 </p>
-                <p className="mt-0.5 text-[10px] text-muted">{lv.threshold}+</p>
+                <p className="mt-0.5 text-xs text-muted">{lv.threshold}+</p>
               </li>
             );
           })}
@@ -332,12 +332,12 @@ function ReadingTab({
                   >
                     <div className="min-w-0">
                       <p className="truncate text-sm text-ivory">{displayTitle}</p>
-                      <p className="mt-0.5 text-[11px] text-muted">
+                      <p className="mt-0.5 text-xs text-muted">
                         {CONTENT_TYPE_LABEL[h.content_type] ?? h.content_type}
                       </p>
                     </div>
                     <span
-                      className={`inline-flex flex-none items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] ${
+                      className={`inline-flex flex-none items-center gap-1 rounded-full px-2.5 py-0.5 text-xs ${
                         done
                           ? "border border-burnished-gold/30 bg-burnished-gold/10 text-soft-gold"
                           : "border border-slate-boundary/40 text-muted"
@@ -397,7 +397,7 @@ function WorkTab({ entries }: { entries: ContentEntry[] }) {
               <div className="flex items-center gap-2">
                 <span className="tag-pill">{CONTENT_TYPE_LABEL[e.contentType] ?? e.contentType}</span>
                 <span
-                  className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] ${
+                  className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs ${
                     published
                       ? "border border-success/40 bg-success/10 text-success"
                       : "border border-slate-boundary/40 text-muted"
@@ -413,7 +413,7 @@ function WorkTab({ entries }: { entries: ContentEntry[] }) {
                 </p>
               ) : null}
               {e.updatedAt ? (
-                <p className="mt-auto pt-3 text-[11px] text-muted">แก้ไขล่าสุด · {e.updatedAt}</p>
+                <p className="mt-auto pt-3 text-xs text-muted">แก้ไขล่าสุด · {e.updatedAt}</p>
               ) : null}
             </Link>
           </li>

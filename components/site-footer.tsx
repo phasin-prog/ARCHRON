@@ -43,11 +43,11 @@ export function SiteFooter() {
   const linkClass =
     "inline-flex items-center gap-2 text-sm text-on-surface-variant transition-colors hover:text-burnished-gold";
   const colHead =
-    "mb-4 border-b border-slate-boundary/40 pb-3 font-mono text-[10.5px] font-semibold uppercase tracking-[0.14em] text-burnished-gold";
+    "mb-4 border-b border-slate-boundary/40 pb-3 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-burnished-gold";
 
   return (
     <footer id="footer" className="w-full border-t border-slate-boundary bg-deep-navy py-16">
-      <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-12 px-6 md:grid-cols-12 md:gap-x-14">
+      <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-12 px-4 sm:px-6 md:grid-cols-12 md:gap-x-14">
         {/* Brand */}
         <div className="md:col-span-6">
           <div className="flex items-center gap-3 text-burnished-gold">
@@ -61,7 +61,7 @@ export function SiteFooter() {
             คลังความเข้าใจมนุษย์ที่มีชีวิต — ค่อย ๆ เขียน รวบรวม และเชื่อมโยงศาสตร์ต่าง ๆ
             ตั้งแต่จุดกำเนิด ผ่านกาลเวลา
           </p>
-          <p className="mt-4 text-[13px] italic text-on-surface-variant/70">
+          <p className="mt-4 text-sm italic text-on-surface-variant/70">
             บันทึกโดย{" "}
             <span className="font-wordmark not-italic tracking-[0.14em] text-soft-gold">Archeon</span> — ผู้แสวงหาต้นกำเนิด
           </p>
@@ -69,14 +69,14 @@ export function SiteFooter() {
             <Link
               href="/support"
               aria-label="สนับสนุนโครงการ"
-              className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-boundary text-on-surface-variant transition-all hover:border-burnished-gold/50 hover:text-burnished-gold"
+              className="flex h-11 w-11 items-center justify-center rounded-lg border border-slate-boundary text-on-surface-variant transition-all hover:border-burnished-gold/50 hover:text-burnished-gold"
             >
               <HeartIcon className="h-[18px] w-[18px]" />
             </Link>
             <Link
               href="/manifesto"
               aria-label="ปฏิญญา"
-              className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-boundary text-on-surface-variant transition-all hover:border-burnished-gold/50 hover:text-burnished-gold"
+              className="flex h-11 w-11 items-center justify-center rounded-lg border border-slate-boundary text-on-surface-variant transition-all hover:border-burnished-gold/50 hover:text-burnished-gold"
             >
               <SourceRefIcon className="h-[18px] w-[18px]" />
             </Link>
@@ -112,7 +112,7 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="mx-auto mt-14 flex max-w-[1200px] flex-col items-center justify-between gap-4 border-t border-slate-boundary/30 px-6 pt-8 sm:flex-row">
+      <div className="mx-auto mt-14 flex max-w-[1200px] flex-col items-center justify-between gap-4 border-t border-slate-boundary/30 px-4 sm:px-6 pt-8 sm:flex-row">
         <p className="text-center text-xs leading-relaxed tracking-wide text-on-surface-variant/55 sm:text-left">
           © 2026 <span className="text-on-surface-variant/85">ARCHRON</span>
           {totalViews != null && totalViews > 0 ? (
@@ -132,7 +132,7 @@ export function SiteFooter() {
           <button
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.1em] text-on-surface-variant/60 transition-colors hover:text-burnished-gold"
+            className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.1em] text-on-surface-variant/60 transition-colors hover:text-burnished-gold"
             aria-label="เลื่อนขึ้นบนสุด"
           >
             ขึ้นบนสุด

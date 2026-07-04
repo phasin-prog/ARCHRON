@@ -13,6 +13,7 @@ export function SearchableSelect({
   meta,
   allowCustom = false,
   id,
+  placement = "bottom",
 }: {
   value: string;
   onChange: (v: string) => void;
@@ -24,6 +25,8 @@ export function SearchableSelect({
   allowCustom?: boolean;
   // ออปชัน: id สำหรับ label association (a11y)
   id?: string;
+  // ตำแหน่ง dropdown: "bottom" (ค่าเริ่มต้น) หรือ "top" (dropup)
+  placement?: "bottom" | "top";
 }) {
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
@@ -101,7 +104,7 @@ export function SearchableSelect({
         <span className="text-muted">▾</span>
       </button>
       {open ? (
-        <div className="absolute z-[100] mt-1 w-full rounded-md border border-ink/15 bg-surface-2 p-2 shadow-[0_12px_30px_-12px_rgba(0,0,0,0.8)]">
+        <div className={`absolute z-[100] w-full rounded-md border border-ink/15 bg-surface-2 p-2 shadow-[0_12px_30px_-12px_rgba(0,0,0,0.8)] ${placement === "top" ? "bottom-full mb-1" : "mt-1"}`}>
           <input
             autoFocus
             value={q}

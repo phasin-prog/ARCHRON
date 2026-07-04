@@ -448,13 +448,13 @@ export default function StudioEditorPage() {
               {show.status && (
                 <div>
                   <Label htmlFor="entry-status">Status</Label>
-                  <SearchableSelect id="entry-status" value={draft.status} onChange={(v) => set("status", v)} options={STATUSES} placeholder="เลือกสถานะ" meta={statusMeta} />
+                   <SearchableSelect id="entry-status" value={draft.status} onChange={(v) => set("status", v)} options={STATUSES} placeholder="เลือกสถานะ" meta={statusMeta} placement="top" />
                 </div>
               )}
               {show.contentType && (
                 <div>
                   <Label htmlFor="entry-content-type">Content Type</Label>
-                  <SearchableSelect id="entry-content-type" value={draft.contentType} onChange={(v) => set("contentType", v)} options={CONTENT_TYPES} placeholder="เลือกประเภทเนื้อหา" meta={contentTypeMeta} />
+                   <SearchableSelect id="entry-content-type" value={draft.contentType} onChange={(v) => set("contentType", v)} options={CONTENT_TYPES} placeholder="เลือกประเภทเนื้อหา" meta={contentTypeMeta} placement="top" />
                   {draft.contentType ? (
                     <span
                       className="mt-2 tag-pill gap-1.5"
@@ -475,25 +475,25 @@ export default function StudioEditorPage() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <Label htmlFor="entry-framework">Framework</Label>
-                  <SearchableSelect id="entry-framework" value={draft.framework} onChange={(v) => set("framework", v)} options={FRAMEWORKS} placeholder="เลือกหรือสร้างกรอบทฤษฎี" meta={frameworkMeta} allowCustom />
+                   <SearchableSelect id="entry-framework" value={draft.framework} onChange={(v) => set("framework", v)} options={FRAMEWORKS} placeholder="เลือกหรือสร้างกรอบทฤษฎี" meta={frameworkMeta} allowCustom placement="top" />
                 </div>
                 {show.difficulty && (
                   <div>
                     <Label htmlFor="entry-difficulty">Difficulty</Label>
-                    <SearchableSelect id="entry-difficulty" value={draft.difficulty} onChange={(v) => set("difficulty", v)} options={DIFFICULTIES} placeholder="เลือกระดับ" meta={difficultyMeta} />
+                    <SearchableSelect id="entry-difficulty" value={draft.difficulty} onChange={(v) => set("difficulty", v)} options={DIFFICULTIES} placeholder="เลือกระดับ" meta={difficultyMeta} placement="top" />
                   </div>
                 )}
               </div>
               {show.mainThinker && (
                 <div>
                   <Label htmlFor="entry-main-thinker">นักคิดหลัก</Label>
-                  <SearchableSelect id="entry-main-thinker" value={draft.mainThinker} onChange={(v) => set("mainThinker", v)} options={THINKER_OPTIONS} placeholder="เลือกหรือค้นหานักคิดที่เกี่ยวข้อง" meta={thinkerMeta} allowCustom />
+                   <SearchableSelect id="entry-main-thinker" value={draft.mainThinker} onChange={(v) => set("mainThinker", v)} options={THINKER_OPTIONS} placeholder="เลือกหรือค้นหานักคิดที่เกี่ยวข้อง" meta={thinkerMeta} allowCustom placement="top" />
                 </div>
               )}
               {show.school && (
                 <div>
                   <Label htmlFor="entry-school">สำนักคิดที่สังกัด (School)</Label>
-                  <SearchableSelect id="entry-school" value={draft.school} onChange={(v) => set("school", v)} options={SCHOOL_OPTIONS} placeholder="เลือกหรือระบุสำนักคิด" meta={schoolMeta} allowCustom />
+                   <SearchableSelect id="entry-school" value={draft.school} onChange={(v) => set("school", v)} options={SCHOOL_OPTIONS} placeholder="เลือกหรือระบุสำนักคิด" meta={schoolMeta} allowCustom placement="top" />
                 </div>
               )}
               <div>
@@ -584,7 +584,7 @@ export default function StudioEditorPage() {
               </div>
             ))}
             <div className="grid gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_2fr_auto]">
-              <SearchableSelect value={ref.sourceType} onChange={(v) => setRef({ ...ref, sourceType: v })} options={SOURCE_TYPES} placeholder="ชนิดแหล่ง" meta={sourceTypeMeta} />
+               <SearchableSelect value={ref.sourceType} onChange={(v) => setRef({ ...ref, sourceType: v })} options={SOURCE_TYPES} placeholder="ชนิดแหล่ง" meta={sourceTypeMeta} placement="top" />
               <input id="ref-title" className={inputClass} value={ref.title} onChange={(e) => setRef({ ...ref, title: e.target.value })} placeholder="ชื่อแหล่ง/งาน" aria-label="ชื่อแหล่ง/งาน" />
               <input id="ref-related-claim" className={inputClass} value={ref.relatedClaim} onChange={(e) => setRef({ ...ref, relatedClaim: e.target.value })} placeholder="รองรับ claim ใด" aria-label="รองรับ claim ใด" />
               <button

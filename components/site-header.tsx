@@ -163,222 +163,190 @@ export function SiteHeader() {
   const menuItem =
     "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-on-surface-variant transition-colors hover:bg-white/5 hover:text-on-surface";
 
+  const pillClass = (href: string) =>
+    `gold-pill ${isActive(href) ? "gold-pill--active" : ""}`;
+
   return (
     <header className={`sticky top-0 z-50 glass-nav ${scrolled ? "is-scrolled" : ""}`}>
-      <nav
-        className={`mx-auto flex max-w-[1280px] items-center justify-between gap-4 px-4 sm:px-6 transition-all duration-500 ${
-          scrolled ? "py-2.5" : "py-4"
-        }`}
-      >
+      {/* Desktop (>lg) — center-aligned logo + gold pill nav */}
+      <div className="hidden lg:block">
+        <div className="mx-auto max-w-[1280px] px-6">
+          {/* Row 1: Logo center + Search/Account right */}
+          <div className="relative flex justify-center py-4">
+            <Link
+              href="/"
+              className="flex items-center gap-2.5 text-burnished-gold hover:opacity-85 transition-opacity"
+              aria-label="ARCHRON หน้าแรก"
+            >
+              <ArchronLogomark className="h-7 w-7 shrink-0" />
+              <span className="font-wordmark text-[21px] font-semibold tracking-[0.2em]">ARCHRON</span>
+            </Link>
+            <div className="absolute right-0 top-1/2 flex -translate-y-1/2 items-center gap-2">
+              <Link
+                href="/search"
+                aria-label="ค้นหา"
+                className="flex h-10 w-10 items-center justify-center rounded-full text-on-surface-variant transition-colors hover:text-burnished-gold"
+              >
+                <SearchIcon className="h-[20px] w-[20px]" />
+              </Link>
+              <SignedIn>
+                <Link
+                  href="/profile"
+                  aria-label="โปรไฟล์ของฉัน"
+                  className="flex h-10 w-10 items-center justify-center rounded-full text-on-surface-variant transition-colors hover:text-burnished-gold"
+                >
+                  <PersonIcon className="h-[20px] w-[20px]" />
+                </Link>
+              </SignedIn>
+              <div className="relative" ref={acctRef}>
+                <button
+                  type="button"
+                  onClick={() => setAcctOpen((v) => !v)}
+                  aria-expanded={acctOpen}
+                  aria-haspopup="menu"
+                  aria-controls="account-menu"
+                  aria-label="เมนูบัญชี"
+                  className="flex items-center gap-2 rounded-full border border-burnished-gold/20 py-1.5 pl-2.5 pr-3 text-sm font-serif text-soft-gold transition-colors hover:border-burnished-gold/40 hover:text-burnished-gold"
+                >
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-burnished-gold/10">
+                    <PersonIcon className="h-[16px] w-[16px]" />
+                  </span>
+                  <span>บัญชี</span>
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={1.6}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className={`h-3.5 w-3.5 transition-transform duration-200 ${acctOpen ? "rotate-180" : ""}`}
+                  >
+                    <path d="M6 9l6 6 6-6" />
+                  </svg>
+                </button>
+                {acctOpen ? (
+                  <div
+                    id="account-menu"
+                    role="menu"
+                    className="glass-nav-panel absolute right-0 top-[calc(100%+10px)] min-w-[214px] rounded-xl border border-burnished-gold/20 p-1.5 shadow-[0_24px_50px_-24px_rgba(0,0,0,0.85)]"
+                  >
+                    <SignedOut>
+                      <p className="px-3 pb-1 pt-2 font-mono text-xs uppercase tracking-[0.12em] text-on-surface-variant/50">ยินดีต้อนรับ</p>
+                      <Link href="/th/login" onClick={() => setAcctOpen(false)} className={menuItem} role="menuitem">
+                        <LoginIcon className="h-[18px] w-[18px] text-burnished-gold" />
+                        เข้าสู่ระบบ
+                      </Link>
+                    </SignedOut>
+                    <SignedIn>
+                      <p className="px-3 pb-1 pt-2 font-mono text-xs uppercase tracking-[0.12em] text-on-surface-variant/50">บัญชีของคุณ</p>
+                      <Link href="/profile" onClick={() => setAcctOpen(false)} className={menuItem} role="menuitem">
+                        <PersonIcon className="h-[18px] w-[18px] text-burnished-gold" />
+                        โปรไฟล์ของฉัน
+                      </Link>
+                      <Link href="/studio" onClick={() => setAcctOpen(false)} className={menuItem} role="menuitem">
+                        <EditIcon className="h-[18px] w-[18px] text-burnished-gold" />
+                        Studio
+                      </Link>
+                      <span className="my-1.5 block h-px bg-slate-boundary/30" aria-hidden="true" />
+                      <button
+                        type="button"
+                        onClick={() => { setAcctOpen(false); clerk.signOut(); }}
+                        className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-danger transition-colors hover:bg-danger/10"
+                        role="menuitem"
+                      >
+                        <LogoutIcon className="h-[18px] w-[18px]" />
+                        ออกจากระบบ
+                      </button>
+                    </SignedIn>
+                  </div>
+                ) : null}
+              </div>
+            </div>
+          </div>
+          <div className="h-px bg-burnished-gold/10" />
+          {/* Row 2: Nav pills */}
+          <nav className="flex justify-center gap-1.5 py-3" aria-label="เมนูหลัก">
+            {PRIMARY_NAV.map((item) => (
+              <Link key={item.href} href={item.href} className={pillClass(item.href)}>
+                {item.label}
+              </Link>
+            ))}
+            {STANDARD_NAV.map((item) => (
+              <Link key={item.href} href={item.href} className={pillClass(item.href)}>
+                {item.label}
+              </Link>
+            ))}
+            {UTILITY_NAV.length > 0 ? (
+              <div className="relative" ref={moreMenuRef}>
+                <button
+                  type="button"
+                  onClick={() => setMoreOpen((v) => !v)}
+                  aria-expanded={moreOpen}
+                  aria-haspopup="menu"
+                  aria-controls="more-menu"
+                  className="gold-pill inline-flex items-center gap-1"
+                >
+                  เพิ่มเติม
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={1.6}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className={`h-3 w-3 transition-transform duration-200 ${moreOpen ? "rotate-180" : ""}`}
+                  >
+                    <path d="M6 9l6 6 6-6" />
+                  </svg>
+                </button>
+                {moreOpen ? (
+                  <div
+                    id="more-menu"
+                    role="menu"
+                    className="glass-nav-panel absolute right-0 top-[calc(100%+8px)] min-w-[200px] rounded-xl border border-burnished-gold/20 p-1.5 shadow-[0_24px_50px_-24px_rgba(0,0,0,0.85)]"
+                  >
+                    {UTILITY_NAV.map((item) => (
+                      <Link key={item.href} href={item.href} onClick={() => setMoreOpen(false)} className={menuItem} role="menuitem">
+                        <item.Icon className="h-[18px] w-[18px] text-burnished-gold" />
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+            ) : null}
+            {SUPPORT ? (
+              <Link href={SUPPORT.href} className="gold-pill">
+                {SUPPORT.label}
+              </Link>
+            ) : null}
+          </nav>
+        </div>
+      </div>
+
+      {/* Mobile (<lg) — logo left + hamburger right */}
+      <div className="flex items-center justify-between px-4 py-3 lg:hidden">
         <Link
           href="/"
-          className="flex shrink-0 items-center gap-2.5 text-accent hover:opacity-85 transition-opacity"
+          className="flex items-center gap-2.5 text-burnished-gold hover:opacity-85 transition-opacity"
           aria-label="ARCHRON หน้าแรก"
         >
           <ArchronLogomark className="h-7 w-7 shrink-0" />
           <span className="font-wordmark text-[21px] font-semibold tracking-[0.2em]">ARCHRON</span>
         </Link>
-
-        {/* Desktop (lg+): 3 หลัก + dropdown "เพิ่มเติม" + support pill */}
-        <div className="hidden items-center gap-1 lg:flex" aria-label="เมนูหลัก">
-          {PRIMARY_NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`rounded-md px-3 py-2 text-sm font-medium tracking-[0.01em] transition-colors ${tierClass(
-                item.tier,
-                isActive(item.href),
-              )}`}
-            >
-              {item.label}
-            </Link>
-          ))}
-          {STANDARD_NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`rounded-md px-3 py-2 text-sm tracking-[0.01em] transition-colors ${tierClass(
-                item.tier,
-                isActive(item.href),
-              )}`}
-            >
-              {item.label}
-            </Link>
-          ))}
-          {/* Dropdown "เพิ่มเติม" สำหรับ utility items */}
-          {UTILITY_NAV.length > 0 ? (
-            <div className="relative" ref={moreMenuRef}>
-              <button
-                type="button"
-                onClick={() => setMoreOpen((v) => !v)}
-                aria-expanded={moreOpen}
-                aria-haspopup="menu"
-                aria-controls="more-menu"
-                className="flex items-center gap-1 rounded-md px-3 py-2 text-sm text-on-surface-variant/55 transition-colors hover:text-accent"
-              >
-                เพิ่มเติม
-                <svg
-                  aria-hidden="true"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={1.6}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className={`h-3.5 w-3.5 transition-transform duration-200 ${moreOpen ? "rotate-180" : ""}`}
-                >
-                  <path d="M6 9l6 6 6-6" />
-                </svg>
-              </button>
-              {moreOpen ? (
-                <div
-                  id="more-menu"
-                  role="menu"
-                  className="glass-nav-panel absolute right-0 top-[calc(100%+8px)] min-w-[200px] rounded-xl border border-slate-boundary/40 p-1.5 shadow-[0_24px_50px_-24px_rgba(0,0,0,0.85)]"
-                >
-                  {UTILITY_NAV.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => setMoreOpen(false)}
-                      className={menuItem}
-                      role="menuitem"
-                    >
-                      <item.Icon className="h-[18px] w-[18px] text-accent" />
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-              ) : null}
-            </div>
-          ) : null}
-          {SUPPORT ? (
-            <>
-              <span className="mx-1.5 h-5 w-px bg-slate-boundary/40" aria-hidden="true" />
-              <Link
-                href={SUPPORT.href}
-                className="rounded-full border border-accent/30 px-4 py-1.5 text-sm text-soft-gold transition-colors hover:bg-accent/10 hover:text-ivory"
-              >
-                สนับสนุน
-              </Link>
-            </>
-          ) : null}
-        </div>
-
-        <div className="flex items-center gap-2">
-          <Link
-            href="/search"
-            aria-label="ค้นหา"
-            className={`flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:bg-white/5 ${
-              pathname === "/search" ? "text-accent" : "text-on-surface-variant hover:text-accent"
-            }`}
-          >
-            <SearchIcon className="h-[22px] w-[22px]" />
-          </Link>
-
-          {/* โปรไฟล์นักอ่าน — ทางเข้าลัดเด่น (เฉพาะผู้ล็อกอิน, เดสก์ท็อป) */}
-          <SignedIn>
-            <Link
-              href="/profile"
-              aria-label="โปรไฟล์ของฉัน"
-              className={`hidden h-11 w-11 items-center justify-center rounded-full transition-colors hover:bg-white/5 lg:flex ${
-                isActive("/profile") ? "text-accent" : "text-on-surface-variant hover:text-accent"
-              }`}
-            >
-              <PersonIcon className="h-[22px] w-[22px]" />
-            </Link>
-          </SignedIn>
-
-          {/* Account dropdown (lg+) — รวม เข้าสู่ระบบ / โปรไฟล์ / Studio / ออกจากระบบ */}
-          <div className="relative hidden lg:block" ref={acctRef}>
-            <button
-              type="button"
-              onClick={() => setAcctOpen((v) => !v)}
-              aria-expanded={acctOpen}
-              aria-haspopup="menu"
-              aria-controls="account-menu"
-              aria-label="เมนูบัญชี"
-              className="flex items-center gap-2 rounded-full border border-slate-boundary/40 bg-white/[0.03] py-1.5 pl-2 pr-2.5 text-on-surface-variant transition-colors hover:border-accent/40 hover:text-on-surface"
-            >
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-accent/10 text-accent">
-                <PersonIcon className="h-[18px] w-[18px]" />
-              </span>
-              <span className="text-sm">บัญชี</span>
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={1.6}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className={`h-4 w-4 transition-transform duration-200 ${acctOpen ? "rotate-180" : ""}`}
-              >
-                <path d="M6 9l6 6 6-6" />
-              </svg>
-            </button>
-
-            {acctOpen ? (
-              <div
-                id="account-menu"
-                role="menu"
-                className="glass-nav-panel absolute right-0 top-[calc(100%+10px)] min-w-[214px] rounded-xl border border-slate-boundary/40 p-1.5 shadow-[0_24px_50px_-24px_rgba(0,0,0,0.85)]"
-              >
-                <SignedOut>
-                  <p className="px-3 pb-1 pt-2 font-mono text-xs uppercase tracking-[0.12em] text-on-surface-variant/50">
-                    ยินดีต้อนรับ
-                  </p>
-                  <Link href="/th/login" onClick={() => setAcctOpen(false)} className={menuItem} role="menuitem">
-                    <LoginIcon className="h-[18px] w-[18px] text-accent" />
-                    เข้าสู่ระบบ
-                  </Link>
-                </SignedOut>
-
-                <SignedIn>
-                  <p className="px-3 pb-1 pt-2 font-mono text-xs uppercase tracking-[0.12em] text-on-surface-variant/50">
-                    บัญชีของคุณ
-                  </p>
-                  <Link href="/profile" onClick={() => setAcctOpen(false)} className={menuItem} role="menuitem">
-                    <PersonIcon className="h-[18px] w-[18px] text-accent" />
-                    โปรไฟล์ของฉัน
-                  </Link>
-                  <Link href="/studio" onClick={() => setAcctOpen(false)} className={menuItem} role="menuitem">
-                    <EditIcon className="h-[18px] w-[18px] text-accent" />
-                    Studio
-                  </Link>
-                  <span className="my-1.5 block h-px bg-slate-boundary/30" aria-hidden="true" />
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setAcctOpen(false);
-                      clerk.signOut();
-                    }}
-                    className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-danger transition-colors hover:bg-danger/10"
-                    role="menuitem"
-                  >
-                    <LogoutIcon className="h-[18px] w-[18px]" />
-                    ออกจากระบบ
-                  </button>
-                </SignedIn>
-              </div>
-            ) : null}
-          </div>
-
-          {/* Mobile / tablet (< lg): hamburger */}
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            className={`flex h-11 w-11 items-center justify-center transition-colors lg:hidden ${
-              open ? "text-accent" : "text-on-surface hover:text-accent"
-            }`}
-            aria-label={open ? "ปิดเมนู" : "เปิดเมนู"}
-            aria-expanded={open}
-            aria-controls="mobile-nav"
-          >
-            {open ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
-          </button>
-        </div>
-      </nav>
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          className={`flex h-11 w-11 items-center justify-center transition-colors ${open ? "text-burnished-gold" : "text-on-surface hover:text-burnished-gold"}`}
+          aria-label={open ? "ปิดเมนู" : "เปิดเมนู"}
+          aria-expanded={open}
+          aria-controls="mobile-nav"
+        >
+          {open ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
+        </button>
+      </div>
 
       {/* Mobile / tablet (< lg): Modern Full-screen Glass Overlay */}
       {open ? (

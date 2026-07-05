@@ -1116,3 +1116,51 @@
 }
 
 /* ── Reading Font Scale — ปรับขนาดตัวอักษรในหน้าอ่าน (handled in .md-body rules above) ── */
+
+/* ============================================================================
+   ARCHRON — Alexandria Library Hero Background Utilities (Phase 40)
+   ============================================================================ */
+.symbol-parallax {
+  position: absolute;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+  line-height: 1;
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.colonnade-pillar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    color-mix(in srgb, var(--color-sapientia) 15%, transparent) 30%,
+    color-mix(in srgb, var(--color-psyche) 15%, transparent) 70%,
+    transparent 100%
+  );
+}
+
+.astrolabe-ring {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--color-sapientia) 18%, transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .symbol-parallax {
+    transition: none !important;
+    transform: none !important;
+  }
+}

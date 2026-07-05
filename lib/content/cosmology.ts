@@ -1,8 +1,6 @@
-// ARCHRON Material Cosmology — Dynamic Colour
-// แม็ปสีตามบริบท (เส้นทาง/หมวด) ตาม Color Cosmology v2 (ค่าปรับให้สว่างพอบนพื้นมืด)
-// Single source of truth: route → Cosmology id → variable ชุด (CSS ที่ globals.css อ่าน)
+// ARCHRON Material Cosmology — Static Colour
+// แม็ปสีตามประเภทเนื้อหา (single source of truth)
 
-// Cosmology id — ใช้ตั้ง data-cosmology บน <html> และ archron-card--{cosmology} class
 export type Cosmology =
   | "prima"
   | "psyche"
@@ -12,12 +10,12 @@ export type Cosmology =
   | "humanitas";
 
 export const COSMOLOGY_ACCENT: Record<Cosmology, string> = {
-  prima: "#B9C2CE", // Prima Materia (ตำนาน/สัญลักษณ์/แผนที่)
-  psyche: "#6E93A8", // Psyche (จิตวิทยา/การวิเคราะห์)
-  lumen: "#E7D7A6", // Lumen (ปฏิญญา/แสงแห่งความเข้าใจ)
-  sapientia: "#CBA45A", // Sapientia (ปรัชญา/บทความ/ปัญญา)
-  mercurius: "#8AA395", // Mercurius (สำนักคิด/ภาษา/การแปรเปลี่ยน)
-  humanitas: "#C9C2B4", // Humanitas (มานุษยวิทยา/วัฒนธรรม , สว่างนวลบนพื้นมืด)
+  prima: "#B9C2CE",
+  psyche: "#6E93A8",
+  lumen: "#E7D7A6",
+  sapientia: "#CBA45A",
+  mercurius: "#8AA395",
+  humanitas: "#C9C2B4",
 };
 
 export type CosmologyKey = Cosmology;
@@ -31,32 +29,7 @@ export const COSMOLOGY_KEYS: Record<CosmologyKey, { label: string; accent: strin
   humanitas: { label: "Humanitas", accent: COSMOLOGY_ACCENT.humanitas },
 };
 
-const DEFAULT_COSMOLOGY: Cosmology = "sapientia";
-const DEFAULT_ACCENT = COSMOLOGY_ACCENT[DEFAULT_COSMOLOGY]; // Sapientia (หน้าแรก/ทั่วไป)
-
-// เส้นทาง → cosmology ประจำบริบท (single source of truth)
-export function routeCosmology(pathname: string): Cosmology {
-  const p = pathname || "/";
-  if (p.startsWith("/concepts")) return "psyche";
-  if (p.startsWith("/schools")) return "mercurius";
-  if (p.startsWith("/constellation")) return "prima";
-  if (p.startsWith("/manifesto")) return "lumen";
-  if (p.startsWith("/reading-sets")) return "sapientia";
-  if (p.startsWith("/articles")) return "sapientia";
-  if (p.startsWith("/sources")) return "sapientia";
-  if (p.startsWith("/knowledge")) return "sapientia";
-  if (p.startsWith("/guide")) return "mercurius";
-  if (p.startsWith("/external-links")) return "mercurius";
-  if (p.startsWith("/studio")) return DEFAULT_COSMOLOGY; // Studio = Sapientia (เวิร์กช็อป)
-  return DEFAULT_COSMOLOGY;
-}
-
-// คง API เดิมไว้ — อ่าน accent จาก cosmology (เพื่อความเข้ากันได้กับโค้ดที่ใช้ routeAccent อยู่)
-export function routeAccent(pathname: string): string {
-  return COSMOLOGY_ACCENT[routeCosmology(pathname)];
-}
-
-// ประเภทเนื้อหา → ไอคอน (Material Symbols) + สีประจำหมวดตาม cosmology
+// ประเภทเนื้อหา → ไอคอน (Material Symbols) + สีประจำหมวด
 export type ContentTypeMeta = { icon: string; accent: string; label: string };
 
 const CONTENT_TYPE_META: Record<string, ContentTypeMeta> = {
@@ -75,22 +48,22 @@ export function contentTypeMeta(type: string | undefined | null): ContentTypeMet
   return (
     CONTENT_TYPE_META[type ?? ""] ?? {
       icon: "article",
-      accent: DEFAULT_ACCENT,
+      accent: "#6E93A8",
       label: type || "ไม่ระบุ",
     }
   );
 }
 
 type Meta = { icon: string; accent: string };
-const fallback = (): Meta => ({ icon: "circle", accent: DEFAULT_ACCENT });
+const fallback = (): Meta => ({ icon: "circle", accent: "#6E93A8" });
 
 // Status — สถานะการเผยแพร่
 const STATUS_META: Record<string, Meta> = {
-  draft: { icon: "edit_note", accent: "#9A948A" }, // เทา , ร่าง
-  "needs-source-check": { icon: "report", accent: "#C9776A" }, // แดง , ต้องตรวจแหล่ง
-  "ready-to-publish": { icon: "schedule", accent: "#D8B56A" }, // เหลือง , รอเผยแพร่
-  published: { icon: "check_circle", accent: "#7FB08A" }, // เขียว , เผยแพร่แล้ว
-  archived: { icon: "inventory_2", accent: "#8A857D" }, // เทาจาง , เก็บเข้าคลัง
+  draft: { icon: "edit_note", accent: "#9A948A" },
+  "needs-source-check": { icon: "report", accent: "#C9776A" },
+  "ready-to-publish": { icon: "schedule", accent: "#D8B56A" },
+  published: { icon: "check_circle", accent: "#7FB08A" },
+  archived: { icon: "inventory_2", accent: "#8A857D" },
 };
 export const statusMeta = (v: string): Meta => STATUS_META[v] ?? fallback();
 
@@ -115,7 +88,7 @@ const SOURCE_TYPE_META: Record<string, Meta> = {
 };
 export const sourceTypeMeta = (v: string): Meta => SOURCE_TYPE_META[v] ?? fallback();
 
-// Framework — กรอบทฤษฎี → สีตามแขนงใน cosmology
+// Framework — กรอบทฤษฎี → สีตามแขนง
 const FRAMEWORK_META: Record<string, Meta> = {
   "Analytical Psychology": { icon: "psychology", accent: "#6E93A8" },
   "Depth Psychology": { icon: "psychology_alt", accent: "#6E93A8" },
@@ -129,7 +102,7 @@ const FRAMEWORK_META: Record<string, Meta> = {
 };
 export const frameworkMeta = (v: string): Meta => FRAMEWORK_META[v] ?? fallback();
 
-// nodeType → สี accent (สำหรับหน้า/การ์ดที่อิงประเภทเนื้อหา)
+// nodeType → สี accent
 export function nodeTypeAccent(nodeType: string): string {
   switch (nodeType) {
     case "concept":
@@ -145,7 +118,7 @@ export function nodeTypeAccent(nodeType: string): string {
     case "term":
       return "#9A948A";
     default:
-      return DEFAULT_ACCENT;
+      return "#6E93A8";
   }
 }
 

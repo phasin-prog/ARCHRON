@@ -26,9 +26,9 @@ export default async function SchoolsPage() {
       lead="สำรวจสำนักคิด นักปราชญ์ และผลงานเด่น — เรียงตามชื่อสำนัก ค้นหาได้ตามชื่อสำนัก ชื่อนักคิด หรือชื่อผลงาน"
       ambient
       navCurrent="/schools"
-      className="atmo-base atmo-temple"
+      className="atmo-temple"
     >
-      <section className="texture-grain texture-parchment texture-glow-gold texture-vignette relative mx-auto max-w-[1100px] px-4 sm:px-6">
+      <section className="relative mx-auto max-w-[1100px] px-4 sm:px-6">
         {schools.length === 0 ? (
           <EmptyState
             icon="groups_2"

@@ -31,9 +31,9 @@ export default async function ConceptsPage() {
       lead="สำรวจและสืบค้นความหมายเชิงลึกของคำศัพท์ แนวคิด ตัวตน และสัญลักษณ์ต่าง ๆ ในแบบแผนที่ความรู้เชื่อมโยงกันอย่างมีโครงสร้าง"
       ambient
       navCurrent="/concepts"
-      className="atmo-base atmo-dictionary"
+      className="atmo-dictionary"
     >
-      <section className="texture-paper mx-auto max-w-6xl px-4 sm:px-6">
+      <section className="mx-auto max-w-6xl px-4 sm:px-6">
         <ConceptsBrowser concepts={conceptRegistry} publishedSlugs={publishedSlugs} />
       </section>
     </PageScaffold>

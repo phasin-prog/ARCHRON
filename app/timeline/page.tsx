@@ -21,7 +21,7 @@ export default function TimelinePage() {
       lead="ไล่เรียงจุดเปลี่ยนสำคัญทางความคิด ตั้งแต่การตั้งคำถามเชิงจริยธรรมในกรีกโบราณ การค้นพบจิตไร้สำนึก จนถึงปัญญาสังเคราะห์ร่วมสมัย"
       ambient
       navCurrent="/timeline"
-      className="atmo-base atmo-museum"
+      className="atmo-museum"
     >
       <section className="mx-auto max-w-6xl px-6">
         <TimelineBrowser />

@@ -48,7 +48,7 @@ export default async function ConstellationPage({
       title="แผนที่ความสัมพันธ์"
       lead="เลือกแนวคิดเป็น 'ศูนย์กลาง' แล้วดูว่ามันเชื่อมโยงกับแนวคิดใดบ้าง — คลิกแนวคิดรอบ ๆ เพื่อย้ายศูนย์กลางและสำรวจต่อทีละก้าว หรือเปิดหน้าเต็มเพื่ออ่านรายละเอียด"
       ambient
-      className="atmo-base atmo-observatory"
+      className="atmo-observatory"
     >
       <section className="mx-auto max-w-[1200px] px-6">
         {initialFocus ? (

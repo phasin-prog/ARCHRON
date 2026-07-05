@@ -24,7 +24,7 @@ export default async function SearchPage() {
       kicker="Search"
       title="ค้นหา"
       lead="ค้นทั่วทั้งคลังความรู้ — แนวคิด บทความ ทรัพยากรภายนอก และหน้าต่าง ๆ ในที่เดียว"
-      className="atmo-base atmo-observatory"
+      className="atmo-observatory"
     >
       <section className="mx-auto max-w-3xl px-6">
         <SearchClient items={index} />

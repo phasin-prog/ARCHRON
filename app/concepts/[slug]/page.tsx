@@ -82,7 +82,7 @@ export default async function ConceptNodePage({
   if (entry) {
     return (
       <div className="pb-24" style={accentStyle}>
-        <ReadingPage entry={entry} section="concepts" atmosphere="atmo-base atmo-dictionary" />
+        <ReadingPage entry={entry} section="concepts" atmosphere="atmo-dictionary" />
       </div>
     );
   }
@@ -95,7 +95,7 @@ export default async function ConceptNodePage({
   const label = NODE_LABEL[node.nodeType] ?? node.nodeType;
 
   return (
-    <main className="atmo-base atmo-dictionary pb-24" style={accentStyle}>
+    <main className="atmo-dictionary pb-24" style={accentStyle}>
       <header className="mx-auto max-w-2xl px-6 pb-8 pt-20">
         <div className="flex items-center gap-3">
           {Icon ? <Icon className="h-7 w-7 text-accent" /> : null}

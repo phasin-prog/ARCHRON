@@ -296,7 +296,7 @@ export async function ReadingPage({
         </div>
       </aside>
 
-      <main id="reading-article" className="texture-grain relative z-10 w-full max-w-[760px] px-4 sm:px-6 pb-24 pt-10 lg:mx-0 mx-auto">
+      <main id="reading-article" className="relative z-10 w-full max-w-[760px] px-4 sm:px-6 pb-24 pt-10 lg:mx-0 mx-auto">
         <span
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 top-0 h-[600px] -z-10"

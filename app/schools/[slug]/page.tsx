@@ -62,7 +62,7 @@ export default async function SchoolDetailPage({ params }: PageProps) {
   );
 
   return (
-    <main className="atmo-base atmo-temple px-6 pb-24 pt-10">
+    <main className="atmo-temple px-6 pb-24 pt-10">
       <div className="mx-auto max-w-[900px]">
         {/* Breadcrumb */}
         <nav aria-label="เส้นทางนำทาง" className="flex flex-wrap items-center gap-1 text-xs text-muted">

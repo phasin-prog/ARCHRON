@@ -53,7 +53,7 @@ export default async function ReadingSetDetailPage({
   const estimatedMinutes = calculateReadingSetEstimatedMinutes(set);
 
   return (
-    <main className="atmo-base atmo-dictionary pb-24">
+    <main className="atmo-dictionary pb-24">
       {/* Breadcrumb */}
       <nav aria-label="เส้นทางนำทาง" className="mx-auto max-w-[760px] px-4 sm:px-6 pt-20 text-xs text-muted">
         <ol className="flex items-center gap-1.5">

@@ -21,7 +21,7 @@ export default function FaqPage() {
       kicker="FAQ"
       title="คำถามที่พบบ่อย"
       lead="รวมคำถามเกี่ยวกับจุดยืนของโครงการ วิธีอ่าน ระดับเนื้อหา และการนำไปใช้ — คลิกที่คำถามเพื่อดูคำตอบ"
-      className="atmo-base atmo-observatory"
+      className="atmo-observatory"
     >
       <section className="mx-auto max-w-3xl px-6">
         <Accordion items={items} />

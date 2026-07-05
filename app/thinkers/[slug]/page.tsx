@@ -105,7 +105,7 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
   );
 
   return (
-    <main className="atmo-base atmo-biography px-4 sm:px-6 pb-24 pt-10">
+    <main className="atmo-biography px-4 sm:px-6 pb-24 pt-10">
       <div className="mx-auto max-w-[800px]">
         {/* Breadcrumb */}
         <nav aria-label="เส้นทางนำทาง" className="text-xs text-muted">

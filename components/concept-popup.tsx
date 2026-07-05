@@ -62,7 +62,7 @@ export function ConceptPopup() {
         transform: p.visible ? "scale(1) translateY(0)" : "scale(0.95) translateY(8px)",
       }}
     >
-      <div className="mb-2.5 flex items-center justify-between gap-3 border-b border-slate-boundary/50 pb-2">
+      <div className="mb-2.5 flex items-center justify-between gap-3 border-b border-burnished-gold/20 pb-2">
         <div className="flex items-center gap-2">
           <span className="h-2 w-2 animate-pulse rounded-full bg-burnished-gold" />
           <span className="font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-burnished-gold">

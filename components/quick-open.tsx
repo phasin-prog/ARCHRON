@@ -192,9 +192,9 @@ export function QuickOpen() {
       />
 
       {/* Dialog */}
-      <div className="relative z-10 w-full max-w-xl rounded-xl border border-slate-boundary/50 bg-surface-container shadow-[0_20px_60px_-20px_rgba(0,0,0,0.7)]">
+      <div className="relative z-10 w-full max-w-xl rounded-xl border border-burnished-gold/15 bg-surface-container shadow-[0_20px_60px_-20px_rgba(0,0,0,0.7)]">
         {/* Search input */}
-        <div className="flex items-center gap-3 border-b border-slate-boundary/30 px-4 py-3">
+        <div className="flex items-center gap-3 border-b border-burnished-gold/10 px-4 py-3">
           <span className="material-symbols-outlined text-[20px] text-burnished-gold/70" aria-hidden="true">
             search
           </span>
@@ -285,7 +285,7 @@ export function QuickOpen() {
         )}
 
         {/* Footer hint */}
-        <div className="flex items-center justify-between border-t border-slate-boundary/30 px-4 py-2 text-[10px] text-on-surface-variant/45">
+        <div className="flex items-center justify-between border-t border-burnished-gold/10 px-4 py-2 text-[10px] text-on-surface-variant/45">
           <span>
             <kbd className="mr-1 rounded border border-slate-boundary/40 px-1 py-0.5">↑↓</kbd>
             นำทาง{" "}

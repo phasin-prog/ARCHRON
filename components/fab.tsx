@@ -74,7 +74,7 @@ export function Fab() {
               : "translate(0px, 0px) scale(0.5)",
             transitionDelay: `${open ? i * 40 : 0}ms`,
           }}
-          className={`group absolute bottom-1.5 left-1.5 flex h-11 w-11 items-center justify-center rounded-full border border-burnished-gold/30 bg-surface-container/90 text-burnished-gold shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)] backdrop-blur transition-all duration-300 ease-out hover:bg-burnished-gold hover:text-prima motion-reduce:transition-none ${
+          className={`group absolute bottom-1.5 left-1.5 flex h-11 w-11 items-center justify-center rounded-full border border-burnished-gold/40 bg-surface-container/90 text-burnished-gold shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)] backdrop-blur transition-all duration-300 ease-out hover:bg-burnished-gold hover:text-deep-navy motion-reduce:transition-none ${
             open ? "opacity-100" : "pointer-events-none opacity-0"
           }`}
         >

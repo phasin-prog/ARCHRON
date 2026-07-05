@@ -42,14 +42,13 @@ export function SiteFooter() {
 
   const linkClass =
     "inline-flex items-center gap-2 text-sm text-on-surface-variant transition-colors hover:text-burnished-gold";
-  const colHead =
-    "mb-4 border-b border-slate-boundary/40 pb-3 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-burnished-gold";
 
   return (
-    <footer id="footer" className="w-full border-t border-slate-boundary bg-deep-navy py-16">
+    <footer id="footer" className="archive-hall w-full bg-deep-navy py-16">
       <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-12 px-4 sm:px-6 md:grid-cols-12 md:gap-x-14">
         {/* Brand */}
         <div className="md:col-span-6">
+          <h6 className="archive-hall__heading"><span aria-hidden="true">🏛</span> ผู้เขียน</h6>
           <div className="flex items-center gap-3 text-burnished-gold">
             <ArchronLogomark className="h-8 w-8 shrink-0" />
             <span className="font-wordmark text-[23px] font-semibold tracking-[0.22em]">ARCHRON</span>
@@ -69,23 +68,23 @@ export function SiteFooter() {
             <Link
               href="/support"
               aria-label="สนับสนุนโครงการ"
-              className="flex h-11 w-11 items-center justify-center rounded-lg border border-slate-boundary text-on-surface-variant transition-all hover:border-burnished-gold/50 hover:text-burnished-gold"
+              className="flex h-11 w-11 items-center justify-center rounded-lg border border-burnished-gold/20 text-burnished-gold/70 transition-all hover:border-burnished-gold/50 hover:text-burnished-gold"
             >
               <HeartIcon className="h-[18px] w-[18px]" />
             </Link>
             <Link
               href="/manifesto"
               aria-label="ปฏิญญา"
-              className="flex h-11 w-11 items-center justify-center rounded-lg border border-slate-boundary text-on-surface-variant transition-all hover:border-burnished-gold/50 hover:text-burnished-gold"
+              className="flex h-11 w-11 items-center justify-center rounded-lg border border-burnished-gold/20 text-burnished-gold/70 transition-all hover:border-burnished-gold/50 hover:text-burnished-gold"
             >
               <SourceRefIcon className="h-[18px] w-[18px]" />
             </Link>
           </div>
         </div>
 
-        {/* สำรวจ */}
+        {/* Explore */}
         <div className="md:col-span-3">
-          <h6 className={colHead}>สำรวจ</h6>
+          <h6 className="archive-hall__heading"><span aria-hidden="true">📜</span> สำรวจ</h6>
           <ul className="flex flex-col gap-3">
             {EXPLORE.map((item) => (
               <li key={item.href}>
@@ -99,7 +98,7 @@ export function SiteFooter() {
 
         {/* เกี่ยวกับ */}
         <div className="md:col-span-3">
-          <h6 className={colHead}>เกี่ยวกับ</h6>
+          <h6 className="archive-hall__heading"><span aria-hidden="true">📖</span> เกี่ยวกับ</h6>
           <ul className="flex flex-col gap-3">
             {ABOUT.map((item) => (
               <li key={item.href}>
@@ -112,9 +111,9 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="mx-auto mt-14 flex max-w-[1200px] flex-col items-center justify-between gap-4 border-t border-slate-boundary/30 px-4 sm:px-6 pt-8 sm:flex-row">
+      <div className="mx-auto mt-14 flex max-w-[1200px] flex-col items-center justify-between gap-4 border-t border-burnished-gold/10 px-4 sm:px-6 pt-8 sm:flex-row">
         <p className="text-center text-xs leading-relaxed tracking-wide text-on-surface-variant/55 sm:text-left">
-          © 2026 <span className="text-on-surface-variant/85">ARCHRON</span>
+          © 2026 <span className="text-soft-gold">ARCHRON</span>
           {totalViews != null && totalViews > 0 ? (
             <>
               <span className="px-1.5 text-on-surface-variant/50">·</span>
@@ -132,7 +131,7 @@ export function SiteFooter() {
           <button
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.1em] text-on-surface-variant/60 transition-colors hover:text-burnished-gold"
+            className="inline-flex items-center gap-1.5 font-serif text-xs tracking-[0.08em] text-on-surface-variant/60 transition-colors hover:text-burnished-gold"
             aria-label="เลื่อนขึ้นบนสุด"
           >
             ขึ้นบนสุด

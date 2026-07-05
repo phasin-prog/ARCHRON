@@ -13,6 +13,8 @@ import { DisciplineCard } from "@/components/discipline-card";
 import { DISCIPLINES } from "@/lib/content/disciplines";
 import { VesicaPattern } from "@/components/hero/vesica-pattern";
 import { HeroGrid3D } from "@/components/hero/hero-grid-3d";
+import { LayerBadge } from "@/components/layer-badge";
+import { TimelineConstellation } from "@/components/timeline/timeline-constellation";
 
 type Pillar = {
   Icon: ComponentType<{ className?: string }>;
@@ -112,6 +114,8 @@ export default function HomePage() {
             </svg>
           </div>
           <div className="relative z-10 mx-auto max-w-5xl py-16 sm:py-24">
+            {/* Layer Badge — เปลี่ยนตาม cosmology ปัจจุบัน */}
+            <LayerBadge className="scroll-reveal mb-6 mx-auto" />
             {/* Tagline แบรนด์ */}
             <span className="scroll-reveal mb-5 block font-serif text-xl italic text-soft-gold sm:text-2xl">
               a living library of human understanding
@@ -216,6 +220,27 @@ export default function HomePage() {
                 </article>
               );
             })}
+          </div>
+        </section>
+
+        {/* Chronological Constellation — Timeline แนวนอนสไตล์ Codex Layer 04 */}
+        <section className="scroll-reveal py-20 sm:py-28 texture-parchment">
+          <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
+            <div className="mb-10 border-b border-slate-boundary/30 pb-6">
+              <span className="mb-2 block text-xs font-semibold tracking-[0.2em] text-burnished-gold">LAYER 04 : INFORMATION ARCHITECTURE</span>
+              <h2 className="font-heading text-3xl font-bold text-ivory">Chronological Constellation</h2>
+              <p className="mt-2 max-w-md text-sm text-on-surface-variant/70">เส้นเวลาปัญญามนุษย์ — โฮเวอร์เหนือจุดเพื่ออ่านปราชญ์สัญลักษณ์</p>
+            </div>
+            <TimelineConstellation
+              events={[
+                { year: "384 BC", label: "Aristotle", domain: "reason", description: "วางรากฐานอภิปรัชญาและตรรกศาสตร์ การจำแนกโครงสร้างความจริง (Primary Ontology)" },
+                { year: "1781", label: "Kant", domain: "reason", description: "ปฏิวัติปรัชญาการรับรู้และญาณวิทยา (Critique of Pure Reason) — เราเห็นสิ่งต่าง ๆ ผ่านกรอบการรับรู้ของเรา" },
+                { year: "1913", label: "Jung", domain: "psyche", description: "แยกตัวจาก Freud และก่อตั้งจิตวิทยาเชิงวิเคราะห์ (Analytical Psychology) — จิตไร้สำนึกร่วมและต้นแบบสากล" },
+                { year: "1949", label: "Campbell", domain: "collective", description: "ตีพิมพ์ The Hero with a Thousand Faces ถอดรหัสตำนานสากล (Monomyth) — การเดินทางของวีรบุรุษ" },
+                { year: "1960", label: "Ricoeur", domain: "semiotics", description: "ปรัชญาการตีความสัญลักษณ์และภาษาศาสตร์เชิงลึก (Hermeneutics) — สัญลักษณ์คือสะพานสู่ความหมาย" },
+                { year: "2026", label: "ARCHRON", domain: "synthetic", description: "การสังเคราะห์ปัญญาประดิษฐ์เข้ากับอภิปรัชญาและโครงสร้างมนุษย์ (Synthetic Sapience)" },
+              ]}
+            />
           </div>
         </section>
 

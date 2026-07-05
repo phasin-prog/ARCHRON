@@ -115,6 +115,8 @@
 
     /* Dynamic Accent — ค่าเริ่มต้น + ไล่สีนุ่มเมื่อเปลี่ยนหน้า */
     --accent: #C79A4A;
+    --active-accent: #C79A4A;
+    --active-glow: rgba(199, 154, 74, 0.25);
     transition: --accent 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 
     /* Dynamic Typography — Fluid scale (clamp) */
@@ -264,6 +266,37 @@
       --surface-tint 1.2s cubic-bezier(0.16, 1, 0.3, 1),
       --border-tint 1.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
+
+  /* ── Domain Color Tokens (Codex Layer 04/07 compat) ────────────────────
+     สำหรับ Timeline Constellation Nodes, Knowledge/Thinker/Book cards */
+  :root {
+    --domain-reason-base: #3E5C76; --domain-reason-tint: #1B2936; --domain-reason-on-tint: #A9C8E0;
+    --domain-psyche-base: #5B4B8A; --domain-psyche-tint: #241D38; --domain-psyche-on-tint: #C7BEE5;
+    --domain-semiotics-base: #2E7266; --domain-semiotics-tint: #152B27; --domain-semiotics-on-tint: #A2D9CE;
+    --domain-collective-base: #9C6B2E; --domain-collective-tint: #332412; --domain-collective-on-tint: #E5C398;
+    --domain-numinous-base: #B8922E; --domain-numinous-tint: #382A10; --domain-numinous-on-tint: #EDD49C;
+    --domain-expression-base: #9C4F5E; --domain-expression-tint: #361A22; --domain-expression-on-tint: #E3B1BC;
+    --domain-synthetic-base: #3E7C82; --domain-synthetic-tint: #162B2E; --domain-synthetic-on-tint: #A8D8DD;
+  }
+
+  /* ── body[data-theme] — Layer 01 badges + active-accent (Codex compat) ────
+     ใช้คู่กับ data-cosmology เพื่อให้ component ที่อ้างถึง
+     --active-accent / --active-glow ได้ */
+  body[data-theme="prima"]     { --active-accent: #8A8F98; --active-glow: rgba(138, 143, 152, 0.2);  --bg-canvas: #07080B; --bg-surface: #101218; }
+  body[data-theme="psyche"]    { --active-accent: #6E93A8; --active-glow: rgba(110, 147, 168, 0.25); --bg-canvas: #05090D; --bg-surface: #0E161F; }
+  body[data-theme="lumen"]     { --active-accent: #E7D7A6; --active-glow: rgba(231, 215, 166, 0.2);  --bg-canvas: #0A0906; --bg-surface: #171510; }
+  body[data-theme="sapientia"] { --active-accent: #C79A4A; --active-glow: rgba(199, 154, 74, 0.25);  --bg-canvas: #090703; --bg-surface: #16120A; }
+  body[data-theme="mercurius"] { --active-accent: #8AA395; --active-glow: rgba(138, 163, 149, 0.2);  --bg-canvas: #060908; --bg-surface: #0F1714; }
+  body[data-theme="humanitas"] { --active-accent: #F4F1EA; --active-glow: rgba(244, 241, 234, 0.15); --bg-canvas: #0C0B0A; --bg-surface: #1A1817; }
+
+  /* ── [data-domain] — ผูก domain color เข้ากับ element (Codex compat) ─── */
+  [data-domain="reason"]     { --domain-base: var(--domain-reason-base);     --domain-tint: var(--domain-reason-tint);     --domain-on-tint: var(--domain-reason-on-tint); }
+  [data-domain="psyche"]     { --domain-base: var(--domain-psyche-base);     --domain-tint: var(--domain-psyche-tint);     --domain-on-tint: var(--domain-psyche-on-tint); }
+  [data-domain="semiotics"]  { --domain-base: var(--domain-semiotics-base);  --domain-tint: var(--domain-semiotics-tint);  --domain-on-tint: var(--domain-semiotics-on-tint); }
+  [data-domain="collective"] { --domain-base: var(--domain-collective-base); --domain-tint: var(--domain-collective-tint); --domain-on-tint: var(--domain-collective-on-tint); }
+  [data-domain="numinous"]   { --domain-base: var(--domain-numinous-base);   --domain-tint: var(--domain-numinous-tint);   --domain-on-tint: var(--domain-numinous-on-tint); }
+  [data-domain="expression"] { --domain-base: var(--domain-expression-base); --domain-tint: var(--domain-expression-tint); --domain-on-tint: var(--domain-expression-on-tint); }
+  [data-domain="synthetic"]  { --domain-base: var(--domain-synthetic-base);  --domain-tint: var(--domain-synthetic-tint);  --domain-on-tint: var(--domain-synthetic-on-tint); }
 
   /* Typography Emphasis: การเน้นคำสำหรับบทความวิชาการ */
   strong {

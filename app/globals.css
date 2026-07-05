@@ -109,6 +109,17 @@
   --font-wordmark: var(--font-cinzel), "Cinzel", "Trajan Pro", Georgia, serif;
 }
 
+/* ── Z-index Scale (centralized — ห้ามใช้ magic numbers) ─────── */
+:root {
+  --z-base:    0;
+  --z-surface: 10;
+  --z-sticky:  30;
+  --z-nav:     40;
+  --z-drawer:  50;
+  --z-overlay: 60;
+  --z-toast:   70;
+}
+
 @layer base {
   :root {
     color-scheme: dark;

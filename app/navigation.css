@@ -323,7 +323,7 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid color-mix(in srgb, var(--color-ivory) 6%, transparent);
-  z-index: 50;
+  z-index: var(--z-nav);
   padding-bottom: env(safe-area-inset-bottom, 0);
 }
 

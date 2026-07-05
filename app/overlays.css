@@ -12,7 +12,7 @@
   background: color-mix(in srgb, var(--color-prima) 60%, transparent);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  z-index: 100;
+  z-index: var(--z-overlay);
   opacity: 0;
   transition: opacity 0.2s ease;
 }
@@ -34,7 +34,7 @@
   border: 1px solid var(--color-slate-boundary);
   border-radius: 12px;
   box-shadow: 0 16px 48px color-mix(in srgb, var(--color-prima) 40%, transparent);
-  z-index: 110;
+  z-index: var(--z-overlay);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -112,7 +112,7 @@
   background: var(--color-surface-container-low);
   border-left: 1px solid var(--color-slate-boundary);
   box-shadow: -8px 0 24px color-mix(in srgb, var(--color-prima) 30%, transparent);
-  z-index: 110;
+  z-index: var(--z-overlay);
   display: flex;
   flex-direction: column;
   transform: translateX(100%);
@@ -168,7 +168,7 @@
   border: 1px solid var(--color-slate-boundary);
   border-radius: 8px;
   box-shadow: 0 8px 24px color-mix(in srgb, var(--color-prima) 30%, transparent);
-  z-index: 120;
+  z-index: var(--z-overlay);
   padding: 0.75rem;
   opacity: 0;
   pointer-events: none;
@@ -199,7 +199,7 @@
   bottom: 5rem;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 200;
+  z-index: var(--z-toast);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -286,7 +286,7 @@
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.15s ease, transform 0.15s ease;
-  z-index: 130;
+  z-index: var(--z-overlay);
 }
 
 .archron-tooltip:hover::before,

@@ -87,6 +87,18 @@ export function SiteHeader() {
     };
   }, []);
 
+  // ล็อกการเลื่อนหน้าเว็บ (Body scroll lock) เมื่อเปิดเมนูมือถือ
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   // ปิด dropdown บัญชีเมื่อคลิกนอก / กด Esc
   useEffect(() => {
     if (!acctOpen) return;

@@ -156,7 +156,7 @@ export default function StudioProfilePage() {
 
       <div className="archron-panel mb-8 flex items-center justify-between p-4">
         <div className="flex items-center gap-3">
-          <span className="icon-tile" style={{ borderColor: `color-mix(in srgb, ${roleMeta.accent} 26%, var(--color-slate-boundary))` }}>
+          <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-slate-boundary/40 rounded-[0.9rem_0.3rem] bg-surface-container-low" style={{ borderColor: `color-mix(in srgb, ${roleMeta.accent} 26%, var(--color-slate-boundary))` }}>
             <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": roleMeta.accent } as React.CSSProperties}>
               <use href="/icons/archron-icons.svg#achievement" />
             </svg>

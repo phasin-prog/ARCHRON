@@ -137,11 +137,11 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
         <button
           type="button"
           onClick={() => setSelectedField("all")}
-          className={`tag-pill px-3 py-1.5 cursor-pointer transition-all ${
-            selectedField === "all"
-              ? "border border-burnished-gold/40 bg-burnished-gold/15 text-burnished-gold font-semibold"
-              : "border border-transparent bg-ink/5 text-on-surface-variant/70 hover:text-soft-ivory"
-          }`}
+          className={`inline-flex items-center rounded-full text-[11px] font-semibold leading-[1.4] bg-burnished-gold/10 text-burnished-gold px-3 py-1.5 cursor-pointer transition-all ${
+             selectedField === "all"
+               ? "border border-burnished-gold/40 bg-burnished-gold/15 text-burnished-gold font-semibold"
+               : "border border-transparent bg-ink/5 text-on-surface-variant/70 hover:text-soft-ivory"
+           }`}
         >
           ทั้งหมด
         </button>
@@ -158,11 +158,11 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
                 backgroundColor: on ? `${meta.accent}24` : undefined,
                 color: on ? meta.accent : undefined,
               }}
-              className={`tag-pill px-3 py-1.5 cursor-pointer transition-all ${
-                on
-                  ? "border font-semibold"
-                  : "border border-transparent bg-ink/5 text-on-surface-variant/70 hover:text-soft-ivory"
-              }`}
+              className={`inline-flex items-center rounded-full text-[11px] font-semibold leading-[1.4] bg-burnished-gold/10 text-burnished-gold px-3 py-1.5 cursor-pointer transition-all ${
+                 on
+                   ? "border font-semibold"
+                   : "border border-transparent bg-ink/5 text-on-surface-variant/70 hover:text-soft-ivory"
+               }`}
             >
               {meta.label}
             </button>

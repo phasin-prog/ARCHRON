@@ -131,7 +131,7 @@ export default async function ProfilePage() {
             <div className="text-center sm:text-left">
               <h2 className="font-serif text-2xl text-ivory">{displayName}</h2>
               <div className="mt-2 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
-                <span className="tag-pill">{title}</span>
+                <span className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-semibold leading-[1.4] bg-burnished-gold/10 text-burnished-gold">{title}</span>
                 <span className="inline-flex items-center gap-1 rounded-full border border-burnished-gold/30 bg-burnished-gold/10 px-2.5 py-0.5 text-xs text-burnished-gold">
                   <span className="material-symbols-outlined text-[14px]">military_tech</span>
                   ระดับ {lp.level} · {lp.name}
@@ -184,7 +184,7 @@ function ReadingTab({
         <div className="flex items-end justify-between gap-4">
           <div className="flex items-center gap-4">
             {/* ไอคอน 3 มิติ "หอวงโคจร" — ระดับการอ่าน (sprite เฟส 0) */}
-            <span className="icon-tile" aria-hidden="true">
+            <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-slate-boundary/40 rounded-[0.9rem_0.3rem] bg-surface-container-low" aria-hidden="true">
               <svg className="icon-3d">
                 <use href="/icons/archron-icons.svg#level" />
               </svg>
@@ -237,7 +237,7 @@ function ReadingTab({
                       : "border-slate-boundary/20 opacity-55"
                 }`}
               >
-                <span className="icon-tile scale-75 mb-1.5" style={!reached ? { borderColor: "color-mix(in srgb, var(--color-slate-boundary) 60%, transparent)" } : undefined}>
+                <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-slate-boundary/40 rounded-[0.9rem_0.3rem] bg-surface-container-low scale-75 mb-1.5" style={!reached ? { borderColor: "color-mix(in srgb, var(--color-slate-boundary) 60%, transparent)" } : undefined}>
                   <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": reached ? "var(--cosmology-accent)" : "var(--color-muted)" } as React.CSSProperties}>
                     <use href="/icons/archron-icons.svg#level" />
                   </svg>
@@ -259,7 +259,7 @@ function ReadingTab({
       <section>
         <h3 className="flex items-center gap-3 font-serif text-fluid-h3 text-ivory">
           {/* ไอคอน 3 มิติ "ดาวรัศมี" — เหรียญตรา (sprite เฟส 0) */}
-          <span className="icon-tile" aria-hidden="true">
+          <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-slate-boundary/40 rounded-[0.9rem_0.3rem] bg-surface-container-low" aria-hidden="true">
             <svg className="icon-3d">
               <use href="/icons/archron-icons.svg#achievement" />
             </svg>
@@ -279,7 +279,7 @@ function ReadingTab({
                   unlocked ? "" : "opacity-45"
                 }`}
               >
-                <span className="icon-tile scale-110 mb-2" style={!unlocked ? { borderColor: "color-mix(in srgb, var(--color-slate-boundary) 60%, transparent)" } : undefined}>
+                <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-slate-boundary/40 rounded-[0.9rem_0.3rem] bg-surface-container-low scale-110 mb-2" style={!unlocked ? { borderColor: "color-mix(in srgb, var(--color-slate-boundary) 60%, transparent)" } : undefined}>
                   <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": unlocked ? "var(--cosmology-accent)" : "var(--color-muted)" } as React.CSSProperties}>
                     <use href="/icons/archron-icons.svg#achievement" />
                   </svg>
@@ -296,7 +296,7 @@ function ReadingTab({
       <section>
         <h3 className="flex items-center gap-3 font-serif text-fluid-h3 text-ivory">
           {/* ไอคอน 3 มิติ "ตั้งหนังสือ" — ประวัติการอ่าน (sprite เฟส 0) */}
-          <span className="icon-tile" aria-hidden="true">
+          <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-slate-boundary/40 rounded-[0.9rem_0.3rem] bg-surface-container-low" aria-hidden="true">
             <svg className="icon-3d">
               <use href="/icons/archron-icons.svg#reading-set" />
             </svg>
@@ -395,7 +395,7 @@ function WorkTab({ entries }: { entries: ContentEntry[] }) {
               className="archron-card flex h-full flex-col p-5"
             >
               <div className="flex items-center gap-2">
-                <span className="tag-pill">{CONTENT_TYPE_LABEL[e.contentType] ?? e.contentType}</span>
+                <span className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-semibold leading-[1.4] bg-burnished-gold/10 text-burnished-gold">{CONTENT_TYPE_LABEL[e.contentType] ?? e.contentType}</span>
                 <span
                   className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs ${
                     published

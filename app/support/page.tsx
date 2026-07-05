@@ -47,7 +47,7 @@ export default function SupportPage() {
           >
             <div>
               <div className="flex justify-between items-start">
-                <span className="icon-tile scale-100" style={{ borderColor: "color-mix(in srgb, var(--color-burnished-gold) 26%, var(--color-slate-boundary))" }}>
+                <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-slate-boundary/40 rounded-[0.9rem_0.3rem] bg-surface-container-low scale-100" style={{ borderColor: "color-mix(in srgb, var(--color-burnished-gold) 26%, var(--color-slate-boundary))" }}>
                   <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": "var(--color-burnished-gold)" } as React.CSSProperties}>
                     <use href="/icons/archron-icons.svg#lantern" />
                   </svg>
@@ -78,7 +78,7 @@ export default function SupportPage() {
           >
             <div>
               <div className="flex justify-between items-start">
-                <span className="icon-tile scale-100" style={{ borderColor: "color-mix(in srgb, var(--cosmology-accent) 26%, var(--color-slate-boundary))" }}>
+                <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-slate-boundary/40 rounded-[0.9rem_0.3rem] bg-surface-container-low scale-100" style={{ borderColor: "color-mix(in srgb, var(--cosmology-accent) 26%, var(--color-slate-boundary))" }}>
                   <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": "var(--cosmology-accent)" } as React.CSSProperties}>
                     <use href="/icons/archron-icons.svg#interpretation" />
                   </svg>

@@ -75,7 +75,7 @@ export default function SourcesPage() {
                 <div>
                   <div className="flex items-center justify-between">
                     <span
-                      className="icon-tile scale-90"
+                      className="inline-flex items-center justify-center w-11 h-11 flex-none border border-slate-boundary/40 rounded-[0.9rem_0.3rem] bg-surface-container-low scale-90"
                       style={{ borderColor: `color-mix(in srgb, ${t.accent} 26%, var(--color-slate-boundary))` }}
                     >
                       <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": t.accent } as React.CSSProperties}>

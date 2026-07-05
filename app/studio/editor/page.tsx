@@ -350,8 +350,8 @@ export default function StudioEditorPage() {
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-6 py-3">
           <Link href="/studio" className="text-sm text-soft-ivory hover:text-soft-gold">← กลับห้องเขียน</Link>
           <span
-            className="tag-pill gap-1.5"
-            style={{ backgroundColor: `${statusMeta(draft.status).accent}1f`, color: statusMeta(draft.status).accent }}
+            className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-semibold leading-[1.4] bg-burnished-gold/10 text-burnished-gold gap-1.5"
+             style={{ backgroundColor: `${statusMeta(draft.status).accent}1f`, color: statusMeta(draft.status).accent }}
           >
             <span className="material-symbols-outlined text-[14px]">{statusMeta(draft.status).icon}</span>
             {draft.status}
@@ -455,8 +455,8 @@ export default function StudioEditorPage() {
                    <SearchableSelect id="entry-content-type" value={draft.contentType} onChange={(v) => set("contentType", v)} options={CONTENT_TYPES} placeholder="เลือกประเภทเนื้อหา" meta={contentTypeMeta} placement="top" />
                   {draft.contentType ? (
                     <span
-                      className="mt-2 tag-pill gap-1.5"
-                      style={{ backgroundColor: `${typeMeta.accent}1f`, color: typeMeta.accent }}
+                      className="mt-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-semibold leading-[1.4] bg-burnished-gold/10 text-burnished-gold gap-1.5"
+                       style={{ backgroundColor: `${typeMeta.accent}1f`, color: typeMeta.accent }}
                     >
                       <span className="material-symbols-outlined text-[16px]">{typeMeta.icon}</span>
                       {typeMeta.label}

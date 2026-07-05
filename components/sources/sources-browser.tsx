@@ -121,7 +121,7 @@ export function SourcesBrowser({ sources }: { sources: SourceItemWithId[] }) {
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
                   {/* 3D ICON GRID */}
                   <span
-                    className="icon-tile shrink-0 scale-90 transition-transform duration-300 group-hover:scale-100"
+                    className="inline-flex items-center justify-center w-11 h-11 flex-none border border-slate-boundary/40 rounded-[0.9rem_0.3rem] bg-surface-container-low shrink-0 scale-90 transition-transform duration-300 group-hover:scale-100"
                     style={{ borderColor: `color-mix(in srgb, ${accent} 26%, var(--color-slate-boundary))` }}
                   >
                     <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": accent } as React.CSSProperties}>

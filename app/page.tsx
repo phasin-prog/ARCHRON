@@ -77,27 +77,71 @@ export default function HomePage() {
   return (
     <main className="atmo-observatory">
         <section 
-          className="relative flex min-h-[80vh] sm:min-h-[90vh] flex-col items-center justify-center overflow-hidden px-4 sm:px-6 text-center text-mist"
+          className="relative flex min-h-[70vh] flex-col items-center justify-center overflow-hidden px-4 sm:px-6 text-center text-mist"
           style={{
             background: "radial-gradient(circle at center, var(--color-deep-navy) 30%, var(--color-surface-container-lowest) 100%)"
           }}
         >
-          {/* Ambient Glow: แสงเรืองรองจางๆ */}
+          {/* Ambient Glow: แสงเรืองรองจางๆ จากศูนย์กลางหอสมุด */}
           <div
-            className="pointer-events-none absolute left-1/2 top-[42%] z-0 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+            className="pointer-events-none absolute left-1/2 top-[42%] z-0 h-[380px] w-[380px] -translate-x-1/2 -translate-y-1/2 rounded-full"
             style={{
-              background: "radial-gradient(circle, rgba(199, 154, 74, 0.07) 0%, rgba(199, 154, 74, 0) 70%)",
+              background: "radial-gradient(circle, rgba(199, 154, 74, 0.08) 0%, rgba(110, 147, 168, 0.03) 50%, rgba(199, 154, 74, 0) 70%)",
             }}
           />
-          {/* ARCHRON Symbol Layer (เส้นวงกลมตัดกันลางๆ สื่อถึงจิตวิทยาและศาสตร์ต่างๆ - ไม่มี Animation) */}
+
+          {/* Layer A: Hellenistic Colonnade (เสมหินระเบียงหอสมุดอเล็กซานเดรีย) */}
+          <div className="colonnade-pillar left-[10%] hidden md:block" />
+          <div className="colonnade-pillar left-[25%] hidden lg:block" />
+          <div className="colonnade-pillar right-[25%] hidden lg:block" />
+          <div className="colonnade-pillar right-[10%] hidden md:block" />
+
+          {/* Layer B: Esoteric Symbols Parallax (สัญลักษณ์ปรัชญาฉากหลังสี Psyche & Sapientia) */}
           <div 
-            className="pointer-events-none absolute left-1/2 top-[45%] z-0 h-[260px] w-[260px] -translate-x-1/2 -translate-y-1/2 opacity-15"
+            className="symbol-parallax text-7xl sm:text-8xl md:text-[14rem] lg:text-[18rem] text-psyche opacity-[0.035]"
+            style={{ top: "10%", left: "4%" }}
+            aria-hidden="true"
           >
-            <div className="absolute top-0 left-[45px] w-[170px] h-[170px] border border-[var(--color-antique-gold)] rounded-full" />
-            <div className="absolute bottom-0 left-[45px] w-[170px] h-[170px] border border-[var(--color-antique-gold)] rounded-full" />
+            Ψ
+          </div>
+          <div 
+            className="symbol-parallax text-8xl sm:text-9xl md:text-[16rem] lg:text-[22rem] text-sapientia opacity-[0.035]"
+            style={{ bottom: "8%", right: "5%" }}
+            aria-hidden="true"
+          >
+            Φ
+          </div>
+          <div 
+            className="symbol-parallax text-6xl sm:text-7xl md:text-[12rem] lg:text-[14rem] text-psyche opacity-[0.025]"
+            style={{ top: "55%", right: "12%" }}
+            aria-hidden="true"
+          >
+            Ω
+          </div>
+          <div 
+            className="symbol-parallax text-6xl sm:text-7xl md:text-[12rem] lg:text-[16rem] text-sapientia opacity-[0.03]"
+            style={{ bottom: "20%", left: "12%" }}
+            aria-hidden="true"
+          >
+            Α
+          </div>
+          <div 
+            className="symbol-parallax text-7xl sm:text-8xl md:text-[14rem] lg:text-[20rem] text-sapientia opacity-[0.02]"
+            style={{ top: "6%", left: "45%" }}
+            aria-hidden="true"
+          >
+            Χ
+          </div>
+
+          {/* Layer C: The Astrolabe Centerpiece (วงแหวนดาราศาสตร์โบราณและคัมภีร์) */}
+          <div className="pointer-events-none absolute left-1/2 top-[45%] z-0 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2">
+            <div className="astrolabe-ring h-[280px] w-[280px] opacity-25" />
+            <div className="astrolabe-ring h-[220px] w-[220px] opacity-20 border-dashed" />
+            <div className="astrolabe-ring h-[160px] w-[160px] opacity-30 border-[var(--color-soft-gold)]" />
+            
             {/* หนังสือโบราณ — สัญลักษณ์ living library */}
             <svg
-              className="absolute left-1/2 top-1/2 h-[118px] w-[118px] -translate-x-1/2 -translate-y-1/2"
+              className="absolute left-1/2 top-1/2 h-[118px] w-[118px] -translate-x-1/2 -translate-y-1/2 opacity-35"
               viewBox="0 0 120 120"
               fill="none"
               stroke="var(--color-soft-gold)"
@@ -109,7 +153,7 @@ export default function HomePage() {
               <path d="M60 40v54" />
             </svg>
           </div>
-          <div className="relative z-10 mx-auto max-w-5xl py-16 sm:py-24">
+          <div className="relative z-10 mx-auto max-w-5xl py-12 sm:py-16 md:py-20">
             {/* Layer Badge — เปลี่ยนตาม cosmology ปัจจุบัน */}
             <LayerBadge className="scroll-reveal mb-6 mx-auto" />
             {/* Tagline แบรนด์ */}
@@ -179,7 +223,7 @@ export default function HomePage() {
         </section>
 
         {/* Pillars — สิ่งที่เราทำ (การ์ด + ไอคอนเส้นเฉพาะ + เน้นคำ) */}
-        <section className="relative mx-auto max-w-[1200px] px-4 sm:px-6 py-20 sm:py-28 md:py-36" aria-labelledby="pillars-heading">
+        <section className="relative mx-auto max-w-[1200px] px-4 sm:px-6 py-14 sm:py-20 md:py-24" aria-labelledby="pillars-heading">
           <h2 id="pillars-heading" className="sr-only">เสาหลักของ ARCHRON</h2>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {PILLARS.map((p, i) => {
@@ -220,7 +264,7 @@ export default function HomePage() {
         </section>
 
         {/* Chronological Constellation — Timeline แนวนอนสไตล์ Codex Layer 04 */}
-        <section className="scroll-reveal py-20 sm:py-28">
+        <section className="scroll-reveal py-14 sm:py-20">
           <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
             <div className="mb-10 border-b border-slate-boundary/30 pb-6">
               <span className="mb-2 block text-xs font-semibold tracking-[0.2em] text-burnished-gold">LAYER 04 : INFORMATION ARCHITECTURE</span>
@@ -241,7 +285,7 @@ export default function HomePage() {
         </section>
 
         {/* Knowledge Atlas */}
-        <section className="relative overflow-hidden border-y border-slate-boundary/30 bg-surface-container-lowest px-4 sm:px-6 py-16 sm:py-20">
+        <section className="relative overflow-hidden border-y border-slate-boundary/30 bg-surface-container-lowest px-4 sm:px-6 py-12 sm:py-16">
           {/* Vesica pattern — สื่อการเชื่อมโยงของศาสตร์ (cosmology: prima = แผนที่/สัญลักษณ์) */}
           <VesicaPattern
             cosmology="prima"
@@ -284,7 +328,7 @@ export default function HomePage() {
         <RecentlyViewed />
 
         {/* ปฏิญญา — คำคมให้จดจำ (เน้นคำแก่นด้วยสีทอง) */}
-        <section className="scroll-reveal relative mx-auto max-w-4xl px-4 sm:px-6 py-16 sm:py-24 text-center md:py-28">
+        <section className="scroll-reveal relative mx-auto max-w-4xl px-4 sm:px-6 py-14 sm:py-20 text-center md:py-24">
           <div className="mb-4 font-serif text-[clamp(40px,8vw,64px)] leading-[0.3] text-burnished-gold/35" aria-hidden="true">
             “
           </div>

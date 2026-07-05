@@ -217,46 +217,52 @@
 
   /* route theme — แต่ละ cosmology ตั้ง variable ชุดเต็ม */
   :root[data-cosmology="prima"] {
-    --cosmology-accent: #8A8F98; /* Stone Gray */
+    --cosmology-accent: #8A8F98;
     --cosmology-accent-soft: color-mix(in srgb, #8A8F98 70%, transparent);
     --surface-tint: color-mix(in srgb, #8A8F98 7%, var(--color-paper-raised));
     --border-tint: color-mix(in srgb, #8A8F98 30%, var(--color-slate-boundary));
     --glow-tint: #8A8F98;
+    --symbol-set: "Ω" "⬡" "◇" "⌾";
   }
   :root[data-cosmology="psyche"] {
-    --cosmology-accent: #6E93A8; /* Psyche */
+    --cosmology-accent: #6E93A8;
     --cosmology-accent-soft: color-mix(in srgb, #6E93A8 70%, transparent);
     --surface-tint: color-mix(in srgb, #6E93A8 9%, var(--color-paper-raised));
     --border-tint: color-mix(in srgb, #6E93A8 32%, var(--color-slate-boundary));
     --glow-tint: #6E93A8;
+    --symbol-set: "Ψ" "☤" "◎" "∼";
   }
   :root[data-cosmology="lumen"] {
-    --cosmology-accent: #E7D7A6; /* Lumen */
+    --cosmology-accent: #E7D7A6;
     --cosmology-accent-soft: color-mix(in srgb, #E7D7A6 70%, transparent);
     --surface-tint: color-mix(in srgb, #E7D7A6 8%, var(--color-paper-raised));
     --border-tint: color-mix(in srgb, #E7D7A6 34%, var(--color-slate-boundary));
     --glow-tint: #E7D7A6;
+    --symbol-set: "Φ" "☀" "✧" "⟡";
   }
   :root[data-cosmology="sapientia"] {
-    --cosmology-accent: #C79A4A; /* Archron Gold */
+    --cosmology-accent: #C79A4A;
     --cosmology-accent-soft: color-mix(in srgb, #C79A4A 70%, transparent);
     --surface-tint: color-mix(in srgb, #C79A4A 8%, var(--color-paper-raised));
     --border-tint: color-mix(in srgb, #C79A4A 34%, var(--color-slate-boundary));
     --glow-tint: #C79A4A;
+    --symbol-set: "⚜" "☸" "⬟" "⌘";
   }
   :root[data-cosmology="mercurius"] {
-    --cosmology-accent: #8AA395; /* Mercurius */
+    --cosmology-accent: #8AA395;
     --cosmology-accent-soft: color-mix(in srgb, #8AA395 70%, transparent);
     --surface-tint: color-mix(in srgb, #8AA395 8%, var(--color-paper-raised));
     --border-tint: color-mix(in srgb, #8AA395 32%, var(--color-slate-boundary));
     --glow-tint: #8AA395;
+    --symbol-set: "☿" "⚡" "✎" "∞";
   }
   :root[data-cosmology="humanitas"] {
-    --cosmology-accent: #F4F1EA; /* Ivory */
+    --cosmology-accent: #F4F1EA;
     --cosmology-accent-soft: color-mix(in srgb, #F4F1EA 70%, transparent);
     --surface-tint: color-mix(in srgb, #F4F1EA 7%, var(--color-paper-raised));
     --border-tint: color-mix(in srgb, #F4F1EA 30%, var(--color-slate-boundary));
     --glow-tint: #F4F1EA;
+    --symbol-set: "☯" "◉" "⌂" "♢";
   }
 
   /* transition นุ่มเมื่อ cosmology เปลี่ยน (route → route) */
@@ -1418,6 +1424,82 @@
 }
 @media (max-width: 768px) {
   .atmo-base::after { animation: none !important; opacity: 0.65 !important; }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   Symbolic Background — สัญลักษณ์ลอยตาม cosmology (Layer 06 Spatial)
+   ----------------------------------------------------------------------------
+   แสดง Unicode glyphs + รูปเรขาคณิตศักดิ์สิทธิ์ที่เปลี่ยนตาม data-cosmology
+   — แต่ละ cosmology มีชุดสัญลักษณ์ของตัวเอง (--symbol-set)
+   — ใช้ CSS animation ลอย + จาง พร้อม transition 1.2s เมื่อเปลี่ยนหน้า
+   — อยู่ใน z-index -1 (หลัง content แต่เหนือพื้น)
+   ════════════════════════════════════════════════════════════════════════════ */
+.symbolic-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.symbolic-bg__item {
+  position: absolute;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(5rem, 12vw, 16rem);
+  font-weight: 300;
+  color: var(--cosmology-accent, var(--color-burnished-gold));
+  user-select: none;
+  transition:
+    color 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 1.2s ease;
+  animation: sym-float 12s ease-in-out infinite;
+}
+
+/* แต่ละตำแหน่ง animation delay ต่างกัน */
+.symbolic-bg__item:nth-child(1) { animation-delay: 0s; }
+.symbolic-bg__item:nth-child(2) { animation-delay: -3s; }
+.symbolic-bg__item:nth-child(3) { animation-delay: -6s; }
+.symbolic-bg__item:nth-child(4) { animation-delay: -9s; }
+
+/* ขนาดต่างกัน */
+.symbolic-bg__item:nth-child(1) { font-size: clamp(6rem, 14vw, 18rem); }
+.symbolic-bg__item:nth-child(2) { font-size: clamp(4rem, 8vw, 11rem); }
+.symbolic-bg__item:nth-child(3) { font-size: clamp(3rem, 6vw, 9rem); }
+.symbolic-bg__item:nth-child(4) { font-size: clamp(5rem, 10vw, 14rem); }
+
+/* ความทึบต่างกัน */
+.symbolic-bg__item:nth-child(1) { opacity: 0.04; }
+.symbolic-bg__item:nth-child(2) { opacity: 0.028; }
+.symbolic-bg__item:nth-child(3) { opacity: 0.05; }
+.symbolic-bg__item:nth-child(4) { opacity: 0.032; }
+
+@keyframes sym-float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-18px) rotate(3deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(-2deg);
+  }
+  75% {
+    transform: translateY(-24px) rotate(4deg);
+  }
+}
+
+/* Reduced motion — ปิด animation คง opacity */
+@media (prefers-reduced-motion: reduce) {
+  .symbolic-bg__item {
+    animation: none !important;
+  }
+}
+
+/* Mobile — opacity ลดลง ไม่เกะกะเนื้อหา */
+@media (max-width: 768px) {
+  .symbolic-bg__item {
+    opacity: 0.02 !important;
+  }
 }
 
 /* ── Reading Font Scale — ปรับขนาดตัวอักษรในหน้าอ่าน (handled in .md-body rules above) ── */

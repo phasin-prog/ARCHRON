@@ -22,6 +22,7 @@ import {
   ArrowRightIcon,
 } from "@/components/icons";
 import { Tooltip } from "@/components/tooltip";
+import { ContentCardList } from "@/components/content-card";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ReadingToc } from "@/components/reading/reading-toc";
 import { ReadingDock } from "@/components/reading/reading-dock";
@@ -490,25 +491,14 @@ export async function ReadingPage({
           <section className="mt-14">
             <SectionH3 icon={ConceptIcon} className="scroll-reveal">แนวคิดที่เกี่ยวข้อง</SectionH3>
             <LocalGraph entry={entry} />
-            <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {relatedInline.map((rc, i) => (
-                <Link
-                  key={rc.conceptSlug}
-                  href={`/concepts/${rc.conceptSlug}`}
-                  className={`archron-card scroll-reveal stagger-${i + 1} group flex flex-col p-5`}
-                >
-                  <span className="font-serif text-lg text-ivory group-hover:text-soft-gold">
-                    {conceptTitle(rc.conceptSlug)}
-                  </span>
-                  <span className="mt-2 inline-block w-fit rounded-full border border-antique-gold/30 px-2.5 py-0.5 text-xs text-antique-gold">
-                    {RELATION_LABEL[rc.relationType]}
-                  </span>
-                  {rc.reason ? (
-                    <p className="mt-3 text-sm leading-relaxed text-muted">{rc.reason}</p>
-                  ) : null}
-                </Link>
-              ))}
-            </div>
+            <ContentCardList
+              items={relatedInline.map((rc) => ({
+                slug: rc.conceptSlug,
+                relationType: rc.relationType,
+                reason: rc.reason,
+              }))}
+              className="mt-5"
+            />
             {hasOverflow ? (
               <Link href={`/constellation?focus=${entry.slug}`} className="mt-5 inline-block text-sm text-soft-gold hover:underline">
                 ดูแผนที่ความสัมพันธ์ทั้งหมด →

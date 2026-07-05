@@ -10,32 +10,243 @@
    This file provides variant classes, density levels, and card component utilities.
    ============================================================================ */
 
-/* ---- Card Variants ---- */
+/* ════════════════════════════════════════════════════════════════════════════
+   Card Variants — 7 รูปแบบตามประเภทเนื้อหา (Article · Concept · Person · Book · School · Symbol · Term)
+   ────────────────────────────────────────────────────────────────────────────
+   แต่ละ variant override .archron-card base เพื่อเปลี่ยนโครงสร้างการ์ด:
+     • จุดเด่น (accent bar / spine / dot)
+     • รัศมีมุม
+     • pseudo-elements (::before / ::after)
+     • สี accent และพื้นหลัง
+     • ลักษณะการ hover
+   ════════════════════════════════════════════════════════════════════════════ */
 
-/* Article Card */
-.card-article {
-  border-top: 2px solid var(--color-burnished-gold);
+/* ── 1. Article — Gold · Top Bar · Symmetric Rounded ────────────────────
+   "บทความ" เน้นเนื้อหาแบบกางออก เป็นทางการ สะอาด */
+.archron-card--article {
+  --card-accent: var(--color-burnished-gold);
+  border-radius: 0.85rem;
+}
+.archron-card--article::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0.85rem;
+  padding: 0;
+  background: none;
+  -webkit-mask: none;
+  mask: none;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--card-accent) 18%, transparent) 0%,
+    transparent 3px
+  );
+  opacity: 0.6;
+  pointer-events: none;
+}
+.archron-card--article::after {
+  content: none;
+}
+.archron-card--article:hover {
+  border-color: color-mix(in srgb, var(--card-accent) 60%, transparent);
+  box-shadow:
+    0 20px 48px -16px color-mix(in srgb, var(--color-prima) 80%, transparent),
+    0 0 28px -6px color-mix(in srgb, var(--card-accent) 22%, transparent);
 }
 
-/* Concept Card */
-.card-concept {
-  border-top: 2px solid var(--color-psyche);
+/* ── 2. Concept — Psyche Blue · Left Circular Dot · Asymmetric Corners ──
+   "แนวคิด" เน้นจุดเชื่อมโยง ความรู้ที่แตกแขนง */
+.archron-card--concept {
+  --card-accent: var(--color-psyche);
+  border-radius: 1rem 0.35rem;
+}
+.archron-card--concept::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 35%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--card-accent);
+  opacity: 0.4;
+  pointer-events: none;
+  box-shadow: 0 0 8px color-mix(in srgb, var(--card-accent) 30%, transparent);
+  transition: all var(--dur-base) var(--ease-out);
+}
+.archron-card--concept::after {
+  content: none;
+}
+.archron-card--concept:hover {
+  border-color: color-mix(in srgb, var(--card-accent) 55%, transparent);
+  box-shadow:
+    0 20px 48px -16px color-mix(in srgb, var(--color-prima) 80%, transparent),
+    0 0 28px -6px color-mix(in srgb, var(--card-accent) 20%, transparent);
+}
+.archron-card--concept:hover::before {
+  opacity: 0.8;
+  box-shadow: 0 0 14px color-mix(in srgb, var(--card-accent) 50%, transparent);
 }
 
-/* Thinker Card */
-.card-thinker {
-  border-top: 2px solid var(--color-mercurius);
+/* ── 3. Person — Mercurius Green · Avatar Square · Compact ────────────
+   "นักคิด" เน้นตัวบุคคล สนิท เป็นกันเอง */
+.archron-card--person {
+  --card-accent: var(--color-mercurius);
+  border-radius: 0.75rem;
+}
+.archron-card--person::before {
+  content: "";
+  position: absolute;
+  left: 0.85rem;
+  top: 0.85rem;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 1.5px solid var(--card-accent);
+  opacity: 0.25;
+  pointer-events: none;
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+.archron-card--person::after {
+  content: none;
+}
+.archron-card--person:hover {
+  border-color: color-mix(in srgb, var(--card-accent) 50%, transparent);
+  box-shadow:
+    0 20px 48px -16px color-mix(in srgb, var(--color-prima) 80%, transparent),
+    0 0 28px -6px color-mix(in srgb, var(--card-accent) 18%, transparent);
+}
+.archron-card--person:hover::before {
+  opacity: 0.6;
 }
 
-/* School Card */
-.card-school {
-  border-top: 2px solid var(--color-lumen);
+/* ── 4. Book — Sapientia Amber · Left Spine Bar · Book Radius ──────────
+   "หนังสือ" เน้นอ้างอิง คล้ายสันหนังสือบนหิ้ง */
+.archron-card--book {
+  --card-accent: var(--color-sapientia);
+  border-radius: 0.35rem 1rem 1rem 0.35rem;
+}
+.archron-card--book::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--card-accent) 60%, transparent) 0%,
+    color-mix(in srgb, var(--card-accent) 20%, transparent) 100%
+  );
+  border-radius: 0.35rem 0 0 0.35rem;
+  opacity: 0.7;
+  pointer-events: none;
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+.archron-card--book::after {
+  content: none;
+}
+.archron-card--book:hover {
+  border-color: color-mix(in srgb, var(--card-accent) 55%, transparent);
+  box-shadow:
+    0 20px 48px -16px color-mix(in srgb, var(--color-prima) 80%, transparent),
+    inset 0 0 20px color-mix(in srgb, var(--card-accent) 6%, transparent);
+}
+.archron-card--book:hover::before {
+  opacity: 1;
 }
 
-/* Book Card */
-.card-book {
-  border-top: 2px solid var(--color-sapientia);
+/* ── 5. School — Lumen Cream · Top Header Bar · Structured Sharp ──────
+   "สำนักคิด" เน้นสถาบัน คม ชัด เป็นทางการ */
+.archron-card--school {
+  --card-accent: var(--color-lumen);
+  border-radius: 0.35rem;
 }
+.archron-card--school::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: var(--card-accent);
+  border-radius: 1px;
+  opacity: 0.5;
+  pointer-events: none;
+  transition: all var(--dur-base) var(--ease-out);
+}
+.archron-card--school::after {
+  content: none;
+}
+.archron-card--school:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--card-accent) 45%, transparent);
+  box-shadow:
+    0 16px 40px -14px color-mix(in srgb, var(--color-prima) 80%, transparent);
+}
+.archron-card--school:hover::before {
+  opacity: 0.9;
+  left: 5%;
+  right: 5%;
+  height: 3px;
+}
+
+/* ── 6. Symbol — Prima Silver · Centered Diamond · Geometric Border ───
+   "สัญลักษณ์" เน้นศูนย์กลาง เรขาคณิต สงบ */
+.archron-card--symbol {
+  --card-accent: var(--color-ash);
+  border-radius: 0.5rem;
+  text-align: center;
+}
+.archron-card--symbol::before {
+  content: "◇";
+  position: absolute;
+  top: -1px;
+  right: 12%;
+  font-size: 1rem;
+  color: var(--card-accent);
+  opacity: 0.15;
+  pointer-events: none;
+}
+.archron-card--symbol::after {
+  content: "◇";
+  position: absolute;
+  bottom: -1px;
+  left: 12%;
+  font-size: 1rem;
+  color: var(--card-accent);
+  opacity: 0.15;
+  pointer-events: none;
+}
+.archron-card--symbol:hover {
+  border-color: color-mix(in srgb, var(--card-accent) 50%, transparent);
+  box-shadow: 0 0 28px -6px color-mix(in srgb, var(--card-accent) 16%, transparent);
+}
+
+/* ── 7. Term — Soft Ivory · Minimal · Definition Style ────────────────
+   "คำศัพท์" เรียบ เล็ก ไม่มีลูกเล่น */
+.archron-card--term {
+  --card-accent: var(--color-soft-ivory);
+  border-radius: 0.35rem;
+  background: color-mix(in srgb, var(--card-accent) 3%, var(--color-surface-container-low));
+  border-color: color-mix(in srgb, var(--card-accent) 8%, var(--color-slate-boundary));
+}
+.archron-card--term::before,
+.archron-card--term::after {
+  content: none;
+}
+.archron-card--term:hover {
+  transform: none;
+  border-color: color-mix(in srgb, var(--card-accent) 20%, var(--color-slate-boundary));
+  box-shadow: none;
+}
+
+/* ── Legacy class mapping (for backward compat) ──────────────────────── */
+.card-article { border-top: 2px solid var(--color-burnished-gold); }
+.card-concept { border-top: 2px solid var(--color-psyche); }
+.card-thinker { border-top: 2px solid var(--color-mercurius); }
+.card-school  { border-top: 2px solid var(--color-lumen); }
+.card-book    { border-top: 2px solid var(--color-sapientia); }
 
 /* ---- Card Density Levels ---- */
 

@@ -1,6 +1,6 @@
 export default function ReadingSetDetailLoading() {
   return (
-    <main className="atmo-base atmo-dictionary pb-24">
+    <main className="atmo-dictionary pb-24">
       <div className="mx-auto max-w-3xl px-6 pt-20">
         {/* Breadcrumb skeleton */}
         <div className="h-3 w-48 rounded bg-white/5 animate-pulse" />

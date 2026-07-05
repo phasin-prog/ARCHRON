@@ -11,7 +11,6 @@ import {
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { AccentController } from "@/components/accent-controller";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { Tabbar } from "@/components/tabbar";
 import { Fab } from "@/components/fab";
@@ -114,9 +113,7 @@ export default function RootLayout({
         </head>
         <body className="min-h-screen bg-deep-navy pb-16 text-ivory antialiased md:pb-0">
           <SkipToContent />
-          <AccentController />
           <SymbolicBackground />
-          <div className="accent-aura" aria-hidden="true" />
           <SiteHeader />
           {children}
           <SiteFooter />

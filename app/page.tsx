@@ -12,7 +12,6 @@ import { LoopCarousel } from "@/components/loop-carousel";
 import { DisciplineCard } from "@/components/discipline-card";
 import { DISCIPLINES } from "@/lib/content/disciplines";
 import { VesicaPattern } from "@/components/hero/vesica-pattern";
-import { HeroGrid3D } from "@/components/hero/hero-grid-3d";
 import { LayerBadge } from "@/components/layer-badge";
 import { TimelineConstellation } from "@/components/timeline/timeline-constellation";
 
@@ -76,16 +75,13 @@ const PILLARS: Pillar[] = [
 
 export default function HomePage() {
   return (
-    <main className="atmo-base atmo-observatory">
+    <main className="atmo-observatory">
         <section 
-          className="relative flex min-h-[80vh] sm:min-h-[90vh] flex-col items-center justify-center overflow-hidden px-4 sm:px-6 text-center text-mist texture-grain"
+          className="relative flex min-h-[80vh] sm:min-h-[90vh] flex-col items-center justify-center overflow-hidden px-4 sm:px-6 text-center text-mist"
           style={{
             background: "radial-gradient(circle at center, var(--color-deep-navy) 30%, var(--color-surface-container-lowest) 100%)"
           }}
         >
-          {/* 3D Grid Background — พื้นหลัง Grid 3D แบบ full-page */}
-          <HeroGrid3D />
-
           {/* Ambient Glow: แสงเรืองรองจางๆ */}
           <div
             className="pointer-events-none absolute left-1/2 top-[42%] z-0 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full"
@@ -183,7 +179,7 @@ export default function HomePage() {
         </section>
 
         {/* Pillars — สิ่งที่เราทำ (การ์ด + ไอคอนเส้นเฉพาะ + เน้นคำ) */}
-        <section className="relative mx-auto max-w-[1200px] px-4 sm:px-6 py-20 sm:py-28 md:py-36 texture-parchment texture-glow-gold" aria-labelledby="pillars-heading">
+        <section className="relative mx-auto max-w-[1200px] px-4 sm:px-6 py-20 sm:py-28 md:py-36" aria-labelledby="pillars-heading">
           <h2 id="pillars-heading" className="sr-only">เสาหลักของ ARCHRON</h2>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {PILLARS.map((p, i) => {
@@ -224,7 +220,7 @@ export default function HomePage() {
         </section>
 
         {/* Chronological Constellation — Timeline แนวนอนสไตล์ Codex Layer 04 */}
-        <section className="scroll-reveal py-20 sm:py-28 texture-parchment">
+        <section className="scroll-reveal py-20 sm:py-28">
           <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
             <div className="mb-10 border-b border-slate-boundary/30 pb-6">
               <span className="mb-2 block text-xs font-semibold tracking-[0.2em] text-burnished-gold">LAYER 04 : INFORMATION ARCHITECTURE</span>
@@ -245,7 +241,7 @@ export default function HomePage() {
         </section>
 
         {/* Knowledge Atlas */}
-        <section className="relative overflow-hidden border-y border-slate-boundary/30 bg-surface-container-lowest px-4 sm:px-6 py-16 sm:py-20 texture-grain texture-vignette">
+        <section className="relative overflow-hidden border-y border-slate-boundary/30 bg-surface-container-lowest px-4 sm:px-6 py-16 sm:py-20">
           {/* Vesica pattern — สื่อการเชื่อมโยงของศาสตร์ (cosmology: prima = แผนที่/สัญลักษณ์) */}
           <VesicaPattern
             cosmology="prima"
@@ -288,7 +284,7 @@ export default function HomePage() {
         <RecentlyViewed />
 
         {/* ปฏิญญา — คำคมให้จดจำ (เน้นคำแก่นด้วยสีทอง) */}
-        <section className="scroll-reveal relative mx-auto max-w-4xl px-4 sm:px-6 py-16 sm:py-24 text-center md:py-28 texture-glow-gold texture-parchment">
+        <section className="scroll-reveal relative mx-auto max-w-4xl px-4 sm:px-6 py-16 sm:py-24 text-center md:py-28">
           <div className="mb-4 font-serif text-[clamp(40px,8vw,64px)] leading-[0.3] text-burnished-gold/35" aria-hidden="true">
             “
           </div>

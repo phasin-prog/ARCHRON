@@ -342,9 +342,9 @@
     content: "";
     position: fixed;
     inset: 0;
-    z-index: -1;
+    z-index: var(--z-base);
     pointer-events: none;
-    background: linear-gradient(180deg, #1B2130 0%, #151A24 55%, #10141C 100%);
+    background: linear-gradient(180deg, #1B2130 0%, #10141C 100%);
   }
 
   body {
@@ -661,25 +661,7 @@
   direction: ltr;
   font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
 }
-/* Dynamic Accent aura — แสงเรืองทั่วเว็บที่ "หายใจ" และเปลี่ยนสีตามหน้า (เคลื่อนไหวนุ่ม) */
-.accent-aura {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(1100px 560px at 50% -8%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%),
-    radial-gradient(760px 520px at 8% 106%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 60%),
-    radial-gradient(680px 520px at 100% 60%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 62%);
-  transition: background 1.2s ease;
-}
-@keyframes accent-breathe {
-  0%, 100% { opacity: 0.32; }
-  50% { opacity: 0.55; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .accent-aura { animation: none; }
-}
+
 
 /* แสงน้ำลึก Psyche เรืองจางที่ hero */
 .hero-gradient {
@@ -694,177 +676,19 @@
    ============================================================================ */
 .archron-card {
   position: relative;
-  /* ลูกเล่นอสมมาตร (Asymmetric borders) คล้ายศิลาจารึกโบราณ ขจัดความเหลี่ยมทื่อ */
-  border: 1px solid color-mix(in srgb, var(--cosmology-accent) 12%, var(--color-slate-boundary));
-  border-radius: 1rem 0.25rem;
-  /* Surface & Background Role: ความอิ่มตัวต่ำเพื่อลด Cognitive Load */
-  background: linear-gradient(
-    165deg,
-    color-mix(in srgb, var(--cosmology-accent) 6%, var(--color-surface-container-low)) 0%,
-    color-mix(in srgb, var(--cosmology-accent) 1%, var(--color-surface-container-lowest)) 100%
-  );
-  box-shadow:
-    0 4px 20px -8px color-mix(in srgb, var(--color-prima) 40%, transparent),
-    inset 0 1px 1px color-mix(in srgb, var(--cosmology-accent) 8%, transparent);
+  border: 1px solid var(--color-slate-boundary);
+  border-radius: 0.85rem;
+  background: var(--color-surface-container-low);
   transition:
-    transform var(--dur-base) var(--ease-out),
     border-color var(--dur-base) var(--ease-out),
-    box-shadow var(--dur-base) var(--ease-out),
-    border-radius var(--dur-base) var(--ease-out);
-}
-.archron-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 1rem 0.25rem;
-  padding: 1px;
-  background: linear-gradient(
-    135deg,
-    color-mix(in srgb, var(--cosmology-accent) 55%, transparent) 0%,
-    transparent 50%,
-    transparent 100%
-  );
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0.25;
-  pointer-events: none;
-  transition: opacity var(--dur-base) var(--ease-out);
-}
-/* Astronomical Corner Brackets (ขีดมุมดาราศาสตร์โบราณทั้งสี่มุม) */
-.archron-card::after {
-  content: "";
-  position: absolute;
-  inset: -3px; /* ยื่นออกนอกขอบเล็กน้อยเพื่อให้ดูมีชั้นความลึก */
-  border-radius: 1.15rem 0.4rem;
-  background:
-    /* บนซ้าย */
-    linear-gradient(to right, var(--cosmology-accent) 8px, transparent 8px) 0 0,
-    linear-gradient(to bottom, var(--cosmology-accent) 8px, transparent 8px) 0 0,
-    /* บนขวา */
-    linear-gradient(to left, var(--cosmology-accent) 8px, transparent 8px) 100% 0,
-    linear-gradient(to bottom, var(--cosmology-accent) 8px, transparent 8px) 100% 0,
-    /* ล่างซ้าย */
-    linear-gradient(to right, var(--cosmology-accent) 8px, transparent 8px) 0 100%,
-    linear-gradient(to top, var(--cosmology-accent) 8px, transparent 8px) 0 100%,
-    /* ล่างขวา */
-    linear-gradient(to left, var(--cosmology-accent) 8px, transparent 8px) 100% 100%,
-    linear-gradient(to top, var(--cosmology-accent) 8px, transparent 8px) 100% 100%;
-  background-repeat: no-repeat;
-  opacity: 0.18;
-  pointer-events: none;
-  transition:
-    opacity var(--dur-base) var(--ease-out),
-    inset var(--dur-base) var(--ease-out);
+    transform var(--dur-base) var(--ease-out);
 }
 .archron-card:hover {
-  transform: translateY(-4px);
-  /* ค่อยๆ ขยับสัดส่วนโค้งให้มนขึ้นเล็กน้อยเมื่อ hover เสมือนหินที่กำลังตอบรับสัมผัส */
-  border-radius: 0.85rem 0.4rem;
-  border-color: color-mix(in srgb, var(--cosmology-accent) 70%, transparent);
-  box-shadow:
-    0 20px 48px -16px color-mix(in srgb, var(--color-prima) 80%, transparent),
-    0 0 28px -6px color-mix(in srgb, var(--cosmology-accent) 26%, transparent),
-    inset 0 1px 2px color-mix(in srgb, var(--cosmology-accent) 30%, transparent);
-}
-.archron-card:hover::before {
-  border-radius: 0.85rem 0.4rem;
-  opacity: 0.95;
-}
-.archron-card:hover::after {
-  opacity: 0.85;
-  inset: -1px; /* หดกลับเข้ามาแนบขอบเมื่อ hover เสมือนเฟรมกำลังล็อคเป้าหมาย */
-  border-radius: 0.95rem 0.5rem;
+  transform: translateY(-2px);
+  border-color: var(--cosmology-accent, var(--color-burnished-gold));
 }
 
-/* ── Cosmology variant — override theme ของหน้า สำหรับเนื้อหาในการ์ด ──────
-   ตั้ง variable ชุดเดียวกับ :root[data-cosmology] → การ์ดใช้ cosmology ของตัวเอง */
-.archron-card--prima {
-  --cosmology-accent: #B9C2CE;
-  --cosmology-accent-soft: color-mix(in srgb, #B9C2CE 70%, transparent);
-  --surface-tint: color-mix(in srgb, #B9C2CE 8%, var(--color-paper-raised));
-  --border-tint: color-mix(in srgb, #B9C2CE 32%, var(--color-slate-boundary));
-  --glow-tint: #B9C2CE;
-}
-.archron-card--psyche {
-  --cosmology-accent: #6E93A8;
-  --cosmology-accent-soft: color-mix(in srgb, #6E93A8 70%, transparent);
-  --surface-tint: color-mix(in srgb, #6E93A8 10%, var(--color-paper-raised));
-  --border-tint: color-mix(in srgb, #6E93A8 34%, var(--color-slate-boundary));
-  --glow-tint: #6E93A8;
-}
-.archron-card--lumen {
-  --cosmology-accent: #E7D7A6;
-  --cosmology-accent-soft: color-mix(in srgb, #E7D7A6 70%, transparent);
-  --surface-tint: color-mix(in srgb, #E7D7A6 9%, var(--color-paper-raised));
-  --border-tint: color-mix(in srgb, #E7D7A6 36%, var(--color-slate-boundary));
-  --glow-tint: #E7D7A6;
-}
-.archron-card--sapientia {
-  --cosmology-accent: #CBA45A;
-  --cosmology-accent-soft: color-mix(in srgb, #CBA45A 70%, transparent);
-  --surface-tint: color-mix(in srgb, #CBA45A 9%, var(--color-paper-raised));
-  --border-tint: color-mix(in srgb, #CBA45A 36%, var(--color-slate-boundary));
-  --glow-tint: #CBA45A;
-}
-.archron-card--mercurius {
-  --cosmology-accent: #8AA395;
-  --cosmology-accent-soft: color-mix(in srgb, #8AA395 70%, transparent);
-  --surface-tint: color-mix(in srgb, #8AA395 9%, var(--color-paper-raised));
-  --border-tint: color-mix(in srgb, #8AA395 34%, var(--color-slate-boundary));
-  --glow-tint: #8AA395;
-}
-.archron-card--humanitas {
-  --cosmology-accent: #C9C2B4;
-  --cosmology-accent-soft: color-mix(in srgb, #C9C2B4 70%, transparent);
-  --surface-tint: color-mix(in srgb, #C9C2B4 8%, var(--color-paper-raised));
-  --border-tint: color-mix(in srgb, #C9C2B4 32%, var(--color-slate-boundary));
-  --glow-tint: #C9C2B4;
-}
 
-/* ── Link variant — compact, hover subtle (not-found / recently-viewed / nav cards) ── */
-.archron-card--link {
-  border-radius: 0.5rem;
-}
-.archron-card--link:hover {
-  transform: translateY(-1px);
-}
-
-/* ── Lite variant — สำหรับกริดใหญ่ (50+ cards)
-   ถอด ::before (gradient mask) + ::after (corner brackets) + backdrop-blur
-   เพื่อลด paint cost · คงขอบ + พื้น cosmology + hover lift ── */
-.archron-card--lite::before,
-.archron-card--lite::after {
-  content: none;
-}
-.archron-card--lite {
-  backdrop-filter: none;
-}
-
-/* ── Panel — functional container (non-content) · ใช้แทน ad-hoc `rounded-md border-ink/10`
-   สำหรับกล่องเครื่องมือ/กล่องข้อมูล ที่ไม่ใช่ "การ์ดเนื้อหา" (meta-grid cell, comment input,
-   masterpieces list, local-graph) · ขอบมนสมมาตร · ไม่มี corner brackets · ไม่ lift ── */
-.archron-panel {
-  border: 1px solid color-mix(in srgb, var(--color-ink) 10%, var(--color-slate-boundary));
-  border-radius: 0.375rem;
-  background: color-mix(in srgb, var(--color-ink) 4%, var(--color-surface-container));
-}
-
-/* ── Tag pill — ป้ายหมวด/แท็ก รูปแบบเดียวทั่วเว็บ
-   สีพื้น/ตัวอักษรอิง cosmology accent ผ่าน var(--cosmology-accent) ── */
-.tag-pill {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 9999px;
-  padding: 0.125rem 0.625rem;
-  font-size: 11px;
-  font-weight: 600;
-  line-height: 1.4;
-  background: color-mix(in srgb, var(--cosmology-accent, var(--color-burnished-gold)) 10%, transparent);
-  color: var(--cosmology-accent, var(--color-burnished-gold));
-}
 
 @media (prefers-reduced-motion: reduce) {
   .archron-card,
@@ -953,52 +777,7 @@
 }
 
 
-/* ════════════════════════════════════════════════════════════════════════════
-   Dynamic 3D Icon — ไอคอน 2.5D จาก sprite (public/icons/archron-icons.svg)
-   ----------------------------------------------------------------------------
-   ใช้:  <svg class="icon-3d" aria-hidden="true"><use href="/icons/archron-icons.svg#lantern"/></svg>
-   ไอคอนวาดหลายโทน (เนื้อวัสดุไล่เฉด + เงาลึก + ไฮไลต์งาช้าง) — ทุกโทนคำนวณจาก
-   cosmology accent ของหน้าผ่าน color-mix → Dynamic Colour เต็มรูปแบบ และ morph
-   ตอนเปลี่ยนหน้าเพราะ --cosmology-accent เป็น registered @property
-   หมายเหตุ: ถ้าใช้เป็น <img src> จะได้โทนทองมาตรฐาน (ค่า fallback ในไฟล์) — ไม่ dynamic
-   ════════════════════════════════════════════════════════════════════════════ */
-.icon-3d {
-  --ico-main: var(--cosmology-accent);
-  --ico-light: color-mix(in srgb, var(--cosmology-accent) 45%, var(--color-ivory));
-  --ico-deep: color-mix(in srgb, var(--cosmology-accent) 55%, var(--color-prima));
-  --ico-ivory: var(--color-ivory);
-  display: inline-block;
-  width: 1.375rem;
-  height: 1.375rem;
-  flex: none;
-}
 
-/* Icon Tile — "พื้นหลังไอคอน" จานรองมุมอสมมาตร (ภาษาเดียวกับ .archron-card)
-   ผิว/ขอบ/เงาผสมจาก cosmology accent ของหน้า → Dynamic Colour ทั้งชุด
-   ใช้:  <span class="icon-tile"><svg class="icon-3d"><use href="/icons/archron-icons.svg#level"/></svg></span> */
-.icon-tile {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  flex: none;
-  border: 1px solid color-mix(in srgb, var(--cosmology-accent) 26%, var(--color-slate-boundary));
-  border-radius: 0.9rem 0.3rem;
-  background: linear-gradient(
-    165deg,
-    color-mix(in srgb, var(--cosmology-accent) 14%, var(--color-surface-container-low)) 0%,
-    color-mix(in srgb, var(--cosmology-accent) 4%, var(--color-surface-container-lowest)) 100%
-  );
-  box-shadow: inset 0 1px 1px color-mix(in srgb, var(--cosmology-accent) 12%, transparent);
-  transition:
-    border-color 1.2s var(--ease-out),
-    background 1.2s var(--ease-out);
-}
-.icon-tile .icon-3d {
-  width: 1.55rem;
-  height: 1.55rem;
-}
 
 /* ════════════════════════════════════════════════════════════════════════════
    Ambient Observatory — พื้นหลังหอดูดาวจากไฟล์ SVG (opt-in ต่อหน้า)
@@ -1051,186 +830,9 @@
   }
 }
 
-/* ════════════════════════════════════════════════════════════════════════════
-   Hero Grid 3D — พื้นหลัง Grid 3D แบบ full-page สำหรับ hero section
-   ----------------------------------------------------------------------------
-   ใช้ CSS perspective + multiple grid layers สร้างมิติลึก
-   mouse-tracking ผ่าน custom properties --mx/--my (อัปเดตโดย client JS)
-   ครอบคลุมทั้ง hero section ไม่ใช่แค่ layer บางๆ
-   ════════════════════════════════════════════════════════════════════════════ */
-.hero-grid-3d {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-  perspective: 900px;
-  perspective-origin: 50% 45%;
-}
 
-/* ชั้นหลัก: grid ที่หมุนตาม mouse — สร้างพื้น 3D ที่เอียงเข้าหาผู้ชม */
-.hero-grid-3d__base {
-  position: absolute;
-  inset: -40%;
-  transform-style: preserve-3d;
-  transform:
-    rotateX(58deg)
-    rotateY(var(--mx, 0deg))
-    translateZ(-80px);
-  background:
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 59px,
-      color-mix(in srgb, var(--color-antique-gold) 10%, transparent) 59px,
-      color-mix(in srgb, var(--color-antique-gold) 10%, transparent) 60px
-    ),
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 59px,
-      color-mix(in srgb, var(--color-antique-gold) 10%, transparent) 59px,
-      color-mix(in srgb, var(--color-antique-gold) 10%, transparent) 60px
-    );
-  background-size: 60px 60px;
-  opacity: 0.6;
-  animation: hero-grid-drift 20s linear infinite;
-  will-change: transform;
-}
 
-/* ชั้นที่ 2: secondary grid จางกว่า + เลื่อนช้า (depth layers) */
-.hero-grid-3d__depth {
-  position: absolute;
-  inset: -60%;
-  transform-style: preserve-3d;
-  transform:
-    rotateX(62deg)
-    rotateY(calc(var(--mx, 0deg) * -0.5))
-    translateZ(-180px);
-  background:
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 119px,
-      color-mix(in srgb, var(--color-burnished-gold) 5%, transparent) 119px,
-      color-mix(in srgb, var(--color-burnished-gold) 5%, transparent) 120px
-    ),
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 119px,
-      color-mix(in srgb, var(--color-burnished-gold) 5%, transparent) 119px,
-      color-mix(in srgb, var(--color-burnished-gold) 5%, transparent) 120px
-    );
-  background-size: 120px 120px;
-  opacity: 0.35;
-  animation: hero-grid-drift 35s linear infinite reverse;
-  will-change: transform;
-}
 
-/* ชั้นที่ 3: glow lines — เส้นสว่างตัดกันเป็นจุด */
-.hero-grid-3d__glow {
-  position: absolute;
-  inset: -50%;
-  transform-style: preserve-3d;
-  transform:
-    rotateX(60deg)
-    rotateY(calc(var(--mx, 0deg) * 0.3))
-    translateZ(-120px);
-  background:
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 239px,
-      color-mix(in srgb, var(--color-antique-gold) 14%, transparent) 239px,
-      color-mix(in srgb, var(--color-antique-gold) 14%, transparent) 241px,
-      transparent 241px,
-      transparent 242px
-    ),
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 239px,
-      color-mix(in srgb, var(--color-antique-gold) 14%, transparent) 239px,
-      color-mix(in srgb, var(--color-antique-gold) 14%, transparent) 241px,
-      transparent 241px,
-      transparent 242px
-    );
-  background-size: 240px 240px;
-  opacity: 0.5;
-  animation: hero-grid-drift 28s linear infinite;
-  will-change: transform;
-}
-
-/* จุด intersection — radial-gradient ซ้ำเป็น grid ของจุดสว่าง */
-.hero-grid-3d__dots {
-  position: absolute;
-  inset: -45%;
-  transform-style: preserve-3d;
-  transform:
-    rotateX(59deg)
-    rotateY(calc(var(--mx, 0deg) * -0.2))
-    translateZ(-60px);
-  background-image:
-    radial-gradient(
-      circle,
-      color-mix(in srgb, var(--color-soft-gold) 30%, transparent) 1px,
-      transparent 1.5px
-    );
-  background-size: 60px 60px;
-  background-position: 30px 30px;
-  opacity: 0.7;
-  animation: hero-grid-drift 22s linear infinite;
-  will-change: transform;
-}
-
-/* Vignette — เจือจางขอบบน-ล่าง-ซ้าย-ขวา ให้ content เด่น */
-.hero-grid-3d__vignette {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(
-      ellipse 80% 70% at 50% 50%,
-      transparent 30%,
-      color-mix(in srgb, var(--color-deep-navy) 85%, transparent) 100%
-    ),
-    linear-gradient(
-      to bottom,
-      color-mix(in srgb, var(--color-deep-navy) 60%, transparent) 0%,
-      transparent 20%,
-      transparent 80%,
-      color-mix(in srgb, var(--color-deep-navy) 80%, transparent) 100%
-    );
-}
-
-@keyframes hero-grid-drift {
-  from { background-position: 0 0, 0 0; }
-  to   { background-position: 60px 60px, 60px 60px; }
-}
-
-/* Reduced motion — ปิด animation ทั้งหมด */
-@media (prefers-reduced-motion: reduce) {
-  .hero-grid-3d__base,
-  .hero-grid-3d__depth,
-  .hero-grid-3d__glow,
-  .hero-grid-3d__dots {
-    animation: none !important;
-  }
-}
-
-/* ===== Tablet Safe Mode (Disable Heavy 3D Animations 768-1024px) ===== */
-@media (max-width: 1024px) {
-  .hero-grid-3d__base,
-  .hero-grid-3d__depth,
-  .hero-grid-3d__glow,
-  .hero-grid-3d__dots {
-    animation: none !important;
-  }
-  .accent-aura {
-    background:
-      radial-gradient(1100px 560px at 50% -8%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%);
-  }
-}
 
 /* ===== Mobile Snappy Mode (Disable Heavy Animations/Transitions/Transforms) ===== */
 @media (max-width: 768px) {
@@ -1276,15 +878,7 @@
     opacity: 0.65 !important;
   }
 
-  /* ปิด 3D grid animation บนมือถือเพื่อ performance */
-  .hero-grid-3d__base,
-  .hero-grid-3d__depth,
-  .hero-grid-3d__glow,
-  .hero-grid-3d__dots {
-    animation: none !important;
-  }
-  .ambient-glow,
-  .accent-aura {
+  .ambient-glow {
     animation: none !important;
     opacity: 0.5 !important;
     transform: none !important;
@@ -1326,115 +920,82 @@
    - atmo-museum      : เวลา (wide grain + bronze)
    ============================================================================ */
 
-/* Base: 3D+Grid star-map (ใช้ร่วมกันทุกเทมเพลท) */
+/* Base: 1-gradient per page */
 .atmo-base {
   position: relative;
 }
-.atmo-base::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(120% 90% at 50% 30%, transparent 55%, color-mix(in srgb, var(--color-prima) 55%, transparent) 100%),
-    url("/backgrounds/observatory-stars.svg") center top / cover no-repeat;
-}
-.atmo-base::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-color: color-mix(in srgb, var(--cosmology-accent) 34%, transparent);
-  -webkit-mask: url("/backgrounds/constellation-links.svg") center top / cover no-repeat;
-  mask: url("/backgrounds/constellation-links.svg") center top / cover no-repeat;
-  transition: background-color 1.2s var(--ease-out);
-  animation: ao-glimmer var(--dur-ambient) var(--ease-soft) infinite;
-}
 
-/* ── Homepage: หอดูดาว ทอง — กว้าง โปร่ง ดาวเด่น ── */
+/* Grand Reading Hall (Home) — warm gold pulse */
 .atmo-observatory {
   --cosmology-accent: #C79A4A;
 }
-.atmo-observatory > .relative.z-10::before {
+.atmo-observatory::before {
   content: "";
-  position: absolute;
-  top: -200px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 900px;
-  height: 900px;
-  background: radial-gradient(circle, color-mix(in srgb, var(--color-burnished-gold) 8%, transparent) 0%, transparent 65%);
+  position: fixed; inset: 0; z-index: var(--z-base);
   pointer-events: none;
-  z-index: 0;
+  background:
+    radial-gradient(900px 560px at 50% -8%, color-mix(in srgb, var(--color-burnished-gold) 20%, transparent), transparent 60%);
 }
 
-/* ── Magazine: บทความ — grain + ทองอบอุ่น + editorial feel ── */
+/* Scriptorium (Articles) — psyche wash */
+.atmo-magazine {
+  --cosmology-accent: #6E93A8;
+}
 .atmo-magazine::before {
-  opacity: 0.85;
-}
-.atmo-magazine > .relative.z-10 {
+  content: "";
+  position: fixed; inset: 0; z-index: var(--z-base);
+  pointer-events: none;
   background:
-    radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--color-burnished-gold) 4%, transparent) 0%, transparent 50%),
-    linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--color-prima) 30%, transparent) 100%);
+    radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--color-psyche) 10%, transparent) 0%, transparent 60%);
 }
 
-/* ── Dictionary: แนวคิด — paper + น้ำเงิน-teal + structured ── */
+/* Catalog Hall (Concepts) — cool slate + aisle light */
+.atmo-dictionary {
+  --cosmology-accent: #6E93A8;
+}
 .atmo-dictionary::before {
-  opacity: 0.7;
-}
-.atmo-dictionary::after {
-  background-color: color-mix(in srgb, var(--color-psyche) 30%, transparent) !important;
-}
-.atmo-dictionary > .relative.z-10 {
+  content: "";
+  position: fixed; inset: 0; z-index: var(--z-base);
+  pointer-events: none;
   background:
-    radial-gradient(ellipse at 30% 10%, color-mix(in srgb, var(--color-lumen) 5%, transparent) 0%, transparent 50%),
-    linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--color-prima) 25%, transparent) 100%);
+    radial-gradient(ellipse at 50% 100%, color-mix(in srgb, var(--color-lumen) 12%, transparent) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, color-mix(in srgb, var(--color-psyche) 6%, transparent) 0%, transparent 70%);
 }
 
-/* ── Temple: สำนักคิด / บริการ — grand + sage + vignette ── */
+/* Temple (Schools/Guide) */
+.atmo-temple {
+  --cosmology-accent: #8AA395;
+}
 .atmo-temple::before {
-  opacity: 0.6;
-}
-.atmo-temple::after {
-  background-color: color-mix(in srgb, var(--color-mercurius) 28%, transparent) !important;
-}
-.atmo-temple > .relative.z-10 {
+  content: "";
+  position: fixed; inset: 0; z-index: var(--z-base);
+  pointer-events: none;
   background:
-    radial-gradient(ellipse at 50% 20%, color-mix(in srgb, var(--color-mercurius) 6%, transparent) 0%, transparent 50%),
-    radial-gradient(ellipse at center, transparent 40%, color-mix(in srgb, var(--color-prima) 50%, transparent) 100%);
+    radial-gradient(ellipse at 50% 20%, color-mix(in srgb, var(--color-mercurius) 8%, transparent) 0%, transparent 50%);
 }
 
-/* ── Biography: นักคิด — warm parchment + gold glow ── */
+/* Biography (Thinkers) */
+.atmo-biography {
+  --cosmology-accent: #C79A4A;
+}
 .atmo-biography::before {
-  opacity: 0.75;
-}
-.atmo-biography > .relative.z-10 {
+  content: "";
+  position: fixed; inset: 0; z-index: var(--z-base);
+  pointer-events: none;
   background:
-    radial-gradient(ellipse at 70% 15%, color-mix(in srgb, var(--color-burnished-gold) 6%, transparent) 0%, transparent 50%),
-    radial-gradient(ellipse at 20% 80%, color-mix(in srgb, var(--color-burnished-gold) 4%, transparent) 0%, transparent 50%),
-    linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--color-prima) 20%, transparent) 100%);
+    radial-gradient(ellipse at 70% 15%, color-mix(in srgb, var(--color-burnished-gold) 6%, transparent) 0%, transparent 50%);
 }
 
-/* ── Museum: เวลา — wide + bronze + layered ── */
+/* Museum (Timeline) */
+.atmo-museum {
+  --cosmology-accent: #8AA395;
+}
 .atmo-museum::before {
-  opacity: 0.65;
-}
-.atmo-museum::after {
-  background-color: color-mix(in srgb, var(--color-mercurius) 25%, transparent) !important;
-}
-.atmo-museum > .relative.z-10 {
+  content: "";
+  position: fixed; inset: 0; z-index: var(--z-base);
+  pointer-events: none;
   background:
-    radial-gradient(ellipse at 50% 30%, color-mix(in srgb, var(--color-mercurius) 5%, transparent) 0%, transparent 50%),
-    linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--color-prima) 35%, transparent) 100%);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .atmo-base::after { animation: none !important; }
-}
-@media (max-width: 768px) {
-  .atmo-base::after { animation: none !important; opacity: 0.65 !important; }
+    radial-gradient(ellipse at 50% 30%, color-mix(in srgb, var(--color-mercurius) 6%, transparent) 0%, transparent 50%);
 }
 
 /* ════════════════════════════════════════════════════════════════════════════

@@ -17,6 +17,7 @@ import { Tabbar } from "@/components/tabbar";
 import { Fab } from "@/components/fab";
 import { SkipToContent } from "@/components/skip-to-content";
 import { QuickOpen } from "@/components/quick-open";
+import { ConceptPopup } from "@/components/concept-popup";
 import { ClerkProvider } from "@clerk/nextjs";
 
 
@@ -121,6 +122,7 @@ export default function RootLayout({
           <Tabbar />
           <Fab />
           <QuickOpen />
+          <ConceptPopup />
         </body>
       </html>
     </ClerkProvider>

@@ -126,13 +126,6 @@ body {
    ปิดแอนิเมชันหนักบนมือถือเพื่อความตอบสนองฉับไว
    อ้างอิง: PRD §17, VOS.md §11 */
 @media (max-width: 768px) {
-  /* ปิด animation หนัก */
-  .animate-float,
-  .animate-orbit,
-  .animate-pulse-soft {
-    animation: none !important;
-  }
-
   /* ลด transition duration เฉพาะ hover/transform — ไม่แตะ opacity/color/width */
   .archron-card,
   .archron-panel,
@@ -201,19 +194,6 @@ body {
   }
 }
 
-/* ---- Responsive Typography for Headings ---- */
-.heading-responsive {
-  font-size: clamp(1.5rem, 1rem + 2.5vw, 2.25rem);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-}
-
-@media (max-width: 768px) {
-  .heading-responsive {
-    font-size: clamp(1.35rem, 1.1rem + 1.25vw, 1.75rem);
-  }
-}
-
 /* ---- Mobile Navigation Helpers ---- */
 @media (max-width: 768px) {
   /* ซ่อน desktop nav, แสดง mobile nav */
@@ -221,17 +201,6 @@ body {
     display: none !important;
   }
 
-  /* Tab bar สำหรับมือถือ */
-  .mobile-tab-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 50;
-    background: var(--color-midnight);
-    border-top: 1px solid var(--color-slate-boundary);
-    padding-bottom: env(safe-area-inset-bottom);
-  }
 }
 
 @media (min-width: 641px) {

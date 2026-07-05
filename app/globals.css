@@ -1027,24 +1027,6 @@
   animation: sym-float 12s ease-in-out infinite;
 }
 
-/* แต่ละตำแหน่ง animation delay ต่างกัน */
-.symbolic-bg__item:nth-child(1) { animation-delay: 0s; }
-.symbolic-bg__item:nth-child(2) { animation-delay: -3s; }
-.symbolic-bg__item:nth-child(3) { animation-delay: -6s; }
-.symbolic-bg__item:nth-child(4) { animation-delay: -9s; }
-
-/* ขนาดต่างกัน */
-.symbolic-bg__item:nth-child(1) { font-size: clamp(6rem, 14vw, 18rem); }
-.symbolic-bg__item:nth-child(2) { font-size: clamp(4rem, 8vw, 11rem); }
-.symbolic-bg__item:nth-child(3) { font-size: clamp(3rem, 6vw, 9rem); }
-.symbolic-bg__item:nth-child(4) { font-size: clamp(5rem, 10vw, 14rem); }
-
-/* ความทึบต่างกัน */
-.symbolic-bg__item:nth-child(1) { opacity: 0.04; }
-.symbolic-bg__item:nth-child(2) { opacity: 0.028; }
-.symbolic-bg__item:nth-child(3) { opacity: 0.05; }
-.symbolic-bg__item:nth-child(4) { opacity: 0.032; }
-
 @keyframes sym-float {
   0%, 100% {
     transform: translateY(0) rotate(0deg);

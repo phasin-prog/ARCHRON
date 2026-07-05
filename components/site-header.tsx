@@ -356,99 +356,180 @@ export function SiteHeader() {
         </div>
       </nav>
 
-      {/* Mobile / tablet (< lg): เมนูเต็ม (จัดกลุ่มลด cognitive load) */}
+      {/* Mobile / tablet (< lg): Modern Full-screen Glass Overlay */}
       {open ? (
-        <nav
+        <div
           id="mobile-nav"
-          className="menu-in glass-nav-panel border-t border-slate-boundary/40 px-4 sm:px-6 py-4 lg:hidden"
-          aria-label="เมนูมือถือ"
+          role="dialog"
+          aria-modal="true"
+          aria-label="เมนูนำทางและบัญชีผู้ใช้"
+          className="fixed inset-0 z-50 flex flex-col justify-between overflow-y-auto bg-deep-navy/95 backdrop-blur-2xl transition-all duration-300 lg:hidden"
         >
-          {/* Primary + Standard */}
-          {[...PRIMARY_NAV, ...STANDARD_NAV].map((item) => (
+          {/* Top Bar */}
+          <div className="sticky top-0 z-10 flex h-16 shrink-0 items-center justify-between border-b border-slate-boundary/30 bg-deep-navy/90 px-4 sm:px-6 backdrop-blur-md">
             <Link
-              key={item.href}
-              href={item.href}
+              href="/"
               onClick={() => setOpen(false)}
-              className={`flex items-center gap-3 rounded px-1 py-2.5 text-base transition-colors ${
-                isActive(item.href) ? "text-accent font-semibold" : "text-on-surface-variant hover:text-accent"
-              }`}
+              className="flex items-center gap-2.5 text-accent hover:opacity-85 transition-opacity"
+              aria-label="ARCHRON หน้าแรก"
             >
-              <item.Icon
-                className={`h-5 w-5 shrink-0 transition-colors ${
-                  isActive(item.href) ? "text-accent" : "text-accent/70"
-                }`}
-              />
-              {item.label}
+              <ArchronLogomark className="h-7 w-7 shrink-0" />
+              <span className="font-wordmark text-[21px] font-semibold tracking-[0.2em]">ARCHRON</span>
             </Link>
-          ))}
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-on-surface transition-colors hover:bg-white/10"
+              aria-label="ปิดเมนู"
+            >
+              <CloseIcon className="h-6 w-6" />
+            </button>
+          </div>
 
-          {/* Utility section */}
-          <span className="my-2 block border-t border-slate-boundary/30" aria-hidden="true" />
-          <span className="mb-1 block px-1 font-mono text-xs uppercase tracking-[0.12em] text-on-surface-variant/40">
-            เพิ่มเติม
-          </span>
-          {UTILITY_NAV.map((item) => (
+          {/* Main Content Area: Search Bar + Nav Groups */}
+          <div className="flex-1 px-4 py-6 sm:px-6 space-y-6">
+            {/* Integrated Search Bar */}
             <Link
-              key={item.href}
-              href={item.href}
+              href="/search"
               onClick={() => setOpen(false)}
-              className={`flex items-center gap-3 rounded px-1 py-2.5 text-base transition-colors ${
-                isActive(item.href) ? "text-accent font-semibold" : "text-on-surface-variant hover:text-accent"
-              }`}
+              className="flex w-full items-center gap-3 rounded-xl border border-slate-boundary/40 bg-white/[0.04] px-4 py-3 text-on-surface-variant transition-all hover:border-accent/50 hover:bg-white/[0.06] hover:text-ivory shadow-sm"
             >
-              <item.Icon
-                className={`h-5 w-5 shrink-0 transition-colors ${
-                  isActive(item.href) ? "text-accent" : "text-accent/70"
-                }`}
-              />
-              {item.label}
+              <SearchIcon className="h-5 w-5 text-accent" />
+              <span className="text-base font-medium">ค้นหาความรู้ แนวคิด หรือสำนักคิด...</span>
             </Link>
-          ))}
 
-          <span className="my-3 block h-px bg-slate-boundary/40" aria-hidden="true" />
+            {/* Primary & Standard Nav (Feature Cards Stack) */}
+            <div className="space-y-2.5">
+              {[...PRIMARY_NAV, ...STANDARD_NAV].map((item) => {
+                let subLabel = "สำรวจและค้นหาเนื้อหาในคลังความรู้";
+                if (item.href === "/articles") subLabel = "บทความ งานเขียน และบทวิเคราะห์เชิงลึก";
+                else if (item.href === "/concepts") subLabel = "คำศัพท์และโครงสร้างแนวคิดทางจิตวิทยา";
+                else if (item.href === "/schools") subLabel = "สำนักคิด นักปราชญ์ และผู้รากฐานทฤษฎี";
 
-          <SignedOut>
-            <Link
-              href="/th/login"
-              onClick={() => setOpen(false)}
-              className="inline-flex items-center gap-2 rounded border border-accent/30 px-4 py-2.5 text-base font-medium text-accent transition-colors hover:bg-accent hover:text-prima"
-            >
-              <LoginIcon className="h-5 w-5" />
-              เข้าสู่ระบบ
-            </Link>
-          </SignedOut>
-
-          <SignedIn>
-            <div className="flex flex-col gap-2">
-              <Link
-                href="/profile"
-                onClick={() => setOpen(false)}
-                className="inline-flex items-center gap-2 rounded border border-accent/40 bg-accent/10 px-4 py-2.5 text-base font-semibold text-accent transition-colors hover:bg-accent hover:text-prima"
-              >
-                <PersonIcon className="h-5 w-5" />
-                โปรไฟล์ของฉัน
-              </Link>
-              <Link
-                href="/studio"
-                onClick={() => setOpen(false)}
-                className="inline-flex items-center gap-2 rounded border border-accent/30 px-4 py-2.5 text-base font-medium text-accent transition-colors hover:bg-accent hover:text-prima"
-              >
-                <EditIcon className="h-5 w-5" />
-                Studio
-              </Link>
-              <button
-                onClick={() => {
-                  setOpen(false);
-                  clerk.signOut();
-                }}
-                className="inline-flex items-center gap-2 rounded border border-danger/30 px-4 py-2.5 text-base font-medium text-danger transition-colors hover:bg-danger hover:text-ivory cursor-pointer"
-              >
-                <LogoutIcon className="h-5 w-5" />
-                ออกจากระบบ
-              </button>
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className={`flex items-start gap-3.5 rounded-2xl border p-4 transition-all ${
+                      isActive(item.href)
+                        ? "border-accent/60 bg-accent/10 shadow-[0_0_20px_rgba(200,168,90,0.15)]"
+                        : "border-slate-boundary/30 bg-white/[0.025] hover:border-accent/40 hover:bg-white/[0.06]"
+                    }`}
+                  >
+                    <item.Icon
+                      className={`mt-0.5 h-6 w-6 shrink-0 transition-colors ${
+                        isActive(item.href) ? "text-accent" : "text-accent/80"
+                      }`}
+                    />
+                    <div className="flex flex-col">
+                      <span
+                        className={`text-base font-semibold tracking-wide ${
+                          isActive(item.href) ? "text-accent" : "text-ivory"
+                        }`}
+                      >
+                        {item.label}
+                      </span>
+                      <span className="mt-0.5 text-xs text-on-surface-variant/70 font-normal">
+                        {subLabel}
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
-          </SignedIn>
-        </nav>
+
+            {/* Utility Nav Section (2-Column Grid) */}
+            <div className="pt-2">
+              <div className="mb-2.5 flex items-center gap-2">
+                <span className="h-px flex-1 bg-slate-boundary/30" aria-hidden="true" />
+                <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-on-surface-variant/50">
+                  เพิ่มเติม
+                </span>
+                <span className="h-px flex-1 bg-slate-boundary/30" aria-hidden="true" />
+              </div>
+              <div className="grid grid-cols-2 gap-2 sm:gap-3">
+                {UTILITY_NAV.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className={`flex items-center gap-2.5 rounded-xl border p-3 text-sm transition-all ${
+                      isActive(item.href)
+                        ? "border-accent/50 bg-accent/10 font-semibold text-accent"
+                        : "border-white/5 bg-white/[0.015] text-on-surface-variant hover:border-white/15 hover:bg-white/[0.05] hover:text-ivory"
+                    }`}
+                  >
+                    <item.Icon className="h-4 w-4 shrink-0 text-accent" />
+                    <span className="truncate">{item.label}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Pinned Section: User Card & Support Footer */}
+          <div className="mt-auto shrink-0 border-t border-slate-boundary/30 bg-deep-navy/80 px-4 py-5 sm:px-6 backdrop-blur-md space-y-4">
+            <SignedOut>
+              <Link
+                href="/th/login"
+                onClick={() => setOpen(false)}
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent to-soft-gold py-3 text-base font-semibold text-deep-navy shadow-[0_0_20px_rgba(200,168,90,0.15)] transition-all hover:opacity-95"
+              >
+                <LoginIcon className="h-5 w-5" />
+                <span>เข้าสู่ระบบ</span>
+              </Link>
+            </SignedOut>
+
+            <SignedIn>
+              <div className="space-y-3">
+                <div className="grid grid-cols-2 gap-2.5">
+                  <Link
+                    href="/profile"
+                    onClick={() => setOpen(false)}
+                    className="flex items-center justify-center gap-2 rounded-xl border border-accent/30 bg-accent/15 py-2.5 text-sm font-semibold text-accent transition-all hover:bg-accent hover:text-deep-navy"
+                  >
+                    <PersonIcon className="h-4 w-4 shrink-0" />
+                    <span>โปรไฟล์ของฉัน</span>
+                  </Link>
+                  <Link
+                    href="/studio"
+                    onClick={() => setOpen(false)}
+                    className="flex items-center justify-center gap-2 rounded-xl border border-slate-boundary/40 bg-white/5 py-2.5 text-sm font-medium text-ivory transition-all hover:bg-white/10"
+                  >
+                    <EditIcon className="h-4 w-4 shrink-0 text-accent" />
+                    <span>Studio</span>
+                  </Link>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    clerk.signOut();
+                  }}
+                  className="flex w-full items-center justify-center gap-2 py-1.5 text-xs font-medium text-danger/80 transition-colors hover:text-danger cursor-pointer"
+                >
+                  <LogoutIcon className="h-4 w-4 shrink-0" />
+                  <span>ออกจากระบบ</span>
+                </button>
+              </div>
+            </SignedIn>
+
+            {/* Support Project Link */}
+            {SUPPORT ? (
+              <div className="pt-1 text-center">
+                <Link
+                  href={SUPPORT.href}
+                  onClick={() => setOpen(false)}
+                  className="inline-flex items-center justify-center gap-1.5 rounded-full border border-accent/20 px-4 py-1 text-xs text-soft-gold/80 transition-colors hover:border-accent/40 hover:bg-accent/5 hover:text-soft-gold"
+                >
+                  <HeartIcon className="h-3.5 w-3.5 text-accent" />
+                  <span>สนับสนุนโครงการ Archron</span>
+                </Link>
+              </div>
+            ) : null}
+          </div>
+        </div>
       ) : null}
     </header>
   );

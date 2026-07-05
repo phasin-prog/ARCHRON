@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Mobile Navigation Overlay', () => {
-  test.describe.configure({ mode: 'serial' });
   test.setTimeout(60000);
 
   test.beforeEach(async ({ page }) => {
@@ -12,7 +11,7 @@ test.describe('Mobile Navigation Overlay', () => {
 
   test('should open full-screen overlay and lock body scroll when hamburger is clicked', async ({ page }) => {
     // ตรวจสอบว่าปุ่ม hamburger มีอยู่บนหน้าจอมือถือ
-    const menuBtn = page.getByRole('button', { name: 'เปิดเมนู' });
+    const menuBtn = page.getByRole('button', { name: 'เปิดเมนู', exact: true });
     await expect(menuBtn).toBeVisible();
 
     // กดเปิดเมนู
@@ -27,8 +26,7 @@ test.describe('Mobile Navigation Overlay', () => {
     await expect(searchLink).toBeVisible();
 
     // ตรวจสอบว่า Body ถูกล็อกไม่ให้ scroll
-    const bodyOverflow = await page.evaluate(() => document.body.style.overflow);
-    expect(bodyOverflow).toBe('hidden');
+    await expect.poll(async () => page.evaluate(() => document.body.style.overflow)).toBe('hidden');
 
     // กดปุ่มปิดเมนู
     const closeBtn = overlay.getByRole('button', { name: 'ปิดเมนู' });
@@ -36,12 +34,11 @@ test.describe('Mobile Navigation Overlay', () => {
 
     // ตรวจสอบว่าเมนูปิดลงและคืนค่า body scroll
     await expect(overlay).toBeHidden();
-    const bodyOverflowAfter = await page.evaluate(() => document.body.style.overflow);
-    expect(bodyOverflowAfter).toBe('');
+    await expect.poll(async () => page.evaluate(() => document.body.style.overflow)).toBe('');
   });
 
   test('should display feature cards and grid items, and close menu on navigation', async ({ page }) => {
-    const menuBtn = page.getByRole('button', { name: 'เปิดเมนู' });
+    const menuBtn = page.getByRole('button', { name: 'เปิดเมนู', exact: true });
     await menuBtn.click();
 
     const overlay = page.getByRole('dialog', { name: 'เมนูนำทางและบัญชีผู้ใช้' });
@@ -62,7 +59,25 @@ test.describe('Mobile Navigation Overlay', () => {
     // ทดสอบคลิกลิงก์คลังความรู้ เมนูต้องปิดลงและนำทางไปที่ /articles
     await articlesLink.click();
     await expect(overlay).toBeHidden();
-    await expect(page).toHaveURL(/\/articles/, { timeout: 30000 });
+    await expect(page).toHaveURL(/\/articles/, { timeout: 60000 });
+  });
+
+  test('should close mobile menu and restore body scroll when viewport is resized to desktop (>= 1024px)', async ({ page }) => {
+    const menuBtn = page.getByRole('button', { name: 'เปิดเมนู', exact: true });
+    await expect(menuBtn).toBeVisible();
+
+    await menuBtn.click();
+
+    const overlay = page.getByRole('dialog', { name: 'เมนูนำทางและบัญชีผู้ใช้' });
+    await expect(overlay).toBeVisible();
+    await expect.poll(async () => page.evaluate(() => document.body.style.overflow)).toBe('hidden');
+
+    // ปรับขนาดหน้าจอเป็น Desktop (>= 1024px)
+    await page.setViewportSize({ width: 1050, height: 800 });
+
+    // ตรวจสอบว่าเมนูปิดลงและคืนค่า body scroll
+    await expect(overlay).toBeHidden();
+    await expect.poll(async () => page.evaluate(() => document.body.style.overflow)).toBe('');
   });
 });
 

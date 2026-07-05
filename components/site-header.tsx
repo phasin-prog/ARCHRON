@@ -99,6 +99,30 @@ export function SiteHeader() {
     };
   }, [open]);
 
+  // ปิดเมนูมือถือและคืนค่า body scroll เมื่อปรับขนาดหน้าจอ >= 1024px
+  useEffect(() => {
+    if (!open) return;
+    const onResize = () => {
+      if (window.innerWidth >= 1024 && open) {
+        setOpen(false);
+      }
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [open]);
+
+  // ปิดเมนูมือถือเมื่อกดปุ่ม Esc
+  useEffect(() => {
+    if (!open) return;
+    const onEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("keydown", onEsc);
+    return () => document.removeEventListener("keydown", onEsc);
+  }, [open]);
+
   // ปิด dropdown บัญชีเมื่อคลิกนอก / กด Esc
   useEffect(() => {
     if (!acctOpen) return;

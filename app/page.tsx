@@ -77,7 +77,7 @@ export default function HomePage() {
   return (
     <main className="atmo-observatory">
         <section 
-          className="relative flex min-h-[70vh] flex-col items-center justify-center overflow-hidden px-4 sm:px-6 text-center text-mist"
+          className="relative flex min-h-[80vh] sm:min-h-[90vh] flex-col items-center justify-center overflow-hidden px-4 sm:px-6 text-center text-mist"
           style={{
             background: "radial-gradient(circle at center, var(--color-deep-navy) 30%, var(--color-surface-container-lowest) 100%)"
           }}
@@ -153,7 +153,7 @@ export default function HomePage() {
               <path d="M60 40v54" />
             </svg>
           </div>
-          <div className="relative z-10 mx-auto max-w-5xl py-12 sm:py-16 md:py-20">
+          <div className="relative z-10 mx-auto max-w-5xl py-16 sm:py-24">
             {/* Layer Badge — เปลี่ยนตาม cosmology ปัจจุบัน */}
             <LayerBadge className="scroll-reveal mb-6 mx-auto" />
             {/* Tagline แบรนด์ */}
@@ -223,7 +223,7 @@ export default function HomePage() {
         </section>
 
         {/* Pillars — สิ่งที่เราทำ (การ์ด + ไอคอนเส้นเฉพาะ + เน้นคำ) */}
-        <section className="relative mx-auto max-w-[1200px] px-4 sm:px-6 py-14 sm:py-20 md:py-24" aria-labelledby="pillars-heading">
+        <section className="relative mx-auto max-w-[1200px] px-4 sm:px-6 py-20 sm:py-28 md:py-36" aria-labelledby="pillars-heading">
           <h2 id="pillars-heading" className="sr-only">เสาหลักของ ARCHRON</h2>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {PILLARS.map((p, i) => {
@@ -264,7 +264,7 @@ export default function HomePage() {
         </section>
 
         {/* Chronological Constellation — Timeline แนวนอนสไตล์ Codex Layer 04 */}
-        <section className="scroll-reveal py-14 sm:py-20">
+        <section className="scroll-reveal py-20 sm:py-28">
           <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
             <div className="mb-10 border-b border-slate-boundary/30 pb-6">
               <span className="mb-2 block text-xs font-semibold tracking-[0.2em] text-burnished-gold">LAYER 04 : INFORMATION ARCHITECTURE</span>
@@ -285,7 +285,7 @@ export default function HomePage() {
         </section>
 
         {/* Knowledge Atlas */}
-        <section className="relative overflow-hidden border-y border-slate-boundary/30 bg-surface-container-lowest px-4 sm:px-6 py-12 sm:py-16">
+        <section className="relative overflow-hidden border-y border-slate-boundary/30 bg-surface-container-lowest px-4 sm:px-6 py-16 sm:py-20">
           {/* Vesica pattern — สื่อการเชื่อมโยงของศาสตร์ (cosmology: prima = แผนที่/สัญลักษณ์) */}
           <VesicaPattern
             cosmology="prima"
@@ -328,7 +328,7 @@ export default function HomePage() {
         <RecentlyViewed />
 
         {/* ปฏิญญา — คำคมให้จดจำ (เน้นคำแก่นด้วยสีทอง) */}
-        <section className="scroll-reveal relative mx-auto max-w-4xl px-4 sm:px-6 py-14 sm:py-20 text-center md:py-24">
+        <section className="scroll-reveal relative mx-auto max-w-4xl px-4 sm:px-6 py-16 sm:py-24 text-center md:py-28">
           <div className="mb-4 font-serif text-[clamp(40px,8vw,64px)] leading-[0.3] text-burnished-gold/35" aria-hidden="true">
             “
           </div>

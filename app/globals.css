@@ -3,7 +3,6 @@
 @import "./layout.css";
 @import "./spacing.css";
 @import "./containers.css";
-@import "./rhythm.css";
 @import "./motion.css";
 @import "./responsive.css";
 @import "./typography.css";
@@ -15,7 +14,6 @@
 @import "./overlays.css";
 @import "./feedback.css";
 @import "./interaction.css";
-@import "./animation.css";
 
 /* Dynamic Accent — สี accent ที่เปลี่ยนตามบริบท (หน้า/หมวด) และไล่สีได้นุ่ม ๆ
    @property ทำให้ transition ของ custom property สีทำงาน (morph เมื่อเปลี่ยนหน้า) */

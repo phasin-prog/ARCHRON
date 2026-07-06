@@ -8,6 +8,7 @@ import { createClerkSupabaseClient } from "@/lib/supabase/client";
 import { getTotalPageViews } from "@/lib/content/views-db";
 
 const EXPLORE = [
+  { label: "เข้าสู่คลังความรู้", href: "/knowledge" },
   { label: "อ่านงานเขียน", href: "/articles" },
   { label: "คลังแนวคิด", href: "/concepts" },
   { label: "ศาสตร์ที่เราศึกษา", href: "/disciplines" },
@@ -44,7 +45,7 @@ export function SiteFooter() {
     "inline-flex items-center gap-2 text-sm text-on-surface-variant transition-colors hover:text-burnished-gold";
 
   return (
-    <footer id="footer" className="archive-hall w-full bg-deep-navy py-16">
+    <footer id="footer" className="archive-hall relative z-10 w-full bg-deep-navy py-16">
       <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-12 px-4 sm:px-6 md:grid-cols-12 md:gap-x-14">
         {/* Brand */}
         <div className="md:col-span-6">

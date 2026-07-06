@@ -21,20 +21,8 @@
 }
 
 /* ---- Responsive Typography (fluid scale) ---- */
-.text-fluid-xs {
-  font-size: clamp(0.7rem, 0.65rem + 0.25vw, 0.75rem);
-}
-
-.text-fluid-sm {
-  font-size: clamp(0.8rem, 0.75rem + 0.25vw, 0.875rem);
-}
-
 .text-fluid-base {
   font-size: clamp(0.9rem, 0.85rem + 0.25vw, 1rem);
-}
-
-.text-fluid-lg {
-  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
 }
 
 .text-fluid-xl {

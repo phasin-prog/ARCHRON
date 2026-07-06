@@ -31,7 +31,7 @@ type NavItem = { label: string; href: string; Icon: IconComponent; tier: Tier };
 // ลิงก์ระดับบน — ลดเหลือ 5-6 จุดตัดสินใจ (Hick's Law / Miller's Law)
 // primary = เด่นสุด, standard = ปานกลาง, utility = dropdown "เพิ่มเติม", support = pill
 const NAV: NavItem[] = [
-  { label: "คลังความรู้", href: "/articles", Icon: KnowledgeHubIcon, tier: "primary" },
+  { label: "คลังความรู้", href: "/knowledge", Icon: KnowledgeHubIcon, tier: "primary" },
   { label: "สำรวจ", href: "/concepts", Icon: SearchIcon, tier: "standard" },
   { label: "ศาสตร์", href: "/schools", Icon: GridIcon, tier: "standard" },
   { label: "ปฏิญญา", href: "/manifesto", Icon: ManifestoIcon, tier: "utility" },
@@ -394,7 +394,8 @@ export function SiteHeader() {
             <div className="space-y-2.5">
               {[...PRIMARY_NAV, ...STANDARD_NAV].map((item) => {
                 let subLabel = "สำรวจและค้นหาเนื้อหาในคลังความรู้";
-                if (item.href === "/articles") subLabel = "บทความ งานเขียน และบทวิเคราะห์เชิงลึก";
+                if (item.href === "/knowledge") subLabel = "สารบัญนำทางและแผนที่คลังความรู้ทั้งหมด";
+                else if (item.href === "/articles") subLabel = "บทความ งานเขียน และบทวิเคราะห์เชิงลึก";
                 else if (item.href === "/concepts") subLabel = "คำศัพท์และโครงสร้างแนวคิดทางจิตวิทยา";
                 else if (item.href === "/schools") subLabel = "สำนักคิด นักปราชญ์ และผู้รากฐานทฤษฎี";
 

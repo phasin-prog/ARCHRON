@@ -20,7 +20,7 @@ export function ScrollReveal() {
     const revealInView = () => {
       const vh = window.innerHeight || document.documentElement.clientHeight;
       remaining().forEach((el) => {
-        if (el.getBoundingClientRect().top < vh * 0.92) el.classList.add("visible");
+        if (el.getBoundingClientRect().top < vh * 0.98) el.classList.add("visible");
       });
     };
 
@@ -51,6 +51,9 @@ export function ScrollReveal() {
     ro.observe(document.body);
 
     const r1 = requestAnimationFrame(() => requestAnimationFrame(revealInView));
+    const t1 = setTimeout(revealInView, 150);
+    const t2 = setTimeout(revealInView, 500);
+    const t3 = setTimeout(revealInView, 1200);
 
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
@@ -58,6 +61,9 @@ export function ScrollReveal() {
     return () => {
       cancelAnimationFrame(frame);
       cancelAnimationFrame(r1);
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
       ro.disconnect();
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);

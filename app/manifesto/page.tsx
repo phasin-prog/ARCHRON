@@ -134,7 +134,7 @@ export default async function ManifestoPage() {
 
   if (dbManifesto && dbManifesto.bodyMarkdown) {
     return (
-      <main className="pb-24">
+      <main className="atmo-observatory pb-24">
         <PageHeader
           kicker="ARCHRON · เจตนารมณ์"
           title={dbManifesto.title}
@@ -152,7 +152,7 @@ export default async function ManifestoPage() {
   }
 
   return (
-    <main className="pb-24">
+    <main className="atmo-observatory pb-24">
       <PageHeader
         kicker="ARCHRON · เจตนารมณ์"
         title="ปฏิญญาก่อตั้ง ARCHRON"

@@ -18,6 +18,7 @@ import { SkipToContent } from "@/components/skip-to-content";
 import { QuickOpen } from "@/components/quick-open";
 import { ConceptPopup } from "@/components/concept-popup";
 import { SymbolicBackground } from "@/components/symbolic-background";
+import { CosmologyProvider } from "@/components/cosmology-provider";
 import { ClerkProvider } from "@clerk/nextjs";
 
 
@@ -114,6 +115,7 @@ export default function RootLayout({
         <body className="min-h-screen bg-deep-navy pb-16 text-ivory antialiased md:pb-0">
           <SkipToContent />
           <SymbolicBackground />
+          <CosmologyProvider />
           <SiteHeader />
           {children}
           <SiteFooter />

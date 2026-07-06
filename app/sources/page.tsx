@@ -28,6 +28,7 @@ function SectionLabel({ num, children }: { num: string; children: React.ReactNod
 export default function SourcesPage() {
   return (
     <PageScaffold
+      className="atmo-dictionary"
       breadcrumb={[
         { label: "หน้าแรก", href: "/" },
         { label: "แหล่งอ้างอิง" },

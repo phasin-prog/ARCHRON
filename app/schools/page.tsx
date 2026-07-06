@@ -28,7 +28,7 @@ export default async function SchoolsPage() {
       navCurrent="/schools"
       className="atmo-temple"
     >
-      <section className="relative mx-auto max-w-[1100px] px-4 sm:px-6">
+      <section className="relative mx-auto max-w-6xl px-6">
         {schools.length === 0 ? (
           <EmptyState
             icon="groups_2"

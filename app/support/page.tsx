@@ -17,6 +17,7 @@ const WAYS = [
 export default function SupportPage() {
   return (
     <PageScaffold
+      className="atmo-biography"
       breadcrumb={[
         { label: "หน้าแรก", href: "/" },
         { label: "สนับสนุนโครงการ" },

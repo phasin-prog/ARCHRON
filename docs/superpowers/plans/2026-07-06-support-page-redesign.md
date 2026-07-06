@@ -1,3 +1,61 @@
+# Support Page Redesign Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Rewrite the entire `/support` page with the Covenant/ARCHRON Companion philosophy
+
+**Architecture:** Single page rewrite — no new components, stylesheets, or dependencies. Uses existing `PageScaffold` wrapper.
+
+**Tech Stack:** Next.js 16 (App Router) · React 19 · Tailwind v4 · TypeScript
+
+---
+
+## Global Constraints
+
+- Thai-first: all UI text in Thai
+- No marketing language, urgency, FOMO, or conversion language
+- Never use: Premium, VIP, Exclusive Content, donor rankings, tiers, gamification
+- Use instead: Companion, ผู้อุปถัมภ์
+- No invented systems (no newsletters, Discord, private forums)
+- External links use `target="_blank" rel="noopener noreferrer"`
+- Existing `PageScaffold` component reused as-is
+- Tone: calm, scholarly, human, honest, humble, warm, inviting, timeless
+
+---
+
+## File Structure
+
+| File | Action | Responsibility |
+|---|---|---|
+| `app/support/page.tsx` | Rewrite | Entire Support page — 7 sections, metadata |
+
+---
+
+### Task 1: Rewrite app/support/page.tsx
+
+**Files:**
+- Modify: `app/support/page.tsx` — full rewrite
+
+**Consumes:** `PageScaffold` from `@/components/page-scaffold`
+**Produces:** Working `/support` page with 7 sections
+
+- [ ] **Step 1: Update metadata**
+
+Replace existing `metadata` export with:
+
+```typescript
+export const metadata: Metadata = {
+  title: "สนับสนุน — ARCHRON",
+  description:
+    "ร่วมดูแลคลังความรู้ภาษาไทยด้านจิตวิทยาและปรัชญาให้คงอยู่ — สนับสนุนผ่าน ARCHRON Companion, การวิเคราะห์ Jungian Type Guide, หรือการร่วมเขียน",
+};
+```
+
+- [ ] **Step 2: Write the page component with all 7 sections**
+
+Replace the entire `SupportPage` component. The structure:
+
+```tsx
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageScaffold } from "@/components/page-scaffold";
@@ -8,7 +66,9 @@ export const metadata: Metadata = {
     "ร่วมดูแลคลังความรู้ภาษาไทยด้านจิตวิทยาและปรัชญาให้คงอยู่ — สนับสนุนผ่าน ARCHRON Companion, การวิเคราะห์ Jungian Type Guide, หรือการร่วมเขียน",
 };
 
-const COMPANIONS: string[] = [];
+const COMPANIONS = [
+  // Static list of ARCHRON Companion names (add real names here)
+];
 
 export default function SupportPage() {
   return (
@@ -24,7 +84,8 @@ export default function SupportPage() {
       ambient
       navCurrent="/support"
     >
-      <section className="mx-auto mt-14 max-w-3xl px-6">
+      {/* Section 2: Why knowledge must be open */}
+      <section className="mx-auto max-w-3xl px-6">
         <h2 className="font-serif text-2xl text-ivory">ทำไมความรู้ต้องเปิดกว้าง</h2>
         <div className="mt-6 space-y-4 text-sm leading-relaxed text-soft-ivory">
           <p>
@@ -41,6 +102,7 @@ export default function SupportPage() {
         </div>
       </section>
 
+      {/* Section 3: Why support matters */}
       <section className="mx-auto mt-16 max-w-3xl px-6">
         <h2 className="font-serif text-2xl text-ivory">การดำรงอยู่ของคลังความรู้มีค่าใช้จ่าย</h2>
         <div className="mt-6 space-y-4 text-sm leading-relaxed text-soft-ivory">
@@ -55,10 +117,11 @@ export default function SupportPage() {
         </div>
       </section>
 
+      {/* Section 4: Ways to support */}
       <section className="mx-auto mt-16 max-w-6xl px-6">
         <h2 className="font-serif text-2xl text-ivory">หนทางแห่งการสนับสนุน</h2>
         <p className="mt-3 text-sm text-muted">
-          ทุกทางเท่าเทียมกัน — ไม่มีทางไหนสำคัญกว่าทางอื่น
+          ทุกทางเท่าเทียมกัน — ไม่มีทางไหน "สำคัญ" กว่าทางอื่น
         </p>
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           <article className="archron-panel p-6">
@@ -85,19 +148,21 @@ export default function SupportPage() {
         </div>
       </section>
 
+      {/* Section 5: ARCHRON Companion */}
       <section className="mx-auto mt-16 max-w-3xl px-6">
-        <div className="rounded-lg border border-antique-gold/25 bg-antique-gold/[0.03] p-8 text-center">
+        <div className="archron-panel border-antique-gold/30 p-8 text-center">
           <h2 className="font-serif text-2xl text-antique-gold">ARCHRON Companion</h2>
           <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-soft-ivory">
-            Companion คือผู้ที่เลือกเดินเคียงข้างโครงการนี้ เงียบ ๆ และช่วยให้มันคงอยู่
+            Companion คือผู้ที่เลือกเดินเคียงข้างโครงการนี้ เงียบๆ และช่วยให้มันคงอยู่
             — ไม่ใช่การซื้อสิทธิพิเศษ แต่เป็นการร่วมดูแลคลังความรู้ที่คุณอยากให้คนรุ่นหลังมี
           </p>
-          <div className="mx-auto mt-8 inline-block rounded-md border border-antique-gold/15 bg-white/[0.01] px-8 py-5">
+          <div className="mx-auto mt-8 inline-block rounded-lg border border-antique-gold/20 bg-white/[0.02] px-8 py-6">
             <p className="text-xs text-muted">ธนาคารกสิกรไทย</p>
             <p className="mt-1 text-sm text-ivory">พศิน พสุมาตร</p>
-            <p className="mt-3 font-mono text-lg tracking-widest text-antique-gold">
+            <p className="mt-3 font-mono text-lg tracking-wider text-antique-gold">
               146-1-96727-9
             </p>
+            {/* PromptPay QR Code image here when available */}
           </div>
           <p className="mt-6 text-xs text-muted">
             เท่าไหร่ก็ได้ ทุกจำนวนช่วยให้ห้องสมุดนี้คงอยู่
@@ -115,28 +180,31 @@ export default function SupportPage() {
         )}
       </section>
 
+      {/* Section 6: Jungian Type Guide */}
       <section className="mx-auto mt-16 max-w-6xl px-6">
         <Link
           href="/guide"
-          className="archron-card group flex flex-col justify-between p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-burnished-gold/45"
+          className="archron-card group flex flex-col justify-between p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-burnished-gold/45 border-burnished-gold/25"
         >
-          <div className="flex items-start justify-between">
-            <span
-              className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-[0.9rem_0.3rem] border border-slate-boundary/40 bg-surface-container-low"
-              style={{ borderColor: "color-mix(in srgb, var(--color-burnished-gold) 26%, var(--color-slate-boundary))" }}
-            >
-              <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": "var(--color-burnished-gold)" } as React.CSSProperties}>
-                <use href="/icons/archron-icons.svg#lantern" />
-              </svg>
-            </span>
+          <div>
+            <div className="flex items-start justify-between">
+              <span
+                className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-[0.9rem_0.3rem] border border-slate-boundary/40 bg-surface-container-low"
+                style={{ borderColor: "color-mix(in srgb, var(--color-burnished-gold) 26%, var(--color-slate-boundary))" }}
+              >
+                <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": "var(--color-burnished-gold)" } as React.CSSProperties}>
+                  <use href="/icons/archron-icons.svg#lantern" />
+                </svg>
+              </span>
+            </div>
+            <h3 className="mt-4 font-serif text-xl text-ivory group-hover:text-burnished-gold">
+              อีกหนึ่งหนทางที่จะร่วมเดิน
+            </h3>
+            <p className="mt-2 text-xs leading-relaxed text-soft-ivory/85">
+              Jungian Psychological Type Guide — การวิเคราะห์เชิงลึกทางจิตวิทยาแบบ Jungian
+              ที่รายได้ส่วนหนึ่งสนับสนุนคลังความรู้นี้
+            </p>
           </div>
-          <h3 className="mt-4 font-serif text-xl text-ivory group-hover:text-burnished-gold">
-            อีกหนึ่งหนทางที่จะร่วมเดิน
-          </h3>
-          <p className="mt-2 text-xs leading-relaxed text-soft-ivory/85">
-            Jungian Psychological Type Guide — การวิเคราะห์เชิงลึกทางจิตวิทยาแบบ Jungian
-            ที่รายได้ส่วนหนึ่งสนับสนุนคลังความรู้นี้
-          </p>
           <span className="mt-6 inline-flex items-center gap-1.5 text-xs font-semibold text-burnished-gold">
             ดูรายละเอียด
             <span className="material-symbols-outlined text-[14px] transition-transform duration-300 group-hover:translate-x-0.5">
@@ -146,25 +214,30 @@ export default function SupportPage() {
         </Link>
       </section>
 
+      {/* Section 7: Collaborate */}
       <section className="mx-auto mt-8 max-w-6xl px-6">
         <Link
           href="/studio"
           className="archron-card group flex flex-col justify-between p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-burnished-gold/45"
         >
-          <div className="flex items-start justify-between">
-            <span className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-[0.9rem_0.3rem] border border-slate-boundary/40 bg-surface-container-low">
-              <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": "var(--cosmology-accent)" } as React.CSSProperties}>
-                <use href="/icons/archron-icons.svg#interpretation" />
-              </svg>
-            </span>
+          <div>
+            <div className="flex items-start justify-between">
+              <span
+                className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-[0.9rem_0.3rem] border border-slate-boundary/40 bg-surface-container-low"
+              >
+                <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": "var(--cosmology-accent)" } as React.CSSProperties}>
+                  <use href="/icons/archron-icons.svg#interpretation" />
+                </svg>
+              </span>
+            </div>
+            <h3 className="mt-4 font-serif text-xl text-ivory group-hover:text-burnished-gold">
+              ร่วมเป็นส่วนหนึ่งของเนื้อหา
+            </h3>
+            <p className="mt-2 text-xs leading-relaxed text-soft-ivory/85">
+              หากคุณมีความรู้ในศาสตร์ที่เกี่ยวข้องและต้องการร่วมเขียน ร่วมตรวจสอบ
+              หรือร่วมเรียบเรียงคลังความรู้แห่งนี้ — สมัครเป็นนักเขียนร่วมอ้างอิง
+            </p>
           </div>
-          <h3 className="mt-4 font-serif text-xl text-ivory group-hover:text-burnished-gold">
-            ร่วมเป็นส่วนหนึ่งของเนื้อหา
-          </h3>
-          <p className="mt-2 text-xs leading-relaxed text-soft-ivory/85">
-            หากคุณมีความรู้ในศาสตร์ที่เกี่ยวข้องและต้องการร่วมเขียน ร่วมตรวจสอบ
-            หรือร่วมเรียบเรียงคลังความรู้แห่งนี้ — สมัครเป็นนักเขียนร่วมอ้างอิง
-          </p>
           <span className="mt-6 inline-flex items-center gap-1.5 text-xs font-semibold text-burnished-gold">
             เข้าสู่ห้องทำงานผู้เขียน (Studio)
             <span className="material-symbols-outlined text-[14px] transition-transform duration-300 group-hover:translate-x-0.5">
@@ -174,7 +247,8 @@ export default function SupportPage() {
         </Link>
       </section>
 
-      <section className="mx-auto mt-20 max-w-2xl px-6 pb-16 text-center">
+      {/* Section 8: Closing */}
+      <section className="mx-auto mt-20 max-w-2xl px-6 text-center">
         <p className="text-sm leading-relaxed text-soft-ivory/70">
           ARCHRON จะยังคงเปิดกว้างสำหรับทุกคน<br />
           หากคุณเลือกที่จะช่วย คุณจะกลายเป็นหนึ่งในผู้ที่ quietly ดูแลคลังนี้ให้คงอยู่
@@ -183,3 +257,22 @@ export default function SupportPage() {
     </PageScaffold>
   );
 }
+```
+
+- [ ] **Step 3: Verify build passes**
+
+Run: `npm run build`
+Expected: Compiled successfully, no errors
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add app/support/page.tsx
+git commit -m "feat: redesign support page — ARCHRON Companion + Covenant philosophy"
+```
+
+- [ ] **Step 5: Push**
+
+```bash
+git push
+```

@@ -410,11 +410,26 @@ export default function StudioEditorPage() {
       ) : (
         <div className="mx-auto grid max-w-6xl gap-8 px-6 py-10 pb-28 md:grid-cols-[1fr_320px] lg:pb-10">
         <main className="space-y-10">
-          <p className="text-xs text-muted">
-            เขียนในชื่อ: <span className="text-soft-ivory">{displayName || user?.fullName || user?.username || "นักเขียน"}</span>
-            {autoState === "saving" ? <span> · กำลังบันทึกอัตโนมัติ...</span> : null}
-            {autoState === "saved" && savedAt ? <span> · บันทึกอัตโนมัติแล้ว {savedAt}</span> : null}
-          </p>
+          <div className="flex items-center gap-3 text-xs">
+            <span className="text-muted">
+              เขียนในชื่อ: <span className="text-soft-ivory">{displayName || user?.fullName || user?.username || "นักเขียน"}</span>
+            </span>
+            {autoState === "saving" ? (
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-lumen/10 px-2.5 py-0.5 text-lumen">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lumen/60" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-lumen" />
+                </span>
+                กำลังบันทึกอัตโนมัติ...
+              </span>
+            ) : null}
+            {autoState === "saved" && savedAt ? (
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-success/15 px-2.5 py-0.5 text-success">
+                <span className="material-symbols-outlined text-[12px]">check_circle</span>
+                บันทึกแล้ว {savedAt}
+              </span>
+            ) : null}
+          </div>
           {isAdmin(role) && originalAuthorId && originalAuthorId !== userId && (
             <div className="mt-2 rounded-md border border-burnished-gold/30 bg-burnished-gold/5 px-3 py-2 text-xs text-burnished-gold">
               <span className="material-symbols-outlined mr-1 align-middle text-[14px]">admin_panel_settings</span>

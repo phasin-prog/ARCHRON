@@ -41,28 +41,16 @@ export function FeedbackToast({
     <div
       role={ok ? "status" : "alert"}
       aria-live={ok ? "polite" : "assertive"}
-      className="fixed inset-x-0 top-0 z-[70] flex justify-center pointer-events-none"
+      className="fixed inset-0 z-[70] flex items-center justify-center pointer-events-none"
     >
       <div
-        className={`
-          pointer-events-auto mx-4 mt-[76px] flex w-full max-w-3xl items-center gap-4
-          rounded-lg border px-5 py-4 shadow-[0_12px_40px_-8px_rgba(0,0,0,0.5)]
-          backdrop-blur-xl transition-all duration-300
-          ${bg}
-          ${leaving ? "opacity-0 -translate-y-4" : "opacity-100 translate-y-0"}
-        `}
+        className={`pointer-events-auto mx-4 flex w-full max-w-md items-start gap-4 rounded-lg border px-6 py-5 shadow-[0_20px_60px_-12px_rgba(0,0,0,0.6)] backdrop-blur-xl transition-all duration-300 ${bg} ${leaving ? "opacity-0 scale-95" : "opacity-100 scale-100"}`}
         style={{ borderColor: `${accent}55` }}
       >
-        <span
-          className="material-symbols-outlined shrink-0 text-[26px]"
-          style={{ color: accent }}
-        >
+        <span className="material-symbols-outlined shrink-0 text-[28px]" style={{ color: accent }}>
           {icon}
         </span>
-        <p
-          className="flex-1 text-[15px] font-medium leading-relaxed tracking-wide"
-          style={{ color: accent }}
-        >
+        <p className="flex-1 pt-0.5 text-[15px] font-medium leading-relaxed" style={{ color: accent }}>
           {feedback?.text}
         </p>
         <button

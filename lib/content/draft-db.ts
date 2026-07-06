@@ -11,15 +11,16 @@ import { refreshLibrary } from "@/lib/rtk/ingest";
 // service role ข้าม RLS ได้ จึงต้องตรวจสอบ ownership เองทุก operation
 // (author_id === userId มิฉะนั้นผู้ใช้ A จะเขียนทับงานของ B ได้)
 
-// ดึง author_id ของ entry ที่มีอยู่ (ตาม slug) — สำหรับตรวจ ownership
+// ดึง author_id ของ entry ที่มีอยู่ (ตาม id) — สำหรับตรวจ ownership
 async function getExistingAuthor(
   sb: SupabaseClient,
-  slug: string,
+  id: string,
 ): Promise<string | null> {
+  if (!id) return null;
   const { data } = await sb
     .from("entries")
     .select("author_id")
-    .eq("slug", slug)
+    .eq("id", id)
     .maybeSingle();
   return (data as { author_id: string } | null)?.author_id ?? null;
 }
@@ -33,7 +34,7 @@ export async function saveDraft(
   draft: EditorDraft,
   role?: Role,
 ) {
-  const existingAuthor = await getExistingAuthor(sb, draft.slug);
+  const existingAuthor = await getExistingAuthor(sb, draft.id);
   if (existingAuthor !== null && existingAuthor !== authorId && role !== "admin") {
     return {
       data: null,
@@ -48,7 +49,7 @@ export async function saveDraft(
   const row = draftToRow(draft, authorId, authorName);
   const { data, error } = await sb
     .from("entries")
-    .upsert(row, { onConflict: "slug" })
+    .upsert(row, { onConflict: "id" })
     .select()
     .maybeSingle();
   return { data, error };
@@ -92,12 +93,12 @@ export async function publishEntry(
   draft: EditorDraft,
   role?: Role,
 ) {
-  const existingAuthor = await getExistingAuthor(sb, draft.slug);
+  const existingAuthor = await getExistingAuthor(sb, draft.id);
   if (existingAuthor !== null && existingAuthor !== authorId && role !== "admin") {
     return {
       data: null,
       error: { message: "slug นี้เป็นของผู้เขียนคนอื่น , ไม่สามารถเผยแพร่ได้" } as {
-        message: string;
+        message: string,
       },
     };
   }
@@ -105,7 +106,7 @@ export async function publishEntry(
   const { data: existing } = await sb
     .from("entries")
     .select("published_at")
-    .eq("slug", draft.slug)
+    .eq("id", draft.id)
     .maybeSingle();
 
   const publishedAt =
@@ -121,7 +122,7 @@ export async function publishEntry(
 
   const result = await sb
     .from("entries")
-    .upsert(row, { onConflict: "slug" })
+    .upsert(row, { onConflict: "id" })
     .select()
     .maybeSingle();
 

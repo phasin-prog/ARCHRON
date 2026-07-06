@@ -79,7 +79,7 @@ export async function upsertEntryRow(
 ) {
   const result = await sb
     .from("entries")
-    .upsert(row, { onConflict: "slug" })
+    .upsert(row, { onConflict: "id" })
     .select()
     .maybeSingle();
 

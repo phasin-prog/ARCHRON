@@ -70,11 +70,14 @@
   /* Heading = สาย Serif: IBM Plex Serif (อังกฤษ) + Noto Serif Thai (ไทย) */
   --font-heading: var(--font-ibm-plex-serif), var(--font-noto-serif-thai), "IBM Plex Serif",
     "Noto Serif Thai", Georgia, serif;
-  /* Body = สายโมเดิร์นร่วมสมัย: Inter + Noto Sans Thai */
-  --font-body: var(--font-inter), var(--font-noto-sans-thai), "Inter", "Noto Sans Thai",
-    system-ui, sans-serif;
+  /* Body = สาย Serif: Lora (อังกฤษ) + Noto Serif Thai (ไทย) — อ่านยาวสบายตา */
+  --font-body: var(--font-lora), var(--font-noto-serif-thai), "Lora",
+    "Noto Serif Thai", Georgia, serif;
+  /* UI / Labels = สาย Sans: Inter + Noto Sans Thai */
+  --font-ui: var(--font-inter), var(--font-noto-sans-thai), "Inter",
+    "Noto Sans Thai", system-ui, sans-serif;
   /* alias เดิม — ให้ utility ที่มีอยู่ทำงานต่อโดยไม่ต้องแก้รายไฟล์ */
-  --font-sans: var(--font-body);
+  --font-sans: var(--font-ui);
   --font-serif: var(--font-heading);
   --font-display: var(--font-playfair), "Playfair Display", Georgia, serif;
   --font-wordmark: var(--font-cinzel), "Cinzel", "Trajan Pro", Georgia, serif;
@@ -221,6 +224,20 @@
     -webkit-font-smoothing: antialiased;
     text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
+  }
+
+  /* UI elements use sans-serif font */
+  nav,
+  button,
+  input,
+  select,
+  textarea,
+  label,
+  .badge,
+  .chip,
+  .tag,
+  [role="button"] {
+    font-family: var(--font-ui);
   }
 
   h1,

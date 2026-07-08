@@ -7,6 +7,7 @@ import {
   Noto_Serif_Thai,
   Playfair_Display,
   Cinzel,
+  Lora,
 } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
@@ -67,6 +68,14 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
+const lora = Lora({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-lora",
+  display: "swap",
+});
+
 // Cinzel — wordmark ARCHRON ตาม brand board (ตระกูลโรมันคลาสสิก ใช้กับชื่อแบรนด์ละตินเท่านั้น)
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -95,7 +104,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html
         lang="th"
-        className={`${inter.variable} ${notoSansThai.variable} ${ibmPlexSerif.variable} ${notoSerifThai.variable} ${ibmPlexThai.variable} ${playfair.variable} ${cinzel.variable}`}
+        className={`${inter.variable} ${notoSansThai.variable} ${ibmPlexSerif.variable} ${notoSerifThai.variable} ${ibmPlexThai.variable} ${playfair.variable} ${cinzel.variable} ${lora.variable}`}
       >
         <head>
           <meta charSet="utf-8" />

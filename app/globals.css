@@ -741,3 +741,70 @@
     transform: none !important;
   }
 }
+
+/* ============================================
+   ICON CONTAINER — per icon-system.md
+   ============================================ */
+.archron-icon-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  box-sizing: border-box;
+  transition: all var(--dur-fast) var(--ease-out);
+  cursor: pointer;
+}
+
+.archron-icon-box:hover {
+  border-color: var(--color-accent);
+  background-color: var(--color-bg-elevated);
+}
+
+.archron-icon-box:active {
+  transform: scale(0.98);
+}
+
+.archron-icon-box svg,
+.archron-icon-box div {
+  color: var(--color-text-body);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.archron-icon-box:hover svg,
+.archron-icon-box:hover div {
+  color: var(--color-accent);
+}
+
+.archron-icon-box--sm {
+  width: 48px;
+  height: 48px;
+}
+
+.archron-icon-box--md {
+  width: 64px;
+  height: 64px;
+}
+
+.archron-icon-box--lg {
+  width: 80px;
+  height: 80px;
+}
+
+.archron-icon-box--knowledge {
+  border-color: var(--color-secondary, var(--color-accent));
+}
+
+.archron-icon-box--featured {
+  border-color: var(--color-premium);
+}
+
+.archron-icon-box--featured:hover {
+  border-color: var(--color-premium-hover);
+  background-color: var(--color-premium-subtle);
+}
+
+.archron-icon-box--success {
+  border-color: var(--color-success);
+}

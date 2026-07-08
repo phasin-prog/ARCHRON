@@ -95,6 +95,21 @@ export type ContentEntry = {
   ipa?: string;
   shortDescription?: string;
   subtitle?: string;
+  series?: string;
+  volume?: string;
+  aliases?: string[];
+  bornYear?: string;
+  diedYear?: string;
+  nationality?: string;
+  keyIdeas?: string[];
+  notableWorks?: string[];
+  publicationYear?: string;
+  publisher?: string;
+  isbn?: string;
+  founder?: string;
+  period?: string;
+  academicOrigins?: { original?: string; language?: string; meaning?: string }[];
+  version?: string;
 
   // Framework / Theory
   framework?: string;

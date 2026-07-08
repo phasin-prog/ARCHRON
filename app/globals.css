@@ -589,6 +589,16 @@
 }
 
 /* ===== Motion system ===== */
+@keyframes seal-notif-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
 @keyframes route-fade {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
@@ -807,4 +817,22 @@
 
 .archron-icon-box--success {
   border-color: var(--color-success);
+}
+
+@keyframes seal-stagger {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seal-stagger,
+  [style*="seal-stagger"] {
+    animation: none !important;
+  }
 }

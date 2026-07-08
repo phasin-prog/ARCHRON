@@ -18,6 +18,7 @@ import {
 } from "@/lib/content/reading-db";
 import { levelProgress, LEVELS } from "@/lib/content/levels";
 import { ACHIEVEMENTS } from "@/lib/content/achievements";
+import { SealProfileSection } from "@/components/seals/seal-profile-section";
 import type { ContentEntry } from "@/types/content";
 
 export const metadata: Metadata = {
@@ -155,6 +156,8 @@ export default async function ProfilePage() {
           <ProfileTabs reading={readingTab} work={workTab} showWork={isWriter} />
         </div>
       </div>
+
+      <SealProfileSection />
     </main>
   );
 }

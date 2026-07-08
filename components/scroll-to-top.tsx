@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { ArrowRightIcon } from "@/components/icons";
 
 // ปุ่มเลื่อนขึ้นบนสุด (Back to Top) — โผล่เมื่อ scroll ลงพอประมาณ, มีทุกหน้า (อยู่ใน layout)
 export function ScrollToTop() {
@@ -38,7 +39,7 @@ export function ScrollToTop() {
         show ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0"
       }`}
     >
-      <span className="material-symbols-outlined text-[22px]">arrow_upward</span>
+      <ArrowRightIcon className="h-5.5 w-5.5" style={{ transform: 'rotate(-90deg)' }} />
     </button>
   );
 }

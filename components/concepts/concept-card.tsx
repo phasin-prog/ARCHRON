@@ -177,9 +177,7 @@ export function ConceptCard({ c, hasRealContent = false }: { c: ConceptRegistryI
             style={{ color: hasRealContent ? accent : `color-mix(in srgb, ${accent} 50%, var(--color-text-secondary))` }}
           >
             {hasRealContent ? "สำรวจ" : "เปิดดู"}
-            <span className="material-symbols-outlined text-[15px]">
-              arrow_forward
-            </span>
+            <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[15px]" aria-hidden="true">→</span>
           </span>
           <ViewBadge slug={c.slug} />
         </div>

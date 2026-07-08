@@ -5,6 +5,7 @@ import { getPublicEntries } from "@/lib/content/public-source";
 import { THEMES, themeByKey, entriesForTheme } from "@/lib/content/themes";
 import { contentTypeMeta } from "@/lib/content/cosmology";
 import { EmptyState } from "@/components/empty-state";
+import { ArrowRightIcon } from "@/components/icons";
 
 export const dynamicParams = true;
 export const revalidate = 300;
@@ -49,9 +50,9 @@ export default async function ThemePage({
         {/* Breadcrumb */}
         <nav aria-label="เส้นทางนำทาง" className="flex flex-wrap items-center gap-1 text-xs text-text-secondary">
           <Link href="/" className="rounded px-2 py-1.5 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:outline-none">หน้าแรก</Link>
-          <span className="material-symbols-outlined text-[16px] text-text-secondary" aria-hidden="true">chevron_right</span>
+          <ArrowRightIcon className="h-4 w-4" />
           <Link href="/themes" className="rounded px-2 py-1.5 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:outline-none">แก่นเรื่อง</Link>
-          <span className="material-symbols-outlined text-[16px] text-text-secondary" aria-hidden="true">chevron_right</span>
+          <ArrowRightIcon className="h-4 w-4" />
           <span className="px-2 py-1.5 text-text-body">{theme.label}</span>
         </nav>
 
@@ -93,7 +94,6 @@ export default async function ThemePage({
                       className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-medium"
                       style={{ backgroundColor: `${meta.accent}1f`, color: meta.accent }}
                     >
-                      <span className="material-symbols-outlined text-[14px]">{meta.icon}</span>
                       {meta.label}
                     </span>
                     <h2 className="mt-2 font-serif text-xl text-text-heading group-hover:text-accent">

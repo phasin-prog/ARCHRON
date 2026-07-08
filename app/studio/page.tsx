@@ -191,7 +191,7 @@ export default function StudioLandingPage() {
                     <span className="absolute -bottom-1 -right-1 h-4 w-4 rounded-full border-2 border-bg bg-concept" />
                   </div>
                 ) : (
-                  <span className="material-symbols-outlined text-[72px] text-text-secondary">account_circle</span>
+                  <span className="inline-flex items-center justify-center w-[72px] h-[72px] text-[72px] text-text-secondary" aria-hidden="true">👤</span>
                 )}
 
                 {/* Name + Email + Role */}
@@ -220,11 +220,9 @@ export default function StudioLandingPage() {
                 href="/studio/editor"
                 className="group/btn relative flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-xl bg-gradient-to-br from-accent to-accent px-6 py-3.5 text-sm font-semibold text-text-inverse shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/20 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
               >
-                <span className="material-symbols-outlined text-[20px]">edit_note</span>
+                <span className="inline-flex items-center justify-center w-5 h-5 text-[20px]" aria-hidden="true">✎</span>
                 เข้าสู่ห้องเขียน
-                <span className="material-symbols-outlined text-[18px] transition-transform duration-300 group-hover/btn:translate-x-1">
-                  arrow_forward
-                </span>
+                <span className="inline-flex items-center justify-center w-[18px] h-[18px] text-[18px] transition-transform duration-300 group-hover/btn:translate-x-1" aria-hidden="true">→</span>
               </Link>
 
               {/* Admin grid — จัดการผู้ใช้ / ดูแลความเห็น */}
@@ -235,7 +233,7 @@ export default function StudioLandingPage() {
                     className="group/admin flex items-center gap-2.5 rounded-xl border border-border/30 bg-text-heading/[0.02] px-4 py-3 text-left text-xs font-medium text-text-heading transition-all duration-300 hover:-translate-y-0.5 hover:border-concept/40 hover:bg-concept/5 hover:shadow-lg hover:shadow-concept/5"
                   >
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-concept/20 bg-concept/10 text-concept transition-transform duration-300 group-hover/admin:scale-110">
-                      <span className="material-symbols-outlined text-[16px]">shield_person</span>
+                      <span className="inline-flex items-center justify-center w-4 h-4 text-[16px]" aria-hidden="true">🛡</span>
                     </span>
                     <div>
                       <span className="block text-[11px] text-text-heading">จัดการผู้ใช้</span>
@@ -247,7 +245,7 @@ export default function StudioLandingPage() {
                     className="group/admin flex items-center gap-2.5 rounded-xl border border-border/30 bg-text-heading/[0.02] px-4 py-3 text-left text-xs font-medium text-text-heading transition-all duration-300 hover:-translate-y-0.5 hover:border-thinker/40 hover:bg-thinker/5 hover:shadow-lg hover:shadow-thinker/5"
                   >
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-thinker/20 bg-thinker/10 text-thinker transition-transform duration-300 group-hover/admin:scale-110">
-                      <span className="material-symbols-outlined text-[16px]">forum</span>
+                      <span className="inline-flex items-center justify-center w-4 h-4 text-[16px]" aria-hidden="true">💬</span>
                     </span>
                     <div>
                       <span className="block text-[11px] text-text-heading">ดูแลความเห็น</span>
@@ -263,18 +261,14 @@ export default function StudioLandingPage() {
                   onClick={() => clerk.openUserProfile()}
                   className="group/sec flex flex-1 items-center justify-center gap-2 rounded-xl border border-border/30 bg-text-heading/[0.015] px-4 py-2.5 text-[11px] font-medium text-text-secondary/70 transition-all duration-300 hover:border-accent/30 hover:text-text-heading hover:bg-text-heading/[0.04]"
                 >
-                  <span className="material-symbols-outlined text-[15px] transition-transform duration-300 group-hover/sec:rotate-45">
-                    settings
-                  </span>
+                  <span className="inline-flex items-center justify-center w-[15px] h-[15px] text-[15px] transition-transform duration-300 group-hover/sec:rotate-45" aria-hidden="true">⚙</span>
                   จัดการบัญชี
                 </button>
                 <button
                   onClick={() => clerk.signOut({ redirectUrl: "/studio" })}
                   className="group/sec flex flex-1 items-center justify-center gap-2 rounded-xl border border-border/30 bg-text-heading/[0.015] px-4 py-2.5 text-[11px] font-medium text-text-secondary/70 transition-all duration-300 hover:border-error/30 hover:text-error hover:bg-error/5"
                 >
-                  <span className="material-symbols-outlined text-[15px] transition-transform duration-300 group-hover/sec:-translate-x-0.5">
-                    logout
-                  </span>
+                  <span className="inline-flex items-center justify-center w-[15px] h-[15px] text-[15px] transition-transform duration-300 group-hover/sec:-translate-x-0.5" aria-hidden="true">⊘</span>
                   ออกจากระบบ
                 </button>
               </div>

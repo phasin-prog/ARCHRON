@@ -96,8 +96,8 @@ export function FloatingToc({ containerId = "reading-article" }: { containerId?:
         aria-controls="floating-toc-panel"
         className="fixed bottom-[calc(7rem+env(safe-area-inset-bottom))] right-4 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-accent/30 bg-bg-card/90 text-accent shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)] backdrop-blur transition-all duration-300 hover:bg-accent hover:text-text-inverse lg:hidden print:hidden"
       >
-        <span className="material-symbols-outlined text-[22px]">
-          {open ? "close" : "toc"}
+        <span className="inline-flex items-center justify-center w-[22px] h-[22px] text-[22px]" aria-hidden="true">
+          {open ? "✕" : "≡"}
         </span>
       </button>
 

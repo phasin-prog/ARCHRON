@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageScaffold } from "@/components/page-scaffold";
+import { ArrowRightIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "สนับสนุน — ARCHRON",
@@ -62,21 +63,21 @@ export default function SupportPage() {
         </p>
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           <article className="archron-panel p-6">
-            <span className="material-symbols-outlined text-[24px] text-accent">menu_book</span>
+            <span className="inline-flex items-center justify-center w-6 h-6 text-[24px] text-accent" aria-hidden="true">📖</span>
             <h3 className="mt-3 font-serif text-lg text-text-heading">อ่านอย่างตั้งใจ</h3>
             <p className="mt-2 text-xs leading-relaxed text-text-body">
               ใช้เวลากับเนื้อหา อ่านแหล่งอ้างอิง และแยกข้อเท็จจริงจากการตีความ
             </p>
           </article>
           <article className="archron-panel p-6">
-            <span className="material-symbols-outlined text-[24px] text-accent">share</span>
+            <span className="inline-flex items-center justify-center w-6 h-6 text-[24px] text-accent" aria-hidden="true">↗</span>
             <h3 className="mt-3 font-serif text-lg text-text-heading">แบ่งปันอย่างมีบริบท</h3>
             <p className="mt-2 text-xs leading-relaxed text-text-body">
               ส่งต่อแนวคิดพร้อมบริบทเดิม ไม่ตัดทอนให้กลายเป็นคำคมสั้นที่ขาดความหมาย
             </p>
           </article>
           <article className="archron-panel p-6">
-            <span className="material-symbols-outlined text-[24px] text-accent">rate_review</span>
+            <span className="inline-flex items-center justify-center w-6 h-6 text-[24px] text-accent" aria-hidden="true">✍</span>
             <h3 className="mt-3 font-serif text-lg text-text-heading">แจ้งข้อผิดพลาด</h3>
             <p className="mt-2 text-xs leading-relaxed text-text-body">
               ช่วยทักท้วงหรือเพิ่มเติมข้อมูลอ้างอิง เพื่อให้คลังความรู้นี้ถูกต้องสมบูรณ์ยิ่งขึ้น
@@ -139,9 +140,7 @@ export default function SupportPage() {
           </p>
           <span className="mt-6 inline-flex items-center gap-1.5 text-xs font-semibold text-accent">
             ดูรายละเอียด
-            <span className="material-symbols-outlined text-[14px] transition-transform duration-300 group-hover:translate-x-0.5">
-              arrow_forward
-            </span>
+            <ArrowRightIcon className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
           </span>
         </Link>
       </section>
@@ -167,9 +166,7 @@ export default function SupportPage() {
           </p>
           <span className="mt-6 inline-flex items-center gap-1.5 text-xs font-semibold text-accent">
             เข้าสู่ห้องทำงานผู้เขียน (Studio)
-            <span className="material-symbols-outlined text-[14px] transition-transform duration-300 group-hover:translate-x-0.5">
-              arrow_forward
-            </span>
+            <ArrowRightIcon className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
           </span>
         </Link>
       </section>

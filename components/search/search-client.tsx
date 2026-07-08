@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { SearchIcon, CloseIcon, ExternalLinkIcon } from "@/components/icons";
 import {
   SEARCH_TYPE_LABEL,
   SEARCH_TYPE_ORDER,
@@ -41,7 +42,7 @@ export function SearchClient({ items }: { items: SearchItem[] }) {
     <div className="mt-8">
       {/* Search box */}
       <div className="flex items-center gap-3 rounded-lg border border-text-heading/12 bg-bg-card/60 px-4 py-3 focus-within:border-accent/40 focus-within:ring-1 focus-within:ring-accent/20 transition-colors">
-        <span className="material-symbols-outlined text-[22px] text-accent" aria-hidden="true">search</span>
+        <SearchIcon className="h-5.5 w-5.5 text-accent" />
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -56,7 +57,7 @@ export function SearchClient({ items }: { items: SearchItem[] }) {
             aria-label="ล้างคำค้น"
             className="rounded-md p-1 text-text-secondary/60 transition-colors hover:text-text-heading hover:bg-bg-card focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:outline-none"
           >
-            <span className="material-symbols-outlined text-[20px]">close</span>
+            <CloseIcon className="h-5 w-5" />
           </button>
         ) : null}
       </div>
@@ -102,9 +103,7 @@ export function SearchClient({ items }: { items: SearchItem[] }) {
                               <span className="text-xs text-text-secondary/45">{it.title}</span>
                             ) : null}
                             {it.external ? (
-                              <span className="material-symbols-outlined text-[15px] text-text-secondary/55">
-                                open_in_new
-                              </span>
+                              <ExternalLinkIcon className="h-[15px] w-[15px] text-text-secondary/55" />
                             ) : null}
                           </div>
                           {it.description ? (

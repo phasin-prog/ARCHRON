@@ -4,6 +4,7 @@ import { PageScaffold } from "@/components/page-scaffold";
 import { EmptyState } from "@/components/empty-state";
 import { getPublicEntries } from "@/lib/content/public-source";
 import { BookCard } from "@/components/books/book-card";
+import { ArrowRightIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "หนังสือ — ARCHRON",
@@ -43,7 +44,7 @@ export default async function BooksPage() {
                 className="inline-flex items-center gap-1.5 rounded-lg border border-accent/40 bg-accent/10 px-4 py-2 text-sm font-semibold text-accent transition-colors hover:bg-accent/20"
               >
                 สำรวจคลังแนวคิด
-                <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                <ArrowRightIcon className="h-4 w-4" />
               </Link>
               <Link
                 href="/schools"

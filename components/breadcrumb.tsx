@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowRightIcon } from "@/components/icons";
 
 export type BreadcrumbItem = {
   label: string;
@@ -44,12 +45,7 @@ export function Breadcrumb({ items, className = "" }: BreadcrumbProps) {
         {items.map((item, i) => (
           <span key={i} className="flex items-center gap-1">
             {i > 0 ? (
-              <span
-                className="material-symbols-outlined text-[16px] text-text-secondary"
-                aria-hidden="true"
-              >
-                chevron_right
-              </span>
+              <ArrowRightIcon className="h-4 w-4 text-text-secondary" />
             ) : null}
             {item.href ? (
               <Link

@@ -313,7 +313,7 @@ export default function StudioEditorPage() {
     return (
       <main className="mx-auto flex min-h-[70vh] max-w-lg flex-col items-center justify-center px-6 text-center">
         <span className="flex h-14 w-14 items-center justify-center rounded-full border border-accent/30 text-accent">
-          <span className="material-symbols-outlined text-[26px]">lock</span>
+          <span className="inline-flex items-center justify-center w-6.5 h-6.5 text-[26px]" aria-hidden="true">🔒</span>
         </span>
         <h1 className="mt-6 font-serif text-2xl text-text-heading">ห้องเขียนสำหรับนักเขียน</h1>
         <p className="mt-3 text-sm leading-relaxed text-text-secondary/70">
@@ -325,7 +325,7 @@ export default function StudioEditorPage() {
             href="/studio/profile"
             className="inline-flex items-center justify-center gap-2 bg-accent px-6 py-2.5 text-sm font-semibold text-text-inverse hover:brightness-110 transition-all"
           >
-            <span className="material-symbols-outlined text-[18px]">how_to_reg</span>
+            <span className="inline-flex items-center justify-center w-[18px] h-[18px] text-[18px]" aria-hidden="true">✍</span>
             ขอเป็นนักเขียน
           </Link>
           <Link
@@ -353,7 +353,7 @@ export default function StudioEditorPage() {
             className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-semibold leading-[1.4] bg-accent/10 text-accent gap-1.5"
              style={{ backgroundColor: `${statusMeta(draft.status).accent}1f`, color: statusMeta(draft.status).accent }}
           >
-            <span className="material-symbols-outlined text-[14px]">{statusMeta(draft.status).icon}</span>
+            <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[14px]" aria-hidden="true">◆</span>
             {draft.status}
           </span>
           <div className="flex items-center gap-2">
@@ -425,14 +425,14 @@ export default function StudioEditorPage() {
             ) : null}
             {autoState === "saved" && savedAt ? (
               <span className="inline-flex items-center gap-1.5 rounded-full bg-success/15 px-2.5 py-0.5 text-success">
-                <span className="material-symbols-outlined text-[12px]">check_circle</span>
+                <span className="inline-flex items-center justify-center w-3 h-3 text-[12px]" aria-hidden="true">✓</span>
                 บันทึกแล้ว {savedAt}
               </span>
             ) : null}
           </div>
           {isAdmin(role) && originalAuthorId && originalAuthorId !== userId && (
             <div className="mt-2 rounded-md border border-accent/30 bg-accent/5 px-3 py-2 text-xs text-accent">
-              <span className="material-symbols-outlined mr-1 align-middle text-[14px]">admin_panel_settings</span>
+              <span className="inline-flex items-center justify-center w-[1em] h-[1em] mr-1 align-middle text-[14px]" aria-hidden="true">🛡</span>
               กำลังแก้ไขเนื้อหาของ: <span className="font-semibold">{originalAuthorName || originalAuthorId}</span>
             </div>
           )}
@@ -473,7 +473,7 @@ export default function StudioEditorPage() {
                       className="mt-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-semibold leading-[1.4] bg-accent/10 text-accent gap-1.5"
                        style={{ backgroundColor: `${typeMeta.accent}1f`, color: typeMeta.accent }}
                     >
-                      <span className="material-symbols-outlined text-[16px]">{typeMeta.icon}</span>
+                      <span className="inline-flex items-center justify-center w-4 h-4 text-[16px]" aria-hidden="true">◆</span>
                       {typeMeta.label}
                     </span>
                   ) : null}
@@ -585,9 +585,7 @@ export default function StudioEditorPage() {
                     className="inline-flex items-center gap-1 text-xs"
                     style={{ color: sourceTypeMeta(r.sourceType).accent }}
                   >
-                    <span className="material-symbols-outlined text-[14px]">
-                      {sourceTypeMeta(r.sourceType).icon}
-                    </span>
+                    <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[14px]" aria-hidden="true">◆</span>
                     {r.sourceType}
                   </span>
                   <span className="ml-2 text-text-heading">{r.title}</span>

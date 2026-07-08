@@ -150,9 +150,7 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
       {/* Search Bar */}
       <div className="mb-8">
         <div className="relative">
-          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary">
-            search
-          </span>
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary inline-flex items-center justify-center w-4 h-4" aria-hidden="true">🔍</span>
           <input
             type="text"
             placeholder="ค้นหาบทความ แนวคิด นักคิด สำนักคิด..."
@@ -177,8 +175,8 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
                   : "text-text-secondary hover:bg-bg-card hover:text-text-heading"
               }`}
             >
-              <span className="material-symbols-outlined text-[18px]">
-                {config.icon}
+              <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[18px]" aria-hidden="true">
+                {config.icon === "auto_stories" ? "📖" : config.icon === "menu_book" ? "📚" : config.icon === "bolt" ? "⚡" : config.icon === "school" ? "🎓" : config.icon === "person" ? "👤" : config.icon === "library_books" ? "📚" : "◆"}
               </span>
               {config.label}
             </button>
@@ -377,9 +375,7 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
         filteredSchools.length === 0 &&
         category !== "timeline" && (
           <div className="py-12 text-center">
-            <span className="material-symbols-outlined mb-4 text-4xl text-text-secondary">
-              search_off
-            </span>
+            <span className="mb-4 text-4xl text-text-secondary inline-flex items-center justify-center w-9 h-9" aria-hidden="true">🔍</span>
             <p className="text-sm text-text-secondary">
               ไม่พบเนื้อหาที่ตรงกับคำค้นหา
             </p>

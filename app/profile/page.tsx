@@ -133,7 +133,7 @@ export default async function ProfilePage() {
               <div className="mt-2 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
                 <span className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-semibold leading-[1.4] bg-accent/10 text-accent">{title}</span>
                 <span className="inline-flex items-center gap-1 rounded-full border border-accent/30 bg-accent/10 px-2.5 py-0.5 text-xs text-accent">
-                  <span className="material-symbols-outlined text-[14px]">military_tech</span>
+                  <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[14px]" aria-hidden="true">🏅</span>
                   ระดับ {lp.level} · {lp.name}
                 </span>
               </div>
@@ -144,7 +144,7 @@ export default async function ProfilePage() {
               href="/studio/profile"
               className="inline-flex items-center gap-1.5 rounded-md border border-border/30 bg-bg-card/30 px-4 py-2 text-xs text-text-body hover:border-accent/45 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
-              <span className="material-symbols-outlined text-[16px]">edit</span>
+              <span className="inline-flex items-center justify-center w-4 h-4 text-[16px]" aria-hidden="true">✎</span>
               แก้ไขโปรไฟล์
             </Link>
           </div>
@@ -314,7 +314,7 @@ function ReadingTab({
                 href="/articles"
                 className="inline-flex items-center gap-1.5 text-sm text-accent hover:underline"
               >
-                <span className="material-symbols-outlined text-[16px]">explore</span>
+                <span className="inline-flex items-center justify-center w-4 h-4 text-[16px]" aria-hidden="true">⊚</span>
                 เริ่มสำรวจคลังความรู้
               </Link>
             </EmptyState>
@@ -343,8 +343,8 @@ function ReadingTab({
                           : "border border-border/40 text-text-secondary"
                       }`}
                     >
-                      <span className="material-symbols-outlined text-[14px]">
-                        {done ? "check_circle" : "schedule"}
+                      <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[14px]" aria-hidden="true">
+                        {done ? "✓" : "⏰"}
                       </span>
                       {done ? "อ่านจบ" : "อ่านค้าง"}
                     </span>
@@ -377,7 +377,7 @@ function WorkTab({ entries }: { entries: ContentEntry[] }) {
           href="/studio/editor"
           className="inline-flex items-center gap-1.5 text-sm text-accent hover:underline"
         >
-          <span className="material-symbols-outlined text-[16px]">edit_note</span>
+          <span className="inline-flex items-center justify-center w-4 h-4 text-[16px]" aria-hidden="true">✎</span>
           เข้าสู่ห้องเขียน
         </Link>
       </EmptyState>

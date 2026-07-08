@@ -315,9 +315,7 @@ export default function HomePage() {
                 className="group inline-flex items-center gap-3 border-b border-accent/30 pb-2 text-sm font-semibold tracking-[0.05em] text-accent transition-all duration-500 hover:border-accent/60"
               >
                 ดูศาสตร์ทั้งหมด
-                <span className="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-1.5">
-                  arrow_forward
-                </span>
+                <ArrowRightIcon className="h-[18px] w-[18px] transition-transform group-hover:translate-x-1.5" />
               </Link>
             </div>
           </div>

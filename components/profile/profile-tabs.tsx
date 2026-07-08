@@ -75,8 +75,8 @@ export function ProfileTabs({
                   : "border-transparent text-text-secondary hover:text-text-body"
               }`}
             >
-              <span className="material-symbols-outlined text-[18px]" aria-hidden="true">
-                {t.icon}
+              <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[18px]" aria-hidden="true">
+                {t.icon === "history" ? "⏱" : "📝"}
               </span>
               {t.label}
             </button>

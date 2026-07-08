@@ -1,5 +1,5 @@
 // ARCHRON — แคตตาล็อกเหรียญตรา/ความสำเร็จ (Achievements)
-// 6 อันตาม Decisions ข้อ 5 · icon = ชื่อ Material Symbols (แสดงผ่าน .material-symbols-outlined)
+// 6 อันตาม Decisions ข้อ 5 · icon = emoji fallback
 // evaluateAchievements(stats) คืน key ที่ควรปลดล็อก → ฝั่ง server upsert เฉพาะที่ยังไม่มี (idempotent)
 // Pure module: ไม่มี import นอกจาก type ภายในไฟล์นี้เอง
 

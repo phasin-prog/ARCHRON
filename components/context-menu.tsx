@@ -150,9 +150,7 @@ export function ContextMenu({
                   className="flex w-full items-center gap-2.5 px-4 py-3 text-left text-sm text-text-heading transition-colors hover:bg-accent/12 hover:text-accent focus:bg-accent/12 focus:text-accent focus:outline-none"
                 >
                   {it.icon ? (
-                    <span className="material-symbols-outlined text-[18px] text-accent">
-                      {it.icon}
-                    </span>
+                    <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[18px] text-accent" aria-hidden="true">◆</span>
                   ) : null}
                   {it.label}
                 </button>

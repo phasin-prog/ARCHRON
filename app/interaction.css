@@ -103,11 +103,6 @@
   background: color-mix(in srgb, var(--color-error) 10%, transparent);
 }
 
-.archron-context-menu-item .material-symbols-rounded {
-  font-size: 1.125rem;
-  opacity: 0.7;
-}
-
 .archron-context-menu-item-shortcut {
   margin-left: auto;
   font-size: 0.6875rem;

@@ -184,10 +184,6 @@
   background: color-mix(in srgb, var(--color-accent) 8%, transparent);
 }
 
-.archron-sidenav-item .material-symbols-rounded {
-  font-size: 1.25rem;
-}
-
 /* ---- Step Indicator ---- */
 .archron-steps {
   display: flex;
@@ -269,15 +265,6 @@
   color: var(--color-accent);
 }
 
-.archron-back .material-symbols-rounded {
-  font-size: 1.125rem;
-  transition: transform 0.2s ease;
-}
-
-.archron-back:hover .material-symbols-rounded {
-  transform: translateX(-2px);
-}
-
 /* ---- Pill Navigation (Horizontal) ---- */
 .archron-pill-nav {
   display: flex;
@@ -349,6 +336,4 @@
   color: var(--color-accent);
 }
 
-.archron-tabbar-item .material-symbols-rounded {
-  font-size: 1.375rem;
-}
+

@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 // EmptyState — สถานะว่าง/ยังไม่มีเนื้อหา แบบมาตรฐาน
 // ใช้ทุกหน้า list เพื่อความสม่ำเสมอ (articles, reading-sets, sources, ฯลฯ)
-// icon = ชื่อ Material Symbols (เช่น "menu_book", "auto_stories")
+// icon prop accepts a ReactNode for custom icon rendering
 export function EmptyState({
   icon = "inbox",
   title,
@@ -18,11 +18,8 @@ export function EmptyState({
 }) {
   return (
     <div className="rounded-xl border border-border/25 bg-bg-card/50 p-10 text-center sm:p-12">
-      <span
-        className="material-symbols-outlined text-[40px] text-accent/30"
-        aria-hidden="true"
-      >
-        {icon}
+      <span className="inline-flex items-center justify-center w-10 h-10 text-[40px] text-accent/30" aria-hidden="true">
+        {typeof icon === "string" ? icon[0]?.toUpperCase() : "○"}
       </span>
       <p className="mt-4 font-serif text-lg text-text-heading">{title}</p>
       {description ? (

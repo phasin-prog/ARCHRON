@@ -6,6 +6,7 @@ import remarkGfm from "remark-gfm";
 import { getPublicReadingSetBySlug } from "@/lib/content/public-source";
 import { calculateReadingSetEstimatedMinutes } from "@/lib/content/reading-sets";
 import { difficultyMeta } from "@/lib/content/cosmology";
+import { ArrowRightIcon, ClockIcon } from "@/components/icons";
 
 export const dynamicParams = true;
 export const revalidate = 300;
@@ -63,7 +64,7 @@ export default async function ReadingSetDetailPage({
             </Link>
           </li>
           <li aria-hidden className="text-text-secondary/30">
-            <span className="material-symbols-outlined text-[16px]">chevron_right</span>
+            <ArrowRightIcon className="h-4 w-4" />
           </li>
           <li>
             <Link href="/reading-sets" className="rounded px-2 py-1.5 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:outline-none">
@@ -71,7 +72,7 @@ export default async function ReadingSetDetailPage({
             </Link>
           </li>
           <li aria-hidden className="text-text-secondary/30">
-            <span className="material-symbols-outlined text-[16px]">chevron_right</span>
+            <ArrowRightIcon className="h-4 w-4" />
           </li>
           <li className="px-2 py-1.5 text-text-body truncate max-w-[200px]">{set.title}</li>
         </ol>
@@ -94,7 +95,6 @@ export default async function ReadingSetDetailPage({
               borderWidth: "1px",
             }}
           >
-            <span className="material-symbols-outlined text-[11px]">{diffMeta.icon}</span>
             {set.difficulty === "beginner"
               ? "ระดับเริ่มต้น"
               : set.difficulty === "intermediate"
@@ -102,7 +102,7 @@ export default async function ReadingSetDetailPage({
                 : "ระดับสูง"}
           </span>
           <span className="flex items-center gap-1 text-[10px] text-text-secondary">
-            <span className="material-symbols-outlined text-[12px]">schedule</span>
+            <ClockIcon className="h-3 w-3" />
             ~{estimatedMinutes} นาที
           </span>
         </div>
@@ -161,7 +161,7 @@ export default async function ReadingSetDetailPage({
                       </h3>
                       <span className="mt-1 inline-flex items-center gap-1 text-xs text-accent/70 opacity-0 group-hover:opacity-100 transition-opacity">
                         เข้าสู่หน้าอ่าน
-                        <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+                        <ArrowRightIcon className="h-3.5 w-3.5" />
                       </span>
                     </Link>
                   </div>
@@ -199,7 +199,7 @@ export default async function ReadingSetDetailPage({
               className="mt-4 inline-flex items-center gap-2 rounded-lg bg-accent/90 px-5 py-2.5 text-sm font-semibold text-bg transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
             >
               เริ่มขั้นตอนที่ 1
-              <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+              <ArrowRightIcon className="h-3.5 w-3.5" />
             </Link>
           )}
         </div>

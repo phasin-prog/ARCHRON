@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageScaffold } from "@/components/page-scaffold";
-import { getPublicReadingSets } from "@/lib/content/public-source";
 import { EmptyState } from "@/components/empty-state";
+import { getPublicEntries, getPublicReadingSets } from "@/lib/content/public-source";
 import { ReadingSetCard } from "@/components/reading-sets/reading-set-card";
+import { ArrowRightIcon } from "@/components/icons";
 
 export const revalidate = 300;
 
@@ -42,14 +43,14 @@ export default async function ReadingSetsPage() {
                   className="inline-flex items-center gap-1.5 rounded-lg border border-accent/40 bg-accent/10 px-4 py-2 text-sm font-semibold text-accent transition-colors hover:bg-accent/20"
                 >
                   คลังแนวคิด
-                  <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                  <ArrowRightIcon className="h-4 w-4" />
                 </Link>
                 <Link
                   href="/schools"
                   className="inline-flex items-center gap-1.5 rounded-lg border border-border/50 px-4 py-2 text-sm text-text-body transition-colors hover:border-accent/40 hover:text-accent"
                 >
                   สำนักคิด
-                  <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                  <ArrowRightIcon className="h-4 w-4" />
                 </Link>
               </div>
             }

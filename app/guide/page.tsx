@@ -2,6 +2,17 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import {
+  ArrowRightIcon,
+  SynthesisIcon,
+  PsychologyIcon,
+  GridIcon,
+  ConceptIcon,
+  AuthorPenIcon,
+  ClockIcon,
+  PersonIcon,
+  SchoolIcon,
+} from "@/components/icons";
 
 const SCOPE = [
   { icon: "compare_arrows", title: "Object / Subject Orientation", desc: "แนวโน้มว่า Ego ให้น้ำหนักกับโลกภายนอก (Extraversion) หรือโลกภายใน (Introversion) มากกว่ากัน" },
@@ -82,7 +93,7 @@ export default function GuidePage() {
             <Link href="/" className="rounded px-2 py-1.5 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:text-accent focus-visible:outline-none">
               หน้าแรก
             </Link>
-            <span className="material-symbols-outlined text-[16px] text-text-secondary" aria-hidden="true">chevron_right</span>
+            <ArrowRightIcon className="h-4 w-4 text-text-secondary" />
             <span className="px-2 py-1.5 text-text-body">Jungian Type Analysis</span>
           </nav>
 
@@ -109,9 +120,7 @@ export default function GuidePage() {
                   className="group inline-flex items-center gap-2 rounded bg-gradient-to-br from-accent to-accent px-8 py-4 text-sm font-semibold tracking-[0.05em] text-text-inverse transition-transform hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
                 >
                   จองเวลา / สอบถามคิว
-                  <span className="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-1">
-                    arrow_forward
-                  </span>
+                  <ArrowRightIcon className="h-[18px] w-[18px] transition-transform group-hover:translate-x-1" />
                 </a>
                 <a
                   href="#pricing"
@@ -266,7 +275,12 @@ export default function GuidePage() {
               className="rounded-lg border border-border/20 bg-bg-card/40 p-6 transition-all hover:border-border/50 hover:bg-bg-card/60 hover:shadow-lg"
             >
               <div className="flex h-12 w-12 items-center justify-center rounded-full border border-accent/20 bg-bg text-accent">
-                <span className="material-symbols-outlined text-[24px]">{s.icon}</span>
+                {s.icon === "compare_arrows" && <SynthesisIcon className="h-6 w-6" />}
+                {s.icon === "psychology" && <PsychologyIcon className="h-6 w-6" />}
+                {s.icon === "stacks" && <GridIcon className="h-6 w-6" />}
+                {s.icon === "bolt" && <ConceptIcon className="h-6 w-6" />}
+                {s.icon === "description" && <AuthorPenIcon className="h-6 w-6" />}
+                {s.icon === "schedule" && <ClockIcon className="h-6 w-6" />}
               </div>
               <h3 className="mt-4 font-serif text-lg font-semibold text-text-heading">{s.title}</h3>
               <p className="mt-2 text-xs leading-relaxed text-text-secondary/70">{s.desc}</p>
@@ -361,15 +375,15 @@ export default function GuidePage() {
               
               <div className="mt-4 space-y-2.5 border-t border-border/20 pt-4 text-left">
                 <div className="flex gap-2 text-xs text-text-body">
-                  <span className="material-symbols-outlined text-[16px] text-accent shrink-0">check_circle</span>
+                  <span className="inline-flex items-center justify-center w-4 h-4 text-[16px] text-accent shrink-0" aria-hidden="true">✓</span>
                   <span>อวยพรวันเกิดเพจในโพสต์กิจกรรมวันที่ 16 กรกฎาคม 2569</span>
                 </div>
                 <div className="flex gap-2 text-xs text-text-body">
-                  <span className="material-symbols-outlined text-[16px] text-accent shrink-0">check_circle</span>
+                  <span className="inline-flex items-center justify-center w-4 h-4 text-[16px] text-accent shrink-0" aria-hidden="true">✓</span>
                   <span>แชร์โพสต์โปรโมตกิจกรรมการรีแบรนด์ (Rebranding) จากชื่อเดิม <strong>The Soul&apos;s Compass - Moonlight</strong> สู่ชื่อใหม่ <strong>Archron</strong> ไปยังโปรไฟล์ส่วนตัวของคุณ</span>
                 </div>
                 <div className="flex gap-2 text-xs text-text-body">
-                  <span className="material-symbols-outlined text-[16px] text-accent shrink-0">check_circle</span>
+                  <span className="inline-flex items-center justify-center w-4 h-4 text-[16px] text-accent shrink-0" aria-hidden="true">✓</span>
                   <span>ตกลงส่งรีวิวสะท้อนผลสัมภาษณ์ตามความเป็นจริงผ่านหน้าเพจ Archron หลังเสร็จสิ้นเซสชันการวิเคราะห์</span>
                 </div>
               </div>
@@ -389,9 +403,7 @@ export default function GuidePage() {
           <ul className="mt-4 space-y-3.5">
             {BOUNDARIES.map((b) => (
               <li key={b} className="flex gap-3 text-xs leading-relaxed text-text-secondary/80">
-                <span className="material-symbols-outlined shrink-0 text-[18px] text-accent">
-                  check_small
-                </span>
+                <span className="shrink-0 text-[16px] text-accent" aria-hidden="true">✓</span>
                 {b}
               </li>
             ))}
@@ -416,7 +428,10 @@ export default function GuidePage() {
                 className="group flex items-center gap-4 rounded-md border border-border/30 bg-bg-card/40 p-4 text-left transition-colors hover:border-accent/50 hover:bg-bg-card/60 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
               >
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-accent/25 bg-bg text-accent">
-                  <span className="material-symbols-outlined text-[18px]">{c.icon}</span>
+                  {c.icon === "call" && <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[18px]" aria-hidden="true">📞</span>}
+                  {c.icon === "chat" && <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[18px]" aria-hidden="true">💬</span>}
+                  {c.icon === "person" && <PersonIcon className="h-[18px] w-[18px]" />}
+                  {c.icon === "groups" && <SchoolIcon className="h-[18px] w-[18px]" />}
                 </span>
                 <span className="flex flex-col">
                   <span className="text-[10px] tracking-wider text-text-secondary/50 uppercase">{c.label}</span>

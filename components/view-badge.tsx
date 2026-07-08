@@ -82,9 +82,7 @@ export function ViewBadge({ slug, className }: { slug: string; className?: strin
       }
       role="status" aria-live="polite"
     >
-      <span className="material-symbols-outlined text-[14px] text-accent/70">
-        visibility
-      </span>
+      <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[14px] text-accent/70" aria-hidden="true">👁</span>
       {n.toLocaleString("th-TH")}
     </span>
   );

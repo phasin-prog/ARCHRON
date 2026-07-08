@@ -69,7 +69,7 @@ export function ImageUploader({ onInsertImage }: ImageUploaderProps) {
   return (
     <div className="archron-panel p-5 space-y-4">
       <h3 className="font-serif text-base text-text-heading flex items-center gap-2">
-        <span className="material-symbols-outlined text-[20px] text-accent" aria-hidden="true">image</span>
+        <span className="inline-flex items-center justify-center w-5 h-5 text-[20px] text-accent" aria-hidden="true">🖼</span>
         อัปโหลดรูปภาพ (R2)
       </h3>
 
@@ -83,9 +83,7 @@ export function ImageUploader({ onInsertImage }: ImageUploaderProps) {
             onChange={handleFileChange}
             aria-label="เลือกรูปภาพ"
           />
-          <span className="material-symbols-outlined text-[28px] text-text-secondary/40 mb-2" aria-hidden="true">
-            cloud_upload
-          </span>
+          <span className="inline-flex items-center justify-center w-7 h-7 text-[28px] text-text-secondary/40 mb-2" aria-hidden="true">☁</span>
           <span className="text-sm text-text-heading text-center">
             {file ? `เลือกรูปภาพแล้ว: ${file.name}` : "คลิกเลือกรูปภาพ หรือลากมาวาง"}
           </span>
@@ -95,7 +93,7 @@ export function ImageUploader({ onInsertImage }: ImageUploaderProps) {
         {/* Error message */}
         {error && (
           <p className="flex items-center gap-1.5 text-xs text-error" role="alert">
-            <span className="material-symbols-outlined text-[14px]" aria-hidden="true">error</span>
+            <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[14px]" aria-hidden="true">!</span>
             {error}
           </p>
         )}
@@ -114,7 +112,7 @@ export function ImageUploader({ onInsertImage }: ImageUploaderProps) {
         {/* Uploading Status */}
         {uploading && (
           <div className="flex items-center justify-center gap-2 text-sm text-accent py-2" role="status">
-            <span className="material-symbols-outlined animate-spin text-[18px]" aria-hidden="true">progress_activity</span>
+            <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[18px] animate-spin" aria-hidden="true">⟳</span>
             กำลังอัปโหลด...
           </div>
         )}
@@ -123,7 +121,7 @@ export function ImageUploader({ onInsertImage }: ImageUploaderProps) {
         {uploadedUrl && (
           <div className="rounded-lg bg-success/10 border border-success/30 p-3 space-y-2">
             <p className="text-xs text-success flex items-center gap-1.5 font-semibold">
-              <span className="material-symbols-outlined text-[16px]" aria-hidden="true">check_circle</span>
+              <span className="inline-flex items-center justify-center w-4 h-4 text-[16px]" aria-hidden="true">✓</span>
               อัปโหลดสำเร็จ!
             </p>
             <div className="flex gap-2">

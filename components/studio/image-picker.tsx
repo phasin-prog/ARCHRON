@@ -121,9 +121,7 @@ export function ImagePicker({ value, onChange, onRemove, entryId, className = ""
             </>
           ) : (
             <>
-              <span className="material-symbols-outlined text-[32px] text-text-secondary/30">
-                add_photo_alternate
-              </span>
+              <span className="inline-flex items-center justify-center w-8 h-8 text-[32px] text-text-secondary/30" aria-hidden="true">🖼</span>
               <div className="text-center">
                 <p className="text-sm text-text-secondary/70">
                   ลากรูปมาวาง หรือคลิกเพื่อเลือกไฟล์

@@ -36,11 +36,12 @@ export function Accordion({
             >
               <span className="font-serif text-lg leading-snug text-text-heading">{it.title}</span>
               <span
-                className={`material-symbols-outlined shrink-0 text-text-secondary/60 transition-transform duration-300 ${
+                className={`shrink-0 text-text-secondary/60 transition-transform duration-300 inline-flex items-center justify-center w-5 h-5 text-lg ${
                   isOpen ? "rotate-180" : ""
                 }`}
+                aria-hidden="true"
               >
-                expand_more
+                ▾
               </span>
             </button>
             <div

@@ -192,12 +192,8 @@ export function AnalyticsDashboard() {
                       : "bg-blue-500/10 text-blue-400"
                 }`}
               >
-                <span className="material-symbols-outlined text-[18px]">
-                  {activity.type === "publish"
-                    ? "check_circle"
-                    : activity.type === "edit"
-                      ? "edit"
-                      : "visibility"}
+                <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[18px]" aria-hidden="true">
+                  {activity.type === "publish" ? "✓" : activity.type === "edit" ? "✎" : "👁"}
                 </span>
               </span>
               <div className="flex-1">
@@ -250,7 +246,7 @@ function StatCard({
     <div className="rounded-lg border border-border bg-bg-card p-4">
       <div className="flex items-center justify-between">
         <span className="text-xs text-text-secondary">{label}</span>
-        <span className="material-symbols-outlined text-[20px] text-text-secondary">{icon}</span>
+        <span className="inline-flex items-center justify-center w-5 h-5 text-[20px] text-text-secondary" aria-hidden="true">{icon === "visibility" ? "👁" : icon === "edit" ? "✎" : icon === "check_circle" ? "✓" : "◆"}</span>
       </div>
       <p className="mt-2 text-2xl font-bold text-text-heading">{value}</p>
       {trend !== undefined && (

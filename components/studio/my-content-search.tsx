@@ -67,11 +67,12 @@ export function MyContentSearch({ userId }: { userId: string | null }) {
                     >
                       <span className="flex min-w-0 items-center gap-2">
                         <span
-                          className="material-symbols-outlined shrink-0 text-[16px]"
+                          className="inline-flex items-center justify-center shrink-0 w-4 h-4"
                           style={{ color: meta.accent }}
                           title={meta.label}
+                          aria-hidden="true"
                         >
-                          {meta.icon}
+                          ◆
                         </span>
                         <span className="truncate">{e.title || e.slug}</span>
                       </span>

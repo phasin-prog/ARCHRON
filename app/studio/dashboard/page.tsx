@@ -106,7 +106,7 @@ export default function StudioDashboardPage() {
   if (!writer) {
     return (
       <main className="mx-auto max-w-2xl px-6 py-20 text-center">
-        <span className="material-symbols-outlined text-[64px] text-text-secondary">lock</span>
+        <span className="inline-flex items-center justify-center w-16 h-16 text-[64px] text-text-secondary" aria-hidden="true">🔒</span>
         <h1 className="mt-4 font-serif text-2xl text-text-heading">ต้องมีสิทธิ์นักเขียน</h1>
         <p className="mt-2 text-sm text-text-secondary/70">
           ขอเป็นนักเขียนได้จากหน้าโปรไฟล์
@@ -196,7 +196,7 @@ export default function StudioDashboardPage() {
               href="/studio/editor"
               className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-accent to-accent px-5 py-2.5 text-sm font-semibold text-text-inverse shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/20"
             >
-              <span className="material-symbols-outlined text-[18px]">edit_note</span>
+              <span className="inline-flex items-center justify-center w-[18px] h-[18px] text-[18px]" aria-hidden="true">✎</span>
               เขียนใหม่
             </Link>
           </div>
@@ -210,7 +210,7 @@ export default function StudioDashboardPage() {
                 <span className="flex h-8 w-8 items-center justify-center rounded-lg"
                   style={{ backgroundColor: "color-mix(in srgb, #9A948A 12%, transparent)", color: "#9A948A" }}
                 >
-                  <span className="material-symbols-outlined text-[16px]">edit</span>
+                  <span className="inline-flex items-center justify-center w-4 h-4 text-[16px]" aria-hidden="true">✎</span>
                 </span>
                 <span className="text-xs text-text-secondary/60">ฉบับร่าง</span>
               </div>
@@ -222,7 +222,7 @@ export default function StudioDashboardPage() {
                 <span className="flex h-8 w-8 items-center justify-center rounded-lg"
                   style={{ backgroundColor: "color-mix(in srgb, #7FB08A 12%, transparent)", color: "#7FB08A" }}
                 >
-                  <span className="material-symbols-outlined text-[16px]">publish</span>
+                  <span className="inline-flex items-center justify-center w-4 h-4 text-[16px]" aria-hidden="true">📤</span>
                 </span>
                 <span className="text-xs text-text-secondary/60">เผยแพร่แล้ว</span>
               </div>
@@ -234,7 +234,7 @@ export default function StudioDashboardPage() {
                 <span className="flex h-8 w-8 items-center justify-center rounded-lg"
                   style={{ backgroundColor: "color-mix(in srgb, #8A857D 12%, transparent)", color: "#8A857D" }}
                 >
-                  <span className="material-symbols-outlined text-[16px]">archive</span>
+                  <span className="inline-flex items-center justify-center w-4 h-4 text-[16px]" aria-hidden="true">📦</span>
                 </span>
                 <span className="text-xs text-text-secondary/60">เก็บถาวร</span>
               </div>
@@ -346,8 +346,8 @@ export default function StudioDashboardPage() {
             </div>
           ) : (tab === "my" ? myFilteredEntries : allFilteredEntries).length === 0 ? (
             <div className="archron-card p-12 text-center">
-              <span className="material-symbols-outlined text-[48px] text-text-secondary">
-                {tab === "my" ? "note_add" : "search_off"}
+              <span className="inline-flex items-center justify-center w-12 h-12 text-[48px] text-text-secondary" aria-hidden="true">
+                {tab === "my" ? "📝" : "⊘"}
               </span>
               <p className="mt-3 text-sm text-text-secondary/60">
                 {tab === "my" ? "ยังไม่มีบทความ" : "ไม่พบรายการที่ตรงกับตัวกรอง"}
@@ -358,7 +358,7 @@ export default function StudioDashboardPage() {
                   className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-accent hover:underline"
                 >
                   เริ่มเขียน
-                  <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+                  <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[14px]" aria-hidden="true">→</span>
                 </Link>
               )}
             </div>
@@ -399,8 +399,8 @@ export default function StudioDashboardPage() {
                       {statusLabel(e.status)}
                     </span>
                   )}
-                  <span className="material-symbols-outlined text-[16px] text-text-secondary group-hover:text-accent transition-colors">
-                    {tab === "all" ? "edit" : "open_in_new"}
+                  <span className="inline-flex items-center justify-center w-4 h-4 text-[16px] text-text-secondary group-hover:text-accent transition-colors" aria-hidden="true">
+                    {tab === "all" ? "✎" : "↗"}
                   </span>
                 </Link>
               ))}

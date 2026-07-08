@@ -1,4 +1,4 @@
-import type { Cosmology } from "@/lib/content/cosmology";
+import { COSMOLOGY_ACCENT, type Cosmology } from "@/lib/content/cosmology";
 
 // VesicaPattern — พื้นหลัง vesica จาง ๆ ซ้ำเป็น grid สำหรับ section สาย
 // cosmology-aware: สี pattern อ่านจาก cosmology ของ section (ผ่าน inline style)
@@ -6,16 +6,6 @@ import type { Cosmology } from "@/lib/content/cosmology";
 //
 // แนวคิด: vesica (สองวงซ้อน) ซ้ำ ๆ = การเชื่อมโยงของศาสตร์ สื่อว่า section นี้คือ "สาย" ใด
 // สีเปลี่ยนตาม cosmology → Psyche (แนวคิด), Mercurius (สำนัก), Sapientia (บทความ) ฯลฯ
-
-// ค่า accent ตาม cosmology (ตรงกับ Dynamic Colour system)
-const COSMOLOGY_ACCENT: Record<Cosmology, string> = {
-  prima: "#B9C2CE",
-  concept: "#6E93A8",
-  accent: "#E7D7A6",
-  accent: "#C79A4A",
-  thinker: "#8AA395",
-  thinker: "#C9C2B4",
-};
 
 type Props = {
   cosmology: Cosmology;

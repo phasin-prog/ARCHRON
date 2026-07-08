@@ -71,7 +71,7 @@ export function BookCard({ entry }: BookCardProps) {
       {/* Arrow */}
       <div className="mt-4 flex items-center gap-1 text-xs text-accent/70 opacity-0 group-hover:opacity-100 transition-opacity">
         <span>อ่านรายละเอียด</span>
-        <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+        <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[14px]" aria-hidden="true">→</span>
       </div>
     </Link>
   );

@@ -11,6 +11,7 @@ import {
   RELATION_LABEL,
   type GraphData,
 } from "@/lib/content/graph";
+import { ArrowRightIcon, SearchIcon } from "@/components/icons";
 
 // ARCHRON Color Cosmology — สีเส้นความสัมพันธ์ตามสถานะการสืบค้น
 const RELATION_COLOR: Record<RelationType, string> = {
@@ -109,7 +110,7 @@ export function ConstellationMindmap({
           disabled={history.length === 0}
           className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-1.5 rounded-md border border-text-heading/12 px-3 py-2 text-sm text-text-secondary transition-colors hover:border-accent/40 hover:text-text-heading disabled:cursor-default disabled:opacity-35"
         >
-          <span className="material-symbols-outlined text-[18px]">arrow_back</span>
+          <ArrowRightIcon className="h-[18px] w-[18px]" style={{ transform: 'rotate(180deg)' }} />
           ย้อนกลับ
         </button>
         <form
@@ -119,7 +120,7 @@ export function ConstellationMindmap({
           }}
           className="flex min-h-[44px] flex-1 items-center gap-2 rounded-lg border border-text-heading/12 bg-bg-card/60 px-3 py-2 focus-within:border-accent/40 focus-within:ring-1 focus-within:ring-accent/20 transition-colors"
         >
-          <span className="material-symbols-outlined text-[18px] text-accent" aria-hidden="true">search</span>
+          <SearchIcon className="h-[18px] w-[18px] text-accent" />
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -189,7 +190,7 @@ export function ConstellationMindmap({
           ) : null}
           <span className="mt-2 inline-flex items-center gap-1 text-[11px] text-accent opacity-80 transition-opacity group-hover:opacity-100">
             เปิดหน้าเต็ม
-            <span className="material-symbols-outlined text-[13px]">arrow_forward</span>
+            <ArrowRightIcon className="h-[13px] w-[13px]" />
           </span>
         </Link>
         </ContextMenu>

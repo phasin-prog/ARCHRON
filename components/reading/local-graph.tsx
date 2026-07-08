@@ -6,6 +6,7 @@ import {
   NODE_TYPE_LABEL,
   RELATION_LABEL,
 } from "@/lib/content/graph";
+import { KnowledgeHubIcon, ArrowRightIcon } from "@/components/icons";
 
 // Local Graph (B2) — มินิกราฟรายโหนด: โหนดเป้าหมายตรงกลาง + เพื่อนบ้านโดยตรงเป็นวงรอบ
 // คงสีตามศาสตร์ (cosmology) · ไม่มี dependency กราฟหนัก · ซ่อนถ้าเพื่อนบ้าน < 2
@@ -27,7 +28,7 @@ export function LocalGraph({ entry }: { entry: ContentEntry }) {
   return (
     <figure className="archron-panel mt-6 p-4">
       <figcaption className="mb-2 flex items-center gap-1.5 text-xs text-text-secondary/60">
-        <span className="material-symbols-outlined text-[16px] text-accent/70">hub</span>
+        <KnowledgeHubIcon className="h-4 w-4 text-accent/70" />
         แผนที่ความสัมพันธ์เฉพาะหน้านี้
       </figcaption>
 
@@ -85,7 +86,7 @@ export function LocalGraph({ entry }: { entry: ContentEntry }) {
         className="mt-2 inline-flex items-center gap-1 text-xs text-accent hover:underline"
       >
         เปิดแผนที่ความสัมพันธ์เต็ม
-        <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+        <ArrowRightIcon className="h-3.5 w-3.5" />
       </Link>
     </figure>
   );

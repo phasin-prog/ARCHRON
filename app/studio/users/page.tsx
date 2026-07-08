@@ -78,7 +78,7 @@ export default function StudioUsersPage() {
     return (
       <main className="mx-auto flex min-h-[70vh] max-w-lg flex-col items-center justify-center px-6 text-center">
         <span className="flex h-14 w-14 items-center justify-center rounded-full border border-accent/30 text-accent">
-          <span className="material-symbols-outlined text-[26px]">shield_person</span>
+          <span className="inline-flex items-center justify-center w-6.5 w-6.5 text-[26px]" aria-hidden="true">🛡</span>
         </span>
         <h1 className="mt-6 font-serif text-2xl text-text-heading">เฉพาะผู้ดูแล</h1>
         <p className="mt-3 text-sm text-text-secondary/70">
@@ -135,7 +135,7 @@ export default function StudioUsersPage() {
                         <span className="text-xs text-text-secondary/50">{u.email}</span>
                         {requested ? (
                           <span className="mt-1 inline-flex w-fit items-center gap-1 rounded-full bg-warning/15 px-2 py-0.5 text-[10px] text-warning">
-                            <span className="material-symbols-outlined text-[12px]">how_to_reg</span>
+                            <span className="inline-flex items-center justify-center w-3 h-3 text-[12px]" aria-hidden="true">✍</span>
                             ขอเป็นนักเขียน
                           </span>
                         ) : null}
@@ -146,7 +146,7 @@ export default function StudioUsersPage() {
                         className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium"
                         style={{ backgroundColor: `${meta.accent}1f`, color: meta.accent }}
                       >
-                        <span className="material-symbols-outlined text-[14px]">{meta.icon}</span>
+                        <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[14px]" aria-hidden="true">{meta.icon === "admin_panel_settings" ? "🛡" : meta.icon === "person" ? "👤" : meta.icon === "edit_note" ? "✍" : "◆"}</span>
                         {ROLE_LABEL[u.role]}
                       </span>
                     </td>

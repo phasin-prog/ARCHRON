@@ -5,7 +5,7 @@ export default function SchoolsLoading() {
         {/* Breadcrumb Placeholder */}
         <div className="flex items-center gap-1">
           <div className="h-4 w-12 animate-pulse rounded bg-surface-3" />
-          <span className="material-symbols-outlined text-[16px] text-surface-3">chevron_right</span>
+          <span className="inline-flex items-center justify-center w-4 h-4 text-surface-3" aria-hidden="true">▸</span>
           <div className="h-4 w-32 animate-pulse rounded bg-surface-3" />
         </div>
 

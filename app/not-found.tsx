@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { SearchIcon, ArrowRightIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "ไม่พบหน้าที่ต้องการ — ARCHRON",
@@ -10,9 +11,7 @@ export default function NotFound() {
     <main className="flex min-h-[70vh] flex-col items-center justify-center px-6 py-24 text-center">
       {/* Icon */}
       <div className="mb-8">
-        <span className="material-symbols-outlined text-[72px] text-accent/25">
-          explore_off
-        </span>
+        <span className="inline-flex items-center justify-center w-[72px] h-[72px] text-[72px] text-accent/25" aria-hidden="true">◎</span>
       </div>
 
       {/* Message */}
@@ -29,9 +28,7 @@ export default function NotFound() {
           href="/"
           className="group flex items-center gap-3 rounded-lg border border-border/30 bg-bg-card px-5 py-4 text-left transition-all hover:border-accent/40 hover:bg-bg-card"
         >
-          <span className="material-symbols-outlined text-[24px] text-accent/60">
-            home
-          </span>
+          <span className="inline-flex items-center justify-center w-6 h-6 text-[24px] text-accent/60" aria-hidden="true">⌂</span>
           <div>
             <p className="text-sm font-medium text-text-heading group-hover:text-accent">
               กลับหน้าแรก
@@ -40,18 +37,14 @@ export default function NotFound() {
               เริ่มต้นสำรวจจากจุดเริ่มต้น
             </p>
           </div>
-          <span className="material-symbols-outlined ml-auto text-[18px] text-text-secondary/30 opacity-0 transition-opacity group-hover:opacity-100">
-            arrow_forward
-          </span>
+          <ArrowRightIcon className="ml-auto h-[18px] w-[18px] text-text-secondary/30 opacity-0 transition-opacity group-hover:opacity-100" />
         </Link>
 
         <Link
           href="/search"
           className="group flex items-center gap-3 rounded-lg border border-border/30 bg-bg-card px-5 py-4 text-left transition-all hover:border-accent/40 hover:bg-bg-card"
         >
-          <span className="material-symbols-outlined text-[24px] text-accent/60">
-            search
-          </span>
+          <SearchIcon className="h-6 w-6 text-accent/60" />
           <div>
             <p className="text-sm font-medium text-text-heading group-hover:text-accent">
               ค้นหา
@@ -60,18 +53,14 @@ export default function NotFound() {
               ค้นแนวคิด บทความ และหน้าต่าง ๆ
             </p>
           </div>
-          <span className="material-symbols-outlined ml-auto text-[18px] text-text-secondary/30 opacity-0 transition-opacity group-hover:opacity-100">
-            arrow_forward
-          </span>
+          <ArrowRightIcon className="ml-auto h-[18px] w-[18px] text-text-secondary/30 opacity-0 transition-opacity group-hover:opacity-100" />
         </Link>
 
         <Link
           href="/concepts"
           className="group flex items-center gap-3 rounded-lg border border-border/30 bg-bg-card px-5 py-4 text-left transition-all hover:border-accent/40 hover:bg-bg-card"
         >
-          <span className="material-symbols-outlined text-[24px] text-accent/60">
-            neurology
-          </span>
+          <span className="inline-flex items-center justify-center w-6 h-6 text-[24px] text-accent/60" aria-hidden="true">🧠</span>
           <div>
             <p className="text-sm font-medium text-text-heading group-hover:text-accent">
               คลังแนวคิด
@@ -80,18 +69,14 @@ export default function NotFound() {
               ระบบความรู้แบบเชื่อมโยง
             </p>
           </div>
-          <span className="material-symbols-outlined ml-auto text-[18px] text-text-secondary/30 opacity-0 transition-opacity group-hover:opacity-100">
-            arrow_forward
-          </span>
+          <ArrowRightIcon className="ml-auto h-[18px] w-[18px] text-text-secondary/30 opacity-0 transition-opacity group-hover:opacity-100" />
         </Link>
 
         <Link
           href="/articles"
           className="group flex items-center gap-3 rounded-lg border border-border/30 bg-bg-card px-5 py-4 text-left transition-all hover:border-accent/40 hover:bg-bg-card"
         >
-          <span className="material-symbols-outlined text-[24px] text-accent/60">
-            article
-          </span>
+          <span className="inline-flex items-center justify-center w-6 h-6 text-[24px] text-accent/60" aria-hidden="true">📄</span>
           <div>
             <p className="text-sm font-medium text-text-heading group-hover:text-accent">
               บทความ
@@ -100,9 +85,7 @@ export default function NotFound() {
               งานอ่านที่อธิบายและตีความแนวคิด
             </p>
           </div>
-          <span className="material-symbols-outlined ml-auto text-[18px] text-text-secondary/30 opacity-0 transition-opacity group-hover:opacity-100">
-            arrow_forward
-          </span>
+          <ArrowRightIcon className="ml-auto h-[18px] w-[18px] text-text-secondary/30 opacity-0 transition-opacity group-hover:opacity-100" />
         </Link>
       </div>
     </main>

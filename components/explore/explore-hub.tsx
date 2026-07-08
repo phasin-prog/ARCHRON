@@ -92,7 +92,7 @@ export function ExploreHub({ entries }: { entries: ContentEntry[] }) {
                     : "bg-bg-card/40 text-text-secondary hover:bg-bg-card hover:text-text-heading border border-transparent"
                 }`}
               >
-                <span className="material-symbols-outlined text-[18px]">{tab.icon}</span>
+                <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[18px]" aria-hidden="true">{tab.icon === "menu_book" ? "📚" : tab.icon === "lightbulb" ? "💡" : tab.icon === "language" ? "🌐" : "◆"}</span>
                 <span>{tab.label}</span>
               </button>
             );
@@ -104,7 +104,7 @@ export function ExploreHub({ entries }: { entries: ContentEntry[] }) {
             onClick={handleRandomize}
             className="inline-flex items-center gap-2 rounded-lg border border-accent/30 bg-bg-card px-3.5 py-2 text-xs text-accent hover:bg-accent/10 transition-colors self-start sm:self-auto"
           >
-            <span className="material-symbols-outlined text-[16px]">refresh</span>
+            <span className="inline-flex items-center justify-center w-4 h-4" aria-hidden="true">↻</span>
             <span>สุ่มความรู้อีกครั้ง</span>
           </button>
         )}

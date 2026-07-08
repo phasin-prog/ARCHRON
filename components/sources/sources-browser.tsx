@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { SourceItem } from "@/types/content";
+import { SearchIcon, CloseIcon } from "@/components/icons";
 
 interface SourceItemWithId extends SourceItem {
   id: string;
@@ -61,7 +62,7 @@ export function SourcesBrowser({ sources }: { sources: SourceItemWithId[] }) {
       <div className="grid gap-4 sm:grid-cols-[2fr_1fr]">
         {/* ค้นหา */}
         <div className="flex items-center gap-3 rounded-lg border border-text-heading/12 bg-bg-card/60 px-4 py-2.5 focus-within:border-accent/40 focus-within:ring-1 focus-within:ring-accent/20 transition-colors">
-          <span className="material-symbols-outlined text-[20px] text-accent" aria-hidden="true">search</span>
+          <SearchIcon className="h-5 w-5 text-accent" />
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -71,7 +72,7 @@ export function SourcesBrowser({ sources }: { sources: SourceItemWithId[] }) {
           />
           {query ? (
             <button type="button" onClick={() => setQuery("")} aria-label="ล้างคำค้น" className="rounded-md p-1 text-text-secondary hover:text-accent hover:bg-bg-card focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:outline-none">
-              <span className="material-symbols-outlined text-[18px]">close</span>
+              <CloseIcon className="h-4.5 w-4.5" />
             </button>
           ) : null}
         </div>
@@ -172,7 +173,7 @@ export function SourcesBrowser({ sources }: { sources: SourceItemWithId[] }) {
 
                 <div className="mt-4 flex items-center justify-between border-t border-border/20 pt-3 text-xs font-semibold" style={{ color: accent }}>
                   <span className="flex items-center gap-1 transition-all duration-300 group-hover:gap-2">
-                    ตรวจสอบหลักฐานปฐมภูมิ <span className="material-symbols-outlined text-[15px]">verified</span>
+                    ตรวจสอบหลักฐานปฐมภูมิ <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[15px]" aria-hidden="true">✓</span>
                   </span>
                   <span className="font-mono text-[11px] text-text-secondary">{s.sourceType.toUpperCase()}</span>
                 </div>

@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { EN_LETTERS, THAI_LETTERS, type Thinker, type SchoolField } from "@/lib/content/schools";
 import { disciplineMeta } from "@/components/discipline-meta";
 import Link from "next/link";
+import { SearchIcon, CloseIcon, ArrowRightIcon } from "@/components/icons";
 
 interface ThinkerWithSchool extends Thinker {
   schoolId: string;
@@ -112,7 +113,7 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
       </div>
 
       <div className="flex items-center gap-3 rounded-md border border-text-heading/12 bg-bg-card/60 px-4 py-3 focus-within:border-accent/40">
-        <span className="material-symbols-outlined text-[22px] text-accent">search</span>
+        <SearchIcon className="h-5.5 w-5.5 text-accent" />
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -127,7 +128,7 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
             aria-label="ล้างคำค้น"
             className="text-text-secondary/60 transition-colors hover:text-text-heading"
           >
-            <span className="material-symbols-outlined text-[20px]">close</span>
+            <CloseIcon className="h-5 w-5" />
           </button>
         ) : null}
       </div>
@@ -264,9 +265,7 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
                       style={{ color: meta.accent }}
                     >
                       ศึกษาประวัติ
-                      <span className="material-symbols-outlined text-[16px]">
-                        arrow_forward
-                      </span>
+                      <ArrowRightIcon className="h-4 w-4" />
                     </span>
                     <span className="text-[11px] font-mono text-text-secondary">ปราชญ์</span>
                   </div>

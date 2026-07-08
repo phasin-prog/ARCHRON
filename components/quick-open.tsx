@@ -195,8 +195,8 @@ export function QuickOpen() {
       <div className="relative z-10 w-full max-w-xl rounded-xl border border-accent/15 bg-bg-card shadow-[0_20px_60px_-20px_rgba(0,0,0,0.7)]">
         {/* Search input */}
         <div className="flex items-center gap-3 border-b border-accent/10 px-4 py-3">
-          <span className="material-symbols-outlined text-[20px] text-accent/70" aria-hidden="true">
-            search
+          <span className="inline-flex items-center justify-center w-5 h-5 text-[20px] text-accent/70" aria-hidden="true">
+            🔍
           </span>
           <input
             ref={inputRef}
@@ -238,8 +238,8 @@ export function QuickOpen() {
                       : "hover:bg-bg-card"
                   }`}
                 >
-                  <span className="material-symbols-outlined shrink-0 text-[18px] text-text-secondary/60">
-                    {item.external ? "open_in_new" : "article"}
+                  <span className="inline-flex items-center justify-center shrink-0 w-[1em] h-[1em] text-[18px] text-text-secondary/60" aria-hidden="true">
+                    {item.external ? "↗" : "📄"}
                   </span>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">

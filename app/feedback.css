@@ -278,10 +278,6 @@
   opacity: 0.6;
 }
 
-.archron-empty-icon .material-symbols-rounded {
-  font-size: 2rem;
-}
-
 .archron-empty-title {
   font-family: var(--font-heading);
   font-size: 1rem;

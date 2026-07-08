@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import type { ConceptRegistryItem, NodeType } from "@/lib/content/concept-registry";
 import { ConceptCard } from "@/components/concepts/concept-card";
+import { SearchIcon, CloseIcon } from "@/components/icons";
 
 interface ConceptsBrowserProps {
   concepts: ConceptRegistryItem[];
@@ -73,7 +74,7 @@ export function ConceptsBrowser({ concepts, publishedSlugs }: ConceptsBrowserPro
       <div className="grid gap-4 sm:grid-cols-[2fr_1fr]">
         {/* ค้นหา */}
         <div className="flex items-center gap-3 rounded-lg border border-text-heading/12 bg-bg-card/60 px-4 py-2.5 focus-within:border-accent/40 focus-within:ring-1 focus-within:ring-accent/20 transition-colors">
-          <span className="material-symbols-outlined text-[20px] text-accent" aria-hidden="true">search</span>
+          <SearchIcon className="h-5 w-5 text-accent" />
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -83,7 +84,7 @@ export function ConceptsBrowser({ concepts, publishedSlugs }: ConceptsBrowserPro
           />
           {query ? (
             <button type="button" onClick={() => setQuery("")} aria-label="ล้างคำค้น" className="rounded-md p-1 text-text-secondary hover:text-accent hover:bg-bg-card focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:outline-none">
-              <span className="material-symbols-outlined text-[18px]">close</span>
+              <CloseIcon className="h-4.5 w-4.5" />
             </button>
           ) : null}
         </div>
@@ -114,8 +115,8 @@ export function ConceptsBrowser({ concepts, publishedSlugs }: ConceptsBrowserPro
           onClick={() => setShowStubs((prev) => !prev)}
           className="flex items-center gap-1.5 rounded border border-border/30 bg-bg-card/40 px-2.5 py-1 transition-colors hover:border-accent/40 hover:text-accent"
         >
-          <span className="material-symbols-outlined text-[16px]">
-            {showStubs ? "visibility_off" : "visibility"}
+          <span className="inline-flex items-center justify-center w-4 h-4 text-[16px]" aria-hidden="true">
+            {showStubs ? "⊝" : "⊙"}
           </span>
           {showStubs ? "ซ่อนโครงร่างรอเขียน" : "แสดงโครงร่างรอเขียน"}
         </button>
@@ -124,7 +125,7 @@ export function ConceptsBrowser({ concepts, publishedSlugs }: ConceptsBrowserPro
       {/* ส่วนที่ 1: รายการที่มีเนื้อหาแล้ว (เผยแพร่แล้ว) */}
       <div className="space-y-4">
         <h2 className="font-serif text-lg font-semibold text-accent flex items-center gap-2">
-          <span className="material-symbols-outlined text-[20px]">verified</span>
+          <span className="inline-flex items-center justify-center w-5 h-5" aria-hidden="true">✓</span>
           ชิ้นความรู้ที่เรียบเรียงแล้ว ({realConcepts.length})
         </h2>
         {realConcepts.length === 0 ? (
@@ -144,7 +145,7 @@ export function ConceptsBrowser({ concepts, publishedSlugs }: ConceptsBrowserPro
       {showStubs && stubConcepts.length > 0 && (
         <div className="mt-12 space-y-4 border-t border-border/20 pt-8">
           <h2 className="font-serif text-lg font-semibold text-text-secondary flex items-center gap-2">
-            <span className="material-symbols-outlined text-[20px]">hourglass_empty</span>
+            <span className="inline-flex items-center justify-center w-5 h-5" aria-hidden="true">⏳</span>
             โครงร่างและบันทึกความรู้ย่อ ({stubConcepts.length})
           </h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

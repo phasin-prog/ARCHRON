@@ -41,7 +41,7 @@ export function ViewCounter({ slug, title, section }: { slug: string; title: str
 
   return (
     <span className="inline-flex items-center gap-1.5 text-xs text-text-secondary/60">
-      <span className="material-symbols-outlined text-[16px] text-accent/70">visibility</span>
+      <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[16px] text-accent/70" aria-hidden="true">👁</span>
       ผู้เยี่ยมชม {views.toLocaleString("th-TH")} ครั้ง
     </span>
   );

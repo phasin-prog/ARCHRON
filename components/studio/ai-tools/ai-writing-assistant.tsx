@@ -21,49 +21,49 @@ const AI_SUGGESTIONS: { type: AISuggestionType; label: string; icon: string; pro
   {
     type: "expand",
     label: "ขยายความ",
-    icon: "expand_more",
+    icon: "➕",
     prompt: "ขยายความส่วนนี้ให้ละเอียดขึ้น โดยเพิ่มคำอธิบายและตัวอย่างที่เหมาะสม",
   },
   {
     type: "summarize",
     label: "สรุปสั้น",
-    icon: "compress",
+    icon: "🔽",
     prompt: "สรุปส่วนนี้ให้กระชับขึ้น แต่ยังคงสาระสำคัญไว้",
   },
   {
     type: "simplify",
     label: "เข้าใจง่าย",
-    icon: "psychology",
+    icon: "🧠",
     prompt: "เขียนใหม่ให้ผู้อ่านทั่วไปเข้าใจง่ายขึ้น โดยใช้ภาษาที่เรียบง่าย",
   },
   {
     type: "academic",
     label: "ภาษาวิชาการ",
-    icon: "school",
+    icon: "🎓",
     prompt: "เขียนใหม่ในระดับภาษาวิชาการที่เหมาะสมสำหรับบทความทางวิชาการ",
   },
   {
     type: "thai-formal",
     label: "ภาษาไทยทางการ",
-    icon: "translate",
+    icon: "🌐",
     prompt: "เขียนใหม่เป็นภาษาไทยทางการที่สละสลวย เหมาะสำหรับบทความวิชาการ",
   },
   {
     type: "add-examples",
     label: "เพิ่มตัวอย่าง",
-    icon: "lightbulb",
+    icon: "💡",
     prompt: "เพิ่มตัวอย่างที่เป็นรูปธรรมและช่วยให้ผู้อ่านเข้าใจแนวคิดนี้ได้ดีขึ้น",
   },
   {
     type: "improve-flow",
     label: "ปรับการไหล",
-    icon: "water_drop",
+    icon: "💧",
     prompt: "ปรับปรุงการไหลของเนื้อหาให้ราบรื่นขึ้น เชื่อมโยงแต่ละย่อหน้าอย่างเป็นธรรมชาติ",
   },
   {
     type: "check-facts",
     label: "ตรวจสอบข้อเท็จจริง",
-    icon: "fact_check",
+    icon: "✓",
     prompt: "ตรวจสอบข้อเท็จจริงในส่วนนี้และแนะนำสิ่งที่ควรแก้ไขหรือเพิ่มเติม",
   },
 ];
@@ -95,7 +95,7 @@ export function AIWritingAssistant({ content, onSuggestion }: AIWritingAssistant
         onClick={() => setIsOpen(!isOpen)}
         className="inline-flex items-center gap-1.5 rounded-lg border border-concept/30 bg-concept/10 px-3 py-1.5 text-xs font-medium text-concept transition-colors hover:bg-concept/20"
       >
-        <span className="material-symbols-outlined text-[16px]">auto_awesome</span>
+        <span className="inline-flex items-center justify-center w-4 h-4 text-[16px]" aria-hidden="true">✨</span>
         AI ช่วยเขียน
       </button>
 
@@ -113,7 +113,7 @@ export function AIWritingAssistant({ content, onSuggestion }: AIWritingAssistant
                 onClick={() => handleSuggest(suggestion.type, suggestion.prompt)}
                 className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm transition-colors hover:bg-bg-card"
               >
-                <span className="material-symbols-outlined text-[18px] text-concept">
+                <span className="inline-flex items-center justify-center w-[18px] h-[18px] text-[18px] text-concept" aria-hidden="true">
                   {suggestion.icon}
                 </span>
                 <span className="text-text-heading">{suggestion.label}</span>
@@ -168,7 +168,7 @@ export function AIContentImprover({ content, onImprove }: AIContentImproverProps
         disabled={isProcessing}
         className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs text-text-secondary transition-colors hover:bg-bg-card hover:text-text-heading disabled:opacity-50"
       >
-        <span className="material-symbols-outlined text-[14px]">spellcheck</span>
+        <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[14px]" aria-hidden="true">✓</span>
         ไวยากรณ์
       </button>
       <button
@@ -176,7 +176,7 @@ export function AIContentImprover({ content, onImprove }: AIContentImproverProps
         disabled={isProcessing}
         className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs text-text-secondary transition-colors hover:bg-bg-card hover:text-text-heading disabled:opacity-50"
       >
-        <span className="material-symbols-outlined text-[14px]">style</span>
+        <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[14px]" aria-hidden="true">🎨</span>
         สไตล์
       </button>
       <button
@@ -184,7 +184,7 @@ export function AIContentImprover({ content, onImprove }: AIContentImproverProps
         disabled={isProcessing}
         className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs text-text-secondary transition-colors hover:bg-bg-card hover:text-text-heading disabled:opacity-50"
       >
-        <span className="material-symbols-outlined text-[14px]">water_drop</span>
+        <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[14px]" aria-hidden="true">💧</span>
         การไหล
       </button>
     </div>

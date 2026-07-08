@@ -7,6 +7,7 @@ import { getPublicEntries, getPublicSchools } from "@/lib/content/public-source"
 import { SCHOOLS } from "@/lib/content/schools";
 import { disciplineMeta } from "@/components/discipline-meta";
 import { readFromR2 } from "@/lib/storage";
+import { ArrowRightIcon, BookIcon, SchoolIcon } from "@/components/icons";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -67,9 +68,9 @@ export default async function SchoolDetailPage({ params }: PageProps) {
         {/* Breadcrumb */}
         <nav aria-label="เส้นทางนำทาง" className="flex flex-wrap items-center gap-1 text-xs text-text-secondary">
           <Link href="/" className="rounded px-2 py-1.5 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:text-accent focus-visible:outline-none">หน้าแรก</Link>
-          <span className="material-symbols-outlined text-[16px] text-text-secondary" aria-hidden="true">chevron_right</span>
+          <ArrowRightIcon className="h-4 w-4" />
           <Link href="/schools" className="rounded px-2 py-1.5 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:text-accent focus-visible:outline-none">สำนักคิดและนักปราชญ์</Link>
-          <span className="material-symbols-outlined text-[16px] text-text-secondary" aria-hidden="true">chevron_right</span>
+          <ArrowRightIcon className="h-4 w-4" />
           <span className="px-2 py-1.5 text-text-body">{s.nameTh}</span>
         </nav>
 
@@ -105,7 +106,7 @@ export default async function SchoolDetailPage({ params }: PageProps) {
             </div>
             <div className="shrink-0">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-accent/10 px-3.5 py-1 text-xs font-medium text-accent">
-                <span className="material-symbols-outlined text-[14px]">groups</span>
+                <SchoolIcon className="h-3.5 w-3.5" />
                 {s.thinkers.length} นักคิดหลัก
               </span>
             </div>
@@ -203,7 +204,7 @@ export default async function SchoolDetailPage({ params }: PageProps) {
                 >
                   <h3 className="font-serif text-xl font-medium text-text-heading group-hover:text-accent flex items-center justify-between">
                     {t.nameTh}
-                    <span className="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity text-sm">arrow_forward</span>
+                    <ArrowRightIcon className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </h3>
                   <p className="mt-1 text-xs text-text-secondary/55">
                     {t.nameEn} · {t.era}
@@ -220,7 +221,7 @@ export default async function SchoolDetailPage({ params }: PageProps) {
                     <ul className="space-y-1">
                       {t.masterpieces.slice(0, 2).map((m) => (
                         <li key={m} className="flex items-start gap-1.5 text-xs text-text-secondary/70">
-                          <span className="material-symbols-outlined mt-0.5 text-[12px] text-accent/70">menu_book</span>
+                          <BookIcon className="h-3 w-3 text-accent/70" />
                           {m}
                         </li>
                       ))}
@@ -260,9 +261,6 @@ export default async function SchoolDetailPage({ params }: PageProps) {
                       {e.shortDescription}
                     </p>
                   </div>
-                  <span className="material-symbols-outlined text-text-secondary text-[20px]">
-                    chevron_right
-                  </span>
                 </Link>
               ))}
             </div>

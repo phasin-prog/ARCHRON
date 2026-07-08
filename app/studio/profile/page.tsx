@@ -173,7 +173,7 @@ export default function StudioProfilePage() {
             href="/studio/dashboard"
             className="inline-flex items-center gap-1.5 rounded-md border border-accent/30 bg-accent/10 px-4 py-2 text-xs font-semibold tracking-[0.05em] text-accent transition-colors hover:bg-accent hover:text-text-inverse focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
-            <span className="material-symbols-outlined text-[16px]">dashboard</span>
+            <span className="inline-flex items-center justify-center w-4 h-4 text-[16px]" aria-hidden="true">◫</span>
             Dashboard
           </Link>
         ) : null}
@@ -200,7 +200,7 @@ export default function StudioProfilePage() {
             <input id="title-input" className={inputClass} value={title} onChange={(e) => setTitle(e.target.value)} placeholder="เช่น ผู้สนับสนุน, นักเขียนกิตติมศักดิ์" />
           </div>
           <button onClick={handleSave} disabled={saving} className="inline-flex items-center gap-2 bg-gradient-to-br from-accent to-accent rounded px-6 py-2.5 text-sm font-semibold text-text-inverse transition-transform hover:-translate-y-0.5 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
-            <span className="material-symbols-outlined text-[18px]">save</span>
+            <span className="inline-flex items-center justify-center w-4.5 w-4.5 text-[18px]" aria-hidden="true">💾</span>
             {saving ? "กำลังบันทึก..." : "บันทึกโปรไฟล์"}
           </button>
 
@@ -211,7 +211,7 @@ export default function StudioProfilePage() {
                 ผู้ใช้ทั่วไปอ่านได้ทุกอย่าง หากต้องการเขียนและเรียบเรียงเนื้อหา ส่งคำขอเป็นนักเขียนเพื่อให้แอดมินพิจารณา
               </p>
               <button onClick={handleRequestWriter} disabled={writerRequested} className="mt-4 inline-flex items-center gap-2 rounded border border-accent/45 px-4 py-2 text-sm text-accent transition-colors hover:bg-accent/10 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
-                <span className="material-symbols-outlined text-[18px]">how_to_reg</span>
+                <span className="inline-flex items-center justify-center w-4.5 w-4.5 text-[18px]" aria-hidden="true">✍</span>
                 {writerRequested ? "ส่งคำขอแล้ว — รออนุมัติ" : "ขอเป็นนักเขียน"}
               </button>
             </div>
@@ -223,12 +223,12 @@ export default function StudioProfilePage() {
           {/* Bookmarks */}
           <section>
             <h2 className="mb-4 font-serif text-xl text-text-heading">
-              <span className="material-symbols-outlined text-[20px] mr-1.5 text-accent align-middle">bookmark</span>
+              <span className="inline-flex items-center justify-center w-5 h-5 mr-1.5 text-accent align-middle" aria-hidden="true">🔖</span>
               รายการบันทึก
             </h2>
             {bookmarks.length === 0 ? (
               <div className="archron-panel p-6 text-center">
-                <span className="material-symbols-outlined text-[32px] text-text-secondary">bookmark_border</span>
+                <span className="inline-flex items-center justify-center w-8 h-8 text-[32px] text-text-secondary" aria-hidden="true">🔖</span>
                 <p className="mt-2 text-sm text-text-secondary/60">ยังไม่มีรายการบันทึก</p>
                 <p className="mt-1 text-xs text-text-secondary/40">
                   บันทึกบทความหรือแนวคิดจากหน้าอ่าน
@@ -257,7 +257,7 @@ export default function StudioProfilePage() {
                       className="shrink-0 ml-2 p-1 text-text-secondary hover:text-error transition-colors"
                       aria-label="ลบรายการบันทึก"
                     >
-                      <span className="material-symbols-outlined text-[16px]">close</span>
+                      <span className="inline-flex items-center justify-center w-4 h-4 text-[16px]" aria-hidden="true">✕</span>
                     </button>
                   </div>
                 ))}
@@ -268,12 +268,12 @@ export default function StudioProfilePage() {
           {/* Reading History */}
           <section>
             <h2 className="mb-4 font-serif text-xl text-text-heading">
-              <span className="material-symbols-outlined text-[20px] mr-1.5 text-concept align-middle">history</span>
+              <span className="inline-flex items-center justify-center w-5 h-5 mr-1.5 text-concept align-middle" aria-hidden="true">⏱</span>
               ประวัติการอ่านล่าสุด
             </h2>
             {recentItems.length === 0 ? (
               <div className="archron-panel p-6 text-center">
-                <span className="material-symbols-outlined text-[32px] text-text-secondary">schedule</span>
+                <span className="inline-flex items-center justify-center w-8 h-8 text-[32px] text-text-secondary" aria-hidden="true">⏰</span>
                 <p className="mt-2 text-sm text-text-secondary/60">ยังไม่มีประวัติการอ่าน</p>
                 <p className="mt-1 text-xs text-text-secondary/40">
                   เริ่มอ่านบทความเพื่อบันทึกประวัติ

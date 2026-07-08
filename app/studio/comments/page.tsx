@@ -137,7 +137,7 @@ export default function StudioCommentsPage() {
                     href={`/${c.section}/${c.slug}`}
                     className="inline-flex items-center gap-1 text-text-secondary/60 hover:text-accent"
                   >
-                    <span className="material-symbols-outlined text-[14px]">open_in_new</span>
+                    <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[14px]" aria-hidden="true">↗</span>
                     {c.section}/{c.slug}
                   </Link>
                   <button
@@ -146,8 +146,8 @@ export default function StudioCommentsPage() {
                     disabled={busyId === c.id}
                     className="inline-flex items-center gap-1 text-text-secondary/70 transition-colors hover:text-accent disabled:opacity-50"
                   >
-                    <span className="material-symbols-outlined text-[15px]">
-                      {hidden ? "visibility" : "visibility_off"}
+                    <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[15px]" aria-hidden="true">
+                      {hidden ? "⊝" : "⊙"}
                     </span>
                     {hidden ? "แสดง" : "ซ่อน"}
                   </button>
@@ -157,7 +157,7 @@ export default function StudioCommentsPage() {
                     disabled={busyId === c.id}
                     className="inline-flex items-center gap-1 text-text-secondary/70 transition-colors hover:text-error disabled:opacity-50"
                   >
-                    <span className="material-symbols-outlined text-[15px]">delete</span>
+                    <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[15px]" aria-hidden="true">🗑</span>
                     ลบถาวร
                   </button>
                 </div>

@@ -36,8 +36,8 @@ export function ReadingMobileBar({ slug }: { slug: string }) {
         aria-label={copied ? "คัดลอกลิงก์แล้ว" : "คัดลอกลิงก์"}
         className="flex flex-1 items-center justify-center gap-1.5 rounded-md px-3 py-2 text-xs text-text-secondary transition-colors hover:bg-bg-card hover:text-accent active:scale-95 max-w-[120px]"
       >
-        <span className="material-symbols-outlined text-[18px]">
-          {copied ? "check" : "link"}
+        <span className="inline-flex items-center justify-center w-[18px] h-[18px] text-[18px]" aria-hidden="true">
+          {copied ? "✓" : "🔗"}
         </span>
         <span className="hidden sm:inline" aria-live="polite" aria-atomic="true">{copied ? "คัดลอกแล้ว" : "คัดลอกลิงก์"}</span>
       </button>
@@ -48,7 +48,7 @@ export function ReadingMobileBar({ slug }: { slug: string }) {
         aria-label="ดูในแผนที่ความสัมพันธ์"
         className="flex flex-1 items-center justify-center gap-1.5 rounded-md px-3 py-2 text-xs text-text-secondary transition-colors hover:bg-bg-card hover:text-accent active:scale-95 max-w-[120px]"
       >
-        <span className="material-symbols-outlined text-[18px]">hub</span>
+        <span className="inline-flex items-center justify-center w-[18px] h-[18px] text-[18px]" aria-hidden="true">✦</span>
         <span className="hidden sm:inline">แผนที่</span>
       </button>
 
@@ -58,7 +58,7 @@ export function ReadingMobileBar({ slug }: { slug: string }) {
         aria-label="แชร์"
         className="flex flex-1 items-center justify-center gap-1.5 rounded-md px-3 py-2 text-xs text-text-secondary transition-colors hover:bg-bg-card hover:text-accent active:scale-95 max-w-[120px]"
       >
-        <span className="material-symbols-outlined text-[18px]">share</span>
+        <span className="inline-flex items-center justify-center w-[18px] h-[18px] text-[18px]" aria-hidden="true">↗</span>
         <span className="hidden sm:inline">แชร์</span>
       </button>
     </div>

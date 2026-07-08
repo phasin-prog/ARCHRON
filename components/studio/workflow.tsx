@@ -164,7 +164,7 @@ export function WorkflowStatus({
       {/* Saving Status */}
       {isSaving ? (
         <span className="flex items-center gap-1">
-          <span className="material-symbols-outlined animate-spin text-[14px]">progress_activity</span>
+          <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[14px] animate-spin" aria-hidden="true">⟳</span>
           กำลังบันทึก...
         </span>
       ) : isDirty ? (
@@ -174,7 +174,7 @@ export function WorkflowStatus({
         </span>
       ) : lastSaved ? (
         <span className="flex items-center gap-1">
-          <span className="material-symbols-outlined text-[14px]">check_circle</span>
+          <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[14px]" aria-hidden="true">✓</span>
           บันทึกแล้ว {formatTime(lastSaved)}
         </span>
       ) : null}
@@ -188,8 +188,8 @@ export function WorkflowStatus({
             : "bg-bg-card text-text-secondary"
         }`}
       >
-        <span className="material-symbols-outlined text-[14px]">
-          {autosaveEnabled ? "autorenew" : "pause"}
+        <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[14px]" aria-hidden="true">
+          {autosaveEnabled ? "⟳" : "⏸"}
         </span>
         {autosaveEnabled ? "Auto-save On" : "Auto-save Off"}
       </button>

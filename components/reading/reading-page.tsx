@@ -20,6 +20,8 @@ import {
   SchoolIcon,
   ConceptIcon,
   ArrowRightIcon,
+  KnowledgeHubIcon,
+  CloseIcon,
 } from "@/components/icons";
 import { Tooltip } from "@/components/tooltip";
 import { ContentCardList } from "@/components/content-card";
@@ -309,13 +311,13 @@ export async function ReadingPage({
         <div className="scroll-reveal flex flex-wrap items-center justify-between gap-3">
           <nav aria-label="เส้นทางนำทาง" className="flex flex-wrap items-center gap-1 text-xs text-text-secondary">
             <Link href="/" className="rounded px-2 py-2 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:text-accent focus-visible:outline-none">หน้าแรก</Link>
-            <span className="material-symbols-outlined text-[16px] text-text-secondary" aria-hidden="true">chevron_right</span>
+            <ArrowRightIcon className="h-4 w-4 text-text-secondary" />
             <Link href="/knowledge" className="rounded px-2 py-2 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:text-accent focus-visible:outline-none">คลังความรู้</Link>
-            <span className="material-symbols-outlined text-[16px] text-text-secondary" aria-hidden="true">chevron_right</span>
+            <ArrowRightIcon className="h-4 w-4 text-text-secondary" />
             <Link href={`/${section}`} className="rounded px-2 py-2 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:text-accent focus-visible:outline-none">
               {SECTION_LABEL[section]}
             </Link>
-            <span className="material-symbols-outlined text-[16px] text-text-secondary" aria-hidden="true">chevron_right</span>
+            <ArrowRightIcon className="h-4 w-4 text-text-secondary" />
             <span className="px-2 py-2 text-text-body">{entry.mainTerm ?? entry.title}</span>
           </nav>
           <FontSizeControl />
@@ -348,7 +350,7 @@ export async function ReadingPage({
 
           {/* บันทึกไปยังหน้าการอ่าน */}
           <div className="mt-4 flex items-center gap-1.5 text-xs text-accent font-medium">
-            <span className="material-symbols-outlined text-[16px]">bookmark_added</span>
+            <span className="inline-flex items-center justify-center w-4 h-4" aria-hidden="true">🔖</span>
             <span>บันทึกไปยังประวัติการอ่านแล้ว (สามารถอ่านต่อได้จากหน้าแรก)</span>
           </div>
 
@@ -425,7 +427,7 @@ export async function ReadingPage({
         {entry.roots?.caution ? (
           <section className="scroll-reveal mt-14 border border-warning/20 bg-warning/5 p-5 rounded-md">
             <h3 className="font-serif text-fluid-h3 text-warning/90 flex items-center gap-2">
-              <span className="material-symbols-outlined text-[20px]">warning</span>
+              <span className="inline-flex items-center justify-center w-5 h-5 text-[20px]" aria-hidden="true">⚠</span>
               ความเข้าใจผิดที่พบบ่อย / ข้อควรระวัง
             </h3>
             <p className="mt-3 text-base leading-relaxed text-text-body/95">
@@ -525,7 +527,7 @@ export async function ReadingPage({
                 className="inline-flex items-center gap-2 rounded-sm bg-gradient-to-br from-accent to-accent px-6 py-3 text-sm font-semibold text-text-inverse transition-transform hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
               >
                 สนับสนุนโครงการ
-                <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+                <ArrowRightIcon className="h-[18px] w-[18px]" />
               </Link>
               <Link href="/guide" className="text-sm text-accent hover:underline focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:outline-none">
                 ใช้บริการ Jungian Type Analysis →
@@ -617,7 +619,7 @@ export async function ReadingPage({
           {entry.relatedConcepts.length > 0 ? (
             <div className="archron-panel p-5">
               <h4 className="flex items-center gap-2 font-serif text-base font-semibold text-text-heading">
-                <span className="material-symbols-outlined text-[18px] text-accent">hub</span>
+                <KnowledgeHubIcon className="h-[18px] w-[18px] text-accent" />
                 แผนที่ความเชื่อมโยง
               </h4>
               <p className="mt-1.5 text-xs text-text-secondary">เชื่อมโยงกับ {entry.relatedConcepts.length} แนวคิดในคลัง</p>
@@ -631,7 +633,7 @@ export async function ReadingPage({
                     <div className="font-serif font-medium text-text-heading">{conceptTitle(rc.conceptSlug)}</div>
                     <div className="mt-1 flex items-center justify-between text-[10px] text-accent/90">
                       <span>{RELATION_LABEL[rc.relationType]}</span>
-                      <span className="material-symbols-outlined text-[12px]">arrow_forward</span>
+                      <ArrowRightIcon className="h-3 w-3" />
                     </div>
                   </Link>
                 ))}
@@ -640,7 +642,7 @@ export async function ReadingPage({
                 href={`/constellation?focus=${entry.slug}`}
                 className="mt-4 inline-flex w-full items-center justify-center gap-1.5 rounded-md border border-accent/30 bg-accent/10 px-3 py-2 text-xs font-medium text-accent transition-colors hover:bg-accent/20"
               >
-                <span className="material-symbols-outlined text-[16px]">explore</span>
+                <KnowledgeHubIcon className="h-4 w-4" />
                 เปิด Constellation Map
               </Link>
             </div>
@@ -649,7 +651,7 @@ export async function ReadingPage({
           {backlinks.length > 0 ? (
             <div className="archron-panel p-5">
               <h4 className="flex items-center gap-2 font-serif text-base font-semibold text-text-heading">
-                <span className="material-symbols-outlined text-[18px] text-accent">link</span>
+                <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[18px] text-accent" aria-hidden="true">🔗</span>
                 อ้างถึงในบทความ ({backlinks.length})
               </h4>
               <ul className="mt-3 space-y-2 text-xs">

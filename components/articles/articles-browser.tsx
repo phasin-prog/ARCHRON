@@ -5,6 +5,7 @@ import type { ContentEntry } from "@/types/content";
 import { disciplineMeta, type DisciplineKey } from "@/components/discipline-meta";
 import { ViewBadge } from "@/components/view-badge";
 import Link from "next/link";
+import { SearchIcon, CloseIcon, ArrowRightIcon, ClockIcon } from "@/components/icons";
 
 function frameworkToDiscipline(framework?: string): DisciplineKey {
   if (!framework) return "philosophy";
@@ -94,7 +95,7 @@ export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-[2fr_1fr_1fr_1fr]">
         <div className="flex items-center gap-3 rounded-md border border-text-heading/12 bg-bg-card/60 px-4 py-2.5 focus-within:border-accent/45">
-          <span className="material-symbols-outlined text-[20px] text-accent">search</span>
+          <SearchIcon className="h-5 w-5 text-accent" />
           <input
             value={query}
             onChange={(e) => {
@@ -107,7 +108,7 @@ export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
           />
           {query ? (
             <button type="button" onClick={() => setQuery("")} className="text-text-secondary hover:text-accent">
-              <span className="material-symbols-outlined text-[18px]">close</span>
+              <CloseIcon className="h-4.5 w-4.5" />
             </button>
           ) : null}
         </div>
@@ -230,7 +231,7 @@ export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
                       <div className="flex items-center justify-between border-t border-border/12 pt-4">
                         <span className="flex items-center gap-3 text-xs text-text-secondary/55">
                           <span className="flex items-center gap-1">
-                            <span className="material-symbols-outlined text-[14px]">schedule</span>
+                            <ClockIcon className="h-3.5 w-3.5" />
                             {readMin} นาที
                           </span>
                           <span
@@ -248,7 +249,7 @@ export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
                           style={{ color: meta.accent }}
                         >
                           อ่านบทความ
-                          <span className="material-symbols-outlined text-[15px]">arrow_forward</span>
+                          <ArrowRightIcon className="h-[15px] w-[15px]" />
                         </span>
                       </div>
                     </div>
@@ -268,7 +269,7 @@ export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             className="flex items-center gap-1 rounded-md border border-border/30 bg-bg-card/40 px-3 py-2 text-sm text-text-body hover:border-accent/40 hover:text-accent disabled:opacity-30 disabled:hover:border-border/30 disabled:hover:text-text-body"
           >
-            <span className="material-symbols-outlined text-[16px]">chevron_left</span>
+            <ArrowRightIcon className="h-4 w-4" style={{ transform: 'rotate(180deg)' }} />
             ก่อนหน้า
           </button>
           <span className="text-sm text-text-secondary/60">
@@ -281,7 +282,7 @@ export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
             className="flex items-center gap-1 rounded-md border border-border/30 bg-bg-card/40 px-3 py-2 text-sm text-text-body hover:border-accent/40 hover:text-accent disabled:opacity-30 disabled:hover:border-border/30 disabled:hover:text-text-body"
           >
             ถัดไป
-            <span className="material-symbols-outlined text-[16px]">chevron_right</span>
+            <ArrowRightIcon className="h-4 w-4" />
           </button>
         </div>
       )}

@@ -119,7 +119,7 @@ export function SiteFooter() {
             <>
               <span className="px-1.5 text-text-secondary/50">·</span>
               <span className="inline-flex items-center gap-1 text-text-secondary/70">
-                <span className="material-symbols-outlined text-[14px] text-accent/70">visibility</span>
+                <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[14px] text-accent/70" aria-hidden="true">👁</span>
                 ผู้เยี่ยมชม {totalViews.toLocaleString("th-TH")} ครั้ง
               </span>
             </>

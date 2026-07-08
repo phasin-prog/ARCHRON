@@ -18,7 +18,7 @@ function Chip({ children, icon }: { children: ReactNode; icon?: string }) {
   return (
     <span className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium"
       style={{ borderColor:"color-mix(in srgb, var(--accent) 35%, transparent)", color:"var(--accent)", backgroundColor:"color-mix(in srgb, var(--accent) 10%, transparent)" }}>
-      {icon ? <span className="material-symbols-outlined text-[14px]">{icon}</span> : null}
+      {icon ? <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[14px]" aria-hidden="true">{icon === "library_books" ? "📚" : icon === "account_balance" ? "🏛" : icon === "category" ? "📋" : icon === "psychology" ? "🧠" : icon[0]?.toUpperCase()}</span> : null}
       {children}
     </span>
   );

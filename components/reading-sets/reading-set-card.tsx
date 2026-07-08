@@ -5,6 +5,7 @@ import { difficultyMeta } from "@/lib/content/cosmology";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { ArrowRightIcon } from "@/components/icons";
 
 export function ReadingSetCard({ set }: { set: ReadingSetItem }) {
   const accent = "#C79A4A"; // Sapientia Gold
@@ -36,7 +37,7 @@ export function ReadingSetCard({ set }: { set: ReadingSetItem }) {
                   borderWidth: "1px",
                 }}
               >
-                <span className="material-symbols-outlined text-[11px]">{diffMeta.icon}</span>
+                <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[11px]" aria-hidden="true">{diffMeta.icon === "auto_stories" ? "📖" : diffMeta.icon === "school" ? "🎓" : "◆"}</span>
                 {set.difficulty === "beginner"
                   ? "ระดับเริ่มต้น"
                   : set.difficulty === "intermediate"
@@ -95,12 +96,8 @@ export function ReadingSetCard({ set }: { set: ReadingSetItem }) {
                   {!isLast && (
                     <div className="flex justify-center w-5 mt-1.5 mb-1.5 md:mt-0 md:mb-0 md:w-auto md:mx-2 text-text-secondary/40 shrink-0">
                       {/* ลูกศรชี้ลงในมือถือ และชี้ขวาในเดสก์ท็อป */}
-                      <span className="material-symbols-outlined text-[16px] md:hidden">
-                        arrow_downward
-                      </span>
-                      <span className="material-symbols-outlined text-[16px] hidden md:inline">
-                        arrow_forward
-                      </span>
+                      <span className="inline-flex items-center justify-center w-4 h-4 md:hidden" aria-hidden="true">↓</span>
+                      <ArrowRightIcon className="h-4 w-4 hidden md:inline" />
                     </div>
                   )}
                 </div>
@@ -122,7 +119,7 @@ export function ReadingSetCard({ set }: { set: ReadingSetItem }) {
           className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent/80 hover:text-accent transition-colors mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg rounded"
         >
           ดูรายละเอียดซีรีส์
-          <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+          <ArrowRightIcon className="h-3.5 w-3.5" />
         </Link>
       </div>
     </article>

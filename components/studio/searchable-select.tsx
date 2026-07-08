@@ -93,10 +93,11 @@ export function SearchableSelect({
         <span className={`flex items-center gap-2 ${displayLabel ? "text-text-heading" : "text-text-secondary"}`}>
           {displayLabel && meta ? (
             <span
-              className="material-symbols-outlined text-[18px]"
+              className="inline-flex items-center justify-center w-[1em] h-[1em] text-[18px]"
               style={{ color: meta(value).accent }}
+              aria-hidden="true"
             >
-              {meta(value).icon}
+              ◆
             </span>
           ) : null}
           {displayLabel || placeholder}
@@ -125,7 +126,7 @@ export function SearchableSelect({
                   }}
                   className="flex w-full items-center gap-2 rounded px-2 py-2 text-left text-sm font-medium text-accent hover:bg-text-heading/5"
                 >
-                  <span className="material-symbols-outlined text-[18px]">add</span>
+                  <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[18px]" aria-hidden="true">+</span>
                   เพิ่ม &quot;{trimmed}&quot;
                 </button>
               </li>
@@ -145,12 +146,13 @@ export function SearchableSelect({
                     className="flex w-full items-center gap-2 rounded px-2 py-2 text-left text-sm text-text-body hover:bg-text-heading/5"
                   >
                     {meta ? (
-                      <span
-                        className="material-symbols-outlined text-[18px]"
-                        style={{ color: meta(o.value).accent }}
-                      >
-                        {meta(o.value).icon}
-                      </span>
+                    <span
+                      className="inline-flex items-center justify-center w-[1em] h-[1em] text-[18px]"
+                      style={{ color: meta(o.value).accent }}
+                      aria-hidden="true"
+                    >
+                      ◆
+                    </span>
                     ) : null}
                     {o.label}
                   </button>

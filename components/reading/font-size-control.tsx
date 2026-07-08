@@ -39,7 +39,7 @@ export function FontSizeControl() {
         className="flex h-11 w-11 items-center justify-center rounded text-text-heading transition-colors hover:bg-text-heading/10 disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
         aria-label="ลดขนาดตัวอักษร"
       >
-        <span className="material-symbols-outlined text-[16px]">remove</span>
+        <span className="inline-flex items-center justify-center w-4 h-4 text-xs" aria-hidden="true">−</span>
       </button>
       <span className="min-w-[48px] text-center text-text-secondary" aria-live="polite">
         {STEP_LABELS[step]}
@@ -51,7 +51,7 @@ export function FontSizeControl() {
         className="flex h-11 w-11 items-center justify-center rounded text-text-heading transition-colors hover:bg-text-heading/10 disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
         aria-label="เพิ่มขนาดตัวอักษร"
       >
-        <span className="material-symbols-outlined text-[16px]">add</span>
+        <span className="inline-flex items-center justify-center w-4 h-4 text-xs" aria-hidden="true">+</span>
       </button>
     </div>
   );

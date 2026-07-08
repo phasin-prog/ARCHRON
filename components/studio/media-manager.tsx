@@ -73,7 +73,7 @@ export function MediaManager({ onSelect, allowMultiple = false }: MediaManagerPr
         onClick={() => setIsOpen(true)}
         className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-bg-card px-3 py-1.5 text-xs font-medium text-text-secondary transition-colors hover:bg-bg-elevated hover:text-text-heading"
       >
-        <span className="material-symbols-outlined text-[16px]">perm_media</span>
+        <span className="inline-flex items-center justify-center w-4 h-4 text-[16px]" aria-hidden="true">🗂</span>
         จัดการสื่อ
       </button>
 
@@ -87,7 +87,7 @@ export function MediaManager({ onSelect, allowMultiple = false }: MediaManagerPr
                 onClick={() => setIsOpen(false)}
                 className="rounded-md p-1 text-text-secondary transition-colors hover:bg-bg-card hover:text-text-heading"
               >
-                <span className="material-symbols-outlined">close</span>
+                <span className="inline-flex items-center justify-center w-[1em] h-[1em]" aria-hidden="true">✕</span>
               </button>
             </div>
 
@@ -99,16 +99,12 @@ export function MediaManager({ onSelect, allowMultiple = false }: MediaManagerPr
             >
               {uploading ? (
                 <div className="flex flex-col items-center">
-                  <span className="material-symbols-outlined mb-2 animate-spin text-2xl text-accent">
-                    progress_activity
-                  </span>
+                  <span className="inline-flex items-center justify-center w-[1em] h-[1em] mb-2 animate-spin text-2xl text-accent" aria-hidden="true">⟳</span>
                   <p className="text-sm text-text-secondary">กำลังอัปโหลด...</p>
                 </div>
               ) : (
                 <div className="flex flex-col items-center">
-                  <span className="material-symbols-outlined mb-2 text-3xl text-text-secondary">
-                    cloud_upload
-                  </span>
+                  <span className="inline-flex items-center justify-center w-[1em] h-[1em] mb-2 text-3xl text-text-secondary" aria-hidden="true">☁</span>
                   <p className="text-sm text-text-heading">ลากและวางไฟล์ที่นี่</p>
                   <p className="mt-1 text-xs text-text-secondary">หรือคลิกเพื่อเลือกไฟล์</p>
                   <input
@@ -150,9 +146,7 @@ export function MediaManager({ onSelect, allowMultiple = false }: MediaManagerPr
             <div className="mx-4 mt-4 flex-1 overflow-y-auto">
               {filteredItems.length === 0 ? (
                 <div className="py-12 text-center">
-                  <span className="material-symbols-outlined mb-2 text-4xl text-text-secondary">
-                    folder_open
-                  </span>
+                  <span className="inline-flex items-center justify-center w-[1em] h-[1em] mb-2 text-4xl text-text-secondary" aria-hidden="true">📂</span>
                   <p className="text-sm text-text-secondary">ยังไม่มีสื่อในคลัง</p>
                 </div>
               ) : (
@@ -172,12 +166,8 @@ export function MediaManager({ onSelect, allowMultiple = false }: MediaManagerPr
                         />
                       ) : (
                         <div className="flex h-full flex-col items-center justify-center">
-                          <span className="material-symbols-outlined text-2xl text-text-secondary">
-                            {item.type === "video"
-                              ? "videocam"
-                              : item.type === "audio"
-                                ? "audio_file"
-                                : "description"}
+                          <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-2xl text-text-secondary" aria-hidden="true">
+                            {item.type === "video" ? "🎬" : item.type === "audio" ? "🎵" : "📄"}
                           </span>
                         </div>
                       )}

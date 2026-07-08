@@ -60,7 +60,9 @@ export function ReadingDock({ slug }: { slug: string }) {
             {a.label}
           </span>
           <span className="flex h-11 w-11 items-center justify-center rounded-full border border-accent/25 bg-bg-card/85 text-accent shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)] backdrop-blur transition-transform duration-300 group-hover:scale-110 group-hover:border-accent/50">
-            <span className="material-symbols-outlined text-[20px]">{a.icon}</span>
+            <span className="inline-flex items-center justify-center w-5 h-5 text-[20px]" aria-hidden="true">
+              {a.key === "copy" ? (copied ? "✓" : "🔗") : a.key === "map" ? "✦" : "🖨"}
+            </span>
           </span>
         </button>
       ))}

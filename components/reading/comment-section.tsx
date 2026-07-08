@@ -110,9 +110,9 @@ export function CommentSection({ section, slug }: { section: string; slug: strin
                 className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-br from-accent to-accent px-5 py-2 text-sm font-semibold text-text-inverse transition-all hover:-translate-y-0.5 hover:shadow-md focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none disabled:opacity-50 disabled:transform-none"
               >
                 {busy ? (
-                  <span className="material-symbols-outlined animate-spin text-[18px]">progress_activity</span>
+                  <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[18px] animate-spin" aria-hidden="true">⟳</span>
                 ) : (
-                  <span className="material-symbols-outlined text-[18px]">send</span>
+                  <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[18px]" aria-hidden="true">↗</span>
                 )}
                 {busy ? "กำลังส่ง…" : "ส่งความคิดเห็น"}
               </button>
@@ -151,7 +151,7 @@ export function CommentSection({ section, slug }: { section: string; slug: strin
                   onClick={() => handleDelete(c.id)}
                   className="mt-2 inline-flex items-center gap-1 text-xs text-text-secondary/75 transition-colors hover:text-error focus-visible:ring-1 focus-visible:ring-error/60 focus-visible:outline-none rounded px-1"
                 >
-                  <span className="material-symbols-outlined text-[14px]">delete</span>
+                  <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[14px]" aria-hidden="true">🗑</span>
                   ลบ
                 </button>
               ) : null}

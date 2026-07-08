@@ -3,6 +3,7 @@
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { conceptRegistry } from "@/lib/content/concept-registry";
+import { SearchIcon, KnowledgeHubIcon, CloseIcon } from "@/components/icons";
 
 type FabAction = {
   key: string;
@@ -78,7 +79,9 @@ export function Fab() {
             open ? "opacity-100" : "pointer-events-none opacity-0"
           }`}
         >
-          <span className="material-symbols-outlined text-[20px]">{a.icon}</span>
+          {a.key === "search" && <SearchIcon className="h-5 w-5" />}
+          {a.key === "map" && <KnowledgeHubIcon className="h-5 w-5" />}
+          {a.key === "random" && <span className="text-[16px]" aria-hidden="true">↻</span>}
           <span className="pointer-events-none absolute left-14 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-md border border-accent/15 bg-bg-card/95 px-2.5 py-1 text-xs text-text-heading opacity-0 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)] backdrop-blur transition-opacity duration-200 group-hover:opacity-100">
             {a.label}
           </span>
@@ -93,13 +96,11 @@ export function Fab() {
         onClick={() => setOpen((v) => !v)}
         className="relative flex h-14 w-14 items-center justify-center rounded-full border border-accent/40 bg-gradient-to-br from-accent to-accent text-text-inverse shadow-[0_10px_30px_-8px_rgba(0,0,0,0.7)] transition-transform duration-300 hover:scale-105 motion-reduce:transition-none"
       >
-        <span
-          className={`material-symbols-outlined text-[26px] transition-transform duration-300 motion-reduce:transition-none ${
+        <CloseIcon
+          className={`h-6.5 w-6.5 transition-transform duration-300 motion-reduce:transition-none text-text-inverse ${
             open ? "rotate-45" : ""
           }`}
-        >
-          add
-        </span>
+        />
       </button>
     </div>
   );

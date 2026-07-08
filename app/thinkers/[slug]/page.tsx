@@ -10,6 +10,7 @@ import { getPublicEntries, getPublicSchools } from "@/lib/content/public-source"
 import { readFromR2 } from "@/lib/storage";
 import { disciplineMeta } from "@/components/discipline-meta";
 import { InternalConceptLink } from "@/components/reading/internal-concept-link";
+import { ArrowRightIcon } from "@/components/icons";
 
 // mdComponents — ชุดเดียวกับ reading-page.tsx: แปลงลิงก์ /concepts/<slug> → glossary hover,
 // เปิดลิงก์ภายนอกในแท็บใหม่ (Thai-first · noopener) · ลิงก์อื่น ๆ ผ่านตรง
@@ -112,15 +113,15 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
           <ol className="flex flex-wrap items-center gap-1">
             <li className="inline-flex items-center gap-0.5">
               <Link href="/" className="rounded px-2 py-1.5 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:outline-none">หน้าแรก</Link>
-              <span aria-hidden="true" className="material-symbols-outlined text-[16px] text-text-secondary">chevron_right</span>
+              <ArrowRightIcon className="h-4 w-4" />
             </li>
             <li className="inline-flex items-center gap-0.5">
               <Link href="/schools" className="rounded px-2 py-1.5 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:outline-none">สำนักคิดและนักปราชญ์</Link>
-              <span aria-hidden="true" className="material-symbols-outlined text-[16px] text-text-secondary">chevron_right</span>
+              <ArrowRightIcon className="h-4 w-4" />
             </li>
             <li className="inline-flex items-center gap-0.5">
               <Link href={`/schools/${s.id}`} className="rounded px-2 py-1.5 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:outline-none">{s.nameTh}</Link>
-              <span aria-hidden="true" className="material-symbols-outlined text-[16px] text-text-secondary">chevron_right</span>
+              <ArrowRightIcon className="h-4 w-4" />
             </li>
             <li className="px-2 py-1.5 text-text-body" aria-current="page">{t.nameTh}</li>
           </ol>
@@ -204,9 +205,6 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
             <ul className="space-y-3">
               {t.masterpieces.map((m) => (
                 <li key={m} className="flex items-start gap-2.5 text-sm leading-relaxed text-text-body">
-                  <span className="material-symbols-outlined text-[16px] text-accent mt-0.5">
-                    menu_book
-                  </span>
                   {m}
                 </li>
               ))}
@@ -325,9 +323,6 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
                       {e.shortDescription}
                     </p>
                   </div>
-                  <span className="material-symbols-outlined text-text-secondary text-[20px]">
-                    chevron_right
-                  </span>
                 </Link>
               ))}
             </div>

@@ -20,7 +20,7 @@
    ----------------------------------------------------------------------------
    "Color represents meaning, not decoration."
    โหมดสว่างเป็นหลัก (Light-mode-only) — Neutral เป็นพื้น 90%+
-   Accent = Academic (warm brown) ใช้เฉพาะลิงก์/active/key actions
+   Accent = Academic (Blue) ใช้เฉพาะลิงก์/active/key actions
    Knowledge category colors สำหรับ badges/icons/graph nodes เท่านั้น
    Semantic สำหรับ status indicators เท่านั้น
    ============================================================================ */
@@ -36,9 +36,9 @@
   --color-text-inverse: #FFFFFF;  /* Text on dark/accent backgrounds */
 
   /* ---- Academic (Accent) ---- */
-  --color-accent: #8B5E3C;        /* Links, active elements */
-  --color-accent-hover: #7A4E2E;  /* Hover state */
-  --color-accent-subtle: #F5EDE5; /* Subtle background */
+  --color-accent: #5F8DCE;        /* Links, active elements — Blue primary */
+  --color-accent-hover: #4F7DBE;  /* Hover state */
+  --color-accent-subtle: #EEF2F8; /* Subtle background */
 
   /* ---- Knowledge Categories (badges/icons/graph nodes only) ---- */
   --color-concept: #5B7FAB;       /* Warm Blue */

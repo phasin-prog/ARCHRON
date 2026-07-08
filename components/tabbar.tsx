@@ -2,17 +2,22 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { SearchIcon, KnowledgeHubIcon, MenuIcon, PersonIcon } from "@/components/icons";
+import {
+  ArchronMark,
+  KnowledgeHubIcon,
+  PathIcon,
+  SearchIcon,
+  SchoolIcon,
+} from "@/components/icons";
 
-type Item = { href: string; label: string; icon: string; key: string };
+type Item = { href: string; label: string; Icon: React.ComponentType<{ className?: string }> };
 
-// ปลายทางหลักสำหรับมือถือ (เลือกจาก glass-nav เดิม ให้กระชับ) + โปรไฟล์นักอ่าน
 const ITEMS: Item[] = [
-  { href: "/", label: "หน้าแรก", icon: "home", key: "home" },
-  { href: "/knowledge", label: "คลังความรู้", icon: "explore", key: "explore" },
-  { href: "/search", label: "ค้นหา", icon: "search", key: "search" },
-  { href: "/constellation", label: "แผนที่", icon: "hub", key: "hub" },
-  { href: "/profile", label: "โปรไฟล์", icon: "person", key: "person" },
+  { href: "/explore", label: "คลังความรู้", Icon: KnowledgeHubIcon },
+  { href: "/constellation", label: "แผนที่ความรู้", Icon: PathIcon },
+  { href: "/", label: "หน้าแรก", Icon: ArchronMark },
+  { href: "/search", label: "ค้นหา", Icon: SearchIcon },
+  { href: "/schools", label: "สำนักคิด", Icon: SchoolIcon },
 ];
 
 function isActive(pathname: string, href: string): boolean {
@@ -50,11 +55,7 @@ export function Tabbar() {
                       : "text-text-secondary/65 group-hover:text-accent/80"
                   }`}
                 >
-                  {it.key === "home" && <MenuIcon className="h-5.5 w-5.5" />}
-                  {it.key === "explore" && <KnowledgeHubIcon className="h-5.5 w-5.5" />}
-                  {it.key === "search" && <SearchIcon className="h-5.5 w-5.5" />}
-                  {it.key === "hub" && <KnowledgeHubIcon className="h-5.5 w-5.5" />}
-                  {it.key === "person" && <PersonIcon className="h-5.5 w-5.5" />}
+                  <it.Icon className="h-5.5 w-5.5" />
                 </span>
                 <span
                   className={`font-serif text-[10px] leading-none tracking-[0.04em] transition-colors duration-300 ${

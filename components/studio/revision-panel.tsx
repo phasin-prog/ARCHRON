@@ -102,17 +102,17 @@ export function RevisionPanel({
 
   if (!entryId) {
     return (
-      <div className="rounded-md border border-ink/10 bg-surface-1/40 p-5">
-        <h3 className="font-serif text-base text-ivory">ประวัติเวอร์ชัน</h3>
-        <p className="mt-3 text-sm text-muted">บันทึกแบบร่างครั้งแรกเพื่อเริ่มเก็บเวอร์ชัน</p>
+      <div className="rounded-md border border-text-heading/10 bg-surface-1/40 p-5">
+        <h3 className="font-serif text-base text-text-heading">ประวัติเวอร์ชัน</h3>
+        <p className="mt-3 text-sm text-text-secondary">บันทึกแบบร่างครั้งแรกเพื่อเริ่มเก็บเวอร์ชัน</p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-md border border-ink/10 bg-surface-1/40 p-5">
+    <div className="rounded-md border border-text-heading/10 bg-surface-1/40 p-5">
       <div className="flex items-center justify-between">
-        <h3 className="font-serif text-base text-ivory">ประวัติเวอร์ชัน</h3>
+        <h3 className="font-serif text-base text-text-heading">ประวัติเวอร์ชัน</h3>
         {selectedRevision && (
           <button
             onClick={() => {
@@ -120,7 +120,7 @@ export function RevisionPanel({
               setCompareRevision(null);
               setShowDiff(false);
             }}
-            className="text-xs text-muted hover:text-ivory"
+            className="text-xs text-text-secondary hover:text-text-heading"
           >
             ล้างการเลือก
           </button>
@@ -128,7 +128,7 @@ export function RevisionPanel({
       </div>
 
       {revs.length === 0 ? (
-        <p className="mt-3 text-sm text-muted">ยังไม่มีเวอร์ชันที่บันทึก</p>
+        <p className="mt-3 text-sm text-text-secondary">ยังไม่มีเวอร์ชันที่บันทึก</p>
       ) : (
         <>
           <ul className="mt-3 space-y-2 text-sm">
@@ -137,26 +137,26 @@ export function RevisionPanel({
                 key={r.id}
                 className={`flex items-center justify-between gap-2 rounded-md p-2 transition-colors ${
                   selectedRevision?.id === r.id
-                    ? "bg-burnished-gold/10"
-                    : "hover:bg-surface-container"
+                    ? "bg-accent/10"
+                    : "hover:bg-bg-card"
                 }`}
               >
                 <div className="flex-1">
-                  <span className="text-soft-ivory">
+                  <span className="text-text-body">
                     {new Date(r.created_at).toLocaleString("th-TH")}
                   </span>
-                  {r.note && <span className="text-muted"> · {r.note}</span>}
+                  {r.note && <span className="text-text-secondary"> · {r.note}</span>}
                 </div>
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => handleCompare(r)}
-                    className="rounded px-2 py-0.5 text-xs text-muted transition-colors hover:bg-surface-container hover:text-ivory"
+                    className="rounded px-2 py-0.5 text-xs text-text-secondary transition-colors hover:bg-bg-card hover:text-text-heading"
                   >
                     {selectedRevision?.id === r.id ? "เลือกเปรียบเทียบ" : "เลือก"}
                   </button>
                   <button
                     onClick={() => handleRestore(r)}
-                    className="rounded px-2 py-0.5 text-xs text-burnished-gold transition-colors hover:bg-burnished-gold/10"
+                    className="rounded px-2 py-0.5 text-xs text-accent transition-colors hover:bg-accent/10"
                   >
                     กู้คืน
                   </button>
@@ -167,15 +167,15 @@ export function RevisionPanel({
 
           {/* Diff View */}
           {showDiff && diff.length > 0 && (
-            <div className="mt-4 rounded-md border border-slate-boundary bg-surface-container-low p-3">
-              <div className="mb-2 flex items-center justify-between text-xs text-muted">
+            <div className="mt-4 rounded-md border border-border bg-bg-card p-3">
+              <div className="mb-2 flex items-center justify-between text-xs text-text-secondary">
                 <span>
                   เปรียบเทียบ: {new Date(selectedRevision!.created_at).toLocaleString("th-TH")} →{" "}
                   {new Date(compareRevision!.created_at).toLocaleString("th-TH")}
                 </span>
                 <button
                   onClick={() => setShowDiff(false)}
-                  className="text-muted hover:text-ivory"
+                  className="text-text-secondary hover:text-text-heading"
                 >
                   ปิด
                 </button>
@@ -189,7 +189,7 @@ export function RevisionPanel({
                         ? "bg-green-500/10 text-green-400"
                         : line.type === "removed"
                           ? "bg-red-500/10 text-red-400"
-                          : "text-muted"
+                          : "text-text-secondary"
                     }`}
                   >
                     <span className="mr-2 inline-block w-4 text-center">
@@ -207,9 +207,9 @@ export function RevisionPanel({
       {/* Confirm Restore Modal */}
       {confirmRestore && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-          <div className="mx-4 w-full max-w-md rounded-xl border border-slate-boundary bg-surface-container-low p-6 shadow-2xl">
-            <h4 className="font-serif text-lg font-semibold text-ivory">ยืนยันการกู้คืน</h4>
-            <p className="mt-2 text-sm text-muted">
+          <div className="mx-4 w-full max-w-md rounded-xl border border-border bg-bg-card p-6 shadow-2xl">
+            <h4 className="font-serif text-lg font-semibold text-text-heading">ยืนยันการกู้คืน</h4>
+            <p className="mt-2 text-sm text-text-secondary">
               จะกู้คืนไปยังเวอร์ชัน{" "}
               {new Date(confirmRestore.created_at).toLocaleString("th-TH")}
               {confirmRestore.note && ` (${confirmRestore.note})`}
@@ -218,13 +218,13 @@ export function RevisionPanel({
             <div className="mt-4 flex justify-end gap-2">
               <button
                 onClick={() => setConfirmRestore(null)}
-                className="rounded-lg px-4 py-2 text-sm text-muted transition-colors hover:bg-surface-container hover:text-ivory"
+                className="rounded-lg px-4 py-2 text-sm text-text-secondary transition-colors hover:bg-bg-card hover:text-text-heading"
               >
                 ยกเลิก
               </button>
               <button
                 onClick={confirmRestoreAction}
-                className="rounded-lg bg-burnished-gold/20 px-4 py-2 text-sm font-medium text-burnished-gold transition-colors hover:bg-burnished-gold/30"
+                className="rounded-lg bg-accent/20 px-4 py-2 text-sm font-medium text-accent transition-colors hover:bg-accent/30"
               >
                 กู้คืน
               </button>

@@ -82,9 +82,9 @@ export function AnalyticsDashboard() {
     return (
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[...Array(4)].map((_, i) => (
-          <div key={i} className="animate-pulse rounded-lg border border-slate-boundary bg-surface-container p-4">
-            <div className="h-4 w-24 rounded bg-surface-container-high" />
-            <div className="mt-2 h-8 w-16 rounded bg-surface-container-high" />
+          <div key={i} className="animate-pulse rounded-lg border border-border bg-bg-card p-4">
+            <div className="h-4 w-24 rounded bg-bg-elevated" />
+            <div className="mt-2 h-8 w-16 rounded bg-bg-elevated" />
           </div>
         ))}
       </div>
@@ -124,15 +124,15 @@ export function AnalyticsDashboard() {
 
       {/* Time Range Selector */}
       <div className="flex items-center gap-2">
-        <span className="text-xs text-muted">ช่วงเวลา:</span>
+        <span className="text-xs text-text-secondary">ช่วงเวลา:</span>
         {(["7d", "30d", "90d"] as const).map((range) => (
           <button
             key={range}
             onClick={() => setTimeRange(range)}
             className={`rounded-md px-3 py-1 text-xs font-medium transition-colors ${
               timeRange === range
-                ? "bg-burnished-gold/15 text-burnished-gold"
-                : "text-muted hover:bg-surface-container hover:text-ivory"
+                ? "bg-accent/15 text-accent"
+                : "text-text-secondary hover:bg-bg-card hover:text-text-heading"
             }`}
           >
             {range === "7d" ? "7 วัน" : range === "30d" ? "30 วัน" : "90 วัน"}
@@ -141,25 +141,25 @@ export function AnalyticsDashboard() {
       </div>
 
       {/* Top Entries */}
-      <div className="rounded-lg border border-slate-boundary bg-surface-container p-4">
-        <h3 className="mb-4 font-serif text-sm font-semibold text-ivory">บทความยอดนิยม</h3>
+      <div className="rounded-lg border border-border bg-bg-card p-4">
+        <h3 className="mb-4 font-serif text-sm font-semibold text-text-heading">บทความยอดนิยม</h3>
         <div className="space-y-3">
           {analytics.topEntries.map((entry, i) => (
             <div
               key={entry.slug}
-              className="flex items-center justify-between rounded-md bg-surface-container-low p-3"
+              className="flex items-center justify-between rounded-md bg-bg-card p-3"
             >
               <div className="flex items-center gap-3">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-burnished-gold/10 text-xs font-semibold text-burnished-gold">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent/10 text-xs font-semibold text-accent">
                   {i + 1}
                 </span>
                 <div>
-                  <p className="text-sm text-ivory">{entry.title}</p>
-                  <p className="text-xs text-muted">/{entry.slug}</p>
+                  <p className="text-sm text-text-heading">{entry.title}</p>
+                  <p className="text-xs text-text-secondary">/{entry.slug}</p>
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-sm font-semibold text-ivory">{entry.views.toLocaleString()}</p>
+                <p className="text-sm font-semibold text-text-heading">{entry.views.toLocaleString()}</p>
                 <p
                   className={`text-xs ${
                     entry.change >= 0 ? "text-green-400" : "text-red-400"
@@ -175,13 +175,13 @@ export function AnalyticsDashboard() {
       </div>
 
       {/* Recent Activity */}
-      <div className="rounded-lg border border-slate-boundary bg-surface-container p-4">
-        <h3 className="mb-4 font-serif text-sm font-semibold text-ivory">กิจกรรมล่าสุด</h3>
+      <div className="rounded-lg border border-border bg-bg-card p-4">
+        <h3 className="mb-4 font-serif text-sm font-semibold text-text-heading">กิจกรรมล่าสุด</h3>
         <div className="space-y-2">
           {analytics.recentActivity.map((activity, i) => (
             <div
               key={i}
-              className="flex items-center gap-3 rounded-md bg-surface-container-low p-3"
+              className="flex items-center gap-3 rounded-md bg-bg-card p-3"
             >
               <span
                 className={`flex h-8 w-8 items-center justify-center rounded-full ${
@@ -201,8 +201,8 @@ export function AnalyticsDashboard() {
                 </span>
               </span>
               <div className="flex-1">
-                <p className="text-sm text-ivory">{activity.title}</p>
-                <p className="text-xs text-muted">{activity.timestamp}</p>
+                <p className="text-sm text-text-heading">{activity.title}</p>
+                <p className="text-xs text-text-secondary">{activity.timestamp}</p>
               </div>
             </div>
           ))}
@@ -210,20 +210,20 @@ export function AnalyticsDashboard() {
       </div>
 
       {/* Views Chart (simplified) */}
-      <div className="rounded-lg border border-slate-boundary bg-surface-container p-4">
-        <h3 className="mb-4 font-serif text-sm font-semibold text-ivory">จำนวนผู้เข้าชมรายวัน</h3>
+      <div className="rounded-lg border border-border bg-bg-card p-4">
+        <h3 className="mb-4 font-serif text-sm font-semibold text-text-heading">จำนวนผู้เข้าชมรายวัน</h3>
         <div className="flex items-end gap-2 h-32">
           {analytics.viewsByDay.map((day, i) => {
             const maxViews = Math.max(...analytics.viewsByDay.map((d) => d.views));
             const height = (day.views / maxViews) * 100;
             return (
               <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                <span className="text-[10px] text-muted">{day.views}</span>
+                <span className="text-[10px] text-text-secondary">{day.views}</span>
                 <div
-                  className="w-full rounded-t bg-burnished-gold/30 transition-all hover:bg-burnished-gold/50"
+                  className="w-full rounded-t bg-accent/30 transition-all hover:bg-accent/50"
                   style={{ height: `${height}%` }}
                 />
-                <span className="text-[9px] text-muted">
+                <span className="text-[9px] text-text-secondary">
                   {new Date(day.date).toLocaleDateString("th-TH", { day: "numeric" })}
                 </span>
               </div>
@@ -247,12 +247,12 @@ function StatCard({
   icon: string;
 }) {
   return (
-    <div className="rounded-lg border border-slate-boundary bg-surface-container p-4">
+    <div className="rounded-lg border border-border bg-bg-card p-4">
       <div className="flex items-center justify-between">
-        <span className="text-xs text-muted">{label}</span>
-        <span className="material-symbols-outlined text-[20px] text-muted">{icon}</span>
+        <span className="text-xs text-text-secondary">{label}</span>
+        <span className="material-symbols-outlined text-[20px] text-text-secondary">{icon}</span>
       </div>
-      <p className="mt-2 text-2xl font-bold text-ivory">{value}</p>
+      <p className="mt-2 text-2xl font-bold text-text-heading">{value}</p>
       {trend !== undefined && (
         <p
           className={`mt-1 text-xs ${

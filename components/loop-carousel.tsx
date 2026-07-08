@@ -101,7 +101,7 @@ export function LoopCarousel({
   };
 
   const btn =
-    "flex h-11 w-11 items-center justify-center rounded-full border border-slate-boundary/40 text-on-surface-variant transition-all hover:border-burnished-gold/45 hover:text-on-surface focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none";
+    "flex h-11 w-11 items-center justify-center rounded-full border border-border/40 text-text-secondary transition-all hover:border-accent/45 hover:text-text-heading focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none";
 
   return (
     <div>

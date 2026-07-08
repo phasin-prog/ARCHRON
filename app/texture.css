@@ -24,7 +24,7 @@
   background: radial-gradient(
     ellipse at center,
     transparent 60%,
-    color-mix(in srgb, var(--color-prima) 40%, transparent) 100%
+    color-mix(in srgb, var(--color-shadow) 40%, transparent) 100%
   );
   pointer-events: none;
   z-index: 1;

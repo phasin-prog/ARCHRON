@@ -77,12 +77,12 @@ export function CommentSection({ section, slug }: { section: string; slug: strin
   const count = comments?.length ?? 0;
 
   return (
-    <section className="mt-16 border-t border-slate-boundary/40 pt-10">
-      <h2 className="font-serif text-2xl text-ivory">
+    <section className="mt-16 border-t border-border/40 pt-10">
+      <h2 className="font-serif text-2xl text-text-heading">
         ร่วมอภิปราย
-        {count > 0 ? <span className="ml-2 text-base text-on-surface-variant/50">({count})</span> : null}
+        {count > 0 ? <span className="ml-2 text-base text-text-secondary/50">({count})</span> : null}
       </h2>
-      <p className="mt-2 text-sm leading-relaxed text-on-surface-variant/70">
+      <p className="mt-2 text-sm leading-relaxed text-text-secondary/70">
         แลกเปลี่ยนความเข้าใจอย่างมีเหตุผลและให้เกียรติกัน — โปรดอ้างอิงแหล่งที่มาเมื่อยกข้อเท็จจริง
       </p>
 
@@ -99,15 +99,15 @@ export function CommentSection({ section, slug }: { section: string; slug: strin
               placeholder="เขียนความคิดเห็นของคุณ…"
               aria-describedby={error ? "comment-error" : undefined}
               aria-invalid={!!error}
-              className="w-full resize-y rounded-lg border border-slate-boundary/30 bg-surface-container-low/50 p-3 text-base text-on-surface placeholder:text-on-surface-variant/50 focus-visible:ring-2 focus-visible:ring-burnished-gold/40 focus-visible:outline-none focus-visible:border-burnished-gold/50 transition-colors"
+              className="w-full resize-y rounded-lg border border-border/30 bg-bg-card/50 p-3 text-base text-text-heading placeholder:text-text-secondary/50 focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:outline-none focus-visible:border-accent/50 transition-colors"
             />
             <div className="mt-3 flex items-center justify-between">
-              <span className="text-xs text-on-surface-variant/65">ในนาม {authorName}</span>
+              <span className="text-xs text-text-secondary/65">ในนาม {authorName}</span>
               <button
                 type="button"
                 onClick={handleSubmit}
                 disabled={busy || !body.trim()}
-                className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-br from-antique-gold to-burnished-gold px-5 py-2 text-sm font-semibold text-prima transition-all hover:-translate-y-0.5 hover:shadow-md focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none disabled:opacity-50 disabled:transform-none"
+                className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-br from-accent to-accent px-5 py-2 text-sm font-semibold text-text-inverse transition-all hover:-translate-y-0.5 hover:shadow-md focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none disabled:opacity-50 disabled:transform-none"
               >
                 {busy ? (
                   <span className="material-symbols-outlined animate-spin text-[18px]">progress_activity</span>
@@ -117,12 +117,12 @@ export function CommentSection({ section, slug }: { section: string; slug: strin
                 {busy ? "กำลังส่ง…" : "ส่งความคิดเห็น"}
               </button>
             </div>
-            {error ? <p id="comment-error" className="mt-2 text-sm text-danger">{error}</p> : null}
+            {error ? <p id="comment-error" className="mt-2 text-sm text-error">{error}</p> : null}
           </div>
         </SignedIn>
         <SignedOut>
-          <div className="rounded-md border border-burnished-gold/25 bg-burnished-gold/5 p-5 text-sm text-on-surface-variant/80">
-            <Link href="/th/login" className="font-semibold text-burnished-gold hover:underline focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:outline-none">
+          <div className="rounded-md border border-accent/25 bg-accent/5 p-5 text-sm text-text-secondary/80">
+            <Link href="/th/login" className="font-semibold text-accent hover:underline focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:outline-none">
               เข้าสู่ระบบบัญชีนักอ่าน
             </Link>{" "}
             เพื่อร่วมอภิปราย
@@ -132,24 +132,24 @@ export function CommentSection({ section, slug }: { section: string; slug: strin
 
       <div className="mt-8 space-y-5">
         {comments === null ? (
-          <p className="text-sm text-on-surface-variant/75">ยังไม่เปิดระบบความคิดเห็นในขณะนี้</p>
+          <p className="text-sm text-text-secondary/75">ยังไม่เปิดระบบความคิดเห็นในขณะนี้</p>
         ) : comments.length === 0 ? (
-          <p className="text-sm text-on-surface-variant/75">ยังไม่มีความคิดเห็น — เป็นคนแรกที่ร่วมอภิปราย</p>
+          <p className="text-sm text-text-secondary/75">ยังไม่มีความคิดเห็น — เป็นคนแรกที่ร่วมอภิปราย</p>
         ) : (
           comments.map((c) => (
             <article key={c.id} className="archron-panel p-4">
               <div className="flex items-center justify-between gap-3">
-                <span className="font-serif text-sm text-on-surface">{c.author_name ?? "ผู้อ่าน"}</span>
-                <span className="text-xs text-on-surface-variant/75">{fmt(c.created_at)}</span>
+                <span className="font-serif text-sm text-text-heading">{c.author_name ?? "ผู้อ่าน"}</span>
+                <span className="text-xs text-text-secondary/75">{fmt(c.created_at)}</span>
               </div>
-              <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-soft-ivory">
+              <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-text-body">
                 {c.body}
               </p>
               {userId === c.clerk_user_id ? (
                 <button
                   type="button"
                   onClick={() => handleDelete(c.id)}
-                  className="mt-2 inline-flex items-center gap-1 text-xs text-on-surface-variant/75 transition-colors hover:text-danger focus-visible:ring-1 focus-visible:ring-danger/60 focus-visible:outline-none rounded px-1"
+                  className="mt-2 inline-flex items-center gap-1 text-xs text-text-secondary/75 transition-colors hover:text-error focus-visible:ring-1 focus-visible:ring-error/60 focus-visible:outline-none rounded px-1"
                 >
                   <span className="material-symbols-outlined text-[14px]">delete</span>
                   ลบ

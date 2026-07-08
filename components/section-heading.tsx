@@ -21,7 +21,7 @@ export function SectionHeading({
             {kicker}
           </p>
         ) : null}
-        <h2 className="mt-2 font-serif text-2xl text-ivory md:text-3xl">{title}</h2>
+        <h2 className="mt-2 font-serif text-2xl text-text-heading md:text-3xl">{title}</h2>
       </div>
       {action ? <div className="shrink-0">{action}</div> : null}
     </div>

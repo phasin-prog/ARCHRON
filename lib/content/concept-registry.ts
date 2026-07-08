@@ -383,11 +383,11 @@ const schoolRegistry: ConceptRegistryItem[] = [
     description: "แขนงปรัชญาที่ศึกษาประสบการณ์ตรงของจิตใจ โดยละวางสมมติฐานเกี่ยวกับโลกภายนอกเพื่อทำความเข้าใจปรากฏการณ์ในมิติที่มันปรากฏต่อจิตสำนึก (Husserl, Heidegger)",
   },
   {
-    id: "school-phenomenology-of-psyche",
+    id: "school-phenomenology-of-concept",
     title: "Phenomenology of Psyche",
-    slug: "phenomenology-of-psyche",
+    slug: "phenomenology-of-concept",
     thaiTitle: "ปรากฏการณ์วิทยาแห่งจิต",
-    aliases: ["Phenomenology of Psyche", "Phenomenology Of psyche", "ปรากฏการณ์วิทยาแห่งจิต"],
+    aliases: ["Phenomenology of Psyche", "Phenomenology Of concept", "ปรากฏการณ์วิทยาแห่งจิต"],
     nodeType: "school",
     description: "แขนงที่ผสานปรากฏการณ์วิทยากับจิตวิทยาเชิงลึก เพื่อทำความเข้าใจจิตใจในมิติที่มันปรากฏต่อตนเอง ไม่ใช่แค่พฤติกรรมภายนอก",
   },
@@ -575,9 +575,9 @@ const schoolRegistry: ConceptRegistryItem[] = [
 
 export const conceptRegistry: ConceptRegistryItem[] = [
   {
-    id: "concept-psyche",
+    id: "concept-concept",
     title: "Psyche",
-    slug: "psyche",
+    slug: "concept",
     thaiTitle: "ไซคี",
     aliases: ["Psyche", "ไซคี", "psukhe"],
     nodeType: "concept",

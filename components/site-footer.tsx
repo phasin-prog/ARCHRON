@@ -42,41 +42,41 @@ export function SiteFooter() {
   if (pathname?.startsWith("/studio")) return null;
 
   const linkClass =
-    "inline-flex items-center gap-2 text-sm text-on-surface-variant transition-colors hover:text-burnished-gold";
+    "inline-flex items-center gap-2 text-sm text-text-secondary transition-colors hover:text-accent";
 
   return (
-    <footer id="footer" className="archive-hall relative z-10 w-full bg-deep-navy py-16">
+    <footer id="footer" className="archive-hall relative z-10 w-full bg-bg py-16">
       <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-12 px-4 sm:px-6 md:grid-cols-12 md:gap-x-14">
         {/* Brand */}
         <div className="md:col-span-6">
           <h6 className="archive-hall__heading"><span aria-hidden="true">🏛</span> ผู้เขียน</h6>
-          <div className="flex items-center gap-3 text-burnished-gold">
+          <div className="flex items-center gap-3 text-accent">
             <ArchronLogomark className="h-8 w-8 shrink-0" />
             <span className="font-wordmark text-[23px] font-semibold tracking-[0.22em]">ARCHRON</span>
           </div>
-          <p className="mt-3 font-serif text-lg italic text-soft-gold">
+          <p className="mt-3 font-serif text-lg italic text-accent">
             a living library of human understanding
           </p>
-          <p className="mt-2 max-w-md text-sm leading-relaxed text-on-surface-variant/75">
+          <p className="mt-2 max-w-md text-sm leading-relaxed text-text-secondary/75">
             คลังความเข้าใจมนุษย์ที่มีชีวิต — ค่อย ๆ เขียน รวบรวม และเชื่อมโยงศาสตร์ต่าง ๆ
             ตั้งแต่จุดกำเนิด ผ่านกาลเวลา
           </p>
-          <p className="mt-4 text-sm italic text-on-surface-variant/70">
+          <p className="mt-4 text-sm italic text-text-secondary/70">
             บันทึกโดย{" "}
-            <span className="font-wordmark not-italic tracking-[0.14em] text-soft-gold">Archeon</span> — ผู้แสวงหาต้นกำเนิด
+            <span className="font-wordmark not-italic tracking-[0.14em] text-accent">Archeon</span> — ผู้แสวงหาต้นกำเนิด
           </p>
           <div className="mt-6 flex gap-3">
             <Link
               href="/support"
               aria-label="สนับสนุนโครงการ"
-              className="flex h-11 w-11 items-center justify-center rounded-lg border border-burnished-gold/20 text-burnished-gold/70 transition-all hover:border-burnished-gold/50 hover:text-burnished-gold"
+              className="flex h-11 w-11 items-center justify-center rounded-lg border border-accent/20 text-accent/70 transition-all hover:border-accent/50 hover:text-accent"
             >
               <HeartIcon className="h-[18px] w-[18px]" />
             </Link>
             <Link
               href="/manifesto"
               aria-label="ปฏิญญา"
-              className="flex h-11 w-11 items-center justify-center rounded-lg border border-burnished-gold/20 text-burnished-gold/70 transition-all hover:border-burnished-gold/50 hover:text-burnished-gold"
+              className="flex h-11 w-11 items-center justify-center rounded-lg border border-accent/20 text-accent/70 transition-all hover:border-accent/50 hover:text-accent"
             >
               <SourceRefIcon className="h-[18px] w-[18px]" />
             </Link>
@@ -112,27 +112,27 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="mx-auto mt-14 flex max-w-[1200px] flex-col items-center justify-between gap-4 border-t border-burnished-gold/10 px-4 sm:px-6 pt-8 sm:flex-row">
-        <p className="text-center text-xs leading-relaxed tracking-wide text-on-surface-variant/55 sm:text-left">
-          © 2026 <span className="text-soft-gold">ARCHRON</span>
+      <div className="mx-auto mt-14 flex max-w-[1200px] flex-col items-center justify-between gap-4 border-t border-accent/10 px-4 sm:px-6 pt-8 sm:flex-row">
+        <p className="text-center text-xs leading-relaxed tracking-wide text-text-secondary/55 sm:text-left">
+          © 2026 <span className="text-accent">ARCHRON</span>
           {totalViews != null && totalViews > 0 ? (
             <>
-              <span className="px-1.5 text-on-surface-variant/50">·</span>
-              <span className="inline-flex items-center gap-1 text-on-surface-variant/70">
-                <span className="material-symbols-outlined text-[14px] text-burnished-gold/70">visibility</span>
+              <span className="px-1.5 text-text-secondary/50">·</span>
+              <span className="inline-flex items-center gap-1 text-text-secondary/70">
+                <span className="material-symbols-outlined text-[14px] text-accent/70">visibility</span>
                 ผู้เยี่ยมชม {totalViews.toLocaleString("th-TH")} ครั้ง
               </span>
             </>
           ) : null}
         </p>
         <div className="flex items-center gap-6">
-          <p className="text-center font-serif text-sm italic text-on-surface-variant/70 sm:text-right">
+          <p className="text-center font-serif text-sm italic text-text-secondary/70 sm:text-right">
             สร้างเพื่อการอ่านและการตีความอย่างมีบริบท
           </p>
           <button
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="inline-flex items-center gap-1.5 font-serif text-xs tracking-[0.08em] text-on-surface-variant/60 transition-colors hover:text-burnished-gold"
+            className="inline-flex items-center gap-1.5 font-serif text-xs tracking-[0.08em] text-text-secondary/60 transition-colors hover:text-accent"
             aria-label="เลื่อนขึ้นบนสุด"
           >
             ขึ้นบนสุด

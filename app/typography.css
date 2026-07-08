@@ -98,7 +98,7 @@
   /* ---- Code Typography ---- */
   --code-size: 0.875em;
   --code-leading: 1.6;
-  --code-background: color-mix(in srgb, var(--color-ivory) 6%, transparent);
+  --code-background: color-mix(in srgb, var(--color-text-heading) 6%, transparent);
   --code-padding: 0.2em 0.4em;
   --code-radius: 4px;
 }

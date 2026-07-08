@@ -39,13 +39,13 @@ export function Breadcrumb({ items, className = "" }: BreadcrumbProps) {
       {/* Visual breadcrumb */}
       <nav
         aria-label="เส้นทางนำทาง"
-        className={`flex flex-wrap items-center gap-1 text-xs text-muted ${className}`}
+        className={`flex flex-wrap items-center gap-1 text-xs text-text-secondary ${className}`}
       >
         {items.map((item, i) => (
           <span key={i} className="flex items-center gap-1">
             {i > 0 ? (
               <span
-                className="material-symbols-outlined text-[16px] text-subtle"
+                className="material-symbols-outlined text-[16px] text-text-secondary"
                 aria-hidden="true"
               >
                 chevron_right
@@ -54,12 +54,12 @@ export function Breadcrumb({ items, className = "" }: BreadcrumbProps) {
             {item.href ? (
               <Link
                 href={item.href}
-                className="transition-colors hover:text-soft-gold"
+                className="transition-colors hover:text-accent"
               >
                 {item.label}
               </Link>
             ) : (
-              <span className="text-soft-ivory">{item.label}</span>
+              <span className="text-text-body">{item.label}</span>
             )}
           </span>
         ))}

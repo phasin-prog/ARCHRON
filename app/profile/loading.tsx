@@ -26,7 +26,7 @@ export default function ProfileLoading() {
         </div>
 
         {/* โครงแถบแท็บ */}
-        <div className="mt-8 flex gap-2 border-b border-slate-boundary/30 pb-3">
+        <div className="mt-8 flex gap-2 border-b border-border/30 pb-3">
           <div className="h-6 w-32 animate-pulse rounded bg-surface-3" />
           <div className="h-6 w-24 animate-pulse rounded bg-surface-3" />
         </div>

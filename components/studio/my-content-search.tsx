@@ -38,10 +38,10 @@ export function MyContentSearch({ userId }: { userId: string | null }) {
     : items;
 
   return (
-    <div className="rounded-md border border-ink/10 bg-surface-1/40 p-5">
-      <h3 className="font-serif text-base text-ivory">ค้นหาเนื้อหาของฉัน</h3>
+    <div className="rounded-md border border-text-heading/10 bg-surface-1/40 p-5">
+      <h3 className="font-serif text-base text-text-heading">ค้นหาเนื้อหาของฉัน</h3>
       {!userId ? (
-        <p className="mt-3 text-sm text-muted">เข้าสู่ระบบเพื่อค้นหาและเปิดงานของคุณ</p>
+        <p className="mt-3 text-sm text-text-secondary">เข้าสู่ระบบเพื่อค้นหาและเปิดงานของคุณ</p>
       ) : (
         <>
           <input
@@ -49,11 +49,11 @@ export function MyContentSearch({ userId }: { userId: string | null }) {
             onChange={(e) => setQ(e.target.value)}
             placeholder="ค้นหาชื่อ / slug..."
             aria-label="ค้นหาเนื้อหาของฉัน"
-            className="mt-3 w-full rounded-md border border-ink/10 bg-charcoal/40 px-3 py-2 text-sm text-ivory outline-none focus:border-antique-gold/50 focus:ring-2 focus:ring-antique-gold/20 transition-colors"
+            className="mt-3 w-full rounded-md border border-text-heading/10 bg-text-heading/40 px-3 py-2 text-sm text-text-heading outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/20 transition-colors"
           />
           <ul className="mt-3 max-h-64 space-y-1 overflow-auto">
             {results.length === 0 ? (
-              <li className="px-1 py-1.5 text-sm text-muted">
+              <li className="px-1 py-1.5 text-sm text-text-secondary">
                 {loaded ? "ไม่พบเนื้อหา" : "กำลังโหลด..."}
               </li>
             ) : (
@@ -63,7 +63,7 @@ export function MyContentSearch({ userId }: { userId: string | null }) {
                   <li key={e.slug}>
                     <a
                       href={`/studio/editor?slug=${encodeURIComponent(e.slug)}`}
-                      className="flex items-center justify-between gap-2 rounded px-2 py-1.5 text-sm text-soft-ivory transition-colors hover:bg-ink/5 hover:text-soft-gold"
+                      className="flex items-center justify-between gap-2 rounded px-2 py-1.5 text-sm text-text-body transition-colors hover:bg-text-heading/5 hover:text-accent"
                     >
                       <span className="flex min-w-0 items-center gap-2">
                         <span
@@ -75,7 +75,7 @@ export function MyContentSearch({ userId }: { userId: string | null }) {
                         </span>
                         <span className="truncate">{e.title || e.slug}</span>
                       </span>
-                      <span className="shrink-0 text-[10px] uppercase tracking-wide text-muted">
+                      <span className="shrink-0 text-[10px] uppercase tracking-wide text-text-secondary">
                         {e.status}
                       </span>
                     </a>

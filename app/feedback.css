@@ -35,17 +35,17 @@
 .archron-alert-info {
   background: color-mix(in srgb, var(--color-info) 10%, transparent);
   border-color: color-mix(in srgb, var(--color-info) 25%, transparent);
-  color: color-mix(in srgb, var(--color-info) 80%, var(--color-ivory));
+  color: color-mix(in srgb, var(--color-info) 80%, var(--color-text-heading));
 }
 
 .archron-alert-info .archron-alert-icon {
-  color: var(--color-lumen);
+  color: var(--color-accent);
 }
 
 .archron-alert-success {
   background: color-mix(in srgb, var(--color-success) 10%, transparent);
   border-color: color-mix(in srgb, var(--color-success) 25%, transparent);
-  color: color-mix(in srgb, var(--color-success) 80%, var(--color-ivory));
+  color: color-mix(in srgb, var(--color-success) 80%, var(--color-text-heading));
 }
 
 .archron-alert-success .archron-alert-icon {
@@ -55,21 +55,21 @@
 .archron-alert-warning {
   background: color-mix(in srgb, var(--color-warning) 10%, transparent);
   border-color: color-mix(in srgb, var(--color-warning) 25%, transparent);
-  color: color-mix(in srgb, var(--color-warning) 80%, var(--color-ivory));
+  color: color-mix(in srgb, var(--color-warning) 80%, var(--color-text-heading));
 }
 
 .archron-alert-warning .archron-alert-icon {
-  color: var(--color-antique-gold);
+  color: var(--color-accent);
 }
 
 .archron-alert-error {
-  background: color-mix(in srgb, var(--color-danger) 10%, transparent);
-  border-color: color-mix(in srgb, var(--color-danger) 25%, transparent);
-  color: color-mix(in srgb, var(--color-danger) 80%, var(--color-ivory));
+  background: color-mix(in srgb, var(--color-error) 10%, transparent);
+  border-color: color-mix(in srgb, var(--color-error) 25%, transparent);
+  color: color-mix(in srgb, var(--color-error) 80%, var(--color-text-heading));
 }
 
 .archron-alert-error .archron-alert-icon {
-  color: var(--color-danger);
+  color: var(--color-error);
 }
 
 .archron-alert-close {
@@ -98,7 +98,7 @@
   align-items: center;
   gap: 0.375rem;
   font-size: 0.75rem;
-  color: var(--color-danger);
+  color: var(--color-error);
   margin-top: 0.25rem;
 }
 
@@ -115,14 +115,14 @@
 .archron-progress {
   width: 100%;
   height: 6px;
-  background: var(--color-surface-container-high);
+  background: var(--color-bg-elevated);
   border-radius: 3px;
   overflow: hidden;
 }
 
 .archron-progress-bar {
   height: 100%;
-  background: linear-gradient(90deg, var(--color-antique-gold), var(--color-burnished-gold));
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent));
   border-radius: 3px;
   transition: width 0.3s ease;
 }
@@ -142,8 +142,8 @@
   display: inline-block;
   width: 1.5rem;
   height: 1.5rem;
-  border: 2px solid var(--color-slate-boundary);
-  border-top-color: var(--color-burnished-gold);
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-accent);
   border-radius: 50%;
   animation: spin 0.6s linear infinite;
 }
@@ -169,7 +169,7 @@
 .archron-dots span {
   width: 6px;
   height: 6px;
-  background: var(--color-burnished-gold);
+  background: var(--color-accent);
   border-radius: 50%;
   animation: dots-bounce 1.2s ease-in-out infinite;
 }
@@ -193,7 +193,7 @@
   align-items: center;
   gap: 0.375rem;
   font-size: 0.75rem;
-  color: var(--color-muted);
+  color: var(--color-text-secondary);
 }
 
 .archron-status-dot {
@@ -209,12 +209,12 @@
 }
 
 .archron-status-offline .archron-status-dot {
-  background: var(--color-muted);
+  background: var(--color-text-secondary);
 }
 
 .archron-status-busy .archron-status-dot {
-  background: var(--color-danger);
-  box-shadow: 0 0 6px color-mix(in srgb, var(--color-danger) 40%, transparent);
+  background: var(--color-error);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--color-error) 40%, transparent);
 }
 
 /* ---- Badge ---- */
@@ -227,8 +227,8 @@
   padding: 0 0.375rem;
   font-size: 0.625rem;
   font-weight: 700;
-  color: var(--color-prima);
-  background: var(--color-burnished-gold);
+  color: var(--color-shadow);
+  background: var(--color-accent);
   border-radius: 9999px;
 }
 
@@ -247,12 +247,12 @@
 }
 
 .archron-badge-danger {
-  background: var(--color-danger);
+  background: var(--color-error);
 }
 
 .archron-badge-info {
-  background: var(--color-lumen);
-  color: var(--color-prima);
+  background: var(--color-accent);
+  color: var(--color-shadow);
 }
 
 /* ---- Empty State ---- */
@@ -272,8 +272,8 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: color-mix(in srgb, var(--color-burnished-gold) 8%, transparent);
-  color: var(--color-burnished-gold);
+  background: color-mix(in srgb, var(--color-accent) 8%, transparent);
+  color: var(--color-accent);
   margin-bottom: 1rem;
   opacity: 0.6;
 }
@@ -286,13 +286,13 @@
   font-family: var(--font-heading);
   font-size: 1rem;
   font-weight: 600;
-  color: var(--color-ivory);
+  color: var(--color-text-heading);
   margin-bottom: 0.375rem;
 }
 
 .archron-empty-desc {
   font-size: 0.8125rem;
-  color: var(--color-muted);
+  color: var(--color-text-secondary);
   max-width: 20rem;
   line-height: 1.5;
   margin-bottom: 1rem;
@@ -302,9 +302,9 @@
 .archron-skeleton {
   background: linear-gradient(
     90deg,
-    var(--color-surface-container) 25%,
-    var(--color-surface-container-low) 50%,
-    var(--color-surface-container) 75%
+    var(--color-bg-card) 25%,
+    var(--color-bg-card) 50%,
+    var(--color-bg-card) 75%
   );
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
@@ -354,7 +354,7 @@
   content: "";
   position: absolute;
   inset: -4px;
-  border: 2px solid var(--color-burnished-gold);
+  border: 2px solid var(--color-accent);
   border-radius: inherit;
   animation: pulse-ring 2s ease-out infinite;
   pointer-events: none;

@@ -10,11 +10,11 @@ import type { Cosmology } from "@/lib/content/cosmology";
 // ค่า accent ตาม cosmology (ตรงกับ Dynamic Colour system)
 const COSMOLOGY_ACCENT: Record<Cosmology, string> = {
   prima: "#B9C2CE",
-  psyche: "#6E93A8",
-  lumen: "#E7D7A6",
-  sapientia: "#C79A4A",
-  mercurius: "#8AA395",
-  humanitas: "#C9C2B4",
+  concept: "#6E93A8",
+  accent: "#E7D7A6",
+  accent: "#C79A4A",
+  thinker: "#8AA395",
+  thinker: "#C9C2B4",
 };
 
 type Props = {

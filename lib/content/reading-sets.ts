@@ -50,8 +50,8 @@ export const READING_SETS: ReadingSetItem[] = [
     ],
   },
   {
-    id: "set-understanding-the-psyche",
-    slug: "understanding-the-psyche",
+    id: "set-understanding-the-concept",
+    slug: "understanding-the-concept",
     title: "ทำความเข้าใจ Psyche",
     status: "published",
     contentType: "reading-set",
@@ -63,7 +63,7 @@ export const READING_SETS: ReadingSetItem[] = [
     relatedConcepts: [],
     references: [],
     steps: [
-      { slug: "psyche", title: "Psyche (ไซคี)", type: "concept" },
+      { slug: "concept", title: "Psyche (ไซคี)", type: "concept" },
       { slug: "self", title: "Self (ตัวตนทั้งหมด)", type: "concept" },
       { slug: "carl-jung", title: "Carl Jung (คาร์ล ยุง)", type: "person" },
     ],

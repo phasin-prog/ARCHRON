@@ -62,7 +62,7 @@ const SOURCE_TYPES = [
   "editorial-interpretation", "website", "dictionary-lexicon", "other",
 ];
 const BASE_TAG_OPTIONS = [
-  "jung", "freud", "lacan", "psyche", "ego", "shadow", "persona", "self",
+  "jung", "freud", "lacan", "concept", "ego", "shadow", "persona", "self",
   "archetype", "unconscious", "collective-unconscious", "individuation",
   "complex", "projection", "symbol", "myth", "philosophy", "psychoanalysis",
   "depth-psychology", "source-note", "beginner", "intermediate", "advanced",
@@ -78,7 +78,7 @@ const THINKER_OPTIONS = SCHOOLS.flatMap((s) =>
 const thinkerMeta = (val: string) => {
   return {
     icon: "person",
-    accent: "var(--color-antique-gold)",
+    accent: "var(--color-accent)",
   };
 };
 
@@ -89,16 +89,16 @@ const SCHOOL_OPTIONS = SCHOOLS.map((s) => ({
 const schoolMeta = (val: string) => {
   return {
     icon: "account_balance",
-    accent: "var(--color-antique-gold)",
+    accent: "var(--color-accent)",
   };
 };
 
 function Label({ children, htmlFor }: { children: React.ReactNode; htmlFor?: string }) {
-  return <label htmlFor={htmlFor} className="mb-1 block text-sm text-soft-ivory">{children}</label>;
+  return <label htmlFor={htmlFor} className="mb-1 block text-sm text-text-body">{children}</label>;
 }
 
 const inputClass =
-  "w-full rounded-md border border-ink/10 bg-charcoal/40 px-3 py-2 text-ivory outline-none focus:border-antique-gold/50 focus:ring-2 focus:ring-antique-gold/20 transition-colors";
+  "w-full rounded-md border border-text-heading/10 bg-text-heading/40 px-3 py-2 text-text-heading outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/20 transition-colors";
 
 const textareaClass = `${inputClass} resize-y`;
 
@@ -312,25 +312,25 @@ export default function StudioEditorPage() {
   if (user && !canWrite(role)) {
     return (
       <main className="mx-auto flex min-h-[70vh] max-w-lg flex-col items-center justify-center px-6 text-center">
-        <span className="flex h-14 w-14 items-center justify-center rounded-full border border-burnished-gold/30 text-burnished-gold">
+        <span className="flex h-14 w-14 items-center justify-center rounded-full border border-accent/30 text-accent">
           <span className="material-symbols-outlined text-[26px]">lock</span>
         </span>
-        <h1 className="mt-6 font-serif text-2xl text-on-surface">ห้องเขียนสำหรับนักเขียน</h1>
-        <p className="mt-3 text-sm leading-relaxed text-on-surface-variant/70">
+        <h1 className="mt-6 font-serif text-2xl text-text-heading">ห้องเขียนสำหรับนักเขียน</h1>
+        <p className="mt-3 text-sm leading-relaxed text-text-secondary/70">
           บัญชีของคุณเป็นผู้ใช้ทั่วไป (อ่านอย่างเดียว) หากต้องการเขียนและเรียบเรียงเนื้อหา
           กรุณาส่งคำขอเป็นนักเขียนเพื่อให้แอดมินพิจารณา
         </p>
         <div className="mt-7 flex flex-col gap-3 sm:flex-row">
           <Link
             href="/studio/profile"
-            className="inline-flex items-center justify-center gap-2 bg-antique-gold px-6 py-2.5 text-sm font-semibold text-prima hover:brightness-110 transition-all"
+            className="inline-flex items-center justify-center gap-2 bg-accent px-6 py-2.5 text-sm font-semibold text-text-inverse hover:brightness-110 transition-all"
           >
             <span className="material-symbols-outlined text-[18px]">how_to_reg</span>
             ขอเป็นนักเขียน
           </Link>
           <Link
             href="/studio"
-            className="inline-flex items-center justify-center gap-2 border border-burnished-gold/40 px-6 py-2.5 text-sm text-burnished-gold hover:bg-burnished-gold/10"
+            className="inline-flex items-center justify-center gap-2 border border-accent/40 px-6 py-2.5 text-sm text-accent hover:bg-accent/10"
           >
             กลับห้องเขียน
           </Link>
@@ -346,20 +346,20 @@ export default function StudioEditorPage() {
 
   return (
     <div className="min-h-screen">
-      <div className="sticky top-0 z-40 border-b border-antique-gold/15 bg-midnight/80 backdrop-blur">
+      <div className="sticky top-0 z-40 border-b border-accent/15 bg-bg/80 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-6 py-3">
-          <Link href="/studio" className="text-sm text-soft-ivory hover:text-soft-gold">← กลับห้องเขียน</Link>
+          <Link href="/studio" className="text-sm text-text-body hover:text-accent">← กลับห้องเขียน</Link>
           <span
-            className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-semibold leading-[1.4] bg-burnished-gold/10 text-burnished-gold gap-1.5"
+            className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-semibold leading-[1.4] bg-accent/10 text-accent gap-1.5"
              style={{ backgroundColor: `${statusMeta(draft.status).accent}1f`, color: statusMeta(draft.status).accent }}
           >
             <span className="material-symbols-outlined text-[14px]">{statusMeta(draft.status).icon}</span>
             {draft.status}
           </span>
           <div className="flex items-center gap-2">
-            <button onClick={handleManualSave} disabled={loadingDraft || publishing} className="rounded-md border border-ink/20 px-4 py-2 text-sm text-ivory hover:border-antique-gold hover:bg-antique-gold/5 transition-colors disabled:opacity-40">บันทึก + เวอร์ชัน</button>
-            <button onClick={() => setPreview((v) => !v)} disabled={!canPreview || loadingDraft} className="rounded-md border border-ink/20 px-4 py-2 text-sm text-ivory hover:border-antique-gold hover:bg-antique-gold/5 transition-colors disabled:opacity-40">{preview ? "ปิดพรีวิว" : "พรีวิว"}</button>
-            <button onClick={handlePublish} disabled={publishing || loadingDraft} className="rounded-md bg-antique-gold px-4 py-2 text-sm font-semibold text-prima hover:brightness-110 transition-all disabled:opacity-50">{publishing ? "กำลังเผยแพร่..." : "เผยแพร่"}</button>
+            <button onClick={handleManualSave} disabled={loadingDraft || publishing} className="rounded-md border border-text-heading/20 px-4 py-2 text-sm text-text-heading hover:border-accent hover:bg-accent/5 transition-colors disabled:opacity-40">บันทึก + เวอร์ชัน</button>
+            <button onClick={() => setPreview((v) => !v)} disabled={!canPreview || loadingDraft} className="rounded-md border border-text-heading/20 px-4 py-2 text-sm text-text-heading hover:border-accent hover:bg-accent/5 transition-colors disabled:opacity-40">{preview ? "ปิดพรีวิว" : "พรีวิว"}</button>
+            <button onClick={handlePublish} disabled={publishing || loadingDraft} className="rounded-md bg-accent px-4 py-2 text-sm font-semibold text-text-inverse hover:brightness-110 transition-all disabled:opacity-50">{publishing ? "กำลังเผยแพร่..." : "เผยแพร่"}</button>
             <UserButton afterSignOutUrl="/" />
           </div>
         </div>
@@ -411,14 +411,14 @@ export default function StudioEditorPage() {
         <div className="mx-auto grid max-w-6xl gap-8 px-6 py-10 pb-28 md:grid-cols-[1fr_320px] lg:pb-10">
         <main className="space-y-10">
           <div className="flex items-center gap-3 text-xs">
-            <span className="text-muted">
-              เขียนในชื่อ: <span className="text-soft-ivory">{displayName || user?.fullName || user?.username || "นักเขียน"}</span>
+            <span className="text-text-secondary">
+              เขียนในชื่อ: <span className="text-text-body">{displayName || user?.fullName || user?.username || "นักเขียน"}</span>
             </span>
             {autoState === "saving" ? (
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-lumen/10 px-2.5 py-0.5 text-lumen">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-accent/10 px-2.5 py-0.5 text-accent">
                 <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lumen/60" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-lumen" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/60" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
                 </span>
                 กำลังบันทึกอัตโนมัติ...
               </span>
@@ -431,7 +431,7 @@ export default function StudioEditorPage() {
             ) : null}
           </div>
           {isAdmin(role) && originalAuthorId && originalAuthorId !== userId && (
-            <div className="mt-2 rounded-md border border-burnished-gold/30 bg-burnished-gold/5 px-3 py-2 text-xs text-burnished-gold">
+            <div className="mt-2 rounded-md border border-accent/30 bg-accent/5 px-3 py-2 text-xs text-accent">
               <span className="material-symbols-outlined mr-1 align-middle text-[14px]">admin_panel_settings</span>
               กำลังแก้ไขเนื้อหาของ: <span className="font-semibold">{originalAuthorName || originalAuthorId}</span>
             </div>
@@ -439,7 +439,7 @@ export default function StudioEditorPage() {
           <FeedbackToast feedback={feedback} onClose={() => setFeedback(null)} />
 
           <section className="space-y-4">
-            <h2 className="font-serif text-xl text-ivory">ข้อมูลพื้นฐาน</h2>
+            <h2 className="font-serif text-xl text-text-heading">ข้อมูลพื้นฐาน</h2>
             <div>
               <Label htmlFor="entry-title">Title</Label>
               <input id="entry-title" className={inputClass} value={draft.title} onChange={(e) => set("title", e.target.value)} placeholder="เช่น Psyche ในจิตวิทยาเชิงลึก" />
@@ -447,8 +447,8 @@ export default function StudioEditorPage() {
             <div>
               <Label htmlFor="entry-slug">Slug</Label>
               <div className="flex gap-2">
-                <input id="entry-slug" className={inputClass} value={draft.slug} onChange={(e) => set("slug", e.target.value)} placeholder="psyche" />
-                <button onClick={() => set("slug", slugify(draft.title))} className="shrink-0 rounded-md border border-ink/20 px-3 py-2 text-sm text-soft-ivory hover:border-antique-gold hover:bg-antique-gold/5 transition-colors">สร้างจากชื่อ</button>
+                <input id="entry-slug" className={inputClass} value={draft.slug} onChange={(e) => set("slug", e.target.value)} placeholder="concept" />
+                <button onClick={() => set("slug", slugify(draft.title))} className="shrink-0 rounded-md border border-text-heading/20 px-3 py-2 text-sm text-text-body hover:border-accent hover:bg-accent/5 transition-colors">สร้างจากชื่อ</button>
               </div>
             </div>
             {show.shortDesc && (
@@ -470,7 +470,7 @@ export default function StudioEditorPage() {
                    <SearchableSelect id="entry-content-type" value={draft.contentType} onChange={(v) => set("contentType", v)} options={CONTENT_TYPES} placeholder="เลือกประเภทเนื้อหา" meta={contentTypeMeta} placement="top" />
                   {draft.contentType ? (
                     <span
-                      className="mt-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-semibold leading-[1.4] bg-burnished-gold/10 text-burnished-gold gap-1.5"
+                      className="mt-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-semibold leading-[1.4] bg-accent/10 text-accent gap-1.5"
                        style={{ backgroundColor: `${typeMeta.accent}1f`, color: typeMeta.accent }}
                     >
                       <span className="material-symbols-outlined text-[16px]">{typeMeta.icon}</span>
@@ -484,7 +484,7 @@ export default function StudioEditorPage() {
 
           {show.framework && (
             <section className="space-y-4">
-              <h2 className="font-serif text-xl text-ivory">กรอบทฤษฎี</h2>
+              <h2 className="font-serif text-xl text-text-heading">กรอบทฤษฎี</h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <Label htmlFor="entry-framework">Framework</Label>
@@ -518,7 +518,7 @@ export default function StudioEditorPage() {
 
           {!show.framework && show.tags && (
             <section className="space-y-4">
-              <h2 className="font-serif text-xl text-ivory">แท็ก</h2>
+              <h2 className="font-serif text-xl text-text-heading">แท็ก</h2>
               <div>
                 <Label>Tags</Label>
                 <SearchableMultiSelect values={draft.tags} onChange={(v) => set("tags", v)} options={TAG_OPTIONS} />
@@ -527,7 +527,7 @@ export default function StudioEditorPage() {
           )}
 
           <section className="space-y-4">
-            <h2 className="font-serif text-xl text-ivory">เนื้อหา</h2>
+            <h2 className="font-serif text-xl text-text-heading">เนื้อหา</h2>
             {show.visualExplanation && (
               <div>
                 <Label htmlFor="entry-visual-explanation">คำอธิบายให้เห็นภาพ</Label>
@@ -551,14 +551,14 @@ export default function StudioEditorPage() {
                   onChange={(e) => set("bodyMarkdown", e.target.value)}
                   placeholder={"เขียนเนื้อหาแบบ Markdown — รองรับหัวข้อ (## , ### ), ตัวหนา **...**, รายการ, ตาราง (GFM), บล็อกอ้างอิง > ...\nระบบแปลงเป็น HTML แบบปลอดภัย ไม่อนุญาต raw HTML"}
                 />
-                <p className="mt-1 text-xs text-muted">{"รองรับ Markdown + GFM (ตาราง, รายการงาน, ขีดฆ่า) · กด \u201Cพรีวิว\u201D เพื่อดูผลลัพธ์"}</p>
+                <p className="mt-1 text-xs text-text-secondary">{"รองรับ Markdown + GFM (ตาราง, รายการงาน, ขีดฆ่า) · กด \u201Cพรีวิว\u201D เพื่อดูผลลัพธ์"}</p>
               </div>
             )}
           </section>
 
           {show.coverImage && (
             <section className="space-y-4">
-              <h2 className="font-serif text-xl text-ivory">ภาพปก</h2>
+              <h2 className="font-serif text-xl text-text-heading">ภาพปก</h2>
               <ImagePicker
                 value={draft.coverImage}
                 onChange={(url) => set("coverImage", url)}
@@ -570,17 +570,17 @@ export default function StudioEditorPage() {
 
           {show.relatedConcepts && (
             <section className="space-y-3">
-              <h2 className="font-serif text-xl text-ivory">แนวคิดที่เกี่ยวข้อง</h2>
-              <p className="text-sm text-muted">ค้นหาจาก Concept Registry แล้วระบุความสัมพันธ์ + เหตุผล</p>
+              <h2 className="font-serif text-xl text-text-heading">แนวคิดที่เกี่ยวข้อง</h2>
+              <p className="text-sm text-text-secondary">ค้นหาจาก Concept Registry แล้วระบุความสัมพันธ์ + เหตุผล</p>
               <RelatedConceptPicker value={draft.relatedConcepts} onChange={(v) => set("relatedConcepts", v)} />
             </section>
           )}
 
           <section className="space-y-3">
-            <h2 className="font-serif text-xl text-ivory">เอกสารอ้างอิง</h2>
+            <h2 className="font-serif text-xl text-text-heading">เอกสารอ้างอิง</h2>
             {draft.references.map((r, i) => (
               <div key={i} className="flex items-start justify-between gap-3 rounded-md archron-panel p-3">
-                <div className="text-sm text-soft-ivory">
+                <div className="text-sm text-text-body">
                   <span
                     className="inline-flex items-center gap-1 text-xs"
                     style={{ color: sourceTypeMeta(r.sourceType).accent }}
@@ -590,10 +590,10 @@ export default function StudioEditorPage() {
                     </span>
                     {r.sourceType}
                   </span>
-                  <span className="ml-2 text-ivory">{r.title}</span>
-                  {r.relatedClaim ? <p className="mt-1 text-muted">รองรับ: {r.relatedClaim}</p> : null}
+                  <span className="ml-2 text-text-heading">{r.title}</span>
+                  {r.relatedClaim ? <p className="mt-1 text-text-secondary">รองรับ: {r.relatedClaim}</p> : null}
                 </div>
-                <button onClick={() => set("references", draft.references.filter((_, j) => j !== i))} className="rounded-md px-2 py-1 text-xs text-danger hover:bg-danger/10 transition-colors">ลบ</button>
+                <button onClick={() => set("references", draft.references.filter((_, j) => j !== i))} className="rounded-md px-2 py-1 text-xs text-error hover:bg-error/10 transition-colors">ลบ</button>
               </div>
             ))}
             <div className="grid gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_2fr_auto]">
@@ -606,7 +606,7 @@ export default function StudioEditorPage() {
                   set("references", [...draft.references, ref]);
                   setRef({ sourceType: "primary-source", title: "", relatedClaim: "" });
                 }}
-                className="rounded-md border border-ink/20 px-3 py-2 text-sm text-soft-ivory hover:border-antique-gold hover:bg-antique-gold/5 transition-colors"
+                className="rounded-md border border-text-heading/20 px-3 py-2 text-sm text-text-body hover:border-accent hover:bg-accent/5 transition-colors"
                 aria-label="เพิ่มเอกสารอ้างอิง"
               >
                 เพิ่ม
@@ -616,7 +616,7 @@ export default function StudioEditorPage() {
 
           {show.roots && (
             <section className="space-y-4">
-              <h2 className="font-serif text-xl text-ivory">Roots — ที่มาของคำ</h2>
+              <h2 className="font-serif text-xl text-text-heading">Roots — ที่มาของคำ</h2>
               <div><Label htmlFor="entry-roots-etymology">รากศัพท์ (Etymology)</Label><textarea id="entry-roots-etymology" className={textareaClass} rows={2} value={draft.rootsEtymology} onChange={(e) => set("rootsEtymology", e.target.value)} /></div>
               <div><Label htmlFor="entry-roots-meaning-shift">การเปลี่ยนความหมาย</Label><textarea id="entry-roots-meaning-shift" className={textareaClass} rows={2} value={draft.rootsMeaningShift} onChange={(e) => set("rootsMeaningShift", e.target.value)} /></div>
               <div><Label htmlFor="entry-roots-caution">ข้อควรระวัง</Label><textarea id="entry-roots-caution" className={textareaClass} rows={2} value={draft.rootsCaution} onChange={(e) => set("rootsCaution", e.target.value)} placeholder="อย่าใช้รากศัพท์แทนนิยามทฤษฎี" /></div>
@@ -626,19 +626,19 @@ export default function StudioEditorPage() {
           {preview ? (
             <section className="archron-panel p-6 max-w-[var(--measure)]">
               <p className="text-xs tracking-widest text-accent">พรีวิว (ไม่เผยแพร่)</p>
-              <h3 className="mt-2 font-serif text-2xl text-ivory">{draft.title || "(ยังไม่มีชื่อ)"}</h3>
-              <p className="mt-1 text-sm text-muted">{[draft.framework, draft.difficulty, draft.mainThinker].filter(Boolean).join(" · ")}</p>
-              {draft.tags.length > 0 ? <p className="mt-2 text-xs text-soft-gold">{draft.tags.join(", ")}</p> : null}
+              <h3 className="mt-2 font-serif text-2xl text-text-heading">{draft.title || "(ยังไม่มีชื่อ)"}</h3>
+              <p className="mt-1 text-sm text-text-secondary">{[draft.framework, draft.difficulty, draft.mainThinker].filter(Boolean).join(" · ")}</p>
+              {draft.tags.length > 0 ? <p className="mt-2 text-xs text-accent">{draft.tags.join(", ")}</p> : null}
               {draft.coverImage ? (
                 <div className="mt-4">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={draft.coverImage} alt={draft.title ? `ภาพปก: ${draft.title}` : "ภาพปก"} className="h-48 w-full rounded-md object-cover" />
                 </div>
               ) : null}
-              {draft.visualExplanation ? <p className="mt-4 whitespace-pre-line text-soft-ivory">{draft.visualExplanation}</p> : null}
-              {draft.technicalMeaning ? <p className="mt-3 whitespace-pre-line text-soft-ivory">{draft.technicalMeaning}</p> : null}
+              {draft.visualExplanation ? <p className="mt-4 whitespace-pre-line text-text-body">{draft.visualExplanation}</p> : null}
+              {draft.technicalMeaning ? <p className="mt-3 whitespace-pre-line text-text-body">{draft.technicalMeaning}</p> : null}
               {draft.bodyMarkdown && draft.bodyMarkdown.trim() !== "" ? (
-                <div className="md-body mt-5 border-t border-ink/10 pt-5">
+                <div className="md-body mt-5 border-t border-text-heading/10 pt-5">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>{draft.bodyMarkdown}</ReactMarkdown>
                 </div>
               ) : null}
@@ -649,8 +649,8 @@ export default function StudioEditorPage() {
         <aside className="space-y-6 md:sticky md:top-20 md:self-start">
           <MyContentSearch userId={userId ?? null} />
           <div className="archron-panel p-5">
-            <h3 className="font-serif text-base text-ivory">คำแนะนำ</h3>
-            <ul className="mt-3 space-y-2 text-sm leading-relaxed text-muted">
+            <h3 className="font-serif text-base text-text-heading">คำแนะนำ</h3>
+            <ul className="mt-3 space-y-2 text-sm leading-relaxed text-text-secondary">
               <li>เขียนให้ชัด ไม่ลดทอนแนวคิดจนผิด</li>
               <li>เลี่ยงคำว่า ลึก/คม/ทรงพลัง ถ้าไม่อธิบายว่าอย่างไร</li>
               <li>แยกข้อเท็จจริง แหล่งที่มา และการตีความ</li>
@@ -658,22 +658,22 @@ export default function StudioEditorPage() {
             </ul>
           </div>
           <div className="archron-panel p-5">
-            <h3 className="font-serif text-base text-ivory">Publish Checklist</h3>
+            <h3 className="font-serif text-base text-text-heading">Publish Checklist</h3>
             <ul className="mt-3 space-y-2 text-sm">
               {checklist.map((c) => (
-                <li key={c.label} className={c.ok ? "text-soft-ivory" : "text-muted"}>
-                  <span className={c.ok ? "text-success" : "text-danger"}>{c.ok ? "✓" : "✕"}</span>{" "}
+                <li key={c.label} className={c.ok ? "text-text-body" : "text-text-secondary"}>
+                  <span className={c.ok ? "text-success" : "text-error"}>{c.ok ? "✓" : "✕"}</span>{" "}
                   {c.label}
                 </li>
               ))}
             </ul>
             {deadLinks.length > 0 ? (
-              <p className="mt-3 text-xs text-danger">
+              <p className="mt-3 text-xs text-error">
                 ลิงก์เสีย {deadLinks.length}: {deadLinks.join(", ")}
               </p>
             ) : null}
             {publishTried ? (
-              <p className={ready && deadLinks.length === 0 ? "mt-4 text-sm text-success" : "mt-4 text-sm text-danger"}>
+              <p className={ready && deadLinks.length === 0 ? "mt-4 text-sm text-success" : "mt-4 text-sm text-error"}>
                 {ready && deadLinks.length === 0
                   ? "พร้อมเผยแพร่ — กดปุ่ม \u201Cเผยแพร่\u201D ด้านบน"
                   : "ยังเผยแพร่ไม่ได้ — ทำรายการที่ยังไม่ผ่าน / แก้ลิงก์เสียให้ครบ"}
@@ -699,11 +699,11 @@ export default function StudioEditorPage() {
       )}
 
       {/* แถบปุ่มล่างสำหรับมือถือ */}
-      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-burnished-gold/15 bg-midnight/90 px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur lg:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-accent/15 bg-bg/90 px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur lg:hidden">
         <div className="mx-auto flex max-w-3xl items-center gap-2">
           <button
             onClick={handleManualSave}
-            className="flex-1 rounded-md border border-ink/20 px-3 py-2 text-sm text-ivory hover:border-antique-gold hover:bg-antique-gold/5 transition-colors"
+            className="flex-1 rounded-md border border-text-heading/20 px-3 py-2 text-sm text-text-heading hover:border-accent hover:bg-accent/5 transition-colors"
             disabled={loadingDraft || publishing}
           >
             บันทึก
@@ -711,14 +711,14 @@ export default function StudioEditorPage() {
           <button
             onClick={() => setPreview((v) => !v)}
             disabled={!canPreview || loadingDraft}
-            className="flex-1 rounded-md border border-ink/20 px-3 py-2 text-sm text-ivory hover:border-antique-gold hover:bg-antique-gold/5 transition-colors disabled:opacity-40"
+            className="flex-1 rounded-md border border-text-heading/20 px-3 py-2 text-sm text-text-heading hover:border-accent hover:bg-accent/5 transition-colors disabled:opacity-40"
           >
             {preview ? "ปิดพรีวิว" : "พรีวิว"}
           </button>
           <button
             onClick={handlePublish}
             disabled={publishing || loadingDraft}
-            className="flex-1 rounded-md bg-antique-gold px-3 py-2 text-sm font-semibold text-prima hover:brightness-110 transition-all disabled:opacity-50"
+            className="flex-1 rounded-md bg-accent px-3 py-2 text-sm font-semibold text-text-inverse hover:brightness-110 transition-all disabled:opacity-50"
           >
             {publishing ? "..." : "เผยแพร่"}
           </button>

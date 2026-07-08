@@ -134,7 +134,7 @@ export function ContextMenu({
               ref={menuRef}
               role="menu"
               aria-label="เมนูลัด"
-              className="menu-in fixed z-[60] min-w-48 overflow-hidden rounded-lg border border-burnished-gold/20 bg-surface-container/95 py-1.5 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.7)] backdrop-blur"
+              className="menu-in fixed z-[60] min-w-48 overflow-hidden rounded-lg border border-accent/20 bg-bg-card/95 py-1.5 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.7)] backdrop-blur"
               style={{ left: pos.x, top: pos.y }}
               onClick={(e) => e.stopPropagation()}
             >
@@ -147,10 +147,10 @@ export function ContextMenu({
                     it.onSelect();
                     close();
                   }}
-                  className="flex w-full items-center gap-2.5 px-4 py-3 text-left text-sm text-on-surface transition-colors hover:bg-burnished-gold/12 hover:text-burnished-gold focus:bg-burnished-gold/12 focus:text-burnished-gold focus:outline-none"
+                  className="flex w-full items-center gap-2.5 px-4 py-3 text-left text-sm text-text-heading transition-colors hover:bg-accent/12 hover:text-accent focus:bg-accent/12 focus:text-accent focus:outline-none"
                 >
                   {it.icon ? (
-                    <span className="material-symbols-outlined text-[18px] text-burnished-gold">
+                    <span className="material-symbols-outlined text-[18px] text-accent">
                       {it.icon}
                     </span>
                   ) : null}

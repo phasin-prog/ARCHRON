@@ -9,7 +9,7 @@
 .archron-tabs {
   display: flex;
   gap: 0;
-  border-bottom: 1px solid var(--color-slate-boundary);
+  border-bottom: 1px solid var(--color-border);
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -27,7 +27,7 @@
   font-family: var(--font-body);
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--color-muted);
+  color: var(--color-text-secondary);
   background: transparent;
   border: none;
   cursor: pointer;
@@ -36,7 +36,7 @@
 }
 
 .archron-tab:hover {
-  color: var(--color-ivory);
+  color: var(--color-text-heading);
 }
 
 .archron-tab::after {
@@ -52,26 +52,26 @@
 
 .archron-tab[aria-selected="true"],
 .archron-tab.active {
-  color: var(--color-burnished-gold);
+  color: var(--color-accent);
 }
 
 .archron-tab[aria-selected="true"]::after,
 .archron-tab.active::after {
-  background: var(--color-burnished-gold);
+  background: var(--color-accent);
 }
 
 .archron-tab-count {
   font-size: 0.625rem;
   padding: 0.125rem 0.375rem;
   border-radius: 9999px;
-  background: color-mix(in srgb, var(--color-ivory) 8%, transparent);
-  color: var(--color-muted);
+  background: color-mix(in srgb, var(--color-text-heading) 8%, transparent);
+  color: var(--color-text-secondary);
   font-weight: 600;
 }
 
 .archron-tab[aria-selected="true"] .archron-tab-count {
-  background: color-mix(in srgb, var(--color-burnished-gold) 15%, transparent);
-  color: var(--color-burnished-gold);
+  background: color-mix(in srgb, var(--color-accent) 15%, transparent);
+  color: var(--color-accent);
 }
 
 /* ---- Breadcrumbs ---- */
@@ -80,7 +80,7 @@
   align-items: center;
   gap: 0.375rem;
   font-size: 0.75rem;
-  color: var(--color-muted);
+  color: var(--color-text-secondary);
 }
 
 .archron-breadcrumb-item {
@@ -90,22 +90,22 @@
 }
 
 .archron-breadcrumb-link {
-  color: var(--color-muted);
+  color: var(--color-text-secondary);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .archron-breadcrumb-link:hover {
-  color: var(--color-burnished-gold);
+  color: var(--color-accent);
 }
 
 .archron-breadcrumb-separator {
-  color: var(--color-slate-boundary);
+  color: var(--color-border);
   user-select: none;
 }
 
 .archron-breadcrumb-current {
-  color: var(--color-ivory);
+  color: var(--color-text-heading);
   font-weight: 500;
 }
 
@@ -124,7 +124,7 @@
   min-height: 44px;
   padding: 0 0.5rem;
   font-size: 0.875rem;
-  color: var(--color-muted);
+  color: var(--color-text-secondary);
   background: transparent;
   border: 1px solid transparent;
   border-radius: 6px;
@@ -133,15 +133,15 @@
 }
 
 .archron-page-btn:hover {
-  color: var(--color-ivory);
-  background: color-mix(in srgb, var(--color-ivory) 5%, transparent);
+  color: var(--color-text-heading);
+  background: color-mix(in srgb, var(--color-text-heading) 5%, transparent);
 }
 
 .archron-page-btn[aria-current="page"],
 .archron-page-btn.active {
-  color: var(--color-burnished-gold);
-  border-color: var(--color-burnished-gold);
-  background: color-mix(in srgb, var(--color-burnished-gold) 10%, transparent);
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 10%, transparent);
 }
 
 .archron-page-btn:disabled {
@@ -150,7 +150,7 @@
 }
 
 .archron-page-ellipsis {
-  color: var(--color-slate-boundary);
+  color: var(--color-border);
   user-select: none;
   padding: 0 0.25rem;
 }
@@ -168,20 +168,20 @@
   gap: 0.625rem;
   padding: 0.5rem 0.75rem;
   font-size: 0.875rem;
-  color: var(--color-muted);
+  color: var(--color-text-secondary);
   border-radius: 6px;
   text-decoration: none;
   transition: all 0.15s ease;
 }
 
 .archron-sidenav-item:hover {
-  color: var(--color-ivory);
-  background: color-mix(in srgb, var(--color-ivory) 5%, transparent);
+  color: var(--color-text-heading);
+  background: color-mix(in srgb, var(--color-text-heading) 5%, transparent);
 }
 
 .archron-sidenav-item.active {
-  color: var(--color-burnished-gold);
-  background: color-mix(in srgb, var(--color-burnished-gold) 8%, transparent);
+  color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 8%, transparent);
 }
 
 .archron-sidenav-item .material-symbols-rounded {
@@ -210,48 +210,48 @@
   border-radius: 50%;
   font-size: 0.75rem;
   font-weight: 600;
-  border: 1px solid var(--color-slate-boundary);
-  color: var(--color-muted);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
   background: transparent;
   flex-shrink: 0;
   transition: all 0.2s ease;
 }
 
 .archron-step.active .archron-step-number {
-  border-color: var(--color-burnished-gold);
-  color: var(--color-burnished-gold);
-  background: color-mix(in srgb, var(--color-burnished-gold) 10%, transparent);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 10%, transparent);
 }
 
 .archron-step.completed .archron-step-number {
-  border-color: var(--color-burnished-gold);
-  color: var(--color-prima);
-  background: var(--color-burnished-gold);
+  border-color: var(--color-accent);
+  color: var(--color-shadow);
+  background: var(--color-accent);
 }
 
 .archron-step-label {
   font-size: 0.8125rem;
-  color: var(--color-muted);
+  color: var(--color-text-secondary);
 }
 
 .archron-step.active .archron-step-label {
-  color: var(--color-ivory);
+  color: var(--color-text-heading);
 }
 
 .archron-step.completed .archron-step-label {
-  color: var(--color-soft-ivory);
+  color: var(--color-text-body);
 }
 
 .archron-step-connector {
   flex: 1;
   height: 1px;
-  background: var(--color-slate-boundary);
+  background: var(--color-border);
   margin: 0 0.5rem;
   min-width: 1.5rem;
 }
 
 .archron-step.completed + .archron-step-connector {
-  background: var(--color-burnished-gold);
+  background: var(--color-accent);
 }
 
 /* ---- Back Link ---- */
@@ -260,13 +260,13 @@
   align-items: center;
   gap: 0.375rem;
   font-size: 0.8125rem;
-  color: var(--color-muted);
+  color: var(--color-text-secondary);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .archron-back:hover {
-  color: var(--color-burnished-gold);
+  color: var(--color-accent);
 }
 
 .archron-back .material-symbols-rounded {
@@ -282,7 +282,7 @@
 .archron-pill-nav {
   display: flex;
   gap: 0.25rem;
-  background: var(--color-surface-container-low);
+  background: var(--color-bg-card);
   padding: 0.25rem;
   border-radius: 8px;
 }
@@ -291,7 +291,7 @@
   padding: 0.375rem 0.75rem;
   font-size: 0.75rem;
   font-weight: 500;
-  color: var(--color-muted);
+  color: var(--color-text-secondary);
   background: transparent;
   border: none;
   border-radius: 6px;
@@ -300,13 +300,13 @@
 }
 
 .archron-pill:hover {
-  color: var(--color-ivory);
+  color: var(--color-text-heading);
 }
 
 .archron-pill.active {
-  color: var(--color-burnished-gold);
-  background: var(--color-surface-container);
-  box-shadow: 0 1px 3px color-mix(in srgb, var(--color-prima) 20%, transparent);
+  color: var(--color-accent);
+  background: var(--color-bg-card);
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--color-shadow) 20%, transparent);
 }
 
 /* ---- Mobile Bottom Tabbar ---- */
@@ -319,10 +319,10 @@
   align-items: center;
   justify-content: space-around;
   height: 56px;
-  background: color-mix(in srgb, var(--color-prima) 95%, transparent);
+  background: color-mix(in srgb, var(--color-shadow) 95%, transparent);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-top: 1px solid color-mix(in srgb, var(--color-ivory) 6%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--color-text-heading) 6%, transparent);
   z-index: var(--z-nav);
   padding-bottom: env(safe-area-inset-bottom, 0);
 }
@@ -339,14 +339,14 @@
   align-items: center;
   gap: 0.125rem;
   padding: 0.375rem 0.75rem;
-  color: var(--color-muted);
+  color: var(--color-text-secondary);
   text-decoration: none;
   font-size: 0.625rem;
   transition: color 0.2s ease;
 }
 
 .archron-tabbar-item.active {
-  color: var(--color-burnished-gold);
+  color: var(--color-accent);
 }
 
 .archron-tabbar-item .material-symbols-rounded {

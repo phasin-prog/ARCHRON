@@ -77,8 +77,8 @@ export function ReadingToc({ containerId = "reading-article" }: { containerId?: 
 
   return (
     <nav aria-label="สารบัญในหน้านี้" className="text-sm">
-      <p className="mb-3 text-[11px] tracking-[0.05em] text-subtle">ในหน้านี้</p>
-      <ul className="space-y-1 border-l border-ink/10">
+      <p className="mb-3 text-[11px] tracking-[0.05em] text-text-secondary">ในหน้านี้</p>
+      <ul className="space-y-1 border-l border-text-heading/10">
         {items.map((it) => (
           <li key={it.id} className={it.level === 3 ? "pl-3" : ""}>
             <a
@@ -86,8 +86,8 @@ export function ReadingToc({ containerId = "reading-article" }: { containerId?: 
               onClick={(e) => handleClick(e, it.id)}
               className={`-ml-px block border-l-2 py-1 pl-3 leading-snug transition-colors ${
                 active === it.id
-                  ? "border-antique-gold text-soft-gold"
-                  : "border-transparent text-muted hover:text-soft-ivory"
+                  ? "border-accent text-accent"
+                  : "border-transparent text-text-secondary hover:text-text-body"
               }`}
             >
               {it.text}

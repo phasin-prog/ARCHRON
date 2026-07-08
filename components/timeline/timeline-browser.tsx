@@ -110,7 +110,7 @@ export function TimelineBrowser() {
   return (
     <div className="space-y-10">
       {/* ตัวคัดกรองยุคสมัย */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-ink/10 pb-4">
+      <div className="flex flex-wrap items-center gap-2 border-b border-text-heading/10 pb-4">
         {[
           { id: "all", label: "ทุกยุคสมัยประวัติศาสตร์" },
           { id: "ancient", label: "ยุคโบราณ & คลาสสิก" },
@@ -123,8 +123,8 @@ export function TimelineBrowser() {
             onClick={() => setSelectedEra(era.id as EraFilter)}
             className={`rounded-lg px-4 py-2 text-xs font-medium transition-all ${
               selectedEra === era.id
-                ? "bg-burnished-gold/20 text-soft-gold border border-burnished-gold/50 shadow-sm"
-                : "bg-surface-container/40 text-on-surface-variant hover:bg-surface-container hover:text-ivory border border-transparent"
+                ? "bg-accent/20 text-accent border border-accent/50 shadow-sm"
+                : "bg-bg-card/40 text-text-secondary hover:bg-bg-card hover:text-text-heading border border-transparent"
             }`}
           >
             {era.label}
@@ -133,41 +133,41 @@ export function TimelineBrowser() {
       </div>
 
       {/* ลำดับเส้นเวลา Timeline UI */}
-      <div className="relative border-l-2 border-burnished-gold/30 ml-4 sm:ml-8 pl-6 sm:pl-10 space-y-12">
+      <div className="relative border-l-2 border-accent/30 ml-4 sm:ml-8 pl-6 sm:pl-10 space-y-12">
         {filteredEvents.map((ev, idx) => (
           <div key={idx} className="relative group">
             {/* จุดมาร์กเกอร์บนเส้นเวลา */}
-            <span className="absolute -left-[31px] sm:-left-[47px] top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-deep-navy border-2 border-burnished-gold group-hover:scale-125 transition-transform" />
+            <span className="absolute -left-[31px] sm:-left-[47px] top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-bg border-2 border-accent group-hover:scale-125 transition-transform" />
 
-            <div className="archron-card p-6 transition-all duration-300 hover:border-burnished-gold/50 hover:-translate-y-0.5 space-y-3">
-              <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-soft-gold font-mono">
-                <span className="flex items-center gap-1.5 bg-burnished-gold/10 px-2.5 py-1 rounded border border-burnished-gold/30">
+            <div className="archron-card p-6 transition-all duration-300 hover:border-accent/50 hover:-translate-y-0.5 space-y-3">
+              <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-accent font-mono">
+                <span className="flex items-center gap-1.5 bg-accent/10 px-2.5 py-1 rounded border border-accent/30">
                   <CalendarIcon className="h-3.5 w-3.5" />
                   {ev.year}
                 </span>
-                <span className="text-[11px] uppercase tracking-wider text-muted font-sans">
+                <span className="text-[11px] uppercase tracking-wider text-text-secondary font-sans">
                   {ev.school}
                 </span>
               </div>
 
-              <h3 className="font-serif text-xl text-ivory group-hover:text-soft-gold transition-colors">
+              <h3 className="font-serif text-xl text-text-heading group-hover:text-accent transition-colors">
                 {ev.title}
               </h3>
 
-              <p className="text-sm text-soft-ivory/90 leading-relaxed">
+              <p className="text-sm text-text-body/90 leading-relaxed">
                 {ev.description}
               </p>
 
               {ev.thinker && (
-                <div className="pt-2 flex items-center justify-between border-t border-ink/10 text-xs text-muted">
+                <div className="pt-2 flex items-center justify-between border-t border-text-heading/10 text-xs text-text-secondary">
                   <span className="inline-flex items-center gap-1.5">
-                    <PersonIcon className="h-3.5 w-3.5 text-burnished-gold" />
+                    <PersonIcon className="h-3.5 w-3.5 text-accent" />
                     {ev.thinker}
                   </span>
                   {ev.slug && (
                     <Link
                       href={ev.type === "concept" ? `/concepts/${ev.slug}` : `/articles/${ev.slug}`}
-                      className="inline-flex items-center gap-1 text-soft-gold hover:underline"
+                      className="inline-flex items-center gap-1 text-accent hover:underline"
                     >
                       ศึกษามโนทัศน์นี้
                       <ArrowRightIcon className="h-3.5 w-3.5" />

@@ -181,14 +181,14 @@ export default async function KnowledgeHubPage() {
 
         {/* หัวข้อหน้าและบทนำ */}
         <header className="mb-14 space-y-5 text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-burnished-gold/30 px-4 py-1.5 text-[11px] uppercase tracking-[0.2em] text-burnished-gold">
-            <span className="h-[5px] w-[5px] rounded-full bg-burnished-gold" aria-hidden="true" />
+          <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 px-4 py-1.5 text-[11px] uppercase tracking-[0.2em] text-accent">
+            <span className="h-[5px] w-[5px] rounded-full bg-accent" aria-hidden="true" />
             Knowledge Atlas
           </span>
-          <h1 className="font-serif text-4xl tracking-tight text-ivory sm:text-5xl">
+          <h1 className="font-serif text-4xl tracking-tight text-text-heading sm:text-5xl">
             เข้าสู่คลังความรู้
           </h1>
-          <p className="mx-auto max-w-xl text-base leading-relaxed text-on-surface-variant/80">
+          <p className="mx-auto max-w-xl text-base leading-relaxed text-text-secondary/80">
             สารบัญนำทางสู่การทำความเข้าใจโลกภายในของมนุษย์ — เลือกเส้นทางที่อยากเริ่มต้น
             แต่ละส่วนมีสีประจำตาม Cosmology ของตัวเอง
           </p>
@@ -202,7 +202,7 @@ export default async function KnowledgeHubPage() {
               <Link
                 key={section.href}
                 href={section.href}
-                className="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-boundary/25 bg-white/[0.02] p-6 transition-all duration-500 hover:-translate-y-1.5 hover:border-burnished-gold/40 hover:shadow-[0_28px_56px_-30px_rgba(0,0,0,0.7)] focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/25 bg-text-heading/[0.02] p-6 transition-all duration-500 hover:-translate-y-1.5 hover:border-accent/40 hover:shadow-[0_28px_56px_-30px_rgba(0,0,0,0.7)] focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
               >
                 {/* แถบ accent บน — ขึ้นตอน hover */}
                 <span
@@ -228,21 +228,21 @@ export default async function KnowledgeHubPage() {
                     {section.icon}
                   </span>
                   {section.isNew ? (
-                    <span className="rounded-md bg-soft-gold px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.1em] text-prima">
+                    <span className="rounded-md bg-accent px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.1em] text-text-inverse">
                       ใหม่
                     </span>
                   ) : (
-                    <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-on-surface-variant/45">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-text-secondary/45">
                       {section.engTitle}
                     </span>
                   )}
                 </div>
-                <h2 className="mt-5 font-serif text-xl text-ivory">{section.title}</h2>
-                <p className="mt-2.5 flex-1 text-sm leading-relaxed text-on-surface-variant/75">
+                <h2 className="mt-5 font-serif text-xl text-text-heading">{section.title}</h2>
+                <p className="mt-2.5 flex-1 text-sm leading-relaxed text-text-secondary/75">
                   {section.description}
                 </p>
                 {/* จำนวนจริงจาก data layer (รีเฟรชตาม ISR 300s) */}
-                <span className="mt-4 font-mono text-[10px] uppercase tracking-[0.14em] text-on-surface-variant/50">
+                <span className="mt-4 font-mono text-[10px] uppercase tracking-[0.14em] text-text-secondary/50">
                   {CARD_STAT[section.href]}
                 </span>
                 <span
@@ -258,10 +258,10 @@ export default async function KnowledgeHubPage() {
         </div>
 
         {/* ท้ายหน้า — เชื่อมไปปฏิญญา */}
-        <footer className="mt-16 border-t border-slate-boundary/40 pt-10 text-center">
+        <footer className="mt-16 border-t border-border/40 pt-10 text-center">
           <Link
             href="/manifesto"
-            className="inline-flex items-center gap-2 text-xs text-on-surface-variant/60 transition-colors duration-300 hover:text-burnished-gold"
+            className="inline-flex items-center gap-2 text-xs text-text-secondary/60 transition-colors duration-300 hover:text-accent"
           >
             อ่านปฏิญญาก่อตั้ง — เจตนารมณ์ของ ARCHRON
             <ArrowRightIcon className="h-3.5 w-3.5" />

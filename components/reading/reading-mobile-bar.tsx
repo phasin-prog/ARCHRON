@@ -29,12 +29,12 @@ export function ReadingMobileBar({ slug }: { slug: string }) {
   };
 
   return (
-    <div className="fixed inset-x-0 bottom-[56px] z-30 flex items-center justify-center gap-1 border-t border-slate-boundary/30 bg-deep-navy/95 px-2 py-2 backdrop-blur [bottom:calc(56px+env(safe-area-inset-bottom))] lg:hidden print:hidden">
+    <div className="fixed inset-x-0 bottom-[56px] z-30 flex items-center justify-center gap-1 border-t border-border/30 bg-bg/95 px-2 py-2 backdrop-blur [bottom:calc(56px+env(safe-area-inset-bottom))] lg:hidden print:hidden">
       <button
         type="button"
         onClick={handleCopy}
         aria-label={copied ? "คัดลอกลิงก์แล้ว" : "คัดลอกลิงก์"}
-        className="flex flex-1 items-center justify-center gap-1.5 rounded-md px-3 py-2 text-xs text-on-surface-variant transition-colors hover:bg-surface-container hover:text-accent active:scale-95 max-w-[120px]"
+        className="flex flex-1 items-center justify-center gap-1.5 rounded-md px-3 py-2 text-xs text-text-secondary transition-colors hover:bg-bg-card hover:text-accent active:scale-95 max-w-[120px]"
       >
         <span className="material-symbols-outlined text-[18px]">
           {copied ? "check" : "link"}
@@ -46,7 +46,7 @@ export function ReadingMobileBar({ slug }: { slug: string }) {
         type="button"
         onClick={() => router.push(`/constellation?focus=${slug}`)}
         aria-label="ดูในแผนที่ความสัมพันธ์"
-        className="flex flex-1 items-center justify-center gap-1.5 rounded-md px-3 py-2 text-xs text-on-surface-variant transition-colors hover:bg-surface-container hover:text-accent active:scale-95 max-w-[120px]"
+        className="flex flex-1 items-center justify-center gap-1.5 rounded-md px-3 py-2 text-xs text-text-secondary transition-colors hover:bg-bg-card hover:text-accent active:scale-95 max-w-[120px]"
       >
         <span className="material-symbols-outlined text-[18px]">hub</span>
         <span className="hidden sm:inline">แผนที่</span>
@@ -56,7 +56,7 @@ export function ReadingMobileBar({ slug }: { slug: string }) {
         type="button"
         onClick={handleShare}
         aria-label="แชร์"
-        className="flex flex-1 items-center justify-center gap-1.5 rounded-md px-3 py-2 text-xs text-on-surface-variant transition-colors hover:bg-surface-container hover:text-accent active:scale-95 max-w-[120px]"
+        className="flex flex-1 items-center justify-center gap-1.5 rounded-md px-3 py-2 text-xs text-text-secondary transition-colors hover:bg-bg-card hover:text-accent active:scale-95 max-w-[120px]"
       >
         <span className="material-symbols-outlined text-[18px]">share</span>
         <span className="hidden sm:inline">แชร์</span>

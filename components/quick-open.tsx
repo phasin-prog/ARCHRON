@@ -173,7 +173,7 @@ export function QuickOpen() {
     const parts = text.split(new RegExp(`(${escapeRegex(term)})`, "gi"));
     return parts.map((part, i) =>
       part.toLowerCase() === term.toLowerCase() ? (
-        <mark key={i} className="rounded-sm bg-burnished-gold/30 text-on-surface">
+        <mark key={i} className="rounded-sm bg-accent/30 text-text-heading">
           {part}
         </mark>
       ) : (
@@ -192,10 +192,10 @@ export function QuickOpen() {
       />
 
       {/* Dialog */}
-      <div className="relative z-10 w-full max-w-xl rounded-xl border border-burnished-gold/15 bg-surface-container shadow-[0_20px_60px_-20px_rgba(0,0,0,0.7)]">
+      <div className="relative z-10 w-full max-w-xl rounded-xl border border-accent/15 bg-bg-card shadow-[0_20px_60px_-20px_rgba(0,0,0,0.7)]">
         {/* Search input */}
-        <div className="flex items-center gap-3 border-b border-burnished-gold/10 px-4 py-3">
-          <span className="material-symbols-outlined text-[20px] text-burnished-gold/70" aria-hidden="true">
+        <div className="flex items-center gap-3 border-b border-accent/10 px-4 py-3">
+          <span className="material-symbols-outlined text-[20px] text-accent/70" aria-hidden="true">
             search
           </span>
           <input
@@ -205,14 +205,14 @@ export function QuickOpen() {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="ค้นหาแนวคิด บทความ หรือหน้า..."
-            className="flex-1 border-none bg-transparent text-base text-on-surface placeholder:text-on-surface-variant/50 focus-visible:outline-none"
+            className="flex-1 border-none bg-transparent text-base text-text-heading placeholder:text-text-secondary/50 focus-visible:outline-none"
             aria-label="ค้นหาแบบเร็ว"
             role="combobox"
             aria-expanded={matched.length > 0}
             aria-controls="quick-open-listbox"
             aria-autocomplete="list"
           />
-          <kbd className="hidden rounded border border-slate-boundary/40 px-1.5 py-0.5 text-[10px] text-on-surface-variant/60 sm:inline">
+          <kbd className="hidden rounded border border-border/40 px-1.5 py-0.5 text-[10px] text-text-secondary/60 sm:inline">
             ESC
           </kbd>
         </div>
@@ -234,31 +234,31 @@ export function QuickOpen() {
                   onMouseEnter={() => setSelectedIndex(i)}
                   className={`flex w-full items-center gap-3 px-4 py-2.5 text-left transition-colors ${
                     i === selectedIndex
-                      ? "bg-burnished-gold/10"
-                      : "hover:bg-surface-container-low"
+                      ? "bg-accent/10"
+                      : "hover:bg-bg-card"
                   }`}
                 >
-                  <span className="material-symbols-outlined shrink-0 text-[18px] text-on-surface-variant/60">
+                  <span className="material-symbols-outlined shrink-0 text-[18px] text-text-secondary/60">
                     {item.external ? "open_in_new" : "article"}
                   </span>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="truncate text-sm font-medium text-on-surface">
+                      <span className="truncate text-sm font-medium text-text-heading">
                         {highlight(item.thaiTitle || item.title)}
                       </span>
                       {item.badge ? (
-                        <span className="shrink-0 text-[10px] text-on-surface-variant/50">
+                        <span className="shrink-0 text-[10px] text-text-secondary/50">
                           {item.badge}
                         </span>
                       ) : null}
                     </div>
                     {item.description ? (
-                      <p className="mt-0.5 truncate text-xs text-on-surface-variant/60">
+                      <p className="mt-0.5 truncate text-xs text-text-secondary/60">
                         {highlight(item.description)}
                       </p>
                     ) : null}
                   </div>
-                  <span className="shrink-0 text-[10px] text-on-surface-variant/45">
+                  <span className="shrink-0 text-[10px] text-text-secondary/45">
                     {item.external ? "ภายนอก" : "ไป →"}
                   </span>
                 </button>
@@ -266,14 +266,14 @@ export function QuickOpen() {
             ))}
           </ul>
         ) : (
-          <div className="px-4 py-8 text-center text-sm text-on-surface-variant/60">
+          <div className="px-4 py-8 text-center text-sm text-text-secondary/60">
             {query.trim() ? (
               <>
                 ไม่พบผลลัพธ์สำหรับ &ldquo;{query.trim()}&rdquo;
                 <br />
                 <span className="text-xs">
                   ลองค้นหาแบบละเอียดที่{" "}
-                  <a href="/search" className="text-burnished-gold hover:underline">
+                  <a href="/search" className="text-accent hover:underline">
                     หน้าค้นหา
                   </a>
                 </span>
@@ -285,15 +285,15 @@ export function QuickOpen() {
         )}
 
         {/* Footer hint */}
-        <div className="flex items-center justify-between border-t border-burnished-gold/10 px-4 py-2 text-[10px] text-on-surface-variant/45">
+        <div className="flex items-center justify-between border-t border-accent/10 px-4 py-2 text-[10px] text-text-secondary/45">
           <span>
-            <kbd className="mr-1 rounded border border-slate-boundary/40 px-1 py-0.5">↑↓</kbd>
+            <kbd className="mr-1 rounded border border-border/40 px-1 py-0.5">↑↓</kbd>
             นำทาง{" "}
-            <kbd className="ml-1 rounded border border-slate-boundary/40 px-1 py-0.5">↵</kbd>
+            <kbd className="ml-1 rounded border border-border/40 px-1 py-0.5">↵</kbd>
             เลือก
           </span>
           <span>
-            <kbd className="rounded border border-slate-boundary/40 px-1 py-0.5">Esc</kbd>
+            <kbd className="rounded border border-border/40 px-1 py-0.5">Esc</kbd>
             ปิด
           </span>
         </div>

@@ -5,7 +5,7 @@ import { DISCIPLINE_META } from "@/components/discipline-meta";
 import type { DisciplineEntry } from "@/lib/content/disciplines";
 
 const CARD_CLASS =
-  "group relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-slate-boundary/25 bg-white/[0.02] p-7 transition-all duration-500 hover:-translate-y-1.5 hover:border-burnished-gold/40 hover:shadow-[0_28px_56px_-30px_rgba(0,0,0,0.7)] focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none";
+  "group relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-border/25 bg-text-heading/[0.02] p-7 transition-all duration-500 hover:-translate-y-1.5 hover:border-accent/40 hover:shadow-[0_28px_56px_-30px_rgba(0,0,0,0.7)] focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none";
 
 export function DisciplineCard({ entry, href }: { entry: DisciplineEntry; href?: string }) {
   const meta = DISCIPLINE_META[entry.key];
@@ -41,8 +41,8 @@ export function DisciplineCard({ entry, href }: { entry: DisciplineEntry; href?:
       >
         {entry.en}
       </span>
-      <h3 className="mt-1 font-serif text-[22px] leading-snug text-on-surface">{meta.label}</h3>
-      <p className="mt-3 text-[0.95rem] leading-relaxed text-on-surface-variant/80">{entry.desc}</p>
+      <h3 className="mt-1 font-serif text-[22px] leading-snug text-text-heading">{meta.label}</h3>
+      <p className="mt-3 text-[0.95rem] leading-relaxed text-text-secondary/80">{entry.desc}</p>
     </>
   );
 

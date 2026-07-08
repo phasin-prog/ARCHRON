@@ -47,12 +47,12 @@ export default async function ThemePage({
     <main className="px-6 pb-24 pt-10">
       <div className="mx-auto max-w-5xl">
         {/* Breadcrumb */}
-        <nav aria-label="เส้นทางนำทาง" className="flex flex-wrap items-center gap-1 text-xs text-muted">
-          <Link href="/" className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:outline-none">หน้าแรก</Link>
-          <span className="material-symbols-outlined text-[16px] text-subtle" aria-hidden="true">chevron_right</span>
-          <Link href="/themes" className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:outline-none">แก่นเรื่อง</Link>
-          <span className="material-symbols-outlined text-[16px] text-subtle" aria-hidden="true">chevron_right</span>
-          <span className="px-2 py-1.5 text-soft-ivory">{theme.label}</span>
+        <nav aria-label="เส้นทางนำทาง" className="flex flex-wrap items-center gap-1 text-xs text-text-secondary">
+          <Link href="/" className="rounded px-2 py-1.5 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:outline-none">หน้าแรก</Link>
+          <span className="material-symbols-outlined text-[16px] text-text-secondary" aria-hidden="true">chevron_right</span>
+          <Link href="/themes" className="rounded px-2 py-1.5 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:outline-none">แก่นเรื่อง</Link>
+          <span className="material-symbols-outlined text-[16px] text-text-secondary" aria-hidden="true">chevron_right</span>
+          <span className="px-2 py-1.5 text-text-body">{theme.label}</span>
         </nav>
 
         <header className="scroll-reveal mt-6">
@@ -64,10 +64,10 @@ export default async function ThemePage({
           <h1 className="mt-4 font-serif text-4xl font-bold md:text-5xl" style={{ color: theme.accent }}>
             {theme.label}
           </h1>
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-soft-ivory">
+          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-text-body">
             {theme.description}
           </p>
-          <p className="mt-3 text-sm text-muted">
+          <p className="mt-3 text-sm text-text-secondary">
             รวม {matched.length} รายการที่พูดถึงแก่นเรื่องนี้ ข้ามศาสตร์
           </p>
         </header>
@@ -96,11 +96,11 @@ export default async function ThemePage({
                       <span className="material-symbols-outlined text-[14px]">{meta.icon}</span>
                       {meta.label}
                     </span>
-                    <h2 className="mt-2 font-serif text-xl text-ivory group-hover:text-soft-gold">
+                    <h2 className="mt-2 font-serif text-xl text-text-heading group-hover:text-accent">
                       {e.mainTerm ?? e.title}
                     </h2>
                     {e.shortDescription ? (
-                      <p className="mt-2 text-sm leading-relaxed text-soft-ivory">
+                      <p className="mt-2 text-sm leading-relaxed text-text-body">
                         {e.shortDescription}
                       </p>
                     ) : null}
@@ -112,7 +112,7 @@ export default async function ThemePage({
         </section>
 
         <div className="mt-12">
-          <Link href="/themes" className="text-sm text-soft-gold hover:underline">
+          <Link href="/themes" className="text-sm text-accent hover:underline">
             ← แก่นเรื่องทั้งหมด
           </Link>
         </div>

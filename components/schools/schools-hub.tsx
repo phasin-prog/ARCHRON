@@ -65,10 +65,10 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
         onClick={() => setLetter(on ? null : ch)}
         className={`flex h-7 min-w-7 items-center justify-center rounded px-1 text-xs transition-colors ${
           on
-            ? "bg-burnished-gold/15 text-burnished-gold"
+            ? "bg-accent/15 text-accent"
             : has
-              ? "text-on-surface-variant hover:bg-ink/5 hover:text-burnished-gold"
-              : "cursor-default text-on-surface-variant/20"
+              ? "text-text-secondary hover:bg-text-heading/5 hover:text-accent"
+              : "cursor-default text-text-secondary/20"
         }`}
       >
         {ch}
@@ -86,29 +86,29 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
         ].map((st) => (
           <div
             key={st.l}
-            className="flex items-baseline gap-2 rounded-lg border border-ink/12 bg-surface-container/40 px-4 py-2.5"
+            className="flex items-baseline gap-2 rounded-lg border border-text-heading/12 bg-bg-card/40 px-4 py-2.5"
           >
-            <span className="font-serif text-2xl font-bold text-burnished-gold">{st.n}</span>
-            <span className="text-xs text-on-surface-variant/60">{st.l}</span>
+            <span className="font-serif text-2xl font-bold text-accent">{st.n}</span>
+            <span className="text-xs text-text-secondary/60">{st.l}</span>
           </div>
         ))}
       </div>
 
-      <div className="flex items-center gap-3 rounded-md border border-ink/12 bg-surface-container/60 px-4 py-3 focus-within:border-burnished-gold/40">
-        <span className="material-symbols-outlined text-[22px] text-burnished-gold">search</span>
+      <div className="flex items-center gap-3 rounded-md border border-text-heading/12 bg-bg-card/60 px-4 py-3 focus-within:border-accent/40">
+        <span className="material-symbols-outlined text-[22px] text-accent">search</span>
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="ค้นหาสำนักคิด นักปราชญ์ หรือชื่อผลงาน..."
           aria-label="ค้นหา"
-          className="w-full bg-transparent text-base text-on-surface placeholder:text-on-surface-variant/55 focus-visible:ring-2 focus-visible:ring-burnished-gold/30 focus:outline-none"
+          className="w-full bg-transparent text-base text-text-heading placeholder:text-text-secondary/55 focus-visible:ring-2 focus-visible:ring-accent/30 focus:outline-none"
         />
         {query ? (
           <button
             type="button"
             onClick={() => setQuery("")}
             aria-label="ล้างคำค้น"
-            className="text-on-surface-variant/60 transition-colors hover:text-on-surface"
+            className="text-text-secondary/60 transition-colors hover:text-text-heading"
           >
             <span className="material-symbols-outlined text-[20px]">close</span>
           </button>
@@ -121,20 +121,20 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
           onClick={() => setLetter(null)}
           className={`mr-1 rounded px-2.5 py-1 text-xs transition-colors ${
             letter === null
-              ? "bg-burnished-gold/15 text-burnished-gold"
-              : "text-on-surface-variant hover:text-burnished-gold"
+              ? "bg-accent/15 text-accent"
+              : "text-text-secondary hover:text-accent"
           }`}
         >
           ทั้งหมด
         </button>
         {THAI_LETTERS.map((ch) => letterBtn(ch))}
-        <span className="mx-1 h-4 w-px bg-ink/8" />
+        <span className="mx-1 h-4 w-px bg-text-heading/8" />
         {EN_LETTERS.map((ch) => letterBtn(ch))}
       </div>
 
       <div className="mt-8">
         {filtered.length === 0 ? (
-          <p className="rounded-md border border-ink/10 bg-surface-container/40 p-8 text-center text-sm text-on-surface-variant/60">
+          <p className="rounded-md border border-text-heading/10 bg-bg-card/40 p-8 text-center text-sm text-text-secondary/60">
             ไม่พบสำนักคิดที่ตรงกับการค้นหา
           </p>
         ) : (
@@ -145,17 +145,17 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
                 <Link
                   key={s.id}
                   href={`/schools/${s.id}`}
-                  className="archron-card group relative flex flex-col justify-between overflow-hidden p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-burnished-gold/45 focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
+                  className="archron-card group relative flex flex-col justify-between overflow-hidden p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/45 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
                   style={{
                     background: `linear-gradient(160deg, color-mix(in srgb, ${meta.accent} 7%, #181C2A) 0%, #181C2A 100%)`,
                   }}
                 >
                   <div>
-                    <h2 className="font-serif text-2xl font-bold leading-tight text-ivory transition-colors group-hover:text-soft-gold">
+                    <h2 className="font-serif text-2xl font-bold leading-tight text-text-heading transition-colors group-hover:text-accent">
                       {s.nameTh}
                     </h2>
 
-                    <div className="mt-1 flex items-center gap-2 text-xs font-mono text-on-surface-variant/55">
+                    <div className="mt-1 flex items-center gap-2 text-xs font-mono text-text-secondary/55">
                       <span>{s.nameEn}</span>
                       {s.field ? (
                         <>
@@ -171,7 +171,7 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
                     </div>
 
                     {s.description ? (
-                      <p className="mt-3 text-sm leading-relaxed text-soft-ivory/75 line-clamp-3">
+                      <p className="mt-3 text-sm leading-relaxed text-text-body/75 line-clamp-3">
                         {s.description}
                       </p>
                     ) : null}
@@ -181,19 +181,19 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
                         {s.thinkers.slice(0, 4).map((t) => (
                           <span
                             key={t.nameEn}
-                            className="inline-flex items-center gap-1 rounded-full bg-white/[0.04] px-2.5 py-1 text-[11px] text-soft-ivory/80 border border-slate-boundary/15 transition-colors group-hover:border-slate-boundary/25"
+                            className="inline-flex items-center gap-1 rounded-full bg-text-heading/[0.04] px-2.5 py-1 text-[11px] text-text-body/80 border border-border/15 transition-colors group-hover:border-border/25"
                           >
                             {t.nameTh}
                           </span>
                         ))}
                         {s.thinkers.length > 4 ? (
-                          <span className="text-[11px] text-muted font-mono">+{s.thinkers.length - 4}</span>
+                          <span className="text-[11px] text-text-secondary font-mono">+{s.thinkers.length - 4}</span>
                         ) : null}
                       </div>
                     ) : null}
                   </div>
 
-                  <div className="mt-5 flex items-center justify-between border-t border-slate-boundary/15 pt-4">
+                  <div className="mt-5 flex items-center justify-between border-t border-border/15 pt-4">
                     <span
                       className="flex items-center gap-1 text-xs font-semibold transition-all duration-300 group-hover:gap-2"
                       style={{ color: meta.accent }}
@@ -203,7 +203,7 @@ export function SchoolsHub({ schools }: { schools: School[] }) {
                         arrow_forward
                       </span>
                     </span>
-                    <span className="text-[11px] font-mono text-muted">{s.thinkers.length} ปราชญ์</span>
+                    <span className="text-[11px] font-mono text-text-secondary">{s.thinkers.length} ปราชญ์</span>
                   </div>
                 </Link>
               );

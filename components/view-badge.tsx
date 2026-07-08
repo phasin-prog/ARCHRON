@@ -78,11 +78,11 @@ export function ViewBadge({ slug, className }: { slug: string; className?: strin
     <span
       className={
         className ??
-        "inline-flex items-center gap-1 text-xs text-on-surface-variant/55"
+        "inline-flex items-center gap-1 text-xs text-text-secondary/55"
       }
       role="status" aria-live="polite"
     >
-      <span className="material-symbols-outlined text-[14px] text-burnished-gold/70">
+      <span className="material-symbols-outlined text-[14px] text-accent/70">
         visibility
       </span>
       {n.toLocaleString("th-TH")}

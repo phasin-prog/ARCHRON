@@ -42,14 +42,14 @@ export default async function ArticlesPage() {
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               <Link
                 href="/concepts"
-                className="inline-flex items-center gap-1.5 rounded-lg border border-burnished-gold/40 bg-burnished-gold/10 px-4 py-2 text-sm font-semibold text-burnished-gold transition-colors hover:bg-burnished-gold/20"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-accent/40 bg-accent/10 px-4 py-2 text-sm font-semibold text-accent transition-colors hover:bg-accent/20"
               >
                 สำรวจคลังแนวคิด
                 <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
               </Link>
               <Link
                 href="/schools"
-                className="inline-flex items-center gap-1.5 rounded-lg border border-slate-boundary/50 px-4 py-2 text-sm text-soft-ivory transition-colors hover:border-burnished-gold/40 hover:text-burnished-gold"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-border/50 px-4 py-2 text-sm text-text-body transition-colors hover:border-accent/40 hover:text-accent"
               >
                 ดูสำนักคิด
                 <span className="material-symbols-outlined text-[16px]">arrow_forward</span>

@@ -93,17 +93,17 @@ export function AIWritingAssistant({ content, onSuggestion }: AIWritingAssistant
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="inline-flex items-center gap-1.5 rounded-lg border border-psyche/30 bg-psyche/10 px-3 py-1.5 text-xs font-medium text-psyche transition-colors hover:bg-psyche/20"
+        className="inline-flex items-center gap-1.5 rounded-lg border border-concept/30 bg-concept/10 px-3 py-1.5 text-xs font-medium text-concept transition-colors hover:bg-concept/20"
       >
         <span className="material-symbols-outlined text-[16px]">auto_awesome</span>
         AI ช่วยเขียน
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-full z-50 mt-2 w-80 rounded-lg border border-slate-boundary bg-surface-container-low shadow-xl">
-          <div className="border-b border-slate-boundary p-3">
-            <h4 className="text-sm font-semibold text-ivory">AI Writing Assistant</h4>
-            <p className="mt-1 text-xs text-muted">เลือกประเภทการช่วยเขียน</p>
+        <div className="absolute right-0 top-full z-50 mt-2 w-80 rounded-lg border border-border bg-bg-card shadow-xl">
+          <div className="border-b border-border p-3">
+            <h4 className="text-sm font-semibold text-text-heading">AI Writing Assistant</h4>
+            <p className="mt-1 text-xs text-text-secondary">เลือกประเภทการช่วยเขียน</p>
           </div>
 
           <div className="max-h-64 overflow-y-auto p-2">
@@ -111,28 +111,28 @@ export function AIWritingAssistant({ content, onSuggestion }: AIWritingAssistant
               <button
                 key={suggestion.type}
                 onClick={() => handleSuggest(suggestion.type, suggestion.prompt)}
-                className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm transition-colors hover:bg-surface-container"
+                className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm transition-colors hover:bg-bg-card"
               >
-                <span className="material-symbols-outlined text-[18px] text-psyche">
+                <span className="material-symbols-outlined text-[18px] text-concept">
                   {suggestion.icon}
                 </span>
-                <span className="text-ivory">{suggestion.label}</span>
+                <span className="text-text-heading">{suggestion.label}</span>
               </button>
             ))}
           </div>
 
-          <div className="border-t border-slate-boundary p-3">
+          <div className="border-t border-border p-3">
             <textarea
               value={customPrompt}
               onChange={(e) => setCustomPrompt(e.target.value)}
               placeholder="พิมพ์คำสั่งเอง..."
-              className="w-full rounded-md border border-slate-boundary bg-surface-container-low px-3 py-2 text-xs text-ivory placeholder-muted focus:border-psyche focus:outline-none"
+              className="w-full rounded-md border border-border bg-bg-card px-3 py-2 text-xs text-text-heading placeholder-muted focus:border-concept focus:outline-none"
               rows={2}
             />
             <button
               onClick={handleCustomSuggest}
               disabled={!customPrompt.trim()}
-              className="mt-2 w-full rounded-md bg-psyche/20 px-3 py-1.5 text-xs font-medium text-psyche transition-colors hover:bg-psyche/30 disabled:opacity-50"
+              className="mt-2 w-full rounded-md bg-concept/20 px-3 py-1.5 text-xs font-medium text-concept transition-colors hover:bg-concept/30 disabled:opacity-50"
             >
               ส่งคำสั่ง
             </button>
@@ -166,7 +166,7 @@ export function AIContentImprover({ content, onImprove }: AIContentImproverProps
       <button
         onClick={() => handleImprove("grammar")}
         disabled={isProcessing}
-        className="inline-flex items-center gap-1 rounded-md border border-slate-boundary px-2 py-1 text-xs text-muted transition-colors hover:bg-surface-container hover:text-ivory disabled:opacity-50"
+        className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs text-text-secondary transition-colors hover:bg-bg-card hover:text-text-heading disabled:opacity-50"
       >
         <span className="material-symbols-outlined text-[14px]">spellcheck</span>
         ไวยากรณ์
@@ -174,7 +174,7 @@ export function AIContentImprover({ content, onImprove }: AIContentImproverProps
       <button
         onClick={() => handleImprove("style")}
         disabled={isProcessing}
-        className="inline-flex items-center gap-1 rounded-md border border-slate-boundary px-2 py-1 text-xs text-muted transition-colors hover:bg-surface-container hover:text-ivory disabled:opacity-50"
+        className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs text-text-secondary transition-colors hover:bg-bg-card hover:text-text-heading disabled:opacity-50"
       >
         <span className="material-symbols-outlined text-[14px]">style</span>
         สไตล์
@@ -182,7 +182,7 @@ export function AIContentImprover({ content, onImprove }: AIContentImproverProps
       <button
         onClick={() => handleImprove("flow")}
         disabled={isProcessing}
-        className="inline-flex items-center gap-1 rounded-md border border-slate-boundary px-2 py-1 text-xs text-muted transition-colors hover:bg-surface-container hover:text-ivory disabled:opacity-50"
+        className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs text-text-secondary transition-colors hover:bg-bg-card hover:text-text-heading disabled:opacity-50"
       >
         <span className="material-symbols-outlined text-[14px]">water_drop</span>
         การไหล

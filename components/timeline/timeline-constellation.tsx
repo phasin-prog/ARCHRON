@@ -21,7 +21,7 @@ export function TimelineConstellation({
             left: "24px",
             right: "24px",
             height: "1px",
-            background: "linear-gradient(90deg, transparent, var(--border-tint, var(--color-slate-boundary)), transparent)",
+            background: "linear-gradient(90deg, transparent, var(--border-tint, var(--color-border)), transparent)",
           }}
         />
         <div className="relative z-10 flex w-full justify-between">
@@ -42,9 +42,9 @@ export function TimelineConstellation({
                   height: "16px",
                   borderRadius: "50%",
                   background: "var(--bg-canvas, #0B0D12)",
-                  border: "3px solid var(--domain-base, var(--active-accent, var(--color-burnished-gold)))",
+                  border: "3px solid var(--domain-base, var(--active-accent, var(--color-accent)))",
                   transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
-                  boxShadow: "0 0 0 1px color-mix(in srgb, var(--domain-base, var(--active-accent, var(--color-burnished-gold))) 20%, transparent)",
+                  boxShadow: "0 0 0 1px color-mix(in srgb, var(--domain-base, var(--active-accent, var(--color-accent))) 20%, transparent)",
                 }}
               />
               {/* Year badge */}
@@ -53,20 +53,20 @@ export function TimelineConstellation({
                 style={{
                   top: "-32px",
                   transform: "translateX(-50%)",
-                  color: "var(--domain-on-tint, var(--color-burnished-gold))",
-                  background: "var(--domain-tint, color-mix(in srgb, var(--active-accent, var(--color-burnished-gold)) 15%, var(--color-surface-container)))",
-                  border: "1px solid var(--domain-base, var(--active-accent, var(--color-burnished-gold)))",
+                  color: "var(--domain-on-tint, var(--color-accent))",
+                  background: "var(--domain-tint, color-mix(in srgb, var(--active-accent, var(--color-accent)) 15%, var(--color-bg-card)))",
+                  border: "1px solid var(--domain-base, var(--active-accent, var(--color-accent)))",
                 }}
               >
                 {ev.year}
               </span>
               {/* Label */}
               <span
-                className="pointer-events-none absolute left-1/2 whitespace-nowrap text-center font-heading text-[13px] font-bold transition-colors duration-300 group-hover:text-[var(--active-accent,var(--color-burnished-gold))]"
+                className="pointer-events-none absolute left-1/2 whitespace-nowrap text-center font-heading text-[13px] font-bold transition-colors duration-300 group-hover:text-[var(--active-accent,var(--color-accent))]"
                 style={{
                   top: "24px",
                   transform: "translateX(-50%)",
-                  color: "var(--text-primary, var(--color-ivory))",
+                  color: "var(--color-text-heading)",
                 }}
               >
                 {ev.label}

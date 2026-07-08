@@ -30,7 +30,7 @@ export default async function ThemesPage() {
               <Link
                 key={t.key}
                 href={`/themes/${t.key}`}
-                className="archron-card group p-6 transition-all focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
+                className="archron-card group p-6 transition-all focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
                 style={{ borderColor: `${t.accent}44` }}
               >
                 <div className="flex items-center justify-between gap-3">
@@ -47,7 +47,7 @@ export default async function ThemesPage() {
                     {count} รายการ
                   </span>
                 </div>
-                <p className="mt-2 text-sm leading-relaxed text-soft-ivory">{t.description}</p>
+                <p className="mt-2 text-sm leading-relaxed text-text-body">{t.description}</p>
               </Link>
             );
           })}

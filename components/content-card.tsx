@@ -116,7 +116,7 @@ export function ContentCard({
       </span>
 
       {/* Title */}
-      <span className="font-serif text-lg leading-snug text-ivory break-words transition-colors group-hover:text-soft-gold">
+      <span className="font-serif text-lg leading-snug text-text-heading break-words transition-colors group-hover:text-accent">
         {title}
       </span>
 
@@ -129,7 +129,7 @@ export function ContentCard({
 
       {/* Reason */}
       {shortReason ? (
-        <p className="mt-3 text-sm leading-relaxed text-muted line-clamp-2">{shortReason}</p>
+        <p className="mt-3 text-sm leading-relaxed text-text-secondary line-clamp-2">{shortReason}</p>
       ) : null}
     </Link>
   );

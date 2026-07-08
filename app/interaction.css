@@ -12,7 +12,7 @@
 
 .hover-expand:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px color-mix(in srgb, var(--color-prima) 20%, transparent);
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--color-shadow) 20%, transparent);
 }
 
 .hover-expand:active {
@@ -26,7 +26,7 @@
 
 .hover-lift:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px color-mix(in srgb, var(--color-prima) 25%, transparent);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--color-shadow) 25%, transparent);
 }
 
 /* ---- Hover Glow ---- */
@@ -35,7 +35,7 @@
 }
 
 .hover-glow:hover {
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-burnished-gold) 30%, transparent), 0 4px 16px color-mix(in srgb, var(--color-burnished-gold) 15%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-accent) 30%, transparent), 0 4px 16px color-mix(in srgb, var(--color-accent) 15%, transparent);
 }
 
 /* ---- Hover Scale ---- */
@@ -55,10 +55,10 @@
 .archron-context-menu {
   position: fixed;
   min-width: 10rem;
-  background: var(--color-surface-container-low);
-  border: 1px solid var(--color-slate-boundary);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  box-shadow: 0 8px 24px color-mix(in srgb, var(--color-prima) 35%, transparent);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--color-shadow) 35%, transparent);
   padding: 0.375rem;
   z-index: 150;
   opacity: 0;
@@ -81,7 +81,7 @@
   width: 100%;
   padding: 0.5rem 0.75rem;
   font-size: 0.8125rem;
-  color: var(--color-soft-ivory);
+  color: var(--color-text-body);
   background: transparent;
   border: none;
   border-radius: 4px;
@@ -91,16 +91,16 @@
 }
 
 .archron-context-menu-item:hover {
-  background: color-mix(in srgb, var(--color-ivory) 6%, transparent);
-  color: var(--color-ivory);
+  background: color-mix(in srgb, var(--color-text-heading) 6%, transparent);
+  color: var(--color-text-heading);
 }
 
 .archron-context-menu-item.danger {
-  color: var(--color-danger);
+  color: var(--color-error);
 }
 
 .archron-context-menu-item.danger:hover {
-  background: color-mix(in srgb, var(--color-danger) 10%, transparent);
+  background: color-mix(in srgb, var(--color-error) 10%, transparent);
 }
 
 .archron-context-menu-item .material-symbols-rounded {
@@ -111,31 +111,31 @@
 .archron-context-menu-item-shortcut {
   margin-left: auto;
   font-size: 0.6875rem;
-  color: var(--color-muted);
+  color: var(--color-text-secondary);
   font-family: var(--font-mono);
 }
 
 .archron-context-menu-divider {
   height: 1px;
-  background: color-mix(in srgb, var(--color-ivory) 6%, transparent);
+  background: color-mix(in srgb, var(--color-text-heading) 6%, transparent);
   margin: 0.25rem 0;
 }
 
 /* ---- Focus Ring ---- */
 .focus-ring:focus-visible {
-  outline: 2px solid var(--color-burnished-gold);
+  outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
 
 .focus-ring-inset:focus-visible {
-  outline: 2px solid var(--color-burnished-gold);
+  outline: 2px solid var(--color-accent);
   outline-offset: -2px;
 }
 
 /* ---- Focus Within ---- */
 .focus-within:focus-within {
-  border-color: var(--color-burnished-gold);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-burnished-gold) 15%, transparent);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent);
 }
 
 /* ---- Selection ---- */
@@ -170,8 +170,8 @@
 }
 
 .archron-dropzone.active {
-  border-color: var(--color-burnished-gold);
-  background: color-mix(in srgb, var(--color-burnished-gold) 5%, transparent);
+  border-color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 5%, transparent);
 }
 
 /* ---- Gesture Hints (swipe) ---- */
@@ -196,7 +196,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle, color-mix(in srgb, var(--color-ivory) 15%, transparent) 0%, transparent 70%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-text-heading) 15%, transparent) 0%, transparent 70%);
   opacity: 0;
   transform: scale(0);
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -234,8 +234,8 @@
   top: -100%;
   left: 0;
   padding: 0.75rem 1rem;
-  background: var(--color-burnished-gold);
-  color: var(--color-prima);
+  background: var(--color-accent);
+  color: var(--color-shadow);
   font-weight: 600;
   text-decoration: none;
   z-index: 999;

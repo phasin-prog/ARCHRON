@@ -26,7 +26,7 @@ export default function ExternalLinksPage() {
     >
       <div className="mx-auto max-w-6xl px-6">
         <ExternalLinksBrowser categories={EXTERNAL_CATEGORIES} />
-        <p className="mt-16 border-t border-slate-boundary/30 pt-6 text-sm leading-relaxed text-on-surface-variant/50">
+        <p className="mt-16 border-t border-border/30 pt-6 text-sm leading-relaxed text-text-secondary/50">
           หมายเหตุ: ลิงก์ทั้งหมดนำไปสู่เว็บไซต์ภายนอก โครงการ ARCHRON
           ไม่มีส่วนเกี่ยวข้องกับการบริหารจัดการเนื้อหาภายในเว็บปลายทางเหล่านั้น
         </p>

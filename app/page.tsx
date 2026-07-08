@@ -29,14 +29,14 @@ const PILLARS: Pillar[] = [
     accent: "#C79A4A",
     title: (
       <>
-        เชื่อม<span className="text-soft-gold">ศาสตร์ที่ถูกแยกขาด</span>
+        เชื่อม<span className="text-accent">ศาสตร์ที่ถูกแยกขาด</span>
       </>
     ),
     desc: (
       <>
         จิตวิทยาศึกษาจิตใจ ปรัชญาศึกษาความจริง ภาษาศาสตร์ศึกษาภาษา แต่มนุษย์ไม่เคยดำรงอยู่เป็น
-        <span className="font-medium text-soft-gold">เสี้ยวส่วน</span> — ARCHRON เชื่อมกลับเป็น
-        <span className="font-medium text-soft-gold">องค์รวม</span>
+        <span className="font-medium text-accent">เสี้ยวส่วน</span> — ARCHRON เชื่อมกลับเป็น
+        <span className="font-medium text-accent">องค์รวม</span>
       </>
     ),
   },
@@ -45,13 +45,13 @@ const PILLARS: Pillar[] = [
     accent: "#6E93A8",
     title: (
       <>
-        อ่านต้นฉบับ <span className="text-soft-gold">เข้าใจบริบท</span>
+        อ่านต้นฉบับ <span className="text-accent">เข้าใจบริบท</span>
       </>
     ),
     desc: (
       <>
-        อ่านจากงาน<span className="font-medium text-soft-gold">ต้นทาง</span>ในบริบทประวัติศาสตร์ของมัน แยก
-        <span className="font-medium text-soft-gold">ข้อเท็จจริง แหล่งที่มา และการตีความ</span>ออกจากกัน
+        อ่านจากงาน<span className="font-medium text-accent">ต้นทาง</span>ในบริบทประวัติศาสตร์ของมัน แยก
+        <span className="font-medium text-accent">ข้อเท็จจริง แหล่งที่มา และการตีความ</span>ออกจากกัน
         เพื่อให้ความรู้ไม่กลายเป็นคำกล่าวลอย ๆ ที่ไร้น้ำหนัก
       </>
     ),
@@ -61,12 +61,12 @@ const PILLARS: Pillar[] = [
     accent: "#8AA395",
     title: (
       <>
-        เปรียบเทียบ <span className="text-soft-gold">สังเคราะห์</span> ตั้งคำถามใหม่
+        เปรียบเทียบ <span className="text-accent">สังเคราะห์</span> ตั้งคำถามใหม่
       </>
     ),
     desc: (
       <>
-        ความจริงปรากฏผ่านการ<span className="font-medium text-soft-gold">เปรียบเทียบ วิพากษ์ และสังเคราะห์</span> —
+        ความจริงปรากฏผ่านการ<span className="font-medium text-accent">เปรียบเทียบ วิพากษ์ และสังเคราะห์</span> —
         ARCHRON บูรณาการและจัดระเบียบความรู้ขึ้นใหม่
       </>
     ),
@@ -77,9 +77,9 @@ export default function HomePage() {
   return (
     <main className="atmo-observatory">
         <section 
-          className="relative flex min-h-[80vh] sm:min-h-[90vh] flex-col items-center justify-center overflow-hidden px-4 sm:px-6 text-center text-mist"
+          className="relative flex min-h-[80vh] sm:min-h-[90vh] flex-col items-center justify-center overflow-hidden px-4 sm:px-6 text-center text-text-heading"
           style={{
-            background: "radial-gradient(circle at center, var(--color-deep-navy) 30%, var(--color-surface-container-lowest) 100%)"
+            background: "radial-gradient(circle at center, var(--color-bg) 30%, var(--color-bg) 100%)"
           }}
         >
           {/* Ambient Glow: แสงเรืองรองจางๆ จากศูนย์กลางหอสมุด */}
@@ -98,35 +98,35 @@ export default function HomePage() {
 
           {/* Layer B: Esoteric Symbols Parallax (สัญลักษณ์ปรัชญาฉากหลังสี Psyche & Sapientia) */}
           <div 
-            className="symbol-parallax text-7xl sm:text-8xl md:text-[14rem] lg:text-[18rem] text-psyche opacity-[0.035]"
+            className="symbol-parallax text-7xl sm:text-8xl md:text-[14rem] lg:text-[18rem] text-concept opacity-[0.035]"
             style={{ top: "10%", left: "4%" }}
             aria-hidden="true"
           >
             Ψ
           </div>
           <div 
-            className="symbol-parallax text-8xl sm:text-9xl md:text-[16rem] lg:text-[22rem] text-sapientia opacity-[0.035]"
+            className="symbol-parallax text-8xl sm:text-9xl md:text-[16rem] lg:text-[22rem] text-accent opacity-[0.035]"
             style={{ bottom: "8%", right: "5%" }}
             aria-hidden="true"
           >
             Φ
           </div>
           <div 
-            className="symbol-parallax text-6xl sm:text-7xl md:text-[12rem] lg:text-[14rem] text-psyche opacity-[0.025]"
+            className="symbol-parallax text-6xl sm:text-7xl md:text-[12rem] lg:text-[14rem] text-concept opacity-[0.025]"
             style={{ top: "55%", right: "12%" }}
             aria-hidden="true"
           >
             Ω
           </div>
           <div 
-            className="symbol-parallax text-6xl sm:text-7xl md:text-[12rem] lg:text-[16rem] text-sapientia opacity-[0.03]"
+            className="symbol-parallax text-6xl sm:text-7xl md:text-[12rem] lg:text-[16rem] text-accent opacity-[0.03]"
             style={{ bottom: "20%", left: "12%" }}
             aria-hidden="true"
           >
             Α
           </div>
           <div 
-            className="symbol-parallax text-7xl sm:text-8xl md:text-[14rem] lg:text-[20rem] text-sapientia opacity-[0.02]"
+            className="symbol-parallax text-7xl sm:text-8xl md:text-[14rem] lg:text-[20rem] text-accent opacity-[0.02]"
             style={{ top: "6%", left: "45%" }}
             aria-hidden="true"
           >
@@ -137,14 +137,14 @@ export default function HomePage() {
           <div className="pointer-events-none absolute left-1/2 top-[45%] z-0 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2">
             <div className="astrolabe-ring h-[280px] w-[280px] opacity-25" />
             <div className="astrolabe-ring h-[220px] w-[220px] opacity-20 border-dashed" />
-            <div className="astrolabe-ring h-[160px] w-[160px] opacity-30 border-[var(--color-soft-gold)]" />
+            <div className="astrolabe-ring h-[160px] w-[160px] opacity-30 border-[var(--color-accent)]" />
             
             {/* หนังสือโบราณ — สัญลักษณ์ living library */}
             <svg
               className="absolute left-1/2 top-1/2 h-[118px] w-[118px] -translate-x-1/2 -translate-y-1/2 opacity-35"
               viewBox="0 0 120 120"
               fill="none"
-              stroke="var(--color-soft-gold)"
+              stroke="var(--color-accent)"
               strokeWidth={1.4}
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -157,67 +157,67 @@ export default function HomePage() {
             {/* Layer Badge — เปลี่ยนตาม cosmology ปัจจุบัน */}
             <LayerBadge className="scroll-reveal mb-6 mx-auto" />
             {/* Tagline แบรนด์ */}
-            <span className="scroll-reveal mb-5 block font-serif text-xl italic text-soft-gold sm:text-2xl">
+            <span className="scroll-reveal mb-5 block font-serif text-xl italic text-accent sm:text-2xl">
               a living library of human understanding
             </span>
             {/* Positioning: คลังที่มีชีวิต ตั้งแต่จุดกำเนิดผ่านกาลเวลา (แทนคำว่า “สำนัก”) */}
-            <span className="scroll-reveal mb-8 block text-sm font-semibold tracking-[0.15em] text-lumen/90">
+            <span className="scroll-reveal mb-8 block text-sm font-semibold tracking-[0.15em] text-accent/90">
               คลังความเข้าใจมนุษย์ที่มีชีวิต · ตั้งแต่จุดกำเนิด ผ่านกาลเวลา
             </span>
-            <h1 className="scroll-reveal stagger-1 mb-8 font-serif text-fluid-h1 font-semibold leading-[1.15] text-mist md:tracking-[-0.02em]">
+            <h1 className="scroll-reveal stagger-1 mb-8 font-serif text-fluid-h1 font-semibold leading-[1.15] text-text-heading md:tracking-[-0.02em]">
               จากความมืดของสิ่งที่ยังไม่รู้{" "}
-              <span className="italic text-lumen">สู่แสงแห่งความเข้าใจ</span>
+              <span className="italic text-accent">สู่แสงแห่งความเข้าใจ</span>
             </h1>
-            <p className="scroll-reveal stagger-2 mx-auto mb-8 max-w-3xl text-lg leading-[1.8] text-mist/75">
+            <p className="scroll-reveal stagger-2 mx-auto mb-8 max-w-3xl text-lg leading-[1.8] text-text-heading/75">
               การทำความเข้าใจมนุษย์ ไม่อาจอาศัยศาสตร์ใดศาสตร์หนึ่งเพียงลำพัง — ARCHRON คือคลังที่ผมค่อย ๆ
               เขียนและรวบรวม เชื่อมจิตวิทยา ปรัชญา มานุษยวิทยา ภาษา ประวัติศาสตร์ ตำนาน ศาสนา และวิทยาศาสตร์
               ให้ค้นได้ เชื่อมโยงกัน และเติบโตต่อเนื่อง
             </p>
             {/* แถบรากศัพท์ — ที่มาของชื่อ ARCHRON (จุดจำ) */}
-            <div className="scroll-reveal stagger-2 mx-auto mb-12 flex max-w-2xl flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-on-surface-variant/70">
+            <div className="scroll-reveal stagger-2 mx-auto mb-12 flex max-w-2xl flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-text-secondary/70">
               <span className="flex items-baseline gap-2">
-                <span className="font-serif text-lg text-soft-gold">ἀρχή</span> ARCHĒ — จุดกำเนิด
+                <span className="font-serif text-lg text-accent">ἀρχή</span> ARCHĒ — จุดกำเนิด
               </span>
-              <span className="text-burnished-gold">+</span>
+              <span className="text-accent">+</span>
               <span className="flex items-baseline gap-2">
-                <span className="font-serif text-lg text-soft-gold">Χρόνος</span> CHRONOS — กาลเวลา
+                <span className="font-serif text-lg text-accent">Χρόνος</span> CHRONOS — กาลเวลา
               </span>
-              <span className="text-burnished-gold">=</span>
-              <span className="tracking-[0.2em] text-ivory">ARCHRON</span>
+              <span className="text-accent">=</span>
+              <span className="tracking-[0.2em] text-text-heading">ARCHRON</span>
             </div>
             {/* CTA — การ์ดลิงก์ (แทนปุ่มแบน) */}
             <div className="scroll-reveal stagger-3 mx-auto grid max-w-2xl grid-cols-1 gap-4 sm:grid-cols-2">
               <Link
                 href="/articles"
-                className="group relative overflow-hidden rounded-2xl border border-burnished-gold/40 bg-burnished-gold/10 p-6 text-left transition-all duration-500 hover:-translate-y-1.5 hover:border-burnished-gold/60 hover:shadow-[0_26px_52px_-28px_rgba(0,0,0,0.7)] focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
+                className="group relative overflow-hidden rounded-2xl border border-accent/40 bg-accent/10 p-6 text-left transition-all duration-500 hover:-translate-y-1.5 hover:border-accent/60 hover:shadow-[0_26px_52px_-28px_rgba(0,0,0,0.7)] focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-burnished-gold/35 bg-burnished-gold/10 text-burnished-gold">
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-accent/35 bg-accent/10 text-accent">
                   <AuthorPenIcon className="h-[22px] w-[22px]" />
                 </span>
-                <span className="mt-4 flex items-center justify-between font-serif text-xl text-ivory">
+                <span className="mt-4 flex items-center justify-between font-serif text-xl text-text-heading">
                   อ่านงานเขียน
-                  <span className="text-burnished-gold transition-transform duration-300 group-hover:translate-x-1">→</span>
+                  <span className="text-accent transition-transform duration-300 group-hover:translate-x-1">→</span>
                 </span>
-                <span className="mt-1.5 block text-sm text-on-surface-variant/70">บทความและบทวิเคราะห์จากปลายปากกา</span>
+                <span className="mt-1.5 block text-sm text-text-secondary/70">บทความและบทวิเคราะห์จากปลายปากกา</span>
               </Link>
               <Link
                 href="/concepts"
-                className="group relative overflow-hidden rounded-2xl border border-slate-boundary/40 bg-white/[0.02] p-6 text-left transition-all duration-500 hover:-translate-y-1.5 hover:border-psyche/50 hover:shadow-[0_26px_52px_-28px_rgba(0,0,0,0.7)] focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
+                className="group relative overflow-hidden rounded-2xl border border-border/40 bg-text-heading/[0.02] p-6 text-left transition-all duration-500 hover:-translate-y-1.5 hover:border-concept/50 hover:shadow-[0_26px_52px_-28px_rgba(0,0,0,0.7)] focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-psyche/35 bg-psyche/10 text-psyche">
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-concept/35 bg-concept/10 text-concept">
                   <ConceptIcon className="h-[22px] w-[22px]" />
                 </span>
-                <span className="mt-4 flex items-center justify-between font-serif text-xl text-ivory">
+                <span className="mt-4 flex items-center justify-between font-serif text-xl text-text-heading">
                   สำรวจคลังแนวคิด
-                  <span className="text-psyche transition-transform duration-300 group-hover:translate-x-1">→</span>
+                  <span className="text-concept transition-transform duration-300 group-hover:translate-x-1">→</span>
                 </span>
-                <span className="mt-1.5 block text-sm text-on-surface-variant/70">แผนที่ความรู้ที่เชื่อมโยงถึงกัน</span>
+                <span className="mt-1.5 block text-sm text-text-secondary/70">แผนที่ความรู้ที่เชื่อมโยงถึงกัน</span>
               </Link>
             </div>
             {/* Byline — วางตัวเป็นนักเขียน */}
-            <div className="scroll-reveal mt-10 text-sm italic text-on-surface-variant/70">
+            <div className="scroll-reveal mt-10 text-sm italic text-text-secondary/70">
               บันทึกโดย{" "}
-              <span className="font-semibold not-italic tracking-[0.12em] text-soft-gold">Archeon</span> — ผู้แสวงหาต้นกำเนิด
+              <span className="font-semibold not-italic tracking-[0.12em] text-accent">Archeon</span> — ผู้แสวงหาต้นกำเนิด
             </div>
           </div>
         </section>
@@ -231,7 +231,7 @@ export default function HomePage() {
               return (
                 <article
                   key={i}
-                  className={`group relative overflow-hidden rounded-2xl border border-slate-boundary/25 bg-white/[0.02] p-7 transition-all duration-500 hover:-translate-y-1.5 hover:border-burnished-gold/40 hover:shadow-[0_28px_56px_-30px_rgba(0,0,0,0.7)] scroll-reveal stagger-${i + 1}`}
+                  className={`group relative overflow-hidden rounded-2xl border border-border/25 bg-text-heading/[0.02] p-7 transition-all duration-500 hover:-translate-y-1.5 hover:border-accent/40 hover:shadow-[0_28px_56px_-30px_rgba(0,0,0,0.7)] scroll-reveal stagger-${i + 1}`}
                 >
                   {/* แถบ accent ซ้าย (ขึ้นเมื่อ hover) */}
                   <span
@@ -255,8 +255,8 @@ export default function HomePage() {
                   >
                     <Icon className="h-7 w-7" />
                   </span>
-                  <h3 className="mt-6 font-serif text-[24px] font-medium leading-snug text-on-surface">{p.title}</h3>
-                  <p className="mt-3 text-base leading-relaxed text-on-surface-variant/80">{p.desc}</p>
+                  <h3 className="mt-6 font-serif text-[24px] font-medium leading-snug text-text-heading">{p.title}</h3>
+                  <p className="mt-3 text-base leading-relaxed text-text-secondary/80">{p.desc}</p>
                 </article>
               );
             })}
@@ -266,16 +266,16 @@ export default function HomePage() {
         {/* Chronological Constellation — Timeline แนวนอนสไตล์ Codex Layer 04 */}
         <section className="scroll-reveal py-20 sm:py-28">
           <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
-            <div className="mb-10 border-b border-slate-boundary/30 pb-6">
-              <span className="mb-2 block text-xs font-semibold tracking-[0.2em] text-burnished-gold">LAYER 04 : INFORMATION ARCHITECTURE</span>
-              <h2 className="font-heading text-3xl font-bold text-ivory">Chronological Constellation</h2>
-              <p className="mt-2 max-w-md text-sm text-on-surface-variant/70">เส้นเวลาปัญญามนุษย์ — โฮเวอร์เหนือจุดเพื่ออ่านปราชญ์สัญลักษณ์</p>
+            <div className="mb-10 border-b border-border/30 pb-6">
+              <span className="mb-2 block text-xs font-semibold tracking-[0.2em] text-accent">LAYER 04 : INFORMATION ARCHITECTURE</span>
+              <h2 className="font-heading text-3xl font-bold text-text-heading">Chronological Constellation</h2>
+              <p className="mt-2 max-w-md text-sm text-text-secondary/70">เส้นเวลาปัญญามนุษย์ — โฮเวอร์เหนือจุดเพื่ออ่านปราชญ์สัญลักษณ์</p>
             </div>
             <TimelineConstellation
               events={[
                 { year: "384 BC", label: "Aristotle", domain: "reason", description: "วางรากฐานอภิปรัชญาและตรรกศาสตร์ การจำแนกโครงสร้างความจริง (Primary Ontology)" },
                 { year: "1781", label: "Kant", domain: "reason", description: "ปฏิวัติปรัชญาการรับรู้และญาณวิทยา (Critique of Pure Reason) — เราเห็นสิ่งต่าง ๆ ผ่านกรอบการรับรู้ของเรา" },
-                { year: "1913", label: "Jung", domain: "psyche", description: "แยกตัวจาก Freud และก่อตั้งจิตวิทยาเชิงวิเคราะห์ (Analytical Psychology) — จิตไร้สำนึกร่วมและต้นแบบสากล" },
+                { year: "1913", label: "Jung", domain: "concept", description: "แยกตัวจาก Freud และก่อตั้งจิตวิทยาเชิงวิเคราะห์ (Analytical Psychology) — จิตไร้สำนึกร่วมและต้นแบบสากล" },
                 { year: "1949", label: "Campbell", domain: "collective", description: "ตีพิมพ์ The Hero with a Thousand Faces ถอดรหัสตำนานสากล (Monomyth) — การเดินทางของวีรบุรุษ" },
                 { year: "1960", label: "Ricoeur", domain: "semiotics", description: "ปรัชญาการตีความสัญลักษณ์และภาษาศาสตร์เชิงลึก (Hermeneutics) — สัญลักษณ์คือสะพานสู่ความหมาย" },
                 { year: "2026", label: "ARCHRON", domain: "synthetic", description: "การสังเคราะห์ปัญญาประดิษฐ์เข้ากับอภิปรัชญาและโครงสร้างมนุษย์ (Synthetic Sapience)" },
@@ -285,7 +285,7 @@ export default function HomePage() {
         </section>
 
         {/* Knowledge Atlas */}
-        <section className="relative overflow-hidden border-y border-slate-boundary/30 bg-surface-container-lowest px-4 sm:px-6 py-16 sm:py-20">
+        <section className="relative overflow-hidden border-y border-border/30 bg-bg px-4 sm:px-6 py-16 sm:py-20">
           {/* Vesica pattern — สื่อการเชื่อมโยงของศาสตร์ (cosmology: prima = แผนที่/สัญลักษณ์) */}
           <VesicaPattern
             cosmology="prima"
@@ -293,13 +293,13 @@ export default function HomePage() {
           />
           <div className="relative z-10 mx-auto max-w-[1200px]">
             <div className="mb-12 max-w-2xl">
-              <span className="mb-4 block text-xs font-semibold tracking-[0.05em] text-burnished-gold/60">
+              <span className="mb-4 block text-xs font-semibold tracking-[0.05em] text-accent/60">
                 แผนที่ความรู้
               </span>
-              <h2 className="mb-6 font-serif text-fluid-h2 font-medium text-on-surface">
+              <h2 className="mb-6 font-serif text-fluid-h2 font-medium text-text-heading">
                 สิบสองแขนงของการเข้าใจมนุษย์
               </h2>
-              <p className="text-lg text-on-surface-variant/70">
+              <p className="text-lg text-text-secondary/70">
                 การเข้าใจมนุษย์ไม่อาจอาศัยศาสตร์เดียว — แต่ละแขนงส่องสว่างซึ่งกันและกัน วางอยู่ในแผนที่เดียวที่เชื่อมโยงถึงกัน
               </p>
             </div>
@@ -312,7 +312,7 @@ export default function HomePage() {
             <div className="mt-14 flex justify-center">
               <Link
                 href="/disciplines"
-                className="group inline-flex items-center gap-3 border-b border-burnished-gold/30 pb-2 text-sm font-semibold tracking-[0.05em] text-burnished-gold transition-all duration-500 hover:border-burnished-gold/60"
+                className="group inline-flex items-center gap-3 border-b border-accent/30 pb-2 text-sm font-semibold tracking-[0.05em] text-accent transition-all duration-500 hover:border-accent/60"
               >
                 ดูศาสตร์ทั้งหมด
                 <span className="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-1.5">
@@ -329,23 +329,23 @@ export default function HomePage() {
 
         {/* ปฏิญญา — คำคมให้จดจำ (เน้นคำแก่นด้วยสีทอง) */}
         <section className="scroll-reveal relative mx-auto max-w-4xl px-4 sm:px-6 py-16 sm:py-24 text-center md:py-28">
-          <div className="mb-4 font-serif text-[clamp(40px,8vw,64px)] leading-[0.3] text-burnished-gold/35" aria-hidden="true">
+          <div className="mb-4 font-serif text-[clamp(40px,8vw,64px)] leading-[0.3] text-accent/35" aria-hidden="true">
             “
           </div>
-          <h2 className="font-serif text-fluid-h2 font-medium leading-[1.5] text-ivory">
-            ARCHRON ไม่ได้ถามว่า<span className="text-soft-gold">ควรคิดอะไร</span> แต่ถามว่ามนุษย์
-            <span className="text-soft-gold">เรียนรู้ที่จะคิด</span>มาอย่างไร
+          <h2 className="font-serif text-fluid-h2 font-medium leading-[1.5] text-text-heading">
+            ARCHRON ไม่ได้ถามว่า<span className="text-accent">ควรคิดอะไร</span> แต่ถามว่ามนุษย์
+            <span className="text-accent">เรียนรู้ที่จะคิด</span>มาอย่างไร
           </h2>
-          <div className="mx-auto my-8 h-px w-16 bg-burnished-gold/30" />
-          <p className="mx-auto mb-10 max-w-2xl text-lg leading-[1.9] text-on-surface-variant/80">
-            ARCHRON ไม่ได้ให้<span className="text-soft-gold">คำตอบสุดท้าย</span> แต่ให้
-            <span className="text-soft-gold">คำถามที่ดีกว่า</span> แผนที่ความรู้ที่ดีกว่า
+          <div className="mx-auto my-8 h-px w-16 bg-accent/30" />
+          <p className="mx-auto mb-10 max-w-2xl text-lg leading-[1.9] text-text-secondary/80">
+            ARCHRON ไม่ได้ให้<span className="text-accent">คำตอบสุดท้าย</span> แต่ให้
+            <span className="text-accent">คำถามที่ดีกว่า</span> แผนที่ความรู้ที่ดีกว่า
             และภาษาสำหรับเข้าใจตนเองและโลกที่ดีกว่า — โดยวางแนวคิดไว้ใน
-            <span className="text-soft-gold">บริบทเดิม</span>ของมัน พร้อมเปิดพื้นที่ให้การเปรียบเทียบและการตั้งคำถามอย่างรับผิดชอบ
+            <span className="text-accent">บริบทเดิม</span>ของมัน พร้อมเปิดพื้นที่ให้การเปรียบเทียบและการตั้งคำถามอย่างรับผิดชอบ
           </p>
           <Link
             href="/manifesto"
-            className="group inline-flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-[0.08em] text-burnished-gold transition-all hover:gap-3"
+            className="group inline-flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-[0.08em] text-accent transition-all hover:gap-3"
           >
             อ่านปฏิญญาฉบับเต็ม
             <ArrowRightIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />

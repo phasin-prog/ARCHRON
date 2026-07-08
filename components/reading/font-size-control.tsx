@@ -30,25 +30,25 @@ export function FontSizeControl() {
   const canUp = step < STEPS.length - 1;
 
   return (
-    <div className="inline-flex items-center gap-1 rounded-lg border border-slate-boundary/25 bg-surface-container/60 px-2 py-1 text-xs backdrop-blur">
-      <span className="mr-1 text-muted">Aa</span>
+    <div className="inline-flex items-center gap-1 rounded-lg border border-border/25 bg-bg-card/60 px-2 py-1 text-xs backdrop-blur">
+      <span className="mr-1 text-text-secondary">Aa</span>
       <button
         type="button"
         disabled={!canDown}
         onClick={() => canDown && apply(step - 1)}
-        className="flex h-11 w-11 items-center justify-center rounded text-ivory transition-colors hover:bg-white/10 disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold/50"
+        className="flex h-11 w-11 items-center justify-center rounded text-text-heading transition-colors hover:bg-text-heading/10 disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
         aria-label="ลดขนาดตัวอักษร"
       >
         <span className="material-symbols-outlined text-[16px]">remove</span>
       </button>
-      <span className="min-w-[48px] text-center text-muted" aria-live="polite">
+      <span className="min-w-[48px] text-center text-text-secondary" aria-live="polite">
         {STEP_LABELS[step]}
       </span>
       <button
         type="button"
         disabled={!canUp}
         onClick={() => canUp && apply(step + 1)}
-        className="flex h-11 w-11 items-center justify-center rounded text-ivory transition-colors hover:bg-white/10 disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold/50"
+        className="flex h-11 w-11 items-center justify-center rounded text-text-heading transition-colors hover:bg-text-heading/10 disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
         aria-label="เพิ่มขนาดตัวอักษร"
       >
         <span className="material-symbols-outlined text-[16px]">add</span>

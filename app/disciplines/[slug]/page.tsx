@@ -66,13 +66,13 @@ export default async function DisciplinePage({
 
         {/* ศึกษาอะไร */}
         <section className="scroll-reveal mt-12">
-          <h2 className="flex items-center gap-3 font-serif text-fluid-h3 text-ivory">
+          <h2 className="flex items-center gap-3 font-serif text-fluid-h3 text-text-heading">
             <span className="h-5 w-[3px] rounded" style={{ backgroundColor: meta.accent }} aria-hidden="true" />
             ศึกษาอะไร
           </h2>
           <ul className="mt-5 space-y-3">
             {d.studies.map((s) => (
-              <li key={s} className="flex gap-3 text-base leading-relaxed text-soft-ivory">
+              <li key={s} className="flex gap-3 text-base leading-relaxed text-text-body">
                 <span
                   className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full"
                   style={{ backgroundColor: meta.accent }}
@@ -86,7 +86,7 @@ export default async function DisciplinePage({
 
         {/* คำถามสำคัญ */}
         <section className="scroll-reveal mt-12">
-          <h2 className="flex items-center gap-3 font-serif text-fluid-h3 text-ivory">
+          <h2 className="flex items-center gap-3 font-serif text-fluid-h3 text-text-heading">
             <span className="h-5 w-[3px] rounded" style={{ backgroundColor: meta.accent }} aria-hidden="true" />
             คำถามสำคัญ
           </h2>
@@ -94,12 +94,12 @@ export default async function DisciplinePage({
             {d.questions.map((q, i) => (
               <div
                 key={q}
-                className="flex items-start gap-4 rounded-xl border border-slate-boundary/20 bg-white/[0.02] p-4"
+                className="flex items-start gap-4 rounded-xl border border-border/20 bg-text-heading/[0.02] p-4"
               >
                 <span className="font-mono text-sm" style={{ color: meta.accent }}>
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <p className="text-base leading-relaxed text-soft-ivory">{q}</p>
+                <p className="text-base leading-relaxed text-text-body">{q}</p>
               </div>
             ))}
           </div>
@@ -107,21 +107,21 @@ export default async function DisciplinePage({
 
         {/* มุมที่ ARCHRON ใช้อ่าน */}
         <section className="scroll-reveal mt-12">
-          <h2 className="flex items-center gap-3 font-serif text-fluid-h3 text-ivory">
+          <h2 className="flex items-center gap-3 font-serif text-fluid-h3 text-text-heading">
             <span className="h-5 w-[3px] rounded" style={{ backgroundColor: meta.accent }} aria-hidden="true" />
             มุมที่ ARCHRON ใช้อ่าน
           </h2>
-          <p className="mt-5 border-l-2 pl-5 text-base leading-loose text-soft-ivory" style={{ borderColor: `color-mix(in srgb, ${meta.accent} 45%, transparent)` }}>
+          <p className="mt-5 border-l-2 pl-5 text-base leading-loose text-text-body" style={{ borderColor: `color-mix(in srgb, ${meta.accent} 45%, transparent)` }}>
             {d.lens}
           </p>
         </section>
 
         {/* นำทาง */}
-        <div className="mt-16 flex items-center justify-between border-t border-slate-boundary/20 pt-8 text-sm">
-          <Link href="/disciplines" className="text-soft-gold transition-colors hover:text-burnished-gold">
+        <div className="mt-16 flex items-center justify-between border-t border-border/20 pt-8 text-sm">
+          <Link href="/disciplines" className="text-accent transition-colors hover:text-accent">
             ← ศาสตร์ทั้งหมด
           </Link>
-          <Link href="/concepts" className="text-muted transition-colors hover:text-soft-gold">
+          <Link href="/concepts" className="text-text-secondary transition-colors hover:text-accent">
             สำรวจคลังแนวคิด →
           </Link>
         </div>

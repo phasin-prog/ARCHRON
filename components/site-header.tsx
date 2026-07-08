@@ -52,11 +52,11 @@ function tierClass(tier: Tier, isActive: boolean): string {
   if (isActive) return "text-accent font-semibold";
   switch (tier) {
     case "primary":
-      return "text-on-surface hover:text-accent";
+      return "text-text-heading hover:text-accent";
     case "utility":
-      return "text-on-surface-variant/55 hover:text-accent";
+      return "text-text-secondary/55 hover:text-accent";
     default:
-      return "text-on-surface-variant hover:text-accent";
+      return "text-text-secondary hover:text-accent";
   }
 }
 
@@ -161,7 +161,7 @@ export function SiteHeader() {
   if (pathname?.startsWith("/studio")) return null;
 
   const menuItem =
-    "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-on-surface-variant transition-colors hover:bg-white/5 hover:text-on-surface";
+    "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-text-secondary transition-colors hover:bg-text-heading/5 hover:text-text-heading";
 
   const pillClass = (href: string) =>
     `gold-pill ${isActive(href) ? "gold-pill--active" : ""}`;
@@ -175,7 +175,7 @@ export function SiteHeader() {
           <div className="relative flex justify-center py-4">
             <Link
               href="/"
-              className="flex items-center gap-2.5 text-burnished-gold hover:opacity-85 transition-opacity"
+              className="flex items-center gap-2.5 text-accent hover:opacity-85 transition-opacity"
               aria-label="ARCHRON หน้าแรก"
             >
               <ArchronLogomark className="h-7 w-7 shrink-0" />
@@ -185,7 +185,7 @@ export function SiteHeader() {
               <Link
                 href="/search"
                 aria-label="ค้นหา"
-                className="flex h-10 w-10 items-center justify-center rounded-full text-on-surface-variant transition-colors hover:text-burnished-gold"
+                className="flex h-10 w-10 items-center justify-center rounded-full text-text-secondary transition-colors hover:text-accent"
               >
                 <SearchIcon className="h-[20px] w-[20px]" />
               </Link>
@@ -193,7 +193,7 @@ export function SiteHeader() {
                 <Link
                   href="/profile"
                   aria-label="โปรไฟล์ของฉัน"
-                  className="flex h-10 w-10 items-center justify-center rounded-full text-on-surface-variant transition-colors hover:text-burnished-gold"
+                  className="flex h-10 w-10 items-center justify-center rounded-full text-text-secondary transition-colors hover:text-accent"
                 >
                   <PersonIcon className="h-[20px] w-[20px]" />
                 </Link>
@@ -206,9 +206,9 @@ export function SiteHeader() {
                   aria-haspopup="menu"
                   aria-controls="account-menu"
                   aria-label="เมนูบัญชี"
-                  className="flex items-center gap-2 rounded-full border border-burnished-gold/20 py-1.5 pl-2.5 pr-3 text-sm font-serif text-soft-gold transition-colors hover:border-burnished-gold/40 hover:text-burnished-gold"
+                  className="flex items-center gap-2 rounded-full border border-accent/20 py-1.5 pl-2.5 pr-3 text-sm font-serif text-accent transition-colors hover:border-accent/40 hover:text-accent"
                 >
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-burnished-gold/10">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent/10">
                     <PersonIcon className="h-[16px] w-[16px]" />
                   </span>
                   <span>บัญชี</span>
@@ -229,30 +229,30 @@ export function SiteHeader() {
                   <div
                     id="account-menu"
                     role="menu"
-                    className="glass-nav-panel absolute right-0 top-[calc(100%+10px)] min-w-[214px] rounded-xl border border-burnished-gold/20 p-1.5 shadow-[0_24px_50px_-24px_rgba(0,0,0,0.85)]"
+                    className="glass-nav-panel absolute right-0 top-[calc(100%+10px)] min-w-[214px] rounded-xl border border-accent/20 p-1.5 shadow-[0_24px_50px_-24px_rgba(0,0,0,0.85)]"
                   >
                     <SignedOut>
-                      <p className="px-3 pb-1 pt-2 font-mono text-xs uppercase tracking-[0.12em] text-on-surface-variant/50">ยินดีต้อนรับ</p>
+                      <p className="px-3 pb-1 pt-2 font-mono text-xs uppercase tracking-[0.12em] text-text-secondary/50">ยินดีต้อนรับ</p>
                       <Link href="/th/login" onClick={() => setAcctOpen(false)} className={menuItem} role="menuitem">
-                        <LoginIcon className="h-[18px] w-[18px] text-burnished-gold" />
+                        <LoginIcon className="h-[18px] w-[18px] text-accent" />
                         เข้าสู่ระบบ
                       </Link>
                     </SignedOut>
                     <SignedIn>
-                      <p className="px-3 pb-1 pt-2 font-mono text-xs uppercase tracking-[0.12em] text-on-surface-variant/50">บัญชีของคุณ</p>
+                      <p className="px-3 pb-1 pt-2 font-mono text-xs uppercase tracking-[0.12em] text-text-secondary/50">บัญชีของคุณ</p>
                       <Link href="/profile" onClick={() => setAcctOpen(false)} className={menuItem} role="menuitem">
-                        <PersonIcon className="h-[18px] w-[18px] text-burnished-gold" />
+                        <PersonIcon className="h-[18px] w-[18px] text-accent" />
                         โปรไฟล์ของฉัน
                       </Link>
                       <Link href="/studio" onClick={() => setAcctOpen(false)} className={menuItem} role="menuitem">
-                        <EditIcon className="h-[18px] w-[18px] text-burnished-gold" />
+                        <EditIcon className="h-[18px] w-[18px] text-accent" />
                         Studio
                       </Link>
-                      <span className="my-1.5 block h-px bg-slate-boundary/30" aria-hidden="true" />
+                      <span className="my-1.5 block h-px bg-border/30" aria-hidden="true" />
                       <button
                         type="button"
                         onClick={() => { setAcctOpen(false); clerk.signOut(); }}
-                        className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-danger transition-colors hover:bg-danger/10"
+                        className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-error transition-colors hover:bg-error/10"
                         role="menuitem"
                       >
                         <LogoutIcon className="h-[18px] w-[18px]" />
@@ -264,7 +264,7 @@ export function SiteHeader() {
               </div>
             </div>
           </div>
-          <div className="h-px bg-burnished-gold/10" />
+          <div className="h-px bg-accent/10" />
           {/* Row 2: Nav pills */}
           <nav className="flex justify-center gap-1.5 py-3" aria-label="เมนูหลัก">
             {PRIMARY_NAV.map((item) => (
@@ -305,11 +305,11 @@ export function SiteHeader() {
                   <div
                     id="more-menu"
                     role="menu"
-                    className="glass-nav-panel absolute right-0 top-[calc(100%+8px)] min-w-[200px] rounded-xl border border-burnished-gold/20 p-1.5 shadow-[0_24px_50px_-24px_rgba(0,0,0,0.85)]"
+                    className="glass-nav-panel absolute right-0 top-[calc(100%+8px)] min-w-[200px] rounded-xl border border-accent/20 p-1.5 shadow-[0_24px_50px_-24px_rgba(0,0,0,0.85)]"
                   >
                     {UTILITY_NAV.map((item) => (
                       <Link key={item.href} href={item.href} onClick={() => setMoreOpen(false)} className={menuItem} role="menuitem">
-                        <item.Icon className="h-[18px] w-[18px] text-burnished-gold" />
+                        <item.Icon className="h-[18px] w-[18px] text-accent" />
                         {item.label}
                       </Link>
                     ))}
@@ -330,7 +330,7 @@ export function SiteHeader() {
       <div className="flex items-center justify-between px-4 py-3 lg:hidden">
         <Link
           href="/"
-          className="flex items-center gap-2.5 text-burnished-gold hover:opacity-85 transition-opacity"
+          className="flex items-center gap-2.5 text-accent hover:opacity-85 transition-opacity"
           aria-label="ARCHRON หน้าแรก"
         >
           <ArchronLogomark className="h-7 w-7 shrink-0" />
@@ -339,7 +339,7 @@ export function SiteHeader() {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className={`flex h-11 w-11 items-center justify-center transition-colors ${open ? "text-burnished-gold" : "text-on-surface hover:text-burnished-gold"}`}
+          className={`flex h-11 w-11 items-center justify-center transition-colors ${open ? "text-accent" : "text-text-heading hover:text-accent"}`}
           aria-label={open ? "ปิดเมนู" : "เปิดเมนู"}
           aria-expanded={open}
           aria-controls="mobile-nav"
@@ -355,10 +355,10 @@ export function SiteHeader() {
           role="dialog"
           aria-modal="true"
           aria-label="เมนูนำทางและบัญชีผู้ใช้"
-          className="fixed inset-0 z-50 flex flex-col justify-between overflow-y-auto bg-deep-navy/95 backdrop-blur-2xl transition-all duration-300 lg:hidden"
+          className="fixed inset-0 z-50 flex flex-col justify-between overflow-y-auto bg-bg/95 backdrop-blur-2xl transition-all duration-300 lg:hidden"
         >
           {/* Top Bar */}
-          <div className="sticky top-0 z-10 flex h-16 shrink-0 items-center justify-between border-b border-slate-boundary/30 bg-deep-navy/90 px-4 sm:px-6 backdrop-blur-md">
+          <div className="sticky top-0 z-10 flex h-16 shrink-0 items-center justify-between border-b border-border/30 bg-bg/90 px-4 sm:px-6 backdrop-blur-md">
             <Link
               href="/"
               onClick={() => setOpen(false)}
@@ -371,7 +371,7 @@ export function SiteHeader() {
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-on-surface transition-colors hover:bg-white/10"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-text-heading/5 text-text-heading transition-colors hover:bg-text-heading/10"
               aria-label="ปิดเมนู"
             >
               <CloseIcon className="h-6 w-6" />
@@ -384,7 +384,7 @@ export function SiteHeader() {
             <Link
               href="/search"
               onClick={() => setOpen(false)}
-              className="flex w-full items-center gap-3 rounded-xl border border-slate-boundary/40 bg-white/[0.04] px-4 py-3 text-on-surface-variant transition-all hover:border-accent/50 hover:bg-white/[0.06] hover:text-ivory shadow-sm"
+              className="flex w-full items-center gap-3 rounded-xl border border-border/40 bg-text-heading/[0.04] px-4 py-3 text-text-secondary transition-all hover:border-accent/50 hover:bg-text-heading/[0.06] hover:text-text-heading shadow-sm"
             >
               <SearchIcon className="h-5 w-5 text-accent" />
               <span className="text-base font-medium">ค้นหาความรู้ แนวคิด หรือสำนักคิด...</span>
@@ -407,7 +407,7 @@ export function SiteHeader() {
                     className={`flex items-start gap-3.5 rounded-2xl border p-4 transition-all ${
                       isActive(item.href)
                         ? "border-accent/60 bg-accent/10 shadow-[0_0_20px_rgba(200,168,90,0.15)]"
-                        : "border-slate-boundary/30 bg-white/[0.025] hover:border-accent/40 hover:bg-white/[0.06]"
+                        : "border-border/30 bg-text-heading/[0.025] hover:border-accent/40 hover:bg-text-heading/[0.06]"
                     }`}
                   >
                     <item.Icon
@@ -418,12 +418,12 @@ export function SiteHeader() {
                     <div className="flex flex-col">
                       <span
                         className={`text-base font-semibold tracking-wide ${
-                          isActive(item.href) ? "text-accent" : "text-ivory"
+                          isActive(item.href) ? "text-accent" : "text-text-heading"
                         }`}
                       >
                         {item.label}
                       </span>
-                      <span className="mt-0.5 text-xs text-on-surface-variant/70 font-normal">
+                      <span className="mt-0.5 text-xs text-text-secondary/70 font-normal">
                         {subLabel}
                       </span>
                     </div>
@@ -435,11 +435,11 @@ export function SiteHeader() {
             {/* Utility Nav Section (2-Column Grid) */}
             <div className="pt-2">
               <div className="mb-2.5 flex items-center gap-2">
-                <span className="h-px flex-1 bg-slate-boundary/30" aria-hidden="true" />
-                <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-on-surface-variant/50">
+                <span className="h-px flex-1 bg-border/30" aria-hidden="true" />
+                <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-text-secondary/50">
                   เพิ่มเติม
                 </span>
-                <span className="h-px flex-1 bg-slate-boundary/30" aria-hidden="true" />
+                <span className="h-px flex-1 bg-border/30" aria-hidden="true" />
               </div>
               <div className="grid grid-cols-2 gap-2 sm:gap-3">
                 {UTILITY_NAV.map((item) => (
@@ -450,7 +450,7 @@ export function SiteHeader() {
                     className={`flex items-center gap-2.5 rounded-xl border p-3 text-sm transition-all ${
                       isActive(item.href)
                         ? "border-accent/50 bg-accent/10 font-semibold text-accent"
-                        : "border-white/5 bg-white/[0.015] text-on-surface-variant hover:border-white/15 hover:bg-white/[0.05] hover:text-ivory"
+                        : "border-text-heading/5 bg-text-heading/[0.015] text-text-secondary hover:border-text-heading/15 hover:bg-text-heading/[0.05] hover:text-text-heading"
                     }`}
                   >
                     <item.Icon className="h-4 w-4 shrink-0 text-accent" />
@@ -462,12 +462,12 @@ export function SiteHeader() {
           </div>
 
           {/* Bottom Pinned Section: User Card & Support Footer */}
-          <div className="mt-auto shrink-0 border-t border-slate-boundary/30 bg-deep-navy/80 px-4 py-5 sm:px-6 backdrop-blur-md space-y-4">
+          <div className="mt-auto shrink-0 border-t border-border/30 bg-bg/80 px-4 py-5 sm:px-6 backdrop-blur-md space-y-4">
             <SignedOut>
               <Link
                 href="/th/login"
                 onClick={() => setOpen(false)}
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent to-soft-gold py-3 text-base font-semibold text-deep-navy shadow-[0_0_20px_rgba(200,168,90,0.15)] transition-all hover:opacity-95"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent to-accent py-3 text-base font-semibold text-bg shadow-[0_0_20px_rgba(200,168,90,0.15)] transition-all hover:opacity-95"
               >
                 <LoginIcon className="h-5 w-5" />
                 <span>เข้าสู่ระบบ</span>
@@ -480,7 +480,7 @@ export function SiteHeader() {
                   <Link
                     href="/profile"
                     onClick={() => setOpen(false)}
-                    className="flex items-center justify-center gap-2 rounded-xl border border-accent/30 bg-accent/15 py-2.5 text-sm font-semibold text-accent transition-all hover:bg-accent hover:text-deep-navy"
+                    className="flex items-center justify-center gap-2 rounded-xl border border-accent/30 bg-accent/15 py-2.5 text-sm font-semibold text-accent transition-all hover:bg-accent hover:text-bg"
                   >
                     <PersonIcon className="h-4 w-4 shrink-0" />
                     <span>โปรไฟล์ของฉัน</span>
@@ -488,7 +488,7 @@ export function SiteHeader() {
                   <Link
                     href="/studio"
                     onClick={() => setOpen(false)}
-                    className="flex items-center justify-center gap-2 rounded-xl border border-slate-boundary/40 bg-white/5 py-2.5 text-sm font-medium text-ivory transition-all hover:bg-white/10"
+                    className="flex items-center justify-center gap-2 rounded-xl border border-border/40 bg-text-heading/5 py-2.5 text-sm font-medium text-text-heading transition-all hover:bg-text-heading/10"
                   >
                     <EditIcon className="h-4 w-4 shrink-0 text-accent" />
                     <span>Studio</span>
@@ -500,7 +500,7 @@ export function SiteHeader() {
                     setOpen(false);
                     clerk.signOut();
                   }}
-                  className="flex w-full items-center justify-center gap-2 py-1.5 text-xs font-medium text-danger/80 transition-colors hover:text-danger cursor-pointer"
+                  className="flex w-full items-center justify-center gap-2 py-1.5 text-xs font-medium text-error/80 transition-colors hover:text-error cursor-pointer"
                 >
                   <LogoutIcon className="h-4 w-4 shrink-0" />
                   <span>ออกจากระบบ</span>
@@ -514,7 +514,7 @@ export function SiteHeader() {
                 <Link
                   href={SUPPORT.href}
                   onClick={() => setOpen(false)}
-                  className="inline-flex items-center justify-center gap-1.5 rounded-full border border-accent/20 px-4 py-1 text-xs text-soft-gold/80 transition-colors hover:border-accent/40 hover:bg-accent/5 hover:text-soft-gold"
+                  className="inline-flex items-center justify-center gap-1.5 rounded-full border border-accent/20 px-4 py-1 text-xs text-accent/80 transition-colors hover:border-accent/40 hover:bg-accent/5 hover:text-accent"
                 >
                   <HeartIcon className="h-3.5 w-3.5 text-accent" />
                   <span>สนับสนุนโครงการ Archron</span>

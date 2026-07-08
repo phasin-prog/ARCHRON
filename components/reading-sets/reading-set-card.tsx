@@ -11,7 +11,7 @@ export function ReadingSetCard({ set }: { set: ReadingSetItem }) {
   const diffMeta = difficultyMeta(set.difficulty ?? "beginner");
 
   return (
-    <article className="archron-card relative overflow-hidden p-6 md:p-8 flex flex-col justify-between transition-all duration-300 hover:border-burnished-gold/45">
+    <article className="archron-card relative overflow-hidden p-6 md:p-8 flex flex-col justify-between transition-all duration-300 hover:border-accent/45">
       {/* แถบสีข้างบ่งบอก cosmology */}
       <span
         aria-hidden
@@ -24,7 +24,7 @@ export function ReadingSetCard({ set }: { set: ReadingSetItem }) {
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="space-y-1">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-muted mr-1">
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-text-secondary mr-1">
                 {set.framework}
               </span>
               <span
@@ -44,15 +44,15 @@ export function ReadingSetCard({ set }: { set: ReadingSetItem }) {
                     : "ระดับสูง"}
               </span>
             </div>
-            <h2 className="font-serif text-2xl font-bold text-ivory group-hover:text-soft-gold">
+            <h2 className="font-serif text-2xl font-bold text-text-heading group-hover:text-accent">
               {set.title}
             </h2>
           </div>
 
           {/* 3D ICON GRID */}
           <span
-            className="inline-flex items-center justify-center w-11 h-11 flex-none border border-slate-boundary/40 rounded-[0.9rem_0.3rem] bg-surface-container-low shrink-0 scale-100"
-            style={{ borderColor: `color-mix(in srgb, ${accent} 26%, var(--color-slate-boundary))` }}
+            className="inline-flex items-center justify-center w-11 h-11 flex-none border border-border/40 rounded-[0.9rem_0.3rem] bg-bg-card shrink-0 scale-100"
+            style={{ borderColor: `color-mix(in srgb, ${accent} 26%, var(--color-border))` }}
           >
             <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": accent } as React.CSSProperties}>
               <use href="/icons/archron-icons.svg#reading-set" />
@@ -61,14 +61,14 @@ export function ReadingSetCard({ set }: { set: ReadingSetItem }) {
         </div>
 
         {set.shortDescription && (
-          <p className="text-sm leading-relaxed text-soft-ivory/85">
+          <p className="text-sm leading-relaxed text-text-body/85">
             {set.shortDescription}
           </p>
         )}
 
         {/* เส้นทางการอ่านแบบเชื่อมโยง (Timeline Steps) */}
-        <div className="py-4 border-t border-b border-slate-boundary/20 space-y-3">
-          <p className="text-[11px] font-bold uppercase tracking-wider text-burnished-gold/80">
+        <div className="py-4 border-t border-b border-border/20 space-y-3">
+          <p className="text-[11px] font-bold uppercase tracking-wider text-accent/80">
             เส้นทางการเรียนรู้ ({set.steps.length} ขั้นตอน):
           </p>
           <div className="flex flex-col gap-4 pl-2 md:flex-row md:items-center md:gap-2 md:pl-0">
@@ -84,16 +84,16 @@ export function ReadingSetCard({ set }: { set: ReadingSetItem }) {
                           ? `/articles/${step.slug}`
                           : `/concepts/${step.slug}`
                     }
-                    className="w-full flex items-center gap-2.5 rounded border border-slate-boundary/30 bg-white/[0.01] px-3 py-2 text-xs text-soft-ivory hover:border-burnished-gold/45 hover:text-soft-gold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold/50 focus-visible:ring-offset-2 focus-visible:ring-offset-deep-navy"
+                    className="w-full flex items-center gap-2.5 rounded border border-border/30 bg-text-heading/[0.01] px-3 py-2 text-xs text-text-body hover:border-accent/45 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
                   >
-                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-burnished-gold/15 text-[10px] font-bold text-burnished-gold font-mono">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/15 text-[10px] font-bold text-accent font-mono">
                       {idx + 1}
                     </span>
                     <span className="truncate flex-1 font-medium">{step.title}</span>
                   </Link>
 
                   {!isLast && (
-                    <div className="flex justify-center w-5 mt-1.5 mb-1.5 md:mt-0 md:mb-0 md:w-auto md:mx-2 text-on-surface-variant/40 shrink-0">
+                    <div className="flex justify-center w-5 mt-1.5 mb-1.5 md:mt-0 md:mb-0 md:w-auto md:mx-2 text-text-secondary/40 shrink-0">
                       {/* ลูกศรชี้ลงในมือถือ และชี้ขวาในเดสก์ท็อป */}
                       <span className="material-symbols-outlined text-[16px] md:hidden">
                         arrow_downward
@@ -110,7 +110,7 @@ export function ReadingSetCard({ set }: { set: ReadingSetItem }) {
         </div>
 
         {set.bodyMarkdown && (
-          <div className="markdown-body prose prose-invert max-w-none text-xs text-soft-ivory/80 leading-relaxed pt-2">
+          <div className="markdown-body prose prose-invert max-w-none text-xs text-text-body/80 leading-relaxed pt-2">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {set.bodyMarkdown}
             </ReactMarkdown>
@@ -119,7 +119,7 @@ export function ReadingSetCard({ set }: { set: ReadingSetItem }) {
 
         <Link
           href={`/reading-sets/${set.slug}`}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-burnished-gold/80 hover:text-burnished-gold transition-colors mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold/50 focus-visible:ring-offset-2 focus-visible:ring-offset-deep-navy rounded"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent/80 hover:text-accent transition-colors mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg rounded"
         >
           ดูรายละเอียดซีรีส์
           <span className="material-symbols-outlined text-[14px]">arrow_forward</span>

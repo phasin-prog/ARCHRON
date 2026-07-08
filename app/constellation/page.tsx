@@ -58,18 +58,18 @@ export default async function ConstellationPage({
         {/* Fallback (no-JS / a11y): รายการ node จัดกลุ่มตามชนิด เป็นลิงก์ */}
         <noscript>
           <div className="mt-10">
-            <p className="text-sm text-muted">
+            <p className="text-sm text-text-secondary">
               แผนที่ต้องใช้ JavaScript — ด้านล่างคือรายการแนวคิดทั้งหมดแบบลิงก์
             </p>
             {grouped.map((g) => (
               <div key={g.nt} className="mt-6">
-                <h2 className="font-serif text-xl text-ivory">{NODE_TYPE_LABEL[g.nt]}</h2>
+                <h2 className="font-serif text-xl text-text-heading">{NODE_TYPE_LABEL[g.nt]}</h2>
                 <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-2">
                   {g.items.map((n) => (
                     <li key={n.id}>
                       <Link
                         href={`/concepts/${n.id}`}
-                        className="text-sm text-soft-ivory hover:text-soft-gold"
+                        className="text-sm text-text-body hover:text-accent"
                       >
                         {n.thaiTitle || n.label}
                       </Link>

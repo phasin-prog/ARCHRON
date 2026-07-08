@@ -53,24 +53,24 @@ export function ExternalLinksBrowser({ categories }: { categories: ExternalCateg
   const chip = (on: boolean) =>
     `rounded-full border px-3.5 py-1.5 text-xs transition-colors duration-200 cursor-pointer ${
       on
-        ? "border-burnished-gold/50 bg-burnished-gold/10 text-burnished-gold"
-        : "border-ink/12 text-on-surface-variant hover:border-ink/25 hover:text-soft-ivory"
+        ? "border-accent/50 bg-accent/10 text-accent"
+        : "border-text-heading/12 text-text-secondary hover:border-text-heading/25 hover:text-text-body"
     }`;
 
   return (
     <div className="mt-8 space-y-6">
       {/* แท่งค้นหา */}
-      <div className="flex items-center gap-3 rounded-lg border border-ink/12 bg-surface-container/60 px-4 py-2.5 focus-within:border-burnished-gold/40 focus-within:ring-1 focus-within:ring-burnished-gold/20 transition-colors">
-        <span className="material-symbols-outlined text-[20px] text-burnished-gold" aria-hidden="true">search</span>
+      <div className="flex items-center gap-3 rounded-lg border border-text-heading/12 bg-bg-card/60 px-4 py-2.5 focus-within:border-accent/40 focus-within:ring-1 focus-within:ring-accent/20 transition-colors">
+        <span className="material-symbols-outlined text-[20px] text-accent" aria-hidden="true">search</span>
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="ค้นหาแหล่งข้อมูลภายนอก ชื่อหน่วยงาน แท็ก หรือเว็บไซต์..."
           aria-label="ค้นหาแหล่งข้อมูลภายนอก"
-          className="w-full bg-transparent text-sm text-on-surface focus-visible:outline-none placeholder:text-on-surface-variant/50"
+          className="w-full bg-transparent text-sm text-text-heading focus-visible:outline-none placeholder:text-text-secondary/50"
         />
         {query ? (
-          <button type="button" onClick={() => setQuery("")} aria-label="ล้างคำค้น" className="rounded-md p-1 text-on-surface-variant hover:text-soft-gold hover:bg-surface-container focus-visible:ring-2 focus-visible:ring-burnished-gold/40 focus-visible:outline-none">
+          <button type="button" onClick={() => setQuery("")} aria-label="ล้างคำค้น" className="rounded-md p-1 text-text-secondary hover:text-accent hover:bg-bg-card focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:outline-none">
             <span className="material-symbols-outlined text-[18px]">close</span>
           </button>
         ) : null}
@@ -100,7 +100,7 @@ export function ExternalLinksBrowser({ categories }: { categories: ExternalCateg
 
       {/* แสดงผลรายการ */}
       {totalItemsCount === 0 ? (
-        <div className="rounded-md border border-ink/10 bg-surface-container/30 p-12 text-center text-on-surface-variant/50">
+        <div className="rounded-md border border-text-heading/10 bg-bg-card/30 p-12 text-center text-text-secondary/50">
           ไม่พบแหล่งข้อมูลภายนอกที่ตรงกับการค้นหาของคุณ
         </div>
       ) : (
@@ -109,12 +109,12 @@ export function ExternalLinksBrowser({ categories }: { categories: ExternalCateg
             <section key={cat.id} aria-labelledby={`cat-${cat.id}`}>
               <h2
                 id={`cat-${cat.id}`}
-                className="flex items-center gap-2.5 border-b border-slate-boundary/20 pb-3 font-serif text-2xl text-on-surface"
+                className="flex items-center gap-2.5 border-b border-border/20 pb-3 font-serif text-2xl text-text-heading"
               >
-                <span className="material-symbols-outlined text-burnished-gold">{cat.icon}</span>
+                <span className="material-symbols-outlined text-accent">{cat.icon}</span>
                 {cat.thaiLabel}
-                <span className="text-base text-on-surface-variant/50">({cat.enLabel})</span>
-                <span className="ml-auto text-sm font-normal text-on-surface-variant/40">
+                <span className="text-base text-text-secondary/50">({cat.enLabel})</span>
+                <span className="ml-auto text-sm font-normal text-text-secondary/40">
                   {cat.items.length} แหล่ง
                 </span>
               </h2>
@@ -128,14 +128,14 @@ export function ExternalLinksBrowser({ categories }: { categories: ExternalCateg
                       href={item.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="archron-card group relative flex flex-col justify-between overflow-hidden p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-burnished-gold/45"
+                      className="archron-card group relative flex flex-col justify-between overflow-hidden p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/45"
                     >
                       <div>
                         {/* host + external icon */}
                         <div className="flex items-center justify-between gap-3">
                           {host ? (
-                            <span className="inline-flex min-w-0 items-center gap-1.5 text-xs text-on-surface-variant/55">
-                              <span className="material-symbols-outlined text-[15px] text-burnished-gold/70">
+                            <span className="inline-flex min-w-0 items-center gap-1.5 text-xs text-text-secondary/55">
+                              <span className="material-symbols-outlined text-[15px] text-accent/70">
                                 public
                               </span>
                               <span className="truncate">{host}</span>
@@ -143,15 +143,15 @@ export function ExternalLinksBrowser({ categories }: { categories: ExternalCateg
                           ) : (
                             <span />
                           )}
-                          <span className="material-symbols-outlined shrink-0 text-[18px] text-on-surface-variant/40 transition-colors group-hover:text-burnished-gold">
+                          <span className="material-symbols-outlined shrink-0 text-[18px] text-text-secondary/40 transition-colors group-hover:text-accent">
                             open_in_new
                           </span>
                         </div>
 
-                        <h3 className="mt-3 font-serif text-lg leading-snug text-on-surface transition-colors group-hover:text-burnished-gold">
+                        <h3 className="mt-3 font-serif text-lg leading-snug text-text-heading transition-colors group-hover:text-accent">
                           {item.title}
                         </h3>
-                        <p className="mt-2 text-xs leading-relaxed text-soft-ivory/85">
+                        <p className="mt-2 text-xs leading-relaxed text-text-body/85">
                           {item.description}
                         </p>
 
@@ -160,7 +160,7 @@ export function ExternalLinksBrowser({ categories }: { categories: ExternalCateg
                             {item.tags.map((t) => (
                               <span
                                 key={t}
-                                className="rounded bg-white/[0.02] px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.06em] text-on-surface-variant/60 border border-slate-boundary/10"
+                                className="rounded bg-text-heading/[0.02] px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.06em] text-text-secondary/60 border border-border/10"
                               >
                                 {t}
                               </span>
@@ -169,13 +169,13 @@ export function ExternalLinksBrowser({ categories }: { categories: ExternalCateg
                         ) : null}
 
                         {item.checkedAt && (
-                          <span className="mt-3 text-[9px] font-mono text-on-surface-variant/40 block">
+                          <span className="mt-3 text-[9px] font-mono text-text-secondary/40 block">
                             ตรวจสอบล่าสุดเมื่อ: {item.checkedAt}
                           </span>
                         )}
                       </div>
 
-                      <span className="mt-5 flex items-center gap-1.5 border-t border-ink/8 pt-3 text-xs font-semibold text-burnished-gold">
+                      <span className="mt-5 flex items-center gap-1.5 border-t border-text-heading/8 pt-3 text-xs font-semibold text-accent">
                         เปิดลิงก์ภายนอก
                         <span className="material-symbols-outlined text-[14px] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                           arrow_outward

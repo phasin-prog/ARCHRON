@@ -30,7 +30,7 @@ export function Tabbar() {
   return (
     <nav
       aria-label="นำทางหลัก"
-      className="glass-nav fixed inset-x-0 bottom-0 z-40 border-t border-burnished-gold/12 pb-[env(safe-area-inset-bottom)] md:hidden"
+      className="glass-nav fixed inset-x-0 bottom-0 z-40 border-t border-accent/12 pb-[env(safe-area-inset-bottom)] md:hidden"
     >
       <ul className="mx-auto flex max-w-lg items-stretch justify-around px-2 sm:px-4">
         {ITEMS.map((it) => {
@@ -45,15 +45,15 @@ export function Tabbar() {
                 <span
                   className={`flex h-9 w-12 items-center justify-center rounded-full transition-all duration-300 ${
                     active
-                      ? "scale-105 bg-burnished-gold/15 text-burnished-gold"
-                      : "text-on-surface-variant/65 group-hover:text-burnished-gold/80"
+                      ? "scale-105 bg-accent/15 text-accent"
+                      : "text-text-secondary/65 group-hover:text-accent/80"
                   }`}
                 >
                   <span className="material-symbols-outlined text-[22px]">{it.icon}</span>
                 </span>
                 <span
                   className={`font-serif text-[10px] leading-none tracking-[0.04em] transition-colors duration-300 ${
-                    active ? "text-burnished-gold" : "text-on-surface-variant/60"
+                    active ? "text-accent" : "text-text-secondary/60"
                   }`}
                 >
                   {it.label}

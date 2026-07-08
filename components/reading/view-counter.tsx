@@ -40,8 +40,8 @@ export function ViewCounter({ slug, title, section }: { slug: string; title: str
   if (views === null) return null;
 
   return (
-    <span className="inline-flex items-center gap-1.5 text-xs text-on-surface-variant/60">
-      <span className="material-symbols-outlined text-[16px] text-burnished-gold/70">visibility</span>
+    <span className="inline-flex items-center gap-1.5 text-xs text-text-secondary/60">
+      <span className="material-symbols-outlined text-[16px] text-accent/70">visibility</span>
       ผู้เยี่ยมชม {views.toLocaleString("th-TH")} ครั้ง
     </span>
   );

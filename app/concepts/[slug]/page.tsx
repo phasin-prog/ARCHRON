@@ -101,35 +101,35 @@ export default async function ConceptNodePage({
           {Icon ? <Icon className="h-7 w-7 text-accent" /> : null}
           <span className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">{label}</span>
         </div>
-        <h1 className="mt-4 font-serif text-3xl text-ivory md:text-4xl">{node.title}</h1>
+        <h1 className="mt-4 font-serif text-3xl text-text-heading md:text-4xl">{node.title}</h1>
         {node.description ? (
-          <p className="mt-5 text-base leading-relaxed text-soft-ivory">{node.description}</p>
+          <p className="mt-5 text-base leading-relaxed text-text-body">{node.description}</p>
         ) : null}
-        <p className="mt-4 text-sm text-muted">ยังไม่มีหน้าอ่านเต็มสำหรับแนวคิดนี้ — กำลังจัดเตรียมเนื้อหา</p>
+        <p className="mt-4 text-sm text-text-secondary">ยังไม่มีหน้าอ่านเต็มสำหรับแนวคิดนี้ — กำลังจัดเตรียมเนื้อหา</p>
       </header>
 
       <section className="mx-auto max-w-2xl space-y-10 px-6">
-        <dl className="grid grid-cols-1 gap-4 border-y border-ink/10 py-6 text-sm sm:grid-cols-2">
+        <dl className="grid grid-cols-1 gap-4 border-y border-text-heading/10 py-6 text-sm sm:grid-cols-2">
           {node.thaiTitle ? (
             <div>
-              <dt className="text-muted">ชื่อไทย</dt>
-              <dd className="mt-1 text-ivory">{node.thaiTitle}</dd>
+              <dt className="text-text-secondary">ชื่อไทย</dt>
+              <dd className="mt-1 text-text-heading">{node.thaiTitle}</dd>
             </div>
           ) : null}
           <div>
-            <dt className="text-muted">ชนิด node</dt>
-            <dd className="mt-1 text-ivory">{label}</dd>
+            <dt className="text-text-secondary">ชนิด node</dt>
+            <dd className="mt-1 text-text-heading">{label}</dd>
           </div>
           {node.framework ? (
             <div>
-              <dt className="text-muted">กรอบทฤษฎี</dt>
-              <dd className="mt-1 text-ivory">{node.framework}</dd>
+              <dt className="text-text-secondary">กรอบทฤษฎี</dt>
+              <dd className="mt-1 text-text-heading">{node.framework}</dd>
             </div>
           ) : null}
           {node.aliases.length > 0 ? (
             <div>
-              <dt className="text-muted">ชื่อเรียกอื่น</dt>
-              <dd className="mt-1 text-ivory">{node.aliases.join(", ")}</dd>
+              <dt className="text-text-secondary">ชื่อเรียกอื่น</dt>
+              <dd className="mt-1 text-text-heading">{node.aliases.join(", ")}</dd>
             </div>
           ) : null}
         </dl>

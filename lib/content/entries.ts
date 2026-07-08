@@ -4,9 +4,9 @@ import type { ContentEntry } from "@/types/content";
 // slug ทุกตัวตรงกับ concept-registry เพื่อให้ related links, backlinks และ node pages เชื่อมกันจริง
 export const entries: ContentEntry[] = [
   {
-    id: "concept-psyche",
+    id: "concept-concept",
     title: "Psyche",
-    slug: "psyche",
+    slug: "concept",
     status: "published",
     contentType: "concept",
     author: "ARCHRON",
@@ -23,7 +23,7 @@ export const entries: ContentEntry[] = [
     framework: "Analytical Psychology",
     mainThinkers: ["Carl Jung"],
     difficulty: "intermediate",
-    tags: ["psyche", "depth-psychology", "jung"],
+    tags: ["concept", "depth-psychology", "jung"],
     visualExplanation:
       "Psyche ไม่ได้หมายถึงจิตใจในความหมายแคบแบบความคิดประจำวัน แต่เป็นชื่อเรียกพื้นที่ทั้งหมดของชีวิตภายใน ทั้งส่วนที่เรารู้ตัวและส่วนที่ยังทำงานอยู่ใต้ระดับการรู้ตัว",
     technicalMeaning:
@@ -38,7 +38,7 @@ export const entries: ContentEntry[] = [
       { sourceType: "editorial-interpretation", title: "การเรียบเรียงของ ARCHRON", relatedClaim: "สรุปภาพรวมเพื่อการอ่าน เป็นการตีความ ไม่ใช่ข้อความจากแหล่งต้นทาง" },
     ],
     roots: {
-      etymology: "psyche มาจากภาษากรีก psukhē ซึ่งเกี่ยวข้องกับลมหายใจ ชีวิต หรือวิญญาณในบางบริบทโบราณ",
+      etymology: "concept มาจากภาษากรีก psukhē ซึ่งเกี่ยวข้องกับลมหายใจ ชีวิต หรือวิญญาณในบางบริบทโบราณ",
       meaningShift: "เมื่อเข้าสู่จิตวิทยาสมัยใหม่ คำนี้ถูกใช้เพื่อพูดถึงระบบชีวิตทางจิต ไม่ใช่เพียง soul ในความหมายศาสนา",
       caution: "รากศัพท์ช่วยให้เห็นประวัติของคำ แต่ไม่ควรใช้แทนนิยามเชิงทฤษฎีโดยตรง",
     },
@@ -69,7 +69,7 @@ export const entries: ContentEntry[] = [
     technicalMeaning:
       "ในจิตวิทยาวิเคราะห์ Ego เป็นศูนย์กลางของจิตสำนึก ทำหน้าที่เชื่อมประสบการณ์เข้ากับความรู้สึกของความต่อเนื่องและตัวตน แต่อยู่ภายใต้ภาพรวมที่ใหญ่กว่าคือ Self",
     relatedConcepts: [
-      { conceptSlug: "psyche", relationType: "part-of", reason: "Ego เป็นส่วนหนึ่งของ Psyche ทั้งหมด" },
+      { conceptSlug: "concept", relationType: "part-of", reason: "Ego เป็นส่วนหนึ่งของ Psyche ทั้งหมด" },
       { conceptSlug: "persona", relationType: "related", reason: "Persona คือวิธีที่ Ego ปรับตัวต่อโลกสังคม" },
       { conceptSlug: "shadow", relationType: "contrasts-with", reason: "Shadow คือสิ่งที่ Ego ไม่ต้องการรับรู้" },
       { conceptSlug: "self", relationType: "part-of", reason: "Ego เป็นส่วนหนึ่งภายใต้ Self" },
@@ -184,7 +184,7 @@ export const entries: ContentEntry[] = [
       { conceptSlug: "ego", relationType: "part-of", reason: "Ego เป็นส่วนหนึ่งภายใต้ Self" },
       { conceptSlug: "individuation", relationType: "related", reason: "Individuation คือกระบวนการเข้าใกล้ Self" },
       { conceptSlug: "archetype", relationType: "related", reason: "Self เป็น archetype ของความเป็นองค์รวม" },
-      { conceptSlug: "psyche", relationType: "related", reason: "Self คือศูนย์รวมของ Psyche" },
+      { conceptSlug: "concept", relationType: "related", reason: "Self คือศูนย์รวมของ Psyche" },
     ],
     references: [
       { sourceType: "primary-source", author: "C. G. Jung", title: "Aion", relatedClaim: "นิยาม Self และความต่างจาก Ego" },

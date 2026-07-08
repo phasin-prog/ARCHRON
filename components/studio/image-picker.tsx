@@ -83,7 +83,7 @@ export function ImagePicker({ value, onChange, onRemove, entryId, className = ""
     <div className={className}>
       {value ? (
         // Preview mode
-        <div className="relative overflow-hidden rounded-md border border-slate-boundary/30">
+        <div className="relative overflow-hidden rounded-md border border-border/30">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={value}
@@ -91,11 +91,11 @@ export function ImagePicker({ value, onChange, onRemove, entryId, className = ""
             className="h-48 w-full object-cover"
           />
           <div className="absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-black/70 to-transparent px-4 py-3">
-            <span className="text-xs text-mist/80">ภาพปกปัจจุบัน</span>
+            <span className="text-xs text-text-heading/80">ภาพปกปัจจุบัน</span>
             <button
               type="button"
               onClick={onRemove}
-              className="rounded border border-danger/40 bg-danger/10 px-3 py-1 text-xs text-danger transition-colors hover:bg-danger/20"
+              className="rounded border border-error/40 bg-error/10 px-3 py-1 text-xs text-error transition-colors hover:bg-error/20"
             >
               ลบรูป
             </button>
@@ -110,25 +110,25 @@ export function ImagePicker({ value, onChange, onRemove, entryId, className = ""
           onClick={() => inputRef.current?.click()}
           className={`flex cursor-pointer flex-col items-center justify-center gap-3 rounded-md border-2 border-dashed p-8 transition-colors ${
             dragOver
-              ? "border-burnished-gold/60 bg-burnished-gold/5"
-              : "border-slate-boundary/30 hover:border-slate-boundary/50 bg-surface-container-low/30"
+              ? "border-accent/60 bg-accent/5"
+              : "border-border/30 hover:border-border/50 bg-bg-card/30"
           }`}
         >
           {loading ? (
             <>
-              <div className="h-8 w-8 animate-spin rounded-full border-2 border-burnished-gold/30 border-t-burnished-gold" />
-              <span className="text-sm text-on-surface-variant/60">กำลังอัปโหลด...</span>
+              <div className="h-8 w-8 animate-spin rounded-full border-2 border-accent/30 border-t-accent" />
+              <span className="text-sm text-text-secondary/60">กำลังอัปโหลด...</span>
             </>
           ) : (
             <>
-              <span className="material-symbols-outlined text-[32px] text-on-surface-variant/30">
+              <span className="material-symbols-outlined text-[32px] text-text-secondary/30">
                 add_photo_alternate
               </span>
               <div className="text-center">
-                <p className="text-sm text-on-surface-variant/70">
+                <p className="text-sm text-text-secondary/70">
                   ลากรูปมาวาง หรือคลิกเพื่อเลือกไฟล์
                 </p>
-                <p className="mt-1 text-xs text-on-surface-variant/40">
+                <p className="mt-1 text-xs text-text-secondary/40">
                   JPEG, PNG, WebP, GIF, SVG, AVIF — สูงสุด 10 MB
                 </p>
               </div>
@@ -146,7 +146,7 @@ export function ImagePicker({ value, onChange, onRemove, entryId, className = ""
       )}
 
       {error ? (
-        <p className="mt-2 text-xs text-danger">{error}</p>
+        <p className="mt-2 text-xs text-error">{error}</p>
       ) : null}
     </div>
   );

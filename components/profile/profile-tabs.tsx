@@ -50,7 +50,7 @@ export function ProfileTabs({
       <div
         role="tablist"
         aria-label="หมวดโปรไฟล์"
-        className="flex flex-wrap gap-2 border-b border-slate-boundary/30"
+        className="flex flex-wrap gap-2 border-b border-border/30"
         onKeyDown={onTablistKeyDown}
       >
         {visibleTabs.map((t) => {
@@ -69,10 +69,10 @@ export function ProfileTabs({
               aria-controls={`profile-panel-${t.key}`}
               tabIndex={isActive ? 0 : -1}
               onClick={() => setActive(t.key)}
-              className={`-mb-px inline-flex items-center gap-2 border-b-2 px-4 py-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:border-burnished-gold/60 focus-visible:text-soft-gold ${
+              className={`-mb-px inline-flex items-center gap-2 border-b-2 px-4 py-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:border-accent/60 focus-visible:text-accent ${
                 isActive
-                  ? "border-burnished-gold text-soft-gold"
-                  : "border-transparent text-muted hover:text-soft-ivory"
+                  ? "border-accent text-accent"
+                  : "border-transparent text-text-secondary hover:text-text-body"
               }`}
             >
               <span className="material-symbols-outlined text-[18px]" aria-hidden="true">
@@ -92,7 +92,7 @@ export function ProfileTabs({
           aria-labelledby="profile-tab-reading"
           tabIndex={0}
           hidden={active !== "reading"}
-          className="focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-burnished-gold/30 rounded"
+          className="focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent/30 rounded"
         >
           {reading}
         </div>
@@ -103,7 +103,7 @@ export function ProfileTabs({
             aria-labelledby="profile-tab-work"
             tabIndex={0}
             hidden={active !== "work"}
-            className="focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-burnished-gold/30 rounded"
+            className="focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent/30 rounded"
           >
             {work}
           </div>

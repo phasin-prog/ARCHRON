@@ -25,8 +25,8 @@ export default function SupportPage() {
       navCurrent="/support"
     >
       <section className="mx-auto mt-14 max-w-3xl px-6">
-        <h2 className="font-serif text-2xl text-ivory">ทำไมความรู้ต้องเปิดกว้าง</h2>
-        <div className="mt-6 space-y-4 text-sm leading-relaxed text-soft-ivory">
+        <h2 className="font-serif text-2xl text-text-heading">ทำไมความรู้ต้องเปิดกว้าง</h2>
+        <div className="mt-6 space-y-4 text-sm leading-relaxed text-text-body">
           <p>
             ความรู้ทางจิตวิทยา ปรัชญา มานุษยวิทยา และศาสตร์ที่ว่าด้วยความเป็นมนุษย์
             ไม่ใช่สินค้าที่ควรถูกขายเป็นชิ้น ๆ ภายใต้ paywall หรือรอการปลดล็อก
@@ -42,8 +42,8 @@ export default function SupportPage() {
       </section>
 
       <section className="mx-auto mt-16 max-w-3xl px-6">
-        <h2 className="font-serif text-2xl text-ivory">การดำรงอยู่ของคลังความรู้มีค่าใช้จ่าย</h2>
-        <div className="mt-6 space-y-4 text-sm leading-relaxed text-soft-ivory">
+        <h2 className="font-serif text-2xl text-text-heading">การดำรงอยู่ของคลังความรู้มีค่าใช้จ่าย</h2>
+        <div className="mt-6 space-y-4 text-sm leading-relaxed text-text-body">
           <p>
             เซิร์ฟเวอร์ โดเมน ที่จัดเก็บข้อมูล หนังสืออ้างอิงวิชาการ
             เวลาที่ใช้ในการค้นคว้า เขียน แปล เรียบเรียง และจัดระบบความรู้
@@ -56,29 +56,29 @@ export default function SupportPage() {
       </section>
 
       <section className="mx-auto mt-16 max-w-6xl px-6">
-        <h2 className="font-serif text-2xl text-ivory">หนทางแห่งการสนับสนุน</h2>
-        <p className="mt-3 text-sm text-muted">
+        <h2 className="font-serif text-2xl text-text-heading">หนทางแห่งการสนับสนุน</h2>
+        <p className="mt-3 text-sm text-text-secondary">
           ทุกทางเท่าเทียมกัน — ไม่มีทางไหนสำคัญกว่าทางอื่น
         </p>
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           <article className="archron-panel p-6">
-            <span className="material-symbols-outlined text-[24px] text-lumen">menu_book</span>
-            <h3 className="mt-3 font-serif text-lg text-ivory">อ่านอย่างตั้งใจ</h3>
-            <p className="mt-2 text-xs leading-relaxed text-soft-ivory">
+            <span className="material-symbols-outlined text-[24px] text-accent">menu_book</span>
+            <h3 className="mt-3 font-serif text-lg text-text-heading">อ่านอย่างตั้งใจ</h3>
+            <p className="mt-2 text-xs leading-relaxed text-text-body">
               ใช้เวลากับเนื้อหา อ่านแหล่งอ้างอิง และแยกข้อเท็จจริงจากการตีความ
             </p>
           </article>
           <article className="archron-panel p-6">
-            <span className="material-symbols-outlined text-[24px] text-lumen">share</span>
-            <h3 className="mt-3 font-serif text-lg text-ivory">แบ่งปันอย่างมีบริบท</h3>
-            <p className="mt-2 text-xs leading-relaxed text-soft-ivory">
+            <span className="material-symbols-outlined text-[24px] text-accent">share</span>
+            <h3 className="mt-3 font-serif text-lg text-text-heading">แบ่งปันอย่างมีบริบท</h3>
+            <p className="mt-2 text-xs leading-relaxed text-text-body">
               ส่งต่อแนวคิดพร้อมบริบทเดิม ไม่ตัดทอนให้กลายเป็นคำคมสั้นที่ขาดความหมาย
             </p>
           </article>
           <article className="archron-panel p-6">
-            <span className="material-symbols-outlined text-[24px] text-lumen">rate_review</span>
-            <h3 className="mt-3 font-serif text-lg text-ivory">แจ้งข้อผิดพลาด</h3>
-            <p className="mt-2 text-xs leading-relaxed text-soft-ivory">
+            <span className="material-symbols-outlined text-[24px] text-accent">rate_review</span>
+            <h3 className="mt-3 font-serif text-lg text-text-heading">แจ้งข้อผิดพลาด</h3>
+            <p className="mt-2 text-xs leading-relaxed text-text-body">
               ช่วยทักท้วงหรือเพิ่มเติมข้อมูลอ้างอิง เพื่อให้คลังความรู้นี้ถูกต้องสมบูรณ์ยิ่งขึ้น
             </p>
           </article>
@@ -86,27 +86,27 @@ export default function SupportPage() {
       </section>
 
       <section className="mx-auto mt-16 max-w-3xl px-6">
-        <div className="rounded-lg border border-antique-gold/25 bg-antique-gold/[0.03] p-8 text-center">
-          <h2 className="font-serif text-2xl text-antique-gold">ARCHRON Companion</h2>
-          <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-soft-ivory">
+        <div className="rounded-lg border border-accent/25 bg-accent/[0.03] p-8 text-center">
+          <h2 className="font-serif text-2xl text-accent">ARCHRON Companion</h2>
+          <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-text-body">
             Companion คือผู้ที่เลือกเดินเคียงข้างโครงการนี้ เงียบ ๆ และช่วยให้มันคงอยู่
             — ไม่ใช่การซื้อสิทธิพิเศษ แต่เป็นการร่วมดูแลคลังความรู้ที่คุณอยากให้คนรุ่นหลังมี
           </p>
-          <div className="mx-auto mt-8 inline-block rounded-md border border-antique-gold/15 bg-white/[0.01] px-8 py-5">
-            <p className="text-xs text-muted">ธนาคารกสิกรไทย</p>
-            <p className="mt-1 text-sm text-ivory">พศิน พสุมาตร</p>
-            <p className="mt-3 font-mono text-lg tracking-widest text-antique-gold">
+          <div className="mx-auto mt-8 inline-block rounded-md border border-accent/15 bg-text-heading/[0.01] px-8 py-5">
+            <p className="text-xs text-text-secondary">ธนาคารกสิกรไทย</p>
+            <p className="mt-1 text-sm text-text-heading">พศิน พสุมาตร</p>
+            <p className="mt-3 font-mono text-lg tracking-widest text-accent">
               146-1-96727-9
             </p>
           </div>
-          <p className="mt-6 text-xs text-muted">
+          <p className="mt-6 text-xs text-text-secondary">
             เท่าไหร่ก็ได้ ทุกจำนวนช่วยให้ห้องสมุดนี้คงอยู่
           </p>
         </div>
         {COMPANIONS.length > 0 && (
           <div className="mt-10 text-center">
-            <h3 className="font-serif text-base text-soft-ivory">ARCHRON Companions</h3>
-            <ul className="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-muted">
+            <h3 className="font-serif text-base text-text-body">ARCHRON Companions</h3>
+            <ul className="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-text-secondary">
               {COMPANIONS.map((name) => (
                 <li key={name}>{name}</li>
               ))}
@@ -118,26 +118,26 @@ export default function SupportPage() {
       <section className="mx-auto mt-16 max-w-6xl px-6">
         <Link
           href="/guide"
-          className="archron-card group flex flex-col justify-between p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-burnished-gold/45"
+          className="archron-card group flex flex-col justify-between p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/45"
         >
           <div className="flex items-start justify-between">
             <span
-              className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-[0.9rem_0.3rem] border border-slate-boundary/40 bg-surface-container-low"
-              style={{ borderColor: "color-mix(in srgb, var(--color-burnished-gold) 26%, var(--color-slate-boundary))" }}
+              className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-[0.9rem_0.3rem] border border-border/40 bg-bg-card"
+              style={{ borderColor: "color-mix(in srgb, var(--color-accent) 26%, var(--color-border))" }}
             >
-              <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": "var(--color-burnished-gold)" } as React.CSSProperties}>
+              <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": "var(--color-accent)" } as React.CSSProperties}>
                 <use href="/icons/archron-icons.svg#lantern" />
               </svg>
             </span>
           </div>
-          <h3 className="mt-4 font-serif text-xl text-ivory group-hover:text-burnished-gold">
+          <h3 className="mt-4 font-serif text-xl text-text-heading group-hover:text-accent">
             อีกหนึ่งหนทางที่จะร่วมเดิน
           </h3>
-          <p className="mt-2 text-xs leading-relaxed text-soft-ivory/85">
+          <p className="mt-2 text-xs leading-relaxed text-text-body/85">
             Jungian Psychological Type Guide — การวิเคราะห์เชิงลึกทางจิตวิทยาแบบ Jungian
             ที่รายได้ส่วนหนึ่งสนับสนุนคลังความรู้นี้
           </p>
-          <span className="mt-6 inline-flex items-center gap-1.5 text-xs font-semibold text-burnished-gold">
+          <span className="mt-6 inline-flex items-center gap-1.5 text-xs font-semibold text-accent">
             ดูรายละเอียด
             <span className="material-symbols-outlined text-[14px] transition-transform duration-300 group-hover:translate-x-0.5">
               arrow_forward
@@ -149,23 +149,23 @@ export default function SupportPage() {
       <section className="mx-auto mt-8 max-w-6xl px-6">
         <Link
           href="/studio"
-          className="archron-card group flex flex-col justify-between p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-burnished-gold/45"
+          className="archron-card group flex flex-col justify-between p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/45"
         >
           <div className="flex items-start justify-between">
-            <span className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-[0.9rem_0.3rem] border border-slate-boundary/40 bg-surface-container-low">
-              <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": "var(--cosmology-accent)" } as React.CSSProperties}>
+            <span className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-[0.9rem_0.3rem] border border-border/40 bg-bg-card">
+              <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": "var(--color-accent)" } as React.CSSProperties}>
                 <use href="/icons/archron-icons.svg#interpretation" />
               </svg>
             </span>
           </div>
-          <h3 className="mt-4 font-serif text-xl text-ivory group-hover:text-burnished-gold">
+          <h3 className="mt-4 font-serif text-xl text-text-heading group-hover:text-accent">
             ร่วมเป็นส่วนหนึ่งของเนื้อหา
           </h3>
-          <p className="mt-2 text-xs leading-relaxed text-soft-ivory/85">
+          <p className="mt-2 text-xs leading-relaxed text-text-body/85">
             หากคุณมีความรู้ในศาสตร์ที่เกี่ยวข้องและต้องการร่วมเขียน ร่วมตรวจสอบ
             หรือร่วมเรียบเรียงคลังความรู้แห่งนี้ — สมัครเป็นนักเขียนร่วมอ้างอิง
           </p>
-          <span className="mt-6 inline-flex items-center gap-1.5 text-xs font-semibold text-burnished-gold">
+          <span className="mt-6 inline-flex items-center gap-1.5 text-xs font-semibold text-accent">
             เข้าสู่ห้องทำงานผู้เขียน (Studio)
             <span className="material-symbols-outlined text-[14px] transition-transform duration-300 group-hover:translate-x-0.5">
               arrow_forward
@@ -175,7 +175,7 @@ export default function SupportPage() {
       </section>
 
       <section className="mx-auto mt-20 max-w-2xl px-6 pb-16 text-center">
-        <p className="text-sm leading-relaxed text-soft-ivory/70">
+        <p className="text-sm leading-relaxed text-text-body/70">
           ARCHRON จะยังคงเปิดกว้างสำหรับทุกคน<br />
           หากคุณเลือกที่จะช่วย คุณจะกลายเป็นหนึ่งในผู้ที่ quietly ดูแลคลังนี้ให้คงอยู่
         </p>

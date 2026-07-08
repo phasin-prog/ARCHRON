@@ -107,7 +107,7 @@ export function ConstellationMindmap({
           type="button"
           onClick={back}
           disabled={history.length === 0}
-          className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-1.5 rounded-md border border-ink/12 px-3 py-2 text-sm text-on-surface-variant transition-colors hover:border-burnished-gold/40 hover:text-on-surface disabled:cursor-default disabled:opacity-35"
+          className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-1.5 rounded-md border border-text-heading/12 px-3 py-2 text-sm text-text-secondary transition-colors hover:border-accent/40 hover:text-text-heading disabled:cursor-default disabled:opacity-35"
         >
           <span className="material-symbols-outlined text-[18px]">arrow_back</span>
           ย้อนกลับ
@@ -117,15 +117,15 @@ export function ConstellationMindmap({
             e.preventDefault();
             runSearch(query);
           }}
-          className="flex min-h-[44px] flex-1 items-center gap-2 rounded-lg border border-ink/12 bg-surface-container/60 px-3 py-2 focus-within:border-burnished-gold/40 focus-within:ring-1 focus-within:ring-burnished-gold/20 transition-colors"
+          className="flex min-h-[44px] flex-1 items-center gap-2 rounded-lg border border-text-heading/12 bg-bg-card/60 px-3 py-2 focus-within:border-accent/40 focus-within:ring-1 focus-within:ring-accent/20 transition-colors"
         >
-          <span className="material-symbols-outlined text-[18px] text-burnished-gold" aria-hidden="true">search</span>
+          <span className="material-symbols-outlined text-[18px] text-accent" aria-hidden="true">search</span>
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="ค้นหาแนวคิดเพื่อตั้งเป็นศูนย์กลาง..."
             aria-label="ค้นหาแนวคิดเพื่อตั้งเป็นศูนย์กลาง"
-            className="w-full bg-transparent text-sm text-on-surface placeholder:text-on-surface-variant/50 focus-visible:outline-none"
+            className="w-full bg-transparent text-sm text-text-heading placeholder:text-text-secondary/50 focus-visible:outline-none"
           />
         </form>
       </div>
@@ -174,20 +174,20 @@ export function ConstellationMindmap({
           className="group flex min-h-[44px] min-w-[44px] flex-col items-center justify-center"
         >
           <span
-            className="flex h-24 w-24 items-center justify-center rounded-full border-2 bg-deep-navy/85 backdrop-blur"
+            className="flex h-24 w-24 items-center justify-center rounded-full border-2 bg-bg/85 backdrop-blur"
             style={{
               borderColor: NODE_TYPE_COLOR[focusNode.nodeType],
               boxShadow: focusNode.isHub ? "0 0 0 4px rgba(212,175,55,0.15)" : undefined,
             }}
           >
-            <span className="px-2 text-center font-serif text-sm leading-tight text-ivory">
+            <span className="px-2 text-center font-serif text-sm leading-tight text-text-heading">
               {focusNode.label}
             </span>
           </span>
           {focusNode.thaiTitle ? (
-            <span className="mt-1.5 text-[11px] text-on-surface-variant/70">{focusNode.thaiTitle}</span>
+            <span className="mt-1.5 text-[11px] text-text-secondary/70">{focusNode.thaiTitle}</span>
           ) : null}
-          <span className="mt-2 inline-flex items-center gap-1 text-[11px] text-burnished-gold opacity-80 transition-opacity group-hover:opacity-100">
+          <span className="mt-2 inline-flex items-center gap-1 text-[11px] text-accent opacity-80 transition-opacity group-hover:opacity-100">
             เปิดหน้าเต็ม
             <span className="material-symbols-outlined text-[13px]">arrow_forward</span>
           </span>
@@ -216,19 +216,19 @@ export function ConstellationMindmap({
                 onClick={() => goTo(p.id)}
                 onMouseEnter={() => setHover(p.id)}
                 onMouseLeave={() => setHover(null)}
-                className="flex min-h-[44px] min-w-[44px] max-w-[160px] flex-col items-center justify-center gap-1 rounded-md border border-ink/10 bg-surface-container/85 px-3 py-2 text-center backdrop-blur transition-colors hover:border-burnished-gold/50 hover:bg-surface-container"
+                className="flex min-h-[44px] min-w-[44px] max-w-[160px] flex-col items-center justify-center gap-1 rounded-md border border-text-heading/10 bg-bg-card/85 px-3 py-2 text-center backdrop-blur transition-colors hover:border-accent/50 hover:bg-bg-card"
               >
                 <span className="flex items-center gap-1.5">
                   <span
                     className="h-2 w-2 shrink-0 rounded-full"
                     style={{ backgroundColor: NODE_TYPE_COLOR[n.nodeType] }}
                   />
-                  <span className="font-serif text-sm text-on-surface">{n.label}</span>
+                  <span className="font-serif text-sm text-text-heading">{n.label}</span>
                 </span>
                 {n.thaiTitle ? (
-                  <span className="text-[10px] text-on-surface-variant/70">{n.thaiTitle}</span>
+                  <span className="text-[10px] text-text-secondary/70">{n.thaiTitle}</span>
                 ) : null}
-                <span className="text-[10px] text-on-surface-variant/55">
+                <span className="text-[10px] text-text-secondary/55">
                   {RELATION_LABEL[p.relation]}
                 </span>
               </button>
@@ -238,48 +238,48 @@ export function ConstellationMindmap({
         })}
 
         {neighbors.length === 0 ? (
-          <p className="absolute left-1/2 top-[64%] w-full -translate-x-1/2 text-center text-sm text-on-surface-variant/55">
+          <p className="absolute left-1/2 top-[64%] w-full -translate-x-1/2 text-center text-sm text-text-secondary/55">
             แนวคิดนี้ยังไม่มีความเชื่อมโยงในระบบ — ลองค้นหาแนวคิดอื่น
           </p>
         ) : null}
 
         {copied ? (
-          <div className="pointer-events-none absolute bottom-3 left-1/2 z-30 -translate-x-1/2 rounded-md bg-burnished-gold px-3 py-1 text-xs font-medium text-prima">
+          <div className="pointer-events-none absolute bottom-3 left-1/2 z-30 -translate-x-1/2 rounded-md bg-accent px-3 py-1 text-xs font-medium text-text-inverse">
             คัดลอกลิงก์แล้ว
           </div>
         ) : null}
       </div>
 
       {/* Detail / legend */}
-      <div className="mx-auto mt-6 max-w-[900px] rounded-md border border-slate-boundary/40 bg-surface-container/40 p-5">
+      <div className="mx-auto mt-6 max-w-[900px] rounded-md border border-border/40 bg-bg-card/40 p-5">
         <div className="flex items-center gap-2">
           <span
             className="h-3 w-3 rounded-full"
             style={{ backgroundColor: NODE_TYPE_COLOR[focusNode.nodeType] }}
           />
-          <span className="font-serif text-lg text-ivory">
+          <span className="font-serif text-lg text-text-heading">
             {focusNode.label}
           </span>
           {focusNode.thaiTitle ? (
-            <span className="text-sm text-on-surface-variant/70">{focusNode.thaiTitle}</span>
+            <span className="text-sm text-text-secondary/70">{focusNode.thaiTitle}</span>
           ) : null}
-          <span className="text-xs text-on-surface-variant/55">
+          <span className="text-xs text-text-secondary/55">
             {[NODE_TYPE_LABEL[focusNode.nodeType], focusNode.framework].filter(Boolean).join(" · ")}
           </span>
         </div>
         {focusNode.description ? (
-          <p className="mt-2 text-sm leading-relaxed text-soft-ivory">{focusNode.description}</p>
+          <p className="mt-2 text-sm leading-relaxed text-text-body">{focusNode.description}</p>
         ) : null}
-        <p className="mt-3 text-xs text-on-surface-variant/55">
+        <p className="mt-3 text-xs text-text-secondary/55">
           เชื่อมโยง {neighbors.length} แนวคิด · คลิกแนวคิดรอบ ๆ เพื่อย้ายศูนย์กลาง ·{" "}
-          <Link href={`/concepts/${focusNode.id}`} className="text-burnished-gold hover:underline">
+          <Link href={`/concepts/${focusNode.id}`} className="text-accent hover:underline">
             เปิดหน้าเต็ม →
           </Link>
         </p>
         {relationsPresent.length > 0 ? (
-          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 border-t border-ink/10 pt-3">
+          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 border-t border-text-heading/10 pt-3">
             {relationsPresent.map((r) => (
-              <span key={r} className="flex items-center gap-1.5 text-[11px] text-on-surface-variant/60">
+              <span key={r} className="flex items-center gap-1.5 text-[11px] text-text-secondary/60">
                 <span className="h-2 w-4 rounded-full" style={{ backgroundColor: RELATION_COLOR[r] }} />
                 {RELATION_LABEL[r]}
               </span>

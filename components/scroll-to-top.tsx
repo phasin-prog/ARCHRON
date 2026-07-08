@@ -34,7 +34,7 @@ export function ScrollToTop() {
       type="button"
       onClick={toTop}
       aria-label="เลื่อนขึ้นบนสุด"
-      className={`fixed bottom-24 right-6 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-burnished-gold/40 bg-surface-container/80 text-burnished-gold shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)] backdrop-blur transition-all duration-300 hover:bg-burnished-gold hover:text-deep-navy md:bottom-6 ${
+      className={`fixed bottom-24 right-6 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-accent/40 bg-bg-card/80 text-accent shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)] backdrop-blur transition-all duration-300 hover:bg-accent hover:text-bg md:bottom-6 ${
         show ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0"
       }`}
     >

@@ -160,7 +160,7 @@ export function WorkflowStatus({
   };
 
   return (
-    <div className="flex items-center gap-3 text-xs text-muted">
+    <div className="flex items-center gap-3 text-xs text-text-secondary">
       {/* Saving Status */}
       {isSaving ? (
         <span className="flex items-center gap-1">
@@ -184,8 +184,8 @@ export function WorkflowStatus({
         onClick={onToggleAutosave}
         className={`flex items-center gap-1 rounded-md px-2 py-0.5 transition-colors ${
           autosaveEnabled
-            ? "bg-burnished-gold/10 text-burnished-gold"
-            : "bg-surface-container text-muted"
+            ? "bg-accent/10 text-accent"
+            : "bg-bg-card text-text-secondary"
         }`}
       >
         <span className="material-symbols-outlined text-[14px]">

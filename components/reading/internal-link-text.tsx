@@ -15,7 +15,7 @@ export function InternalLinkText({ text }: { text: string }) {
           return (
             <span
               key={i}
-              className="text-danger underline decoration-dotted"
+              className="text-error underline decoration-dotted"
               title="dead link — ไม่พบ node ปลายทางใน registry"
             >
               {t.label}

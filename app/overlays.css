@@ -9,7 +9,7 @@
 .archron-backdrop {
   position: fixed;
   inset: 0;
-  background: color-mix(in srgb, var(--color-prima) 60%, transparent);
+  background: color-mix(in srgb, var(--color-shadow) 60%, transparent);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   z-index: var(--z-overlay);
@@ -30,10 +30,10 @@
   width: 90vw;
   max-width: 32rem;
   max-height: 85vh;
-  background: var(--color-surface-container-low);
-  border: 1px solid var(--color-slate-boundary);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
-  box-shadow: 0 16px 48px color-mix(in srgb, var(--color-prima) 40%, transparent);
+  box-shadow: 0 16px 48px color-mix(in srgb, var(--color-shadow) 40%, transparent);
   z-index: var(--z-overlay);
   overflow: hidden;
   display: flex;
@@ -54,14 +54,14 @@
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1.25rem;
-  border-bottom: 1px solid color-mix(in srgb, var(--color-ivory) 6%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text-heading) 6%, transparent);
 }
 
 .archron-modal-title {
   font-family: var(--font-heading);
   font-size: 1rem;
   font-weight: 600;
-  color: var(--color-ivory);
+  color: var(--color-text-heading);
 }
 
 .archron-modal-close {
@@ -72,22 +72,22 @@
   height: 2rem;
   border: none;
   background: transparent;
-  color: var(--color-muted);
+  color: var(--color-text-secondary);
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .archron-modal-close:hover {
-  color: var(--color-ivory);
-  background: color-mix(in srgb, var(--color-ivory) 8%, transparent);
+  color: var(--color-text-heading);
+  background: color-mix(in srgb, var(--color-text-heading) 8%, transparent);
 }
 
 .archron-modal-body {
   padding: 1.25rem;
   overflow-y: auto;
   flex: 1;
-  color: var(--color-soft-ivory);
+  color: var(--color-text-body);
   font-size: 0.875rem;
   line-height: 1.6;
 }
@@ -98,7 +98,7 @@
   justify-content: flex-end;
   gap: 0.5rem;
   padding: 1rem 1.25rem;
-  border-top: 1px solid color-mix(in srgb, var(--color-ivory) 6%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--color-text-heading) 6%, transparent);
 }
 
 /* ---- Drawer ---- */
@@ -109,9 +109,9 @@
   bottom: 0;
   width: 90vw;
   max-width: 24rem;
-  background: var(--color-surface-container-low);
-  border-left: 1px solid var(--color-slate-boundary);
-  box-shadow: -8px 0 24px color-mix(in srgb, var(--color-prima) 30%, transparent);
+  background: var(--color-bg-card);
+  border-left: 1px solid var(--color-border);
+  box-shadow: -8px 0 24px color-mix(in srgb, var(--color-shadow) 30%, transparent);
   z-index: var(--z-overlay);
   display: flex;
   flex-direction: column;
@@ -127,7 +127,7 @@
   left: 0;
   right: auto;
   border-left: none;
-  border-right: 1px solid var(--color-slate-boundary);
+  border-right: 1px solid var(--color-border);
   transform: translateX(-100%);
 }
 
@@ -140,21 +140,21 @@
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1.25rem;
-  border-bottom: 1px solid color-mix(in srgb, var(--color-ivory) 6%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text-heading) 6%, transparent);
 }
 
 .archron-drawer-title {
   font-family: var(--font-heading);
   font-size: 1rem;
   font-weight: 600;
-  color: var(--color-ivory);
+  color: var(--color-text-heading);
 }
 
 .archron-drawer-body {
   padding: 1.25rem;
   overflow-y: auto;
   flex: 1;
-  color: var(--color-soft-ivory);
+  color: var(--color-text-body);
   font-size: 0.875rem;
   line-height: 1.6;
 }
@@ -164,10 +164,10 @@
   position: absolute;
   width: max-content;
   max-width: 20rem;
-  background: var(--color-surface-container-low);
-  border: 1px solid var(--color-slate-boundary);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  box-shadow: 0 8px 24px color-mix(in srgb, var(--color-prima) 30%, transparent);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--color-shadow) 30%, transparent);
   z-index: var(--z-overlay);
   padding: 0.75rem;
   opacity: 0;
@@ -183,13 +183,13 @@
 .archron-popover-title {
   font-size: 0.8125rem;
   font-weight: 600;
-  color: var(--color-ivory);
+  color: var(--color-text-heading);
   margin-bottom: 0.5rem;
 }
 
 .archron-popover-content {
   font-size: 0.8125rem;
-  color: var(--color-soft-ivory);
+  color: var(--color-text-body);
   line-height: 1.5;
 }
 
@@ -220,12 +220,12 @@
   align-items: center;
   gap: 0.625rem;
   padding: 0.75rem 1rem;
-  background: var(--color-surface-container-low);
-  border: 1px solid var(--color-slate-boundary);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
-  box-shadow: 0 8px 24px color-mix(in srgb, var(--color-prima) 30%, transparent);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--color-shadow) 30%, transparent);
   font-size: 0.8125rem;
-  color: var(--color-ivory);
+  color: var(--color-text-heading);
   pointer-events: auto;
   opacity: 0;
   transform: translateY(8px);
@@ -252,17 +252,17 @@
 
 .archron-toast-success {
   border: 1px solid color-mix(in srgb, var(--color-success) 40%, transparent);
-  background: color-mix(in srgb, var(--color-success) 8%, var(--color-surface-container-low));
+  background: color-mix(in srgb, var(--color-success) 8%, var(--color-bg-card));
 }
 
 .archron-toast-error {
-  border: 1px solid color-mix(in srgb, var(--color-danger) 40%, transparent);
-  background: color-mix(in srgb, var(--color-danger) 8%, var(--color-surface-container-low));
+  border: 1px solid color-mix(in srgb, var(--color-error) 40%, transparent);
+  background: color-mix(in srgb, var(--color-error) 8%, var(--color-bg-card));
 }
 
 .archron-toast-info {
-  border: 1px solid color-mix(in srgb, var(--color-lumen) 40%, transparent);
-  background: color-mix(in srgb, var(--color-lumen) 8%, var(--color-surface-container-low));
+  border: 1px solid color-mix(in srgb, var(--color-accent) 40%, transparent);
+  background: color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-card));
 }
 
 /* ---- Tooltip (CSS-only) ---- */
@@ -277,11 +277,11 @@
   left: 50%;
   transform: translateX(-50%) translateY(-4px);
   padding: 0.375rem 0.625rem;
-  background: var(--color-surface-container-high);
-  border: 1px solid var(--color-slate-boundary);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
   border-radius: 6px;
   font-size: 0.6875rem;
-  color: var(--color-ivory);
+  color: var(--color-text-heading);
   white-space: nowrap;
   pointer-events: none;
   opacity: 0;

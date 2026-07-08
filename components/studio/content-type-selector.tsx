@@ -65,14 +65,14 @@ export function ContentTypeSelector() {
   }
 
   return (
-    <div className="min-h-screen bg-midnight">
+    <div className="min-h-screen bg-bg">
       <div className="mx-auto max-w-3xl px-6 py-16">
         <div className="mb-12 text-center">
-          <span className="material-symbols-outlined mb-4 text-[48px] text-burnished-gold">
+          <span className="material-symbols-outlined mb-4 text-[48px] text-accent">
             edit_note
           </span>
-          <h1 className="font-serif text-3xl text-ivory">สร้างเนื้อหาใหม่</h1>
-          <p className="mt-3 text-sm text-on-surface-variant/70">
+          <h1 className="font-serif text-3xl text-text-heading">สร้างเนื้อหาใหม่</h1>
+          <p className="mt-3 text-sm text-text-secondary/70">
             เลือกประเภทเนื้อหาที่ต้องการเขียน ระบบจะแสดงฟอร์มที่เหมาะสมกับแต่ละประเภท
           </p>
         </div>
@@ -100,15 +100,15 @@ export function ContentTypeSelector() {
                     </span>
                   </span>
                   <div>
-                    <h2 className="font-serif text-lg font-semibold text-ivory group-hover:text-soft-gold transition-colors">
+                    <h2 className="font-serif text-lg font-semibold text-text-heading group-hover:text-accent transition-colors">
                       {meta.label}
                     </h2>
-                    <p className="text-[11px] text-on-surface-variant/50">
+                    <p className="text-[11px] text-text-secondary/50">
                       {opt.type}
                     </p>
                   </div>
                 </div>
-                <p className="mb-4 text-sm leading-relaxed text-on-surface-variant/70">
+                <p className="mb-4 text-sm leading-relaxed text-text-secondary/70">
                   {opt.description}
                 </p>
                 <div className="mt-auto flex flex-wrap gap-1.5">
@@ -118,7 +118,7 @@ export function ContentTypeSelector() {
                       className="rounded-full px-2 py-0.5 text-[10px] font-medium"
                       style={{
                         backgroundColor: `color-mix(in srgb, ${opt.accent} 8%, transparent)`,
-                        color: `color-mix(in srgb, ${opt.accent} 70%, var(--color-on-surface-variant))`,
+                        color: `color-mix(in srgb, ${opt.accent} 70%, var(--color-text-secondary))`,
                       }}
                     >
                       {f}
@@ -141,7 +141,7 @@ export function ContentTypeSelector() {
         <div className="mt-8 text-center">
           <button
             onClick={() => router.push("/studio")}
-            className="text-sm text-on-surface-variant/50 hover:text-ivory transition-colors"
+            className="text-sm text-text-secondary/50 hover:text-text-heading transition-colors"
           >
             ← กลับห้องเขียน
           </button>

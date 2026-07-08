@@ -40,14 +40,14 @@ export default async function BooksPage() {
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               <Link
                 href="/concepts"
-                className="inline-flex items-center gap-1.5 rounded-lg border border-burnished-gold/40 bg-burnished-gold/10 px-4 py-2 text-sm font-semibold text-burnished-gold transition-colors hover:bg-burnished-gold/20"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-accent/40 bg-accent/10 px-4 py-2 text-sm font-semibold text-accent transition-colors hover:bg-accent/20"
               >
                 สำรวจคลังแนวคิด
                 <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
               </Link>
               <Link
                 href="/schools"
-                className="inline-flex items-center gap-1.5 rounded-lg border border-slate-boundary/40 px-4 py-2 text-sm text-on-surface-variant transition-colors hover:bg-surface-container/50"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-border/40 px-4 py-2 text-sm text-text-secondary transition-colors hover:bg-bg-card/50"
               >
                 สำนักคิดและนักปราชญ์
               </Link>

@@ -60,17 +60,17 @@ export function SourcesBrowser({ sources }: { sources: SourceItemWithId[] }) {
       {/* กรองและค้นหา */}
       <div className="grid gap-4 sm:grid-cols-[2fr_1fr]">
         {/* ค้นหา */}
-        <div className="flex items-center gap-3 rounded-lg border border-ink/12 bg-surface-container/60 px-4 py-2.5 focus-within:border-burnished-gold/40 focus-within:ring-1 focus-within:ring-burnished-gold/20 transition-colors">
-          <span className="material-symbols-outlined text-[20px] text-burnished-gold" aria-hidden="true">search</span>
+        <div className="flex items-center gap-3 rounded-lg border border-text-heading/12 bg-bg-card/60 px-4 py-2.5 focus-within:border-accent/40 focus-within:ring-1 focus-within:ring-accent/20 transition-colors">
+          <span className="material-symbols-outlined text-[20px] text-accent" aria-hidden="true">search</span>
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="ค้นหาชื่อหนังสือ ผู้เขียน ปี หรือคำสำคัญ..."
             aria-label="ค้นหาแหล่งอ้างอิง"
-            className="w-full bg-transparent text-sm text-on-surface focus-visible:outline-none placeholder:text-on-surface-variant/50"
+            className="w-full bg-transparent text-sm text-text-heading focus-visible:outline-none placeholder:text-text-secondary/50"
           />
           {query ? (
-            <button type="button" onClick={() => setQuery("")} aria-label="ล้างคำค้น" className="rounded-md p-1 text-on-surface-variant hover:text-soft-gold hover:bg-surface-container focus-visible:ring-2 focus-visible:ring-burnished-gold/40 focus-visible:outline-none">
+            <button type="button" onClick={() => setQuery("")} aria-label="ล้างคำค้น" className="rounded-md p-1 text-text-secondary hover:text-accent hover:bg-bg-card focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:outline-none">
               <span className="material-symbols-outlined text-[18px]">close</span>
             </button>
           ) : null}
@@ -81,7 +81,7 @@ export function SourcesBrowser({ sources }: { sources: SourceItemWithId[] }) {
           value={selectedType}
           onChange={(e) => setSelectedType(e.target.value)}
           aria-label="กรองตามระดับแหล่งอ้างอิง"
-          className="rounded-lg border border-ink/12 bg-surface-container/60 px-3 py-2.5 text-sm text-on-surface focus-visible:ring-2 focus-visible:ring-burnished-gold/30 focus-visible:outline-none focus:border-burnished-gold/45 transition-colors"
+          className="rounded-lg border border-text-heading/12 bg-bg-card/60 px-3 py-2.5 text-sm text-text-heading focus-visible:ring-2 focus-visible:ring-accent/30 focus-visible:outline-none focus:border-accent/45 transition-colors"
         >
           <option value="all">ระดับแหล่งอ้างอิงทั้งหมด</option>
           <option value="primary-source">Primary Source / แหล่งต้นทาง</option>
@@ -91,12 +91,12 @@ export function SourcesBrowser({ sources }: { sources: SourceItemWithId[] }) {
       </div>
 
       {/* ผลลัพธ์ */}
-      <div className="text-xs text-on-surface-variant/60">
+      <div className="text-xs text-text-secondary/60">
         พบแหล่งอ้างอิง {filtered.length} รายการ
       </div>
 
       {filtered.length === 0 ? (
-        <div className="rounded-md border border-ink/10 bg-surface-container/30 p-12 text-center text-on-surface-variant/50">
+        <div className="rounded-md border border-text-heading/10 bg-bg-card/30 p-12 text-center text-text-secondary/50">
           ไม่พบข้อมูลอ้างอิงที่ตรงตามเงื่อนไข
         </div>
       ) : (
@@ -109,7 +109,7 @@ export function SourcesBrowser({ sources }: { sources: SourceItemWithId[] }) {
             return (
               <div
                 key={s.id}
-                className="group relative overflow-hidden archron-card flex flex-col justify-between gap-4 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-burnished-gold/45"
+                className="group relative overflow-hidden archron-card flex flex-col justify-between gap-4 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/45"
               >
                 {/* แถบข้างระบุสี cosmology */}
                 <span
@@ -121,8 +121,8 @@ export function SourcesBrowser({ sources }: { sources: SourceItemWithId[] }) {
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
                   {/* 3D ICON GRID */}
                   <span
-                    className="inline-flex items-center justify-center w-11 h-11 flex-none border border-slate-boundary/40 rounded-[0.9rem_0.3rem] bg-surface-container-low shrink-0 scale-90 transition-transform duration-300 group-hover:scale-100"
-                    style={{ borderColor: `color-mix(in srgb, ${accent} 26%, var(--color-slate-boundary))` }}
+                    className="inline-flex items-center justify-center w-11 h-11 flex-none border border-border/40 rounded-[0.9rem_0.3rem] bg-bg-card shrink-0 scale-90 transition-transform duration-300 group-hover:scale-100"
+                    style={{ borderColor: `color-mix(in srgb, ${accent} 26%, var(--color-border))` }}
                   >
                     <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": accent } as React.CSSProperties}>
                       <use href={`/icons/archron-icons.svg#${iconId}`} />
@@ -142,39 +142,39 @@ export function SourcesBrowser({ sources }: { sources: SourceItemWithId[] }) {
                         {label}
                       </span>
                       {s.year && (
-                        <span className="text-xs font-mono text-on-surface-variant/50">ปีพิมพ์: {s.year}</span>
+                        <span className="text-xs font-mono text-text-secondary/50">ปีพิมพ์: {s.year}</span>
                       )}
                     </div>
 
-                    <h3 className="font-serif text-lg font-bold leading-snug text-ivory group-hover:text-soft-gold transition-colors">
+                    <h3 className="font-serif text-lg font-bold leading-snug text-text-heading group-hover:text-accent transition-colors">
                       {s.title}
                     </h3>
 
                     {s.author && (
-                      <p className="text-sm text-soft-ivory">
-                        ผู้สร้างสรรค์: <span className="text-soft-gold font-medium">{s.author}</span>
+                      <p className="text-sm text-text-body">
+                        ผู้สร้างสรรค์: <span className="text-accent font-medium">{s.author}</span>
                       </p>
                     )}
 
                     {s.citationNote && (
-                      <p className="text-xs text-on-surface-variant/80 leading-relaxed bg-white/[0.02] border border-slate-boundary/15 rounded p-3 font-mono">
+                      <p className="text-xs text-text-secondary/80 leading-relaxed bg-text-heading/[0.02] border border-border/15 rounded p-3 font-mono">
                         {s.citationNote}
                       </p>
                     )}
 
                     {s.relatedClaim && (
-                      <p className="text-xs text-muted">
-                        ◦ <span className="font-medium text-burnished-gold/80">ขอบเขตเนื้อหา:</span> {s.relatedClaim}
+                      <p className="text-xs text-text-secondary">
+                        ◦ <span className="font-medium text-accent/80">ขอบเขตเนื้อหา:</span> {s.relatedClaim}
                       </p>
                     )}
                   </div>
                 </div>
 
-                <div className="mt-4 flex items-center justify-between border-t border-slate-boundary/20 pt-3 text-xs font-semibold" style={{ color: accent }}>
+                <div className="mt-4 flex items-center justify-between border-t border-border/20 pt-3 text-xs font-semibold" style={{ color: accent }}>
                   <span className="flex items-center gap-1 transition-all duration-300 group-hover:gap-2">
                     ตรวจสอบหลักฐานปฐมภูมิ <span className="material-symbols-outlined text-[15px]">verified</span>
                   </span>
-                  <span className="font-mono text-[11px] text-muted">{s.sourceType.toUpperCase()}</span>
+                  <span className="font-mono text-[11px] text-text-secondary">{s.sourceType.toUpperCase()}</span>
                 </div>
               </div>
             );

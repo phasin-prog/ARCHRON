@@ -22,21 +22,21 @@ export function Accordion({
   };
 
   return (
-    <div className="divide-y divide-ink/[0.07] overflow-hidden rounded-md border border-slate-boundary/50">
+    <div className="divide-y divide-ink/[0.07] overflow-hidden rounded-md border border-border/50">
       {items.map((it) => {
         const isOpen = open.has(it.id);
         return (
-          <div key={it.id} className="bg-surface-container/40">
+          <div key={it.id} className="bg-bg-card/40">
             <button
               type="button"
               onClick={() => toggle(it.id)}
               aria-expanded={isOpen}
               aria-controls={`accordion-content-${it.id}`}
-              className="flex w-full items-center justify-between gap-4 p-5 text-left transition-colors hover:bg-surface-container/70"
+              className="flex w-full items-center justify-between gap-4 p-5 text-left transition-colors hover:bg-bg-card/70"
             >
-              <span className="font-serif text-lg leading-snug text-on-surface">{it.title}</span>
+              <span className="font-serif text-lg leading-snug text-text-heading">{it.title}</span>
               <span
-                className={`material-symbols-outlined shrink-0 text-on-surface-variant/60 transition-transform duration-300 ${
+                className={`material-symbols-outlined shrink-0 text-text-secondary/60 transition-transform duration-300 ${
                   isOpen ? "rotate-180" : ""
                 }`}
               >
@@ -50,7 +50,7 @@ export function Accordion({
               }`}
             >
               <div className="overflow-hidden">
-                <div className="px-5 pb-5 text-[15px] leading-relaxed text-on-surface-variant/80">
+                <div className="px-5 pb-5 text-[15px] leading-relaxed text-text-secondary/80">
                   {it.content}
                 </div>
               </div>

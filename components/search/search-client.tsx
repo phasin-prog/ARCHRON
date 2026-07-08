@@ -33,28 +33,28 @@ export function SearchClient({ items }: { items: SearchItem[] }) {
   const chip = (on: boolean) =>
     `rounded-full border px-3 py-1 text-xs transition-colors duration-200 ${
       on
-        ? "border-burnished-gold/50 bg-burnished-gold/10 text-burnished-gold"
-        : "border-ink/12 text-on-surface-variant hover:border-ink/25 hover:text-on-surface"
+        ? "border-accent/50 bg-accent/10 text-accent"
+        : "border-text-heading/12 text-text-secondary hover:border-text-heading/25 hover:text-text-heading"
     }`;
 
   return (
     <div className="mt-8">
       {/* Search box */}
-      <div className="flex items-center gap-3 rounded-lg border border-ink/12 bg-surface-container/60 px-4 py-3 focus-within:border-burnished-gold/40 focus-within:ring-1 focus-within:ring-burnished-gold/20 transition-colors">
-        <span className="material-symbols-outlined text-[22px] text-burnished-gold" aria-hidden="true">search</span>
+      <div className="flex items-center gap-3 rounded-lg border border-text-heading/12 bg-bg-card/60 px-4 py-3 focus-within:border-accent/40 focus-within:ring-1 focus-within:ring-accent/20 transition-colors">
+        <span className="material-symbols-outlined text-[22px] text-accent" aria-hidden="true">search</span>
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="ค้นหาแนวคิด บทความ ทรัพยากร หรือหน้า..."
           aria-label="ค้นหา"
-          className="w-full bg-transparent text-base text-on-surface placeholder:text-on-surface-variant/50 focus-visible:outline-none"
+          className="w-full bg-transparent text-base text-text-heading placeholder:text-text-secondary/50 focus-visible:outline-none"
         />
         {query ? (
           <button
             type="button"
             onClick={() => setQuery("")}
             aria-label="ล้างคำค้น"
-            className="rounded-md p-1 text-on-surface-variant/60 transition-colors hover:text-on-surface hover:bg-surface-container focus-visible:ring-2 focus-visible:ring-burnished-gold/40 focus-visible:outline-none"
+            className="rounded-md p-1 text-text-secondary/60 transition-colors hover:text-text-heading hover:bg-bg-card focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:outline-none"
           >
             <span className="material-symbols-outlined text-[20px]">close</span>
           </button>
@@ -76,51 +76,51 @@ export function SearchClient({ items }: { items: SearchItem[] }) {
       {/* Results */}
       <div className="mt-8">
         {terms.length === 0 ? (
-          <p className="text-sm text-on-surface-variant/60">
+          <p className="text-sm text-text-secondary/60">
             พิมพ์คำค้น เช่น “เงา”, “Jung”, “ปรัชญา”, “IPA” — ค้นได้ทั้งแนวคิด บทความ ทรัพยากรภายนอก และหน้าต่าง ๆ
           </p>
         ) : matched.length === 0 ? (
-          <p className="text-sm text-on-surface-variant/60">ไม่พบผลลัพธ์สำหรับ “{query.trim()}”</p>
+          <p className="text-sm text-text-secondary/60">ไม่พบผลลัพธ์สำหรับ “{query.trim()}”</p>
         ) : (
           <>
-            <p className="mb-5 text-xs text-on-surface-variant/50">พบ {matched.length} รายการ</p>
+            <p className="mb-5 text-xs text-text-secondary/50">พบ {matched.length} รายการ</p>
             <div className="space-y-9">
               {groups.map((g) => (
                 <section key={g.type}>
-                  <h2 className="mb-3 text-xs font-semibold tracking-[0.05em] text-burnished-gold/70">
+                  <h2 className="mb-3 text-xs font-semibold tracking-[0.05em] text-accent/70">
                     {SEARCH_TYPE_LABEL[g.type]} · {g.items.length}
                   </h2>
-                  <ul className="divide-y divide-ink/5 overflow-hidden rounded-md border border-ink/10">
+                  <ul className="divide-y divide-ink/5 overflow-hidden rounded-md border border-text-heading/10">
                     {g.items.map((it) => {
                       const inner = (
                         <>
                           <div className="flex items-center gap-2">
-                            <span className="font-serif text-base text-on-surface group-hover:text-burnished-gold">
+                            <span className="font-serif text-base text-text-heading group-hover:text-accent">
                               {it.thaiTitle || it.title}
                             </span>
                             {it.thaiTitle && it.thaiTitle !== it.title ? (
-                              <span className="text-xs text-on-surface-variant/45">{it.title}</span>
+                              <span className="text-xs text-text-secondary/45">{it.title}</span>
                             ) : null}
                             {it.external ? (
-                              <span className="material-symbols-outlined text-[15px] text-on-surface-variant/55">
+                              <span className="material-symbols-outlined text-[15px] text-text-secondary/55">
                                 open_in_new
                               </span>
                             ) : null}
                           </div>
                           {it.description ? (
-                            <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-on-surface-variant/65">
+                            <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-text-secondary/65">
                               {it.description}
                             </p>
                           ) : null}
                           {it.badge ? (
-                            <span className="mt-2 inline-block text-[11px] text-on-surface-variant/45">
+                            <span className="mt-2 inline-block text-[11px] text-text-secondary/45">
                               {it.badge}
                             </span>
                           ) : null}
                         </>
                       );
                       const cls =
-                        "group block bg-surface-container/40 px-4 py-3 transition-colors hover:bg-surface-container";
+                        "group block bg-bg-card/40 px-4 py-3 transition-colors hover:bg-bg-card";
                       return (
                         <li key={it.id}>
                           {it.external ? (

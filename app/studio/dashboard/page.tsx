@@ -106,14 +106,14 @@ export default function StudioDashboardPage() {
   if (!writer) {
     return (
       <main className="mx-auto max-w-2xl px-6 py-20 text-center">
-        <span className="material-symbols-outlined text-[64px] text-muted">lock</span>
-        <h1 className="mt-4 font-serif text-2xl text-ivory">ต้องมีสิทธิ์นักเขียน</h1>
-        <p className="mt-2 text-sm text-on-surface-variant/70">
+        <span className="material-symbols-outlined text-[64px] text-text-secondary">lock</span>
+        <h1 className="mt-4 font-serif text-2xl text-text-heading">ต้องมีสิทธิ์นักเขียน</h1>
+        <p className="mt-2 text-sm text-text-secondary/70">
           ขอเป็นนักเขียนได้จากหน้าโปรไฟล์
         </p>
         <Link
           href="/studio/profile"
-          className="mt-6 inline-flex items-center gap-2 rounded-sm bg-gradient-to-br from-antique-gold to-burnished-gold px-6 py-2.5 text-sm font-semibold text-prima"
+          className="mt-6 inline-flex items-center gap-2 rounded-sm bg-gradient-to-br from-accent to-accent px-6 py-2.5 text-sm font-semibold text-text-inverse"
         >
           ไปที่โปรไฟล์
         </Link>
@@ -185,16 +185,16 @@ export default function StudioDashboardPage() {
         <header className="mb-8">
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-[11px] uppercase tracking-[0.2em] text-burnished-gold/70">
+              <span className="text-[11px] uppercase tracking-[0.2em] text-accent/70">
                 Studio · Dashboard
               </span>
-              <h1 className="mt-2 font-serif text-3xl text-ivory">
+              <h1 className="mt-2 font-serif text-3xl text-text-heading">
                 สตูดิโอของ{user?.firstName ?? "ฉัน"}
               </h1>
             </div>
             <Link
               href="/studio/editor"
-              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-antique-gold to-burnished-gold px-5 py-2.5 text-sm font-semibold text-prima shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-antique-gold/20"
+              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-accent to-accent px-5 py-2.5 text-sm font-semibold text-text-inverse shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/20"
             >
               <span className="material-symbols-outlined text-[18px]">edit_note</span>
               เขียนใหม่
@@ -212,9 +212,9 @@ export default function StudioDashboardPage() {
                 >
                   <span className="material-symbols-outlined text-[16px]">edit</span>
                 </span>
-                <span className="text-xs text-on-surface-variant/60">ฉบับร่าง</span>
+                <span className="text-xs text-text-secondary/60">ฉบับร่าง</span>
               </div>
-              <p className="mt-2 font-serif text-3xl text-ivory">{drafts.length}</p>
+              <p className="mt-2 font-serif text-3xl text-text-heading">{drafts.length}</p>
             </div>
 
             <div className="archron-card p-4" style={{ "--cosmology-accent": "#7FB08A" } as React.CSSProperties}>
@@ -224,9 +224,9 @@ export default function StudioDashboardPage() {
                 >
                   <span className="material-symbols-outlined text-[16px]">publish</span>
                 </span>
-                <span className="text-xs text-on-surface-variant/60">เผยแพร่แล้ว</span>
+                <span className="text-xs text-text-secondary/60">เผยแพร่แล้ว</span>
               </div>
-              <p className="mt-2 font-serif text-3xl text-ivory">{published.length}</p>
+              <p className="mt-2 font-serif text-3xl text-text-heading">{published.length}</p>
             </div>
 
             <div className="archron-card p-4" style={{ "--cosmology-accent": "#8A857D" } as React.CSSProperties}>
@@ -236,9 +236,9 @@ export default function StudioDashboardPage() {
                 >
                   <span className="material-symbols-outlined text-[16px]">archive</span>
                 </span>
-                <span className="text-xs text-on-surface-variant/60">เก็บถาวร</span>
+                <span className="text-xs text-text-secondary/60">เก็บถาวร</span>
               </div>
-              <p className="mt-2 font-serif text-3xl text-ivory">{archived.length}</p>
+              <p className="mt-2 font-serif text-3xl text-text-heading">{archived.length}</p>
             </div>
           </div>
         </section>
@@ -246,7 +246,7 @@ export default function StudioDashboardPage() {
         {/* Quick Drafts — ฉบับร่างล่าสุด */}
         {recentDrafts.length > 0 && (
           <section className="mb-8">
-            <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-on-surface-variant/50">
+            <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-text-secondary/50">
               ฉบับร่างล่าสุด
             </h2>
             <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
@@ -257,10 +257,10 @@ export default function StudioDashboardPage() {
                   className="archron-card archron-card--link group flex items-center justify-between p-4"
                 >
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-medium text-on-surface group-hover:text-soft-gold transition-colors">
+                    <p className="truncate text-sm font-medium text-text-heading group-hover:text-accent transition-colors">
                       {d.title || d.slug}
                     </p>
-                    <p className="mt-0.5 text-[11px] text-on-surface-variant/50">
+                    <p className="mt-0.5 text-[11px] text-text-secondary/50">
                       {new Date(d.updated_at).toLocaleDateString("th-TH")}
                     </p>
                   </div>
@@ -281,13 +281,13 @@ export default function StudioDashboardPage() {
 
         {/* Tabs: บทความของฉัน / บทความทั้งหมด */}
         <section>
-          <div className="mb-4 flex items-center gap-1 rounded-xl border border-slate-boundary/30 bg-surface-container-lowest/40 p-1">
+          <div className="mb-4 flex items-center gap-1 rounded-xl border border-border/30 bg-bg/40 p-1">
             <button
               onClick={() => setTab("my")}
               className={`flex-1 rounded-lg px-4 py-2 text-sm font-medium transition-all ${
                 tab === "my"
-                  ? "bg-antique-gold/15 text-antique-gold shadow-sm"
-                  : "text-on-surface-variant/60 hover:text-ivory"
+                  ? "bg-accent/15 text-accent shadow-sm"
+                  : "text-text-secondary/60 hover:text-text-heading"
               }`}
             >
               บทความของฉัน
@@ -298,8 +298,8 @@ export default function StudioDashboardPage() {
                 onClick={() => setTab("all")}
                 className={`flex-1 rounded-lg px-4 py-2 text-sm font-medium transition-all ${
                   tab === "all"
-                    ? "bg-antique-gold/15 text-antique-gold shadow-sm"
-                    : "text-on-surface-variant/60 hover:text-ivory"
+                    ? "bg-accent/15 text-accent shadow-sm"
+                    : "text-text-secondary/60 hover:text-text-heading"
                 }`}
               >
                 บทความทั้งหมด
@@ -314,7 +314,7 @@ export default function StudioDashboardPage() {
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="rounded-lg border border-slate-boundary/40 bg-surface-container-lowest/60 px-3 py-1.5 text-xs text-ivory outline-none focus:border-antique-gold/50"
+                className="rounded-lg border border-border/40 bg-bg/60 px-3 py-1.5 text-xs text-text-heading outline-none focus:border-accent/50"
               >
                 <option value="all">ทุกสถานะ</option>
                 <option value="draft">ฉบับร่าง</option>
@@ -325,14 +325,14 @@ export default function StudioDashboardPage() {
             <select
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value)}
-              className="rounded-lg border border-slate-boundary/40 bg-surface-container-lowest/60 px-3 py-1.5 text-xs text-ivory outline-none focus:border-antique-gold/50"
+              className="rounded-lg border border-border/40 bg-bg/60 px-3 py-1.5 text-xs text-text-heading outline-none focus:border-accent/50"
             >
               <option value="all">ทุกประเภท</option>
               {availableTypes.map((t) => (
                 <option key={t} value={t}>{typeLabel(t)}</option>
               ))}
             </select>
-            <span className="text-[11px] text-on-surface-variant/40">
+            <span className="text-[11px] text-text-secondary/40">
               แสดง {(tab === "my" ? myFilteredEntries : allFilteredEntries).length} รายการ
             </span>
           </div>
@@ -346,16 +346,16 @@ export default function StudioDashboardPage() {
             </div>
           ) : (tab === "my" ? myFilteredEntries : allFilteredEntries).length === 0 ? (
             <div className="archron-card p-12 text-center">
-              <span className="material-symbols-outlined text-[48px] text-muted">
+              <span className="material-symbols-outlined text-[48px] text-text-secondary">
                 {tab === "my" ? "note_add" : "search_off"}
               </span>
-              <p className="mt-3 text-sm text-on-surface-variant/60">
+              <p className="mt-3 text-sm text-text-secondary/60">
                 {tab === "my" ? "ยังไม่มีบทความ" : "ไม่พบรายการที่ตรงกับตัวกรอง"}
               </p>
               {tab === "my" && (
                 <Link
                   href="/studio/editor"
-                  className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-burnished-gold hover:underline"
+                  className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-accent hover:underline"
                 >
                   เริ่มเขียน
                   <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
@@ -380,10 +380,10 @@ export default function StudioDashboardPage() {
                     {typeLabel(e.content_type)}
                   </span>
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium text-on-surface group-hover:text-soft-gold transition-colors">
+                    <p className="truncate text-sm font-medium text-text-heading group-hover:text-accent transition-colors">
                       {e.title}
                     </p>
-                    <p className="mt-0.5 text-[11px] text-on-surface-variant/50">
+                    <p className="mt-0.5 text-[11px] text-text-secondary/50">
                       {e.published_at ? new Date(e.published_at).toLocaleDateString("th-TH", { day: "numeric", month: "short", year: "numeric" }) : "—"}
                       {tab === "all" && e.author_name ? ` · ${e.author_name}` : ""}
                     </p>
@@ -399,7 +399,7 @@ export default function StudioDashboardPage() {
                       {statusLabel(e.status)}
                     </span>
                   )}
-                  <span className="material-symbols-outlined text-[16px] text-muted group-hover:text-burnished-gold transition-colors">
+                  <span className="material-symbols-outlined text-[16px] text-text-secondary group-hover:text-accent transition-colors">
                     {tab === "all" ? "edit" : "open_in_new"}
                   </span>
                 </Link>

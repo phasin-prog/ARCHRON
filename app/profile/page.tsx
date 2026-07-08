@@ -119,7 +119,7 @@ export default async function ProfilePage() {
         <div className="archron-card flex flex-col items-center justify-between gap-4 p-7 sm:flex-row sm:gap-6">
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-center sm:gap-6">
             <div
-              className="flex h-20 w-20 flex-none items-center justify-center rounded-full border text-3xl font-serif text-soft-gold"
+              className="flex h-20 w-20 flex-none items-center justify-center rounded-full border text-3xl font-serif text-accent"
               style={{
                 borderColor: "color-mix(in srgb, var(--accent) 45%, transparent)",
                 backgroundColor: "color-mix(in srgb, var(--accent) 12%, transparent)",
@@ -129,10 +129,10 @@ export default async function ProfilePage() {
               {monogram(displayName)}
             </div>
             <div className="text-center sm:text-left">
-              <h2 className="font-serif text-2xl text-ivory">{displayName}</h2>
+              <h2 className="font-serif text-2xl text-text-heading">{displayName}</h2>
               <div className="mt-2 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
-                <span className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-semibold leading-[1.4] bg-burnished-gold/10 text-burnished-gold">{title}</span>
-                <span className="inline-flex items-center gap-1 rounded-full border border-burnished-gold/30 bg-burnished-gold/10 px-2.5 py-0.5 text-xs text-burnished-gold">
+                <span className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-semibold leading-[1.4] bg-accent/10 text-accent">{title}</span>
+                <span className="inline-flex items-center gap-1 rounded-full border border-accent/30 bg-accent/10 px-2.5 py-0.5 text-xs text-accent">
                   <span className="material-symbols-outlined text-[14px]">military_tech</span>
                   ระดับ {lp.level} · {lp.name}
                 </span>
@@ -142,7 +142,7 @@ export default async function ProfilePage() {
           <div className="mt-4 sm:mt-0">
             <Link
               href="/studio/profile"
-              className="inline-flex items-center gap-1.5 rounded-md border border-slate-boundary/30 bg-surface-container/30 px-4 py-2 text-xs text-soft-ivory hover:border-burnished-gold/45 hover:text-soft-gold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold"
+              className="inline-flex items-center gap-1.5 rounded-md border border-border/30 bg-bg-card/30 px-4 py-2 text-xs text-text-body hover:border-accent/45 hover:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
               <span className="material-symbols-outlined text-[16px]">edit</span>
               แก้ไขโปรไฟล์
@@ -184,27 +184,27 @@ function ReadingTab({
         <div className="flex items-end justify-between gap-4">
           <div className="flex items-center gap-4">
             {/* ไอคอน 3 มิติ "หอวงโคจร" — ระดับการอ่าน (sprite เฟส 0) */}
-            <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-slate-boundary/40 rounded-[0.9rem_0.3rem] bg-surface-container-low" aria-hidden="true">
+            <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-border/40 rounded-[0.9rem_0.3rem] bg-bg-card" aria-hidden="true">
               <svg className="icon-3d">
                 <use href="/icons/archron-icons.svg#level" />
               </svg>
             </span>
             <div>
-              <p className="text-xs uppercase tracking-[0.12em] text-muted">ระดับปัจจุบัน</p>
-              <p className="mt-1 font-serif text-2xl text-ivory">
+              <p className="text-xs uppercase tracking-[0.12em] text-text-secondary">ระดับปัจจุบัน</p>
+              <p className="mt-1 font-serif text-2xl text-text-heading">
                 {lp.level} · {lp.name}
               </p>
             </div>
           </div>
           <div className="text-right">
-            <p className="font-serif text-3xl text-soft-gold">{stats.completed}</p>
-            <p className="text-xs text-muted">ชิ้นความรู้ที่อ่านจบ</p>
+            <p className="font-serif text-3xl text-accent">{stats.completed}</p>
+            <p className="text-xs text-text-secondary">ชิ้นความรู้ที่อ่านจบ</p>
           </div>
         </div>
 
         {/* แถบความคืบหน้า */}
         <div className="mt-5">
-          <div className="h-2.5 w-full overflow-hidden rounded-full bg-surface-container">
+          <div className="h-2.5 w-full overflow-hidden rounded-full bg-bg-card">
             <div
               className="h-full rounded-full transition-[width] duration-700"
               style={{
@@ -214,7 +214,7 @@ function ReadingTab({
               }}
             />
           </div>
-          <p className="mt-2 text-xs text-muted">
+          <p className="mt-2 text-xs text-text-secondary">
             {lp.next
               ? `อ่านอีก ${lp.toNext} ชิ้นความรู้เพื่อเลื่อนสู่ระดับ ${lp.next.name}`
               : "ถึงระดับสูงสุดแล้ว — นักปราชญ์แห่งคลังความรู้"}
@@ -231,24 +231,24 @@ function ReadingTab({
                 key={lv.level}
                 className={`rounded-md border px-2 py-3 text-center flex flex-col items-center justify-center ${
                   isCurrent
-                    ? "border-burnished-gold/60 bg-burnished-gold/10"
+                    ? "border-accent/60 bg-accent/10"
                     : reached
-                      ? "border-slate-boundary/40 bg-surface-container"
-                      : "border-slate-boundary/20 opacity-55"
+                      ? "border-border/40 bg-bg-card"
+                      : "border-border/20 opacity-55"
                 }`}
               >
-                <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-slate-boundary/40 rounded-[0.9rem_0.3rem] bg-surface-container-low scale-75 mb-1.5" style={!reached ? { borderColor: "color-mix(in srgb, var(--color-slate-boundary) 60%, transparent)" } : undefined}>
-                  <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": reached ? "var(--cosmology-accent)" : "var(--color-muted)" } as React.CSSProperties}>
+                <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-border/40 rounded-[0.9rem_0.3rem] bg-bg-card scale-75 mb-1.5" style={!reached ? { borderColor: "color-mix(in srgb, var(--color-border) 60%, transparent)" } : undefined}>
+                  <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": reached ? "var(--color-accent)" : "var(--color-text-secondary)" } as React.CSSProperties}>
                     <use href="/icons/archron-icons.svg#level" />
                   </svg>
                 </span>
-                <p className={`text-xs ${reached ? "text-soft-gold font-semibold" : "text-muted"}`}>
+                <p className={`text-xs ${reached ? "text-accent font-semibold" : "text-text-secondary"}`}>
                   {lv.level}
                 </p>
-                <p className={`mt-0.5 text-xs leading-tight ${reached ? "text-ivory" : "text-muted"}`}>
+                <p className={`mt-0.5 text-xs leading-tight ${reached ? "text-text-heading" : "text-text-secondary"}`}>
                   {lv.name}
                 </p>
-                <p className="mt-0.5 text-xs text-muted">{lv.threshold}+</p>
+                <p className="mt-0.5 text-xs text-text-secondary">{lv.threshold}+</p>
               </li>
             );
           })}
@@ -257,16 +257,16 @@ function ReadingTab({
 
       {/* กริดเหรียญตรา */}
       <section>
-        <h3 className="flex items-center gap-3 font-serif text-fluid-h3 text-ivory">
+        <h3 className="flex items-center gap-3 font-serif text-fluid-h3 text-text-heading">
           {/* ไอคอน 3 มิติ "ดาวรัศมี" — เหรียญตรา (sprite เฟส 0) */}
-          <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-slate-boundary/40 rounded-[0.9rem_0.3rem] bg-surface-container-low" aria-hidden="true">
+          <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-border/40 rounded-[0.9rem_0.3rem] bg-bg-card" aria-hidden="true">
             <svg className="icon-3d">
               <use href="/icons/archron-icons.svg#achievement" />
             </svg>
           </span>
           เหรียญตรา
         </h3>
-        <p className="mt-1 text-sm text-muted">
+        <p className="mt-1 text-sm text-text-secondary">
           ปลดล็อก {unlockedKeys.size} จาก {ACHIEVEMENTS.length} เหรียญ
         </p>
         <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3">
@@ -279,13 +279,13 @@ function ReadingTab({
                   unlocked ? "" : "opacity-45"
                 }`}
               >
-                <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-slate-boundary/40 rounded-[0.9rem_0.3rem] bg-surface-container-low scale-110 mb-2" style={!unlocked ? { borderColor: "color-mix(in srgb, var(--color-slate-boundary) 60%, transparent)" } : undefined}>
-                  <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": unlocked ? "var(--cosmology-accent)" : "var(--color-muted)" } as React.CSSProperties}>
+                <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-border/40 rounded-[0.9rem_0.3rem] bg-bg-card scale-110 mb-2" style={!unlocked ? { borderColor: "color-mix(in srgb, var(--color-border) 60%, transparent)" } : undefined}>
+                  <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": unlocked ? "var(--color-accent)" : "var(--color-text-secondary)" } as React.CSSProperties}>
                     <use href="/icons/archron-icons.svg#achievement" />
                   </svg>
                 </span>
-                <p className="mt-3 text-sm font-medium text-ivory">{a.title}</p>
-                <p className="mt-1 text-xs leading-snug text-muted">{a.description}</p>
+                <p className="mt-3 text-sm font-medium text-text-heading">{a.title}</p>
+                <p className="mt-1 text-xs leading-snug text-text-secondary">{a.description}</p>
               </div>
             );
           })}
@@ -294,9 +294,9 @@ function ReadingTab({
 
       {/* ประวัติการอ่าน */}
       <section>
-        <h3 className="flex items-center gap-3 font-serif text-fluid-h3 text-ivory">
+        <h3 className="flex items-center gap-3 font-serif text-fluid-h3 text-text-heading">
           {/* ไอคอน 3 มิติ "ตั้งหนังสือ" — ประวัติการอ่าน (sprite เฟส 0) */}
-          <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-slate-boundary/40 rounded-[0.9rem_0.3rem] bg-surface-container-low" aria-hidden="true">
+          <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-border/40 rounded-[0.9rem_0.3rem] bg-bg-card" aria-hidden="true">
             <svg className="icon-3d">
               <use href="/icons/archron-icons.svg#reading-set" />
             </svg>
@@ -312,7 +312,7 @@ function ReadingTab({
             >
               <Link
                 href="/articles"
-                className="inline-flex items-center gap-1.5 text-sm text-soft-gold hover:underline"
+                className="inline-flex items-center gap-1.5 text-sm text-accent hover:underline"
               >
                 <span className="material-symbols-outlined text-[16px]">explore</span>
                 เริ่มสำรวจคลังความรู้
@@ -328,19 +328,19 @@ function ReadingTab({
                 <li key={h.slug}>
                   <Link
                     href={`/${sectionForType(h.content_type)}/${h.slug}`}
-                    className="archron-panel flex items-center justify-between gap-3 px-4 py-3 transition-colors hover:border-burnished-gold/40"
+                    className="archron-panel flex items-center justify-between gap-3 px-4 py-3 transition-colors hover:border-accent/40"
                   >
                     <div className="min-w-0">
-                      <p className="truncate text-sm text-ivory">{displayTitle}</p>
-                      <p className="mt-0.5 text-xs text-muted">
+                      <p className="truncate text-sm text-text-heading">{displayTitle}</p>
+                      <p className="mt-0.5 text-xs text-text-secondary">
                         {CONTENT_TYPE_LABEL[h.content_type] ?? h.content_type}
                       </p>
                     </div>
                     <span
                       className={`inline-flex flex-none items-center gap-1 rounded-full px-2.5 py-0.5 text-xs ${
                         done
-                          ? "border border-burnished-gold/30 bg-burnished-gold/10 text-soft-gold"
-                          : "border border-slate-boundary/40 text-muted"
+                          ? "border border-accent/30 bg-accent/10 text-accent"
+                          : "border border-border/40 text-text-secondary"
                       }`}
                     >
                       <span className="material-symbols-outlined text-[14px]">
@@ -355,7 +355,7 @@ function ReadingTab({
           </ul>
         )}
         {completedHistory.length > 0 ? (
-          <p className="mt-3 text-xs text-muted">
+          <p className="mt-3 text-xs text-text-secondary">
             อ่านจบแล้ว {completedHistory.length} รายการจากประวัติล่าสุด
           </p>
         ) : null}
@@ -375,7 +375,7 @@ function WorkTab({ entries }: { entries: ContentEntry[] }) {
       >
         <Link
           href="/studio/editor"
-          className="inline-flex items-center gap-1.5 text-sm text-soft-gold hover:underline"
+          className="inline-flex items-center gap-1.5 text-sm text-accent hover:underline"
         >
           <span className="material-symbols-outlined text-[16px]">edit_note</span>
           เข้าสู่ห้องเขียน
@@ -395,25 +395,25 @@ function WorkTab({ entries }: { entries: ContentEntry[] }) {
               className="archron-card flex h-full flex-col p-5"
             >
               <div className="flex items-center gap-2">
-                <span className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-semibold leading-[1.4] bg-burnished-gold/10 text-burnished-gold">{CONTENT_TYPE_LABEL[e.contentType] ?? e.contentType}</span>
+                <span className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-semibold leading-[1.4] bg-accent/10 text-accent">{CONTENT_TYPE_LABEL[e.contentType] ?? e.contentType}</span>
                 <span
                   className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs ${
                     published
                       ? "border border-success/40 bg-success/10 text-success"
-                      : "border border-slate-boundary/40 text-muted"
+                      : "border border-border/40 text-text-secondary"
                   }`}
                 >
                   {published ? "เผยแพร่แล้ว" : "ฉบับร่าง"}
                 </span>
               </div>
-              <p className="mt-3 font-serif text-lg text-ivory">{e.title}</p>
+              <p className="mt-3 font-serif text-lg text-text-heading">{e.title}</p>
               {e.shortDescription ? (
-                <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted">
+                <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-text-secondary">
                   {e.shortDescription}
                 </p>
               ) : null}
               {e.updatedAt ? (
-                <p className="mt-auto pt-3 text-xs text-muted">แก้ไขล่าสุด · {e.updatedAt}</p>
+                <p className="mt-auto pt-3 text-xs text-text-secondary">แก้ไขล่าสุด · {e.updatedAt}</p>
               ) : null}
             </Link>
           </li>

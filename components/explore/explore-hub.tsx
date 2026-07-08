@@ -68,7 +68,7 @@ export function ExploreHub({ entries }: { entries: ContentEntry[] }) {
   return (
     <div className="space-y-8">
       {/* ส่วนควบคุม Tabs และ ปุ่มสุ่ม */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-ink/10 pb-4">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-text-heading/10 pb-4">
         <div className="flex flex-wrap gap-2" role="tablist" aria-label="หมวดหมู่การสำรวจ">
           {[
             { id: "trending", label: "กระแสยอดนิยม", icon: "trending_up" },
@@ -88,8 +88,8 @@ export function ExploreHub({ entries }: { entries: ContentEntry[] }) {
                 }}
                 className={`inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-all ${
                   isActive
-                    ? "bg-burnished-gold/15 text-soft-gold border border-burnished-gold/45 shadow-sm"
-                    : "bg-surface-container/40 text-on-surface-variant hover:bg-surface-container hover:text-ivory border border-transparent"
+                    ? "bg-accent/15 text-accent border border-accent/45 shadow-sm"
+                    : "bg-bg-card/40 text-text-secondary hover:bg-bg-card hover:text-text-heading border border-transparent"
                 }`}
               >
                 <span className="material-symbols-outlined text-[18px]">{tab.icon}</span>
@@ -102,7 +102,7 @@ export function ExploreHub({ entries }: { entries: ContentEntry[] }) {
         {activeTab === "random" && (
           <button
             onClick={handleRandomize}
-            className="inline-flex items-center gap-2 rounded-lg border border-burnished-gold/30 bg-surface-container px-3.5 py-2 text-xs text-soft-gold hover:bg-burnished-gold/10 transition-colors self-start sm:self-auto"
+            className="inline-flex items-center gap-2 rounded-lg border border-accent/30 bg-bg-card px-3.5 py-2 text-xs text-accent hover:bg-accent/10 transition-colors self-start sm:self-auto"
           >
             <span className="material-symbols-outlined text-[16px]">refresh</span>
             <span>สุ่มความรู้อีกครั้ง</span>
@@ -111,7 +111,7 @@ export function ExploreHub({ entries }: { entries: ContentEntry[] }) {
       </div>
 
       {/* คำอธิบายประจำ Tab */}
-      <div className="text-xs text-muted">
+      <div className="text-xs text-text-secondary">
         {activeTab === "trending" && "รวบรวมมโนทัศน์และบทความที่ได้รับความสนใจสูงในคลังความรู้ ARCHRON"}
         {activeTab === "latest" && "ลำดับการเผยแพร่งานเขียนและแนวคิดใหม่ล่าสุดจากกองบรรณาธิการ"}
         {activeTab === "popular" && "คัดสรรองค์ความรู้แก่นลึกและทฤษฎีสำคัญที่เป็นรากฐานทางปัญญา"}
@@ -120,7 +120,7 @@ export function ExploreHub({ entries }: { entries: ContentEntry[] }) {
 
       {/* Grid การ์ดความรู้ */}
       {displayedEntries.length === 0 ? (
-        <div className="rounded-xl border border-ink/10 bg-surface-container/30 p-12 text-center text-sm text-muted">
+        <div className="rounded-xl border border-text-heading/10 bg-bg-card/30 p-12 text-center text-sm text-text-secondary">
           ยังไม่มีข้อมูลในหมวดหมู่นี้
         </div>
       ) : (
@@ -134,7 +134,7 @@ export function ExploreHub({ entries }: { entries: ContentEntry[] }) {
               <Link
                 key={e.slug}
                 href={href}
-                className="archron-card group relative flex flex-col justify-between p-6 transition-all duration-300 hover:-translate-y-1 hover:border-burnished-gold/50"
+                className="archron-card group relative flex flex-col justify-between p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/50"
               >
                 <span
                   aria-hidden
@@ -143,29 +143,29 @@ export function ExploreHub({ entries }: { entries: ContentEntry[] }) {
                 />
 
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between gap-2 text-[11px] font-medium tracking-wider text-muted">
+                  <div className="flex items-center justify-between gap-2 text-[11px] font-medium tracking-wider text-text-secondary">
                     <span className="uppercase" style={{ color: meta.accent }}>
                       {e.framework ?? e.contentType}
                     </span>
-                    <span className="rounded bg-surface-container/80 px-2 py-0.5 text-[10px] text-on-surface-variant">
+                    <span className="rounded bg-bg-card/80 px-2 py-0.5 text-[10px] text-text-secondary">
                       {e.contentType === "concept" ? "แนวคิด" : "บทความ"}
                     </span>
                   </div>
 
-                  <h3 className="font-serif text-lg leading-snug text-ivory transition-colors group-hover:text-soft-gold">
+                  <h3 className="font-serif text-lg leading-snug text-text-heading transition-colors group-hover:text-accent">
                     {e.title}
                   </h3>
 
                   {e.subtitle && (
-                    <p className="line-clamp-2 text-xs leading-relaxed text-muted">
+                    <p className="line-clamp-2 text-xs leading-relaxed text-text-secondary">
                       {e.subtitle}
                     </p>
                   )}
                 </div>
 
-                <div className="mt-6 flex items-center justify-between border-t border-ink/10 pt-3 text-xs text-muted">
+                <div className="mt-6 flex items-center justify-between border-t border-text-heading/10 pt-3 text-xs text-text-secondary">
                   <span>{e.mainThinkers?.[0] ?? "ARCHRON Library"}</span>
-                  <span className="inline-flex items-center gap-1 text-soft-gold opacity-80 group-hover:opacity-100 transition-opacity">
+                  <span className="inline-flex items-center gap-1 text-accent opacity-80 group-hover:opacity-100 transition-opacity">
                     อ่านต่อ
                     <ArrowRightIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                   </span>

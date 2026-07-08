@@ -31,10 +31,10 @@ export function FeedbackToast({
   if (!visible) return null;
 
   const ok = feedback?.type === "success";
-  const accent = ok ? "var(--color-success)" : "var(--color-danger)";
+  const accent = ok ? "var(--color-success)" : "var(--color-error)";
   const bg = ok
     ? "bg-gradient-to-r from-success/20 via-success/10 to-transparent"
-    : "bg-gradient-to-r from-danger/20 via-danger/10 to-transparent";
+    : "bg-gradient-to-r from-error/20 via-error/10 to-transparent";
   const icon = ok ? "check_circle" : "error";
 
   return (

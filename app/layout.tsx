@@ -17,8 +17,6 @@ import { Fab } from "@/components/fab";
 import { SkipToContent } from "@/components/skip-to-content";
 import { QuickOpen } from "@/components/quick-open";
 import { ConceptPopup } from "@/components/concept-popup";
-import { SymbolicBackground } from "@/components/symbolic-background";
-import { CosmologyProvider } from "@/components/cosmology-provider";
 import { ClerkProvider } from "@clerk/nextjs";
 
 
@@ -106,16 +104,14 @@ export default function RootLayout({
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
           />
-          <meta name="color-scheme" content="dark" />
+          <meta name="color-scheme" content="light" />
           <noscript>
             <style>{`.scroll-reveal{opacity:1!important;transform:none!important}`}</style>
           </noscript>
 
         </head>
-        <body className="min-h-screen bg-deep-navy pb-16 text-ivory antialiased md:pb-0">
+        <body className="min-h-screen bg-bg pb-16 text-text-body antialiased md:pb-0">
           <SkipToContent />
-          <SymbolicBackground />
-          <CosmologyProvider />
           <SiteHeader />
           {children}
           <SiteFooter />

@@ -131,7 +131,7 @@ export default function StudioProfilePage() {
   }
 
   const inputClass =
-    "w-full rounded-md border border-slate-boundary/50 bg-surface-container-low px-3 py-2 text-ivory outline-none transition-colors focus:border-burnished-gold/50";
+    "w-full rounded-md border border-border/50 bg-bg-card px-3 py-2 text-text-heading outline-none transition-colors focus:border-accent/50";
 
   const sectionLabel = (s: string) => {
     const map: Record<string, string> = {
@@ -145,24 +145,24 @@ export default function StudioProfilePage() {
   return (
     <main className="mx-auto max-w-4xl px-6 py-20">
       <header className="mb-10">
-        <span className="text-[11px] uppercase tracking-[0.2em] text-burnished-gold/70">
+        <span className="text-[11px] uppercase tracking-[0.2em] text-accent/70">
           Studio · โปรไฟล์
         </span>
-        <h1 className="mt-2 font-serif text-3xl text-ivory">โปรไฟล์ของฉัน</h1>
-        <p className="mt-2 text-sm text-on-surface-variant/70">
+        <h1 className="mt-2 font-serif text-3xl text-text-heading">โปรไฟล์ของฉัน</h1>
+        <p className="mt-2 text-sm text-text-secondary/70">
           ตั้งชื่อผู้ใช้ ชื่อที่แสดง และยศของคุณบน ARCHRON
         </p>
       </header>
 
       <div className="archron-panel mb-8 flex items-center justify-between p-4">
         <div className="flex items-center gap-3">
-          <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-slate-boundary/40 rounded-[0.9rem_0.3rem] bg-surface-container-low" style={{ borderColor: `color-mix(in srgb, ${roleMeta.accent} 26%, var(--color-slate-boundary))` }}>
+          <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-border/40 rounded-[0.9rem_0.3rem] bg-bg-card" style={{ borderColor: `color-mix(in srgb, ${roleMeta.accent} 26%, var(--color-border))` }}>
             <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": roleMeta.accent } as React.CSSProperties}>
               <use href="/icons/archron-icons.svg#achievement" />
             </svg>
           </span>
           <div>
-            <p className="text-xs text-on-surface-variant/60">บทบาท</p>
+            <p className="text-xs text-text-secondary/60">บทบาท</p>
             <p className="font-serif text-lg" style={{ color: roleMeta.accent }}>
               {ROLE_LABEL[role]}
             </p>
@@ -171,7 +171,7 @@ export default function StudioProfilePage() {
         {canWrite(role) ? (
           <Link
             href="/studio/dashboard"
-            className="inline-flex items-center gap-1.5 rounded-md border border-burnished-gold/30 bg-burnished-gold/10 px-4 py-2 text-xs font-semibold tracking-[0.05em] text-burnished-gold transition-colors hover:bg-burnished-gold hover:text-prima focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold"
+            className="inline-flex items-center gap-1.5 rounded-md border border-accent/30 bg-accent/10 px-4 py-2 text-xs font-semibold tracking-[0.05em] text-accent transition-colors hover:bg-accent hover:text-text-inverse focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
             <span className="material-symbols-outlined text-[16px]">dashboard</span>
             Dashboard
@@ -180,37 +180,37 @@ export default function StudioProfilePage() {
       </div>
 
       {message ? (
-        <p className="mb-6 text-sm text-soft-gold">{message}</p>
+        <p className="mb-6 text-sm text-accent">{message}</p>
       ) : null}
 
       <div className="grid gap-8 lg:grid-cols-[1fr_1fr]">
         {/* Profile Form */}
         <div className="space-y-5">
-          <h2 className="font-serif text-xl text-ivory">ข้อมูลส่วนตัว</h2>
+          <h2 className="font-serif text-xl text-text-heading">ข้อมูลส่วนตัว</h2>
           <div>
-            <label htmlFor="username-input" className="mb-1.5 block text-sm font-medium text-soft-ivory">ชื่อผู้ใช้ (Username)</label>
+            <label htmlFor="username-input" className="mb-1.5 block text-sm font-medium text-text-body">ชื่อผู้ใช้ (Username)</label>
             <input id="username-input" autoComplete="username" className={inputClass} value={username} onChange={(e) => setUsername(e.target.value)} placeholder="เช่น phasin" />
           </div>
           <div>
-            <label htmlFor="display-name-input" className="mb-1.5 block text-sm font-medium text-soft-ivory">ชื่อที่แสดง</label>
+            <label htmlFor="display-name-input" className="mb-1.5 block text-sm font-medium text-text-body">ชื่อที่แสดง</label>
             <input id="display-name-input" autoComplete="name" className={inputClass} value={displayName} onChange={(e) => setDisplayName(e.target.value)} placeholder="ชื่อที่ปรากฏบนงานเขียน" />
           </div>
           <div>
-            <label htmlFor="title-input" className="mb-1.5 block text-sm font-medium text-soft-ivory">ยศ / ตำแหน่ง</label>
+            <label htmlFor="title-input" className="mb-1.5 block text-sm font-medium text-text-body">ยศ / ตำแหน่ง</label>
             <input id="title-input" className={inputClass} value={title} onChange={(e) => setTitle(e.target.value)} placeholder="เช่น ผู้สนับสนุน, นักเขียนกิตติมศักดิ์" />
           </div>
-          <button onClick={handleSave} disabled={saving} className="inline-flex items-center gap-2 bg-gradient-to-br from-antique-gold to-burnished-gold rounded px-6 py-2.5 text-sm font-semibold text-prima transition-transform hover:-translate-y-0.5 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold">
+          <button onClick={handleSave} disabled={saving} className="inline-flex items-center gap-2 bg-gradient-to-br from-accent to-accent rounded px-6 py-2.5 text-sm font-semibold text-text-inverse transition-transform hover:-translate-y-0.5 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
             <span className="material-symbols-outlined text-[18px]">save</span>
             {saving ? "กำลังบันทึก..." : "บันทึกโปรไฟล์"}
           </button>
 
           {role === "user" ? (
             <div className="archron-panel mt-6 p-5">
-              <h2 className="font-serif text-lg text-ivory">อยากร่วมเป็นนักเขียน?</h2>
-              <p className="mt-2 text-sm leading-relaxed text-on-surface-variant/70">
+              <h2 className="font-serif text-lg text-text-heading">อยากร่วมเป็นนักเขียน?</h2>
+              <p className="mt-2 text-sm leading-relaxed text-text-secondary/70">
                 ผู้ใช้ทั่วไปอ่านได้ทุกอย่าง หากต้องการเขียนและเรียบเรียงเนื้อหา ส่งคำขอเป็นนักเขียนเพื่อให้แอดมินพิจารณา
               </p>
-              <button onClick={handleRequestWriter} disabled={writerRequested} className="mt-4 inline-flex items-center gap-2 rounded border border-burnished-gold/45 px-4 py-2 text-sm text-burnished-gold transition-colors hover:bg-burnished-gold/10 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold">
+              <button onClick={handleRequestWriter} disabled={writerRequested} className="mt-4 inline-flex items-center gap-2 rounded border border-accent/45 px-4 py-2 text-sm text-accent transition-colors hover:bg-accent/10 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
                 <span className="material-symbols-outlined text-[18px]">how_to_reg</span>
                 {writerRequested ? "ส่งคำขอแล้ว — รออนุมัติ" : "ขอเป็นนักเขียน"}
               </button>
@@ -222,15 +222,15 @@ export default function StudioProfilePage() {
         <div className="space-y-8">
           {/* Bookmarks */}
           <section>
-            <h2 className="mb-4 font-serif text-xl text-ivory">
-              <span className="material-symbols-outlined text-[20px] mr-1.5 text-burnished-gold align-middle">bookmark</span>
+            <h2 className="mb-4 font-serif text-xl text-text-heading">
+              <span className="material-symbols-outlined text-[20px] mr-1.5 text-accent align-middle">bookmark</span>
               รายการบันทึก
             </h2>
             {bookmarks.length === 0 ? (
               <div className="archron-panel p-6 text-center">
-                <span className="material-symbols-outlined text-[32px] text-muted">bookmark_border</span>
-                <p className="mt-2 text-sm text-on-surface-variant/60">ยังไม่มีรายการบันทึก</p>
-                <p className="mt-1 text-xs text-on-surface-variant/40">
+                <span className="material-symbols-outlined text-[32px] text-text-secondary">bookmark_border</span>
+                <p className="mt-2 text-sm text-text-secondary/60">ยังไม่มีรายการบันทึก</p>
+                <p className="mt-1 text-xs text-text-secondary/40">
                   บันทึกบทความหรือแนวคิดจากหน้าอ่าน
                 </p>
               </div>
@@ -239,22 +239,22 @@ export default function StudioProfilePage() {
                 {bookmarks.map((b) => (
                   <div
                     key={b.slug}
-                    className="archron-panel flex items-center justify-between p-3 transition-all hover:border-burnished-gold/45"
+                    className="archron-panel flex items-center justify-between p-3 transition-all hover:border-accent/45"
                   >
                     <Link
                       href={`/${b.section}/${b.slug}`}
                       className="min-w-0 flex-1"
                     >
-                      <p className="truncate text-sm font-medium text-on-surface hover:text-burnished-gold">
+                      <p className="truncate text-sm font-medium text-text-heading hover:text-accent">
                         {b.title}
                       </p>
-                      <p className="text-[10px] text-on-surface-variant/50">
+                      <p className="text-[10px] text-text-secondary/50">
                         {sectionLabel(b.section)}
                       </p>
                     </Link>
                     <button
                       onClick={() => handleRemoveBookmark(b.slug)}
-                      className="shrink-0 ml-2 p-1 text-muted hover:text-danger transition-colors"
+                      className="shrink-0 ml-2 p-1 text-text-secondary hover:text-error transition-colors"
                       aria-label="ลบรายการบันทึก"
                     >
                       <span className="material-symbols-outlined text-[16px]">close</span>
@@ -267,15 +267,15 @@ export default function StudioProfilePage() {
 
           {/* Reading History */}
           <section>
-            <h2 className="mb-4 font-serif text-xl text-ivory">
-              <span className="material-symbols-outlined text-[20px] mr-1.5 text-psyche align-middle">history</span>
+            <h2 className="mb-4 font-serif text-xl text-text-heading">
+              <span className="material-symbols-outlined text-[20px] mr-1.5 text-concept align-middle">history</span>
               ประวัติการอ่านล่าสุด
             </h2>
             {recentItems.length === 0 ? (
               <div className="archron-panel p-6 text-center">
-                <span className="material-symbols-outlined text-[32px] text-muted">schedule</span>
-                <p className="mt-2 text-sm text-on-surface-variant/60">ยังไม่มีประวัติการอ่าน</p>
-                <p className="mt-1 text-xs text-on-surface-variant/40">
+                <span className="material-symbols-outlined text-[32px] text-text-secondary">schedule</span>
+                <p className="mt-2 text-sm text-text-secondary/60">ยังไม่มีประวัติการอ่าน</p>
+                <p className="mt-1 text-xs text-text-secondary/40">
                   เริ่มอ่านบทความเพื่อบันทึกประวัติ
                 </p>
               </div>
@@ -285,17 +285,17 @@ export default function StudioProfilePage() {
                   <Link
                     key={`${item.slug}-${item.timestamp}`}
                     href={`/${item.section}/${item.slug}`}
-                    className="archron-panel block p-3 transition-all hover:border-burnished-gold/45"
+                    className="archron-panel block p-3 transition-all hover:border-accent/45"
                   >
-                    <p className="truncate text-sm font-medium text-on-surface hover:text-burnished-gold">
+                    <p className="truncate text-sm font-medium text-text-heading hover:text-accent">
                       {item.title}
                     </p>
                     <div className="flex items-center gap-2 mt-0.5">
-                      <span className="text-[10px] text-on-surface-variant/50">
+                      <span className="text-[10px] text-text-secondary/50">
                         {sectionLabel(item.section)}
                       </span>
-                      <span className="text-[10px] text-on-surface-variant/30">·</span>
-                      <span className="text-[10px] text-on-surface-variant/40">
+                      <span className="text-[10px] text-text-secondary/30">·</span>
+                      <span className="text-[10px] text-text-secondary/40">
                         {new Date(item.timestamp).toLocaleDateString("th-TH", {
                           day: "numeric",
                           month: "short",
@@ -311,7 +311,7 @@ export default function StudioProfilePage() {
       </div>
 
       <div className="mt-10">
-        <Link href="/studio" className="text-sm text-soft-gold hover:underline">← กลับห้องเขียน</Link>
+        <Link href="/studio" className="text-sm text-accent hover:underline">← กลับห้องเขียน</Link>
       </div>
     </main>
   );

@@ -17,7 +17,7 @@ export function ThresholdFootnote({
     <div className="my-4">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-2 font-sans text-xs font-bold uppercase tracking-widest text-[var(--color-burnished-gold)] transition-colors hover:text-[var(--color-ivory)]"
+        className="flex items-center gap-2 font-sans text-xs font-bold uppercase tracking-widest text-[var(--color-accent)] transition-colors hover:text-[var(--color-text-heading)]"
       >
         <span
           className="inline-block transition-transform duration-300"
@@ -36,7 +36,7 @@ export function ThresholdFootnote({
           opacity: open ? 1 : 0,
         }}
       >
-        <div className="mt-3 border-l-2 border-[var(--color-burnished-gold)] pl-4 pt-3">
+        <div className="mt-3 border-l-2 border-[var(--color-accent)] pl-4 pt-3">
           {children}
         </div>
       </div>

@@ -26,9 +26,9 @@ export default function FaqPage() {
       <section className="mx-auto max-w-3xl px-6">
         <Accordion items={items} />
 
-        <p className="mt-8 text-sm text-on-surface-variant/60">
+        <p className="mt-8 text-sm text-text-secondary/60">
           มีคำถามอื่นเพิ่มเติม?{" "}
-          <Link href="/support" className="text-burnished-gold hover:underline">
+          <Link href="/support" className="text-accent hover:underline">
             ติดต่อ / สนับสนุนโครงการ
           </Link>
         </p>

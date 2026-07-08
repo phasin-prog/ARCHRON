@@ -41,7 +41,7 @@ export function CompareMatrix({ entries }: { entries: ContentEntry[] }) {
   }, [entries, searchFilter]);
 
   const renderColumn = (item?: ContentEntry, sideLabel?: string, onSelect?: (slug: string) => void, currentSlug?: string) => {
-    if (!item) return <div className="p-8 text-center text-muted">กรุณาเลือกมโนทัศน์หรือบทความเพื่อเปรียบเทียบ</div>;
+    if (!item) return <div className="p-8 text-center text-text-secondary">กรุณาเลือกมโนทัศน์หรือบทความเพื่อเปรียบเทียบ</div>;
 
     const discKey = frameworkToDiscipline(item.framework);
     const meta = disciplineMeta(discKey);
@@ -56,14 +56,14 @@ export function CompareMatrix({ entries }: { entries: ContentEntry[] }) {
         />
 
         {/* ตัวเลือกเปลี่ยนหัวข้อ */}
-        <div className="border-b border-ink/10 pb-4">
-          <label className="block text-[11px] uppercase tracking-widest text-muted mb-2">
+        <div className="border-b border-text-heading/10 pb-4">
+          <label className="block text-[11px] uppercase tracking-widest text-text-secondary mb-2">
             {sideLabel}
           </label>
           <select
             value={currentSlug}
             onChange={(e) => onSelect?.(e.target.value)}
-            className="w-full rounded-md border border-ink/20 bg-surface-container px-3 py-2 text-sm text-ivory outline-none focus:border-burnished-gold"
+            className="w-full rounded-md border border-text-heading/20 bg-bg-card px-3 py-2 text-sm text-text-heading outline-none focus:border-accent"
           >
             {entries.map((e) => (
               <option key={e.slug} value={e.slug}>
@@ -78,49 +78,49 @@ export function CompareMatrix({ entries }: { entries: ContentEntry[] }) {
           <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: meta.accent }}>
             {item.framework ?? item.contentType}
           </span>
-          <h2 className="font-serif text-2xl text-ivory">{item.title}</h2>
-          {item.subtitle && <p className="text-sm text-muted">{item.subtitle}</p>}
+          <h2 className="font-serif text-2xl text-text-heading">{item.title}</h2>
+          {item.subtitle && <p className="text-sm text-text-secondary">{item.subtitle}</p>}
         </div>
 
         {/* ตารางเปรียบเทียบบริบท Context & Relationship */}
-        <dl className="grid grid-cols-1 gap-4 rounded-lg bg-surface-container/40 p-4 text-xs">
+        <dl className="grid grid-cols-1 gap-4 rounded-lg bg-bg-card/40 p-4 text-xs">
           <div>
-            <dt className="flex items-center gap-1.5 font-semibold text-muted">
+            <dt className="flex items-center gap-1.5 font-semibold text-text-secondary">
               <span style={{ color: meta.accent }}>
                 <PersonIcon className="h-4 w-4" />
               </span>
               นักคิดหลัก
             </dt>
-            <dd className="mt-1 text-ivory">{item.mainThinkers?.join(", ") || "ไม่ระบุเฉพาะเจาะจง"}</dd>
+            <dd className="mt-1 text-text-heading">{item.mainThinkers?.join(", ") || "ไม่ระบุเฉพาะเจาะจง"}</dd>
           </div>
 
           <div>
-            <dt className="flex items-center gap-1.5 font-semibold text-muted">
+            <dt className="flex items-center gap-1.5 font-semibold text-text-secondary">
               <span style={{ color: meta.accent }}>
                 <SchoolIcon className="h-4 w-4" />
               </span>
               สำนักคิด / กรอบแนวคิด
             </dt>
-            <dd className="mt-1 text-ivory">{item.school ?? item.framework ?? "ทั่วไป"}</dd>
+            <dd className="mt-1 text-text-heading">{item.school ?? item.framework ?? "ทั่วไป"}</dd>
           </div>
 
           <div>
-            <dt className="font-semibold text-muted">ระดับการอ่าน</dt>
-            <dd className="mt-1 uppercase text-soft-gold">{item.difficulty}</dd>
+            <dt className="font-semibold text-text-secondary">ระดับการอ่าน</dt>
+            <dd className="mt-1 uppercase text-accent">{item.difficulty}</dd>
           </div>
         </dl>
 
         {/* เนื้อหาข้อความสรุป */}
-        <div className="space-y-2 text-sm leading-relaxed text-soft-ivory">
-          <h3 className="text-xs font-semibold uppercase tracking-wider text-muted">ความหมายทางจิตวิทยา/ปรัชญา</h3>
+        <div className="space-y-2 text-sm leading-relaxed text-text-body">
+          <h3 className="text-xs font-semibold uppercase tracking-wider text-text-secondary">ความหมายทางจิตวิทยา/ปรัชญา</h3>
           <p className="line-clamp-6">{item.visualExplanation ?? item.technicalMeaning ?? "คลิกอ่านฉบับเต็มเพื่อดูรายละเอียดเชิงลึกของแนวคิดนี้"}</p>
         </div>
 
         {/* ปุ่มไปหน้าอ่านฉบับเต็ม */}
-        <div className="pt-4 border-t border-ink/10">
+        <div className="pt-4 border-t border-text-heading/10">
           <Link
             href={href}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-burnished-gold/40 bg-burnished-gold/10 px-4 py-2.5 text-sm font-semibold text-burnished-gold transition-colors hover:bg-burnished-gold/20"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-accent/40 bg-accent/10 px-4 py-2.5 text-sm font-semibold text-accent transition-colors hover:bg-accent/20"
           >
             อ่านฉบับเต็ม
             <ArrowRightIcon className="h-4 w-4" />
@@ -133,10 +133,10 @@ export function CompareMatrix({ entries }: { entries: ContentEntry[] }) {
   return (
     <div className="space-y-8">
       {/* ส่วนกรองคำค้นหาในเมนูเปรียบเทียบ */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl bg-surface-container/30 p-4 border border-ink/10">
-        <div className="text-sm text-ivory">
-          <span className="font-serif text-base text-soft-gold">ระบบตารางเปรียบเทียบข้ามศาสตร์</span>
-          <p className="text-xs text-muted mt-0.5">เลือกมโนทัศน์หรือบทความ 2 รายการเพื่อวิเคราะห์จุดร่วมและข้อแตกต่าง</p>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl bg-bg-card/30 p-4 border border-text-heading/10">
+        <div className="text-sm text-text-heading">
+          <span className="font-serif text-base text-accent">ระบบตารางเปรียบเทียบข้ามศาสตร์</span>
+          <p className="text-xs text-text-secondary mt-0.5">เลือกมโนทัศน์หรือบทความ 2 รายการเพื่อวิเคราะห์จุดร่วมและข้อแตกต่าง</p>
         </div>
       </div>
 

@@ -25,23 +25,23 @@ export function PageNav({ current }: { current: string }) {
 
   return (
     <nav className="mx-auto mt-20 max-w-6xl px-6" aria-label="นำทางระหว่างหน้า">
-      <div className="grid grid-cols-1 items-center gap-4 border-t border-ink/10 pt-8 text-sm sm:grid-cols-3">
+      <div className="grid grid-cols-1 items-center gap-4 border-t border-text-heading/10 pt-8 text-sm sm:grid-cols-3">
         <div>
           {prev ? (
-            <Link href={prev.href} className="inline-flex items-center gap-2 text-soft-ivory transition-colors hover:text-soft-gold">
+            <Link href={prev.href} className="inline-flex items-center gap-2 text-text-body transition-colors hover:text-accent">
               <ArrowRightIcon className="h-4 w-4 rotate-180" />
               {prev.label}
             </Link>
           ) : null}
         </div>
         <div className="text-center">
-          <Link href="/" className="text-muted transition-colors hover:text-soft-gold">
+          <Link href="/" className="text-text-secondary transition-colors hover:text-accent">
             กลับหน้าแรก
           </Link>
         </div>
         <div className="flex justify-end">
           {next ? (
-            <Link href={next.href} className="inline-flex items-center gap-2 text-soft-ivory transition-colors hover:text-soft-gold">
+            <Link href={next.href} className="inline-flex items-center gap-2 text-text-body transition-colors hover:text-accent">
               {next.label}
               <ArrowRightIcon className="h-4 w-4" />
             </Link>

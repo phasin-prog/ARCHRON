@@ -71,7 +71,7 @@ export function MediaManager({ onSelect, allowMultiple = false }: MediaManagerPr
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="inline-flex items-center gap-1.5 rounded-lg border border-slate-boundary bg-surface-container px-3 py-1.5 text-xs font-medium text-muted transition-colors hover:bg-surface-container-high hover:text-ivory"
+        className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-bg-card px-3 py-1.5 text-xs font-medium text-text-secondary transition-colors hover:bg-bg-elevated hover:text-text-heading"
       >
         <span className="material-symbols-outlined text-[16px]">perm_media</span>
         จัดการสื่อ
@@ -79,13 +79,13 @@ export function MediaManager({ onSelect, allowMultiple = false }: MediaManagerPr
 
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-          <div className="mx-4 flex max-h-[80vh] w-full max-w-3xl flex-col rounded-xl border border-slate-boundary bg-surface-container-low shadow-2xl">
+          <div className="mx-4 flex max-h-[80vh] w-full max-w-3xl flex-col rounded-xl border border-border bg-bg-card shadow-2xl">
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-slate-boundary p-4">
-              <h3 className="font-serif text-lg font-semibold text-ivory">จัดการสื่อ</h3>
+            <div className="flex items-center justify-between border-b border-border p-4">
+              <h3 className="font-serif text-lg font-semibold text-text-heading">จัดการสื่อ</h3>
               <button
                 onClick={() => setIsOpen(false)}
-                className="rounded-md p-1 text-muted transition-colors hover:bg-surface-container hover:text-ivory"
+                className="rounded-md p-1 text-text-secondary transition-colors hover:bg-bg-card hover:text-text-heading"
               >
                 <span className="material-symbols-outlined">close</span>
               </button>
@@ -95,27 +95,27 @@ export function MediaManager({ onSelect, allowMultiple = false }: MediaManagerPr
             <div
               onDrop={handleDrop}
               onDragOver={(e) => e.preventDefault()}
-              className="mx-4 mt-4 rounded-lg border-2 border-dashed border-slate-boundary p-6 text-center transition-colors hover:border-burnished-gold/50 hover:bg-burnished-gold/5"
+              className="mx-4 mt-4 rounded-lg border-2 border-dashed border-border p-6 text-center transition-colors hover:border-accent/50 hover:bg-accent/5"
             >
               {uploading ? (
                 <div className="flex flex-col items-center">
-                  <span className="material-symbols-outlined mb-2 animate-spin text-2xl text-burnished-gold">
+                  <span className="material-symbols-outlined mb-2 animate-spin text-2xl text-accent">
                     progress_activity
                   </span>
-                  <p className="text-sm text-muted">กำลังอัปโหลด...</p>
+                  <p className="text-sm text-text-secondary">กำลังอัปโหลด...</p>
                 </div>
               ) : (
                 <div className="flex flex-col items-center">
-                  <span className="material-symbols-outlined mb-2 text-3xl text-muted">
+                  <span className="material-symbols-outlined mb-2 text-3xl text-text-secondary">
                     cloud_upload
                   </span>
-                  <p className="text-sm text-ivory">ลากและวางไฟล์ที่นี่</p>
-                  <p className="mt-1 text-xs text-muted">หรือคลิกเพื่อเลือกไฟล์</p>
+                  <p className="text-sm text-text-heading">ลากและวางไฟล์ที่นี่</p>
+                  <p className="mt-1 text-xs text-text-secondary">หรือคลิกเพื่อเลือกไฟล์</p>
                   <input
                     type="file"
                     multiple
                     onChange={(e) => handleUpload(e.target.files)}
-                    className="mt-3 cursor-pointer text-xs text-muted file:mr-2 file:rounded-md file:border-0 file:bg-burnished-gold/20 file:px-3 file:py-1 file:text-xs file:font-medium file:text-burnished-gold hover:file:bg-burnished-gold/30"
+                    className="mt-3 cursor-pointer text-xs text-text-secondary file:mr-2 file:rounded-md file:border-0 file:bg-accent/20 file:px-3 file:py-1 file:text-xs file:font-medium file:text-accent hover:file:bg-accent/30"
                   />
                 </div>
               )}
@@ -129,8 +129,8 @@ export function MediaManager({ onSelect, allowMultiple = false }: MediaManagerPr
                   onClick={() => setFilter(f)}
                   className={`rounded-md px-3 py-1 text-xs font-medium transition-colors ${
                     filter === f
-                      ? "bg-burnished-gold/15 text-burnished-gold"
-                      : "text-muted hover:bg-surface-container hover:text-ivory"
+                      ? "bg-accent/15 text-accent"
+                      : "text-text-secondary hover:bg-bg-card hover:text-text-heading"
                   }`}
                 >
                   {f === "all"
@@ -150,10 +150,10 @@ export function MediaManager({ onSelect, allowMultiple = false }: MediaManagerPr
             <div className="mx-4 mt-4 flex-1 overflow-y-auto">
               {filteredItems.length === 0 ? (
                 <div className="py-12 text-center">
-                  <span className="material-symbols-outlined mb-2 text-4xl text-muted">
+                  <span className="material-symbols-outlined mb-2 text-4xl text-text-secondary">
                     folder_open
                   </span>
-                  <p className="text-sm text-muted">ยังไม่มีสื่อในคลัง</p>
+                  <p className="text-sm text-text-secondary">ยังไม่มีสื่อในคลัง</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-5">
@@ -161,7 +161,7 @@ export function MediaManager({ onSelect, allowMultiple = false }: MediaManagerPr
                     <button
                       key={item.id}
                       onClick={() => onSelect?.(item)}
-                      className="group relative aspect-square overflow-hidden rounded-lg border border-slate-boundary bg-surface-container transition-colors hover:border-burnished-gold/50"
+                      className="group relative aspect-square overflow-hidden rounded-lg border border-border bg-bg-card transition-colors hover:border-accent/50"
                     >
                       {item.type === "image" ? (
                         <Image
@@ -172,7 +172,7 @@ export function MediaManager({ onSelect, allowMultiple = false }: MediaManagerPr
                         />
                       ) : (
                         <div className="flex h-full flex-col items-center justify-center">
-                          <span className="material-symbols-outlined text-2xl text-muted">
+                          <span className="material-symbols-outlined text-2xl text-text-secondary">
                             {item.type === "video"
                               ? "videocam"
                               : item.type === "audio"
@@ -192,13 +192,13 @@ export function MediaManager({ onSelect, allowMultiple = false }: MediaManagerPr
             </div>
 
             {/* Footer */}
-            <div className="flex items-center justify-between border-t border-slate-boundary p-4">
-              <p className="text-xs text-muted">
+            <div className="flex items-center justify-between border-t border-border p-4">
+              <p className="text-xs text-text-secondary">
                 {mediaItems.length} ไฟล์ · {formatSize(mediaItems.reduce((acc, m) => acc + m.size, 0))}
               </p>
               <button
                 onClick={() => setIsOpen(false)}
-                className="rounded-lg bg-burnished-gold/20 px-4 py-2 text-xs font-medium text-burnished-gold transition-colors hover:bg-burnished-gold/30"
+                className="rounded-lg bg-accent/20 px-4 py-2 text-xs font-medium text-accent transition-colors hover:bg-accent/30"
               >
                 เสร็จสิ้น
               </button>

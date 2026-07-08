@@ -74,12 +74,12 @@ export function Fab() {
               : "translate(0px, 0px) scale(0.5)",
             transitionDelay: `${open ? i * 40 : 0}ms`,
           }}
-          className={`group absolute bottom-1.5 left-1.5 flex h-11 w-11 items-center justify-center rounded-full border border-burnished-gold/40 bg-surface-container/90 text-burnished-gold shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)] backdrop-blur transition-all duration-300 ease-out hover:bg-burnished-gold hover:text-deep-navy motion-reduce:transition-none ${
+          className={`group absolute bottom-1.5 left-1.5 flex h-11 w-11 items-center justify-center rounded-full border border-accent/40 bg-bg-card/90 text-accent shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)] backdrop-blur transition-all duration-300 ease-out hover:bg-accent hover:text-bg motion-reduce:transition-none ${
             open ? "opacity-100" : "pointer-events-none opacity-0"
           }`}
         >
           <span className="material-symbols-outlined text-[20px]">{a.icon}</span>
-          <span className="pointer-events-none absolute left-14 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-md border border-burnished-gold/15 bg-surface-container/95 px-2.5 py-1 text-xs text-on-surface opacity-0 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)] backdrop-blur transition-opacity duration-200 group-hover:opacity-100">
+          <span className="pointer-events-none absolute left-14 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-md border border-accent/15 bg-bg-card/95 px-2.5 py-1 text-xs text-text-heading opacity-0 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)] backdrop-blur transition-opacity duration-200 group-hover:opacity-100">
             {a.label}
           </span>
         </button>
@@ -91,7 +91,7 @@ export function Fab() {
         aria-expanded={open}
         aria-controls="fab-actions"
         onClick={() => setOpen((v) => !v)}
-        className="relative flex h-14 w-14 items-center justify-center rounded-full border border-burnished-gold/40 bg-gradient-to-br from-burnished-gold to-soft-gold text-prima shadow-[0_10px_30px_-8px_rgba(0,0,0,0.7)] transition-transform duration-300 hover:scale-105 motion-reduce:transition-none"
+        className="relative flex h-14 w-14 items-center justify-center rounded-full border border-accent/40 bg-gradient-to-br from-accent to-accent text-text-inverse shadow-[0_10px_30px_-8px_rgba(0,0,0,0.7)] transition-transform duration-300 hover:scale-105 motion-reduce:transition-none"
       >
         <span
           className={`material-symbols-outlined text-[26px] transition-transform duration-300 motion-reduce:transition-none ${

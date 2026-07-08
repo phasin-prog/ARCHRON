@@ -33,7 +33,7 @@ export function RelatedConceptPicker({
     .slice(0, 8);
 
   const inputClass =
-    "w-full rounded-md border border-ink/10 bg-charcoal/40 px-3 py-2 text-ivory outline-none focus:border-antique-gold/50 focus:ring-2 focus:ring-antique-gold/20 transition-colors";
+    "w-full rounded-md border border-text-heading/10 bg-text-heading/40 px-3 py-2 text-text-heading outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/20 transition-colors";
 
   function add() {
     if (slug.trim() === "") return;
@@ -47,17 +47,17 @@ export function RelatedConceptPicker({
   return (
     <div className="space-y-3">
       {value.map((r, i) => (
-        <div key={i} className="flex items-start justify-between gap-3 rounded-md border border-ink/10 bg-charcoal/40 p-3">
-          <div className="text-sm text-soft-ivory">
-            <span className="text-ivory">{r.conceptSlug}</span>
-            <span className="ml-2 text-xs text-antique-gold">{r.relationType}</span>
-            {r.reason ? <p className="mt-1 text-muted">{r.reason}</p> : null}
+        <div key={i} className="flex items-start justify-between gap-3 rounded-md border border-text-heading/10 bg-text-heading/40 p-3">
+          <div className="text-sm text-text-body">
+            <span className="text-text-heading">{r.conceptSlug}</span>
+            <span className="ml-2 text-xs text-accent">{r.relationType}</span>
+            {r.reason ? <p className="mt-1 text-text-secondary">{r.reason}</p> : null}
           </div>
-          <button type="button" onClick={() => onChange(value.filter((_, j) => j !== i))} className="text-xs text-danger" aria-label={`ลบความสัมพันธ์ ${r.conceptSlug}`}>ลบ</button>
+          <button type="button" onClick={() => onChange(value.filter((_, j) => j !== i))} className="text-xs text-error" aria-label={`ลบความสัมพันธ์ ${r.conceptSlug}`}>ลบ</button>
         </div>
       ))}
 
-      <div className="rounded-md border border-ink/10 bg-surface-1/40 p-3">
+      <div className="rounded-md border border-text-heading/10 bg-surface-1/40 p-3">
         <input
           value={slug ? slug : q}
           onChange={(e) => {
@@ -71,7 +71,7 @@ export function RelatedConceptPicker({
         {q !== "" && slug === "" ? (
           <ul className="mt-2 max-h-48 overflow-y-auto">
             {results.length === 0 ? (
-              <li className="px-2 py-2 text-sm text-muted">ไม่พบใน registry</li>
+              <li className="px-2 py-2 text-sm text-text-secondary">ไม่พบใน registry</li>
             ) : (
               results.map((c) => (
                 <li key={c.slug}>
@@ -81,11 +81,11 @@ export function RelatedConceptPicker({
                       setSlug(c.slug);
                       setQ(c.title);
                     }}
-                    className="block w-full rounded px-2 py-1.5 text-left text-sm text-soft-ivory hover:bg-ink/5"
+                    className="block w-full rounded px-2 py-1.5 text-left text-sm text-text-body hover:bg-text-heading/5"
                   >
                     {c.title}
-                    {c.thaiTitle ? <span className="text-muted"> · {c.thaiTitle}</span> : null}
-                    <span className="ml-2 text-xs text-antique-gold">{c.nodeType}</span>
+                    {c.thaiTitle ? <span className="text-text-secondary"> · {c.thaiTitle}</span> : null}
+                    <span className="ml-2 text-xs text-accent">{c.nodeType}</span>
                   </button>
                 </li>
               ))
@@ -99,7 +99,7 @@ export function RelatedConceptPicker({
               {RELATION_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
             </select>
             <input className={inputClass} value={reason} onChange={(e) => setReason(e.target.value)} placeholder="เหตุผลที่เชื่อมโยง (ห้ามเชื่อมเพราะชื่อคล้าย)" aria-label="เหตุผลที่เชื่อมโยง" />
-            <button type="button" onClick={add} className="rounded-md border border-ink/20 px-3 text-sm text-soft-ivory hover:border-antique-gold">เพิ่ม</button>
+            <button type="button" onClick={add} className="rounded-md border border-text-heading/20 px-3 text-sm text-text-body hover:border-accent">เพิ่ม</button>
           </div>
         ) : null}
       </div>

@@ -108,27 +108,27 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
     <main className="atmo-biography px-4 sm:px-6 pb-24 pt-10">
       <div className="mx-auto max-w-[800px]">
         {/* Breadcrumb */}
-        <nav aria-label="เส้นทางนำทาง" className="text-xs text-muted">
+        <nav aria-label="เส้นทางนำทาง" className="text-xs text-text-secondary">
           <ol className="flex flex-wrap items-center gap-1">
             <li className="inline-flex items-center gap-0.5">
-              <Link href="/" className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:outline-none">หน้าแรก</Link>
-              <span aria-hidden="true" className="material-symbols-outlined text-[16px] text-subtle">chevron_right</span>
+              <Link href="/" className="rounded px-2 py-1.5 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:outline-none">หน้าแรก</Link>
+              <span aria-hidden="true" className="material-symbols-outlined text-[16px] text-text-secondary">chevron_right</span>
             </li>
             <li className="inline-flex items-center gap-0.5">
-              <Link href="/schools" className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:outline-none">สำนักคิดและนักปราชญ์</Link>
-              <span aria-hidden="true" className="material-symbols-outlined text-[16px] text-subtle">chevron_right</span>
+              <Link href="/schools" className="rounded px-2 py-1.5 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:outline-none">สำนักคิดและนักปราชญ์</Link>
+              <span aria-hidden="true" className="material-symbols-outlined text-[16px] text-text-secondary">chevron_right</span>
             </li>
             <li className="inline-flex items-center gap-0.5">
-              <Link href={`/schools/${s.id}`} className="rounded px-2 py-1.5 transition-colors hover:text-soft-gold focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:outline-none">{s.nameTh}</Link>
-              <span aria-hidden="true" className="material-symbols-outlined text-[16px] text-subtle">chevron_right</span>
+              <Link href={`/schools/${s.id}`} className="rounded px-2 py-1.5 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:outline-none">{s.nameTh}</Link>
+              <span aria-hidden="true" className="material-symbols-outlined text-[16px] text-text-secondary">chevron_right</span>
             </li>
-            <li className="px-2 py-1.5 text-soft-ivory" aria-current="page">{t.nameTh}</li>
+            <li className="px-2 py-1.5 text-text-body" aria-current="page">{t.nameTh}</li>
           </ol>
         </nav>
 
         {/* Thinker Header */}
         <header
-          className="mt-8 rounded-md border border-slate-boundary/40 bg-surface-container/20 p-8 relative overflow-hidden"
+          className="mt-8 rounded-md border border-border/40 bg-bg-card/20 p-8 relative overflow-hidden"
           style={{ "--discipline-accent": meta.accent } as CSSProperties}
         >
           <div
@@ -138,22 +138,22 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
           />
 
           <div className="relative z-10">
-            <span className="text-xs font-semibold tracking-wider text-burnished-gold/80 block mb-1">
+            <span className="text-xs font-semibold tracking-wider text-accent/80 block mb-1">
               นักปราชญ์ / ผู้สร้างสรรค์แนวคิด
             </span>
-            <h1 className="font-serif text-3xl font-bold text-ivory md:text-4xl">
+            <h1 className="font-serif text-3xl font-bold text-text-heading md:text-4xl">
               {t.nameTh}
             </h1>
-            <p className="mt-1 text-sm text-on-surface-variant/60">
+            <p className="mt-1 text-sm text-text-secondary/60">
               {t.nameEn} · {t.era} · สังกัดสำนัก{" "}
-              <Link href={`/schools/${s.id}`} className="text-burnished-gold hover:underline transition-colors focus-visible:ring-1 focus-visible:ring-burnished-gold/60 focus-visible:outline-none rounded px-0.5">
+              <Link href={`/schools/${s.id}`} className="text-accent hover:underline transition-colors focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:outline-none rounded px-0.5">
                 {s.nameTh} ({s.nameEn})
               </Link>
             </p>
           </div>
 
           {t.quote && (
-            <blockquote className="mt-8 border-l border-burnished-gold/50 pl-5 font-serif text-lg italic leading-relaxed text-soft-gold">
+            <blockquote className="mt-8 border-l border-accent/50 pl-5 font-serif text-lg italic leading-relaxed text-accent">
               “{t.quote}”
             </blockquote>
           )}
@@ -161,7 +161,7 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
 
         {/* Bio Section */}
         <section className="mt-12">
-          <h2 className="font-serif text-2xl font-semibold text-ivory border-b border-slate-boundary/20 pb-3">
+          <h2 className="font-serif text-2xl font-semibold text-text-heading border-b border-border/20 pb-3">
             ประวัติและชีวิตเบื้องต้น
           </h2>
           {bioContent ? (
@@ -172,12 +172,12 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
                 </ReactMarkdown>
               </div>
             ) : (
-              <p className="mt-6 text-base leading-relaxed text-soft-ivory whitespace-pre-line">
+              <p className="mt-6 text-base leading-relaxed text-text-body whitespace-pre-line">
                 {bioContent}
               </p>
             )
           ) : (
-            <p className="mt-6 text-base leading-relaxed text-soft-ivory whitespace-pre-line">
+            <p className="mt-6 text-base leading-relaxed text-text-body whitespace-pre-line">
               — ไม่มีข้อมูลประวัติชีวิตเพิ่มเติมในขณะนี้ —
             </p>
           )}
@@ -186,10 +186,10 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
         {/* Relations Section */}
         {t.relationships && (
           <section className="mt-12">
-            <h2 className="font-serif text-2xl font-semibold text-ivory border-b border-slate-boundary/20 pb-3">
+            <h2 className="font-serif text-2xl font-semibold text-text-heading border-b border-border/20 pb-3">
               ความสัมพันธ์และอิทธิพลทางความคิด
             </h2>
-            <p className="mt-6 text-base leading-relaxed text-soft-ivory whitespace-pre-line">
+            <p className="mt-6 text-base leading-relaxed text-text-body whitespace-pre-line">
               {t.relationships}
             </p>
           </section>
@@ -197,14 +197,14 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
 
         {/* Masterpieces Section */}
         <section className="mt-12">
-          <h2 className="font-serif text-2xl font-semibold text-ivory border-b border-slate-boundary/20 pb-3">
+          <h2 className="font-serif text-2xl font-semibold text-text-heading border-b border-border/20 pb-3">
             ผลงานและเอกสารวิชาการสำคัญ
           </h2>
           <div className="archron-panel mt-6 p-6">
             <ul className="space-y-3">
               {t.masterpieces.map((m) => (
-                <li key={m} className="flex items-start gap-2.5 text-sm leading-relaxed text-soft-ivory">
-                  <span className="material-symbols-outlined text-[16px] text-burnished-gold mt-0.5">
+                <li key={m} className="flex items-start gap-2.5 text-sm leading-relaxed text-text-body">
+                  <span className="material-symbols-outlined text-[16px] text-accent mt-0.5">
                     menu_book
                   </span>
                   {m}
@@ -217,28 +217,28 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
         {/* Timeline Section */}
         {t.timeline && t.timeline.length > 0 && (
           <section className="mt-12">
-            <h2 className="font-serif text-2xl font-semibold text-ivory border-b border-slate-boundary/20 pb-3">
+            <h2 className="font-serif text-2xl font-semibold text-text-heading border-b border-border/20 pb-3">
               เส้นเวลาชีวิต
             </h2>
             <div className="mt-6 relative">
               {/* Vertical Line */}
-              <div className="absolute left-4 top-0 bottom-0 w-px bg-slate-boundary/30" />
+              <div className="absolute left-4 top-0 bottom-0 w-px bg-border/30" />
               
               <div className="space-y-6">
                 {t.timeline.map((event, idx) => (
                   <div key={idx} className="relative pl-10">
                     {/* Dot */}
-                    <div className="absolute left-2.5 top-1.5 h-3 w-3 rounded-full border-2 border-burnished-gold bg-deep-navy" />
+                    <div className="absolute left-2.5 top-1.5 h-3 w-3 rounded-full border-2 border-accent bg-bg" />
                     
                     <div className="archron-panel p-4">
-                      <span className="text-xs font-semibold text-burnished-gold/80">
+                      <span className="text-xs font-semibold text-accent/80">
                         {event.year}
                       </span>
-                      <h3 className="mt-1 font-serif text-base font-medium text-on-surface">
+                      <h3 className="mt-1 font-serif text-base font-medium text-text-heading">
                         {event.title}
                       </h3>
                       {event.description && (
-                        <p className="mt-2 text-sm text-on-surface-variant/70 leading-relaxed">
+                        <p className="mt-2 text-sm text-text-secondary/70 leading-relaxed">
                           {event.description}
                         </p>
                       )}
@@ -268,7 +268,7 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
           
           return (
             <section className="mt-12">
-              <h2 className="font-serif text-2xl font-semibold text-ivory border-b border-slate-boundary/20 pb-3">
+              <h2 className="font-serif text-2xl font-semibold text-text-heading border-b border-border/20 pb-3">
                 นักคิดที่เกี่ยวข้อง
               </h2>
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -278,15 +278,15 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
                     <Link
                       key={other.nameEn}
                       href={`/thinkers/${otherSlug}`}
-                      className="archron-card p-4 transition-all hover:border-burnished-gold/45"
+                      className="archron-card p-4 transition-all hover:border-accent/45"
                     >
-                      <h3 className="font-serif text-base font-medium text-on-surface hover:text-burnished-gold">
+                      <h3 className="font-serif text-base font-medium text-text-heading hover:text-accent">
                         {other.nameTh}
                       </h3>
-                      <p className="mt-0.5 text-xs text-on-surface-variant/55">
+                      <p className="mt-0.5 text-xs text-text-secondary/55">
                         {other.nameEn} · {other.era}
                       </p>
-                      <p className="mt-1 text-[10px] text-burnished-gold/70">
+                      <p className="mt-1 text-[10px] text-accent/70">
                         สังกัด {other.schoolNameTh}
                       </p>
                     </Link>
@@ -299,11 +299,11 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
 
         {/* Related Articles & Concepts */}
         <section className="mt-16">
-          <h2 className="font-serif text-2xl font-semibold text-ivory border-b border-slate-boundary/20 pb-3">
+          <h2 className="font-serif text-2xl font-semibold text-text-heading border-b border-border/20 pb-3">
             งานเขียนและแนวคิดที่เกี่ยวข้องในระบบ
           </h2>
           {relatedEntries.length === 0 ? (
-            <p className="mt-6 rounded-md border border-ink/10 bg-surface-container/20 p-8 text-center text-sm text-on-surface-variant/60">
+            <p className="mt-6 rounded-md border border-text-heading/10 bg-bg-card/20 p-8 text-center text-sm text-text-secondary/60">
               ยังไม่มีงานเขียนหรือคำอธิบายคำศัพท์วิชาการในคลังสำหรับ {t.nameTh}
             </p>
           ) : (
@@ -312,20 +312,20 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
                 <Link
                   key={e.slug}
                   href={e.contentType === "article" ? `/articles/${e.slug}` : `/concepts/${e.slug}`}
-                  className="flex items-center justify-between rounded-md border border-slate-boundary/30 bg-surface-container/20 p-5 transition-colors hover:bg-surface-container/50 hover:border-burnished-gold/25"
+                  className="flex items-center justify-between rounded-md border border-border/30 bg-bg-card/20 p-5 transition-colors hover:bg-bg-card/50 hover:border-accent/25"
                 >
                   <div>
-                    <span className="inline-flex rounded-full bg-burnished-gold/10 px-2 py-0.5 text-[10px] font-semibold text-burnished-gold mb-1">
+                    <span className="inline-flex rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-semibold text-accent mb-1">
                       {e.contentType === "article" ? "บทความ" : "คลังแนวคิด"}
                     </span>
-                    <h3 className="font-serif text-base text-on-surface hover:text-burnished-gold">
+                    <h3 className="font-serif text-base text-text-heading hover:text-accent">
                       {e.title}
                     </h3>
-                    <p className="mt-1 text-xs text-on-surface-variant/60 line-clamp-1">
+                    <p className="mt-1 text-xs text-text-secondary/60 line-clamp-1">
                       {e.shortDescription}
                     </p>
                   </div>
-                  <span className="material-symbols-outlined text-muted text-[20px]">
+                  <span className="material-symbols-outlined text-text-secondary text-[20px]">
                     chevron_right
                   </span>
                 </Link>

@@ -56,10 +56,10 @@ export function ReadingDock({ slug }: { slug: string }) {
           aria-label={a.label}
           className="group relative flex items-center justify-end"
         >
-          <span className="pointer-events-none absolute right-14 translate-x-2 whitespace-nowrap rounded-md border border-burnished-gold/15 bg-surface-container/95 px-3 py-1.5 text-sm text-on-surface opacity-0 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)] backdrop-blur transition duration-300 group-hover:translate-x-0 group-hover:opacity-100" aria-live="polite" aria-atomic="true">
+          <span className="pointer-events-none absolute right-14 translate-x-2 whitespace-nowrap rounded-md border border-accent/15 bg-bg-card/95 px-3 py-1.5 text-sm text-text-heading opacity-0 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)] backdrop-blur transition duration-300 group-hover:translate-x-0 group-hover:opacity-100" aria-live="polite" aria-atomic="true">
             {a.label}
           </span>
-          <span className="flex h-11 w-11 items-center justify-center rounded-full border border-burnished-gold/25 bg-surface-container/85 text-burnished-gold shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)] backdrop-blur transition-transform duration-300 group-hover:scale-110 group-hover:border-burnished-gold/50">
+          <span className="flex h-11 w-11 items-center justify-center rounded-full border border-accent/25 bg-bg-card/85 text-accent shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)] backdrop-blur transition-transform duration-300 group-hover:scale-110 group-hover:border-accent/50">
             <span className="material-symbols-outlined text-[20px]">{a.icon}</span>
           </span>
         </button>

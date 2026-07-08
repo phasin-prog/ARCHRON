@@ -28,7 +28,7 @@ export default function SchoolsLoading() {
         {/* Schools Cards Placeholder */}
         <div className="grid gap-6 md:grid-cols-2">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="rounded-md border border-slate-boundary/20 bg-surface-container/20 p-6 space-y-4">
+            <div key={i} className="rounded-md border border-border/20 bg-bg-card/20 p-6 space-y-4">
               <div className="flex justify-between items-start">
                 <div className="space-y-2">
                   <div className="h-6 w-40 animate-pulse rounded bg-surface-3" />
@@ -37,7 +37,7 @@ export default function SchoolsLoading() {
                 <div className="h-5 w-16 animate-pulse rounded-full bg-surface-3" />
               </div>
               <div className="h-16 w-full animate-pulse rounded bg-surface-3" />
-              <div className="border-t border-slate-boundary/20 pt-4 space-y-2">
+              <div className="border-t border-border/20 pt-4 space-y-2">
                 <div className="h-4 w-20 animate-pulse rounded bg-surface-3" />
                 <div className="flex gap-2">
                   <div className="h-8 w-8 animate-pulse rounded-full bg-surface-3" />

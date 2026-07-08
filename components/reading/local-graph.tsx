@@ -26,8 +26,8 @@ export function LocalGraph({ entry }: { entry: ContentEntry }) {
 
   return (
     <figure className="archron-panel mt-6 p-4">
-      <figcaption className="mb-2 flex items-center gap-1.5 text-xs text-on-surface-variant/60">
-        <span className="material-symbols-outlined text-[16px] text-burnished-gold/70">hub</span>
+      <figcaption className="mb-2 flex items-center gap-1.5 text-xs text-text-secondary/60">
+        <span className="material-symbols-outlined text-[16px] text-accent/70">hub</span>
         แผนที่ความสัมพันธ์เฉพาะหน้านี้
       </figcaption>
 
@@ -59,7 +59,7 @@ export function LocalGraph({ entry }: { entry: ContentEntry }) {
             key={p.slug}
             href={`/concepts/${p.slug}`}
             title={`${p.label}${p.relation ? ` · ${RELATION_LABEL[p.relation]}` : ""}`}
-            className="group absolute flex max-w-[40%] -translate-x-1/2 -translate-y-1/2 items-center gap-1.5 rounded-full border border-ink/10 bg-surface-container/90 px-3.5 py-2 text-xs text-on-surface-variant transition-colors hover:border-burnished-gold/50 hover:text-burnished-gold focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
+            className="group absolute flex max-w-[40%] -translate-x-1/2 -translate-y-1/2 items-center gap-1.5 rounded-full border border-text-heading/10 bg-bg-card/90 px-3.5 py-2 text-xs text-text-secondary transition-colors hover:border-accent/50 hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
             style={{ left: `${p.x}%`, top: `${p.y}%` }}
           >
             <span
@@ -73,7 +73,7 @@ export function LocalGraph({ entry }: { entry: ContentEntry }) {
 
         {/* โหนดเป้าหมาย (กลาง) */}
         <span
-          className="absolute left-1/2 top-1/2 flex max-w-[44%] -translate-x-1/2 -translate-y-1/2 items-center gap-1.5 rounded-full border border-burnished-gold/50 bg-burnished-gold/10 px-3 py-1.5 text-xs font-medium text-burnished-gold"
+          className="absolute left-1/2 top-1/2 flex max-w-[44%] -translate-x-1/2 -translate-y-1/2 items-center gap-1.5 rounded-full border border-accent/50 bg-accent/10 px-3 py-1.5 text-xs font-medium text-accent"
           title={`${center.label} · ${NODE_TYPE_LABEL[center.nodeType]}`}
         >
           <span className="truncate">{center.label}</span>
@@ -82,7 +82,7 @@ export function LocalGraph({ entry }: { entry: ContentEntry }) {
 
       <Link
         href={`/constellation?focus=${entry.slug}`}
-        className="mt-2 inline-flex items-center gap-1 text-xs text-soft-gold hover:underline"
+        className="mt-2 inline-flex items-center gap-1 text-xs text-accent hover:underline"
       >
         เปิดแผนที่ความสัมพันธ์เต็ม
         <span className="material-symbols-outlined text-[14px]">arrow_forward</span>

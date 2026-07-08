@@ -46,7 +46,7 @@ export function ArchronMark({ className = "h-5 w-5" }: IconProps) {
 }
 
 // ARCHRON Logomark — vesica: วงรอบ (อารยธรรม) + สองวงซ้อน (จุดตัดของศาสตร์) + จุดศูนย์กลาง (มนุษย์)
-// ใช้ currentColor คุมสีด้วย Tailwind text-* (ปกติ text-burnished-gold)
+// ใช้ currentColor คุมสีด้วย Tailwind text-* (ปกติ text-accent)
 export function ArchronLogomark({ className = "h-7 w-7" }: IconProps) {
   return (
     <svg
@@ -339,7 +339,7 @@ const RingSVG = (className: string, children: React.ReactNode) => (
   </svg>
 );
 
-// จิตวิทยา — ร่างนั่งสงบ/จิต (psyche) ในวงแหวน
+// จิตวิทยา — ร่างนั่งสงบ/จิต (concept) ในวงแหวน
 export function PsychologyIcon({ className = "h-5 w-5" }: IconProps) {
   return RingSVG(
     className,

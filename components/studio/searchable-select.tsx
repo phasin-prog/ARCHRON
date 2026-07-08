@@ -86,11 +86,11 @@ export function SearchableSelect({
         type="button"
         id={id}
         onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between rounded-md border border-ink/10 bg-charcoal/40 px-3 py-2 text-left text-ivory"
+        className="flex w-full items-center justify-between rounded-md border border-text-heading/10 bg-text-heading/40 px-3 py-2 text-left text-text-heading"
         aria-haspopup="listbox"
         aria-expanded={open}
       >
-        <span className={`flex items-center gap-2 ${displayLabel ? "text-ivory" : "text-subtle"}`}>
+        <span className={`flex items-center gap-2 ${displayLabel ? "text-text-heading" : "text-text-secondary"}`}>
           {displayLabel && meta ? (
             <span
               className="material-symbols-outlined text-[18px]"
@@ -101,16 +101,16 @@ export function SearchableSelect({
           ) : null}
           {displayLabel || placeholder}
         </span>
-        <span className="text-muted">▾</span>
+        <span className="text-text-secondary">▾</span>
       </button>
       {open ? (
-        <div className={`absolute z-[100] w-full rounded-md border border-ink/15 bg-surface-2 p-2 shadow-[0_12px_30px_-12px_rgba(0,0,0,0.8)] ${placement === "top" ? "bottom-full mb-1" : "mt-1"}`}>
+        <div className={`absolute z-[100] w-full rounded-md border border-text-heading/15 bg-surface-2 p-2 shadow-[0_12px_30px_-12px_rgba(0,0,0,0.8)] ${placement === "top" ? "bottom-full mb-1" : "mt-1"}`}>
           <input
             autoFocus
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder={allowCustom ? "ค้นหา หรือพิมพ์สร้างใหม่..." : "ค้นหา..."}
-            className="w-full rounded border border-ink/10 bg-charcoal/60 px-2 py-1.5 text-sm text-ivory outline-none focus:border-antique-gold/50 focus:ring-2 focus:ring-antique-gold/20 transition-colors"
+            className="w-full rounded border border-text-heading/10 bg-text-heading/60 px-2 py-1.5 text-sm text-text-heading outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/20 transition-colors"
             aria-label="ค้นหาตัวเลือก"
           />
           <ul className="mt-2 max-h-56 overflow-y-auto" role="listbox">
@@ -123,7 +123,7 @@ export function SearchableSelect({
                     setOpen(false);
                     setQ("");
                   }}
-                  className="flex w-full items-center gap-2 rounded px-2 py-2 text-left text-sm font-medium text-burnished-gold hover:bg-ink/5"
+                  className="flex w-full items-center gap-2 rounded px-2 py-2 text-left text-sm font-medium text-accent hover:bg-text-heading/5"
                 >
                   <span className="material-symbols-outlined text-[18px]">add</span>
                   เพิ่ม &quot;{trimmed}&quot;
@@ -131,7 +131,7 @@ export function SearchableSelect({
               </li>
             ) : null}
             {filtered.length === 0 && !showAdd ? (
-              <li className="px-2 py-2 text-sm text-muted">ไม่พบรายการ</li>
+              <li className="px-2 py-2 text-sm text-text-secondary">ไม่พบรายการ</li>
             ) : (
               filtered.map((o) => (
                 <li key={o.value} role="option" aria-selected={value === o.value}>
@@ -142,7 +142,7 @@ export function SearchableSelect({
                       setOpen(false);
                       setQ("");
                     }}
-                    className="flex w-full items-center gap-2 rounded px-2 py-2 text-left text-sm text-soft-ivory hover:bg-ink/5"
+                    className="flex w-full items-center gap-2 rounded px-2 py-2 text-left text-sm text-text-body hover:bg-text-heading/5"
                   >
                     {meta ? (
                       <span

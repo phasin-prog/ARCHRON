@@ -77,14 +77,14 @@ export default function StudioUsersPage() {
   if (isLoaded && role !== "admin") {
     return (
       <main className="mx-auto flex min-h-[70vh] max-w-lg flex-col items-center justify-center px-6 text-center">
-        <span className="flex h-14 w-14 items-center justify-center rounded-full border border-burnished-gold/30 text-burnished-gold">
+        <span className="flex h-14 w-14 items-center justify-center rounded-full border border-accent/30 text-accent">
           <span className="material-symbols-outlined text-[26px]">shield_person</span>
         </span>
-        <h1 className="mt-6 font-serif text-2xl text-on-surface">เฉพาะผู้ดูแล</h1>
-        <p className="mt-3 text-sm text-on-surface-variant/70">
+        <h1 className="mt-6 font-serif text-2xl text-text-heading">เฉพาะผู้ดูแล</h1>
+        <p className="mt-3 text-sm text-text-secondary/70">
           หน้านี้สำหรับแอดมินเท่านั้น
         </p>
-        <Link href="/studio" className="mt-6 text-sm text-soft-gold hover:underline">
+        <Link href="/studio" className="mt-6 text-sm text-accent hover:underline">
           ← กลับห้องเขียน
         </Link>
       </main>
@@ -94,24 +94,24 @@ export default function StudioUsersPage() {
   return (
     <main className="mx-auto max-w-4xl px-6 py-20">
       <header className="mb-10">
-        <span className="text-[11px] uppercase tracking-[0.2em] text-burnished-gold/70">
+        <span className="text-[11px] uppercase tracking-[0.2em] text-accent/70">
           Studio · ผู้ดูแล
         </span>
-        <h1 className="mt-2 font-serif text-3xl text-on-surface">จัดการผู้ใช้</h1>
-        <p className="mt-2 text-sm text-on-surface-variant/70">
+        <h1 className="mt-2 font-serif text-3xl text-text-heading">จัดการผู้ใช้</h1>
+        <p className="mt-2 text-sm text-text-secondary/70">
           กำหนดบทบาทผู้ใช้ และอนุมัติคำขอเป็นนักเขียน
         </p>
       </header>
 
-      {message ? <p className="mb-6 text-sm text-soft-gold">{message}</p> : null}
+      {message ? <p className="mb-6 text-sm text-accent">{message}</p> : null}
 
       {loading ? (
-        <p className="text-sm text-muted">กำลังโหลด...</p>
+        <p className="text-sm text-text-secondary">กำลังโหลด...</p>
       ) : (
-        <div className="overflow-hidden rounded-md border border-slate-boundary/50">
+        <div className="overflow-hidden rounded-md border border-border/50">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-slate-boundary/50 bg-surface-1/60 text-left text-on-surface-variant/70">
+              <tr className="border-b border-border/50 bg-surface-1/60 text-left text-text-secondary/70">
                 <th className="px-4 py-3 font-medium">ผู้ใช้</th>
                 <th className="px-4 py-3 font-medium">บทบาท</th>
                 <th className="px-4 py-3 font-medium">เปลี่ยนบทบาท</th>
@@ -123,16 +123,16 @@ export default function StudioUsersPage() {
                 const meta = ROLE_META[u.role];
                 const requested = p?.writer_request && u.role === "user";
                 return (
-                  <tr key={u.id} className="border-b border-slate-boundary/30 last:border-0">
+                  <tr key={u.id} className="border-b border-border/30 last:border-0">
                     <td className="px-4 py-3">
                       <div className="flex flex-col">
-                        <span className="text-ivory">
+                        <span className="text-text-heading">
                           {p?.username ? `@${p.username}` : u.name || "—"}
                           {p?.title ? (
-                            <span className="ml-2 text-xs text-burnished-gold/80">· {p.title}</span>
+                            <span className="ml-2 text-xs text-accent/80">· {p.title}</span>
                           ) : null}
                         </span>
-                        <span className="text-xs text-on-surface-variant/50">{u.email}</span>
+                        <span className="text-xs text-text-secondary/50">{u.email}</span>
                         {requested ? (
                           <span className="mt-1 inline-flex w-fit items-center gap-1 rounded-full bg-warning/15 px-2 py-0.5 text-[10px] text-warning">
                             <span className="material-symbols-outlined text-[12px]">how_to_reg</span>
@@ -154,7 +154,7 @@ export default function StudioUsersPage() {
                       <select
                         value={u.role}
                         onChange={(e) => changeRole(u.id, e.target.value as Role)}
-                        className="rounded-md border border-ink/15 bg-charcoal/50 px-2 py-1.5 text-sm text-ivory outline-none focus:border-antique-gold/50"
+                        className="rounded-md border border-text-heading/15 bg-text-heading/50 px-2 py-1.5 text-sm text-text-heading outline-none focus:border-accent/50"
                       >
                         {ROLES.map((r) => (
                           <option key={r} value={r}>
@@ -172,7 +172,7 @@ export default function StudioUsersPage() {
       )}
 
       <div className="mt-10">
-        <Link href="/studio" className="text-sm text-soft-gold hover:underline">
+        <Link href="/studio" className="text-sm text-accent hover:underline">
           ← กลับห้องเขียน
         </Link>
       </div>

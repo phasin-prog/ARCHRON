@@ -26,13 +26,13 @@ const CATEGORY_CONFIG: Record<
   DiscoverCategory,
   { label: string; icon: string; color: string }
 > = {
-  all: { label: "ทั้งหมด", icon: "apps", color: "var(--color-burnished-gold)" },
-  articles: { label: "บทความ", icon: "article", color: "var(--color-sapientia)" },
-  concepts: { label: "แนวคิด", icon: "psychology", color: "var(--color-psyche)" },
-  thinkers: { label: "นักคิด", icon: "person", color: "var(--color-mercurius)" },
-  schools: { label: "สำนักคิด", icon: "school", color: "var(--color-lumen)" },
-  books: { label: "หนังสือ", icon: "book", color: "var(--color-antique-gold)" },
-  timeline: { label: "เส้นเวลา", icon: "timeline", color: "var(--color-burnished-gold)" },
+  all: { label: "ทั้งหมด", icon: "apps", color: "var(--color-accent)" },
+  articles: { label: "บทความ", icon: "article", color: "var(--color-accent)" },
+  concepts: { label: "แนวคิด", icon: "psychology", color: "var(--color-concept)" },
+  thinkers: { label: "นักคิด", icon: "person", color: "var(--color-thinker)" },
+  schools: { label: "สำนักคิด", icon: "school", color: "var(--color-accent)" },
+  books: { label: "หนังสือ", icon: "book", color: "var(--color-accent)" },
+  timeline: { label: "เส้นเวลา", icon: "timeline", color: "var(--color-accent)" },
 };
 
 const DIFFICULTY_LABEL: Record<string, string> = {
@@ -44,9 +44,9 @@ const DIFFICULTY_LABEL: Record<string, string> = {
 
 const DIFFICULTY_COLOR: Record<string, string> = {
   beginner: "var(--color-success)",
-  intermediate: "var(--color-burnished-gold)",
-  advanced: "var(--color-danger)",
-  "source-note": "var(--color-muted)",
+  intermediate: "var(--color-accent)",
+  advanced: "var(--color-error)",
+  "source-note": "var(--color-text-secondary)",
 };
 
 export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) {
@@ -150,7 +150,7 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
       {/* Search Bar */}
       <div className="mb-8">
         <div className="relative">
-          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-muted">
+          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary">
             search
           </span>
           <input
@@ -158,7 +158,7 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
             placeholder="ค้นหาบทความ แนวคิด นักคิด สำนักคิด..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full rounded-lg border border-slate-boundary bg-surface-container-low py-3 pl-10 pr-4 text-sm text-ivory placeholder-muted transition-colors focus:border-burnished-gold focus:outline-none focus:ring-2 focus:ring-burnished-gold/20"
+            className="w-full rounded-lg border border-border bg-bg-card py-3 pl-10 pr-4 text-sm text-text-heading placeholder-muted transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
           />
         </div>
       </div>
@@ -173,8 +173,8 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
               onClick={() => setCategory(cat)}
               className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
                 category === cat
-                  ? "bg-burnished-gold/15 text-burnished-gold"
-                  : "text-muted hover:bg-surface-container hover:text-ivory"
+                  ? "bg-accent/15 text-accent"
+                  : "text-text-secondary hover:bg-bg-card hover:text-text-heading"
               }`}
             >
               <span className="material-symbols-outlined text-[18px]">
@@ -187,7 +187,7 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
       </div>
 
       {/* Results Count */}
-      <div className="mb-4 text-xs text-muted">
+      <div className="mb-4 text-xs text-text-secondary">
         {category === "all" && (
           <span>
             {filteredEntries.length + filteredSchools.length + filteredConcepts.length + filteredThinkers.length} รายการ
@@ -199,7 +199,7 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
         {category === "schools" && <span>{filteredSchools.length} สำนักคิด</span>}
         {category === "books" && <span>{filteredEntries.length} หนังสือ</span>}
         {category === "timeline" && (
-          <Link href="/timeline" className="text-burnished-gold hover:underline">
+          <Link href="/timeline" className="text-accent hover:underline">
             ไปที่เส้นเวลา →
           </Link>
         )}
@@ -210,7 +210,7 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
         filteredEntries.length > 0 && (
           <div className="mb-12">
             {category === "all" && (
-              <h3 className="mb-4 font-serif text-lg font-semibold text-ivory">
+              <h3 className="mb-4 font-serif text-lg font-semibold text-text-heading">
                 บทความล่าสุด
               </h3>
             )}
@@ -219,10 +219,10 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
                 <Link
                   key={entry.slug}
                   href={`/articles/${entry.slug}`}
-                  className="group rounded-lg border border-slate-boundary bg-surface-container p-4 transition-colors hover:border-burnished-gold/30 hover:bg-surface-container-high"
+                  className="group rounded-lg border border-border bg-bg-card p-4 transition-colors hover:border-accent/30 hover:bg-bg-elevated"
                 >
                   <div className="mb-2 flex items-center gap-2">
-                    <span className="text-xs text-muted">{entry.framework}</span>
+                    <span className="text-xs text-text-secondary">{entry.framework}</span>
                     {entry.difficulty && (
                       <span
                         className="rounded px-1.5 py-0.5 text-[10px] font-medium"
@@ -235,10 +235,10 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
                       </span>
                     )}
                   </div>
-                  <h4 className="mb-1 font-serif text-sm font-semibold text-ivory transition-colors group-hover:text-burnished-gold">
+                  <h4 className="mb-1 font-serif text-sm font-semibold text-text-heading transition-colors group-hover:text-accent">
                     {entry.title}
                   </h4>
-                  <p className="line-clamp-2 text-xs text-muted">
+                  <p className="line-clamp-2 text-xs text-text-secondary">
                     {entry.shortDescription || entry.subtitle}
                   </p>
                   {entry.tags && entry.tags.length > 0 && (
@@ -246,7 +246,7 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
                       {entry.tags.slice(0, 3).map((tag) => (
                         <span
                           key={tag}
-                          className="rounded bg-surface-container-high px-1.5 py-0.5 text-[10px] text-muted"
+                          className="rounded bg-bg-elevated px-1.5 py-0.5 text-[10px] text-text-secondary"
                         >
                           {tag}
                         </span>
@@ -264,7 +264,7 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
         filteredConcepts.length > 0 && (
           <div className="mb-12">
             {category === "all" && (
-              <h3 className="mb-4 font-serif text-lg font-semibold text-ivory">
+              <h3 className="mb-4 font-serif text-lg font-semibold text-text-heading">
                 คลังแนวคิด
               </h3>
             )}
@@ -273,7 +273,7 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
                 <Link
                   key={concept.slug}
                   href={`/concepts/${concept.slug}`}
-                  className="rounded-lg border border-slate-boundary bg-surface-container p-3 transition-colors hover:border-psyche/30 hover:bg-surface-container-high"
+                  className="rounded-lg border border-border bg-bg-card p-3 transition-colors hover:border-concept/30 hover:bg-bg-elevated"
                 >
                   <div className="mb-1 flex items-center gap-2">
                     <span
@@ -281,13 +281,13 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
                       style={{
                         backgroundColor:
                           concept.nodeType === "concept"
-                            ? "var(--color-psyche)"
+                            ? "var(--color-concept)"
                             : concept.nodeType === "person"
-                              ? "var(--color-mercurius)"
-                              : "var(--color-lumen)",
+                              ? "var(--color-thinker)"
+                              : "var(--color-accent)",
                       }}
                     />
-                    <span className="text-[10px] text-muted">
+                    <span className="text-[10px] text-text-secondary">
                       {concept.nodeType === "concept"
                         ? "แนวคิด"
                         : concept.nodeType === "person"
@@ -297,11 +297,11 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
                             : concept.nodeType}
                     </span>
                   </div>
-                  <h4 className="text-sm font-semibold text-ivory">
+                  <h4 className="text-sm font-semibold text-text-heading">
                     {concept.thaiTitle || concept.title}
                   </h4>
                   {concept.description && (
-                    <p className="mt-1 line-clamp-2 text-xs text-muted">
+                    <p className="mt-1 line-clamp-2 text-xs text-text-secondary">
                       {concept.description}
                     </p>
                   )}
@@ -316,7 +316,7 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
         filteredThinkers.length > 0 && (
           <div className="mb-12">
             {category === "all" && (
-              <h3 className="mb-4 font-serif text-lg font-semibold text-ivory">
+              <h3 className="mb-4 font-serif text-lg font-semibold text-text-heading">
                 นักปราชญ์
               </h3>
             )}
@@ -325,13 +325,13 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
                 <Link
                   key={thinker.nameEn}
                   href={`/thinkers/${thinker.nameEn.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="rounded-lg border border-slate-boundary bg-surface-container p-3 transition-colors hover:border-mercurius/30 hover:bg-surface-container-high"
+                  className="rounded-lg border border-border bg-bg-card p-3 transition-colors hover:border-thinker/30 hover:bg-bg-elevated"
                 >
-                  <h4 className="text-sm font-semibold text-ivory">
+                  <h4 className="text-sm font-semibold text-text-heading">
                     {thinker.nameTh}
                   </h4>
-                  <p className="text-xs text-muted">{thinker.nameEn}</p>
-                  <p className="mt-1 text-[10px] text-burnished-gold">
+                  <p className="text-xs text-text-secondary">{thinker.nameEn}</p>
+                  <p className="mt-1 text-[10px] text-accent">
                     {thinker.schoolNameTh}
                   </p>
                 </Link>
@@ -345,7 +345,7 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
         filteredSchools.length > 0 && (
           <div className="mb-12">
             {category === "all" && (
-              <h3 className="mb-4 font-serif text-lg font-semibold text-ivory">
+              <h3 className="mb-4 font-serif text-lg font-semibold text-text-heading">
                 สำนักคิด
               </h3>
             )}
@@ -354,14 +354,14 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
                 <Link
                   key={school.id}
                   href={`/schools/${school.id}`}
-                  className="rounded-lg border border-slate-boundary bg-surface-container p-4 transition-colors hover:border-lumen/30 hover:bg-surface-container-high"
+                  className="rounded-lg border border-border bg-bg-card p-4 transition-colors hover:border-accent/30 hover:bg-bg-elevated"
                 >
-                  <h4 className="font-serif text-sm font-semibold text-ivory">
+                  <h4 className="font-serif text-sm font-semibold text-text-heading">
                     {school.nameTh}
                   </h4>
-                  <p className="text-xs text-muted">{school.nameEn}</p>
-                  <p className="mt-1 text-[10px] text-burnished-gold">{school.field}</p>
-                  <p className="mt-2 line-clamp-2 text-xs text-muted">
+                  <p className="text-xs text-text-secondary">{school.nameEn}</p>
+                  <p className="mt-1 text-[10px] text-accent">{school.field}</p>
+                  <p className="mt-2 line-clamp-2 text-xs text-text-secondary">
                     {school.description}
                   </p>
                 </Link>
@@ -377,10 +377,10 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
         filteredSchools.length === 0 &&
         category !== "timeline" && (
           <div className="py-12 text-center">
-            <span className="material-symbols-outlined mb-4 text-4xl text-muted">
+            <span className="material-symbols-outlined mb-4 text-4xl text-text-secondary">
               search_off
             </span>
-            <p className="text-sm text-muted">
+            <p className="text-sm text-text-secondary">
               ไม่พบเนื้อหาที่ตรงกับคำค้นหา
             </p>
           </div>

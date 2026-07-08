@@ -1,5 +1,5 @@
 // Reusable skeleton components for loading states
-// ใช้ animate-pulse + bg-surface-3 (midnight tone) เคารพ prefers-reduced-motion
+// ใช้ animate-pulse + bg-surface-3 (bg tone) เคารพ prefers-reduced-motion
 
 type SkeletonCardProps = {
   className?: string;
@@ -9,7 +9,7 @@ type SkeletonCardProps = {
 export function SkeletonCard({ className = "" }: SkeletonCardProps) {
   return (
     <div
-      className={`rounded-md border border-slate-boundary/20 bg-surface-1/50 p-6 ${className}`}
+      className={`rounded-md border border-border/20 bg-surface-1/50 p-6 ${className}`}
       aria-hidden="true"
     >
       <div className="mb-3 h-3 w-16 animate-pulse rounded bg-surface-3" />

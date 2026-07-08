@@ -93,8 +93,8 @@ export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
   return (
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-[2fr_1fr_1fr_1fr]">
-        <div className="flex items-center gap-3 rounded-md border border-ink/12 bg-surface-container/60 px-4 py-2.5 focus-within:border-burnished-gold/45">
-          <span className="material-symbols-outlined text-[20px] text-burnished-gold">search</span>
+        <div className="flex items-center gap-3 rounded-md border border-text-heading/12 bg-bg-card/60 px-4 py-2.5 focus-within:border-accent/45">
+          <span className="material-symbols-outlined text-[20px] text-accent">search</span>
           <input
             value={query}
             onChange={(e) => {
@@ -103,10 +103,10 @@ export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
             }}
             placeholder="ค้นหาบทความ..."
             aria-label="ค้นหาบทความ"
-            className="w-full bg-transparent text-sm text-on-surface outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold/30 placeholder:text-on-surface-variant/50"
+            className="w-full bg-transparent text-sm text-text-heading outline-none focus-visible:ring-2 focus-visible:ring-accent/30 placeholder:text-text-secondary/50"
           />
           {query ? (
-            <button type="button" onClick={() => setQuery("")} className="text-on-surface-variant hover:text-soft-gold">
+            <button type="button" onClick={() => setQuery("")} className="text-text-secondary hover:text-accent">
               <span className="material-symbols-outlined text-[18px]">close</span>
             </button>
           ) : null}
@@ -119,7 +119,7 @@ export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
             setPage(1);
           }}
           aria-label="กรองตามศาสตร์วิชา"
-          className="rounded-md border border-ink/12 bg-surface-container/60 px-3 py-2.5 text-sm text-on-surface outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold/30 focus:border-burnished-gold/45"
+          className="rounded-md border border-text-heading/12 bg-bg-card/60 px-3 py-2.5 text-sm text-text-heading outline-none focus-visible:ring-2 focus-visible:ring-accent/30 focus:border-accent/45"
         >
           <option value="all">ศาสตร์วิชาทั้งหมด</option>
           {frameworks.map((f) => (
@@ -136,7 +136,7 @@ export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
             setPage(1);
           }}
           aria-label="กรองตามแท็ก"
-          className="rounded-md border border-ink/12 bg-surface-container/60 px-3 py-2.5 text-sm text-on-surface outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold/30 focus:border-burnished-gold/45"
+          className="rounded-md border border-text-heading/12 bg-bg-card/60 px-3 py-2.5 text-sm text-text-heading outline-none focus-visible:ring-2 focus-visible:ring-accent/30 focus:border-accent/45"
         >
           <option value="all">แท็กทั้งหมด</option>
           {tags.map((t) => (
@@ -150,14 +150,14 @@ export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value as any)}
           aria-label="จัดเรียงลำดับ"
-          className="rounded-md border border-ink/12 bg-surface-container/60 px-3 py-2.5 text-sm text-on-surface outline-none focus-visible:ring-2 focus-visible:ring-burnished-gold/30 focus:border-burnished-gold/45"
+          className="rounded-md border border-text-heading/12 bg-bg-card/60 px-3 py-2.5 text-sm text-text-heading outline-none focus-visible:ring-2 focus-visible:ring-accent/30 focus:border-accent/45"
         >
           <option value="latest">เรียงล่าสุด</option>
           <option value="title">เรียงตามชื่อเรื่อง (ก-ฮ)</option>
         </select>
       </div>
 
-      <div className="flex items-center justify-between text-xs text-on-surface-variant/60">
+      <div className="flex items-center justify-between text-xs text-text-secondary/60">
         <p>พบทั้งหมด {filtered.length} บทความ</p>
         {totalPages > 1 && (
           <p>
@@ -167,7 +167,7 @@ export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
       </div>
 
       {paginated.length === 0 ? (
-        <div className="rounded-md border border-ink/10 bg-surface-container/30 p-12 text-center text-on-surface-variant/60">
+        <div className="rounded-md border border-text-heading/10 bg-bg-card/30 p-12 text-center text-text-secondary/60">
           ไม่พบบทความที่ตรงกับการค้นหาหรือตัวกรองที่เลือก
         </div>
       ) : (
@@ -215,20 +215,20 @@ export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
 
                   <div className="relative z-[2] flex flex-1 flex-col px-7 pt-6 pb-6">
                     <h2
-                      className="font-serif text-[1.35rem] font-bold leading-snug text-ivory transition-colors duration-300 group-hover:text-soft-gold"
+                      className="font-serif text-[1.35rem] font-bold leading-snug text-text-heading transition-colors duration-300 group-hover:text-accent"
                     >
                       {e.title}
                     </h2>
 
                     {e.shortDescription ? (
-                      <p className="mt-3 text-sm leading-relaxed text-soft-ivory/60 line-clamp-2">
+                      <p className="mt-3 text-sm leading-relaxed text-text-body/60 line-clamp-2">
                         {e.shortDescription}
                       </p>
                     ) : null}
 
                     <div className="mt-auto pt-5">
-                      <div className="flex items-center justify-between border-t border-slate-boundary/12 pt-4">
-                        <span className="flex items-center gap-3 text-xs text-on-surface-variant/55">
+                      <div className="flex items-center justify-between border-t border-border/12 pt-4">
+                        <span className="flex items-center gap-3 text-xs text-text-secondary/55">
                           <span className="flex items-center gap-1">
                             <span className="material-symbols-outlined text-[14px]">schedule</span>
                             {readMin} นาที
@@ -266,19 +266,19 @@ export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
             type="button"
             disabled={page === 1}
             onClick={() => setPage((p) => Math.max(1, p - 1))}
-            className="flex items-center gap-1 rounded-md border border-slate-boundary/30 bg-surface-container/40 px-3 py-2 text-sm text-soft-ivory hover:border-burnished-gold/40 hover:text-soft-gold disabled:opacity-30 disabled:hover:border-slate-boundary/30 disabled:hover:text-soft-ivory"
+            className="flex items-center gap-1 rounded-md border border-border/30 bg-bg-card/40 px-3 py-2 text-sm text-text-body hover:border-accent/40 hover:text-accent disabled:opacity-30 disabled:hover:border-border/30 disabled:hover:text-text-body"
           >
             <span className="material-symbols-outlined text-[16px]">chevron_left</span>
             ก่อนหน้า
           </button>
-          <span className="text-sm text-on-surface-variant/60">
+          <span className="text-sm text-text-secondary/60">
             {page} / {totalPages}
           </span>
           <button
             type="button"
             disabled={page === totalPages}
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-            className="flex items-center gap-1 rounded-md border border-slate-boundary/30 bg-surface-container/40 px-3 py-2 text-sm text-soft-ivory hover:border-burnished-gold/40 hover:text-soft-gold disabled:opacity-30 disabled:hover:border-slate-boundary/30 disabled:hover:text-soft-ivory"
+            className="flex items-center gap-1 rounded-md border border-border/30 bg-bg-card/40 px-3 py-2 text-sm text-text-body hover:border-accent/40 hover:text-accent disabled:opacity-30 disabled:hover:border-border/30 disabled:hover:text-text-body"
           >
             ถัดไป
             <span className="material-symbols-outlined text-[16px]">chevron_right</span>

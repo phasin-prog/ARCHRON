@@ -7,7 +7,7 @@ export default function SchoolDetailLoading() {
           <div className="h-8 w-64 animate-pulse rounded bg-surface-3" />
           <div className="h-4 w-48 animate-pulse rounded bg-surface-3" />
         </div>
-        <div className="rounded-md border border-slate-boundary/40 bg-surface-container/20 p-8 space-y-4">
+        <div className="rounded-md border border-border/40 bg-bg-card/20 p-8 space-y-4">
           <div className="h-6 w-48 animate-pulse rounded bg-surface-3" />
           <div className="h-4 w-full animate-pulse rounded bg-surface-3" />
           <div className="h-4 w-3/4 animate-pulse rounded bg-surface-3" />

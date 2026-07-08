@@ -72,17 +72,17 @@ export function ConceptsBrowser({ concepts, publishedSlugs }: ConceptsBrowserPro
       {/* แท่งค้นหาและตัวกรอง */}
       <div className="grid gap-4 sm:grid-cols-[2fr_1fr]">
         {/* ค้นหา */}
-        <div className="flex items-center gap-3 rounded-lg border border-ink/12 bg-surface-container/60 px-4 py-2.5 focus-within:border-burnished-gold/40 focus-within:ring-1 focus-within:ring-burnished-gold/20 transition-colors">
-          <span className="material-symbols-outlined text-[20px] text-burnished-gold" aria-hidden="true">search</span>
+        <div className="flex items-center gap-3 rounded-lg border border-text-heading/12 bg-bg-card/60 px-4 py-2.5 focus-within:border-accent/40 focus-within:ring-1 focus-within:ring-accent/20 transition-colors">
+          <span className="material-symbols-outlined text-[20px] text-accent" aria-hidden="true">search</span>
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="ค้นหาชื่อแนวคิด คำแปล หรือคำอธิบายย่อ..."
             aria-label="ค้นหาแนวคิด"
-            className="w-full bg-transparent text-sm text-on-surface focus-visible:outline-none placeholder:text-on-surface-variant/50"
+            className="w-full bg-transparent text-sm text-text-heading focus-visible:outline-none placeholder:text-text-secondary/50"
           />
           {query ? (
-            <button type="button" onClick={() => setQuery("")} aria-label="ล้างคำค้น" className="rounded-md p-1 text-on-surface-variant hover:text-soft-gold hover:bg-surface-container focus-visible:ring-2 focus-visible:ring-burnished-gold/40 focus-visible:outline-none">
+            <button type="button" onClick={() => setQuery("")} aria-label="ล้างคำค้น" className="rounded-md p-1 text-text-secondary hover:text-accent hover:bg-bg-card focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:outline-none">
               <span className="material-symbols-outlined text-[18px]">close</span>
             </button>
           ) : null}
@@ -93,7 +93,7 @@ export function ConceptsBrowser({ concepts, publishedSlugs }: ConceptsBrowserPro
           value={selectedType}
           onChange={(e) => setSelectedType(e.target.value as any)}
           aria-label="กรองตามประเภท"
-          className="rounded-lg border border-ink/12 bg-surface-container/60 px-3 py-2.5 text-sm text-on-surface focus-visible:ring-2 focus-visible:ring-burnished-gold/30 focus-visible:outline-none focus:border-burnished-gold/45 transition-colors"
+          className="rounded-lg border border-text-heading/12 bg-bg-card/60 px-3 py-2.5 text-sm text-text-heading focus-visible:ring-2 focus-visible:ring-accent/30 focus-visible:outline-none focus:border-accent/45 transition-colors"
         >
           <option value="all">ประเภททั้งหมด</option>
           {(Object.keys(NODE_LABEL) as NodeType[]).map((t) => (
@@ -105,14 +105,14 @@ export function ConceptsBrowser({ concepts, publishedSlugs }: ConceptsBrowserPro
       </div>
 
       {/* สถิติตัวกรองปัจจุบัน */}
-      <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-on-surface-variant/60 border-b border-slate-boundary/10 pb-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-text-secondary/60 border-b border-border/10 pb-4">
         <p>
           แสดง {filtered.length} รายการ (มีเนื้อหาแล้ว {realConcepts.length} · โครงร่าง {stubConcepts.length})
         </p>
         <button
           type="button"
           onClick={() => setShowStubs((prev) => !prev)}
-          className="flex items-center gap-1.5 rounded border border-slate-boundary/30 bg-surface-container/40 px-2.5 py-1 transition-colors hover:border-burnished-gold/40 hover:text-soft-gold"
+          className="flex items-center gap-1.5 rounded border border-border/30 bg-bg-card/40 px-2.5 py-1 transition-colors hover:border-accent/40 hover:text-accent"
         >
           <span className="material-symbols-outlined text-[16px]">
             {showStubs ? "visibility_off" : "visibility"}
@@ -123,12 +123,12 @@ export function ConceptsBrowser({ concepts, publishedSlugs }: ConceptsBrowserPro
 
       {/* ส่วนที่ 1: รายการที่มีเนื้อหาแล้ว (เผยแพร่แล้ว) */}
       <div className="space-y-4">
-        <h2 className="font-serif text-lg font-semibold text-burnished-gold flex items-center gap-2">
+        <h2 className="font-serif text-lg font-semibold text-accent flex items-center gap-2">
           <span className="material-symbols-outlined text-[20px]">verified</span>
           ชิ้นความรู้ที่เรียบเรียงแล้ว ({realConcepts.length})
         </h2>
         {realConcepts.length === 0 ? (
-          <p className="rounded-md border border-ink/10 bg-surface-container/20 p-8 text-center text-sm text-on-surface-variant/50">
+          <p className="rounded-md border border-text-heading/10 bg-bg-card/20 p-8 text-center text-sm text-text-secondary/50">
             ยังไม่มีชิ้นความรู้ในกลุ่มนี้ที่ได้รับการเผยแพร่ (ค้นหาในกลุ่มโครงร่างเพิ่มเติมด้านล่าง)
           </p>
         ) : (
@@ -142,8 +142,8 @@ export function ConceptsBrowser({ concepts, publishedSlugs }: ConceptsBrowserPro
 
       {/* ส่วนที่ 2: โครงร่างรอเขียน (Stubs) */}
       {showStubs && stubConcepts.length > 0 && (
-        <div className="mt-12 space-y-4 border-t border-slate-boundary/20 pt-8">
-          <h2 className="font-serif text-lg font-semibold text-muted flex items-center gap-2">
+        <div className="mt-12 space-y-4 border-t border-border/20 pt-8">
+          <h2 className="font-serif text-lg font-semibold text-text-secondary flex items-center gap-2">
             <span className="material-symbols-outlined text-[20px]">hourglass_empty</span>
             โครงร่างและบันทึกความรู้ย่อ ({stubConcepts.length})
           </h2>

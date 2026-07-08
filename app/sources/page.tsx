@@ -18,9 +18,9 @@ const METHOD = [
 function SectionLabel({ num, children }: { num: string; children: React.ReactNode }) {
   return (
     <div className="mb-6 mt-12 flex items-center gap-3.5">
-      <span className="text-xs tabular-nums tracking-[0.15em] text-burnished-gold/70">{num}</span>
-      <span className="whitespace-nowrap font-serif text-[15px] font-semibold text-ivory">{children}</span>
-      <span className="h-px flex-1 bg-gradient-to-r from-slate-boundary/40 to-transparent" />
+      <span className="text-xs tabular-nums tracking-[0.15em] text-accent/70">{num}</span>
+      <span className="whitespace-nowrap font-serif text-[15px] font-semibold text-text-heading">{children}</span>
+      <span className="h-px flex-1 bg-gradient-to-r from-border/40 to-transparent" />
     </div>
   );
 }
@@ -76,21 +76,21 @@ export default function SourcesPage() {
                 <div>
                   <div className="flex items-center justify-between">
                     <span
-                      className="inline-flex items-center justify-center w-11 h-11 flex-none border border-slate-boundary/40 rounded-[0.9rem_0.3rem] bg-surface-container-low scale-90"
-                      style={{ borderColor: `color-mix(in srgb, ${t.accent} 26%, var(--color-slate-boundary))` }}
+                      className="inline-flex items-center justify-center w-11 h-11 flex-none border border-border/40 rounded-[0.9rem_0.3rem] bg-bg-card scale-90"
+                      style={{ borderColor: `color-mix(in srgb, ${t.accent} 26%, var(--color-border))` }}
                     >
                       <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": t.accent } as React.CSSProperties}>
                         <use href={`/icons/archron-icons.svg#${t.icon}`} />
                       </svg>
                     </span>
-                    <span className="text-xs tabular-nums tracking-[0.1em] text-on-surface-variant/40 font-mono">
+                    <span className="text-xs tabular-nums tracking-[0.1em] text-text-secondary/40 font-mono">
                       Tier {t.num}
                     </span>
                   </div>
                   <h3 className="mt-4 font-serif text-base font-semibold" style={{ color: t.accent }}>
                     {t.title}
                   </h3>
-                  <p className="mt-3 text-xs leading-relaxed text-soft-ivory">{t.desc}</p>
+                  <p className="mt-3 text-xs leading-relaxed text-text-body">{t.desc}</p>
                 </div>
               </article>
             ))}
@@ -108,9 +108,9 @@ export default function SourcesPage() {
           <SectionLabel num="03">หลักการจัดการความรู้ของเรา</SectionLabel>
           <div className="grid gap-6 md:grid-cols-3">
             {METHOD.map((m) => (
-              <div key={m.title} className="border-l-2 border-burnished-gold/30 pl-4 space-y-1">
-                <h4 className="font-serif text-[15px] font-semibold text-ivory">{m.title}</h4>
-                <p className="text-xs leading-relaxed text-soft-ivory">{m.desc}</p>
+              <div key={m.title} className="border-l-2 border-accent/30 pl-4 space-y-1">
+                <h4 className="font-serif text-[15px] font-semibold text-text-heading">{m.title}</h4>
+                <p className="text-xs leading-relaxed text-text-body">{m.desc}</p>
               </div>
             ))}
           </div>

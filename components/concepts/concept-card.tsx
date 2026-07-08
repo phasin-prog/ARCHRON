@@ -38,7 +38,7 @@ export function ConceptCard({ c, hasRealContent = false }: { c: ConceptRegistryI
   const router = useRouter();
   const [copied, setCopied] = useState(false);
   const Icon = NODE_ICON[c.nodeType];
-  const accent = NODE_TYPE_COLOR[c.nodeType] ?? "var(--color-antique-gold)";
+  const accent = NODE_TYPE_COLOR[c.nodeType] ?? "var(--color-accent)";
   const href = `/concepts/${c.slug}`;
 
   const items: ContextMenuItem[] = [
@@ -68,10 +68,10 @@ export function ConceptCard({ c, hasRealContent = false }: { c: ConceptRegistryI
     <ContextMenu items={items} className="relative">
       <Link
         href={href}
-        className={`group relative flex min-h-[240px] flex-col overflow-hidden rounded-lg border p-6 transition-all duration-300 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none ${
+        className={`group relative flex min-h-[240px] flex-col overflow-hidden rounded-lg border p-6 transition-all duration-300 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none ${
           hasRealContent
-            ? "border-[color-mix(in_srgb,var(--color-slate-boundary)_35%,transparent)] bg-[linear-gradient(175deg,var(--color-surface-container-low)_0%,var(--color-surface-container)_100%)]"
-            : "border-dashed border-slate-boundary/30 bg-surface-container-low/30 opacity-70 hover:opacity-90 hover:border-slate-boundary/50"
+            ? "border-[color-mix(in_srgb,var(--color-border)_35%,transparent)] bg-[linear-gradient(175deg,var(--color-bg-card)_0%,var(--color-bg-card)_100%)]"
+            : "border-dashed border-border/30 bg-bg-card/30 opacity-70 hover:opacity-90 hover:border-border/50"
         }`}
         style={{
           boxShadow: hasRealContent
@@ -104,7 +104,7 @@ export function ConceptCard({ c, hasRealContent = false }: { c: ConceptRegistryI
         </span>
 
         {!hasRealContent && (
-          <span className="absolute left-4 top-4 rounded-full border border-dashed border-slate-boundary/30 bg-surface-container-low/60 px-2.5 py-0.5 text-[9px] font-medium text-on-surface-variant/45">
+          <span className="absolute left-4 top-4 rounded-full border border-dashed border-border/30 bg-bg-card/60 px-2.5 py-0.5 text-[9px] font-medium text-text-secondary/45">
             โครงร่าง
           </span>
         )}
@@ -115,14 +115,14 @@ export function ConceptCard({ c, hasRealContent = false }: { c: ConceptRegistryI
             style={{
               width: "3.5rem",
               height: "3.5rem",
-              borderColor: `color-mix(in srgb, ${accent} ${hasRealContent ? "20%" : "12%"}, var(--color-slate-boundary))`,
+              borderColor: `color-mix(in srgb, ${accent} ${hasRealContent ? "20%" : "12%"}, var(--color-border))`,
               background: hasRealContent
-                ? `linear-gradient(165deg, color-mix(in srgb, ${accent} 10%, var(--color-surface-container-low)) 0%, color-mix(in srgb, ${accent} 3%, var(--color-surface-container)) 100%)`
-                : "var(--color-surface-container-low)",
+                ? `linear-gradient(165deg, color-mix(in srgb, ${accent} 10%, var(--color-bg-card)) 0%, color-mix(in srgb, ${accent} 3%, var(--color-bg-card)) 100%)`
+                : "var(--color-bg-card)",
               boxShadow: hasRealContent
                 ? `inset 0 1px 2px color-mix(in srgb, ${accent} 8%, transparent), 0 2px 8px rgba(0,0,0,0.2)`
                 : "inset 0 1px 1px rgba(0,0,0,0.1)",
-              color: hasRealContent ? accent : `color-mix(in srgb, ${accent} 40%, var(--color-on-surface-variant))`,
+              color: hasRealContent ? accent : `color-mix(in srgb, ${accent} 40%, var(--color-text-secondary))`,
             } as React.CSSProperties}
           >
             {Icon ? (
@@ -135,7 +135,7 @@ export function ConceptCard({ c, hasRealContent = false }: { c: ConceptRegistryI
           <span
             className="mb-1 inline-block rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider transition-colors duration-300"
             style={{
-              color: hasRealContent ? accent : `color-mix(in srgb, ${accent} 50%, var(--color-on-surface-variant))`,
+              color: hasRealContent ? accent : `color-mix(in srgb, ${accent} 50%, var(--color-text-secondary))`,
               backgroundColor: `color-mix(in srgb, ${accent} ${hasRealContent ? "10%" : "5%"}, transparent)`,
             }}
           >
@@ -145,15 +145,15 @@ export function ConceptCard({ c, hasRealContent = false }: { c: ConceptRegistryI
           <h2
             className={`font-serif font-bold leading-snug transition-colors duration-300 ${
               hasRealContent
-                ? "text-lg text-ivory group-hover:text-soft-gold"
-                : "text-lg text-on-surface-variant/60"
+                ? "text-lg text-text-heading group-hover:text-accent"
+                : "text-lg text-text-secondary/60"
             }`}
           >
             {c.title}
           </h2>
 
           {c.thaiTitle ? (
-            <p className={`mt-0.5 text-xs font-medium ${hasRealContent ? "text-on-surface-variant/60" : "text-on-surface-variant/35"}`}>
+            <p className={`mt-0.5 text-xs font-medium ${hasRealContent ? "text-text-secondary/60" : "text-text-secondary/35"}`}>
               {c.thaiTitle}
             </p>
           ) : null}
@@ -162,7 +162,7 @@ export function ConceptCard({ c, hasRealContent = false }: { c: ConceptRegistryI
         {c.description ? (
           <p
             className={`mt-4 flex-1 text-sm leading-relaxed line-clamp-3 ${
-              hasRealContent ? "text-soft-ivory/70" : "text-on-surface-variant/40"
+              hasRealContent ? "text-text-body/70" : "text-text-secondary/40"
             }`}
           >
             {c.description}
@@ -171,10 +171,10 @@ export function ConceptCard({ c, hasRealContent = false }: { c: ConceptRegistryI
           <div className="mt-4 flex-1" />
         )}
 
-        <div className={`mt-4 flex items-center justify-between border-t pt-3.5 ${hasRealContent ? "border-slate-boundary/15" : "border-dashed border-slate-boundary/15"}`}>
+        <div className={`mt-4 flex items-center justify-between border-t pt-3.5 ${hasRealContent ? "border-border/15" : "border-dashed border-border/15"}`}>
           <span
             className="flex items-center gap-1 text-xs font-semibold transition-all duration-300 group-hover:gap-2"
-            style={{ color: hasRealContent ? accent : `color-mix(in srgb, ${accent} 50%, var(--color-on-surface-variant))` }}
+            style={{ color: hasRealContent ? accent : `color-mix(in srgb, ${accent} 50%, var(--color-text-secondary))` }}
           >
             {hasRealContent ? "สำรวจ" : "เปิดดู"}
             <span className="material-symbols-outlined text-[15px]">
@@ -185,7 +185,7 @@ export function ConceptCard({ c, hasRealContent = false }: { c: ConceptRegistryI
         </div>
       </Link>
       {copied ? (
-        <span className="pointer-events-none absolute right-3 top-3 rounded bg-burnished-gold px-2 py-0.5 text-[11px] font-medium text-prima">
+        <span className="pointer-events-none absolute right-3 top-3 rounded bg-accent px-2 py-0.5 text-[11px] font-medium text-text-inverse">
           คัดลอกแล้ว
         </span>
       ) : null}

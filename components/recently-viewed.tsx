@@ -67,11 +67,11 @@ export function RecentlyViewed() {
   return (
     <section className="scroll-reveal mx-auto max-w-[1200px] px-6 py-16">
       <div className="mb-8 flex items-center gap-3">
-        <span className="text-burnished-gold/70">
+        <span className="text-accent/70">
           <ClockIcon className="h-[18px] w-[18px]" />
         </span>
-        <h2 className="font-serif text-xl text-on-surface">อ่านต่อ</h2>
-        <span className="text-xs text-on-surface-variant/50">— ล่าสุดที่คุณเปิดอ่าน</span>
+        <h2 className="font-serif text-xl text-text-heading">อ่านต่อ</h2>
+        <span className="text-xs text-text-secondary/50">— ล่าสุดที่คุณเปิดอ่าน</span>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -82,7 +82,7 @@ export function RecentlyViewed() {
             <Link
               key={item.slug}
               href={`/${item.section}/${item.slug}`}
-              className="group relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-slate-boundary/25 bg-white/[0.02] p-[18px] transition-all duration-300 hover:-translate-y-1 hover:border-burnished-gold/40 focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
+              className="group relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-border/25 bg-text-heading/[0.02] p-[18px] transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
             >
               {/* แถบ accent บน — ขึ้นตอน hover */}
               <span
@@ -106,12 +106,12 @@ export function RecentlyViewed() {
                 </span>
               </div>
 
-              <span className="font-serif text-xl leading-snug text-ivory transition-colors group-hover:text-soft-gold">
+              <span className="font-serif text-xl leading-snug text-text-heading transition-colors group-hover:text-accent">
                 {item.title}
               </span>
 
-              <div className="mt-auto flex items-center justify-between border-t border-slate-boundary/20 pt-3">
-                <span className="text-xs text-on-surface-variant/60">{timeAgo(item.timestamp)}</span>
+              <div className="mt-auto flex items-center justify-between border-t border-border/20 pt-3">
+                <span className="text-xs text-text-secondary/60">{timeAgo(item.timestamp)}</span>
                 <span
                   className="inline-flex items-center gap-1 font-mono text-xs transition-all group-hover:gap-2"
                   style={{ color: meta.accent }}

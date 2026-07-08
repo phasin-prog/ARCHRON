@@ -16,9 +16,9 @@ export function PageHeader({ kicker, title, lead, breadcrumb }: PageHeaderProps)
       {kicker ? (
         <p className="text-xs font-semibold tracking-[0.18em] text-accent uppercase transition-colors duration-700">{kicker}</p>
       ) : null}
-      <h1 className="mt-4 font-serif text-3xl text-ivory md:text-4xl">{title}</h1>
+      <h1 className="mt-4 font-serif text-3xl text-text-heading md:text-4xl">{title}</h1>
       {lead ? (
-        <p className="mt-5 max-w-2xl text-base leading-relaxed text-soft-ivory">
+        <p className="mt-5 max-w-2xl text-base leading-relaxed text-text-body">
           {lead}
         </p>
       ) : null}

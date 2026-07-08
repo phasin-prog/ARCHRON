@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 /* ─────────────────────────────────────────────────────────────
    Movement icons — line-art (stroke = currentColor, inherits
-   burnished-gold from the badge). โทน "นักคิด / นักเขียน" +
+   accent from the badge). โทน "นักคิด / นักเขียน" +
    คลังความรู้ (ไม่ใช่สายมู). ทุกไอคอนใช้ token สีผ่าน currentColor.
    ───────────────────────────────────────────────────────────── */
 const svgProps = {
@@ -112,19 +112,19 @@ function Movement({
   return (
     <section className="scroll-reveal">
       <div className="mb-6 flex items-center gap-4">
-        <span className="flex h-11 w-11 flex-none items-center justify-center rounded-full border border-burnished-gold/25 bg-burnished-gold/[0.06] text-burnished-gold">
+        <span className="flex h-11 w-11 flex-none items-center justify-center rounded-full border border-accent/25 bg-accent/[0.06] text-accent">
           {icon}
         </span>
         <div className="flex flex-col gap-1.5">
-          <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-burnished-gold/70">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-accent/70">
             {kicker}
           </span>
-          <h2 className="font-serif text-[26px] font-semibold leading-snug text-on-surface md:text-[30px]">
+          <h2 className="font-serif text-[26px] font-semibold leading-snug text-text-heading md:text-[30px]">
             {title}
           </h2>
         </div>
       </div>
-      <div className="space-y-5 text-lg leading-[1.9] text-soft-ivory">{children}</div>
+      <div className="space-y-5 text-lg leading-[1.9] text-text-body">{children}</div>
     </section>
   );
 }
@@ -140,7 +140,7 @@ export default async function ManifestoPage() {
           title={dbManifesto.title}
         />
         <div className="mx-auto max-w-2xl px-6 mt-10">
-          <div className="markdown-body prose prose-invert text-soft-ivory/90 leading-loose text-lg">
+          <div className="markdown-body prose prose-invert text-text-body/90 leading-loose text-lg">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {dbManifesto.bodyMarkdown}
             </ReactMarkdown>
@@ -159,17 +159,17 @@ export default async function ManifestoPage() {
       />
 
       <div className="mx-auto max-w-2xl px-6">
-        <p className="mb-16 text-center font-serif text-base italic tracking-[0.05em] text-burnished-gold/80">
+        <p className="mb-16 text-center font-serif text-base italic tracking-[0.05em] text-accent/80">
           สำนักศึกษามนุษย์ · The School of Human Inquiry
         </p>
 
         <div className="space-y-20">
           {/* Preamble */}
           <Movement kicker="Preamble" title="อารัมภบท" icon={icons.preamble}>
-            <p className="font-serif text-[22px] leading-relaxed text-on-surface md:text-[24px]">
+            <p className="font-serif text-[22px] leading-relaxed text-text-heading md:text-[24px]">
               มนุษย์ได้สร้างอารยธรรมขึ้นจากคำถาม
             </p>
-            <div className="border-l-2 border-antique-gold/30 pl-[26px] font-serif text-[1.2rem] leading-[1.85] text-on-surface md:text-[1.35rem]">
+            <div className="border-l-2 border-accent/30 pl-[26px] font-serif text-[1.2rem] leading-[1.85] text-text-heading md:text-[1.35rem]">
               <p>ก่อนที่เราจะมีวิทยาศาสตร์ เรามีตำนาน</p>
               <p>ก่อนที่เราจะมีปรัชญา เรามีสัญลักษณ์</p>
               <p>ก่อนที่เราจะมีจิตวิทยา เรามีความฝัน</p>
@@ -197,12 +197,12 @@ export default async function ManifestoPage() {
 
           {/* What We Study */}
           <Movement kicker="What We Study" title="เราศึกษาอะไร" icon={icons.study}>
-            <p className="text-on-surface-variant/80">
+            <p className="text-text-secondary/80">
               ARCHRON ไม่ได้ศึกษาจิตวิทยาเพียงอย่างเดียว ไม่ได้ศึกษาปรัชญาเพียงอย่างเดียว
               ไม่ได้ศึกษาศาสนา ประวัติศาสตร์ ภาษาศาสตร์ หรือมานุษยวิทยาเพียงอย่างเดียว
             </p>
-            <p className="font-serif text-[28px] font-semibold leading-snug text-on-surface md:text-[38px]">
-              เราศึกษา <span className="text-burnished-gold">มนุษย์</span>
+            <p className="font-serif text-[28px] font-semibold leading-snug text-text-heading md:text-[38px]">
+              เราศึกษา <span className="text-accent">มนุษย์</span>
             </p>
             <p>และทุกศาสตร์ที่เกิดจากความพยายามของมนุษย์ในการเข้าใจตนเอง</p>
           </Movement>
@@ -214,7 +214,7 @@ export default async function ManifestoPage() {
               เรามองทุกระบบความคิด ทุกศาสนา ทุกอารยธรรม ทุกภาษา ทุกตำนาน ทุกทฤษฎี
               ในฐานะความพยายามของมนุษย์ที่จะเข้าใจความเป็นมนุษย์
             </p>
-            <blockquote className="border-l-2 border-antique-gold/40 bg-surface-container py-5 pl-6 pr-5 font-serif text-[1.35rem] leading-relaxed text-on-surface md:text-[1.55rem]">
+            <blockquote className="border-l-2 border-accent/40 bg-bg-card py-5 pl-6 pr-5 font-serif text-[1.35rem] leading-relaxed text-text-heading md:text-[1.55rem]">
               ไม่มีระบบใดสมบูรณ์ แต่ไม่มีระบบใดไร้คุณค่า
             </blockquote>
           </Movement>
@@ -238,7 +238,7 @@ export default async function ManifestoPage() {
                 "การลดทอนมนุษย์ให้เหลือเพียงสูตรเดียว",
               ].map((x) => (
                 <li key={x} className="flex gap-3">
-                  <span className="select-none text-burnished-gold">—</span>
+                  <span className="select-none text-accent">—</span>
                   <span>เราปฏิเสธ{x}</span>
                 </li>
               ))}
@@ -260,7 +260,7 @@ export default async function ManifestoPage() {
               เพราะความรู้ที่ไม่ยอมรับการตรวจสอบ ย่อมกลายเป็นความเชื่อ
               และความเชื่อที่ไม่ยอมรับการวิพากษ์ ย่อมกลายเป็นลัทธิ
             </p>
-            <blockquote className="border-l-2 border-antique-gold/40 bg-surface-container py-5 pl-6 pr-5 font-serif text-[1.35rem] leading-relaxed text-on-surface md:text-[1.55rem]">
+            <blockquote className="border-l-2 border-accent/40 bg-bg-card py-5 pl-6 pr-5 font-serif text-[1.35rem] leading-relaxed text-text-heading md:text-[1.55rem]">
               ARCHRON จะไม่กลายเป็นลัทธิ แม้แต่ลัทธิของตัวเอง
             </blockquote>
           </Movement>
@@ -284,24 +284,24 @@ export default async function ManifestoPage() {
 
           {/* Closing Declaration */}
           <section className="scroll-reveal text-center">
-            <span className="mx-auto mb-6 flex h-11 w-11 items-center justify-center rounded-full border border-burnished-gold/25 bg-burnished-gold/[0.06] text-burnished-gold">
+            <span className="mx-auto mb-6 flex h-11 w-11 items-center justify-center rounded-full border border-accent/25 bg-accent/[0.06] text-accent">
               {icons.closing}
             </span>
-            <span className="mb-6 block text-[11px] font-semibold uppercase tracking-[0.28em] text-burnished-gold/70">
+            <span className="mb-6 block text-[11px] font-semibold uppercase tracking-[0.28em] text-accent/70">
               Closing Declaration
             </span>
-            <div className="space-y-2 font-serif text-2xl font-medium leading-relaxed text-on-surface md:text-[29px]">
+            <div className="space-y-2 font-serif text-2xl font-medium leading-relaxed text-text-heading md:text-[29px]">
               <p>ARCHRON is not a destination.</p>
               <p>It is an invitation.</p>
-              <p className="text-on-surface-variant/80">Not to believe. But to inquire.</p>
-              <p className="text-on-surface-variant/80">
+              <p className="text-text-secondary/80">Not to believe. But to inquire.</p>
+              <p className="text-text-secondary/80">
                 Not to inherit certainty. But to cultivate understanding.
               </p>
             </div>
-            <p className="mt-10 font-serif text-lg italic tracking-[0.04em] text-burnished-gold">
+            <p className="mt-10 font-serif text-lg italic tracking-[0.04em] text-accent">
               The inquiry continues.
             </p>
-            <div className="mx-auto mt-10 h-px w-16 bg-burnished-gold/30" />
+            <div className="mx-auto mt-10 h-px w-16 bg-accent/30" />
           </section>
         </div>
       </div>

@@ -17,7 +17,7 @@ import {
 export function CardCarousel({
   children,
   ariaLabel = "แถวการ์ดเลื่อนแนวนอน",
-  fadeFrom = "var(--color-surface-container-lowest)",
+  fadeFrom = "var(--color-bg)",
 }: {
   children: ReactNode;
   ariaLabel?: string;
@@ -127,7 +127,7 @@ export function CardCarousel({
           onClick={() => scrollByDir(-1)}
           disabled={atStart}
           aria-label="เลื่อนซ้าย"
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-boundary/40 text-on-surface-variant transition-all hover:border-burnished-gold/45 hover:text-on-surface disabled:opacity-30 focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-border/40 text-text-secondary transition-all hover:border-accent/45 hover:text-text-heading disabled:opacity-30 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
             <path d="M15 5l-7 7 7 7" />
@@ -138,7 +138,7 @@ export function CardCarousel({
           onClick={() => scrollByDir(1)}
           disabled={atEnd}
           aria-label="เลื่อนขวา"
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-boundary/40 text-on-surface-variant transition-all hover:border-burnished-gold/45 hover:text-on-surface disabled:opacity-30 focus-visible:ring-2 focus-visible:ring-burnished-gold focus-visible:outline-none"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-border/40 text-text-secondary transition-all hover:border-accent/45 hover:text-text-heading disabled:opacity-30 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
             <path d="M9 5l7 7-7 7" />
@@ -179,8 +179,8 @@ export function CardCarousel({
       </div>
 
       {/* แถบความคืบหน้า */}
-      <div className="mt-2 h-[3px] overflow-hidden rounded-full bg-slate-boundary/20">
-        <div ref={barRef} className="h-full rounded-full bg-burnished-gold/70" style={{ width: "30%" }} />
+      <div className="mt-2 h-[3px] overflow-hidden rounded-full bg-border/20">
+        <div ref={barRef} className="h-full rounded-full bg-accent/70" style={{ width: "30%" }} />
       </div>
     </div>
   );

@@ -608,6 +608,46 @@ export function GridIcon({ className = "h-5 w-5" }: IconProps) {
       <rect x="13" y="4" width="7" height="7" rx="1.4" />
       <rect x="4" y="13" width="7" height="7" rx="1.4" />
       <rect x="13" y="13" width="7" height="7" rx="1.4" />
-    </>,
+    </>
+  );
+}
+
+// CollectionIcon — 4-square grid (Collection object type)
+export function CollectionIcon({ className = "h-5 w-5" }: IconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <rect x="3" y="3" width="7" height="7" rx="1" />
+      <rect x="14" y="3" width="7" height="7" rx="1" />
+      <rect x="3" y="14" width="7" height="7" rx="1" />
+      <rect x="14" y="14" width="7" height="7" rx="1" />
+    </svg>
+  );
+}
+
+// NotificationIcon — bell (notifications)
+export function NotificationIcon({ className = "h-5 w-5" }: IconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+      <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+    </svg>
   );
 }

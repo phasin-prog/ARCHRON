@@ -40,6 +40,11 @@
   --color-accent-hover: #4F7DBE;  /* Hover state */
   --color-accent-subtle: #EEF2F8; /* Subtle background */
 
+  /* ---- Premium Gold (featured/premium only — per homepage-rule.md) ---- */
+  --color-premium: #B89A63;        /* Featured badges, premium elements */
+  --color-premium-hover: #A88A53;  /* Hover state */
+  --color-premium-subtle: #F5EFE5; /* Subtle background */
+
   /* ---- Knowledge Categories (badges/icons/graph nodes only) ---- */
   --color-concept: #5B7FAB;       /* Warm Blue */
   --color-thinker: #5A8A6A;       /* Deep Green */

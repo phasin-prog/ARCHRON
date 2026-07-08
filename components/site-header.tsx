@@ -19,55 +19,39 @@ import {
   LogoutIcon,
   PersonIcon,
   HistoryIcon,
+  SchoolIcon,
   SynthesisIcon,
   GridIcon,
 } from "@/components/icons";
 import { SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
 
 type IconComponent = React.ComponentType<{ className?: string }>;
-type Tier = "primary" | "standard" | "utility" | "support";
+type Tier = "primary" | "standard";
 type NavItem = { label: string; href: string; Icon: IconComponent; tier: Tier };
 
 // ลิงก์ระดับบน — ลดเหลือ 5-6 จุดตัดสินใจ (Hick's Law / Miller's Law)
 // primary = เด่นสุด, standard = ปานกลาง, utility = dropdown "เพิ่มเติม", support = pill
 const NAV: NavItem[] = [
-  { label: "คลังความรู้", href: "/knowledge", Icon: KnowledgeHubIcon, tier: "primary" },
-  { label: "สำรวจ", href: "/concepts", Icon: SearchIcon, tier: "standard" },
-  { label: "ศาสตร์", href: "/schools", Icon: GridIcon, tier: "standard" },
-  { label: "ปฏิญญา", href: "/manifesto", Icon: ManifestoIcon, tier: "utility" },
-  { label: "แหล่งอ้างอิง", href: "/sources", Icon: QuoteIcon, tier: "utility" },
-  { label: "คำถามที่พบบ่อย", href: "/faq", Icon: HelpIcon, tier: "utility" },
-  { label: "แผนที่ความสัมพันธ์", href: "/constellation", Icon: HistoryIcon, tier: "utility" },
-  { label: "สนับสนุนโครงการ", href: "/support", Icon: HeartIcon, tier: "support" },
+  { label: "คลังความรู้", href: "/explore", Icon: KnowledgeHubIcon, tier: "primary" },
+  { label: "แผนที่ความรู้", href: "/constellation", Icon: HistoryIcon, tier: "standard" },
+  { label: "สำนักคิด", href: "/schools", Icon: SchoolIcon, tier: "standard" },
+  { label: "แหล่งอ้างอิง", href: "/sources", Icon: QuoteIcon, tier: "standard" },
+  { label: "คำถามที่พบบ่อย", href: "/faq", Icon: HelpIcon, tier: "standard" },
 ];
-
-// Desktop: แสดง 3 หลัก + dropdown "เพิ่มเติม" + support pill
-const PRIMARY_NAV = NAV.filter((i) => i.tier === "primary");
-const STANDARD_NAV = NAV.filter((i) => i.tier === "standard");
-const UTILITY_NAV = NAV.filter((i) => i.tier === "utility");
-const SUPPORT = NAV.find((i) => i.tier === "support");
 
 // สีลิงก์เดสก์ท็อปตาม tier (ไม่มีไอคอนบนเดสก์ท็อป — ลดความแน่น)
 function tierClass(tier: Tier, isActive: boolean): string {
   if (isActive) return "text-accent font-semibold";
-  switch (tier) {
-    case "primary":
-      return "text-text-heading hover:text-accent";
-    case "utility":
-      return "text-text-secondary/55 hover:text-accent";
-    default:
-      return "text-text-secondary hover:text-accent";
-  }
+  if (tier === "primary") return "text-text-heading hover:text-accent";
+  return "text-text-secondary hover:text-accent";
 }
 
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [acctOpen, setAcctOpen] = useState(false);
-  const [moreOpen, setMoreOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const acctRef = useRef<HTMLDivElement>(null);
-  const moreMenuRef = useRef<HTMLDivElement>(null);
   const clerk = useClerk();
 
   const isActive = (href: string) =>
@@ -139,23 +123,6 @@ export function SiteHeader() {
       document.removeEventListener("keydown", onEsc);
     };
   }, [acctOpen]);
-
-  // ปิด dropdown "เพิ่มเติม" เมื่อคลิกนอก / กด Esc
-  useEffect(() => {
-    if (!moreOpen) return;
-    const onDoc = (e: MouseEvent) => {
-      if (moreMenuRef.current && !moreMenuRef.current.contains(e.target as Node)) setMoreOpen(false);
-    };
-    const onEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMoreOpen(false);
-    };
-    document.addEventListener("mousedown", onDoc);
-    document.addEventListener("keydown", onEsc);
-    return () => {
-      document.removeEventListener("mousedown", onDoc);
-      document.removeEventListener("keydown", onEsc);
-    };
-  }, [moreOpen]);
 
   // หน้า Studio เป็นพื้นที่ทำงาน (มี chrome ของตัวเอง) — ซ่อน header สาธารณะ
   if (pathname?.startsWith("/studio")) return null;
@@ -267,61 +234,11 @@ export function SiteHeader() {
           <div className="h-px bg-accent/10" />
           {/* Row 2: Nav pills */}
           <nav className="flex justify-center gap-1.5 py-3" aria-label="เมนูหลัก">
-            {PRIMARY_NAV.map((item) => (
-              <Link key={item.href} href={item.href} className={pillClass(item.href)}>
+            {NAV.map((item) => (
+              <Link key={item.href} href={item.href} className={pillClass(item.href)} data-nav-label={item.label}>
                 {item.label}
               </Link>
             ))}
-            {STANDARD_NAV.map((item) => (
-              <Link key={item.href} href={item.href} className={pillClass(item.href)}>
-                {item.label}
-              </Link>
-            ))}
-            {UTILITY_NAV.length > 0 ? (
-              <div className="relative" ref={moreMenuRef}>
-                <button
-                  type="button"
-                  onClick={() => setMoreOpen((v) => !v)}
-                  aria-expanded={moreOpen}
-                  aria-haspopup="menu"
-                  aria-controls="more-menu"
-                  className="gold-pill inline-flex items-center gap-1"
-                >
-                  เพิ่มเติม
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={1.6}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className={`h-3 w-3 transition-transform duration-200 ${moreOpen ? "rotate-180" : ""}`}
-                  >
-                    <path d="M6 9l6 6 6-6" />
-                  </svg>
-                </button>
-                {moreOpen ? (
-                  <div
-                    id="more-menu"
-                    role="menu"
-                    className="glass-nav-panel absolute right-0 top-[calc(100%+8px)] min-w-[200px] rounded-xl border border-accent/20 p-1.5 shadow-[0_24px_50px_-24px_rgba(0,0,0,0.85)]"
-                  >
-                    {UTILITY_NAV.map((item) => (
-                      <Link key={item.href} href={item.href} onClick={() => setMoreOpen(false)} className={menuItem} role="menuitem">
-                        <item.Icon className="h-[18px] w-[18px] text-accent" />
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                ) : null}
-              </div>
-            ) : null}
-            {SUPPORT ? (
-              <Link href={SUPPORT.href} className="gold-pill">
-                {SUPPORT.label}
-              </Link>
-            ) : null}
           </nav>
         </div>
       </div>
@@ -390,20 +307,22 @@ export function SiteHeader() {
               <span className="text-base font-medium">ค้นหาความรู้ แนวคิด หรือสำนักคิด...</span>
             </Link>
 
-            {/* Primary & Standard Nav (Feature Cards Stack) */}
+            {/* Nav Items */}
             <div className="space-y-2.5">
-              {[...PRIMARY_NAV, ...STANDARD_NAV].map((item) => {
+              {NAV.map((item) => {
                 let subLabel = "สำรวจและค้นหาเนื้อหาในคลังความรู้";
-                if (item.href === "/knowledge") subLabel = "สารบัญนำทางและแผนที่คลังความรู้ทั้งหมด";
-                else if (item.href === "/articles") subLabel = "บทความ งานเขียน และบทวิเคราะห์เชิงลึก";
-                else if (item.href === "/concepts") subLabel = "คำศัพท์และโครงสร้างแนวคิดทางจิตวิทยา";
+                if (item.href === "/explore") subLabel = "สารบัญนำทางและแผนที่คลังความรู้ทั้งหมด";
+                else if (item.href === "/constellation") subLabel = "แผนที่ความสัมพันธ์ของแนวคิดและศาสตร์ต่าง ๆ";
                 else if (item.href === "/schools") subLabel = "สำนักคิด นักปราชญ์ และผู้รากฐานทฤษฎี";
+                else if (item.href === "/sources") subLabel = "แหล่งอ้างอิงและบรรณานุกรม";
+                else if (item.href === "/faq") subLabel = "คำถามที่พบบ่อยเกี่ยวกับโครงการ";
 
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
                     onClick={() => setOpen(false)}
+                    data-nav-label={item.label}
                     className={`flex items-start gap-3.5 rounded-2xl border p-4 transition-all ${
                       isActive(item.href)
                         ? "border-accent/60 bg-accent/10 shadow-[0_0_20px_rgba(200,168,90,0.15)]"
@@ -432,33 +351,6 @@ export function SiteHeader() {
               })}
             </div>
 
-            {/* Utility Nav Section (2-Column Grid) */}
-            <div className="pt-2">
-              <div className="mb-2.5 flex items-center gap-2">
-                <span className="h-px flex-1 bg-border/30" aria-hidden="true" />
-                <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-text-secondary/50">
-                  เพิ่มเติม
-                </span>
-                <span className="h-px flex-1 bg-border/30" aria-hidden="true" />
-              </div>
-              <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                {UTILITY_NAV.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className={`flex items-center gap-2.5 rounded-xl border p-3 text-sm transition-all ${
-                      isActive(item.href)
-                        ? "border-accent/50 bg-accent/10 font-semibold text-accent"
-                        : "border-text-heading/5 bg-text-heading/[0.015] text-text-secondary hover:border-text-heading/15 hover:bg-text-heading/[0.05] hover:text-text-heading"
-                    }`}
-                  >
-                    <item.Icon className="h-4 w-4 shrink-0 text-accent" />
-                    <span className="truncate">{item.label}</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
           </div>
 
           {/* Bottom Pinned Section: User Card & Support Footer */}
@@ -509,18 +401,16 @@ export function SiteHeader() {
             </SignedIn>
 
             {/* Support Project Link */}
-            {SUPPORT ? (
-              <div className="pt-1 text-center">
-                <Link
-                  href={SUPPORT.href}
-                  onClick={() => setOpen(false)}
-                  className="inline-flex items-center justify-center gap-1.5 rounded-full border border-accent/20 px-4 py-1 text-xs text-accent/80 transition-colors hover:border-accent/40 hover:bg-accent/5 hover:text-accent"
-                >
-                  <HeartIcon className="h-3.5 w-3.5 text-accent" />
-                  <span>สนับสนุนโครงการ Archron</span>
-                </Link>
-              </div>
-            ) : null}
+            <div className="pt-1 text-center">
+              <Link
+                href="/support"
+                onClick={() => setOpen(false)}
+                className="inline-flex items-center justify-center gap-1.5 rounded-full border border-accent/20 px-4 py-1 text-xs text-accent/80 transition-colors hover:border-accent/40 hover:bg-accent/5 hover:text-accent"
+              >
+                <HeartIcon className="h-3.5 w-3.5 text-accent" />
+                <span>สนับสนุนโครงการ Archron</span>
+              </Link>
+            </div>
           </div>
         </div>
       ) : null}

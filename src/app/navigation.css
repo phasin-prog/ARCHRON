@@ -11,11 +11,16 @@
   gap: 0;
   border-bottom: 1px solid var(--color-border);
   overflow-x: auto;
-  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
 }
 
 .archron-tabs::-webkit-scrollbar {
-  display: none;
+  height: 4px;
+}
+.archron-tabs::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 2px;
 }
 
 .archron-tab {

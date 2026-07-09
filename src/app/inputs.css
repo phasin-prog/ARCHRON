@@ -168,7 +168,7 @@
 /* ---- Labels ---- */
 .archron-label {
   display: block;
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-size: 0.75rem;
   font-weight: 500;
   color: var(--color-text-secondary);

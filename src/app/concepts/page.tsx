@@ -33,7 +33,7 @@ export default async function ConceptsPage() {
       navCurrent="/concepts"
       className="atmo-dictionary"
     >
-      <section className="mx-auto max-w-6xl px-6">
+      <section className="tpl-reference">
         <ConceptsBrowser concepts={conceptRegistry} publishedSlugs={publishedSlugs} />
       </section>
     </PageScaffold>

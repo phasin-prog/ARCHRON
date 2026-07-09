@@ -145,7 +145,7 @@ export function TimelineBrowser() {
                   <CalendarIcon className="h-3.5 w-3.5" />
                   {ev.year}
                 </span>
-                <span className="text-[11px] uppercase tracking-wider text-text-secondary font-sans">
+                <span className="text-sm font-medium text-text-secondary/80">
                   {ev.school}
                 </span>
               </div>

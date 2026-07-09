@@ -7,11 +7,11 @@ export default function LoginPage() {
     <main className="relative flex min-h-[85vh] flex-col items-center justify-center overflow-hidden px-4 py-16 bg-bg">
       {/* แสงเรืองออร่าแบบ Cosmic (ทอง + น้ำลึก) ปรับปรุงตามจิตวิทยาสี */}
       <div 
-        className="pointer-events-none absolute left-1/4 top-1/3 -z-10 h-[450px] w-[450px] rounded-full bg-concept/8 blur-[130px] animate-pulse" 
+        className="pointer-events-none absolute left-1/4 top-1/3 -z-10 h-[300px] w-[300px] sm:h-[450px] sm:w-[450px] rounded-full bg-concept/8 blur-[130px] animate-pulse" 
         style={{ animationDuration: "12s" }} 
       />
       <div 
-        className="pointer-events-none absolute right-1/4 bottom-1/3 -z-10 h-[450px] w-[450px] rounded-full bg-accent/6 blur-[130px]" 
+        className="pointer-events-none absolute right-1/4 bottom-1/3 -z-10 h-[300px] w-[300px] sm:h-[450px] sm:w-[450px] rounded-full bg-accent/6 blur-[130px]" 
       />
 
       <div className="mx-auto grid w-full max-w-5xl grid-cols-1 md:grid-cols-12 gap-8 lg:gap-16 items-center animate-fade-in">
@@ -22,7 +22,7 @@ export default function LoginPage() {
             <span className="font-wordmark text-2xl font-semibold tracking-[0.25em]">ARCHRON</span>
           </div>
           
-          <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-accent/80">
+          <span className="text-sm font-medium text-text-secondary/80">
             คลังความรู้สะสมส่วนบุคคล · สำหรับผู้อ่าน
           </span>
           
@@ -43,7 +43,7 @@ export default function LoginPage() {
           
           <div className="mt-8 flex flex-col gap-4 border-l border-accent/30 pl-5 text-sm italic text-text-secondary">
             <p>“ความรู้มีไว้เพื่อจดจำ ความเข้าใจมีไว้เพื่อดำเนินชีวิต”</p>
-            <p className="text-xs font-semibold uppercase tracking-wider text-accent/70">— คณะผู้ดูแลคลังความรู้ Archron</p>
+            <p className="text-sm font-medium text-text-secondary/80">— คณะผู้ดูแลคลังความรู้ Archron</p>
           </div>
         </div>
 
@@ -57,12 +57,12 @@ export default function LoginPage() {
               fallbackRedirectUrl="/studio/editor"
               appearance={{
                 variables: {
-                  colorPrimary: "#C49B55",
-                  colorBackground: "#2E3349",
+                  colorPrimary: "var(--color-premium)",
+                  colorBackground: "var(--color-text-heading)",
                   colorInputBackground: "rgba(255, 255, 255, 0.06)",
-                  colorInputText: "#F3EEE5",
-                  colorText: "#E7E2D8",
-                  colorTextSecondary: "#858992",
+                  colorInputText: "var(--color-bg)",
+                  colorText: "var(--color-border)",
+                  colorTextSecondary: "var(--color-text-secondary)",
                   fontFamily: "var(--font-ibm-plex-thai), sans-serif",
                 },
                 elements: {
@@ -73,7 +73,7 @@ export default function LoginPage() {
                   footerActionLink: "text-accent-hover hover:text-concept transition-colors",
                   headerTitle: "font-serif text-lg text-text-heading tracking-tight font-medium",
                   headerSubtitle: "text-text-secondary/60 text-xs",
-                  formFieldLabel: "text-text-body/80 text-[11px] font-semibold uppercase tracking-wider",
+                  formFieldLabel: "text-sm font-medium text-text-secondary/80",
                   formFieldInput:
                     "border-border/60 bg-text-heading/5 text-text-heading outline-none focus:border-accent/60 rounded-sm py-2 px-3",
                   identityPreviewText: "text-text-heading",
@@ -82,7 +82,7 @@ export default function LoginPage() {
                     "border border-border/60 bg-text-heading/5 text-text-heading hover:bg-text-heading/10 hover:border-accent/40 rounded-sm",
                   socialButtonsBlockButtonText: "text-text-heading font-medium",
                   dividerLine: "bg-border/40",
-                  dividerText: "text-text-secondary/55 text-[10px] uppercase tracking-widest",
+                  dividerText: "text-sm font-medium text-text-secondary/80",
                   formFieldWarningText: "text-error text-xs",
                   formFieldErrorText: "text-error text-xs",
                   alert: "bg-error/10 border border-error/30 text-error rounded-sm text-xs",

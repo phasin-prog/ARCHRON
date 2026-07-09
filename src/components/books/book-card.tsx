@@ -19,7 +19,7 @@ export function BookCard({ entry }: BookCardProps) {
       {/* Field Badge */}
       <div className="flex items-center gap-2 mb-3">
         <span
-          className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider"
+          className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-sm font-medium text-text-secondary/80"
           style={{
             backgroundColor: `${meta.accent}1a`,
             color: meta.accent,

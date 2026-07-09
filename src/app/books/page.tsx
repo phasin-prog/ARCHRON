@@ -31,7 +31,7 @@ export default async function BooksPage() {
       ambient
       navCurrent="/books"
     >
-      <section className="mx-auto max-w-6xl px-6">
+      <section className="tpl-reference">
         {books.length === 0 ? (
           <EmptyState
             icon="book"

@@ -23,7 +23,7 @@ export default function TimelinePage() {
       navCurrent="/timeline"
       className="atmo-museum"
     >
-      <section className="mx-auto max-w-6xl px-6">
+      <section className="tpl-reference">
         <TimelineBrowser />
       </section>
     </PageScaffold>

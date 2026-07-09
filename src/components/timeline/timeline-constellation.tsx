@@ -14,7 +14,7 @@ export function TimelineConstellation({
 }) {
   return (
     <div className={`relative overflow-x-auto ${className}`} style={{ padding: "40px 20px" }}>
-      <div className="relative flex min-w-[650px] items-center" style={{ padding: "0 24px" }}>
+      <div className="relative flex min-w-0 w-full items-center" style={{ padding: "0 24px" }}>
         <div
           className="absolute pointer-events-none"
           style={{

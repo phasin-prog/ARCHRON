@@ -30,7 +30,7 @@ export default async function ReadingSetsPage() {
       ambient
       navCurrent="/reading-sets"
     >
-      <section className="mx-auto max-w-6xl px-6">
+      <section className="tpl-reference">
         {readingSets.length === 0 ? (
           <EmptyState
             icon="menu_book"

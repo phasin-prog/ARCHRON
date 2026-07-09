@@ -33,7 +33,7 @@ export default async function ArticlesPage() {
       navCurrent="/articles"
       className="atmo-magazine"
     >
-      <section className="relative mx-auto max-w-6xl px-6">
+      <section className="relative tpl-reference">
         {articles.length === 0 ? (
           <EmptyState
             icon="article"

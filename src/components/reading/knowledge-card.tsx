@@ -197,8 +197,7 @@ function PublicationSection({ entry, readingTime }: { entry: ContentEntry; readi
 export function KnowledgeCard({ entry, readingTime }: { entry: ContentEntry; readingTime: string }) {
   const typeMeta = contentTypeMeta(entry.contentType);
   return (
-    <div className="archron-panel relative mt-7 overflow-hidden p-5 sm:p-7" style={{ ["--accent" as string]: typeMeta.accent }}>
-      <span className="absolute inset-y-0 left-0 w-[3px]" style={{ backgroundColor: "var(--accent)" }} aria-hidden="true" />
+    <div className="archron-panel relative mt-7 overflow-hidden p-5 sm:p-7 border-t-2" style={{ ["--accent" as string]: typeMeta.accent, borderTopColor: "var(--accent)" }}>
       <div className="space-y-7">
         <HeroSection entry={entry} />
         <IdentitySection entry={entry} />

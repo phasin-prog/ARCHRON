@@ -15,9 +15,9 @@ const TYPE_LABEL: Record<string, string> = {
 };
 
 const TYPE_ACCENT: Record<string, string> = {
-  "primary-source": "#C49B55", // Sapientia Gold
-  "secondary-source": "#7BA3D4", // Psyche Blue
-  "editorial-interpretation": "#9ABA9A", // Mercurius Green
+  "primary-source": "var(--color-premium)",
+  "secondary-source": "var(--color-concept)",
+  "editorial-interpretation": "var(--color-quote)",
 };
 
 const TYPE_ICON_3D: Record<string, string> = {
@@ -103,21 +103,16 @@ export function SourcesBrowser({ sources }: { sources: SourceItemWithId[] }) {
       ) : (
         <div className="flex flex-col gap-4">
           {filtered.map((s) => {
-            const accent = TYPE_ACCENT[s.sourceType] || "#858992";
+            const accent = TYPE_ACCENT[s.sourceType] || "var(--color-text-secondary)";
             const iconId = TYPE_ICON_3D[s.sourceType] || "source-primary";
             const label = TYPE_LABEL[s.sourceType] || s.sourceType;
 
             return (
               <div
                 key={s.id}
-                className="group relative overflow-hidden archron-card flex flex-col justify-between gap-4 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/45"
+                className="group relative overflow-hidden archron-card flex flex-col justify-between gap-4 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/45 border-t-2"
+                style={{ borderTopColor: accent } as React.CSSProperties}
               >
-                {/* แถบข้างระบุสี cosmology */}
-                <span
-                  aria-hidden
-                  className="absolute inset-y-0 left-0 w-[3px] transition-all duration-300 group-hover:w-[4px]"
-                  style={{ backgroundColor: accent }}
-                />
 
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
                   {/* 3D ICON GRID */}
@@ -133,11 +128,11 @@ export function SourcesBrowser({ sources }: { sources: SourceItemWithId[] }) {
                   <div className="min-w-0 flex-1 space-y-2">
                     <div className="flex flex-wrap items-baseline gap-2">
                       <span
-                        className="rounded px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider font-mono"
+                        className="rounded px-2 py-0.5 text-sm font-medium text-text-secondary/80 font-mono"
                         style={{
                           color: accent,
-                          backgroundColor: `${accent}16`,
-                          border: `1px solid ${accent}33`,
+                          backgroundColor: `color-mix(in srgb, ${accent} 12%, transparent)`,
+                          border: `1px solid color-mix(in srgb, ${accent} 20%, transparent)`,
                         }}
                       >
                         {label}

@@ -6,28 +6,29 @@
    ============================================================================ */
 
 /* ---- Spacing Tokens ---- */
+/* Aligned with globals.css --space-* (8pt grid, rem-based) */
 :root {
   /* Base Unit: 4px */
   --spacing-unit: 4px;
 
-  /* Spacing Scale (8pt Grid) */
+  /* Spacing Scale (8pt Grid) — aliased to globals.css --space-* for consistency */
   --spacing-0: 0;
   --spacing-1: 4px;      /* 1 unit */
-  --spacing-2: 8px;      /* 2 units = 1 step */
-  --spacing-3: 12px;     /* 3 units */
-  --spacing-4: 16px;     /* 4 units = 2 steps */
+  --spacing-2: var(--space-2, 8px);      /* 8px  = 2 units */
+  --spacing-3: var(--space-3, 12px);     /* 12px = 3 units */
+  --spacing-4: var(--space-4, 16px);     /* 16px = 4 units */
   --spacing-5: 20px;     /* 5 units */
-  --spacing-6: 24px;     /* 6 units = 3 steps */
-  --spacing-8: 32px;     /* 8 units = 4 steps */
-  --spacing-10: 40px;    /* 10 units = 5 steps */
-  --spacing-12: 48px;    /* 12 units = 6 steps */
-  --spacing-16: 64px;    /* 16 units = 8 steps */
-  --spacing-20: 80px;    /* 20 units = 10 steps */
-  --spacing-24: 96px;    /* 24 units = 12 steps */
-  --spacing-32: 128px;   /* 32 units = 16 steps */
-  --spacing-40: 160px;   /* 40 units = 20 steps */
-  --spacing-48: 192px;   /* 48 units = 24 steps */
-  --spacing-64: 256px;   /* 64 units = 32 steps */
+  --spacing-6: var(--space-5, 24px);     /* 24px = 6 units */
+  --spacing-8: var(--space-6, 32px);     /* 32px = 8 units */
+  --spacing-10: var(--space-7, 40px);    /* 40px = 10 units */
+  --spacing-12: var(--space-8, 48px);    /* 48px = 12 units */
+  --spacing-16: var(--space-9, 64px);    /* 64px = 16 units */
+  --spacing-20: var(--space-10, 80px);   /* 80px = 20 units */
+  --spacing-24: var(--space-11, 96px);   /* 96px = 24 units */
+  --spacing-32: var(--space-12, 128px);  /* 128px = 32 units */
+  --spacing-40: 160px;   /* 40 units */
+  --spacing-48: 192px;   /* 48 units */
+  --spacing-64: 256px;   /* 64 units */
 
   /* Component Spacing */
   --spacing-component-sm: var(--spacing-2);    /* 8px */

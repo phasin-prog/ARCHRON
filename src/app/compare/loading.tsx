@@ -1,7 +1,7 @@
 export default function CompareLoading() {
   return (
     <main className="pb-24">
-      <div className="mx-auto max-w-6xl px-6 pt-16">
+      <div className="tpl-reference pt-16">
         <div className="mb-10 space-y-3">
           <div className="h-4 w-20 animate-pulse rounded bg-surface-3" />
           <div className="h-10 w-48 animate-pulse rounded bg-surface-3" />

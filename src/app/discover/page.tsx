@@ -32,7 +32,7 @@ export default async function DiscoverPage() {
       ambient
       navCurrent="/discover"
     >
-      <section className="mx-auto max-w-6xl px-6">
+      <section className="tpl-reference">
         <DiscoverGrid
           entries={published}
           schools={schools}

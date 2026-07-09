@@ -41,12 +41,12 @@ export default function HomePage() {
       </section>
 
       {/* ── 3. CONTINUE READING (authenticated users only) ── */}
-      <section className="mx-auto mt-20 max-w-[1200px] px-6">
+      <section className="tpl-content mt-20">
         <RecentlyViewed />
       </section>
 
       {/* ── 4. FEATURED GUIDE ── */}
-      <section className="mx-auto mt-20 max-w-[1200px] px-6">
+      <section className="tpl-content mt-20">
         <div className="flex items-baseline justify-between">
           <h2 className="font-heading text-2xl font-semibold text-text-heading">
             คู่มือแนะนำ
@@ -77,7 +77,7 @@ export default function HomePage() {
       </section>
 
       {/* ── 5. LATEST KNOWLEDGE ── */}
-      <section className="mx-auto mt-20 max-w-[1200px] px-6 pb-24">
+      <section className="tpl-content mt-20 pb-24">
         <div className="flex items-baseline justify-between">
           <h2 className="font-heading text-2xl font-semibold text-text-heading">
             ความรู้ล่าสุด

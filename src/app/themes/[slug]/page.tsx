@@ -45,8 +45,7 @@ export default async function ThemePage({
   const matched = entriesForTheme(entries, theme.key);
 
   return (
-    <main className="px-6 pb-24 pt-10">
-      <div className="mx-auto max-w-5xl">
+    <main className="tpl-reference pb-24 pt-10">
         {/* Breadcrumb */}
         <nav aria-label="เส้นทางนำทาง" className="flex flex-wrap items-center gap-1 text-xs text-text-secondary">
           <Link href="/" className="rounded px-2 py-1.5 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:outline-none">หน้าแรก</Link>
@@ -116,7 +115,6 @@ export default async function ThemePage({
             ← แก่นเรื่องทั้งหมด
           </Link>
         </div>
-      </div>
     </main>
   );
 }

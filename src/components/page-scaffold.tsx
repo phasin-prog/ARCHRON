@@ -66,7 +66,7 @@ export function PageSection({
   children: ReactNode;
 }) {
   return (
-    <section className={`scroll-reveal mx-auto max-w-6xl px-6 pb-14 ${className}`}>
+    <section className={`scroll-reveal tpl-reference pb-14 ${className}`}>
       {title ? <SectionHeading kicker={kicker} title={title} action={action} className="mb-8" /> : null}
       {children}
     </section>

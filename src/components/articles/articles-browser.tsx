@@ -190,7 +190,7 @@ export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
 
                 <Link
                   href={`/articles/${e.slug}`}
-                  className="archron-card group relative z-[1] flex min-h-[260px] flex-col overflow-hidden p-0 transition-all duration-300"
+                  className="archron-card group relative z-surface flex min-h-[260px] flex-col overflow-hidden p-0 transition-all duration-300"
                   style={
                     {
                       "--cosmology-accent": meta.accent,
@@ -214,7 +214,7 @@ export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
                     }}
                   />
 
-                  <div className="relative z-[2] flex flex-1 flex-col px-7 pt-6 pb-6">
+                  <div className="relative z-surface flex flex-1 flex-col px-7 pt-6 pb-6">
                     <h2
                       className="font-serif text-[1.35rem] font-bold leading-snug text-text-heading transition-colors duration-300 group-hover:text-accent"
                     >

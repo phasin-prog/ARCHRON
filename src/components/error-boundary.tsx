@@ -13,7 +13,7 @@ export function ErrorBoundary({ error, reset }: ErrorBoundaryProps) {
   }, [error]);
 
   return (
-    <div className="mx-auto max-w-[720px] px-6 py-24 text-center">
+    <div className="mx-auto w-full max-w-2xl px-6 py-24 text-center">
       <h2 className="font-serif text-2xl font-semibold text-text-heading">
         เกิดข้อผิดพลาด
       </h2>

@@ -1,7 +1,7 @@
 export default function SchoolDetailLoading() {
   return (
     <main className="pb-24 pt-10 px-6">
-      <div className="mx-auto max-w-[900px] space-y-8">
+      <div className="tpl-reference space-y-8">
         <div className="space-y-3">
           <div className="h-3 w-24 animate-pulse rounded bg-surface-3" />
           <div className="h-8 w-64 animate-pulse rounded bg-surface-3" />

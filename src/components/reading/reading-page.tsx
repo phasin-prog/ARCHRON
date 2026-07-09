@@ -169,16 +169,13 @@ function MetaCard({ entry, readingTime }: { entry: ContentEntry; readingTime: st
   const accentIcon = { color: "var(--accent)" };
 
   return (
-    <div className="archron-panel relative mt-8 overflow-hidden p-5 sm:p-6">
-      <span
-        className="absolute inset-y-0 left-0 w-[3px]"
-        style={{ backgroundColor: "var(--accent)" }}
-        aria-hidden="true"
-      />
+    <div className="archron-panel relative mt-8 overflow-hidden p-5 sm:p-6 border-t-2"
+      style={{ borderTopColor: "var(--accent)" }}
+    >
       <dl className="grid gap-x-6 gap-y-5 sm:grid-cols-2">
         {entry.mainThinkers && entry.mainThinkers.length > 0 ? (
           <div className="sm:col-span-2">
-            <dt className="flex items-center gap-1.5 text-xs uppercase tracking-[0.12em] text-text-secondary">
+            <dt className="flex items-center gap-1.5 text-sm font-medium text-text-secondary/80">
               <span style={accentIcon}><PersonIcon className="h-4 w-4" /></span>
               นักคิดหลัก
             </dt>
@@ -201,7 +198,7 @@ function MetaCard({ entry, readingTime }: { entry: ContentEntry; readingTime: st
 
         {entry.school || entry.framework ? (
           <div>
-            <dt className="flex items-center gap-1.5 text-xs uppercase tracking-[0.12em] text-text-secondary">
+            <dt className="flex items-center gap-1.5 text-sm font-medium text-text-secondary/80">
               <span style={accentIcon}><SchoolIcon className="h-4 w-4" /></span>
               สำนักคิด
             </dt>
@@ -211,7 +208,7 @@ function MetaCard({ entry, readingTime }: { entry: ContentEntry; readingTime: st
 
         {rootText ? (
           <div>
-            <dt className="flex items-center gap-1.5 text-xs uppercase tracking-[0.12em] text-text-secondary">
+            <dt className="flex items-center gap-1.5 text-sm font-medium text-text-secondary/80">
               <span style={accentIcon}><RootIcon className="h-4 w-4" /></span>
               รากแนวคิด
             </dt>
@@ -220,7 +217,7 @@ function MetaCard({ entry, readingTime }: { entry: ContentEntry; readingTime: st
         ) : null}
 
         <div>
-          <dt className="flex items-center gap-1.5 text-xs uppercase tracking-[0.12em] text-text-secondary">
+          <dt className="flex items-center gap-1.5 text-sm font-medium text-text-secondary/80">
             <span style={accentIcon}><AuthorPenIcon className="h-4 w-4" /></span>
             ผู้เขียน
           </dt>
@@ -229,7 +226,7 @@ function MetaCard({ entry, readingTime }: { entry: ContentEntry; readingTime: st
 
         {entry.publishedAt ? (
           <div>
-            <dt className="flex items-center gap-1.5 text-xs uppercase tracking-[0.12em] text-text-secondary">
+            <dt className="flex items-center gap-1.5 text-sm font-medium text-text-secondary/80">
               <span style={accentIcon}><CalendarIcon className="h-4 w-4" /></span>
               เผยแพร่
             </dt>
@@ -238,7 +235,7 @@ function MetaCard({ entry, readingTime }: { entry: ContentEntry; readingTime: st
         ) : null}
 
         <div>
-          <dt className="flex items-center gap-1.5 text-xs uppercase tracking-[0.12em] text-text-secondary">
+          <dt className="flex items-center gap-1.5 text-sm font-medium text-text-secondary/80">
             <span style={accentIcon}><ClockIcon className="h-4 w-4" /></span>
             แก้ไขล่าสุด
           </dt>
@@ -298,7 +295,7 @@ export async function ReadingPage({
         </div>
       </aside>
 
-      <main id="reading-article" className="relative z-10 w-full max-w-[760px] px-4 sm:px-6 pb-24 pt-10 lg:mx-0 mx-auto">
+      <main id="reading-article" className="relative z-10 w-full tpl-reading pb-24 pt-10 lg:mx-0">
         <span
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 top-0 h-[600px] -z-10"
@@ -577,7 +574,7 @@ export async function ReadingPage({
           <div className="justify-self-start">
             {prevEntry ? (
               <Link href={`/${section}/${prevEntry.slug}`} className="group inline-flex flex-col gap-0.5">
-                <span className="flex items-center gap-1 text-xs uppercase tracking-wide text-text-secondary">
+                <span className="flex items-center gap-1 text-sm font-medium text-text-secondary/80">
                   <ArrowRightIcon className="h-3.5 w-3.5 rotate-180" /> ก่อนหน้า
                 </span>
                 <span className="font-serif text-text-body transition-colors group-hover:text-accent">
@@ -594,7 +591,7 @@ export async function ReadingPage({
           <div className="justify-self-end text-right">
             {nextEntry ? (
               <Link href={`/${section}/${nextEntry.slug}`} className="group inline-flex flex-col gap-0.5">
-                <span className="flex items-center justify-end gap-1 text-xs uppercase tracking-wide text-text-secondary">
+                <span className="flex items-center justify-end gap-1 text-sm font-medium text-text-secondary/80">
                   ถัดไป <ArrowRightIcon className="h-3.5 w-3.5" />
                 </span>
                 <span className="font-serif text-text-body transition-colors group-hover:text-accent">

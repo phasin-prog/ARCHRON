@@ -46,7 +46,7 @@ export function SiteFooter() {
 
   return (
     <footer id="footer" className="archive-hall relative z-10 w-full bg-bg py-16">
-      <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-12 px-4 sm:px-6 md:grid-cols-12 md:gap-x-14">
+      <div className="mx-auto grid max-w-(--width-content) grid-cols-1 gap-12 px-4 sm:px-6 md:grid-cols-12 md:gap-x-14">
         {/* Brand */}
         <div className="md:col-span-6">
           <h6 className="archive-hall__heading"><span aria-hidden="true">🏛</span> ผู้เขียน</h6>
@@ -112,7 +112,7 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="mx-auto mt-14 flex max-w-[1200px] flex-col items-center justify-between gap-4 border-t border-accent/10 px-4 sm:px-6 pt-8 sm:flex-row">
+      <div className="mx-auto mt-14 flex max-w-(--width-content) flex-col items-center justify-between gap-4 border-t border-accent/10 px-4 sm:px-6 pt-8 sm:flex-row">
         <p className="text-center text-xs leading-relaxed tracking-wide text-text-secondary/55 sm:text-left">
           © 2026 <span className="text-accent">ARCHRON</span>
           {totalViews != null && totalViews > 0 ? (

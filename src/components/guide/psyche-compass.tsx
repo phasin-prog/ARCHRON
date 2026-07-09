@@ -43,12 +43,12 @@ export function PsycheCompass() {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="relative h-[320px] w-[320px] rounded-full border border-border/30 bg-bg/40 p-4 backdrop-blur-sm">
+      <div className="relative aspect-square w-full max-w-[320px] rounded-full border border-border/30 bg-bg/40 p-4 backdrop-blur-sm">
         <svg viewBox="0 0 320 320" className="h-full w-full">
           <defs>
             <radialGradient id="gold-glow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#C49B55" stopOpacity="0.4" />
-              <stop offset="100%" stopColor="#C49B55" stopOpacity="0" />
+              <stop offset="0%" stopColor="var(--color-premium)" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="var(--color-premium)" stopOpacity="0" />
             </radialGradient>
           </defs>
 
@@ -95,14 +95,14 @@ export function PsycheCompass() {
           </g>
         </svg>
 
-        <span className="absolute -top-6 left-1/2 -translate-x-1/2 rounded bg-bg-card px-2 py-0.5 text-[9px] font-semibold tracking-wider text-text-secondary/80 uppercase">
+        <span className="absolute -top-6 left-1/2 -translate-x-1/2 rounded bg-bg-card px-2 py-0.5 text-sm font-medium text-text-secondary/80">
           Psyche Compass
         </span>
       </div>
 
       <div className="mt-6 w-full max-w-[340px] rounded-md border border-border/30 bg-bg-card/40 p-4 text-center backdrop-blur-sm">
         <h4 className="font-serif text-sm font-semibold text-accent">{detail.title}</h4>
-        <p className="text-[11px] uppercase tracking-wider text-text-secondary/75">{detail.subtitle}</p>
+        <p className="text-sm font-medium text-text-secondary/80">{detail.subtitle}</p>
         <p className="mt-2 text-xs leading-relaxed text-text-body/90">{detail.desc}</p>
         <p className="mt-2 border-t border-border/20 pt-2 text-[11px] italic text-accent/80">{detail.stack}</p>
       </div>

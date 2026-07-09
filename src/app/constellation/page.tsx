@@ -50,7 +50,7 @@ export default async function ConstellationPage({
       ambient
       className="atmo-observatory"
     >
-      <section className="mx-auto max-w-[1200px] px-6">
+      <section className="tpl-content">
         {initialFocus ? (
           <ConstellationMindmap data={graph} initialFocus={initialFocus} />
         ) : null}

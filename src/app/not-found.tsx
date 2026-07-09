@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <main className="flex min-h-[70vh] flex-col items-center justify-center px-6 py-24 text-center">
+    <main className="tpl-reference flex min-h-[70vh] flex-col items-center justify-center py-24 text-center">
       {/* Icon */}
       <div className="mb-8">
         <span className="inline-flex items-center justify-center w-[72px] h-[72px] text-[72px] text-accent/25" aria-hidden="true">◎</span>

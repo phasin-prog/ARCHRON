@@ -9,7 +9,7 @@ type PageHeaderProps = {
 
 export function PageHeader({ kicker, title, lead, breadcrumb }: PageHeaderProps) {
   return (
-    <header className="scroll-reveal mx-auto max-w-6xl px-6 pb-10 pt-20">
+    <header className="scroll-reveal tpl-reference pb-10 pt-20">
       {breadcrumb && breadcrumb.length > 0 ? (
         <Breadcrumb items={breadcrumb} className="mb-6" />
       ) : null}

@@ -27,7 +27,7 @@ export default async function ComparePage() {
       ambient
       navCurrent="/compare"
     >
-      <section className="mx-auto max-w-7xl px-6">
+      <section className="tpl-content">
         <CompareMatrix entries={entries} />
       </section>
     </PageScaffold>

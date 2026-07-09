@@ -15,13 +15,13 @@ import { ArrowRightIcon, SearchIcon } from "@/components/icons";
 
 // ARCHRON Color Cosmology — สีเส้นความสัมพันธ์ตามสถานะการสืบค้น
 const RELATION_COLOR: Record<RelationType, string> = {
-  prerequisite: "#C49B55",
-  "part-of": "#C49B55",
-  "source-of": "#9ABA9A",
-  "influenced-by": "#7BA3D4",
-  "contrasts-with": "#C48A9A",
-  "used-in": "#7BA3D4",
-  related: "#858992",
+  prerequisite: "var(--color-premium)",
+  "part-of": "var(--color-premium)",
+  "source-of": "var(--color-quote)",
+  "influenced-by": "var(--color-concept)",
+  "contrasts-with": "var(--color-article)",
+  "used-in": "var(--color-concept)",
+  related: "var(--color-text-secondary)",
 };
 
 type Neighbor = { id: string; relation: RelationType; soft?: boolean };

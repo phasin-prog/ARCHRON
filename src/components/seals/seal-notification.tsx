@@ -28,7 +28,7 @@ export function SealNotification({ seal, onClose, onView }: SealNotificationProp
       <div className="flex items-center gap-4 rounded-xl border border-border bg-bg-card px-6 py-4 shadow-lg">
         <SealIcon seal={seal} size={40} />
         <div className="flex flex-col">
-          <span className="font-ui text-xs uppercase tracking-wider text-text-secondary">
+          <span className="text-sm font-medium text-text-secondary/80">
             ได้รับตราประทับวิชาการ
           </span>
           <span className="font-heading text-sm font-semibold text-text-heading">

@@ -137,7 +137,7 @@ export function SiteHeader() {
     <header className={`sticky top-0 z-50 glass-nav ${scrolled ? "is-scrolled" : ""}`}>
       {/* Desktop (>lg) — center-aligned logo + gold pill nav */}
       <div className="hidden lg:block">
-        <div className="mx-auto max-w-[1280px] px-6">
+        <div className="mx-auto px-6" style={{ maxWidth: "var(--width-dashboard)" }}>
           {/* Row 1: Logo center + Search/Account right */}
           <div className="relative flex justify-center py-4">
             <Link
@@ -199,14 +199,14 @@ export function SiteHeader() {
                     className="glass-nav-panel absolute right-0 top-[calc(100%+10px)] min-w-[214px] rounded-xl border border-accent/20 p-1.5 shadow-[0_24px_50px_-24px_rgba(0,0,0,0.85)]"
                   >
                     <SignedOut>
-                      <p className="px-3 pb-1 pt-2 font-mono text-xs uppercase tracking-[0.12em] text-text-secondary/50">ยินดีต้อนรับ</p>
+                      <p className="px-3 pb-1 pt-2 text-sm font-medium text-text-secondary/80">ยินดีต้อนรับ</p>
                       <Link href="/th/login" onClick={() => setAcctOpen(false)} className={menuItem} role="menuitem">
                         <LoginIcon className="h-[18px] w-[18px] text-accent" />
                         เข้าสู่ระบบ
                       </Link>
                     </SignedOut>
                     <SignedIn>
-                      <p className="px-3 pb-1 pt-2 font-mono text-xs uppercase tracking-[0.12em] text-text-secondary/50">บัญชีของคุณ</p>
+                      <p className="px-3 pb-1 pt-2 text-sm font-medium text-text-secondary/80">บัญชีของคุณ</p>
                       <Link href="/profile" onClick={() => setAcctOpen(false)} className={menuItem} role="menuitem">
                         <PersonIcon className="h-[18px] w-[18px] text-accent" />
                         โปรไฟล์ของฉัน
@@ -325,7 +325,7 @@ export function SiteHeader() {
                     data-nav-label={item.label}
                     className={`flex items-start gap-3.5 rounded-2xl border p-4 transition-all ${
                       isActive(item.href)
-                        ? "border-accent/60 bg-accent/10 shadow-[0_0_20px_rgba(196,155,85,0.15)]"
+                        ? "border-accent/60 bg-accent/10"
                         : "border-border/30 bg-text-heading/[0.025] hover:border-accent/40 hover:bg-text-heading/[0.06]"
                     }`}
                   >
@@ -359,7 +359,7 @@ export function SiteHeader() {
               <Link
                 href="/th/login"
                 onClick={() => setOpen(false)}
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent to-accent py-3 text-base font-semibold text-bg shadow-[0_0_20px_rgba(196,155,85,0.15)] transition-all hover:opacity-95"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent to-accent py-3 text-base font-semibold text-bg transition-all hover:opacity-95"
               >
                 <LoginIcon className="h-5 w-5" />
                 <span>เข้าสู่ระบบ</span>

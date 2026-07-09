@@ -76,7 +76,7 @@ export function MyContentSearch({ userId }: { userId: string | null }) {
                         </span>
                         <span className="truncate">{e.title || e.slug}</span>
                       </span>
-                      <span className="shrink-0 text-[10px] uppercase tracking-wide text-text-secondary">
+                      <span className="shrink-0 text-sm font-medium text-text-secondary/80">
                         {e.status}
                       </span>
                     </a>

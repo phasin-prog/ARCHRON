@@ -56,3 +56,91 @@ export function SkeletonGrid({ count = 6 }: { count?: number }) {
     </div>
   );
 }
+
+// Page header skeleton — breadcrumb + kicker + title + lead
+export function SkeletonPageHeader({
+  kickerWidth = "w-20",
+  titleWidth = "w-48",
+  leadWidth = "w-96",
+}: {
+  kickerWidth?: string;
+  titleWidth?: string;
+  leadWidth?: string;
+}) {
+  return (
+    <div className="mb-10 space-y-3" aria-hidden="true">
+      <div className={`h-3 ${kickerWidth} animate-pulse rounded bg-surface-3`} />
+      <div className={`h-8 ${titleWidth} animate-pulse rounded bg-surface-3`} />
+      <div className={`h-5 ${leadWidth} animate-pulse rounded bg-surface-3`} />
+    </div>
+  );
+}
+
+// Article content skeleton — meta pills + title + byline + paragraphs
+export function SkeletonArticleContent() {
+  return (
+    <div className="mx-auto w-full max-w-3xl space-y-4" aria-hidden="true">
+      <div className="flex gap-2">
+        <div className="h-5 w-16 animate-pulse rounded-full bg-surface-3" />
+        <div className="h-5 w-20 animate-pulse rounded-full bg-surface-3" />
+        <div className="h-5 w-24 animate-pulse rounded-full bg-surface-3" />
+      </div>
+      <div className="h-10 w-3/4 animate-pulse rounded bg-surface-3" />
+      <div className="h-4 w-1/2 animate-pulse rounded bg-surface-3" />
+      <div className="space-y-2 pt-6">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <div
+            key={i}
+            className="h-4 animate-pulse rounded bg-surface-3"
+            style={{ width: i === 7 ? "55%" : "100%" }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Home hero skeleton — centered wordmark + subtitle + search
+export function SkeletonHomeHero() {
+  return (
+    <section className="flex min-h-[70vh] flex-col items-center justify-center px-6 text-center" aria-hidden="true">
+      <div className="mx-auto w-full max-w-2xl space-y-6">
+        <div className="mx-auto h-12 w-64 animate-pulse rounded bg-surface-3" />
+        <div className="mx-auto h-5 w-80 animate-pulse rounded bg-surface-3" />
+        <div className="mx-auto h-5 w-56 animate-pulse rounded bg-surface-3" />
+        <div className="mx-auto mt-8 h-12 w-full max-w-md animate-pulse rounded-lg bg-surface-3" />
+      </div>
+    </section>
+  );
+}
+
+// Accordion skeleton — stack of clickable header bars
+export function SkeletonAccordion({ count = 5 }: { count?: number }) {
+  return (
+    <div className="space-y-3" aria-hidden="true">
+      {Array.from({ length: count }).map((_, i) => (
+        <div key={i} className="rounded-lg border border-border/20 p-4">
+          <div className="h-5 w-3/4 animate-pulse rounded bg-surface-3" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// Icon grid skeleton — small square boxes
+export function SkeletonIconGrid({ count = 24 }: { count?: number }) {
+  return (
+    <div
+      className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6"
+      role="status"
+      aria-label="กำลังโหลดไอคอน"
+    >
+      {Array.from({ length: count }).map((_, i) => (
+        <div key={i} className="flex flex-col items-center gap-2 rounded-lg border border-border/20 p-4">
+          <div className="h-10 w-10 animate-pulse rounded bg-surface-3" />
+          <div className="h-3 w-16 animate-pulse rounded bg-surface-3" />
+        </div>
+      ))}
+    </div>
+  );
+}

@@ -98,7 +98,7 @@ function VariantCard({ card }: { card: CardPreview }) {
       <div className="text-xs text-text-secondary space-y-0.5 px-1">
         <div className="flex items-center gap-2">
           <span className="inline-block h-2 w-2 rounded-full" style={{ backgroundColor: card.accentVar }} />
-          <span className="font-mono text-[10px] uppercase tracking-widest">{card.accentLabel}</span>
+          <span className="text-sm font-medium text-text-secondary/80">{card.accentLabel}</span>
         </div>
         <p className="text-[10px] opacity-60">{card.description}</p>
       </div>
@@ -108,7 +108,7 @@ function VariantCard({ card }: { card: CardPreview }) {
 
 export default function PreviewCardsPage() {
   return (
-    <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6">
+    <div className="tpl-content py-24">
       <div className="mb-16 text-center">
         <h1 className="font-serif text-fluid-h1 text-text-heading">ระบบการ์ด 7 รูปแบบ</h1>
         <p className="mt-4 text-text-secondary max-w-2xl mx-auto">

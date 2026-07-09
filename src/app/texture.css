@@ -11,7 +11,7 @@
   opacity: var(--texture-grain-opacity);
   background-image: none;
   pointer-events: none;
-  z-index: 1;
+  z-index: var(--z-surface);
 }
 
 /* vignette */
@@ -25,5 +25,5 @@
     color-mix(in srgb, var(--color-shadow) 40%, transparent) 100%
   );
   pointer-events: none;
-  z-index: 1;
+  z-index: var(--z-surface);
 }

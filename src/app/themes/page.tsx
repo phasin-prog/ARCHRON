@@ -22,7 +22,7 @@ export default async function ThemesPage() {
         title="แก่นเรื่องข้ามศาสตร์"
         lead="แก่นความคิดที่ปรากฏซ้ำในหลายศาสตร์ — เลือกแก่นเรื่องเพื่อรวบรวมแนวคิด บทความ และนักคิดที่พูดถึงสิ่งเดียวกัน แม้จะมาจากจิตวิทยา ปรัชญา หรือศาสตร์อื่น"
       />
-      <section className="scroll-reveal stagger-1 mx-auto max-w-5xl px-6">
+      <section className="scroll-reveal stagger-1 tpl-reference">
         <div className="grid gap-4 sm:grid-cols-2">
           {THEMES.map((t) => {
             const count = entriesForTheme(entries, t.key).length;

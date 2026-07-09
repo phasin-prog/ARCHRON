@@ -105,7 +105,7 @@ export function SearchableSelect({
         <span className="text-text-secondary">▾</span>
       </button>
       {open ? (
-        <div className={`absolute z-[100] w-full rounded-md border border-text-heading/15 bg-surface-2 p-2 shadow-[0_12px_30px_-12px_rgba(0,0,0,0.8)] ${placement === "top" ? "bottom-full mb-1" : "mt-1"}`}>
+        <div className={`absolute z-toast w-full rounded-md border border-text-heading/15 bg-surface-2 p-2 shadow-[0_12px_30px_-12px_rgba(0,0,0,0.8)] ${placement === "top" ? "bottom-full mb-1" : "mt-1"}`}>
           <input
             autoFocus
             value={q}

@@ -133,7 +133,7 @@ export function ConceptCard({ c, hasRealContent = false }: { c: ConceptRegistryI
 
         <div className="flex flex-col items-center text-center flex-1">
           <span
-            className="mb-1 inline-block rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider transition-colors duration-300"
+            className="mb-1 inline-block rounded-full px-2 py-0.5 text-sm font-medium text-text-secondary/80 transition-colors duration-300"
             style={{
               color: hasRealContent ? accent : `color-mix(in srgb, ${accent} 50%, var(--color-text-secondary))`,
               backgroundColor: `color-mix(in srgb, ${accent} ${hasRealContent ? "10%" : "5%"}, transparent)`,

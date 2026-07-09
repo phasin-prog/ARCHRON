@@ -67,7 +67,7 @@ export default async function DisciplinePage({
         {/* ศึกษาอะไร */}
         <section className="scroll-reveal mt-12">
           <h2 className="flex items-center gap-3 font-serif text-fluid-h3 text-text-heading">
-            <span className="h-5 w-[3px] rounded" style={{ backgroundColor: meta.accent }} aria-hidden="true" />
+            <span className="inline-block h-3 w-3 rounded-full" style={{ backgroundColor: meta.accent }} aria-hidden="true" />
             ศึกษาอะไร
           </h2>
           <ul className="mt-5 space-y-3">
@@ -87,7 +87,7 @@ export default async function DisciplinePage({
         {/* คำถามสำคัญ */}
         <section className="scroll-reveal mt-12">
           <h2 className="flex items-center gap-3 font-serif text-fluid-h3 text-text-heading">
-            <span className="h-5 w-[3px] rounded" style={{ backgroundColor: meta.accent }} aria-hidden="true" />
+            <span className="inline-block h-3 w-3 rounded-full" style={{ backgroundColor: meta.accent }} aria-hidden="true" />
             คำถามสำคัญ
           </h2>
           <div className="mt-5 space-y-3">
@@ -108,7 +108,7 @@ export default async function DisciplinePage({
         {/* มุมที่ ARCHRON ใช้อ่าน */}
         <section className="scroll-reveal mt-12">
           <h2 className="flex items-center gap-3 font-serif text-fluid-h3 text-text-heading">
-            <span className="h-5 w-[3px] rounded" style={{ backgroundColor: meta.accent }} aria-hidden="true" />
+            <span className="inline-block h-3 w-3 rounded-full" style={{ backgroundColor: meta.accent }} aria-hidden="true" />
             มุมที่ ARCHRON ใช้อ่าน
           </h2>
           <p className="mt-5 border-l-2 pl-5 text-base leading-loose text-text-body" style={{ borderColor: `color-mix(in srgb, ${meta.accent} 45%, transparent)` }}>

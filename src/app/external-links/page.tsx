@@ -24,7 +24,7 @@ export default function ExternalLinksPage() {
       ambient
       navCurrent="/external-links"
     >
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="tpl-reference">
         <ExternalLinksBrowser categories={EXTERNAL_CATEGORIES} />
         <p className="mt-16 border-t border-border/30 pt-6 text-sm leading-relaxed text-text-secondary/50">
           หมายเหตุ: ลิงก์ทั้งหมดนำไปสู่เว็บไซต์ภายนอก โครงการ ARCHRON

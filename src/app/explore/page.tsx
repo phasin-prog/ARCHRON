@@ -27,7 +27,7 @@ export default async function ExplorePage() {
       ambient
       navCurrent="/explore"
     >
-      <section className="mx-auto max-w-7xl px-6">
+      <section className="tpl-content">
         <ExploreHub entries={entries} />
       </section>
     </PageScaffold>

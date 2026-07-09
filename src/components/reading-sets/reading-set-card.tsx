@@ -12,24 +12,20 @@ export function ReadingSetCard({ set }: { set: ReadingSetItem }) {
   const diffMeta = difficultyMeta(set.difficulty ?? "beginner");
 
   return (
-    <article className="archron-card relative overflow-hidden p-6 md:p-8 flex flex-col justify-between transition-all duration-300 hover:border-accent/45">
-      {/* แถบสีข้างบ่งบอก cosmology */}
-      <span
-        aria-hidden
-        className="absolute inset-y-0 left-0 w-[3px]"
-        style={{ backgroundColor: accent }}
-      />
+    <article className="archron-card relative overflow-hidden p-6 md:p-8 flex flex-col justify-between transition-all duration-300 hover:border-accent/45 border-t-2"
+      style={{ borderTopColor: accent } as React.CSSProperties}
+    >
 
       <div className="space-y-4">
         {/* หัวเรื่องของเซ็ต */}
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="space-y-1">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-text-secondary mr-1">
+              <span className="text-sm font-medium text-text-secondary/80 mr-1">
                 {set.framework}
               </span>
               <span
-                className="rounded-full px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider flex items-center gap-1"
+                className="rounded-full px-2 py-0.5 text-sm font-medium text-text-secondary/80 flex items-center gap-1"
                 style={{
                   color: diffMeta.accent,
                   backgroundColor: `${diffMeta.accent}14`,
@@ -69,14 +65,14 @@ export function ReadingSetCard({ set }: { set: ReadingSetItem }) {
 
         {/* เส้นทางการอ่านแบบเชื่อมโยง (Timeline Steps) */}
         <div className="py-4 border-t border-b border-border/20 space-y-3">
-          <p className="text-[11px] font-bold uppercase tracking-wider text-accent/80">
+          <p className="text-sm font-medium text-text-secondary/80">
             เส้นทางการเรียนรู้ ({set.steps.length} ขั้นตอน):
           </p>
           <div className="flex flex-col gap-4 pl-2 md:flex-row md:items-center md:gap-2 md:pl-0">
             {set.steps.map((step, idx) => {
               const isLast = idx === set.steps.length - 1;
               return (
-                <div key={step.slug} className="flex flex-col items-start md:flex-row md:items-center min-w-[150px] flex-1">
+                <div key={step.slug} className="flex flex-col items-start md:flex-row md:items-center min-w-0 w-full md:w-auto flex-1">
                   <Link
                     href={
                       step.type === "person"

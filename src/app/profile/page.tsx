@@ -115,7 +115,7 @@ export default async function ProfilePage() {
         lead="ติดตามการเดินทางในคลังความรู้ ระดับนักอ่าน และเหรียญตราของคุณ"
       />
 
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="tpl-reference">
         {/* หัวโปรไฟล์ — monogram avatar + ชื่อ + ยศ */}
         <div className="archron-card flex flex-col items-center justify-between gap-4 p-7 sm:flex-row sm:gap-6">
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-center sm:gap-6">
@@ -193,7 +193,7 @@ function ReadingTab({
               </svg>
             </span>
             <div>
-              <p className="text-xs uppercase tracking-[0.12em] text-text-secondary">ระดับปัจจุบัน</p>
+              <p className="text-sm font-medium text-text-secondary/80">ระดับปัจจุบัน</p>
               <p className="mt-1 font-serif text-2xl text-text-heading">
                 {lp.level} · {lp.name}
               </p>

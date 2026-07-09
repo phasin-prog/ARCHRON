@@ -134,13 +134,9 @@ export function ExploreHub({ entries }: { entries: ContentEntry[] }) {
               <Link
                 key={e.slug}
                 href={href}
-                className="archron-card group relative flex flex-col justify-between p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/50"
+                className="archron-card group relative flex flex-col justify-between p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 border-t-2"
+                style={{ borderTopColor: meta.accent } as React.CSSProperties}
               >
-                <span
-                  aria-hidden
-                  className="absolute inset-y-0 left-0 w-[3px] rounded-l"
-                  style={{ backgroundColor: meta.accent }}
-                />
 
                 <div className="space-y-3">
                   <div className="flex items-center justify-between gap-2 text-[11px] font-medium tracking-wider text-text-secondary">

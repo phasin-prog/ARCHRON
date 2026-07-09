@@ -19,9 +19,9 @@ const MAX_ITEMS = 3;
 
 // meta ต่อหมวด — ไอคอนเส้น + สี cosmology + ป้าย
 const SECTION_META: Record<Section, { label: string; accent: string; Icon: ComponentType<{ className?: string }> }> = {
-  articles: { label: "บทความ", accent: "#C49B55", Icon: BookIcon },
-  concepts: { label: "คลังแนวคิด", accent: "#7BA3D4", Icon: ConceptIcon },
-  books: { label: "หนังสือ", accent: "#C49B55", Icon: BookIcon },
+  articles: { label: "บทความ", accent: "var(--color-premium)", Icon: BookIcon },
+  concepts: { label: "คลังแนวคิด", accent: "var(--color-concept)", Icon: ConceptIcon },
+  books: { label: "หนังสือ", accent: "var(--color-premium)", Icon: BookIcon },
 };
 
 // อ่านรายการที่ดูล่าสุดจาก localStorage
@@ -65,7 +65,7 @@ export function RecentlyViewed() {
   if (items.length === 0) return null;
 
   return (
-    <section className="scroll-reveal mx-auto max-w-[1200px] px-6 py-16">
+    <section className="scroll-reveal tpl-content py-16">
       <div className="mb-8 flex items-center gap-3">
         <span className="text-accent/70">
           <ClockIcon className="h-[18px] w-[18px]" />

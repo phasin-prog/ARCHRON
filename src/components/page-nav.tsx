@@ -24,7 +24,7 @@ export function PageNav({ current }: { current: string }) {
   const next = i >= 0 && i < PAGE_ORDER.length - 1 ? PAGE_ORDER[i + 1] : null;
 
   return (
-    <nav className="mx-auto mt-20 max-w-6xl px-6" aria-label="นำทางระหว่างหน้า">
+    <nav className="tpl-reference mt-20" aria-label="นำทางระหว่างหน้า">
       <div className="grid grid-cols-1 items-center gap-4 border-t border-text-heading/10 pt-8 text-sm sm:grid-cols-3">
         <div>
           {prev ? (

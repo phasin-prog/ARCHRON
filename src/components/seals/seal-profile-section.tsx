@@ -13,7 +13,7 @@ export function SealProfileSection() {
 
   return (
     <>
-      <section className="mx-auto mt-16 max-w-[1200px] px-6">
+      <section className="tpl-content mt-16">
         <h2 className="font-heading text-2xl font-semibold text-text-heading">
           ตราประทับวิชาการ
         </h2>

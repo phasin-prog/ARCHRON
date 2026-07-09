@@ -23,7 +23,7 @@ export default function FaqPage() {
       lead="รวมคำถามเกี่ยวกับจุดยืนของโครงการ วิธีอ่าน ระดับเนื้อหา และการนำไปใช้ — คลิกที่คำถามเพื่อดูคำตอบ"
       className="atmo-observatory"
     >
-      <section className="mx-auto max-w-3xl px-6">
+      <section className="tpl-reference">
         <Accordion items={items} />
 
         <p className="mt-8 text-sm text-text-secondary/60">

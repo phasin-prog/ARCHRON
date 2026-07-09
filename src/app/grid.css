@@ -20,41 +20,35 @@
   --gutter-4: 24px;
   --gutter-5: 32px;
   --gutter-6: 48px;
-
-  /* Margin Scale (responsive) */
-  --margin-mobile: 16px;
-  --margin-tablet: 24px;
-  --margin-desktop: 48px;
-  --margin-wide: 64px;
 }
 
-/* ---- Grid Container ---- */
+/* ---- Grid Container — padding aligned with layout.css tpl-* responsive padding ---- */
 .grid-container {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding-left: var(--margin-mobile);
-  padding-right: var(--margin-mobile);
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 @media (min-width: 768px) {
   .grid-container {
-    padding-left: var(--margin-tablet);
-    padding-right: var(--margin-tablet);
+    padding-left: 24px;
+    padding-right: 24px;
   }
 }
 
 @media (min-width: 1024px) {
   .grid-container {
-    padding-left: var(--margin-desktop);
-    padding-right: var(--margin-desktop);
+    padding-left: 48px;
+    padding-right: 48px;
   }
 }
 
 @media (min-width: 1280px) {
   .grid-container {
-    padding-left: var(--margin-wide);
-    padding-right: var(--margin-wide);
+    padding-left: 48px;
+    padding-right: 48px;
   }
 }
 

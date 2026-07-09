@@ -39,7 +39,7 @@ export default async function ThinkersPage() {
       navCurrent="/schools"
       className="atmo-biography"
     >
-      <div className="relative mx-auto max-w-6xl px-6">
+      <div className="relative tpl-reference">
         <ThinkersHub thinkers={thinkers} />
       </div>
     </PageScaffold>

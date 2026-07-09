@@ -4,6 +4,7 @@ import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { buildStaticIndex } from "@/features/search/index";
 import type { SearchItem } from "@/features/search/types";
+import { useDebounce } from "@/lib/hooks/use-debounce";
 
 type Item = SearchItem;
 
@@ -21,6 +22,8 @@ export function QuickOpen() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
+
+  const debouncedQuery = useDebounce(query, 200);
 
   // Cmd+K / Ctrl+K to toggle
   useEffect(() => {
@@ -48,8 +51,8 @@ export function QuickOpen() {
   }, [open]);
 
   const terms = useMemo(() => {
-    return query.trim().toLowerCase().split(/\s+/).filter(Boolean);
-  }, [query]);
+    return debouncedQuery.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  }, [debouncedQuery]);
 
   const matched = useMemo(() => {
     if (terms.length === 0) return INDEX.slice(0, 8);
@@ -115,7 +118,7 @@ export function QuickOpen() {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh]">
+    <div className="fixed inset-0 z-toast flex items-start justify-center pt-[15vh]">
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/60 backdrop-blur-sm"

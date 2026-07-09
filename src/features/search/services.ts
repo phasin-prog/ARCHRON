@@ -8,6 +8,8 @@ function sortByScore(a: { score: number }, b: { score: number }): number {
   return b.score - a.score;
 }
 
+const queryCache = new Map<string, SearchResult>();
+
 export function search(
   items: SearchItem[],
   query: string,
@@ -18,6 +20,12 @@ export function search(
   if (tokens.length === 0) {
     return { query, matches: [], total: 0, groups: [] };
   }
+
+  const filters = options?.filters;
+  const filterKey = filters?.type ?? "all";
+  const cacheKey = `${query}:${filterKey}:${options?.limit ?? "all"}`;
+  const cached = queryCache.get(cacheKey);
+  if (cached) return cached;
 
   const filtered = applyFilters(items, options?.filters);
 
@@ -43,10 +51,11 @@ export function search(
     }))
     .filter((g) => g.items.length > 0);
 
-  return {
-    query,
-    matches: top,
-    total: allMatches.length,
-    groups,
-  };
+  const result: SearchResult = { query, matches: top, total: allMatches.length, groups };
+  queryCache.set(cacheKey, result);
+  if (queryCache.size > 100) {
+    const firstKey = queryCache.keys().next().value;
+    if (firstKey) queryCache.delete(firstKey);
+  }
+  return result;
 }

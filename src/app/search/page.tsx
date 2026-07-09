@@ -31,7 +31,7 @@ export default async function SearchPage({
       lead="ค้นทั่วทั้งคลังความรู้ — แนวคิด บทความ ทรัพยากรภายนอก และหน้าต่าง ๆ ในที่เดียว"
       className="atmo-observatory"
     >
-      <section className="mx-auto max-w-3xl px-6">
+      <section className="tpl-reference">
         <SearchClient items={index} initialQuery={q ?? ""} />
       </section>
     </PageScaffold>

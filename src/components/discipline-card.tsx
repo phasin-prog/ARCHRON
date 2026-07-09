@@ -5,7 +5,7 @@ import { DISCIPLINE_META } from "@/components/discipline-meta";
 import type { DisciplineEntry } from "@/lib/content/disciplines";
 
 const CARD_CLASS =
-  "group relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-border/25 bg-text-heading/[0.02] p-7 transition-all duration-500 hover:-translate-y-1.5 hover:border-accent/40 hover:shadow-[0_28px_56px_-30px_rgba(0,0,0,0.7)] focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none";
+  "group relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-border/25 bg-text-heading/[0.02] p-7 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_28px_56px_-30px_rgba(0,0,0,0.7)] focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none border-t-2 border-transparent hover:border-accent/40";
 
 export function DisciplineCard({ entry, href }: { entry: DisciplineEntry; href?: string }) {
   const meta = DISCIPLINE_META[entry.key];
@@ -13,12 +13,7 @@ export function DisciplineCard({ entry, href }: { entry: DisciplineEntry; href?:
 
   const inner = (
     <>
-      {/* แถบ accent ซ้าย (ขึ้นเมื่อ hover) */}
-      <span
-        className="absolute inset-y-0 left-0 w-[3px] origin-top scale-y-0 transition-transform duration-500 group-hover:scale-y-100"
-        style={{ backgroundColor: meta.accent }}
-        aria-hidden="true"
-      />
+
       {/* แสงเรืองมุมบนขวา */}
       <span
         className="pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full opacity-40 transition-opacity duration-500 group-hover:opacity-90"

@@ -64,7 +64,7 @@ export default async function SchoolDetailPage({ params }: PageProps) {
 
   return (
     <main className="atmo-temple px-6 pb-24 pt-10">
-      <div className="mx-auto max-w-[900px]">
+      <div className="tpl-reference">
         {/* Breadcrumb */}
         <nav aria-label="เส้นทางนำทาง" className="flex flex-wrap items-center gap-1 text-xs text-text-secondary">
           <Link href="/" className="rounded px-2 py-1.5 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:text-accent focus-visible:outline-none">หน้าแรก</Link>
@@ -217,7 +217,7 @@ export default async function SchoolDetailPage({ params }: PageProps) {
                   )}
 
                   <div className="mt-4 border-t border-text-heading/5 pt-3">
-                    <span className="text-[10px] uppercase tracking-wider text-text-secondary/40 block mb-1.5">ผลงานสำคัญ</span>
+                    <span className="text-sm font-medium text-text-secondary/80 block mb-1.5">ผลงานสำคัญ</span>
                     <ul className="space-y-1">
                       {t.masterpieces.slice(0, 2).map((m) => (
                         <li key={m} className="flex items-start gap-1.5 text-xs text-text-secondary/70">

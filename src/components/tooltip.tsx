@@ -39,7 +39,7 @@ export function Tooltip({
       </span>
       <span
         role="tooltip"
-        className={`pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-max max-w-[240px] -translate-x-1/2 whitespace-normal rounded-md border border-text-heading/12 bg-bg-card px-3 py-2 text-left text-xs font-normal normal-case leading-relaxed tracking-normal text-text-secondary shadow-[0_12px_30px_-12px_rgba(0,0,0,0.7)] transition-opacity duration-200 ${
+        className={`pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-max max-w-[280px] -translate-x-1/2 whitespace-normal rounded-md border border-text-heading/12 bg-bg-card px-3 py-2 text-left text-xs font-normal normal-case leading-relaxed tracking-normal text-text-secondary shadow-[0_12px_30px_-12px_rgba(0,0,0,0.7)] transition-opacity duration-200 ${
           showByKeyboard ? "opacity-100" : "opacity-0 group-hover/tt:opacity-100 group-focus-within/tt:opacity-100"
         }`}
       >

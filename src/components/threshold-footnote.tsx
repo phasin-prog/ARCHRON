@@ -17,7 +17,7 @@ export function ThresholdFootnote({
     <div className="my-4">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-2 font-sans text-xs font-bold uppercase tracking-widest text-[var(--color-accent)] transition-colors hover:text-[var(--color-text-heading)]"
+        className="flex items-center gap-2 text-sm font-medium text-text-secondary/80 transition-colors hover:text-[var(--color-text-heading)]"
       >
         <span
           className="inline-block transition-transform duration-300"

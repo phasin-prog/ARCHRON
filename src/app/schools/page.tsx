@@ -28,7 +28,7 @@ export default async function SchoolsPage() {
       navCurrent="/schools"
       className="atmo-temple"
     >
-      <section className="relative mx-auto max-w-6xl px-6">
+      <section className="relative tpl-reference">
         {schools.length === 0 ? (
           <EmptyState
             icon="groups_2"

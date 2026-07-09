@@ -105,7 +105,7 @@ export default function StudioDashboardPage() {
 
   if (!writer) {
     return (
-      <main className="mx-auto max-w-2xl px-6 py-20 text-center">
+      <main className="tpl-reference py-20 text-center">
         <span className="inline-flex items-center justify-center w-16 h-16 text-[64px] text-text-secondary" aria-hidden="true">🔒</span>
         <h1 className="mt-4 font-serif text-2xl text-text-heading">ต้องมีสิทธิ์นักเขียน</h1>
         <p className="mt-2 text-sm text-text-secondary/70">
@@ -180,12 +180,12 @@ export default function StudioDashboardPage() {
 
   return (
     <main className="px-4 sm:px-6 pb-24 pt-10">
-      <div className="mx-auto max-w-[1200px]">
+      <div className="tpl-dashboard">
         {/* Header */}
         <header className="mb-8">
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-[11px] uppercase tracking-[0.2em] text-accent/70">
+              <span className="text-sm font-medium text-text-secondary/80">
                 Studio · Dashboard
               </span>
               <h1 className="mt-2 font-serif text-3xl text-text-heading">
@@ -246,7 +246,7 @@ export default function StudioDashboardPage() {
         {/* Quick Drafts — ฉบับร่างล่าสุด */}
         {recentDrafts.length > 0 && (
           <section className="mb-8">
-            <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-text-secondary/50">
+            <h2 className="mb-3 text-sm font-medium text-text-secondary/80">
               ฉบับร่างล่าสุด
             </h2>
             <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">

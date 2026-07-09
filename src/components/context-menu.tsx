@@ -134,7 +134,7 @@ export function ContextMenu({
               ref={menuRef}
               role="menu"
               aria-label="เมนูลัด"
-              className="menu-in fixed z-[60] min-w-48 overflow-hidden rounded-lg border border-accent/20 bg-bg-card/95 py-1.5 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.7)] backdrop-blur"
+              className="menu-in fixed z-overlay min-w-48 overflow-hidden rounded-lg border border-accent/20 bg-bg-card/95 py-1.5 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.7)] backdrop-blur"
               style={{ left: pos.x, top: pos.y }}
               onClick={(e) => e.stopPropagation()}
             >

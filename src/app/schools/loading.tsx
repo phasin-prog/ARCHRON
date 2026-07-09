@@ -1,7 +1,7 @@
 export default function SchoolsLoading() {
   return (
     <main className="px-6 pb-24 pt-10">
-      <div className="mx-auto max-w-[1100px]">
+      <div className="tpl-reference">
         {/* Breadcrumb Placeholder */}
         <div className="flex items-center gap-1">
           <div className="h-4 w-12 animate-pulse rounded bg-surface-3" />

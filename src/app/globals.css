@@ -25,15 +25,15 @@
    Semantic สำหรับ status indicators เท่านั้น
    ============================================================================ */
 @theme {
-  /* ---- Neutral Canvas (95%) — Light Academic ---- */
-  --color-bg: #E7F0F7;            /* Page background — soft blue-white */
-  --color-bg-card: #FFFFFF;       /* Card surface — clean white */
-  --color-bg-elevated: #D3E5F2;   /* Hover states — subtle blue */
-  --color-border: #C9DCE9;        /* Borders, dividers — soft blue line */
-  --color-text-heading: #0F2A3D;  /* Headings — deep ink */
-  --color-text-body: #3F5C72;     /* Body text — muted steel */
-  --color-text-secondary: #38566C;/* Meta, captions — slate (WCAG AA ≥4.5:1 on bg + elevated) */
-  --color-text-inverse: #FFFFFF;  /* Text on accent/dark backgrounds */
+   /* ---- Neutral Canvas (95%) — Warm Academic ---- */
+   --color-bg: #FAF8F5;            /* Page background — warm cream (aged paper) */
+   --color-bg-card: #FFFFFF;       /* Card surface — clean white */
+   --color-bg-elevated: #F5F3F0;   /* Hover states — warm elevated */
+   --color-border: #E5E2DC;        /* Borders, dividers — warm beige line */
+   --color-text-heading: #1A1815;  /* Headings — almost-black ink */
+   --color-text-body: #3A3835;     /* Body text — warm brown-gray */
+   --color-text-secondary: #6E6B65;/* Meta, captions — warm medium gray */
+   --color-text-inverse: #FFFFFF;  /* Text on accent/dark backgrounds */
 
   /* ---- Academic (Accent) — Deep Ocean Blue #1C5D99 ---- */
   --color-accent: #1C5D99;        /* Links, active elements — Deep Ocean Blue */
@@ -96,6 +96,14 @@
   --font-serif: var(--font-heading);
   --font-display: var(--font-playfair), "Playfair Display", Georgia, serif;
   --font-wordmark: var(--font-cinzel), "Cinzel", "Trajan Pro", Georgia, serif;
+
+  /* ── Z-index Scale (Tailwind-friendly tokens) ─────── */
+  --z-surface: 10;
+  --z-sticky: 30;
+  --z-nav: 40;
+  --z-drawer: 50;
+  --z-overlay: 60;
+  --z-toast: 70;
 }
 
 /* ── Z-index Scale (centralized — ห้ามใช้ magic numbers) ─────── */
@@ -732,7 +740,7 @@
   font-weight: 700;
   user-select: none;
   pointer-events: none;
-  z-index: 0;
+  z-index: var(--z-base);
   line-height: 1;
   transition: opacity 1s ease-out, transform 1s ease-out;
 }
@@ -743,7 +751,7 @@
   bottom: 0;
   width: 1px;
   pointer-events: none;
-  z-index: 0;
+  z-index: var(--z-base);
   background: linear-gradient(
     180deg,
     transparent 0%,
@@ -761,7 +769,7 @@
   border-radius: 9999px;
   border: 1px solid color-mix(in srgb, var(--color-accent) 18%, transparent);
   pointer-events: none;
-  z-index: 0;
+  z-index: var(--z-base);
 }
 
 @media (prefers-reduced-motion: reduce) {

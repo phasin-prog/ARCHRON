@@ -173,7 +173,7 @@ export default async function KnowledgeHubPage() {
 
   return (
     <PageScaffold ambient navCurrent="/knowledge">
-      <div className="mx-auto max-w-5xl px-6 pt-24">
+      <div className="tpl-reference pt-24">
         <Breadcrumb
           items={[{ label: "หน้าแรก", href: "/" }, { label: "คลังความรู้" }]}
           className="mb-10"

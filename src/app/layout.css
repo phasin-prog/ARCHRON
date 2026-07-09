@@ -1,12 +1,16 @@
-/* Layout Templates — 3 archetypes */
+/* Layout Templates — 4 archetypes */
 :root {
   --width-reading: 760px;
   --width-reference: 980px;
+  --width-content: 1152px;
   --width-dashboard: 1280px;
 }
 
 .layout { min-height: 100vh; display: flex; flex-direction: column; }
 .layout-main { flex: 1; width: 100%; }
+
+/* Unified responsive padding for all tpl-* tiers */
+/* Mobile: 16px → Tablet (768px+): 24px → Desktop (1024px+): 48px */
 
 /* Reading (760px) — articles, concepts */
 .tpl-reading {
@@ -16,6 +20,9 @@
 }
 @media (min-width: 768px) {
   .tpl-reading { padding: 0 24px; }
+}
+@media (min-width: 1024px) {
+  .tpl-reading { padding: 0 48px; }
 }
 
 /* Reference (980px) — lists, search, index pages */
@@ -29,6 +36,19 @@
 }
 @media (min-width: 1024px) {
   .tpl-reference { padding: 0 48px; }
+}
+
+/* Content (1152px) — homepage sections, compare, explore, wide content */
+.tpl-content {
+  max-width: var(--width-content);
+  margin-left: auto; margin-right: auto;
+  padding: 0 16px;
+}
+@media (min-width: 768px) {
+  .tpl-content { padding: 0 24px; }
+}
+@media (min-width: 1024px) {
+  .tpl-content { padding: 0 48px; }
 }
 
 /* Dashboard (1280px) — studio, timeline */

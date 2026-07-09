@@ -126,7 +126,7 @@ const CATEGORIES: { label: string; names: string[] }[] = [
 
 export default function IconsPage() {
   return (
-    <main className="mx-auto max-w-6xl px-6 py-16">
+    <main className="tpl-reference py-16">
       <h1 className="font-heading text-3xl text-text-heading">ชุดไอคอน ARCHRON</h1>
       <p className="mt-2 text-sm text-text-secondary">
         ไอคอน SVG ทั้งหมด {ALL_ICONS.length} ตัว — ใช้ currentColor, 2px stroke, 24×24 viewBox

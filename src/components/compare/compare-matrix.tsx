@@ -57,7 +57,7 @@ export function CompareMatrix({ entries }: { entries: ContentEntry[] }) {
 
         {/* ตัวเลือกเปลี่ยนหัวข้อ */}
         <div className="border-b border-text-heading/10 pb-4">
-          <label className="block text-[11px] uppercase tracking-widest text-text-secondary mb-2">
+          <label className="block text-sm font-medium text-text-secondary/80 mb-2">
             {sideLabel}
           </label>
           <select
@@ -75,7 +75,7 @@ export function CompareMatrix({ entries }: { entries: ContentEntry[] }) {
 
         {/* ข้อมูลประจำตัว Identity */}
         <div className="space-y-2">
-          <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: meta.accent }}>
+          <span className="text-sm font-medium text-text-secondary/80" style={{ color: meta.accent }}>
             {item.framework ?? item.contentType}
           </span>
           <h2 className="font-serif text-2xl text-text-heading">{item.title}</h2>
@@ -112,7 +112,7 @@ export function CompareMatrix({ entries }: { entries: ContentEntry[] }) {
 
         {/* เนื้อหาข้อความสรุป */}
         <div className="space-y-2 text-sm leading-relaxed text-text-body">
-          <h3 className="text-xs font-semibold uppercase tracking-wider text-text-secondary">ความหมายทางจิตวิทยา/ปรัชญา</h3>
+          <h3 className="text-sm font-medium text-text-secondary/80">ความหมายทางจิตวิทยา/ปรัชญา</h3>
           <p className="line-clamp-6">{item.visualExplanation ?? item.technicalMeaning ?? "คลิกอ่านฉบับเต็มเพื่อดูรายละเอียดเชิงลึกของแนวคิดนี้"}</p>
         </div>
 

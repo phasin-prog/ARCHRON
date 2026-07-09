@@ -14,7 +14,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="mx-auto max-w-[720px] px-6 py-24 text-center">
+    <div className="tpl-reference py-24 text-center">
       <h2 className="font-heading text-2xl font-semibold text-text-heading">
         เกิดข้อผิดพลาด
       </h2>

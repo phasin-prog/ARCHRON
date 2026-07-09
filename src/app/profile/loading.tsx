@@ -6,13 +6,13 @@ export default function ProfileLoading() {
   return (
     <main className="pb-24" role="status" aria-label="กำลังโหลดโปรไฟล์">
       {/* โครง PageHeader */}
-      <div className="mx-auto max-w-6xl px-6 pb-10 pt-20">
+      <div className="tpl-reference pb-10 pt-20">
         <div className="h-4 w-28 animate-pulse rounded bg-surface-3" />
         <div className="mt-4 h-9 w-60 animate-pulse rounded bg-surface-3" />
         <div className="mt-5 h-5 w-96 max-w-full animate-pulse rounded bg-surface-3" />
       </div>
 
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="tpl-reference">
         {/* โครงหัวโปรไฟล์ — avatar + ชื่อ + ยศ */}
         <div className="archron-card flex flex-col items-center gap-4 p-7 sm:flex-row sm:gap-6">
           <div className="h-20 w-20 flex-none animate-pulse rounded-full bg-surface-3" />

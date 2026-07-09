@@ -24,7 +24,7 @@ export default function DisciplinesPage() {
         lead="การเข้าใจมนุษย์ไม่อาจอาศัยศาสตร์เดียว — ARCHRON เดินข้ามพรมแดนวิชา แล้ววางแต่ละแขนงไว้ในแผนที่เดียวกัน เลือกอ่านว่าแต่ละแขนงศึกษาอะไร และมุมที่เราใช้อ่านมัน"
       />
 
-      <section className="scroll-reveal stagger-1 mx-auto max-w-6xl px-6">
+      <section className="scroll-reveal stagger-1 tpl-reference">
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {DISCIPLINES.map((d) => (
             <DisciplineCard key={d.key} entry={d} href={`/disciplines/${d.key}`} />

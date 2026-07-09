@@ -32,7 +32,7 @@ export function LocalGraph({ entry }: { entry: ContentEntry }) {
         แผนที่ความสัมพันธ์เฉพาะหน้านี้
       </figcaption>
 
-      <div className="relative mx-auto h-[300px] w-full max-w-[440px]">
+      <div className="relative mx-auto h-[300px] w-full sm:max-w-[440px]">
         {/* เส้นเชื่อม */}
         <svg
           className="absolute inset-0 h-full w-full"

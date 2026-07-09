@@ -10,6 +10,7 @@ import {
   SEARCH_TYPE_ORDER,
   type SearchType,
 } from "@/features/search/types";
+import { useDebounce } from "@/lib/hooks/use-debounce";
 
 const INDEX = buildStaticIndex();
 const MAX_SUGGESTIONS = 8;
@@ -22,9 +23,11 @@ export function HomeSearch() {
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
 
+  const debouncedQuery = useDebounce(query, 200);
+
   const result = useMemo(
-    () => search(INDEX, query, { limit: MAX_SUGGESTIONS }),
-    [query],
+    () => search(INDEX, debouncedQuery, { limit: MAX_SUGGESTIONS }),
+    [debouncedQuery],
   );
 
   const flatSuggestions = useMemo(

@@ -39,7 +39,7 @@ export default function SourcesPage() {
       ambient
       navCurrent="/sources"
     >
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="tpl-reference">
         {/* 01 · ชั้นของแหล่งความรู้ */}
         <section className="scroll-reveal">
           <SectionLabel num="01">ชั้นของแหล่งความรู้ (Epistemic Tiers)</SectionLabel>

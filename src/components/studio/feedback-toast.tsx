@@ -41,7 +41,7 @@ export function FeedbackToast({
     <div
       role={ok ? "status" : "alert"}
       aria-live={ok ? "polite" : "assertive"}
-      className="fixed inset-0 z-[70] flex items-center justify-center pointer-events-none"
+      className="fixed inset-0 z-toast flex items-center justify-center pointer-events-none"
     >
       <div
         className={`pointer-events-auto mx-4 flex w-full max-w-md items-start gap-4 rounded-lg border px-6 py-5 shadow-[0_20px_60px_-12px_rgba(0,0,0,0.6)] backdrop-blur-xl transition-all duration-300 ${bg} ${leaving ? "opacity-0 scale-95" : "opacity-100 scale-100"}`}

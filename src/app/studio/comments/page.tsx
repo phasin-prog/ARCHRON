@@ -9,7 +9,7 @@ import {
   setCommentStatusAction,
   deleteCommentAdminAction,
   type ModComment,
-} from "./actions";
+} from "@/features/studio/actions/comments-actions";
 
 // โมเดอเรชันคอมเมนต์ (แอดมินเท่านั้น) — ซ่อน/แสดง/ลบ คอมเมนต์ของผู้ใช้ทุกคน
 // สิทธิ์ตรวจซ้ำที่ server action เสมอ (UI นี้เป็นเพียงชั้นแสดงผล)

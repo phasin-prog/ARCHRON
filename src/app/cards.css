@@ -5,7 +5,7 @@
 }
 .archron-card--article:hover {
   border-color: color-mix(in srgb, var(--card-accent) 60%, transparent);
-  box-shadow: 0 20px 48px -16px color-mix(in srgb, var(--color-shadow) 80%, transparent);
+  box-shadow: var(--elevation-1);
 }
 
 .archron-card--concept {
@@ -14,7 +14,7 @@
 }
 .archron-card--concept:hover {
   border-color: color-mix(in srgb, var(--card-accent) 55%, transparent);
-  box-shadow: 0 20px 48px -16px color-mix(in srgb, var(--color-shadow) 80%, transparent);
+  box-shadow: var(--elevation-1);
 }
 
 .archron-card--person {
@@ -23,7 +23,7 @@
 }
 .archron-card--person:hover {
   border-color: color-mix(in srgb, var(--card-accent) 50%, transparent);
-  box-shadow: 0 20px 48px -16px color-mix(in srgb, var(--color-shadow) 80%, transparent);
+  box-shadow: var(--elevation-1);
 }
 
 .archron-card--book {
@@ -32,7 +32,7 @@
 }
 .archron-card--book:hover {
   border-color: color-mix(in srgb, var(--card-accent) 55%, transparent);
-  box-shadow: 0 20px 48px -16px color-mix(in srgb, var(--color-shadow) 80%, transparent);
+  box-shadow: var(--elevation-1);
 }
 
 .archron-card--school {
@@ -42,7 +42,7 @@
 .archron-card--school:hover {
   transform: translateY(-3px);
   border-color: color-mix(in srgb, var(--card-accent) 45%, transparent);
-  box-shadow: 0 16px 40px -14px color-mix(in srgb, var(--color-shadow) 80%, transparent);
+  box-shadow: var(--elevation-1);
 }
 
 .archron-card--symbol {
@@ -52,7 +52,7 @@
 }
 .archron-card--symbol:hover {
   border-color: color-mix(in srgb, var(--card-accent) 50%, transparent);
-  box-shadow: 0 0 28px -6px color-mix(in srgb, var(--card-accent) 16%, transparent);
+  box-shadow: var(--elevation-1);
 }
 
 .archron-card--term {

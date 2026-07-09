@@ -10,30 +10,8 @@
    ============================================================================ */
 
 :root {
-  /* ---- Font Stack Definitions ---- */
-  /* Editorial / Reading: Noto Serif Thai (Thai) + IBM Plex Serif (English) */
-  --font-editorial: var(--font-noto-serif-thai), var(--font-ibm-plex-serif),
-    "Noto Serif Thai", "IBM Plex Serif", Georgia, serif;
-
-  /* UI / Interface: IBM Plex Sans Thai (Thai) + Inter (English) */
-  --font-ui: var(--font-ibm-plex-thai), var(--font-inter),
-    "IBM Plex Sans Thai", "Inter", system-ui, sans-serif;
-
-  /* Body / Content: Inter (English) + Noto Sans Thai (Thai) */
-  --font-body: var(--font-inter), var(--font-noto-sans-thai),
-    "Inter", "Noto Sans Thai", system-ui, sans-serif;
-
-  /* Heading: IBM Plex Serif (English) + Noto Serif Thai (Thai) */
-  --font-heading: var(--font-ibm-plex-serif), var(--font-noto-serif-thai),
-    "IBM Plex Serif", "Noto Serif Thai", Georgia, serif;
-
-  /* Display: Playfair Display (English only) */
-  --font-display: var(--font-playfair), "Playfair Display", Georgia, serif;
-
-  /* Wordmark: Cinzel (English only - brand name) */
-  --font-wordmark: var(--font-cinzel), "Cinzel", "Trajan Pro", Georgia, serif;
-
-  /* Mono: system monospace */
+  /* Font stacks are defined in globals.css (@theme) — this file only sets type-scale tokens */
+  /* Mono: system monospace (only defined here — not duplicated in globals.css) */
   --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", "Cascadia Code",
     ui-monospace, monospace;
 

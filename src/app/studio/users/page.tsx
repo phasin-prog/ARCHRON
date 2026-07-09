@@ -10,7 +10,7 @@ import {
   ROLE_META,
   type Role,
 } from "@/lib/content/roles";
-import { listUsersAction, setRoleAction, type AdminUser } from "./actions";
+import { listUsersAction, setRoleAction, type AdminUser } from "@/features/studio/actions/users-actions";
 
 const ROLES: Role[] = ["admin", "writer", "user"];
 

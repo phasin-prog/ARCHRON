@@ -16,35 +16,35 @@
 @import "./interaction.css";
 
 /* ============================================================================
-   ARCHRON — Color System (Dark · 95-3-2)
+   ARCHRON — Color System (Light Academic · 95-3-2)
    ----------------------------------------------------------------------------
-   95% Neutral Canvas — 3% Gold Accent — 2% Category Identity
+   95% Neutral Canvas — 3% Blue Accent — 2% Discipline Identity Tokens
    "Color represents meaning, not decoration."
-   พื้นถ่านนิ่งซับแสง — Serif สงบบนแคนวาสมืด — Gold เฉพาะ dominant action
-   Knowledge category colors สำหรับ badges/icons/graph nodes เท่านั้น
+   พื้นซับแสงสบายตา — Serif สงบบนแคนวาสว่าง — Blue เฉพาะ dominant action
+   Discipline identity tokens สำหรับ badges/icons/graph nodes เท่านั้น
    Semantic สำหรับ status indicators เท่านั้น
    ============================================================================ */
 @theme {
-  /* ---- Neutral (Base) — Dark ---- */
-  --color-bg: #0F1117;            /* Page background — deep charcoal */
-  --color-bg-card: #181C25;       /* Card surface — lifted slab */
-  --color-bg-elevated: #1E2230;   /* Hover states */
-  --color-border: #232936;        /* Borders, dividers */
-  --color-text-secondary: #858992;/* Meta, captions */
-  --color-text-body: #D0C8D4;     /* Body text — warm ivory soft */
-  --color-text-heading: #E5DCEC;  /* Headings — ivory-lilac */
-  --color-text-inverse: #0F1117;  /* Text on dark/accent backgrounds */
+  /* ---- Neutral Canvas (95%) — Light Academic ---- */
+  --color-bg: #E7F0F7;            /* Page background — soft blue-white */
+  --color-bg-card: #FFFFFF;       /* Card surface — clean white */
+  --color-bg-elevated: #D3E5F2;   /* Hover states — subtle blue */
+  --color-border: #C9DCE9;        /* Borders, dividers — soft blue line */
+  --color-text-heading: #0F2A3D;  /* Headings — deep ink */
+  --color-text-body: #3F5C72;     /* Body text — muted steel */
+  --color-text-secondary: #38566C;/* Meta, captions — slate (WCAG AA ≥4.5:1 on bg + elevated) */
+  --color-text-inverse: #FFFFFF;  /* Text on accent/dark backgrounds */
 
-  /* ---- Academic (Accent) — Gold #C49B55 ---- */
-  --color-accent: #C49B55;        /* Links, active elements — Old Gold */
-  --color-accent-hover: #D4A94A;  /* Hover state — brighter gold */
-  --color-accent-on-bg: #C49B55;  /* Accent text on bg surfaces */
-  --color-accent-subtle: #232936; /* Subtle background (same as border) */
+  /* ---- Academic (Accent) — Deep Ocean Blue #1C5D99 ---- */
+  --color-accent: #1C5D99;        /* Links, active elements — Deep Ocean Blue */
+  --color-accent-hover: #123F6B;  /* Hover state — darker navy */
+  --color-accent-on-bg: #1C5D99;  /* Accent text on bg surfaces */
+  --color-accent-subtle: color-mix(in srgb, var(--color-accent) 15%, var(--color-bg-card)); /* Subtle background — matches accent hue */
 
   /* ---- Premium Gold (featured/premium only) ---- */
-  --color-premium: #D4A94A;        /* Featured badges, premium elements */
-  --color-premium-hover: #E0B85A;  /* Hover state */
-  --color-premium-subtle: #1E2230; /* Subtle background */
+  --color-premium: #B89A63;        /* Featured badges, premium elements */
+  --color-premium-hover: #C8AA73;  /* Hover state */
+  --color-premium-subtle: #F5F0E8; /* Subtle background */
 
   /* ---- Knowledge Categories (badges/icons/graph nodes only) ---- */
   --color-concept: #7BA3D4;       /* Warm Blue */
@@ -58,13 +58,27 @@
   --color-quote: #9ABA9A;         /* Sage */
   --color-guide: #8A9AC8;         /* Indigo */
 
+  /* ---- 12 Disciplines Identity Tokens (2%) — badges/borders/hover only ---- */
+  --token-01-psychology: #1C5D99;
+  --token-02-philosophy: #6B4E71;
+  --token-03-anthropology: #C87D55;
+  --token-04-history: #8C6D46;
+  --token-05-language: #2A8C82;
+  --token-06-mythology: #A84B4B;
+  --token-07-religion: #8CCFAB;
+  --token-08-science: #0F62FE;
+  --token-09-symbolism: #435585;
+  --token-10-art: #BA5A82;
+  --token-11-future: #3887BE;
+  --token-12-civilization: #4A677E;
+
   /* ---- Semantic (status indicators only) ---- */
   --color-success: #6AAA7A;       /* Published, approved */
   --color-warning: #D4AA50;       /* Needs review, warning */
   --color-error: #CC7A7A;         /* Error, critical */
   --color-info: #7A8ABA;          /* Information */
 
-  /* ---- Shadow color (for elevation — dark bg, black shadow) ---- */
+  /* ---- Shadow color (for elevation — light bg, black shadow) ---- */
   --color-shadow: #000000;
 
   /* ---- Dynamic Typography — ฟอนต์สองภาษา (อังกฤษขึ้นก่อนเสมอ → ไทย) ---- */
@@ -97,7 +111,7 @@
 
 @layer base {
   :root {
-    color-scheme: dark;
+    color-scheme: light;
 
     /* ── Compat defaults — สำหรับ inline style ที่ยังอ้างถึง dynamic accent/domain ──
        ค่าเริ่มต้น = Academic accent / Neutral; override ได้ตามบริบท (per-content) */
@@ -206,14 +220,14 @@
     color: var(--color-text-body);
   }
 
-  /* พื้นหลังมืด — ไล่เฉดกลางลิบจากบนลงล่าง สร้างมิติห้องสมุด */
+  /* พื้นหลังสว่าง — ไล่เฉดฟ้าอ่อนจากบนลงล่าง สร้างมิติสงบ */
   body::before {
     content: "";
     position: fixed;
     inset: 0;
     z-index: var(--z-base);
     pointer-events: none;
-    background: radial-gradient(ellipse at 50% 0%, #1A1E2A 0%, #0F1117 70%);
+    background: radial-gradient(ellipse at 50% 0%, #D3E5F2 0%, #E7F0F7 70%);
   }
 
   body {
@@ -681,7 +695,7 @@
     border-color var(--dur-base) var(--ease-out);
 }
 .glass-nav.is-scrolled {
-  background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+  background: color-mix(in srgb, var(--color-bg-card) 92%, transparent);
   border-bottom-color: color-mix(in srgb, var(--color-accent) 28%, transparent);
 }
 @keyframes concept-pulse {

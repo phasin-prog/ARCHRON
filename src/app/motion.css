@@ -15,9 +15,6 @@
   /* --ease-soft and --ease-out are defined in globals.css as the canonical source */
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 
-  /* ---- Duration Scale (aligned with globals.css) ---- */
-  --dur-fast: 200ms;
+  /* Duration tokens are in globals.css — only unique tokens here */
   --dur-normal: 350ms;
-  --dur-slow: 850ms;
-  --dur-slower: 850ms;
 }

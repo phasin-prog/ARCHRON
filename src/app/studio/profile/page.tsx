@@ -8,7 +8,7 @@ import {
   getMyProfileAction,
   upsertMyProfileAction,
   requestWriterAction,
-} from "./actions";
+} from "@/features/studio/actions/profile-actions";
 import type { Profile } from "@/lib/content/profile-db";
 
 interface RecentItem {

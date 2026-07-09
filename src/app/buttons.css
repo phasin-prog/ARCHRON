@@ -19,7 +19,7 @@
   border: 1px solid transparent;
   border-radius: 6px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -53,7 +53,7 @@
 /* Primary (Gold) */
 .btn-primary {
   background: linear-gradient(135deg, var(--color-accent), var(--color-accent));
-  color: var(--color-shadow);
+  color: var(--color-text-inverse);
   font-weight: 600;
 }
 
@@ -196,7 +196,7 @@
   height: 56px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--color-accent), var(--color-accent));
-  color: var(--color-shadow);
+  color: var(--color-text-inverse);
   display: flex;
   align-items: center;
   justify-content: center;

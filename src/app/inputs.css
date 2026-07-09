@@ -282,7 +282,7 @@
 
 .archron-switch input:checked + .archron-switch-slider::before {
   transform: translateX(20px);
-  background: var(--color-shadow);
+  background: var(--color-text-inverse);
 }
 
 .archron-switch input:focus-visible + .archron-switch-slider {

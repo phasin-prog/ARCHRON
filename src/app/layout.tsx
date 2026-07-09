@@ -79,7 +79,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html
         lang="th"
-        className={`${inter.variable} ${notoSansThai.variable} ${ibmPlexSerif.variable} ${notoSerifThai.variable} ${ibmPlexThai.variable} ${playfair.variable} ${cinzel.variable} ${lora.variable}`}
+        className={`${cormorant.variable} ${inter.variable} ${ibmPlexThai.variable} ${notoSansThai.variable} ${notoSerifThai.variable}`}
       >
         <head>
           <meta charSet="utf-8" />

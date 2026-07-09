@@ -3,8 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { MarkdownRenderer } from "@/components/reading/markdown-renderer";
 import { useAuth, useUser, UserButton } from "@clerk/nextjs";
 import { roleFromMetadata, canWrite, isAdmin } from "@/lib/content/roles";
 import {
@@ -636,8 +635,8 @@ export default function StudioEditorPage() {
               {draft.visualExplanation ? <p className="mt-4 whitespace-pre-line text-text-body">{draft.visualExplanation}</p> : null}
               {draft.technicalMeaning ? <p className="mt-3 whitespace-pre-line text-text-body">{draft.technicalMeaning}</p> : null}
               {draft.bodyMarkdown && draft.bodyMarkdown.trim() !== "" ? (
-                <div className="md-body mt-5 border-t border-text-heading/10 pt-5">
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{draft.bodyMarkdown}</ReactMarkdown>
+                <div className="mt-5 border-t border-text-heading/10 pt-5">
+                  <MarkdownRenderer content={draft.bodyMarkdown} />
                 </div>
               ) : null}
             </section>

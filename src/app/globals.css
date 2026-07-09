@@ -25,21 +25,27 @@
    Semantic สำหรับ status indicators เท่านั้น
    ============================================================================ */
 @theme {
-   /* ---- Neutral Canvas (95%) — Warm Academic ---- */
-   --color-bg: #F2EDE6;            /* Page background — warm cream (aged paper) */
-   --color-bg-card: #FFFFFF;       /* Card surface — clean white */
-   --color-bg-elevated: #EBE5DD;   /* Hover states — warm elevated */
-   --color-border: #E0D9D0;        /* Borders, dividers — warm beige line */
-   --color-text-heading: #1A1815;  /* Headings — almost-black ink */
-   --color-text-body: #3A3835;     /* Body text — warm brown-gray */
-   --color-text-secondary: #65625C;/* Meta, captions — warm medium gray */
-   --color-text-inverse: #FFFFFF;  /* Text on accent/dark backgrounds */
+   /* ---- Neutral Canvas (95%) — Focus First #FAF6F0 ---- */
+    --color-bg: #FAF6F0;            /* Page background — flat warm cream (Focus First) */
+    --color-bg-card: #FFFFFF;       /* Card surface — clean white */
+    --color-bg-elevated: #F1EBE1;   /* Hover states — warm elevated */
+    --color-border: #E8E0D3;        /* Borders, dividers — warm beige line */
+    --color-text-heading: #25231F;  /* Headings — deep ink */
+    --color-text-body: #5C5852;     /* Body text — warm brown-gray */
+    --color-text-secondary: #9A9590;/* Meta, captions — warm medium gray */
+    --color-text-inverse: #FFFFFF;  /* Text on accent/dark backgrounds */
 
   /* ---- Academic (Accent) — Deep Ocean Blue #1C5D99 ---- */
   --color-accent: #1C5D99;        /* Links, active elements — Deep Ocean Blue */
   --color-accent-hover: #123F6B;  /* Hover state — darker navy */
   --color-accent-on-bg: #1C5D99;  /* Accent text on bg surfaces */
   --color-accent-subtle: color-mix(in srgb, var(--color-accent) 15%, var(--color-bg-card)); /* Subtle background — matches accent hue */
+
+  /* ---- Focus First Accent Palette (4 voices) ---- */
+  --color-accent-knowledge: #2F3A5A;  /* Knowledge — navy, deep calm */
+  --color-accent-wisdom: #C2A46E;     /* Wisdom — gold, warm parchment */
+  --color-accent-mind: #7E9B8F;       /* Mind — sage green, quiet focus */
+  --color-accent-spirit: #7A657F;     /* Spirit — dust purple, mystery */
 
   /* ---- Premium Gold (featured/premium only) ---- */
   --color-premium: #B89A63;        /* Featured badges, premium elements */
@@ -114,21 +120,22 @@
   /* ---- Shadow color (for elevation — light bg, black shadow) ---- */
   --color-shadow: #000000;
 
-  /* ---- Dynamic Typography — ฟอนต์สองภาษา (อังกฤษขึ้นก่อนเสมอ → ไทย) ---- */
-  /* Heading = สาย Serif: IBM Plex Serif (อังกฤษ) + Noto Serif Thai (ไทย) */
-  --font-heading: var(--font-ibm-plex-serif), var(--font-noto-serif-thai), "IBM Plex Serif",
+  /* ---- Dynamic Typography — Focus First (Cormorant Garamond + Sans Body) ---- */
+  /* Heading = สาย Serif: Cormorant Garamond (อังกฤษ) + Noto Serif Thai (ไทย) */
+  --font-heading: var(--font-cormorant), var(--font-noto-serif-thai), "Cormorant Garamond",
     "Noto Serif Thai", Georgia, serif;
-  /* Body = สาย Serif: Lora (อังกฤษ) + Noto Serif Thai (ไทย) — อ่านยาวสบายตา */
-  --font-body: var(--font-lora), var(--font-noto-serif-thai), "Lora",
-    "Noto Serif Thai", Georgia, serif;
+  /* Body = สาย Sans: IBM Plex Sans Thai + Inter — อ่านยาวไม่ล้า */
+  --font-body: var(--font-ibm-plex-thai), var(--font-inter), "IBM Plex Sans Thai",
+    "Inter", system-ui, sans-serif;
   /* UI / Labels = สาย Sans: Inter + Noto Sans Thai */
   --font-ui: var(--font-inter), var(--font-noto-sans-thai), "Inter",
     "Noto Sans Thai", system-ui, sans-serif;
   /* alias เดิม — ให้ utility ที่มีอยู่ทำงานต่อโดยไม่ต้องแก้รายไฟล์ */
   --font-sans: var(--font-ui);
   --font-serif: var(--font-heading);
-  --font-display: var(--font-playfair), "Playfair Display", Georgia, serif;
-  --font-wordmark: var(--font-cinzel), "Cinzel", "Trajan Pro", Georgia, serif;
+  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-wordmark: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", "Cascadia Code", ui-monospace, monospace;
 
   /* ── Z-index Scale (Tailwind-friendly tokens) ─────── */
   --z-surface: 10;
@@ -261,14 +268,14 @@
     color: var(--color-text-body);
   }
 
-  /* พื้นหลังสว่าง — ไล่เฉดฟ้าอ่อนจากบนลงล่าง สร้างมิติสงบ */
+  /* Focus First — flat background, no gradients under text */
   body::before {
     content: "";
     position: fixed;
     inset: 0;
     z-index: var(--z-base);
     pointer-events: none;
-    background: radial-gradient(ellipse at 50% 0%, #D3E5F2 0%, #E7F0F7 70%);
+    background: transparent;
   }
 
   body {

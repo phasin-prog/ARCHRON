@@ -19,6 +19,7 @@ import {
 import { levelProgress, LEVELS } from "@/lib/content/levels";
 import { ACHIEVEMENTS } from "@/lib/content/achievements";
 import { SealProfileSection } from "@/components/seals/seal-profile-section";
+import { LevelBadgeIcon, AchievementBadgeIcon, ReadingSetBadgeIcon } from "@/components/icons";
 import type { ContentEntry } from "@/types/content";
 
 export const metadata: Metadata = {
@@ -186,11 +187,9 @@ function ReadingTab({
       <section className="archron-card p-6 sm:p-7">
         <div className="flex items-end justify-between gap-4">
           <div className="flex items-center gap-4">
-            {/* ไอคอน 3 มิติ "หอวงโคจร" — ระดับการอ่าน (sprite เฟส 0) */}
-            <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-border/40 rounded-[0.9rem_0.3rem] bg-bg-card" aria-hidden="true">
-              <svg className="icon-3d">
-                <use href="/icons/archron-icons.svg#level" />
-              </svg>
+            {/* ไอคอน "หอวงโคจร" — ระดับการอ่าน */}
+            <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-border/40 rounded-[0.9rem_0.3rem] bg-bg-card text-accent" aria-hidden="true">
+              <LevelBadgeIcon className="h-6 w-6" />
             </span>
             <div>
               <p className="text-sm font-medium text-text-secondary/80">ระดับปัจจุบัน</p>
@@ -240,10 +239,8 @@ function ReadingTab({
                       : "border-border/20 opacity-55"
                 }`}
               >
-                <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-border/40 rounded-[0.9rem_0.3rem] bg-bg-card scale-75 mb-1.5" style={!reached ? { borderColor: "color-mix(in srgb, var(--color-border) 60%, transparent)" } : undefined}>
-                  <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": reached ? "var(--color-accent)" : "var(--color-text-secondary)" } as React.CSSProperties}>
-                    <use href="/icons/archron-icons.svg#level" />
-                  </svg>
+                <span className={`inline-flex items-center justify-center w-11 h-11 flex-none border border-border/40 rounded-[0.9rem_0.3rem] bg-bg-card scale-75 mb-1.5 ${reached ? "text-accent" : "text-text-secondary"}`} style={!reached ? { borderColor: "color-mix(in srgb, var(--color-border) 60%, transparent)" } : undefined}>
+                  <LevelBadgeIcon className="h-6 w-6" />
                 </span>
                 <p className={`text-xs ${reached ? "text-accent font-semibold" : "text-text-secondary"}`}>
                   {lv.level}
@@ -261,11 +258,9 @@ function ReadingTab({
       {/* กริดเหรียญตรา */}
       <section>
         <h3 className="flex items-center gap-3 font-serif text-fluid-h3 text-text-heading">
-          {/* ไอคอน 3 มิติ "ดาวรัศมี" — เหรียญตรา (sprite เฟส 0) */}
-          <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-border/40 rounded-[0.9rem_0.3rem] bg-bg-card" aria-hidden="true">
-            <svg className="icon-3d">
-              <use href="/icons/archron-icons.svg#achievement" />
-            </svg>
+          {/* ไอคอน "ดาวรัศมี" — เหรียญตรา */}
+          <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-border/40 rounded-[0.9rem_0.3rem] bg-bg-card text-accent" aria-hidden="true">
+            <AchievementBadgeIcon className="h-6 w-6" />
           </span>
           เหรียญตรา
         </h3>
@@ -282,10 +277,8 @@ function ReadingTab({
                   unlocked ? "" : "opacity-45"
                 }`}
               >
-                <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-border/40 rounded-[0.9rem_0.3rem] bg-bg-card scale-110 mb-2" style={!unlocked ? { borderColor: "color-mix(in srgb, var(--color-border) 60%, transparent)" } : undefined}>
-                  <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": unlocked ? "var(--color-accent)" : "var(--color-text-secondary)" } as React.CSSProperties}>
-                    <use href="/icons/archron-icons.svg#achievement" />
-                  </svg>
+                <span className={`inline-flex items-center justify-center w-11 h-11 flex-none border border-border/40 rounded-[0.9rem_0.3rem] bg-bg-card scale-110 mb-2 ${unlocked ? "text-accent" : "text-text-secondary"}`} style={!unlocked ? { borderColor: "color-mix(in srgb, var(--color-border) 60%, transparent)" } : undefined}>
+                  <AchievementBadgeIcon className="h-6 w-6" />
                 </span>
                 <p className="mt-3 text-sm font-medium text-text-heading">{a.title}</p>
                 <p className="mt-1 text-xs leading-snug text-text-secondary">{a.description}</p>
@@ -298,11 +291,9 @@ function ReadingTab({
       {/* ประวัติการอ่าน */}
       <section>
         <h3 className="flex items-center gap-3 font-serif text-fluid-h3 text-text-heading">
-          {/* ไอคอน 3 มิติ "ตั้งหนังสือ" — ประวัติการอ่าน (sprite เฟส 0) */}
-          <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-border/40 rounded-[0.9rem_0.3rem] bg-bg-card" aria-hidden="true">
-            <svg className="icon-3d">
-              <use href="/icons/archron-icons.svg#reading-set" />
-            </svg>
+          {/* ไอคอน "ตั้งหนังสือ" — ประวัติการอ่าน */}
+          <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-border/40 rounded-[0.9rem_0.3rem] bg-bg-card text-accent" aria-hidden="true">
+            <ReadingSetBadgeIcon className="h-6 w-6" />
           </span>
           ประวัติการอ่าน
         </h3>

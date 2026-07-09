@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useAuth, useUser } from "@clerk/nextjs";
 import { roleFromMetadata, ROLE_LABEL, ROLE_META, canWrite } from "@/lib/content/roles";
+import { AchievementBadgeIcon } from "@/components/icons";
 import {
   getMyProfileAction,
   upsertMyProfileAction,
@@ -156,11 +157,9 @@ export default function StudioProfilePage() {
 
       <div className="archron-panel mb-8 flex items-center justify-between p-4">
         <div className="flex items-center gap-3">
-          <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-border/40 rounded-[0.9rem_0.3rem] bg-bg-card" style={{ borderColor: `color-mix(in srgb, ${roleMeta.accent} 26%, var(--color-border))` }}>
-            <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": roleMeta.accent } as React.CSSProperties}>
-              <use href="/icons/archron-icons.svg#achievement" />
-            </svg>
-          </span>
+            <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-border/40 rounded-[0.9rem_0.3rem] bg-bg-card" style={{ borderColor: `color-mix(in srgb, ${roleMeta.accent} 26%, var(--color-border))`, color: roleMeta.accent }}>
+              <AchievementBadgeIcon className="h-6 w-6" />
+            </span>
           <div>
             <p className="text-xs text-text-secondary/60">บทบาท</p>
             <p className="font-serif text-lg" style={{ color: roleMeta.accent }}>

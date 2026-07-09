@@ -1,13 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import {
   Inter,
-  IBM_Plex_Serif,
   IBM_Plex_Sans_Thai,
   Noto_Sans_Thai,
   Noto_Serif_Thai,
-  Playfair_Display,
-  Cinzel,
-  Lora,
+  Cormorant_Garamond,
 } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
@@ -21,8 +18,17 @@ import { ConceptPopup } from "@/components/concept-popup";
 import { ClerkProvider } from "@clerk/nextjs";
 
 
-// ── Dynamic Typography (สองภาษา: อังกฤษขึ้นก่อน → ไทย) ──────────────────────
-// สาย Body (Modern Minimal): Inter (อังกฤษ) → Noto Sans Thai (ไทย)
+// ── Focus First Typography ──────────────────────────────────────────────
+// สาย Display/Heading: Cormorant Garamond (อ่านง่าย, สงบ, คลาสสิก)
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
+  display: "swap",
+});
+
+// สาย Body (Sans — อ่านยาวไม่ล้า): Inter (อังกฤษ) → IBM Plex Sans Thai (ไทย, body)
 const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
@@ -30,29 +36,6 @@ const inter = Inter({
   display: "swap",
 });
 
-const notoSansThai = Noto_Sans_Thai({
-  subsets: ["thai", "latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-noto-sans-thai",
-  display: "swap",
-});
-
-// สาย Heading (Serif): IBM Plex Serif (อังกฤษ) → Noto Serif Thai (ไทย)
-const ibmPlexSerif = IBM_Plex_Serif({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  variable: "--font-ibm-plex-serif",
-  display: "swap",
-});
-
-const notoSerifThai = Noto_Serif_Thai({
-  subsets: ["thai", "latin"],
-  weight: ["500", "600", "700"],
-  variable: "--font-noto-serif-thai",
-  display: "swap",
-});
-
-// IBM Plex Sans Thai — คงไว้สำหรับ UI ฝั่ง Clerk (login / register / studio)
 const ibmPlexThai = IBM_Plex_Sans_Thai({
   subsets: ["thai", "latin"],
   weight: ["400", "500", "600"],
@@ -60,27 +43,19 @@ const ibmPlexThai = IBM_Plex_Sans_Thai({
   display: "swap",
 });
 
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  weight: ["500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-playfair",
-  display: "swap",
-});
-
-const lora = Lora({
-  subsets: ["latin"],
+// UI (labels, nav, buttons): Inter + Noto Sans Thai
+const notoSansThai = Noto_Sans_Thai({
+  subsets: ["thai", "latin"],
   weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-lora",
+  variable: "--font-noto-sans-thai",
   display: "swap",
 });
 
-// Cinzel — wordmark ARCHRON ตาม brand board (ตระกูลโรมันคลาสสิก ใช้กับชื่อแบรนด์ละตินเท่านั้น)
-const cinzel = Cinzel({
-  subsets: ["latin"],
-  weight: ["600", "700"],
-  variable: "--font-cinzel",
+// Serif Thai fallback — สำหรับ headings ไทย
+const notoSerifThai = Noto_Serif_Thai({
+  subsets: ["thai", "latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-noto-serif-thai",
   display: "swap",
 });
 

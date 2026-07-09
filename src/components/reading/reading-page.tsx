@@ -1,9 +1,8 @@
 // หน้าอ่าน Unified (articles/concepts) — ใช้ ReadingToc + ReadingDock (ดูไฟล์ในโฟลเดอร์เดียวกัน)
 import type { ComponentType, ReactNode } from "react";
 import Link from "next/link";
-import ReactMarkdown, { type Components } from "react-markdown";
-import remarkGfm from "remark-gfm";
 import type { ContentEntry, RelationType, SourceItem, Difficulty } from "@/types/content";
+import { MarkdownRenderer } from "@/components/reading/markdown-renderer";
 import { InternalLinkText } from "@/components/reading/internal-link-text";
 import { InternalConceptLink } from "@/components/reading/internal-concept-link";
 import { conceptTitle } from "@/lib/content/concept-registry";
@@ -25,7 +24,6 @@ import {
 } from "@/components/icons";
 import { Tooltip } from "@/components/tooltip";
 import { ContentCardList } from "@/components/content-card";
-import { ClerkProvider } from "@clerk/nextjs";
 import { ReadingToc } from "@/components/reading/reading-toc";
 import { ReadingDock } from "@/components/reading/reading-dock";
 import { ReadingProgress } from "@/components/reading/reading-progress";
@@ -82,20 +80,6 @@ const SOURCE_TYPE_LABEL: Record<string, string> = {
 
 const MAX_RELATED_INLINE = 6;
 
-// Citation System — แปลงมาร์กเกอร์ [[cite:N]] หรือ [[cite:N,M]] ในเนื้อหา
-// ให้เป็นลิงก์ยกกำลัง [N] ที่กระโดดไปยังรายการ "เอกสารอ้างอิง" ข้อที่ N (#ref-N)
-// (สไตล์ยกกำลังคุมด้วย .md-body a[href^="#ref-"] ใน globals.css) · backward-compatible
-function citeify(md: string): string {
-  return md.replace(/\[\[cite:\s*([\d\s,]+)\]\]/g, (_m, group: string) =>
-    group
-      .split(",")
-      .map((n) => n.trim())
-      .filter(Boolean)
-      .map((n) => `[${n}](#ref-${n})`)
-      .join(""),
-  );
-}
-
 // ประมาณเวลาอ่านจากความยาวเนื้อหา (ภาษาไทยไม่เว้นวรรค — ใช้จำนวนอักขระ ~400/นาที)
 function readTime(entry: ContentEntry): string {
   const chars =
@@ -104,27 +88,6 @@ function readTime(entry: ContentEntry): string {
     (entry.bodyMarkdown ?? "").length;
   return `${Math.max(1, Math.round(chars / 400))} นาที`;
 }
-
-// Glossary (A2) — ลิงก์ /concepts/<slug> ในเนื้อหา เดินผ่าน InternalConceptLink
-// (ได้ hover นิยาม + เมนูลัด wiki) · ลิงก์ภายนอกเปิดแท็บใหม่ · ที่เหลือ render ปกติ
-const mdComponents: Components = {
-  a({ href, children }) {
-    const h = typeof href === "string" ? href : "";
-    const m = h.match(/^\/concepts\/([^/#?]+)/);
-    if (m) {
-      const label = typeof children === "string" ? children : String(children ?? "");
-      return <InternalConceptLink slug={m[1]} label={label} />;
-    }
-    if (/^https?:\/\//.test(h)) {
-      return (
-        <a href={h} target="_blank" rel="noopener noreferrer">
-          {children}
-        </a>
-      );
-    }
-    return <a href={h}>{children}</a>;
-  },
-};
 
 function MetaCell({ label, value }: { label: string; value: ReactNode }) {
   return (
@@ -412,11 +375,7 @@ export async function ReadingPage({
 
         {entry.bodyMarkdown && entry.bodyMarkdown.trim() !== "" ? (
           <section className="scroll-reveal mt-14">
-            <div className="md-body">
-              <ReactMarkdown remarkPlugins={[remarkGfm]} components={mdComponents}>
-                {citeify(entry.bodyMarkdown)}
-              </ReactMarkdown>
-            </div>
+            <MarkdownRenderer content={entry.bodyMarkdown} />
           </section>
         ) : null}
 
@@ -538,10 +497,8 @@ export async function ReadingPage({
           <ViewCounter slug={entry.slug} title={entry.title} section={section} />
         </div>
 
-        {/* ระบบความคิดเห็น (island — ครอบ ClerkProvider เฉพาะส่วนนี้) */}
-        <ClerkProvider>
-          <CommentSection section={section} slug={entry.slug} />
-        </ClerkProvider>
+        {/* ระบบความคิดเห็น (island) */}
+        <CommentSection section={section} slug={entry.slug} />
 
         {/* บทความที่ใช้แนวคิดนี้ (Backlinks) — แสดงเฉพาะแนวคิด (concepts) */}
         {section === "concepts" && (

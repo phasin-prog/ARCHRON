@@ -68,10 +68,10 @@ export function SearchClient({ items, initialQuery }: { items: SearchItem[]; ini
       <div className="mt-8">
         {!query ? (
           <p className="text-sm text-text-secondary/60">
-            พิมพ์คำค้น เช่น "เงา", "Jung", "ปรัชญา", "IPA" — ค้นได้ทั้งแนวคิด บทความ ทรัพยากรภายนอก และหน้าต่าง ๆ
+            พิมพ์คำค้น เช่น &ldquo;เงา&rdquo;, &ldquo;Jung&rdquo;, &ldquo;ปรัชญา&rdquo;, &ldquo;IPA&rdquo; — ค้นได้ทั้งแนวคิด บทความ ทรัพยากรภายนอก และหน้าต่าง ๆ
           </p>
         ) : result.total === 0 ? (
-          <p className="text-sm text-text-secondary/60">ไม่พบผลลัพธ์สำหรับ "{query.trim()}"</p>
+          <p className="text-sm text-text-secondary/60">ไม่พบผลลัพธ์สำหรับ &ldquo;{query.trim()}&rdquo;</p>
         ) : (
           <>
             <p className="mb-5 text-xs text-text-secondary/50">พบ {result.total} รายการ</p>

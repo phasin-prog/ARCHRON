@@ -89,7 +89,7 @@ export function HomeSearch() {
   }, [selectedIndex]);
 
   return (
-    <form action="/search" method="get" className="relative" role="combobox" aria-expanded={showDropdown} aria-haspopup="listbox">
+    <form action="/search" method="get" className="relative" role="combobox" aria-expanded={showDropdown} aria-haspopup="listbox" aria-controls="home-search-listbox">
       <SearchIcon className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-secondary" />
       <input
         ref={inputRef}

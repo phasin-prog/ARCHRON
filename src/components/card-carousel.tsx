@@ -13,6 +13,7 @@ import {
   type MouseEvent as ReactMouseEvent,
   type KeyboardEvent as ReactKeyboardEvent,
 } from "react";
+import { ChevronLeftIcon, ChevronRightIcon } from "@/components/icons";
 
 export function CardCarousel({
   children,
@@ -129,9 +130,7 @@ export function CardCarousel({
           aria-label="เลื่อนซ้าย"
           className="flex h-11 w-11 items-center justify-center rounded-full border border-border/40 text-text-secondary transition-all hover:border-accent/45 hover:text-text-heading disabled:opacity-30 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
         >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
-            <path d="M15 5l-7 7 7 7" />
-          </svg>
+          <ChevronLeftIcon className="h-5 w-5" />
         </button>
         <button
           type="button"
@@ -140,9 +139,7 @@ export function CardCarousel({
           aria-label="เลื่อนขวา"
           className="flex h-11 w-11 items-center justify-center rounded-full border border-border/40 text-text-secondary transition-all hover:border-accent/45 hover:text-text-heading disabled:opacity-30 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
         >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
-            <path d="M9 5l7 7-7 7" />
-          </svg>
+          <ChevronRightIcon className="h-5 w-5" />
         </button>
       </div>
 

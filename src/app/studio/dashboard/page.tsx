@@ -3,6 +3,7 @@
 import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import { useAuth, useUser } from "@clerk/nextjs";
+import { colors } from "@/lib/content/colors";
 import { roleFromMetadata, canWrite, isAdmin } from "@/lib/content/roles";
 import {
   listMyDraftsAction,
@@ -141,13 +142,13 @@ export default function StudioDashboardPage() {
 
   const statusAccent = (s: string) => {
     const map: Record<string, string> = {
-      draft: "#858992",
-      "needs-source-check": "#C48A9A",
-      "ready-to-publish": "#D4A96A",
-      published: "#6AAA7A",
-      archived: "#6A7A8A",
+      draft: colors.neutralMuted,
+      "needs-source-check": colors.article,
+      "ready-to-publish": colors.book,
+      published: colors.success,
+      archived: colors.mutedSlate,
     };
-    return map[s] ?? "#858992";
+    return map[s] ?? colors.neutralMuted;
   };
 
   const typeLabel = (t: string) => {
@@ -167,15 +168,15 @@ export default function StudioDashboardPage() {
 
   const typeAccent = (t: string) => {
     const map: Record<string, string> = {
-      article: "#C49B55",
-      concept: "#7BA3D4",
-      person: "#9ABA9A",
-      school: "#7AACAC",
-      book: "#D4A96A",
-      symbol: "#D4B050",
-      term: "#858992",
+      article: colors.goldAccent,
+      concept: colors.concept,
+      person: colors.quote,
+      school: colors.school,
+      book: colors.book,
+      symbol: colors.symbol,
+      term: colors.neutralMuted,
     };
-    return map[t] ?? "#C49B55";
+    return map[t] ?? colors.goldAccent;
   };
 
   return (
@@ -205,10 +206,10 @@ export default function StudioDashboardPage() {
         {/* Stats Cards — compact */}
         <section className="mb-8">
           <div className="grid grid-cols-3 gap-3">
-            <div className="archron-card p-4" style={{ "--cosmology-accent": "#858992" } as React.CSSProperties}>
+            <div className="archron-card p-4" style={{ "--cosmology-accent": colors.neutralMuted } as React.CSSProperties}>
               <div className="flex items-center gap-2">
                 <span className="flex h-8 w-8 items-center justify-center rounded-lg"
-                  style={{ backgroundColor: "color-mix(in srgb, #858992 12%, transparent)", color: "#858992" }}
+                  style={{ backgroundColor: `color-mix(in srgb, ${colors.neutralMuted} 12%, transparent)`, color: colors.neutralMuted }}
                 >
                   <span className="inline-flex items-center justify-center w-4 h-4 text-[16px]" aria-hidden="true">✎</span>
                 </span>
@@ -217,10 +218,10 @@ export default function StudioDashboardPage() {
               <p className="mt-2 font-serif text-3xl text-text-heading">{drafts.length}</p>
             </div>
 
-            <div className="archron-card p-4" style={{ "--cosmology-accent": "#6AAA7A" } as React.CSSProperties}>
+            <div className="archron-card p-4" style={{ "--cosmology-accent": colors.success } as React.CSSProperties}>
               <div className="flex items-center gap-2">
                 <span className="flex h-8 w-8 items-center justify-center rounded-lg"
-                  style={{ backgroundColor: "color-mix(in srgb, #6AAA7A 12%, transparent)", color: "#6AAA7A" }}
+                  style={{ backgroundColor: `color-mix(in srgb, ${colors.success} 12%, transparent)`, color: colors.success }}
                 >
                   <span className="inline-flex items-center justify-center w-4 h-4 text-[16px]" aria-hidden="true">📤</span>
                 </span>
@@ -229,10 +230,10 @@ export default function StudioDashboardPage() {
               <p className="mt-2 font-serif text-3xl text-text-heading">{published.length}</p>
             </div>
 
-            <div className="archron-card p-4" style={{ "--cosmology-accent": "#6A7A8A" } as React.CSSProperties}>
+            <div className="archron-card p-4" style={{ "--cosmology-accent": colors.mutedSlate } as React.CSSProperties}>
               <div className="flex items-center gap-2">
                 <span className="flex h-8 w-8 items-center justify-center rounded-lg"
-                  style={{ backgroundColor: "color-mix(in srgb, #6A7A8A 12%, transparent)", color: "#6A7A8A" }}
+                  style={{ backgroundColor: `color-mix(in srgb, ${colors.mutedSlate} 12%, transparent)`, color: colors.mutedSlate }}
                 >
                   <span className="inline-flex items-center justify-center w-4 h-4 text-[16px]" aria-hidden="true">📦</span>
                 </span>

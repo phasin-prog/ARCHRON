@@ -637,3 +637,212 @@ export function NotificationIcon({ className = "h-5 w-5" }: IconProps) {
     </>
   );
 }
+
+/* ============================================================================
+   ARCHRON — CAROUSEL & NAVIGATION UTILITY ICONS
+   ============================================================================ */
+export function ChevronLeftIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <path d="M15 18l-6-6 6-6" />
+  );
+}
+
+export function ChevronRightIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <path d="M9 18l6-6-6-6" />
+  );
+}
+
+export function ChevronDownIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <path d="M6 9l6 6 6-6" />
+  );
+}
+
+export function ArrowLeftIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <line x1="20" y1="12" x2="5" y2="12" />
+      <path d="M11 18l-6-6 6-6" />
+    </>
+  );
+}
+
+export function ArrowUpIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <path d="M12 19V5M6 11l6-6 6 6" />
+  );
+}
+
+/* ============================================================================
+   ARCHRON — MANIFESTO MOVEMENT ICONS (strokeWidth=1.5 · currentColor)
+   ============================================================================ */
+export function PreambleIcon({ className = "h-6 w-6" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <path d="M12 6c-1.6-1.2-3.8-1.6-6-1.4v12c2.2-.2 4.4.2 6 1.4 1.6-1.2 3.8-1.6 6-1.4v-12c-2.2-.2-4.4.2-6 1.4Z" />
+      <path d="M12 6v12" />
+    </>
+  );
+}
+
+export function WhyExistIcon({ className = "h-6 w-6" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <circle cx="6" cy="6" r="2.2" />
+      <circle cx="18" cy="8" r="2.2" />
+      <circle cx="9" cy="18" r="2.2" />
+      <path d="M7.9 7.3 16.1 6.8M7.4 8 8.6 15.9M10.9 16.7 16.2 9.8" />
+    </>
+  );
+}
+
+export function WhatStudyIcon({ className = "h-6 w-6" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <path d="M15.5 20v-2.2a5.5 5.5 0 1 0-7 0V20" />
+      <path d="M12 12.2c1.1 0 1.8-.9 1.8-2 0-1-.7-1.9-1.8-1.9s-1.8.9-1.8 1.9c0 1.1.7 2 1.8 2Z" />
+    </>
+  );
+}
+
+export function WhatBelieveIcon({ className = "h-6 w-6" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <path d="M12 4v3M4.5 8h15M6.8 8l-2.3 5.2M17.2 8l2.3 5.2" />
+      <path d="M2.6 13.2a3.4 2 0 0 0 3.8 0M17.6 13.2a3.4 2 0 0 0 3.8 0" />
+      <path d="M9 19h6M12 7v12" />
+    </>
+  );
+}
+
+export function OurMethodIcon({ className = "h-6 w-6" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <circle cx="10.5" cy="10.5" r="6" />
+      <path d="M15 15l4.5 4.5" />
+      <path d="M10.5 7.5v6M7.5 10.5h6" />
+    </>
+  );
+}
+
+export function WhatRejectIcon({ className = "h-6 w-6" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <path d="M12 3.5 5 6.2v5c0 4.3 3 7 7 9.3 4-2.3 7-5 7-9.3v-5L12 3.5Z" />
+      <path d="M9.3 9.3l5.4 5.4M14.7 9.3l-5.4 5.4" />
+    </>
+  );
+}
+
+export function WhatOfferIcon({ className = "h-6 w-6" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z" />
+      <path d="M9 4v14M15 6v14" />
+    </>
+  );
+}
+
+export function OurResponsibilityIcon({ className = "h-6 w-6" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <path d="M12 21c-4-2.2-7-5-7-9.3v-5L12 3.9l7 2.8v5C19 16 16 18.8 12 21Z" />
+      <path d="M9 11.6l2.1 2.1L15 9.9" />
+    </>
+  );
+}
+
+export function OurLegacyIcon({ className = "h-6 w-6" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <path d="M12 20v-8" />
+      <path d="M12 12c0-2.8-2.2-5-5-5 0 2.8 2.2 5 5 5Z" />
+      <path d="M12 12c0-3.3 2.7-6 6-6 0 3.3-2.7 6-6 6Z" />
+      <path d="M8.5 20h7" />
+    </>
+  );
+}
+
+export function ClosingDeclIcon({ className = "h-6 w-6" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M15.2 8.8 10.8 10.8 8.8 15.2 13.2 13.2 Z" />
+      <circle cx="12" cy="12" r="1" />
+    </>
+  );
+}
+
+/* ============================================================================
+   ARCHRON — BADGE & SPRITE FALLBACK ICONS (สำหรับ card-badge และ 3d-icon container)
+   ============================================================================ */
+export function LevelBadgeIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+    </>
+  );
+}
+
+export function AchievementBadgeIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <circle cx="12" cy="8" r="6" />
+      <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
+    </>
+  );
+}
+
+export function ReadingSetBadgeIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-0.5-0.05" />
+      <path d="M6 18h14" />
+      <circle cx="11" cy="10" r="2" />
+      <line x1="16" y1="10" x2="16" y2="10.01" />
+    </>
+  );
+}
+
+export function SourceBadgeIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <line x1="16" y1="13" x2="8" y2="13" />
+      <line x1="16" y1="17" x2="8" y2="17" />
+      <polyline points="10 9 9 9 8 9" />
+    </>
+  );
+}
+
+export function LanternBadgeIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <path d="M12 2v3M9 5h6l1 14H8L9 5z" />
+      <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none" />
+      <path d="M10 19v3h4v-3" />
+    </>
+  );
+}

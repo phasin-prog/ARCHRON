@@ -78,6 +78,39 @@
   --color-error: #CC7A7A;         /* Error, critical */
   --color-info: #7A8ABA;          /* Information */
 
+  /* ---- Shared Content Palette (graph/cosmology/roles/themes) ---- */
+  --color-steel-blue: #6E93A8;      /* Graph concept · Roles writer · Themes unconscious */
+  --color-sage-darker: #8AA395;     /* Graph person · Themes freedom */
+  --color-amber-gold: #C9A24A;      /* Graph book · Themes self */
+  --color-teal-green: #7FB08A;      /* Graph school · Themes individuation */
+  --color-silver-gray: #B9C2CE;     /* Graph symbol · Themes existence/symbol-myth */
+  --color-ash-gray: #9A948A;        /* Graph term · Roles user · Themes shadow */
+  --color-ochre-gold: #CBA45A;      /* Roles admin · Themes meaning */
+  --color-neutral-muted: #858992;   /* Dashboard stats · Content type fallback */
+  --color-gold-accent: #C49B55;     /* Dashboard article · Studio Clerk · Sources tier */
+  --color-muted-slate: #6A7A8A;     /* Dashboard archived · Cosmology framework */
+
+  /* ---- Cosmology Accents (knowledge categories) ---- */
+  --color-warm-gray: #8A8780;       /* Cosmology prima/term/default */
+  --color-soft-blue: #5B7FAB;       /* Cosmology psyche/framework */
+  --color-warm-gold: #C4A040;       /* Cosmology lumen/symbol-myth */
+  --color-amber-brown: #B58A5A;     /* Cosmology sapientia/book/primary-source */
+  --color-forest-green: #5A8A6A;    /* Cosmology mercurius/commentary */
+  --color-sage-green: #7A9A7A;      /* Cosmology humanitas/source-note */
+  --color-rose-muted: #AB6B7A;      /* Cosmology article/editorial */
+  --color-indigo-soft: #6A7AB5;     /* Cosmology reading-set */
+
+  /* ---- Status & Difficulty Accents ---- */
+  --color-red-muted: #B55A5A;       /* Needs source check */
+  --color-amber-dark: #C48A30;      /* Ready to publish / Advanced */
+  --color-green-forest: #4A8A5A;    /* Published / Beginner */
+  --color-blue-slate: #5A7AAA;      /* Intermediate / Website */
+
+  /* ---- Seal Progression Colors ---- */
+  --color-slate-dark: #465264;      /* Seal levels 1-2 */
+  --color-blue-academic: #5F8DCE;   /* Seal levels 3-4 */
+  --color-silver-light: #C7D0DB;    /* Seal levels 5-6 */
+
   /* ---- Shadow color (for elevation — light bg, black shadow) ---- */
   --color-shadow: #000000;
 
@@ -844,6 +877,23 @@
 
 .archron-icon-box--success {
   border-color: var(--color-success);
+}
+
+/* ============================================
+   3D & BADGE ICON LAYOUT
+   ============================================ */
+.icon-3d {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--ico-main, currentColor);
+}
+
+.icon-3d svg {
+  width: 100%;
+  height: 100%;
 }
 
 @keyframes seal-stagger {

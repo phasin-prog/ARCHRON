@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArchronLogomark, HeartIcon, SourceRefIcon } from "@/components/icons";
+import { ArchronLogomark, HeartIcon, SourceRefIcon, ArrowUpIcon } from "@/components/icons";
 import { createClerkSupabaseClient } from "@/lib/supabase/client";
 import { getTotalPageViews } from "@/lib/content/views-db";
 
@@ -136,9 +136,7 @@ export function SiteFooter() {
             aria-label="เลื่อนขึ้นบนสุด"
           >
             ขึ้นบนสุด
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
-              <path d="M12 19V5M6 11l6-6 6 6" />
-            </svg>
+            <ArrowUpIcon className="h-3.5 w-3.5" />
           </button>
         </div>
       </div>

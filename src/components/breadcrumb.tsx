@@ -15,6 +15,8 @@ type BreadcrumbProps = {
 export function Breadcrumb({ items, className = "" }: BreadcrumbProps) {
   if (items.length === 0) return null;
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archron.vercel.app";
+
   // สร้าง JSON-LD สำหรับ SEO
   const jsonLd = {
     "@context": "https://schema.org",
@@ -24,7 +26,7 @@ export function Breadcrumb({ items, className = "" }: BreadcrumbProps) {
       position: i + 1,
       name: item.label,
       ...(item.href
-        ? { item: `https://example.com${item.href}` }
+        ? { item: `${siteUrl}${item.href}` }
         : {}),
     })),
   };

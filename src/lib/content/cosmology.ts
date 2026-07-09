@@ -2,6 +2,8 @@
 // แม็ปสีตามประเภทเนื้อหา (single source of truth)
 // ใช้สำหรับ badges / icons / graph nodes / per-content accent — ไม่ใช่สีหลักของ UI
 
+import { colors } from "@/lib/content/colors";
+
 export type Cosmology =
   | "prima"
   | "psyche"
@@ -11,12 +13,12 @@ export type Cosmology =
   | "humanitas";
 
 export const COSMOLOGY_ACCENT: Record<Cosmology, string> = {
-  prima: "#8A8780",      // neutral
-  psyche: "#5B7FAB",     // concept — Warm Blue
-  lumen: "#C4A040",      // symbol — Gold
-  sapientia: "#B58A5A",  // book — Amber
-  mercurius: "#5A8A6A",  // thinker — Deep Green
-  humanitas: "#7A9A7A",  // quote — Sage
+  prima: colors.warmGray,      // neutral
+  psyche: colors.softBlue,     // concept — Warm Blue
+  lumen: colors.warmGold,      // symbol — Gold
+  sapientia: colors.amberBrown, // book — Amber
+  mercurius: colors.forestGreen, // thinker — Deep Green
+  humanitas: colors.sageGreen,  // quote — Sage
 };
 
 export type CosmologyKey = Cosmology;
@@ -34,15 +36,15 @@ export const COSMOLOGY_KEYS: Record<CosmologyKey, { label: string; accent: strin
 export type ContentTypeMeta = { icon: string; accent: string; label: string };
 
 const CONTENT_TYPE_META: Record<string, ContentTypeMeta> = {
-  article: { icon: "newspaper", accent: "#AB6B7A", label: "บทความ" },
+  article: { icon: "newspaper", accent: colors.roseMuted, label: "บทความ" },
   concept: { icon: "psychology", accent: COSMOLOGY_ACCENT.psyche, label: "แนวคิด" },
-  "reading-set": { icon: "layers", accent: "#6A7AB5", label: "ชุดอ่าน" },
-  "source-note": { icon: "format_quote", accent: "#7A9A7A", label: "บันทึกแหล่งอ้างอิง" },
+  "reading-set": { icon: "layers", accent: colors.indigoSoft, label: "ชุดอ่าน" },
+  "source-note": { icon: "format_quote", accent: colors.sageGreen, label: "บันทึกแหล่งอ้างอิง" },
   person: { icon: "person", accent: COSMOLOGY_ACCENT.mercurius, label: "นักคิด" },
-  book: { icon: "menu_book", accent: "#B58A5A", label: "หนังสือ" },
-  school: { icon: "groups_2", accent: "#5A8A8A", label: "สำนักคิด" },
+  book: { icon: "menu_book", accent: colors.amberBrown, label: "หนังสือ" },
+  school: { icon: "groups_2", accent: colors.forestGreen, label: "สำนักคิด" },
   symbol: { icon: "category", accent: COSMOLOGY_ACCENT.lumen, label: "สัญลักษณ์" },
-  term: { icon: "tag", accent: "#8A8780", label: "คำศัพท์" },
+  term: { icon: "tag", accent: colors.warmGray, label: "คำศัพท์" },
 };
 
 export function contentTypeMeta(type: string | undefined | null): ContentTypeMeta {
@@ -56,50 +58,50 @@ export function contentTypeMeta(type: string | undefined | null): ContentTypeMet
 }
 
 type Meta = { icon: string; accent: string };
-const fallback = (): Meta => ({ icon: "circle", accent: "#8A8780" });
+const fallback = (): Meta => ({ icon: "circle", accent: colors.warmGray });
 
 // Status — สถานะการเผยแพร่
 const STATUS_META: Record<string, Meta> = {
-  draft: { icon: "edit_note", accent: "#8A8780" },
-  "needs-source-check": { icon: "report", accent: "#B55A5A" },
-  "ready-to-publish": { icon: "schedule", accent: "#C48A30" },
-  published: { icon: "check_circle", accent: "#4A8A5A" },
-  archived: { icon: "inventory_2", accent: "#8A8780" },
+  draft: { icon: "edit_note", accent: colors.warmGray },
+  "needs-source-check": { icon: "report", accent: colors.redMuted },
+  "ready-to-publish": { icon: "schedule", accent: colors.amberDark },
+  published: { icon: "check_circle", accent: colors.greenForest },
+  archived: { icon: "inventory_2", accent: colors.warmGray },
 };
 export const statusMeta = (v: string): Meta => STATUS_META[v] ?? fallback();
 
 // Difficulty — ระดับความลึก
 const DIFFICULTY_META: Record<string, Meta> = {
-  beginner: { icon: "eco", accent: "#4A8A5A" },
-  intermediate: { icon: "trending_up", accent: "#5A7AAA" },
-  advanced: { icon: "workspace_premium", accent: "#C48A30" },
-  "source-note": { icon: "format_quote", accent: "#7A9A7A" },
+  beginner: { icon: "eco", accent: colors.greenForest },
+  intermediate: { icon: "trending_up", accent: colors.blueSlate },
+  advanced: { icon: "workspace_premium", accent: colors.amberDark },
+  "source-note": { icon: "format_quote", accent: colors.sageGreen },
 };
 export const difficultyMeta = (v: string): Meta => DIFFICULTY_META[v] ?? fallback();
 
 // Source type — ชนิดแหล่งอ้างอิง
 const SOURCE_TYPE_META: Record<string, Meta> = {
-  "primary-source": { icon: "verified", accent: "#B58A5A" },
-  "secondary-source": { icon: "menu_book", accent: "#5B7FAB" },
-  commentary: { icon: "forum", accent: "#5A8A6A" },
-  "editorial-interpretation": { icon: "edit_note", accent: "#AB6B7A" },
-  website: { icon: "language", accent: "#5A7AAA" },
-  "dictionary-lexicon": { icon: "import_contacts", accent: "#8A8780" },
-  other: { icon: "more_horiz", accent: "#8A8780" },
+  "primary-source": { icon: "verified", accent: colors.amberBrown },
+  "secondary-source": { icon: "menu_book", accent: colors.softBlue },
+  commentary: { icon: "forum", accent: colors.forestGreen },
+  "editorial-interpretation": { icon: "edit_note", accent: colors.roseMuted },
+  website: { icon: "language", accent: colors.blueSlate },
+  "dictionary-lexicon": { icon: "import_contacts", accent: colors.warmGray },
+  other: { icon: "more_horiz", accent: colors.warmGray },
 };
 export const sourceTypeMeta = (v: string): Meta => SOURCE_TYPE_META[v] ?? fallback();
 
 // Framework — กรอบทฤษฎี → สีตามแขนง
 const FRAMEWORK_META: Record<string, Meta> = {
-  "Analytical Psychology": { icon: "psychology", accent: "#5B7FAB" },
-  "Depth Psychology": { icon: "psychology_alt", accent: "#5B7FAB" },
-  Psychoanalysis: { icon: "visibility", accent: "#5B7FAB" },
-  Philosophy: { icon: "auto_stories", accent: "#B58A5A" },
-  Existentialism: { icon: "self_improvement", accent: "#6A7A8A" },
-  Phenomenology: { icon: "blur_on", accent: "#6A7A8A" },
-  "Symbol / Myth": { icon: "category", accent: "#C4A040" },
-  "Comparative Thought": { icon: "compare_arrows", accent: "#5A8A6A" },
-  "Editorial Interpretation": { icon: "edit_note", accent: "#AB6B7A" },
+  "Analytical Psychology": { icon: "psychology", accent: colors.softBlue },
+  "Depth Psychology": { icon: "psychology_alt", accent: colors.softBlue },
+  Psychoanalysis: { icon: "visibility", accent: colors.softBlue },
+  Philosophy: { icon: "auto_stories", accent: colors.amberBrown },
+  Existentialism: { icon: "self_improvement", accent: colors.mutedSlate },
+  Phenomenology: { icon: "blur_on", accent: colors.mutedSlate },
+  "Symbol / Myth": { icon: "category", accent: colors.warmGold },
+  "Comparative Thought": { icon: "compare_arrows", accent: colors.forestGreen },
+  "Editorial Interpretation": { icon: "edit_note", accent: colors.roseMuted },
 };
 export const frameworkMeta = (v: string): Meta => FRAMEWORK_META[v] ?? fallback();
 
@@ -111,15 +113,15 @@ export function nodeTypeAccent(nodeType: string): string {
     case "person":
       return COSMOLOGY_ACCENT.mercurius;
     case "book":
-      return "#B58A5A";
+      return colors.amberBrown;
     case "school":
-      return "#5A8A8A";
+      return colors.forestGreen;
     case "symbol":
       return COSMOLOGY_ACCENT.lumen;
     case "term":
-      return "#8A8780";
+      return colors.warmGray;
     default:
-      return "#8B5E3C";
+      return colors.amberBrown;
   }
 }
 

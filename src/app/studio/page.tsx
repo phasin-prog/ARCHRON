@@ -116,9 +116,7 @@ export default function StudioLandingPage() {
                 signUpUrl="/th/register"
                 fallbackRedirectUrl="/studio/editor"
                 appearance={{
-                  // ⚠️ ข้อยกเว้น design token: Clerk คำนวณเฉดสีต่อยอดจากค่าเหล่านี้ จึงใช้ var() ไม่ได้
-                  // ค่า hex ทุกตัวอิง token ปัจจุบันของระบบ (ห้ามใส่ค่านอก palette):
-                  // gold #C49B55 · paper-raised #1C2335 · ivory #F4F1EA · text-body #DEDAD2 · muted #8A8F98
+                  // ⚠️ Clerk คำนวณเฉดสีต่อยอดจากค่า hex → ใช้ var() ไม่ได้ อ้างอิงจาก colors.ts
                   variables: {
                     colorPrimary: "#C49B55", // --color-gold (Archron Gold)
                     colorBackground: "#1C2335", // --color-paper-raised

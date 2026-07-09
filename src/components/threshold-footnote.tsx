@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import { ChevronRightIcon } from "@/components/icons";
 
 export function ThresholdFootnote({
   label,
@@ -23,9 +24,7 @@ export function ThresholdFootnote({
           className="inline-block transition-transform duration-300"
           style={{ transform: open ? "rotate(90deg)" : "rotate(0deg)" }}
         >
-          <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <path d="M9 18l6-6-6-6" />
-          </svg>
+          <ChevronRightIcon className="h-3.5 w-3.5" />
         </span>
         {label}
       </button>

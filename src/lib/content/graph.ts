@@ -1,5 +1,6 @@
 // lib/content/graph.ts — Constellation graph adapter (server-safe, ไม่มี "use client")
 // สร้างกราฟความสัมพันธ์จากข้อมูลจริง: nodes = concept-registry, edges = entries.relatedConcepts (+relatedCTA soft)
+import { colors } from "@/lib/content/colors";
 import {
   conceptRegistry,
   getConceptBySlug,
@@ -45,12 +46,12 @@ export const NODE_TYPE_LABEL: Record<NodeType, string> = {
 
 // ARCHRON Color Cosmology — สีโหนดตามสถานะการสืบค้น (เข้มพอให้คอนทราสต์บน Humanitas)
 export const NODE_TYPE_COLOR: Record<NodeType, string> = {
-  concept: "#6E93A8", // Psyche , โลกภายใน/การวิเคราะห์
-  person: "#8AA395", // Mercurius , บทสนทนา/การแปรเปลี่ยน
-  book: "#C9A24A", // Sapientia เข้ม , ปัญญาสะสม
-  school: "#7FB08A", // การบูรณาการ
-  symbol: "#B9C2CE", // Prima Materia , ตำนาน/สัญลักษณ์
-  term: "#9A948A", // Charcoal-gray
+  concept: colors.steelBlue, // Psyche , โลกภายใน/การวิเคราะห์
+  person: colors.sageDarker, // Mercurius , บทสนทนา/การแปรเปลี่ยน
+  book: colors.amberGold, // Sapientia เข้ม , ปัญญาสะสม
+  school: colors.tealGreen, // การบูรณาการ
+  symbol: colors.silverGray, // Prima Materia , ตำนาน/สัญลักษณ์
+  term: colors.ashGray, // Charcoal-gray
 };
 
 export const RELATION_LABEL: Record<RelationType, string> = {

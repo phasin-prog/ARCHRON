@@ -4,6 +4,18 @@ import { PageNav } from "@/components/page-nav";
 import { getPublicEntryBySlug } from "@/lib/content/public-source";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import {
+  PreambleIcon,
+  WhyExistIcon,
+  WhatStudyIcon,
+  WhatBelieveIcon,
+  OurMethodIcon,
+  WhatRejectIcon,
+  WhatOfferIcon,
+  OurResponsibilityIcon,
+  OurLegacyIcon,
+  ClosingDeclIcon,
+} from "@/components/icons";
 
 export const revalidate = 300;
 
@@ -14,88 +26,19 @@ export const metadata: Metadata = {
 };
 
 /* ─────────────────────────────────────────────────────────────
-   Movement icons — line-art (stroke = currentColor, inherits
-   accent from the badge). โทน "นักคิด / นักเขียน" +
-   คลังความรู้ (ไม่ใช่สายมู). ทุกไอคอนใช้ token สีผ่าน currentColor.
+   Movement icons — unified via @/components/icons
    ───────────────────────────────────────────────────────────── */
-const svgProps = {
-  className: "h-6 w-6",
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: 1.4,
-  strokeLinecap: "round" as const,
-  strokeLinejoin: "round" as const,
-};
-
 const icons = {
-  preamble: (
-    <svg {...svgProps}>
-      <path d="M12 6c-1.6-1.2-3.8-1.6-6-1.4v12c2.2-.2 4.4.2 6 1.4 1.6-1.2 3.8-1.6 6-1.4v-12c-2.2-.2-4.4.2-6 1.4Z" />
-      <path d="M12 6v12" />
-    </svg>
-  ),
-  why: (
-    <svg {...svgProps}>
-      <circle cx="6" cy="6" r="2.2" />
-      <circle cx="18" cy="8" r="2.2" />
-      <circle cx="9" cy="18" r="2.2" />
-      <path d="M7.9 7.3 16.1 6.8M7.4 8 8.6 15.9M10.9 16.7 16.2 9.8" />
-    </svg>
-  ),
-  study: (
-    <svg {...svgProps}>
-      <path d="M15.5 20v-2.2a5.5 5.5 0 1 0-7 0V20" />
-      <path d="M12 12.2c1.1 0 1.8-.9 1.8-2 0-1-.7-1.9-1.8-1.9s-1.8.9-1.8 1.9c0 1.1.7 2 1.8 2Z" />
-    </svg>
-  ),
-  believe: (
-    <svg {...svgProps}>
-      <path d="M12 4v3M4.5 8h15M6.8 8l-2.3 5.2M17.2 8l2.3 5.2" />
-      <path d="M2.6 13.2a3.4 2 0 0 0 3.8 0M17.6 13.2a3.4 2 0 0 0 3.8 0" />
-      <path d="M9 19h6M12 7v12" />
-    </svg>
-  ),
-  method: (
-    <svg {...svgProps}>
-      <circle cx="10.5" cy="10.5" r="6" />
-      <path d="M15 15l4.5 4.5" />
-      <path d="M10.5 7.5v6M7.5 10.5h6" />
-    </svg>
-  ),
-  reject: (
-    <svg {...svgProps}>
-      <path d="M12 3.5 5 6.2v5c0 4.3 3 7 7 9.3 4-2.3 7-5 7-9.3v-5L12 3.5Z" />
-      <path d="M9.3 9.3l5.4 5.4M14.7 9.3l-5.4 5.4" />
-    </svg>
-  ),
-  offer: (
-    <svg {...svgProps}>
-      <path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z" />
-      <path d="M9 4v14M15 6v14" />
-    </svg>
-  ),
-  responsibility: (
-    <svg {...svgProps}>
-      <path d="M12 21c-4-2.2-7-5-7-9.3v-5L12 3.9l7 2.8v5C19 16 16 18.8 12 21Z" />
-      <path d="M9 11.6l2.1 2.1L15 9.9" />
-    </svg>
-  ),
-  legacy: (
-    <svg {...svgProps}>
-      <path d="M12 20v-8" />
-      <path d="M12 12c0-2.8-2.2-5-5-5 0 2.8 2.2 5 5 5Z" />
-      <path d="M12 12c0-3.3 2.7-6 6-6 0 3.3-2.7 6-6 6Z" />
-      <path d="M8.5 20h7" />
-    </svg>
-  ),
-  closing: (
-    <svg {...svgProps}>
-      <circle cx="12" cy="12" r="9" />
-      <path d="M15.2 8.8 10.8 10.8 8.8 15.2 13.2 13.2 Z" />
-      <circle cx="12" cy="12" r="1" />
-    </svg>
-  ),
+  preamble: <PreambleIcon className="h-6 w-6" />,
+  why: <WhyExistIcon className="h-6 w-6" />,
+  study: <WhatStudyIcon className="h-6 w-6" />,
+  believe: <WhatBelieveIcon className="h-6 w-6" />,
+  method: <OurMethodIcon className="h-6 w-6" />,
+  reject: <WhatRejectIcon className="h-6 w-6" />,
+  offer: <WhatOfferIcon className="h-6 w-6" />,
+  responsibility: <OurResponsibilityIcon className="h-6 w-6" />,
+  legacy: <OurLegacyIcon className="h-6 w-6" />,
+  closing: <ClosingDeclIcon className="h-6 w-6" />,
 };
 
 function Movement({

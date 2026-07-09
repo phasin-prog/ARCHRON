@@ -22,6 +22,7 @@ import {
   SchoolIcon,
   SynthesisIcon,
   GridIcon,
+  ChevronDownIcon,
 } from "@/components/icons";
 import { SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
 
@@ -179,18 +180,9 @@ export function SiteHeader() {
                     <PersonIcon className="h-[16px] w-[16px]" />
                   </span>
                   <span>บัญชี</span>
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={1.6}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                  <ChevronDownIcon
                     className={`h-3.5 w-3.5 transition-transform duration-200 ${acctOpen ? "rotate-180" : ""}`}
-                  >
-                    <path d="M6 9l6 6 6-6" />
-                  </svg>
+                  />
                 </button>
                 {acctOpen ? (
                   <div

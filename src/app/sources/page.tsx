@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { colors } from "@/lib/content/colors";
 import { PageScaffold } from "@/components/page-scaffold";
 import { SOURCES } from "@/lib/content/sources";
 import { SourcesBrowser } from "@/components/sources/sources-browser";
@@ -48,21 +49,21 @@ export default function SourcesPage() {
               {
                 num: "01",
                 title: "แหล่งต้นทาง (Primary Sources)",
-                accent: "#C49B55",
+                accent: colors.goldAccent,
                 desc: "งานต้นฉบับของนักคิดโดยตรง — ตัวบท คำแปลจากต้นฉบับ จดหมาย บันทึก และงานเขียนชั้นต้น (เช่น Collected Works ของ Jung)",
                 icon: "source-primary",
               },
               {
                 num: "02",
                 title: "งานอธิบาย (Secondary Sources)",
-                accent: "#7BA3D4",
+                accent: colors.concept,
                 desc: "งานศึกษา วิเคราะห์ และอธิบายต่อยอดจากแหล่งต้นทาง โดยนักวิชาการหรือผู้เชี่ยวชาญ (เช่น งานวิเคราะห์ตำนานของ von Franz)",
                 icon: "source-secondary",
               },
               {
                 num: "03",
                 title: "การตีความ (Interpretation / Editorial)",
-                accent: "#9ABA9A",
+                accent: colors.quote,
                 desc: "การตีความและการเชื่อมโยงใหม่ของกองบรรณาธิการ ARCHRON เอง เพื่อประยุกต์และแปลความให้เหมาะสมกับผู้อ่านร่วมสมัย",
                 icon: "interpretation",
               },

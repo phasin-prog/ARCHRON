@@ -2,6 +2,7 @@
 // ต่อยอดบน entry.tags ที่มีอยู่ (ไม่เพิ่มคอลัมน์ DB) — theme = ชุด tag ที่คัดสรร
 // ใช้แสดง "ชิปแก่นเรื่อง" บนหน้าอ่าน และเชื่อมเนื้อหาต่างศาสตร์ที่พูดถึงแก่นเดียวกัน
 
+import { colors } from "@/lib/content/colors";
 import type { ContentEntry } from "@/types/content";
 
 export type Theme = {
@@ -17,56 +18,56 @@ export const THEMES: Theme[] = [
     key: "unconscious",
     label: "จิตไร้สำนึก",
     description: "ชั้นของจิตที่อยู่นอกเหนือการรู้ตัว และอิทธิพลที่มีต่อชีวิต",
-    accent: "#6E93A8",
+    accent: colors.steelBlue,
     aliases: ["unconscious", "collective-unconscious", "จิตไร้สำนึก"],
   },
   {
     key: "shadow",
     label: "เงา",
     description: "ด้านที่ถูกปฏิเสธหรือไม่ยอมรับของตัวตน",
-    accent: "#9A948A",
+    accent: colors.ashGray,
     aliases: ["shadow", "เงา"],
   },
   {
     key: "self",
     label: "ตัวตน",
     description: "ศูนย์รวมและความเป็นทั้งหมดของจิต , อัตตาและตัวตนที่ลึกกว่า",
-    accent: "#C9A24A",
+    accent: colors.amberGold,
     aliases: ["self", "ego", "persona", "ตัวตน", "อัตตา"],
   },
   {
     key: "individuation",
     label: "การตื่นรู้และการเป็นปัจเจก",
     description: "กระบวนการกลายเป็นตัวเองที่สมบูรณ์และตื่นรู้",
-    accent: "#7FB08A",
+    accent: colors.tealGreen,
     aliases: ["individuation", "awakening", "การตื่นรู้"],
   },
   {
     key: "meaning",
     label: "ความหมาย",
     description: "การแสวงหาและสร้างความหมายของการมีอยู่",
-    accent: "#CBA45A",
+    accent: colors.ochreGold,
     aliases: ["meaning", "ความหมาย"],
   },
   {
     key: "freedom",
     label: "เสรีภาพ",
     description: "อิสรภาพ การเลือก และความรับผิดชอบของมนุษย์",
-    accent: "#8AA395",
+    accent: colors.sageDarker,
     aliases: ["freedom", "เสรีภาพ"],
   },
   {
     key: "existence",
     label: "การดำรงอยู่",
     description: "คำถามต่อการมีอยู่ ความตาย และเงื่อนไขของชีวิต",
-    accent: "#B9C2CE",
+    accent: colors.silverGray,
     aliases: ["existence", "existentialism", "การดำรงอยู่"],
   },
   {
     key: "symbol-myth",
     label: "สัญลักษณ์และตำนาน",
     description: "ภาพแทน เรื่องเล่า และแบบแผนร่วมของมนุษยชาติ",
-    accent: "#B9C2CE",
+    accent: colors.silverGray,
     aliases: ["symbol", "myth", "archetype", "สัญลักษณ์", "ตำนาน"],
   },
 ];

@@ -2,7 +2,16 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { Breadcrumb } from "@/components/breadcrumb";
-import { ArrowRightIcon } from "@/components/icons";
+import {
+  ArrowRightIcon,
+  BookIcon,
+  ConceptIcon,
+  SchoolIcon,
+  PathIcon,
+  GridIcon,
+  RootIcon,
+  SynthesisIcon,
+} from "@/components/icons";
 import { PageScaffold } from "@/components/page-scaffold";
 import { COSMOLOGY_ACCENT, type Cosmology } from "@/lib/content/cosmology";
 import { conceptRegistry } from "@/lib/content/concept-registry";
@@ -23,15 +32,6 @@ export const metadata: Metadata = {
     "สารบัญนำทางคลังความรู้ของ ARCHRON — งานเขียน คลังแนวคิด สำนักคิด แผนที่ความสัมพันธ์ เส้นทางการอ่าน แก่นเรื่อง และศาสตร์ที่เราศึกษา",
 };
 
-// ไอคอนเส้นเฉพาะของหน้านี้ (ตาม mockup ที่อนุมัติ) — currentColor คุมด้วยสี accent
-function Ico({ children }: { children: ReactNode }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="h-7 w-7">
-      {children}
-    </svg>
-  );
-}
-
 type KnowledgeCard = {
   title: string;
   engTitle: string;
@@ -50,12 +50,7 @@ const KNOWLEDGE_SECTIONS: KnowledgeCard[] = [
     description: "บทความที่อธิบายและตีความแนวคิดสำคัญในบริบทของมัน",
     href: "/articles",
     cosmology: "sapientia",
-    icon: (
-      <Ico>
-        <path d="M12 6C10.5 4.8 8.5 4 6 4v13c2.5 0 4.5.8 6 2 1.5-1.2 3.5-2 6-2V4c-2.5 0-4.5.8-6 2z" />
-        <path d="M12 6v13" />
-      </Ico>
-    ),
+    icon: <BookIcon className="h-7 w-7" />,
   },
   {
     title: "คลังแนวคิด",
@@ -63,14 +58,7 @@ const KNOWLEDGE_SECTIONS: KnowledgeCard[] = [
     description: "ระบบความรู้แบบเชื่อมโยง รวบรวมพื้นฐานของแต่ละศาสตร์",
     href: "/concepts",
     cosmology: "psyche",
-    icon: (
-      <Ico>
-        <circle cx="6" cy="7" r="2" />
-        <circle cx="18" cy="9" r="2" />
-        <circle cx="10.5" cy="18" r="2" />
-        <path d="M7.7 8.4l1.6 7.8M11.9 16.7l4.7-6.2M8 7.2l8 1.5" />
-      </Ico>
-    ),
+    icon: <ConceptIcon className="h-7 w-7" />,
   },
   {
     title: "สำนักคิดและนักปราชญ์",
@@ -78,12 +66,7 @@ const KNOWLEDGE_SECTIONS: KnowledgeCard[] = [
     description: "ประวัติ แนวคิดสำคัญ และคุณูปการของนักคิดผู้บุกเบิก",
     href: "/schools",
     cosmology: "mercurius",
-    icon: (
-      <Ico>
-        <path d="M4 9l8-4 8 4-8 4z" />
-        <path d="M6 11v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5" />
-      </Ico>
-    ),
+    icon: <SchoolIcon className="h-7 w-7" />,
   },
   {
     title: "แผนที่ความสัมพันธ์",
@@ -91,15 +74,7 @@ const KNOWLEDGE_SECTIONS: KnowledgeCard[] = [
     description: "สำรวจปฏิสัมพันธ์ระหว่างแนวคิดในรูปโครงข่ายความรู้",
     href: "/constellation",
     cosmology: "prima",
-    icon: (
-      <Ico>
-        <circle cx="5" cy="6" r="1.6" />
-        <circle cx="19" cy="8" r="1.6" />
-        <circle cx="15" cy="18" r="1.6" />
-        <circle cx="7" cy="15" r="1.6" />
-        <path d="M6.4 6.6l7 1M17.7 9.2l-2.4 7.2M13.6 17.6l-5.5-2M6.6 13.7l6.7-4.8" />
-      </Ico>
-    ),
+    icon: <SynthesisIcon className="h-7 w-7" />,
   },
   {
     title: "เส้นทางการอ่าน",
@@ -107,15 +82,7 @@ const KNOWLEDGE_SECTIONS: KnowledgeCard[] = [
     description: "ลำดับการอ่านที่เรียงจากพื้นฐานสู่ความเข้าใจระดับลึก",
     href: "/reading-sets",
     cosmology: "sapientia",
-    icon: (
-      <Ico>
-        <path d="M6 4v11a3 3 0 0 0 3 3h6" />
-        <circle cx="6" cy="4" r="1.6" />
-        <path d="M18 15l-3 3 3 3" />
-        <circle cx="15" cy="9" r="1.6" />
-        <path d="M6 9h7.4" />
-      </Ico>
-    ),
+    icon: <PathIcon className="h-7 w-7" />,
   },
   {
     title: "แก่นเรื่อง",
@@ -123,12 +90,7 @@ const KNOWLEDGE_SECTIONS: KnowledgeCard[] = [
     description: "แก่นความคิดข้ามศาสตร์ที่ปรากฏซ้ำ เช่น จิตไร้สำนึก เสรีภาพ ความหมาย",
     href: "/themes",
     cosmology: "prima",
-    icon: (
-      <Ico>
-        <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z" />
-        <path d="M12 8v8M8 10v4M16 10v4" />
-      </Ico>
-    ),
+    icon: <RootIcon className="h-7 w-7" />,
   },
   {
     title: "ศาสตร์ที่เราศึกษา",
@@ -137,14 +99,7 @@ const KNOWLEDGE_SECTIONS: KnowledgeCard[] = [
     href: "/disciplines",
     cosmology: "humanitas",
     isNew: true,
-    icon: (
-      <Ico>
-        <rect x="4" y="4" width="7" height="7" rx="1.4" />
-        <rect x="13" y="4" width="7" height="7" rx="1.4" />
-        <rect x="4" y="13" width="7" height="7" rx="1.4" />
-        <rect x="13" y="13" width="7" height="7" rx="1.4" />
-      </Ico>
-    ),
+    icon: <GridIcon className="h-7 w-7" />,
   },
 ];
 

@@ -13,6 +13,7 @@ import {
   type MouseEvent as ReactMouseEvent,
   type KeyboardEvent as ReactKeyboardEvent,
 } from "react";
+import { ChevronLeftIcon, ChevronRightIcon } from "@/components/icons";
 
 export function LoopCarousel({
   children,
@@ -107,10 +108,10 @@ export function LoopCarousel({
     <div>
       <div className="mb-5 flex items-center justify-end gap-2">
         <button type="button" onClick={() => go(-1)} aria-label="เลื่อนซ้าย" className={btn}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5"><path d="M15 5l-7 7 7 7" /></svg>
+          <ChevronLeftIcon className="h-5 w-5" />
         </button>
         <button type="button" onClick={() => go(1)} aria-label="เลื่อนขวา" className={btn}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5"><path d="M9 5l7 7-7 7" /></svg>
+          <ChevronRightIcon className="h-5 w-5" />
         </button>
       </div>
 

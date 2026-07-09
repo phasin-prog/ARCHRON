@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { SourceItem } from "@/types/content";
-import { SearchIcon, CloseIcon } from "@/components/icons";
+import { SearchIcon, CloseIcon, PrimarySourceIcon, SecondarySourceIcon, InterpretationIcon } from "@/components/icons";
 
 interface SourceItemWithId extends SourceItem {
   id: string;
@@ -20,10 +20,10 @@ const TYPE_ACCENT: Record<string, string> = {
   "editorial-interpretation": "var(--color-quote)",
 };
 
-const TYPE_ICON_3D: Record<string, string> = {
-  "primary-source": "source-primary",
-  "secondary-source": "source-secondary",
-  "editorial-interpretation": "interpretation",
+const TYPE_ICON: Record<string, React.ComponentType<{ className?: string }>> = {
+  "primary-source": PrimarySourceIcon,
+  "secondary-source": SecondarySourceIcon,
+  "editorial-interpretation": InterpretationIcon,
 };
 
 export function SourcesBrowser({ sources }: { sources: SourceItemWithId[] }) {
@@ -104,7 +104,7 @@ export function SourcesBrowser({ sources }: { sources: SourceItemWithId[] }) {
         <div className="flex flex-col gap-4">
           {filtered.map((s) => {
             const accent = TYPE_ACCENT[s.sourceType] || "var(--color-text-secondary)";
-            const iconId = TYPE_ICON_3D[s.sourceType] || "source-primary";
+            const IconComponent = TYPE_ICON[s.sourceType] || PrimarySourceIcon;
             const label = TYPE_LABEL[s.sourceType] || s.sourceType;
 
             return (
@@ -118,11 +118,9 @@ export function SourcesBrowser({ sources }: { sources: SourceItemWithId[] }) {
                   {/* 3D ICON GRID */}
                   <span
                     className="inline-flex items-center justify-center w-11 h-11 flex-none border border-border/40 rounded-[0.9rem_0.3rem] bg-bg-card shrink-0 scale-90 transition-transform duration-300 group-hover:scale-100"
-                    style={{ borderColor: `color-mix(in srgb, ${accent} 26%, var(--color-border))` }}
+                    style={{ borderColor: `color-mix(in srgb, ${accent} 26%, var(--color-border))`, color: accent }}
                   >
-                    <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": accent } as React.CSSProperties}>
-                      <use href={`/icons/archron-icons.svg#${iconId}`} />
-                    </svg>
+                    <IconComponent className="w-6 h-6" />
                   </span>
 
                   <div className="min-w-0 flex-1 space-y-2">

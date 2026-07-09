@@ -1,0 +1,134 @@
+/* ============================================================================
+   ARCHRON — ALL-IN-ONE ICON SYSTEM STYLES (icon.css)
+   มาตรฐานการแสดงผลไอคอนและ Icon Containers ทั้งระบบตาม All-in-One Icon Template
+   ============================================================================ */
+
+/* ── Base Icon Utilities (Optical Scale & Stroke enforcement) ── */
+.archron-icon,
+[data-icon] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: currentColor;
+}
+
+.archron-icon svg,
+[data-icon] svg {
+  width: 100%;
+  height: 100%;
+  stroke-width: 1.5px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+/* ── Standard Icon Containers (.archron-icon-box) ── */
+.archron-icon-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  box-sizing: border-box;
+  transition: border-color var(--dur-fast) var(--ease-out),
+              background-color var(--dur-fast) var(--ease-out),
+              box-shadow var(--dur-fast) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.archron-icon-box:hover {
+  border-color: var(--color-accent);
+  background-color: var(--color-bg-elevated);
+  box-shadow: 0 2px 12px rgba(37, 35, 31, 0.06);
+}
+
+.archron-icon-box:active {
+  transform: scale(0.98);
+}
+
+.archron-icon-box svg,
+.archron-icon-box div {
+  color: var(--color-text-body);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.archron-icon-box:hover svg,
+.archron-icon-box:hover div {
+  color: var(--color-accent);
+}
+
+/* Sizes */
+.archron-icon-box--sm {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+.archron-icon-box--sm svg {
+  width: 20px;
+  height: 20px;
+}
+
+.archron-icon-box--md {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+}
+.archron-icon-box--md svg {
+  width: 24px;
+  height: 24px;
+}
+
+.archron-icon-box--lg {
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+}
+.archron-icon-box--lg svg {
+  width: 32px;
+  height: 32px;
+}
+
+/* Variants */
+.archron-icon-box--knowledge {
+  border-color: var(--color-secondary, var(--color-accent));
+}
+
+.archron-icon-box--featured {
+  border-color: var(--color-premium);
+}
+.archron-icon-box--featured:hover {
+  border-color: var(--color-premium-hover);
+  background-color: var(--color-premium-subtle);
+}
+.archron-icon-box--featured svg {
+  color: var(--color-premium);
+}
+
+.archron-icon-box--success {
+  border-color: var(--color-success);
+}
+.archron-icon-box--success svg {
+  color: var(--color-success);
+}
+
+/* ── Legacy Sprite (.icon-3d compatibility normalization) ── */
+/* ปรับ .icon-3d ให้แสดงผลสอดคล้องกับ All-in-One line icons โดยลบ Isometric 3D Gradients ที่ขัดแย้ง */
+.icon-3d {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--ico-main, currentColor);
+  flex-shrink: 0;
+}
+
+.icon-3d svg {
+  width: 100%;
+  height: 100%;
+  stroke-width: 1.5px;
+}

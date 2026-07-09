@@ -5,7 +5,7 @@ import { difficultyMeta } from "@/lib/content/cosmology";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { ArrowRightIcon } from "@/components/icons";
+import { ArrowRightIcon, ReadingSetBadgeIcon } from "@/components/icons";
 
 export function ReadingSetCard({ set }: { set: ReadingSetItem }) {
   const accent = "var(--color-accent)"; // Sapientia Gold
@@ -51,9 +51,7 @@ export function ReadingSetCard({ set }: { set: ReadingSetItem }) {
             className="inline-flex items-center justify-center w-11 h-11 flex-none border border-border/40 rounded-[0.9rem_0.3rem] bg-bg-card shrink-0 scale-100"
             style={{ borderColor: `color-mix(in srgb, ${accent} 26%, var(--color-border))` }}
           >
-            <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": accent } as React.CSSProperties}>
-              <use href="/icons/archron-icons.svg#reading-set" />
-            </svg>
+            <ReadingSetBadgeIcon className="w-6 h-6 text-accent" />
           </span>
         </div>
 

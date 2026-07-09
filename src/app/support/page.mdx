@@ -4,7 +4,7 @@ description: "ร่วมดูแลคลังความรู้ภาษ
 ---
 
 import { PageScaffold } from "@/components/page-scaffold"
-import { ArrowRightIcon } from "@/components/icons"
+import { ArrowRightIcon, LanternBadgeIcon, InterpretationIcon } from "@/components/icons"
 import Link from "next/link"
 
 export const COMPANIONS = []
@@ -120,9 +120,7 @@ export const COMPANIONS = []
         className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-[0.9rem_0.3rem] border border-border/40 bg-bg-card"
         style={{ borderColor: "color-mix(in srgb, var(--color-accent) 26%, var(--color-border))" }}
       >
-        <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": "var(--color-accent)" }}>
-          <use href="/icons/archron-icons.svg#lantern" />
-        </svg>
+        <LanternBadgeIcon className="w-6 h-6 text-accent" />
       </span>
     </div>
     <h3 className="mt-4 font-serif text-xl text-text-heading group-hover:text-accent">
@@ -146,9 +144,7 @@ export const COMPANIONS = []
   >
     <div className="flex items-start justify-between">
       <span className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-[0.9rem_0.3rem] border border-border/40 bg-bg-card">
-        <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": "var(--color-accent)" }}>
-          <use href="/icons/archron-icons.svg#interpretation" />
-        </svg>
+        <InterpretationIcon className="w-6 h-6 text-accent" />
       </span>
     </div>
     <h3 className="mt-4 font-serif text-xl text-text-heading group-hover:text-accent">

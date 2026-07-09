@@ -164,8 +164,8 @@ export function SearchIcon({ className = "h-5 w-5" }: IconProps) {
   return SVG(
     className,
     <>
-      <circle cx="11" cy="11" r="6" />
-      <line x1="20" y1="20" x2="15.5" y2="15.5" />
+      <circle cx="11" cy="11" r="6.2" />
+      <path d="M15.8 15.8L20.2 20.2" />
     </>,
   );
 }
@@ -331,37 +331,34 @@ const RingSVG = (className: string, children: React.ReactNode) => (
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth={1.4}
+    strokeWidth={1.5}
     strokeLinecap="round"
     strokeLinejoin="round"
     aria-hidden="true"
   >
-    <circle cx="12" cy="12" r="10.6" strokeWidth={0.9} opacity={0.55} />
+    <circle cx="12" cy="12" r="7" />
     {children}
   </svg>
 );
 
 // จิตวิทยา — ร่างนั่งสงบ/จิต (concept) ในวงแหวน
 export function PsychologyIcon({ className = "h-5 w-5" }: IconProps) {
-  return RingSVG(
+  return SVG(
     className,
     <>
-      <circle cx="12" cy="8.2" r="1.6" />
-      <path d="M7.8 16.6c0-2.8 1.9-4.8 4.2-4.8s4.2 2 4.2 4.8" />
-      <path d="M9 13.8c.9-.7 1.9-1 3-1s2.1.3 3 1" />
+      <circle cx="12" cy="12" r="7" />
+      <circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none" />
     </>,
   );
 }
 
 // ปรัชญา — ต้นไม้แห่งความคิด (ทรงพุ่ม + ราก)
 export function PhilosophyIcon({ className = "h-5 w-5" }: IconProps) {
-  return RingSVG(
+  return SVG(
     className,
     <>
-      <path d="M12 17.6V10.2" />
-      <path d="M12 17.6l-1.7 1.5M12 17.6l1.7 1.5" />
-      <path d="M7.4 10.6A4.7 4.7 0 0 1 16.6 10.6" />
-      <path d="M12 12.6l-2.5-1.9M12 12.6l2.5-1.9" />
+      <circle cx="12" cy="12" r="7" />
+      <path d="M12 8.2L8.6 15.2H15.4L12 8.2Z" />
     </>,
   );
 }
@@ -381,12 +378,11 @@ export function AnthropologyIcon({ className = "h-5 w-5" }: IconProps) {
 
 // ประวัติศาสตร์ — นาฬิกาทราย (กาลเวลา)
 export function HistoryIcon({ className = "h-5 w-5" }: IconProps) {
-  return RingSVG(
+  return SVG(
     className,
     <>
-      <path d="M8.2 6.8h7.6M8.2 17.2h7.6" />
-      <path d="M9 6.8c0 3.7 6 3.9 6 5.2 0 1.3-6 1.5-6 5.2" />
-      <path d="M15 6.8c0 3.7-6 3.9-6 5.2 0 1.3 6 1.5 6 5.2" />
+      <circle cx="12" cy="12" r="7" />
+      <path d="M12 8.5V12H15" />
     </>,
   );
 }
@@ -790,6 +786,166 @@ export function ClosingDeclIcon({ className = "h-6 w-6" }: IconProps) {
 }
 
 /* ============================================================================
+   ARCHRON — ALL-IN-ONE CANONICAL SYSTEM ICONS (ชุดแม่แบบ 26 Canonical Icons)
+   ตามมาตรฐาน All-in-One Icon Template (24x24 · strokeWidth 1.5 · currentColor · 2px pad)
+   ============================================================================ */
+export function HomeIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <path d="M3.5 11.2L12 3.8L20.5 11.2V19.5C20.5 20.3284 19.8284 21 19 21H5C4.17157 21 3.5 20.3284 3.5 19.5V11.2Z" />
+      <path d="M9 21V13.5C9 12.6716 9.67157 12 10.5 12H13.5C14.3284 12 15 12.6716 15 13.5V21" />
+    </>,
+  );
+}
+
+export function LibraryIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <rect x="2.8" y="3.5" width="5.2" height="17" rx="1.8" />
+      <rect x="9.4" y="3.5" width="5.2" height="17" rx="1.8" />
+      <rect x="16" y="3.5" width="5.2" height="17" rx="1.8" />
+    </>,
+  );
+}
+
+export function SourcesIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <rect x="3.5" y="3" width="11" height="14.2" rx="2" />
+      <path d="M9.5 8.2V20C9.5 21.1 10.4 22 11.5 22H18.5C19.6 22 20.5 21.1 20.5 20V8.2" />
+      <path d="M12.5 18.5L15 21L17.5 18.5" />
+    </>,
+  );
+}
+
+export function ProfileIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <circle cx="12" cy="8.2" r="4" />
+      <path d="M4.8 19.2C4.8 15.1 7.9 12.8 12 12.8C16.1 12.8 19.2 15.1 19.2 19.2" />
+    </>,
+  );
+}
+
+export function PrimarySourceIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <rect x="6" y="2.8" width="12" height="18.4" rx="2" />
+      <circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none" />
+    </>,
+  );
+}
+
+export function SecondarySourceIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <rect x="4.2" y="3" width="10.5" height="14" rx="2" />
+      <rect x="9.3" y="7" width="10.5" height="14" rx="2" />
+    </>,
+  );
+}
+
+export function InterpretationIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <rect x="6" y="2.8" width="12" height="18.4" rx="2" />
+      <path d="M8.8 15.2L15.2 8.8" />
+    </>,
+  );
+}
+
+export function BookmarkIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <path d="M7 3.5H17C17.8284 3.5 18.5 4.17157 18.5 5V20L12 16.2L5.5 20V5C5.5 4.17157 6.17157 3.5 7 3.5Z" />
+    </>,
+  );
+}
+
+export function BookmarkActiveIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <path d="M7 3.5H17C17.8284 3.5 18.5 4.17157 18.5 5V20L12 16.2L5.5 20V5C5.5 4.17157 6.17157 3.5 7 3.5Z" />
+      <circle cx="12" cy="10.2" r="1.3" fill="currentColor" stroke="none" />
+    </>,
+  );
+}
+
+export function ShareIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <circle cx="6.5" cy="12" r="2" />
+      <circle cx="17.5" cy="6" r="2" />
+      <circle cx="17.5" cy="18" r="2" />
+      <path d="M9 10.8L15 7.2M9 13.2L15 16.8" />
+    </>,
+  );
+}
+
+export function CopyIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <rect x="8.2" y="3.8" width="10" height="10" rx="2" />
+      <path d="M5.8 9.2V17.2C5.8 18.5 6.7 19.8 8.2 19.8H15.5" />
+    </>,
+  );
+}
+
+export function FilterIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <path d="M3.5 8H10.5" />
+      <circle cx="14.2" cy="8" r="2.2" />
+      <path d="M17.8 8H20.5" />
+      <path d="M3.5 16H8.2" />
+      <circle cx="11.9" cy="16" r="2.2" />
+      <path d="M15.1 16H20.5" />
+    </>,
+  );
+}
+
+export function SortIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <path d="M8 15L12 19L16 15" />
+      <path d="M12 19V5" />
+      <path d="M16 9L12 5L8 9" opacity={0.35} />
+    </>,
+  );
+}
+
+export function CheckIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <path d="M5.5 12.5L10.2 17.2L18.8 7.2" />,
+  );
+}
+
+export function MoreIcon({ className = "h-5 w-5" }: IconProps) {
+  return SVG(
+    className,
+    <>
+      <circle cx="6" cy="12" r="1.4" fill="currentColor" stroke="none" />
+      <circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none" />
+      <circle cx="18" cy="12" r="1.4" fill="currentColor" stroke="none" />
+    </>,
+  );
+}
+
+/* ============================================================================
    ARCHRON — BADGE & SPRITE FALLBACK ICONS (สำหรับ card-badge และ 3d-icon container)
    ============================================================================ */
 export function LevelBadgeIcon({ className = "h-5 w-5" }: IconProps) {
@@ -846,3 +1002,6 @@ export function LanternBadgeIcon({ className = "h-5 w-5" }: IconProps) {
     </>
   );
 }
+
+export const LanternIcon = LanternBadgeIcon;
+export const ReadingSetIcon = ReadingSetBadgeIcon;

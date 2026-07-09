@@ -8,6 +8,7 @@
 @import "./typography.css";
 @import "./texture.css";
 @import "./cards.css";
+@import "./icon.css";
 @import "./buttons.css";
 @import "./inputs.css";
 @import "./navigation.css";
@@ -25,15 +26,15 @@
    Semantic สำหรับ status indicators เท่านั้น
    ============================================================================ */
 @theme {
-   /* ---- Neutral Canvas (95%) — Focus First #FAF6F0 ---- */
-    --color-bg: #FAF6F0;            /* Page background — flat warm cream (Focus First) */
-    --color-bg-card: #FFFFFF;       /* Card surface — clean white */
-    --color-bg-elevated: #F1EBE1;   /* Hover states — warm elevated */
-    --color-border: #E8E0D3;        /* Borders, dividers — warm beige line */
-    --color-text-heading: #25231F;  /* Headings — deep ink */
-    --color-text-body: #5C5852;     /* Body text — warm brown-gray */
-    --color-text-secondary: #9A9590;/* Meta, captions — warm medium gray */
-    --color-text-inverse: #FFFFFF;  /* Text on accent/dark backgrounds */
+  /* ---- Neutral Canvas (95%) — Focus First #FAF6F0 ---- */
+  --color-bg: #FAF6F0;            /* Page background — flat warm cream (Focus First) */
+  --color-bg-card: #FFFFFF;       /* Card surface — clean white */
+  --color-bg-elevated: #F1EBE1;   /* Hover states — warm elevated */
+  --color-border: #E8E0D3;        /* Borders, dividers — warm beige line */
+  --color-text-heading: #25231F;  /* Headings — deep ink */
+  --color-text-body: #5C5852;     /* Body text — warm brown-gray */
+  --color-text-secondary: #9A9590;/* Meta, captions — warm medium gray */
+  --color-text-inverse: #FFFFFF;  /* Text on accent/dark backgrounds */
 
   /* ---- Academic (Accent) — Deep Ocean Blue #1C5D99 ---- */
   --color-accent: #1C5D99;        /* Links, active elements — Deep Ocean Blue */
@@ -753,10 +754,12 @@
   background: color-mix(in srgb, var(--color-bg-card) 92%, transparent);
   border-bottom-color: color-mix(in srgb, var(--color-accent) 28%, transparent);
 }
+
 @keyframes concept-pulse {
   0%, 100% { opacity: 0.3; transform: scale(1); }
   50% { opacity: 0.6; transform: scale(1.6); }
 }
+
 @keyframes mm-fade {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -822,89 +825,14 @@
   }
 }
 
-/* ============================================
-   ICON CONTAINER — per icon-system.md
-   ============================================ */
-.archron-icon-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: var(--radius-md);
-  background-color: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  box-sizing: border-box;
-  transition: border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
-  cursor: pointer;
-}
+/* ============================================================================
+   ICON CONTAINER & 3D ICON LAYOUT
+   (Moved to icon.css per All-in-One Icon System)
+   ============================================================================ */
 
-.archron-icon-box:hover {
-  border-color: var(--color-accent);
-  background-color: var(--color-bg-elevated);
-}
 
-.archron-icon-box:active {
-  transform: scale(0.98);
-}
 
-.archron-icon-box svg,
-.archron-icon-box div {
-  color: var(--color-text-body);
-  transition: color var(--dur-fast) var(--ease-out);
-}
 
-.archron-icon-box:hover svg,
-.archron-icon-box:hover div {
-  color: var(--color-accent);
-}
-
-.archron-icon-box--sm {
-  width: 48px;
-  height: 48px;
-}
-
-.archron-icon-box--md {
-  width: 64px;
-  height: 64px;
-}
-
-.archron-icon-box--lg {
-  width: 80px;
-  height: 80px;
-}
-
-.archron-icon-box--knowledge {
-  border-color: var(--color-secondary, var(--color-accent));
-}
-
-.archron-icon-box--featured {
-  border-color: var(--color-premium);
-}
-
-.archron-icon-box--featured:hover {
-  border-color: var(--color-premium-hover);
-  background-color: var(--color-premium-subtle);
-}
-
-.archron-icon-box--success {
-  border-color: var(--color-success);
-}
-
-/* ============================================
-   3D & BADGE ICON LAYOUT
-   ============================================ */
-.icon-3d {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.5rem;
-  height: 1.5rem;
-  color: var(--ico-main, currentColor);
-}
-
-.icon-3d svg {
-  width: 100%;
-  height: 100%;
-}
 
 @keyframes seal-stagger {
   from {

@@ -3,6 +3,7 @@ import { colors } from "@/lib/content/colors";
 import { PageScaffold } from "@/components/page-scaffold";
 import { SOURCES } from "@/lib/content/sources";
 import { SourcesBrowser } from "@/components/sources/sources-browser";
+import { PrimarySourceIcon, SecondarySourceIcon, InterpretationIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "แหล่งอ้างอิง — ARCHRON",
@@ -51,21 +52,21 @@ export default function SourcesPage() {
                 title: "แหล่งต้นทาง (Primary Sources)",
                 accent: colors.goldAccent,
                 desc: "งานต้นฉบับของนักคิดโดยตรง — ตัวบท คำแปลจากต้นฉบับ จดหมาย บันทึก และงานเขียนชั้นต้น (เช่น Collected Works ของ Jung)",
-                icon: "source-primary",
+                Icon: PrimarySourceIcon,
               },
               {
                 num: "02",
                 title: "งานอธิบาย (Secondary Sources)",
                 accent: colors.concept,
                 desc: "งานศึกษา วิเคราะห์ และอธิบายต่อยอดจากแหล่งต้นทาง โดยนักวิชาการหรือผู้เชี่ยวชาญ (เช่น งานวิเคราะห์ตำนานของ von Franz)",
-                icon: "source-secondary",
+                Icon: SecondarySourceIcon,
               },
               {
                 num: "03",
                 title: "การตีความ (Interpretation / Editorial)",
                 accent: colors.quote,
                 desc: "การตีความและการเชื่อมโยงใหม่ของกองบรรณาธิการ ARCHRON เอง เพื่อประยุกต์และแปลความให้เหมาะสมกับผู้อ่านร่วมสมัย",
-                icon: "interpretation",
+                Icon: InterpretationIcon,
               },
             ].map((t) => (
               <article key={t.num} className="archron-card relative overflow-hidden p-6 flex flex-col justify-between">
@@ -78,11 +79,9 @@ export default function SourcesPage() {
                   <div className="flex items-center justify-between">
                     <span
                       className="inline-flex items-center justify-center w-11 h-11 flex-none border border-border/40 rounded-[0.9rem_0.3rem] bg-bg-card scale-90"
-                      style={{ borderColor: `color-mix(in srgb, ${t.accent} 26%, var(--color-border))` }}
+                      style={{ borderColor: `color-mix(in srgb, ${t.accent} 26%, var(--color-border))`, color: t.accent }}
                     >
-                      <svg className="icon-3d" aria-hidden="true" style={{ "--ico-main": t.accent } as React.CSSProperties}>
-                        <use href={`/icons/archron-icons.svg#${t.icon}`} />
-                      </svg>
+                      <t.Icon className="w-6 h-6" />
                     </span>
                     <span className="text-xs tabular-nums tracking-[0.1em] text-text-secondary/40 font-mono">
                       Tier {t.num}

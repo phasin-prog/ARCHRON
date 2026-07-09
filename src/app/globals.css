@@ -26,13 +26,13 @@
    ============================================================================ */
 @theme {
    /* ---- Neutral Canvas (95%) — Warm Academic ---- */
-   --color-bg: #FAF8F5;            /* Page background — warm cream (aged paper) */
+   --color-bg: #F2EDE6;            /* Page background — warm cream (aged paper) */
    --color-bg-card: #FFFFFF;       /* Card surface — clean white */
-   --color-bg-elevated: #F5F3F0;   /* Hover states — warm elevated */
-   --color-border: #E5E2DC;        /* Borders, dividers — warm beige line */
+   --color-bg-elevated: #EBE5DD;   /* Hover states — warm elevated */
+   --color-border: #E0D9D0;        /* Borders, dividers — warm beige line */
    --color-text-heading: #1A1815;  /* Headings — almost-black ink */
    --color-text-body: #3A3835;     /* Body text — warm brown-gray */
-   --color-text-secondary: #6E6B65;/* Meta, captions — warm medium gray */
+   --color-text-secondary: #65625C;/* Meta, captions — warm medium gray */
    --color-text-inverse: #FFFFFF;  /* Text on accent/dark backgrounds */
 
   /* ---- Academic (Accent) — Deep Ocean Blue #1C5D99 ---- */

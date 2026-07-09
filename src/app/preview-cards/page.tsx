@@ -1,3 +1,5 @@
+import { ArrowRightIcon } from "@/components/icons";
+
 type CardPreview = {
   id: string;
   label: string;
@@ -79,19 +81,26 @@ function VariantCard({ card }: { card: CardPreview }) {
     <div className="flex flex-col gap-3">
       <a
         href="#"
-        className={`archron-card archron-card--${card.id} group p-5`}
+        className={`archron-card archron-card--${card.id} group flex flex-col justify-between p-5.5 sm:p-6`}
         style={{ "--card-accent": card.accentVar } as React.CSSProperties}
       >
-        <span
-          className="mb-2 flex items-center gap-1.5 text-[11px] font-medium opacity-70"
-          style={{ color: card.accentVar } as React.CSSProperties}
-        >
-          {card.label}
-        </span>
-        <span className="font-serif text-lg leading-snug text-text-heading break-words transition-colors group-hover:text-accent">
-          {card.title}
-        </span>
-        <p className="mt-3 text-sm leading-relaxed text-text-secondary line-clamp-2">
+        <div>
+          <div className="mb-3.5 flex items-center justify-between gap-2">
+            <span
+              className="inline-flex items-center gap-1.5 rounded-full border border-[var(--card-accent)]/20 bg-[var(--card-accent)]/10 px-2.5 py-0.5 text-[11px] font-semibold tracking-wide"
+              style={{ color: card.accentVar } as React.CSSProperties}
+            >
+              {card.label}
+            </span>
+            <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-border/40 text-text-secondary/60 transition-all duration-300 group-hover:border-[var(--card-accent)]/40 group-hover:bg-[var(--card-accent)]/10 group-hover:text-[var(--card-accent)] group-hover:translate-x-0.5">
+              <ArrowRightIcon className="h-3.5 w-3.5" />
+            </span>
+          </div>
+          <h3 className="font-serif text-xl font-medium leading-snug tracking-tight text-text-heading break-words transition-colors duration-200 group-hover:text-[var(--card-accent)]">
+            {card.title}
+          </h3>
+        </div>
+        <p className="mt-4 border-t border-border/40 pt-3 text-xs leading-relaxed text-text-secondary line-clamp-2">
           {card.body}
         </p>
       </a>

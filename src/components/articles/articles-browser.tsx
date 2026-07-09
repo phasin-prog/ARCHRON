@@ -183,16 +183,17 @@ export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
                 <div
                   className="pointer-events-none absolute -inset-5 rounded-3xl opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100"
                   style={{
-                    background: `radial-gradient(ellipse at 50% 35%, ${meta.accent}22, transparent 70%)`,
+                    background: `radial-gradient(ellipse at 50% 35%, ${meta.accent}1e, transparent 70%)`,
                   }}
                   aria-hidden
                 />
 
                 <Link
                   href={`/articles/${e.slug}`}
-                  className="archron-card group relative z-surface flex min-h-[260px] flex-col overflow-hidden p-0 transition-all duration-300"
+                  className="archron-card archron-card--article group relative z-surface flex min-h-[260px] flex-col justify-between overflow-hidden p-6 sm:p-7 transition-all duration-300"
                   style={
                     {
+                      "--card-accent": meta.accent,
                       "--cosmology-accent": meta.accent,
                       "--cosmology-accent-soft": `color-mix(in srgb, ${meta.accent} 70%, transparent)`,
                     } as React.CSSProperties
@@ -207,52 +208,44 @@ export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
                     aria-hidden
                   />
 
-                  <div
-                    className="h-[3px] w-full shrink-0"
-                    style={{
-                      background: `linear-gradient(to right, ${meta.accent}, color-mix(in srgb, ${meta.accent} 35%, transparent), transparent 80%)`,
-                    }}
-                  />
+                  <div className="relative z-surface">
+                    {/* Header Row: Discipline Tag + Reading Time */}
+                    <div className="mb-4 flex items-center justify-between gap-2">
+                      <span
+                        className="inline-flex items-center gap-1.5 rounded-full px-3 py-0.5 text-xs font-semibold tracking-wide border"
+                        style={{
+                          backgroundColor: `${meta.accent}14`,
+                          borderColor: `${meta.accent}33`,
+                          color: meta.accent,
+                        }}
+                      >
+                        {e.framework ?? meta.label}
+                      </span>
+                      <span className="flex items-center gap-1 text-xs font-medium text-text-secondary/65">
+                        <ClockIcon className="h-3.5 w-3.5" />
+                        {readMin} นาที
+                      </span>
+                    </div>
 
-                  <div className="relative z-surface flex flex-1 flex-col px-7 pt-6 pb-6">
-                    <h2
-                      className="font-serif text-[1.35rem] font-bold leading-snug text-text-heading transition-colors duration-300 group-hover:text-accent"
-                    >
+                    {/* Title */}
+                    <h2 className="font-serif text-2xl font-medium leading-snug tracking-tight text-text-heading transition-colors duration-200 group-hover:text-[var(--card-accent)]">
                       {e.title}
                     </h2>
 
+                    {/* Description */}
                     {e.shortDescription ? (
-                      <p className="mt-3 text-sm leading-relaxed text-text-body/60 line-clamp-2">
+                      <p className="mt-3 text-sm leading-relaxed text-text-secondary line-clamp-3">
                         {e.shortDescription}
                       </p>
                     ) : null}
+                  </div>
 
-                    <div className="mt-auto pt-5">
-                      <div className="flex items-center justify-between border-t border-border/12 pt-4">
-                        <span className="flex items-center gap-3 text-xs text-text-secondary/55">
-                          <span className="flex items-center gap-1">
-                            <ClockIcon className="h-3.5 w-3.5" />
-                            {readMin} นาที
-                          </span>
-                          <span
-                            className="inline-block rounded-sm px-2 py-0.5 text-xs font-semibold font-mono"
-                            style={{
-                              color: meta.accent,
-                              backgroundColor: `color-mix(in srgb, ${meta.accent} 8%, transparent)`,
-                            }}
-                          >
-                            {e.framework ?? meta.label}
-                          </span>
-                        </span>
-                        <span
-                          className="flex items-center gap-1.5 text-xs font-semibold transition-all duration-300 group-hover:gap-2.5"
-                          style={{ color: meta.accent }}
-                        >
-                          อ่านบทความ
-                          <ArrowRightIcon className="h-[15px] w-[15px]" />
-                        </span>
-                      </div>
-                    </div>
+                  {/* Footer / Read Action Indicator */}
+                  <div className="relative z-surface mt-6 pt-4 border-t border-border/40 flex items-center justify-between text-xs font-semibold text-text-secondary transition-colors group-hover:text-[var(--card-accent)]">
+                    <span>อ่านบทความและวิเคราะห์เชิงลึก</span>
+                    <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-border/40 transition-all duration-300 group-hover:border-[var(--card-accent)]/40 group-hover:bg-[var(--card-accent)]/10 group-hover:translate-x-0.5">
+                      <ArrowRightIcon className="h-3.5 w-3.5" />
+                    </span>
                   </div>
                 </Link>
               </div>

@@ -1,18 +1,20 @@
-/* Card Variants — 7 รูปแบบตามประเภทเนื้อหา */
+/* Card Variants — 7 รูปแบบตามประเภทเนื้อหา (Premium Editorial Craft) */
 .archron-card--article {
   --card-accent: var(--color-accent);
   border-radius: 0.85rem;
 }
 .archron-card--article:hover {
+  background: color-mix(in srgb, var(--card-accent) 2.5%, var(--color-bg-card));
   border-color: color-mix(in srgb, var(--card-accent) 60%, transparent);
 }
 
 .archron-card--concept {
   --card-accent: var(--color-concept);
-  border-radius: 1rem 0.35rem;
+  border-radius: 1.15rem 0.45rem;
 }
 .archron-card--concept:hover {
-  border-color: color-mix(in srgb, var(--card-accent) 55%, transparent);
+  background: color-mix(in srgb, var(--card-accent) 3.5%, var(--color-bg-card));
+  border-color: color-mix(in srgb, var(--card-accent) 60%, transparent);
 }
 
 .archron-card--person {
@@ -20,49 +22,56 @@
   border-radius: 0.75rem;
 }
 .archron-card--person:hover {
-  border-color: color-mix(in srgb, var(--card-accent) 50%, transparent);
+  background: color-mix(in srgb, var(--card-accent) 3%, var(--color-bg-card));
+  border-color: color-mix(in srgb, var(--card-accent) 55%, transparent);
 }
 
 .archron-card--book {
   --card-accent: var(--color-accent);
-  border-radius: 0.35rem 1rem 1rem 0.35rem;
+  border-radius: 0.35rem 1.1rem 1.1rem 0.35rem;
+  border-left: 2px solid color-mix(in srgb, var(--card-accent) 35%, var(--color-border));
 }
 .archron-card--book:hover {
-  border-color: color-mix(in srgb, var(--card-accent) 55%, transparent);
+  background: color-mix(in srgb, var(--card-accent) 2.5%, var(--color-bg-card));
+  border-color: color-mix(in srgb, var(--card-accent) 65%, transparent);
+  border-left-color: var(--card-accent);
 }
 
 .archron-card--school {
   --card-accent: var(--color-accent);
-  border-radius: 0.35rem;
+  border-radius: 0.45rem;
 }
 .archron-card--school:hover {
-  transform: translateY(-3px);
-  border-color: color-mix(in srgb, var(--card-accent) 45%, transparent);
+  transform: translateY(-3.5px);
+  background: color-mix(in srgb, var(--card-accent) 2%, var(--color-bg-card));
+  border-color: color-mix(in srgb, var(--card-accent) 50%, transparent);
 }
 
 .archron-card--symbol {
   --card-accent: var(--color-text-secondary);
-  border-radius: 0.5rem;
+  border-radius: 0.65rem;
   text-align: center;
 }
 .archron-card--symbol:hover {
-  border-color: color-mix(in srgb, var(--card-accent) 50%, transparent);
+  background: color-mix(in srgb, var(--card-accent) 3.5%, var(--color-bg-card));
+  border-color: color-mix(in srgb, var(--card-accent) 55%, transparent);
 }
 
 .archron-card--term {
   --card-accent: var(--color-text-body);
-  border-radius: 0.35rem;
-  background: color-mix(in srgb, var(--card-accent) 3%, var(--color-bg-card));
-  border-color: color-mix(in srgb, var(--card-accent) 8%, var(--color-border));
+  border-radius: 0.45rem;
+  background: color-mix(in srgb, var(--card-accent) 2.5%, var(--color-bg-card));
+  border-color: color-mix(in srgb, var(--card-accent) 12%, var(--color-border));
 }
 .archron-card--term:hover {
   transform: none;
-  border-color: color-mix(in srgb, var(--card-accent) 20%, var(--color-border));
+  background: color-mix(in srgb, var(--card-accent) 4.5%, var(--color-bg-card));
+  border-color: color-mix(in srgb, var(--card-accent) 25%, var(--color-border));
   box-shadow: none;
 }
 
 .card-panel {
   border: 1px solid color-mix(in srgb, var(--color-text-heading) 6%, var(--color-border));
-  border-radius: 0.5rem;
-  background: color-mix(in srgb, var(--color-text-heading) 3%, var(--color-bg-card));
+  border-radius: 0.65rem;
+  background: color-mix(in srgb, var(--color-text-heading) 2.5%, var(--color-bg-card));
 }

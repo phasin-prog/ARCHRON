@@ -10,6 +10,7 @@ import {
   SymbolIcon,
   TermIcon,
   SourceIcon,
+  ArrowRightIcon,
 } from "@/components/icons";
 
 export type CardVariant =
@@ -107,30 +108,41 @@ export function ContentCard({
   return (
     <Link
       href={href}
-      className={`archron-card archron-card--${v} scroll-reveal stagger-${Math.min(stagger, 6)} group flex flex-col p-5 ${className}`}
+      className={`archron-card archron-card--${v} scroll-reveal stagger-${Math.min(stagger, 6)} group flex flex-col justify-between p-5.5 sm:p-6 ${className}`}
     >
-      {/* Badge */}
-      <span className="mb-2 flex items-center gap-1.5 text-[11px] font-medium text-[var(--card-accent)] opacity-70">
-        <Icon className="h-3.5 w-3.5" />
-        {typeLabel}
-      </span>
+      <div>
+        {/* Header Row: Type Badge + Action Arrow */}
+        <div className="mb-3.5 flex items-center justify-between gap-2">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--card-accent)]/20 bg-[var(--card-accent)]/10 px-2.5 py-0.5 text-[11px] font-semibold tracking-wide text-[var(--card-accent)]">
+            <Icon className="h-3.5 w-3.5" />
+            {typeLabel}
+          </span>
+          <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-border/40 text-text-secondary/60 transition-all duration-300 group-hover:border-[var(--card-accent)]/40 group-hover:bg-[var(--card-accent)]/10 group-hover:text-[var(--card-accent)] group-hover:translate-x-0.5">
+            <ArrowRightIcon className="h-3.5 w-3.5" />
+          </span>
+        </div>
 
-      {/* Title */}
-      <span className="font-serif text-lg leading-snug text-text-heading break-words transition-colors group-hover:text-accent">
-        {title}
-      </span>
+        {/* Title */}
+        <h3 className="font-serif text-xl font-medium leading-snug tracking-tight text-text-heading break-words transition-colors duration-200 group-hover:text-[var(--card-accent)]">
+          {title}
+        </h3>
+      </div>
 
-      {/* Relation badge */}
-      {relationType ? (
-        <span className="mt-2 inline-block w-fit rounded-full border border-[var(--card-accent)]/30 px-2.5 py-0.5 text-xs text-[var(--card-accent)]">
-          {RELATION_LABEL[relationType]}
-        </span>
-      ) : null}
-
-      {/* Reason */}
-      {shortReason ? (
-        <p className="mt-3 text-sm leading-relaxed text-text-secondary line-clamp-2">{shortReason}</p>
-      ) : null}
+      {/* Footer / Relation & Reason */}
+      {(relationType || shortReason) && (
+        <div className="mt-4 border-t border-border/40 pt-3">
+          {relationType && (
+            <span className="mb-1.5 inline-flex items-center rounded-md border border-[var(--card-accent)]/30 bg-[var(--card-accent)]/5 px-2 py-0.5 text-[11px] font-medium text-[var(--card-accent)]">
+              {RELATION_LABEL[relationType]}
+            </span>
+          )}
+          {shortReason && (
+            <p className="text-xs leading-relaxed text-text-secondary line-clamp-2">
+              {shortReason}
+            </p>
+          )}
+        </div>
+      )}
     </Link>
   );
 }

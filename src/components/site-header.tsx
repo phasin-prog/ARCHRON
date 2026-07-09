@@ -33,7 +33,7 @@ type NavItem = { label: string; href: string; Icon: IconComponent; tier: Tier };
 // ลิงก์ระดับบน — ลดเหลือ 5-6 จุดตัดสินใจ (Hick's Law / Miller's Law)
 // primary = เด่นสุด, standard = ปานกลาง, utility = dropdown "เพิ่มเติม", support = pill
 const NAV: NavItem[] = [
-  { label: "คลังความรู้", href: "/explore", Icon: KnowledgeHubIcon, tier: "primary" },
+  { label: "คลังความรู้", href: "/knowledge", Icon: KnowledgeHubIcon, tier: "primary" },
   { label: "แผนที่ความรู้", href: "/constellation", Icon: HistoryIcon, tier: "standard" },
   { label: "สำนักคิด", href: "/schools", Icon: SchoolIcon, tier: "standard" },
   { label: "แหล่งอ้างอิง", href: "/sources", Icon: QuoteIcon, tier: "standard" },

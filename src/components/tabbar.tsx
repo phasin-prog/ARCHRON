@@ -13,7 +13,7 @@ import {
 type Item = { href: string; label: string; Icon: React.ComponentType<{ className?: string }> };
 
 const ITEMS: Item[] = [
-  { href: "/explore", label: "คลังความรู้", Icon: KnowledgeHubIcon },
+  { href: "/knowledge", label: "คลังความรู้", Icon: KnowledgeHubIcon },
   { href: "/constellation", label: "แผนที่ความรู้", Icon: PathIcon },
   { href: "/", label: "หน้าแรก", Icon: ArchronMark },
   { href: "/search", label: "ค้นหา", Icon: SearchIcon },

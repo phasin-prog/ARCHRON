@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type MouseEvent } from "react";
+import { ChevronDownIcon } from "@/components/icons";
 
 type TocItem = { id: string; text: string; level: 2 | 3 };
 
@@ -17,9 +18,11 @@ function slug(text: string): string {
 
 // สารบัญลอย + scroll-spy — สแกนหัวข้อจริงจาก DOM ของบทความ (content-agnostic)
 // แสดงเมื่อมีหัวข้อ >= 3 เท่านั้น (หน้าแนวคิดสั้น/stub จะไม่ขึ้น)
+// รองรับการพับเก็บด้วยปุ่ม toggle
 export function ReadingToc({ containerId = "reading-article" }: { containerId?: string }) {
   const [items, setItems] = useState<TocItem[]>([]);
   const [active, setActive] = useState<string>("");
+  const [collapsed, setCollapsed] = useState(false);
 
   useEffect(() => {
     const root = document.getElementById(containerId);
@@ -77,24 +80,42 @@ export function ReadingToc({ containerId = "reading-article" }: { containerId?: 
 
   return (
     <nav aria-label="สารบัญในหน้านี้" className="text-sm">
-      <p className="mb-3 text-[11px] tracking-[0.05em] text-text-secondary">ในหน้านี้</p>
-      <ul className="space-y-1 border-l border-text-heading/10">
-        {items.map((it) => (
-          <li key={it.id} className={it.level === 3 ? "pl-3" : ""}>
-            <a
-              href={`#${it.id}`}
-              onClick={(e) => handleClick(e, it.id)}
-              className={`-ml-px block border-l-2 py-1 pl-3 leading-snug transition-colors ${
-                active === it.id
-                  ? "border-accent text-accent"
-                  : "border-transparent text-text-secondary hover:text-text-body"
-              }`}
-            >
-              {it.text}
-            </a>
-          </li>
-        ))}
-      </ul>
+      <button
+        type="button"
+        onClick={() => setCollapsed((v) => !v)}
+        className="mb-3 flex w-full items-center justify-between text-left text-[11px] tracking-[0.05em] text-text-secondary transition-colors hover:text-text-heading"
+        aria-expanded={!collapsed}
+        aria-controls="reading-toc-list"
+      >
+        ในหน้านี้
+        <ChevronDownIcon
+          className={`h-3.5 w-3.5 transition-transform duration-200 ${collapsed ? "" : "rotate-180"}`}
+        />
+      </button>
+      <div
+        id="reading-toc-list"
+        className={`grid transition-all duration-300 ${collapsed ? "grid-rows-[0fr]" : "grid-rows-[1fr]"}`}
+      >
+        <div className="overflow-hidden">
+          <ul className="space-y-1 border-l border-text-heading/10">
+            {items.map((it) => (
+              <li key={it.id} className={it.level === 3 ? "pl-3" : ""}>
+                <a
+                  href={`#${it.id}`}
+                  onClick={(e) => handleClick(e, it.id)}
+                  className={`-ml-px block border-l-2 py-1 pl-3 leading-snug transition-colors ${
+                    active === it.id
+                      ? "border-accent text-accent"
+                      : "border-transparent text-text-secondary hover:text-text-body"
+                  }`}
+                >
+                  {it.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </nav>
   );
 }

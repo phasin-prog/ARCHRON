@@ -126,7 +126,10 @@ export function SiteHeader() {
   }, [acctOpen]);
 
   // หน้า Studio เป็นพื้นที่ทำงาน (มี chrome ของตัวเอง) — ซ่อน header สาธารณะ
-  if (pathname?.startsWith("/studio")) return null;
+  // หน้าอ่านเนื้อหา (articles/concepts/books detail) — ซ่อน header เพื่อให้ focus ที่การอ่าน
+  const readingPaths = ["/articles/", "/concepts/", "/books/"];
+  const isReadingPage = readingPaths.some((p) => pathname?.startsWith(p));
+  if (pathname?.startsWith("/studio") || isReadingPage) return null;
 
   const menuItem =
     "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-text-secondary transition-colors hover:bg-text-heading/5 hover:text-text-heading";

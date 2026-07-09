@@ -1,35 +1,16 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import Link from "next/link";
 import { SearchIcon, CloseIcon, ExternalLinkIcon } from "@/components/icons";
 import {
   SEARCH_TYPE_LABEL,
   SEARCH_TYPE_ORDER,
   type SearchItem,
-  type SearchType,
-} from "@/lib/content/search-index";
+} from "@/features/search/types";
+import { useSearch } from "@/features/search/hooks";
 
-export function SearchClient({ items }: { items: SearchItem[] }) {
-  const [query, setQuery] = useState("");
-  const [active, setActive] = useState<SearchType | "all">("all");
-
-  const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
-
-  const matched = useMemo(() => {
-    if (terms.length === 0) return [];
-    return items.filter(
-      (it) =>
-        (active === "all" || it.type === active) &&
-        terms.every((t) => it.keywords.includes(t)),
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query, active, items]);
-
-  const groups = SEARCH_TYPE_ORDER.map((type) => ({
-    type,
-    items: matched.filter((m) => m.type === type),
-  })).filter((g) => g.items.length > 0);
+export function SearchClient({ items, initialQuery }: { items: SearchItem[]; initialQuery?: string }) {
+  const { query, setQuery, activeType, setActiveType, result, clear } = useSearch(items, initialQuery ?? "");
 
   const chip = (on: boolean) =>
     `rounded-full border px-3 py-1 text-xs transition-colors duration-200 ${
@@ -53,7 +34,7 @@ export function SearchClient({ items }: { items: SearchItem[] }) {
         {query ? (
           <button
             type="button"
-            onClick={() => setQuery("")}
+            onClick={clear}
             aria-label="ล้างคำค้น"
             className="rounded-md p-1 text-text-secondary/60 transition-colors hover:text-text-heading hover:bg-bg-card focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:outline-none"
           >
@@ -64,11 +45,20 @@ export function SearchClient({ items }: { items: SearchItem[] }) {
 
       {/* Type filter */}
       <div className="mt-4 flex flex-wrap gap-2">
-        <button type="button" onClick={() => setActive("all")} className={chip(active === "all")}>
+        <button
+          type="button"
+          onClick={() => setActiveType("all")}
+          className={chip(activeType === "all")}
+        >
           ทั้งหมด
         </button>
         {SEARCH_TYPE_ORDER.map((t) => (
-          <button key={t} type="button" onClick={() => setActive(t)} className={chip(active === t)}>
+          <button
+            key={t}
+            type="button"
+            onClick={() => setActiveType(t)}
+            className={chip(activeType === t)}
+          >
             {SEARCH_TYPE_LABEL[t]}
           </button>
         ))}
@@ -76,23 +66,23 @@ export function SearchClient({ items }: { items: SearchItem[] }) {
 
       {/* Results */}
       <div className="mt-8">
-        {terms.length === 0 ? (
+        {!query ? (
           <p className="text-sm text-text-secondary/60">
-            พิมพ์คำค้น เช่น “เงา”, “Jung”, “ปรัชญา”, “IPA” — ค้นได้ทั้งแนวคิด บทความ ทรัพยากรภายนอก และหน้าต่าง ๆ
+            พิมพ์คำค้น เช่น "เงา", "Jung", "ปรัชญา", "IPA" — ค้นได้ทั้งแนวคิด บทความ ทรัพยากรภายนอก และหน้าต่าง ๆ
           </p>
-        ) : matched.length === 0 ? (
-          <p className="text-sm text-text-secondary/60">ไม่พบผลลัพธ์สำหรับ “{query.trim()}”</p>
+        ) : result.total === 0 ? (
+          <p className="text-sm text-text-secondary/60">ไม่พบผลลัพธ์สำหรับ "{query.trim()}"</p>
         ) : (
           <>
-            <p className="mb-5 text-xs text-text-secondary/50">พบ {matched.length} รายการ</p>
+            <p className="mb-5 text-xs text-text-secondary/50">พบ {result.total} รายการ</p>
             <div className="space-y-9">
-              {groups.map((g) => (
+              {result.groups.map((g) => (
                 <section key={g.type}>
                   <h2 className="mb-3 text-xs font-semibold tracking-[0.05em] text-accent/70">
-                    {SEARCH_TYPE_LABEL[g.type]} · {g.items.length}
+                    {g.label} · {g.items.length}
                   </h2>
                   <ul className="divide-y divide-ink/5 overflow-hidden rounded-md border border-text-heading/10">
-                    {g.items.map((it) => {
+                    {g.items.map(({ item: it }) => {
                       const inner = (
                         <>
                           <div className="flex items-center gap-2">

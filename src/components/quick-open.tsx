@@ -2,85 +2,17 @@
 
 import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { conceptRegistry } from "@/lib/content/concept-registry";
-import { NODE_TYPE_LABEL } from "@/lib/content/graph";
-import { EXTERNAL_CATEGORIES } from "@/lib/content/external-links";
+import { buildStaticIndex } from "@/features/search/index";
+import type { SearchItem } from "@/features/search/types";
 
-type Item = {
-  id: string;
-  title: string;
-  thaiTitle?: string;
-  description?: string;
-  href: string;
-  external?: boolean;
-  badge?: string;
-  keywords: string;
-};
-
-const lc = (parts: (string | undefined | null)[]) =>
-  parts.filter(Boolean).join(" ").toLowerCase();
-
-function buildIndex(): Item[] {
-  const items: Item[] = [];
-
-  for (const c of conceptRegistry) {
-    items.push({
-      id: `concept:${c.slug}`,
-      title: c.title,
-      thaiTitle: c.thaiTitle,
-      description: c.description,
-      href: `/concepts/${c.slug}`,
-      badge: NODE_TYPE_LABEL[c.nodeType],
-      keywords: lc([c.title, c.thaiTitle, ...c.aliases, c.description, c.framework, c.slug]),
-    });
-  }
-
-  for (const cat of EXTERNAL_CATEGORIES) {
-    for (const r of cat.items) {
-      items.push({
-        id: `resource:${r.url}`,
-        title: r.title,
-        description: r.description,
-        href: r.url,
-        external: true,
-        badge: cat.thaiLabel,
-        keywords: lc([r.title, r.description, ...r.tags, cat.thaiLabel, cat.enLabel]),
-      });
-    }
-  }
-
-  const sections = [
-    { title: "บทความ", href: "/articles", description: "งานอ่านที่อธิบายและตีความแนวคิด" },
-    { title: "คลังแนวคิด", href: "/concepts", description: "ระบบความรู้แบบเชื่อมโยง (Wiki)" },
-    { title: "แผนที่ความสัมพันธ์", href: "/constellation", description: "กราฟความสัมพันธ์ระหว่างแนวคิด" },
-    { title: "สำนักคิดและนักปราชญ์", href: "/schools", description: "ไดเรกทอรีสำนักคิด นักปราชญ์ และผลงานเด่น" },
-    { title: "เส้นทางการอ่าน", href: "/reading-sets", description: "ลำดับการอ่านจากพื้นฐานสู่ความลึก" },
-    { title: "แหล่งอ้างอิง", href: "/sources", description: "ฐานความรู้และการอ้างอิงภายใน" },
-    { title: "ทรัพยากรภายนอก", href: "/external-links", description: "ลิงก์ งานวิจัย และคลังข้อมูลภายนอก" },
-    { title: "Manifesto", href: "/manifesto", description: "จุดยืนและแนวทางของโครงการ" },
-    { title: "คำถามที่พบบ่อย", href: "/faq", description: "คำถามที่พบบ่อย" },
-    { title: "สนับสนุนโครงการ", href: "/support", description: "ช่องทางสนับสนุน" },
-    { title: "บริการ Jungian Type Analysis", href: "/guide", description: "วิเคราะห์ประเภททางจิตวิทยา" },
-  ];
-  for (const s of sections) {
-    items.push({
-      id: `section:${s.href}`,
-      title: s.title,
-      description: s.description,
-      href: s.href,
-      keywords: lc([s.title, s.description, s.href]),
-    });
-  }
-
-  return items;
-}
+type Item = SearchItem;
 
 // Escape regex special chars
 function escapeRegex(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-const INDEX = buildIndex();
+const INDEX = buildStaticIndex();
 
 export function QuickOpen() {
   const router = useRouter();

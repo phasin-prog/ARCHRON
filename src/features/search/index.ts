@@ -1,32 +1,9 @@
-// lib/content/search-index.ts — สร้าง index ค้นหากลาง (server-safe)
-// รวม: แนวคิด (concept-registry) + บทความ (published entries) + ทรัพยากรภายนอก + หน้า/section
 import { conceptRegistry } from "@/lib/content/concept-registry";
 import { EXTERNAL_CATEGORIES } from "@/lib/content/external-links";
 import { NODE_TYPE_LABEL } from "@/lib/content/graph";
 import type { ContentEntry } from "@/types/content";
-
-export type SearchType = "concept" | "article" | "resource" | "section";
-
-export type SearchItem = {
-  id: string;
-  type: SearchType;
-  title: string;
-  thaiTitle?: string;
-  description?: string;
-  href: string;
-  external?: boolean;
-  badge?: string;
-  keywords: string; // haystack (lowercase)
-};
-
-export const SEARCH_TYPE_LABEL: Record<SearchType, string> = {
-  concept: "คลังแนวคิด",
-  article: "บทความ",
-  resource: "ทรัพยากรภายนอก",
-  section: "หน้า",
-};
-
-export const SEARCH_TYPE_ORDER: SearchType[] = ["concept", "article", "resource", "section"];
+import type { SearchItem, SearchType } from "./types";
+import { normalizeText } from "./tokenizer";
 
 const SECTIONS: { title: string; href: string; description: string }[] = [
   { title: "บทความ", href: "/articles", description: "งานอ่านที่อธิบายและตีความแนวคิด" },
@@ -41,37 +18,81 @@ const SECTIONS: { title: string; href: string; description: string }[] = [
   { title: "สนับสนุนโครงการ", href: "/support", description: "ช่องทางสนับสนุน ARCHRON" },
 ];
 
-const lc = (parts: (string | undefined | null)[]) =>
-  parts.filter(Boolean).join(" ").toLowerCase();
+function buildKeywords(parts: (string | undefined | null)[]): string {
+  return normalizeText(parts.filter(Boolean).join(" "));
+}
 
-export function buildSearchIndex(entries: ContentEntry[]): SearchItem[] {
+export function buildStaticIndex(): SearchItem[] {
   const items: SearchItem[] = [];
 
-  // แนวคิด (concept-registry — รวม person/book/school/symbol/term)
   for (const c of conceptRegistry) {
     items.push({
       id: `concept:${c.slug}`,
-      type: "concept",
+      type: "concept" as SearchType,
       title: c.title,
       thaiTitle: c.thaiTitle,
       description: c.description,
       href: `/concepts/${c.slug}`,
       badge: NODE_TYPE_LABEL[c.nodeType],
-      keywords: lc([c.title, c.thaiTitle, ...c.aliases, c.description, c.framework, c.slug]),
+      keywords: buildKeywords([c.title, c.thaiTitle, ...c.aliases, c.description, c.framework, c.slug]),
     });
   }
 
-  // บทความ (published entries)
+  for (const cat of EXTERNAL_CATEGORIES) {
+    for (const r of cat.items) {
+      items.push({
+        id: `resource:${r.url}`,
+        type: "resource" as SearchType,
+        title: r.title,
+        description: r.description,
+        href: r.url,
+        external: true,
+        badge: cat.thaiLabel,
+        keywords: buildKeywords([r.title, r.description, ...r.tags, cat.thaiLabel, cat.enLabel]),
+      });
+    }
+  }
+
+  for (const s of SECTIONS) {
+    items.push({
+      id: `section:${s.href}`,
+      type: "section" as SearchType,
+      title: s.title,
+      description: s.description,
+      href: s.href,
+      keywords: buildKeywords([s.title, s.description, s.href]),
+    });
+  }
+
+  return items;
+}
+
+export function buildSearchIndex(entries: ContentEntry[]): SearchItem[] {
+  const items: SearchItem[] = [];
+
+  for (const c of conceptRegistry) {
+    items.push({
+      id: `concept:${c.slug}`,
+      type: "concept" as SearchType,
+      title: c.title,
+      thaiTitle: c.thaiTitle,
+      description: c.description,
+      href: `/concepts/${c.slug}`,
+      badge: NODE_TYPE_LABEL[c.nodeType],
+      keywords: buildKeywords([c.title, c.thaiTitle, ...c.aliases, c.description, c.framework, c.slug]),
+    });
+  }
+
   for (const e of entries) {
     items.push({
       id: `article:${e.slug}`,
-      type: "article",
+      type: "article" as SearchType,
       title: e.mainTerm ?? e.title,
       thaiTitle: e.thaiName,
       description: e.shortDescription,
       href: `/articles/${e.slug}`,
       badge: e.framework,
-      keywords: lc([
+      keywords: buildKeywords([
         e.title,
         e.mainTerm,
         e.thaiName,
@@ -84,31 +105,29 @@ export function buildSearchIndex(entries: ContentEntry[]): SearchItem[] {
     });
   }
 
-  // ทรัพยากรภายนอก
   for (const cat of EXTERNAL_CATEGORIES) {
     for (const r of cat.items) {
       items.push({
         id: `resource:${r.url}`,
-        type: "resource",
+        type: "resource" as SearchType,
         title: r.title,
         description: r.description,
         href: r.url,
         external: true,
         badge: cat.thaiLabel,
-        keywords: lc([r.title, r.description, ...r.tags, cat.thaiLabel, cat.enLabel]),
+        keywords: buildKeywords([r.title, r.description, ...r.tags, cat.thaiLabel, cat.enLabel]),
       });
     }
   }
 
-  // หน้า / section
   for (const s of SECTIONS) {
     items.push({
       id: `section:${s.href}`,
-      type: "section",
+      type: "section" as SearchType,
       title: s.title,
       description: s.description,
       href: s.href,
-      keywords: lc([s.title, s.description, s.href]),
+      keywords: buildKeywords([s.title, s.description, s.href]),
     });
   }
 

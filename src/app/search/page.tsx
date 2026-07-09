@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getPublicEntries } from "@/lib/content/public-source";
-import { buildSearchIndex } from "@/lib/content/search-index";
+import { buildSearchIndex } from "@/features/search/index";
 import { SearchClient } from "@/components/search/search-client";
 import { PageScaffold } from "@/components/page-scaffold";
 
@@ -12,7 +12,12 @@ export const metadata: Metadata = {
     "ค้นหาแนวคิด บทความ ทรัพยากรภายนอก และหน้าต่าง ๆ ในคลังความรู้จิตใจมนุษย์",
 };
 
-export default async function SearchPage() {
+export default async function SearchPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>;
+}) {
+  const { q } = await searchParams;
   const index = buildSearchIndex(await getPublicEntries());
 
   return (
@@ -27,7 +32,7 @@ export default async function SearchPage() {
       className="atmo-observatory"
     >
       <section className="mx-auto max-w-3xl px-6">
-        <SearchClient items={index} />
+        <SearchClient items={index} initialQuery={q ?? ""} />
       </section>
     </PageScaffold>
   );

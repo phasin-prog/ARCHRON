@@ -13,7 +13,6 @@ export const KEYS = {
   entries: `${PREFIX}entries:published`,
   entryBySlug: (slug: string) => `${PREFIX}entry:${slug}`,
   schools: `${PREFIX}schools:all`,
-  searchIndex: `${PREFIX}search:index`,
 } as const;
 
 // Get cached value or fetch from source
@@ -51,7 +50,6 @@ export async function invalidateEntry(slug: string): Promise<void> {
     redisDel(KEYS.entries),
     redisDel(KEYS.entryBySlug(slug)),
     redisDel(KEYS.schools),
-    redisDel(KEYS.searchIndex),
   ]);
 }
 

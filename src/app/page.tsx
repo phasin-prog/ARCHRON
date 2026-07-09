@@ -2,7 +2,8 @@ import Link from "next/link";
 import { RecentlyViewed } from "@/components/recently-viewed";
 import { DisciplineCard } from "@/components/discipline-card";
 import { DISCIPLINES } from "@/lib/content/disciplines";
-import { SearchIcon, ArrowRightIcon } from "@/components/icons";
+import { HomeSearch } from "@/components/home-search";
+import { ArrowRightIcon } from "@/components/icons";
 
 export default function HomePage() {
   const latestKnowledge = DISCIPLINES.slice(0, 8);
@@ -35,16 +36,7 @@ export default function HomePage() {
       {/* ── 2. SEARCH BAR ── */}
       <section className="relative z-10 -mt-8 flex justify-center px-4">
         <div className="w-full max-w-[720px]">
-          <form action="/search" method="get" className="relative">
-            <SearchIcon className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-secondary" />
-            <input
-              type="search"
-              name="q"
-              placeholder="ค้นหาทุกสิ่ง..."
-              className="w-full rounded-xl border border-border bg-bg-card py-4 pl-12 pr-4 text-center font-serif text-text-body shadow-sm transition-colors focus:border-accent/40 focus:ring-1 focus:ring-accent/20 focus:outline-none"
-              aria-label="ค้นหา"
-            />
-          </form>
+          <HomeSearch />
         </div>
       </section>
 

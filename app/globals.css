@@ -38,6 +38,7 @@
   /* ---- Academic (Accent) ---- */
   --color-accent: #5F8DCE;        /* Links, active elements — Blue primary */
   --color-accent-hover: #4F7DBE;  /* Hover state */
+  --color-accent-on-bg: #3B6AA5;  /* Accent text on bg surfaces — meets WCAG AA 4.5:1 on --color-bg */
   --color-accent-subtle: #EEF2F8; /* Subtle background */
 
   /* ---- Premium Gold (featured/premium only — per homepage-rule.md) ---- */
@@ -834,5 +835,19 @@
   .seal-stagger,
   [style*="seal-stagger"] {
     animation: none !important;
+  }
+}
+
+/* ── Comprehensive reduced-motion guard — catches every animation on the site ── */
+/* Covers: feedback.css (spinner, dots, shimmer, pulse-ring), overlays.css (toast-in/out),
+          buttons.css (spin), and any future animation not yet covered by specific rules */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

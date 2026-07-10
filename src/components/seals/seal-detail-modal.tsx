@@ -22,14 +22,14 @@ const LEVEL_LABELS: Record<number, string> = {
 
 const LEVEL_COLORS: Record<string, string> = {
   Slate: "var(--color-text-secondary)",
-  Blue: "var(--color-concept)",
+  Cardinal: "var(--color-accent)",
   Silver: "var(--color-text-secondary)",
   Gold: "var(--color-premium)",
 };
 
 function getLevelColorName(color: string): string {
   if (color === "#465264") return "Slate";
-  if (color === "#5F8DCE") return "Blue";
+  if (color === "#8C3030") return "Cardinal";
   if (color === "#C7D0DB") return "Silver";
   if (color === "#B89A63") return "Gold";
   return "";

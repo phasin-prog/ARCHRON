@@ -6,11 +6,11 @@ export const colors = {
   // Neutral Canvas
   bg: "#F9F5F3",
   bgCard: "#FFFFFF",
-  bgElevated: "#E3DED9",
-  border: "#C0BAB5",
-  textHeading: "#000000",
-  textBody: "#505050",
-  textSecondary: "#666666",
+  bgElevated: "#EDEBE9",
+  border: "#D7D5D3",
+  textHeading: "#1A1815",
+  textBody: "#3A3835",
+  textSecondary: "#65625C",
   textInverse: "#FFFFFF",
 
   // Academic Accent
@@ -69,7 +69,7 @@ export const colors = {
 
   // Seal Progression
   slateDark: "#465264",
-  blueAcademic: "#5F8DCE",
+  cardinalAcademic: "#8C3030",
   silverLight: "#C7D0DB",
 } as const;
 

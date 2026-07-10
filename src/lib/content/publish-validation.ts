@@ -64,24 +64,49 @@ export const EMPTY_DRAFT: EditorDraft = {
 
 export type ChecklistItem = { label: string; ok: boolean };
 
-export function getPublishChecklist(d: EditorDraft): ChecklistItem[] {
+export function getPublishChecklist(d: EditorDraft, contentType?: string): ChecklistItem[] {
+  const ct = contentType || d.contentType;
   const hasRefsOrNeedsCheck =
     d.references.length > 0 || d.status === "needs-source-check";
   const hasRoots =
     d.rootsEtymology.trim() !== "" || d.rootsCaution.trim() !== "";
+  const isArticle = ct === "article";
+  const isConcept = ct === "concept";
+  const isPerson = ct === "person";
+  const isSymbol = ct === "symbol";
+  const isTerm = ct === "term";
   return [
     { label: "มี Title", ok: d.title.trim() !== "" },
     { label: "มี Slug", ok: d.slug.trim() !== "" },
     { label: "มี Content Type", ok: d.contentType !== "" },
-    { label: "มี Framework", ok: d.framework.trim() !== "" },
-    { label: "มีคำอธิบายให้เห็นภาพ", ok: d.visualExplanation.trim() !== "" },
-    { label: "มีความหมายทางวิชาการ / เทคนิค", ok: d.technicalMeaning.trim() !== "" },
-    { label: "มี Related Concepts อย่างน้อย 1", ok: d.relatedConcepts.length > 0 },
+    {
+      label: "มี Framework",
+      ok: isTerm || isSymbol ? true : d.framework.trim() !== "",
+    },
+    {
+      label: "มีคำอธิบายให้เห็นภาพ",
+      ok: isArticle || isConcept || isSymbol || isTerm ? d.visualExplanation.trim() !== "" : true,
+    },
+    {
+      label: "มีความหมายทางวิชาการ / เทคนิค",
+      ok: isArticle || isConcept || isPerson ? d.technicalMeaning.trim() !== "" : true,
+    },
+    {
+      label: "มี Related Concepts อย่างน้อย 1",
+      ok: isTerm || isSymbol ? true : d.relatedConcepts.length > 0,
+    },
     {
       label: "มี References หรือ Status = Needs Source Check",
       ok: hasRefsOrNeedsCheck,
     },
-    { label: "มี Roots หรือเหตุผลที่ยังไม่ใส่", ok: hasRoots },
+    {
+      label: "มี Roots หรือเหตุผลที่ยังไม่ใส่",
+      ok: isArticle || isConcept ? hasRoots : true,
+    },
+    {
+      label: "มีเนื้อหา (Body Markdown)",
+      ok: isArticle ? d.bodyMarkdown.trim() !== "" : true,
+    },
   ];
 }
 

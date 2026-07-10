@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import {
   contentTypeMeta,
 } from "@/lib/content/cosmology";
+import { EditorIcon } from "@/components/studio/editor-icon";
 
 type ContentTypeOption = {
   type: string;
@@ -68,7 +69,7 @@ export function ContentTypeSelector() {
     <div className="min-h-screen bg-bg">
       <div className="mx-auto max-w-3xl px-6 py-16">
         <div className="mb-12 text-center">
-          <span className="inline-flex items-center justify-center mb-4 h-12 w-12 text-[48px] text-accent" aria-hidden="true">✎</span>
+          <EditorIcon name="edit_note" className="mb-4 h-12 w-12 text-accent" />
           <h1 className="font-serif text-3xl text-text-heading">สร้างเนื้อหาใหม่</h1>
           <p className="mt-3 text-sm text-text-secondary/70">
             เลือกประเภทเนื้อหาที่ต้องการเขียน ระบบจะแสดงฟอร์มที่เหมาะสมกับแต่ละประเภท
@@ -93,9 +94,7 @@ export function ContentTypeSelector() {
                       color: opt.accent,
                     }}
                   >
-                    <span className="inline-flex items-center justify-center w-6 h-6 text-[24px]" aria-hidden="true">
-                      {meta.icon === "psychology" ? "🧠" : meta.icon === "person" ? "👤" : meta.icon === "book" ? "📖" : meta.icon === "school" ? "🎓" : meta.icon === "symbol" ? "◇" : meta.icon === "term" ? "Aa" : "◆"}
-                    </span>
+                    <EditorIcon name={meta.icon} className="h-6 w-6" />
                   </span>
                   <div>
                     <h2 className="font-serif text-lg font-semibold text-text-heading group-hover:text-accent transition-colors">
@@ -127,7 +126,7 @@ export function ContentTypeSelector() {
                   style={{ color: opt.accent }}
                 >
                   เลือก
-                  <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[14px]" aria-hidden="true">→</span>
+                  <EditorIcon name="arrow_right" className="h-[1em] w-[1em]" />
                 </span>
               </button>
             );

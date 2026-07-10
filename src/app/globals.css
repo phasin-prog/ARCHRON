@@ -138,6 +138,12 @@
   --font-wordmark: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
   --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", "Cascadia Code", ui-monospace, monospace;
 
+  /* ── Editor (studio form inputs) ─────── */
+  --color-editor-input-bg: color-mix(in srgb, var(--color-text-heading) 25%, transparent);
+  --color-editor-input-border: color-mix(in srgb, var(--color-text-heading) 20%, transparent);
+  --color-editor-input-focus: var(--color-accent);
+  --color-editor-label: var(--color-text-body);
+
   /* ── Z-index Scale (Tailwind-friendly tokens) ─────── */
   --z-surface: 10;
   --z-sticky: 30;

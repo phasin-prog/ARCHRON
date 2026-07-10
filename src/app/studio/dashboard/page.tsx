@@ -10,6 +10,7 @@ import {
   listMyEntriesAction,
   listAllPublishedEntriesAction,
 } from "@/features/studio/actions/dashboard-actions";
+import { EditorIcon } from "@/components/studio/editor-icon";
 
 interface DraftItem {
   id: string;
@@ -107,7 +108,7 @@ export default function StudioDashboardPage() {
   if (!writer) {
     return (
       <main className="tpl-reference py-20 text-center">
-        <span className="inline-flex items-center justify-center w-16 h-16 text-[64px] text-text-secondary" aria-hidden="true">🔒</span>
+        <EditorIcon name="edit_note" className="h-16 w-16 text-text-secondary" />
         <h1 className="mt-4 font-serif text-2xl text-text-heading">ต้องมีสิทธิ์นักเขียน</h1>
         <p className="mt-2 text-sm text-text-secondary/70">
           ขอเป็นนักเขียนได้จากหน้าโปรไฟล์
@@ -197,7 +198,7 @@ export default function StudioDashboardPage() {
               href="/studio/editor"
               className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-accent to-accent px-5 py-2.5 text-sm font-semibold text-text-inverse shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/20"
             >
-              <span className="inline-flex items-center justify-center w-[18px] h-[18px] text-[18px]" aria-hidden="true">✎</span>
+              <EditorIcon name="edit_note" className="h-[18px] w-[18px]" />
               เขียนใหม่
             </Link>
           </div>
@@ -211,7 +212,7 @@ export default function StudioDashboardPage() {
                 <span className="flex h-8 w-8 items-center justify-center rounded-lg"
                   style={{ backgroundColor: `color-mix(in srgb, ${colors.neutralMuted} 12%, transparent)`, color: colors.neutralMuted }}
                 >
-                  <span className="inline-flex items-center justify-center w-4 h-4 text-[16px]" aria-hidden="true">✎</span>
+                  <EditorIcon name="edit_note" className="h-4 w-4" />
                 </span>
                 <span className="text-xs text-text-secondary/60">ฉบับร่าง</span>
               </div>
@@ -400,9 +401,7 @@ export default function StudioDashboardPage() {
                       {statusLabel(e.status)}
                     </span>
                   )}
-                  <span className="inline-flex items-center justify-center w-4 h-4 text-[16px] text-text-secondary group-hover:text-accent transition-colors" aria-hidden="true">
-                    {tab === "all" ? "✎" : "↗"}
-                  </span>
+                  <EditorIcon name={tab === "all" ? "edit_note" : "arrow_right"} className="h-4 w-4 text-text-secondary group-hover:text-accent" />
                 </Link>
               ))}
             </div>

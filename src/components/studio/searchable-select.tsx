@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { EditorIcon } from "@/components/studio/editor-icon";
 
 type Option = { value: string; label?: string };
 type OptionMeta = { icon: string; accent: string };
@@ -92,13 +93,7 @@ export function SearchableSelect({
       >
         <span className={`flex items-center gap-2 ${displayLabel ? "text-text-heading" : "text-text-secondary"}`}>
           {displayLabel && meta ? (
-            <span
-              className="inline-flex items-center justify-center w-[1em] h-[1em] text-[18px]"
-              style={{ color: meta(value).accent }}
-              aria-hidden="true"
-            >
-              ◆
-            </span>
+            <EditorIcon name={meta(value).icon} className="h-[1em] w-[1em] text-[18px]" />
           ) : null}
           {displayLabel || placeholder}
         </span>
@@ -146,13 +141,7 @@ export function SearchableSelect({
                     className="flex w-full items-center gap-2 rounded px-2 py-2 text-left text-sm text-text-body hover:bg-text-heading/5"
                   >
                     {meta ? (
-                    <span
-                      className="inline-flex items-center justify-center w-[1em] h-[1em] text-[18px]"
-                      style={{ color: meta(o.value).accent }}
-                      aria-hidden="true"
-                    >
-                      ◆
-                    </span>
+                      <EditorIcon name={meta(o.value).icon} className="h-[1em] w-[1em] text-[18px]" />
                     ) : null}
                     {o.label}
                   </button>

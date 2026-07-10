@@ -4,18 +4,18 @@
 
 export const colors = {
   // Neutral Canvas
-  bg: "#F2EDE6",
+  bg: "#F9F5F3",
   bgCard: "#FFFFFF",
-  bgElevated: "#EBE5DD",
-  border: "#E0D9D0",
-  textHeading: "#1A1815",
-  textBody: "#3A3835",
-  textSecondary: "#65625C",
+  bgElevated: "#E3DED9",
+  border: "#C0BAB5",
+  textHeading: "#000000",
+  textBody: "#505050",
+  textSecondary: "#666666",
   textInverse: "#FFFFFF",
 
   // Academic Accent
-  accent: "#1C5D99",
-  accentHover: "#123F6B",
+  accent: "#8C1515",
+  accentHover: "#6B1010",
 
   // Premium
   premium: "#B89A63",

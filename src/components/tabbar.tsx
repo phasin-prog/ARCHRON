@@ -36,7 +36,7 @@ export function Tabbar() {
   return (
     <nav
       aria-label="นำทางหลัก"
-      className="glass-nav fixed inset-x-0 bottom-0 z-40 border-t border-accent/12 pb-[env(safe-area-inset-bottom)] md:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-accent/12 pb-[env(safe-area-inset-bottom,0px)] bg-bg/72 backdrop-blur-2xl lg:hidden"
     >
       <ul className="mx-auto flex max-w-lg items-stretch justify-around px-2 sm:px-4">
         {ITEMS.map((it) => {

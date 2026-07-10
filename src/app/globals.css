@@ -26,24 +26,24 @@
    Semantic สำหรับ status indicators เท่านั้น
    ============================================================================ */
 @theme {
-  /* ---- Neutral Canvas (95%) — Focus First #FAF6F0 ---- */
-  --color-bg: #FAF6F0;            /* Page background — flat warm cream (Focus First) */
+  /* ---- Neutral Canvas (95%) — SEP-inspired #F9F5F3 ---- */
+  --color-bg: #F9F5F3;            /* Page background — SEP warm off-white */
   --color-bg-card: #FFFFFF;       /* Card surface — clean white */
-  --color-bg-elevated: #F1EBE1;   /* Hover states — warm elevated */
-  --color-border: #8C8478;        /* Borders, dividers — warm taupe (3.48:1 AA) */
-  --color-text-heading: #25231F;  /* Headings — deep ink */
-  --color-text-body: #5C5852;     /* Body text — warm brown-gray */
-  --color-text-secondary: #756E68;/* Meta, captions — warm medium gray (4.76:1 AA) */
+  --color-bg-elevated: #EDEBE9;   /* Hover states — SEP light warm */
+  --color-border: #D7D5D3;        /* Borders, dividers — SEP light gray */
+  --color-text-heading: #000000;  /* Headings — SEP black */
+  --color-text-body: #505050;     /* Body text — SEP dark gray */
+  --color-text-secondary: #666666;/* Meta, captions — SEP medium gray */
   --color-text-inverse: #FFFFFF;  /* Text on accent/dark backgrounds */
 
-  /* ---- Academic (Accent) — Deep Ocean Blue #1C5D99 ---- */
-  --color-accent: #1C5D99;        /* Links, active elements — Deep Ocean Blue */
-  --color-accent-hover: #123F6B;  /* Hover state — darker navy */
-  --color-accent-on-bg: #1C5D99;  /* Accent text on bg surfaces */
+  /* ---- Academic (Accent) — SEP Cardinal Red #8C1515 ---- */
+  --color-accent: #8C1515;        /* Links, active elements — Stanford Cardinal Red */
+  --color-accent-hover: #6B1010;  /* Hover state — darker cardinal */
+  --color-accent-on-bg: #8C1515;  /* Accent text on bg surfaces */
   --color-accent-subtle: color-mix(in srgb, var(--color-accent) 15%, var(--color-bg-card)); /* Subtle background — matches accent hue */
 
   /* ---- Focus First Accent Palette (4 voices) ---- */
-  --color-accent-knowledge: #2F3A5A;  /* Knowledge — navy, deep calm */
+  --color-accent-knowledge: #3A3A5A;  /* Knowledge — SEP muted navy */
   --color-accent-wisdom: #C2A46E;     /* Wisdom — gold, warm parchment */
   --color-accent-mind: #7E9B8F;       /* Mind — sage green, quiet focus */
   --color-accent-spirit: #7A657F;     /* Spirit — dust purple, mystery */

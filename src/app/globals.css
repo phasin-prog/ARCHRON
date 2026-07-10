@@ -30,10 +30,10 @@
   --color-bg: #FAF6F0;            /* Page background — flat warm cream (Focus First) */
   --color-bg-card: #FFFFFF;       /* Card surface — clean white */
   --color-bg-elevated: #F1EBE1;   /* Hover states — warm elevated */
-  --color-border: #E8E0D3;        /* Borders, dividers — warm beige line */
+  --color-border: #8C8478;        /* Borders, dividers — warm taupe (3.48:1 AA) */
   --color-text-heading: #25231F;  /* Headings — deep ink */
   --color-text-body: #5C5852;     /* Body text — warm brown-gray */
-  --color-text-secondary: #9A9590;/* Meta, captions — warm medium gray */
+  --color-text-secondary: #756E68;/* Meta, captions — warm medium gray (4.76:1 AA) */
   --color-text-inverse: #FFFFFF;  /* Text on accent/dark backgrounds */
 
   /* ---- Academic (Accent) — Deep Ocean Blue #1C5D99 ---- */
@@ -592,7 +592,7 @@
 }
 /* แผงเมนูมือถือ */
 .glass-nav-panel {
-  background: var(--color-bg-card);
+  background: var(--color-bg);
 }
 /* Material Symbols removed — using custom SVG icons from components/icons.tsx */
 
@@ -751,7 +751,7 @@
     border-color var(--dur-base) var(--ease-out);
 }
 .glass-nav.is-scrolled {
-  background: color-mix(in srgb, var(--color-bg-card) 92%, transparent);
+  background: color-mix(in srgb, var(--color-bg-elevated) 88%, transparent);
   border-bottom-color: color-mix(in srgb, var(--color-accent) 28%, transparent);
 }
 

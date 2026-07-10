@@ -29,8 +29,8 @@
   /* ---- Neutral Canvas (95%) — SEP-inspired #F9F5F3 ---- */
   --color-bg: #F9F5F3;            /* Page background — SEP warm off-white */
   --color-bg-card: #FFFFFF;       /* Card surface — clean white */
-  --color-bg-elevated: #EDEBE9;   /* Hover states — SEP light warm */
-  --color-border: #D7D5D3;        /* Borders, dividers — SEP light gray */
+  --color-bg-elevated: #E3DED9;   /* Hover states — SEP light warm */
+  --color-border: #C0BAB5;        /* Borders, dividers — SEP light gray */
   --color-text-heading: #000000;  /* Headings — SEP black */
   --color-text-body: #505050;     /* Body text — SEP dark gray */
   --color-text-secondary: #666666;/* Meta, captions — SEP medium gray */

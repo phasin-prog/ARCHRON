@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/page-header";
 import { PageNav } from "@/components/page-nav";
 import { getPublicEntryBySlug } from "@/lib/content/public-source";
 import ReactMarkdown from "react-markdown";
@@ -25,9 +24,6 @@ export const metadata: Metadata = {
     "ปฏิญญาก่อตั้งของ ARCHRON สำนักศึกษามนุษย์ — เจตนารมณ์ว่าด้วยการเชื่อมศาสตร์ที่ถูกแยกขาด การปกป้องความซื่อสัตย์ทางปัญญา และการแสวงหาความเข้าใจที่ไม่สิ้นสุด",
 };
 
-/* ─────────────────────────────────────────────────────────────
-   Movement icons — unified via @/components/icons
-   ───────────────────────────────────────────────────────────── */
 const icons = {
   preamble: <PreambleIcon className="h-6 w-6" />,
   why: <WhyExistIcon className="h-6 w-6" />,
@@ -59,15 +55,15 @@ function Movement({
           {icon}
         </span>
         <div className="flex flex-col gap-1.5">
-          <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-accent/70">
+          <span className="text-xs font-semibold uppercase tracking-[0.18em] text-accent/70">
             {kicker}
           </span>
-          <h2 className="font-serif text-[26px] font-semibold leading-snug text-text-heading md:text-[30px]">
+          <h2 className="font-heading text-2xl font-semibold leading-snug text-text-heading md:text-3xl">
             {title}
           </h2>
         </div>
       </div>
-      <div className="space-y-5 text-lg leading-[1.9] text-text-body">{children}</div>
+      <div className="space-y-5 text-base leading-relaxed text-text-body">{children}</div>
     </section>
   );
 }
@@ -77,13 +73,17 @@ export default async function ManifestoPage() {
 
   if (dbManifesto && dbManifesto.bodyMarkdown) {
     return (
-      <main className="atmo-observatory pb-24">
-        <PageHeader
-          kicker="ARCHRON · เจตนารมณ์"
-          title={dbManifesto.title}
-        />
-        <div className="mx-auto max-w-2xl px-6 mt-10">
-          <div className="markdown-body prose prose-invert text-text-body/90 leading-loose text-lg">
+      <main className="min-h-screen py-24">
+        <div className="mx-auto max-w-prose px-6">
+          <div className="mb-16 text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+              ARCHRON · เจตนารมณ์
+            </p>
+            <h1 className="mt-5 font-heading text-4xl font-bold leading-tight text-text-heading md:text-5xl">
+              {dbManifesto.title}
+            </h1>
+          </div>
+          <div className="text-base leading-relaxed text-text-body">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {dbManifesto.bodyMarkdown}
             </ReactMarkdown>
@@ -95,24 +95,26 @@ export default async function ManifestoPage() {
   }
 
   return (
-    <main className="atmo-observatory pb-24">
-      <PageHeader
-        kicker="ARCHRON · เจตนารมณ์"
-        title="ปฏิญญาก่อตั้ง ARCHRON"
-      />
-
-      <div className="mx-auto max-w-2xl px-6">
-        <p className="mb-16 text-center font-serif text-base italic tracking-[0.05em] text-accent/80">
-          สำนักศึกษามนุษย์ · The School of Human Inquiry
-        </p>
+    <main className="min-h-screen py-24">
+      <div className="mx-auto max-w-prose px-6">
+        <div className="mb-16 text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+            ARCHRON · เจตนารมณ์
+          </p>
+          <h1 className="mt-5 font-heading text-4xl font-bold leading-tight text-text-heading md:text-5xl">
+            ปฏิญญาก่อตั้ง ARCHRON
+          </h1>
+          <p className="mt-4 font-heading text-base italic tracking-[0.05em] text-accent/70">
+            สำนักศึกษามนุษย์ · The School of Human Inquiry
+          </p>
+        </div>
 
         <div className="space-y-20">
-          {/* Preamble */}
           <Movement kicker="Preamble" title="อารัมภบท" icon={icons.preamble}>
-            <p className="font-serif text-[22px] leading-relaxed text-text-heading md:text-[24px]">
+            <p className="font-heading text-xl leading-relaxed text-text-heading md:text-2xl">
               มนุษย์ได้สร้างอารยธรรมขึ้นจากคำถาม
             </p>
-            <div className="border-l-2 border-accent/30 pl-[26px] font-serif text-[1.2rem] leading-[1.85] text-text-heading md:text-[1.35rem]">
+            <div className="border-l-2 border-accent/30 pl-6 font-heading text-lg leading-relaxed text-text-heading">
               <p>ก่อนที่เราจะมีวิทยาศาสตร์ เรามีตำนาน</p>
               <p>ก่อนที่เราจะมีปรัชญา เรามีสัญลักษณ์</p>
               <p>ก่อนที่เราจะมีจิตวิทยา เรามีความฝัน</p>
@@ -128,7 +130,6 @@ export default async function ManifestoPage() {
             </p>
           </Movement>
 
-          {/* Why We Exist */}
           <Movement kicker="Why We Exist" title="เหตุที่เราดำรงอยู่" icon={icons.why}>
             <p>เราไม่ได้ก่อตั้ง ARCHRON เพราะโลกขาดข้อมูล โลกมีข้อมูลมากกว่าที่มนุษย์จะอ่านได้หมด</p>
             <p>สิ่งที่โลกขาด คือ ความสามารถในการเชื่อมโยง การเปรียบเทียบ การตีความ และการสร้างความหมายจากองค์ความรู้ที่กระจัดกระจาย</p>
@@ -138,31 +139,28 @@ export default async function ManifestoPage() {
             </p>
           </Movement>
 
-          {/* What We Study */}
           <Movement kicker="What We Study" title="เราศึกษาอะไร" icon={icons.study}>
-            <p className="text-text-secondary/80">
+            <p className="text-text-secondary">
               ARCHRON ไม่ได้ศึกษาจิตวิทยาเพียงอย่างเดียว ไม่ได้ศึกษาปรัชญาเพียงอย่างเดียว
               ไม่ได้ศึกษาศาสนา ประวัติศาสตร์ ภาษาศาสตร์ หรือมานุษยวิทยาเพียงอย่างเดียว
             </p>
-            <p className="font-serif text-[28px] font-semibold leading-snug text-text-heading md:text-[38px]">
+            <p className="font-heading text-3xl font-semibold leading-snug text-text-heading md:text-4xl">
               เราศึกษา <span className="text-accent">มนุษย์</span>
             </p>
             <p>และทุกศาสตร์ที่เกิดจากความพยายามของมนุษย์ในการเข้าใจตนเอง</p>
           </Movement>
 
-          {/* What We Believe */}
           <Movement kicker="What We Believe" title="สิ่งที่เราเชื่อ" icon={icons.believe}>
             <p>เราไม่เชื่อในผู้เผยความจริงเพียงหนึ่งเดียว เราไม่เชื่อในตำราที่สมบูรณ์ที่สุด และเราไม่เชื่อว่ามีทฤษฎีใดอธิบายมนุษย์ได้ทั้งหมด</p>
             <p>
               เรามองทุกระบบความคิด ทุกศาสนา ทุกอารยธรรม ทุกภาษา ทุกตำนาน ทุกทฤษฎี
               ในฐานะความพยายามของมนุษย์ที่จะเข้าใจความเป็นมนุษย์
             </p>
-            <blockquote className="border-l-2 border-accent/40 bg-bg-card py-5 pl-6 pr-5 font-serif text-[1.35rem] leading-relaxed text-text-heading md:text-[1.55rem]">
+            <blockquote className="border-l-2 border-accent/40 bg-bg-card py-5 pl-6 pr-5 font-heading text-xl leading-relaxed text-text-heading">
               ไม่มีระบบใดสมบูรณ์ แต่ไม่มีระบบใดไร้คุณค่า
             </blockquote>
           </Movement>
 
-          {/* Our Method */}
           <Movement kicker="Our Method" title="วิธีของเรา" icon={icons.method}>
             <p>เราเริ่มต้นจากต้นฉบับ เราเคารพบริบท เราเปรียบเทียบอย่างซื่อสัตย์</p>
             <p>เราแยกข้อเท็จจริงออกจากการตีความ และเปิดเผยข้อจำกัดของทุกแนวคิด รวมถึงของเราเอง</p>
@@ -170,7 +168,6 @@ export default async function ManifestoPage() {
             <p>และเราพร้อมแก้ไขสิ่งที่เราเคยเชื่อ หากเหตุผลและหลักฐานชี้ไปในทิศทางที่ดีกว่า</p>
           </Movement>
 
-          {/* What We Reject */}
           <Movement kicker="What We Reject" title="สิ่งที่เราปฏิเสธ" icon={icons.reject}>
             <ul className="space-y-3">
               {[
@@ -188,14 +185,12 @@ export default async function ManifestoPage() {
             </ul>
           </Movement>
 
-          {/* What We Offer */}
           <Movement kicker="What We Offer" title="สิ่งที่เรามอบ" icon={icons.offer}>
             <p>ARCHRON ไม่ได้มอบคำตอบสุดท้าย เรามอบเครื่องมือในการตั้งคำถามที่ดีขึ้น</p>
             <p>เรามอบ แผนที่ · ภาษา · แนวคิด · โครงสร้าง · และบทสนทนา</p>
             <p>เพื่อให้แต่ละคนสร้างความเข้าใจของตนเองอย่างมีเหตุผลและมีความรับผิดชอบ</p>
           </Movement>
 
-          {/* Our Responsibility */}
           <Movement kicker="Our Responsibility" title="ความรับผิดชอบของเรา" icon={icons.responsibility}>
             <p>เราไม่ใช่เจ้าของความจริง เราเป็นเพียงผู้ดูแลบทสนทนาของมนุษยชาติ</p>
             <p>หน้าที่ของเราไม่ใช่การปกป้องทฤษฎี แต่คือการปกป้องความซื่อสัตย์ทางปัญญา</p>
@@ -203,12 +198,11 @@ export default async function ManifestoPage() {
               เพราะความรู้ที่ไม่ยอมรับการตรวจสอบ ย่อมกลายเป็นความเชื่อ
               และความเชื่อที่ไม่ยอมรับการวิพากษ์ ย่อมกลายเป็นลัทธิ
             </p>
-            <blockquote className="border-l-2 border-accent/40 bg-bg-card py-5 pl-6 pr-5 font-serif text-[1.35rem] leading-relaxed text-text-heading md:text-[1.55rem]">
+            <blockquote className="border-l-2 border-accent/40 bg-bg-card py-5 pl-6 pr-5 font-heading text-xl leading-relaxed text-text-heading">
               ARCHRON จะไม่กลายเป็นลัทธิ แม้แต่ลัทธิของตัวเอง
             </blockquote>
           </Movement>
 
-          {/* Our Legacy */}
           <Movement kicker="Our Legacy" title="มรดกของเรา" icon={icons.legacy}>
             <p>เราไม่ได้หวังให้ทุกคนเห็นด้วยกับเรา เราไม่ได้หวังให้ ARCHRON เป็นคำตอบสุดท้าย</p>
             <p>
@@ -225,23 +219,22 @@ export default async function ManifestoPage() {
             </p>
           </Movement>
 
-          {/* Closing Declaration */}
           <section className="scroll-reveal text-center">
             <span className="mx-auto mb-6 flex h-11 w-11 items-center justify-center rounded-full border border-accent/25 bg-accent/[0.06] text-accent">
               {icons.closing}
             </span>
-            <span className="mb-6 block text-[11px] font-semibold uppercase tracking-[0.28em] text-accent/70">
+            <span className="mb-6 block text-xs font-semibold uppercase tracking-[0.18em] text-accent/70">
               Closing Declaration
             </span>
-            <div className="space-y-2 font-serif text-2xl font-medium leading-relaxed text-text-heading md:text-[29px]">
+            <div className="space-y-2 font-heading text-2xl font-medium leading-relaxed text-text-heading md:text-3xl">
               <p>ARCHRON is not a destination.</p>
               <p>It is an invitation.</p>
-              <p className="text-text-secondary/80">Not to believe. But to inquire.</p>
-              <p className="text-text-secondary/80">
+              <p className="text-text-secondary">Not to believe. But to inquire.</p>
+              <p className="text-text-secondary">
                 Not to inherit certainty. But to cultivate understanding.
               </p>
             </div>
-            <p className="mt-10 font-serif text-lg italic tracking-[0.04em] text-accent">
+            <p className="mt-10 font-heading text-lg italic tracking-[0.04em] text-accent">
               The inquiry continues.
             </p>
             <div className="mx-auto mt-10 h-px w-16 bg-accent/30" />

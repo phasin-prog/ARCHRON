@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { loadRevisionsAction } from "@/features/editor/actions";
 import type { EditorDraft } from "@/lib/content/publish-validation";
+import { Modal } from "@/components/modal";
 
 type RevisionRow = {
   id: string;
@@ -205,33 +206,32 @@ export function RevisionPanel({
       )}
 
       {/* Confirm Restore Modal */}
-      {confirmRestore && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-          <div className="mx-4 w-full max-w-md rounded-xl border border-border bg-bg-card p-6 shadow-2xl">
-            <h4 className="font-serif text-lg font-semibold text-text-heading">ยืนยันการกู้คืน</h4>
-            <p className="mt-2 text-sm text-text-secondary">
-              จะกู้คืนไปยังเวอร์ชัน{" "}
-              {new Date(confirmRestore.created_at).toLocaleString("th-TH")}
-              {confirmRestore.note && ` (${confirmRestore.note})`}
-              ? การเปลี่ยนแปลงปัจจุบันจะหายไป
-            </p>
-            <div className="mt-4 flex justify-end gap-2">
-              <button
-                onClick={() => setConfirmRestore(null)}
-                className="rounded-lg px-4 py-2 text-sm text-text-secondary transition-colors hover:bg-bg-card hover:text-text-heading"
-              >
-                ยกเลิก
-              </button>
-              <button
-                onClick={confirmRestoreAction}
-                className="rounded-lg bg-accent/20 px-4 py-2 text-sm font-medium text-accent transition-colors hover:bg-accent/30"
-              >
-                กู้คืน
-              </button>
-            </div>
-          </div>
+      <Modal
+        open={!!confirmRestore}
+        onClose={() => setConfirmRestore(null)}
+        title="ยืนยันการกู้คืน"
+      >
+        <p className="text-sm text-text-secondary">
+          จะกู้คืนไปยังเวอร์ชัน{" "}
+          {confirmRestore && new Date(confirmRestore.created_at).toLocaleString("th-TH")}
+          {confirmRestore?.note && ` (${confirmRestore.note})`}
+          ? การเปลี่ยนแปลงปัจจุบันจะหายไป
+        </p>
+        <div className="flex justify-end gap-2">
+          <button
+            onClick={() => setConfirmRestore(null)}
+            className="rounded-lg px-4 py-2 text-sm text-text-secondary transition-colors hover:bg-bg-card hover:text-text-heading"
+          >
+            ยกเลิก
+          </button>
+          <button
+            onClick={confirmRestoreAction}
+            className="rounded-lg bg-accent/20 px-4 py-2 text-sm font-medium text-accent transition-colors hover:bg-accent/30"
+          >
+            กู้คืน
+          </button>
         </div>
-      )}
+      </Modal>
     </div>
   );
 }

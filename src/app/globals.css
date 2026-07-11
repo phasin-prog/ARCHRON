@@ -651,12 +651,17 @@
   opacity: 1;
   transform: translateY(0);
 }
-.stagger-1 { transition-delay: 100ms; }
-.stagger-2 { transition-delay: 200ms; }
-.stagger-3 { transition-delay: 300ms; }
-.stagger-4 { transition-delay: 400ms; }
-.stagger-5 { transition-delay: 500ms; }
-.stagger-6 { transition-delay: 600ms; }
+.stagger-1 { --stagger-index: 1; }
+.stagger-2 { --stagger-index: 2; }
+.stagger-3 { --stagger-index: 3; }
+.stagger-4 { --stagger-index: 4; }
+.stagger-5 { --stagger-index: 5; }
+.stagger-6 { --stagger-index: 6; }
+
+/* Stagger delay computed from index — set --stagger-base if different from 100ms */
+.stagger-1, .stagger-2, .stagger-3, .stagger-4, .stagger-5, .stagger-6 {
+  transition-delay: calc(var(--stagger-index, 0) * var(--stagger-base, 100ms));
+}
 @media (prefers-reduced-motion: reduce) {
   .scroll-reveal {
     opacity: 1 !important;

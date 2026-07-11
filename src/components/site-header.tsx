@@ -150,7 +150,7 @@ export function SiteHeader() {
               aria-label="ARCHRON หน้าแรก"
             >
               <ArchronLogomark className="h-7 w-7 shrink-0" />
-              <span className="font-wordmark text-[21px] font-semibold tracking-[0.2em]">ARCHRON</span>
+              <span className="font-wordmark text-xl font-semibold tracking-[0.2em]">ARCHRON</span>
             </Link>
             <div className="absolute right-0 top-1/2 flex -translate-y-1/2 items-center gap-2">
               <Link
@@ -187,11 +187,12 @@ export function SiteHeader() {
                     className={`h-3.5 w-3.5 transition-transform duration-200 ${acctOpen ? "rotate-180" : ""}`}
                   />
                 </button>
-                {acctOpen ? (
-                  <div
+                <div
                     id="account-menu"
                     role="menu"
-                    className="glass-nav-panel absolute right-0 top-[calc(100%+10px)] min-w-[214px] rounded-xl border border-accent/20 p-1.5 shadow-[0_24px_50px_-24px_rgba(0,0,0,0.85)]"
+                    className={`glass-nav-panel absolute right-0 top-[calc(100%+10px)] min-w-[214px] rounded-xl border border-accent/20 p-1.5 shadow-[0_24px_50px_-24px_rgba(0,0,0,0.85)] transition-all duration-200 ${
+                      acctOpen ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-1"
+                    }`}
                   >
                     <SignedOut>
                       <p className="px-3 pb-1 pt-2 text-sm font-medium text-text-secondary/80">ยินดีต้อนรับ</p>
@@ -222,7 +223,6 @@ export function SiteHeader() {
                       </button>
                     </SignedIn>
                   </div>
-                ) : null}
               </div>
             </div>
           </div>
@@ -246,7 +246,7 @@ export function SiteHeader() {
           aria-label="ARCHRON หน้าแรก"
         >
           <ArchronLogomark className="h-7 w-7 shrink-0" />
-          <span className="font-wordmark text-[21px] font-semibold tracking-[0.2em]">ARCHRON</span>
+          <span className="font-wordmark text-xl font-semibold tracking-[0.2em]">ARCHRON</span>
         </Link>
         <button
           type="button"
@@ -267,7 +267,7 @@ export function SiteHeader() {
           role="dialog"
           aria-modal="true"
           aria-label="เมนูนำทางและบัญชีผู้ใช้"
-          className="fixed inset-0 z-50 flex flex-col justify-between overflow-y-auto bg-bg/95 backdrop-blur-2xl transition-all duration-300 lg:hidden"
+          className="fixed inset-0 z-50 flex flex-col justify-between overflow-y-auto bg-bg/95 backdrop-blur-md transition-all duration-300 lg:hidden"
         >
           {/* Top Bar */}
           <div className="sticky top-0 z-10 flex h-16 shrink-0 items-center justify-between border-b border-border/30 bg-bg/90 px-4 sm:px-6 backdrop-blur-md">
@@ -278,7 +278,7 @@ export function SiteHeader() {
               aria-label="ARCHRON หน้าแรก"
             >
               <ArchronLogomark className="h-7 w-7 shrink-0" />
-              <span className="font-wordmark text-[21px] font-semibold tracking-[0.2em]">ARCHRON</span>
+              <span className="font-wordmark text-xl font-semibold tracking-[0.2em]">ARCHRON</span>
             </Link>
             <button
               type="button"

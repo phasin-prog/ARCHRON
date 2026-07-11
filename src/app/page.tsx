@@ -11,7 +11,7 @@ export default function HomePage() {
   return (
     <main>
       {/* ── 1. HERO ── */}
-      <section className="relative flex min-h-[70vh] flex-col items-center justify-center overflow-hidden px-4 text-center">
+      <section className="relative flex min-h-[50vh] flex-col items-center justify-center overflow-hidden px-4 text-center sm:min-h-[70vh]">
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -27,7 +27,7 @@ export default function HomePage() {
           <p className="mt-4 font-serif text-xl text-text-secondary sm:text-2xl">
             เข้าใจมนุษย์ ผ่านความรู้
           </p>
-          <p className="mt-2 font-serif text-base text-text-secondary/70">
+          <p className="mt-2 font-serif text-base text-text-secondary">
             Understanding Humanity Through Knowledge
           </p>
         </div>

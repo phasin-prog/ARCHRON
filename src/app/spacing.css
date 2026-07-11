@@ -1,46 +1,40 @@
 /* ============================================================================
    ARCHRON Spacing System — Phase 08
    ----------------------------------------------------------------------------
-   ระยะห่างทั้งหมด: Base 4px + 8pt Grid
-   อ้างอิง: VOS.md §08 Grid (8pt Rhythm) · EDS.md §10 Visual Rhythm
+   Base 4px + 8pt Grid. All values derive from globals.css --space-* tokens.
+   See: VOS.md §08 Grid · EDS.md §10 Visual Rhythm
    ============================================================================ */
 
-/* ---- Spacing Tokens ---- */
-/* Aligned with globals.css --space-* (8pt grid, rem-based) */
+/* ---- Spacing Tokens (aliased to globals.css --space-* canonical source) ---- */
 :root {
-  /* Base Unit: 4px */
-  --spacing-unit: 4px;
+  --spacing-unit: 0.25rem;
 
-  /* Spacing Scale (8pt Grid) — aliased to globals.css --space-* for consistency */
   --spacing-0: 0;
-  --spacing-1: 4px;      /* 1 unit */
-  --spacing-2: var(--space-2, 8px);      /* 8px  = 2 units */
-  --spacing-3: var(--space-3, 12px);     /* 12px = 3 units */
-  --spacing-4: var(--space-4, 16px);     /* 16px = 4 units */
-  --spacing-5: 20px;     /* 5 units */
-  --spacing-6: var(--space-5, 24px);     /* 24px = 6 units */
-  --spacing-8: var(--space-6, 32px);     /* 32px = 8 units */
-  --spacing-10: var(--space-7, 40px);    /* 40px = 10 units */
-  --spacing-12: var(--space-8, 48px);    /* 48px = 12 units */
-  --spacing-16: var(--space-9, 64px);    /* 64px = 16 units */
-  --spacing-20: var(--space-10, 80px);   /* 80px = 20 units */
-  --spacing-24: var(--space-11, 96px);   /* 96px = 24 units */
-  --spacing-32: var(--space-12, 128px);  /* 128px = 32 units */
-  --spacing-40: 160px;   /* 40 units */
-  --spacing-48: 192px;   /* 48 units */
-  --spacing-64: 256px;   /* 64 units */
+  --spacing-1: var(--space-1, 0.25rem);
+  --spacing-2: var(--space-2, 0.5rem);
+  --spacing-3: var(--space-3, 0.75rem);
+  --spacing-4: var(--space-4, 1rem);
+  --spacing-5: var(--space-5, 1.5rem);
+  --spacing-6: var(--space-5, 1.5rem);
+  --spacing-8: var(--space-6, 2rem);
+  --spacing-10: var(--space-7, 2.5rem);
+  --spacing-12: var(--space-8, 3rem);
+  --spacing-16: var(--space-9, 4rem);
+  --spacing-20: var(--space-10, 5rem);
+  --spacing-24: var(--space-11, 6rem);
+  --spacing-32: var(--space-12, 8rem);
 
   /* Component Spacing */
-  --spacing-component-sm: var(--spacing-2);    /* 8px */
-  --spacing-component-md: var(--spacing-4);    /* 16px */
-  --spacing-component-lg: var(--spacing-6);    /* 24px */
-  --spacing-component-xl: var(--spacing-8);    /* 32px */
+  --spacing-component-sm: var(--spacing-2);
+  --spacing-component-md: var(--spacing-4);
+  --spacing-component-lg: var(--spacing-6);
+  --spacing-component-xl: var(--spacing-8);
 
   /* Section Spacing */
-  --spacing-section-sm: var(--spacing-6);      /* 24px */
-  --spacing-section-md: var(--spacing-8);      /* 32px */
-  --spacing-section-lg: var(--spacing-10);     /* 40px */
-  --spacing-section-xl: var(--spacing-12);     /* 48px */
+  --spacing-section-sm: var(--spacing-6);
+  --spacing-section-md: var(--spacing-8);
+  --spacing-section-lg: var(--spacing-10);
+  --spacing-section-xl: var(--spacing-12);
 
   /* Text Spacing */
   --line-height-body: 1.6;

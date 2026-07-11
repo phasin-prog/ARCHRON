@@ -181,7 +181,8 @@ export default function StudioEditorPage() {
           const top = visible.reduce((prev, curr) =>
             curr.boundingClientRect.top < prev.boundingClientRect.top ? curr : prev
           );
-          setActiveSection(top.getAttribute("data-section") || "basic");
+          const el = top.target as HTMLElement;
+          setActiveSection(el.getAttribute("data-section") || "basic");
         }
       },
       { rootMargin: "-80px 0px -60% 0px" }

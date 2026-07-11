@@ -55,7 +55,7 @@ function Label({ children, htmlFor }: { children: React.ReactNode; htmlFor?: str
 }
 
 const inputClass =
-  "w-full rounded-md border border-text-heading/20 bg-text-heading/25 px-3 py-2 text-text-heading outline-none placeholder:text-text-secondary/60 focus:border-accent/50 focus:ring-2 focus:ring-accent/30 transition-colors";
+  "w-full rounded-md border border-text-heading/20 bg-text-heading/25 px-3 py-2 text-text-heading outline-none placeholder:text-text-secondary focus:border-accent/50 focus:ring-2 focus:ring-accent/30 transition-colors";
 
 const textareaClass = `${inputClass} resize-y`;
 

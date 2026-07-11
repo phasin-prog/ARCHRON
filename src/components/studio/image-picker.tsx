@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, type DragEvent, type ChangeEvent } from "react";
+import { EditorIcon } from "@/components/studio/editor-icon";
 
 type ImagePickerProps = {
   value: string; // current URL (empty = no image)
@@ -117,16 +118,16 @@ export function ImagePicker({ value, onChange, onRemove, entryId, className = ""
           {loading ? (
             <>
               <div className="h-8 w-8 animate-spin rounded-full border-2 border-accent/30 border-t-accent" />
-              <span className="text-sm text-text-secondary/60">กำลังอัปโหลด...</span>
+              <span className="text-sm text-text-secondary">กำลังอัปโหลด...</span>
             </>
           ) : (
             <>
-              <span className="inline-flex items-center justify-center w-8 h-8 text-[32px] text-text-secondary/30" aria-hidden="true">🖼</span>
+              <EditorIcon name="newspaper" className="h-8 w-8 text-text-secondary/30" />
               <div className="text-center">
-                <p className="text-sm text-text-secondary/70">
+                <p className="text-sm text-text-secondary">
                   ลากรูปมาวาง หรือคลิกเพื่อเลือกไฟล์
                 </p>
-                <p className="mt-1 text-xs text-text-secondary/40">
+                <p className="mt-1 text-xs text-text-secondary">
                   JPEG, PNG, WebP, GIF, SVG, AVIF — สูงสุด 10 MB
                 </p>
               </div>
@@ -144,7 +145,7 @@ export function ImagePicker({ value, onChange, onRemove, entryId, className = ""
       )}
 
       {error ? (
-        <p className="mt-2 text-xs text-error">{error}</p>
+        <p className="mt-2 text-xs text-error" role="alert">{error}</p>
       ) : null}
     </div>
   );

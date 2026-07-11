@@ -26,7 +26,7 @@ export function PublishChecklist({ items, deadLinks, publishTried }: Props) {
         ))}
       </ul>
       {deadLinks.length > 0 && (
-        <p className="mt-3 text-xs text-error">
+        <p className="mt-3 text-xs text-error" role="alert">
           ลิงก์เสีย {deadLinks.length}: {deadLinks.join(", ")}
         </p>
       )}

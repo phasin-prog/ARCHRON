@@ -71,7 +71,7 @@ export function ContentTypeSelector() {
         <div className="mb-12 text-center">
           <EditorIcon name="edit_note" className="mb-4 h-12 w-12 text-accent" />
           <h1 className="font-serif text-3xl text-text-heading">สร้างเนื้อหาใหม่</h1>
-          <p className="mt-3 text-sm text-text-secondary/70">
+          <p className="mt-3 text-sm text-text-secondary">
             เลือกประเภทเนื้อหาที่ต้องการเขียน ระบบจะแสดงฟอร์มที่เหมาะสมกับแต่ละประเภท
           </p>
         </div>
@@ -100,12 +100,12 @@ export function ContentTypeSelector() {
                     <h2 className="font-serif text-lg font-semibold text-text-heading group-hover:text-accent transition-colors">
                       {meta.label}
                     </h2>
-                    <p className="text-[11px] text-text-secondary/50">
+                    <p className="text-[11px] text-text-secondary">
                       {opt.type}
                     </p>
                   </div>
                 </div>
-                <p className="mb-4 text-sm leading-relaxed text-text-secondary/70">
+                <p className="mb-4 text-sm leading-relaxed text-text-secondary">
                   {opt.description}
                 </p>
                 <div className="mt-auto flex flex-wrap gap-1.5">
@@ -136,7 +136,7 @@ export function ContentTypeSelector() {
         <div className="mt-8 text-center">
           <button
             onClick={() => router.push("/studio")}
-            className="text-sm text-text-secondary/50 hover:text-text-heading transition-colors"
+            className="text-sm text-text-secondary hover:text-text-heading transition-colors"
           >
             ← กลับห้องเขียน
           </button>

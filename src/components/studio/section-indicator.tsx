@@ -27,7 +27,7 @@ export function SectionIndicator({ sections, activeSection, onSectionClick }: Pr
             className={`rounded-full px-2.5 py-0.5 transition-all ${
               s.id === activeSection
                 ? "bg-accent/10 font-medium text-accent"
-                : "text-text-secondary/60 hover:text-text-body"
+                : "text-text-secondary hover:text-text-body"
             }`}
           >
             {s.label}

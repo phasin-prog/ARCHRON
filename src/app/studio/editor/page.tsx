@@ -173,17 +173,21 @@ export default function StudioEditorPage() {
   const canPreview = draft.title.trim() !== "" && draft.contentType !== "";
 
   useEffect(() => {
-    const handleScroll = () => {
-      const els = document.querySelectorAll("[data-section]");
-      let current = "basic";
-      els.forEach((el) => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top <= 150) current = el.getAttribute("data-section") || current;
-      });
-      setActiveSection(current);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    const els = document.querySelectorAll("[data-section]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((e) => e.isIntersecting);
+        if (visible.length > 0) {
+          const top = visible.reduce((prev, curr) =>
+            curr.boundingClientRect.top < prev.boundingClientRect.top ? curr : prev
+          );
+          setActiveSection(top.getAttribute("data-section") || "basic");
+        }
+      },
+      { rootMargin: "-80px 0px -60% 0px" }
+    );
+    els.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
   function scrollToSection(id: string) {
@@ -203,11 +207,11 @@ export default function StudioEditorPage() {
           กรุณาส่งคำขอเป็นนักเขียนเพื่อให้แอดมินพิจารณา
         </p>
         <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-          <Link href="/studio/profile" className="inline-flex items-center justify-center gap-2 bg-accent px-6 py-2.5 text-sm font-semibold text-text-inverse hover:brightness-110 transition-all">
+          <Link href="/studio/profile" className="inline-flex min-h-[44px] items-center justify-center gap-2 bg-accent px-6 py-2.5 text-sm font-semibold text-text-inverse hover:brightness-110 transition-all">
             <EditorIcon name="edit_note" className="h-4 w-4" />
             ขอเป็นนักเขียน
           </Link>
-          <Link href="/studio" className="inline-flex items-center justify-center gap-2 border border-accent/40 px-6 py-2.5 text-sm text-accent hover:bg-accent/10">
+          <Link href="/studio" className="inline-flex min-h-[44px] items-center justify-center gap-2 border border-accent/40 px-6 py-2.5 text-sm text-accent hover:bg-accent/10">
             กลับห้องเขียน
           </Link>
         </div>
@@ -275,15 +279,15 @@ export default function StudioEditorPage() {
       <div className="fixed inset-x-0 bottom-0 z-50 border-t border-accent/15 bg-bg/90 px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur lg:hidden">
         <div className="mx-auto flex max-w-3xl items-center gap-2">
           <button onClick={handleManualSave} disabled={loadingDraft || publishing}
-            className="flex-1 rounded-md border border-text-heading/20 px-3 py-2 text-sm text-text-heading hover:border-accent hover:bg-accent/5 transition-colors disabled:opacity-40">
+            className="flex-1 min-h-[44px] rounded-md border border-text-heading/20 px-3 py-2 text-sm text-text-heading hover:border-accent hover:bg-accent/5 transition-colors disabled:opacity-40">
             บันทึก
           </button>
           <button onClick={() => setPreview((v) => !v)} disabled={!canPreview || loadingDraft}
-            className="flex-1 rounded-md border border-text-heading/20 px-3 py-2 text-sm text-text-heading hover:border-accent hover:bg-accent/5 transition-colors disabled:opacity-40">
+            className="flex-1 min-h-[44px] rounded-md border border-text-heading/20 px-3 py-2 text-sm text-text-heading hover:border-accent hover:bg-accent/5 transition-colors disabled:opacity-40">
             {preview ? "ปิดพรีวิว" : "พรีวิว"}
           </button>
           <button onClick={handlePublish} disabled={publishing || loadingDraft}
-            className="flex-1 rounded-md bg-accent px-3 py-2 text-sm font-semibold text-text-inverse hover:brightness-110 transition-all disabled:opacity-50">
+            className="flex-1 min-h-[44px] rounded-md bg-accent px-3 py-2 text-sm font-semibold text-text-inverse hover:brightness-110 transition-all disabled:opacity-50">
             {publishing ? "..." : "เผยแพร่"}
           </button>
         </div>

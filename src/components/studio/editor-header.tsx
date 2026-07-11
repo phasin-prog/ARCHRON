@@ -64,21 +64,21 @@ export function EditorHeader({
           <button
             onClick={onSave}
             disabled={loadingDraft || publishing}
-            className="rounded-md border border-text-heading/20 px-4 py-2 text-sm text-text-heading hover:border-accent hover:bg-accent/5 transition-colors disabled:opacity-40"
+            className="rounded-md border border-text-heading/20 px-4 py-2 text-sm text-text-heading hover:border-accent hover:bg-accent/5 active:scale-[0.97] transition-colors disabled:opacity-40"
           >
             บันทึก + เวอร์ชัน
           </button>
           <button
             onClick={onTogglePreview}
             disabled={!canPreview || loadingDraft}
-            className="rounded-md border border-text-heading/20 px-4 py-2 text-sm text-text-heading hover:border-accent hover:bg-accent/5 transition-colors disabled:opacity-40"
+            className="rounded-md border border-text-heading/20 px-4 py-2 text-sm text-text-heading hover:border-accent hover:bg-accent/5 active:scale-[0.97] transition-colors disabled:opacity-40"
           >
             {preview ? "ปิดพรีวิว" : "พรีวิว"}
           </button>
           <button
             onClick={onPublish}
             disabled={publishing || loadingDraft}
-            className="rounded-md bg-accent px-4 py-2 text-sm font-semibold text-text-inverse hover:brightness-110 transition-all disabled:opacity-50"
+            className="rounded-md bg-accent px-4 py-2 text-sm font-semibold text-text-inverse hover:brightness-110 active:scale-[0.97] transition-all disabled:opacity-50"
           >
             {publishing ? "กำลังเผยแพร่..." : "เผยแพร่"}
           </button>

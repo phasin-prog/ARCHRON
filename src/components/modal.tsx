@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useCallback, useEffect, useId, useRef, type ReactNode } from "react";
 
 type Props = {
   open: boolean;
@@ -10,18 +10,51 @@ type Props = {
   footer?: ReactNode;
 };
 
+const FOCUSABLE = 'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
 export function Modal({ open, onClose, title, children, footer }: Props) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const prevFocusRef = useRef<HTMLElement | null>(null);
+  const titleId = useId();
+
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      onClose();
+      return;
+    }
+    if (e.key === "Tab" && containerRef.current) {
+      const focusable = containerRef.current.querySelectorAll<HTMLElement>(FOCUSABLE);
+      if (focusable.length === 0) {
+        e.preventDefault();
+        return;
+      }
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+  }, [onClose]);
 
   useEffect(() => {
     if (!open) return;
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", handler);
+    prevFocusRef.current = document.activeElement as HTMLElement;
     cardRef.current?.focus();
-    return () => document.removeEventListener("keydown", handler);
-  }, [open, onClose]);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      prevFocusRef.current?.focus();
+    };
+  }, [open, handleKeyDown]);
 
   useEffect(() => {
     if (!open) return;
@@ -33,25 +66,26 @@ export function Modal({ open, onClose, title, children, footer }: Props) {
 
   return (
     <div
+      ref={containerRef}
       className={`fixed inset-0 z-[var(--z-overlay)] flex items-center justify-center bg-black/45 transition-[opacity,visibility] duration-250 ${
         open ? "opacity-100 visible" : "opacity-0 invisible"
       }`}
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
       role="dialog"
       aria-modal="true"
-      aria-label={title}
+      aria-labelledby={title ? titleId : undefined}
     >
       <div
         ref={cardRef}
         tabIndex={-1}
-        className={`w-[min(90%,520px)] rounded-[18px] bg-bg-card shadow-[0_20px_60px_rgba(0,0,0,0.18)] overflow-hidden transition-[transform,opacity] duration-250 focus-visible:outline-none ${
+        className={`w-[min(90%,520px)] rounded-[0.85rem] bg-bg-card shadow-[0_20px_60px_rgba(0,0,0,0.18)] overflow-hidden transition-[transform,opacity] duration-250 focus-visible:outline-none ${
           open ? "translate-y-0 scale-100 opacity-100" : "translate-y-5 scale-[.96] opacity-0"
         }`}
         onClick={(e) => e.stopPropagation()}
       >
         {title && (
           <div className="flex items-center justify-between px-7 py-[22px] border-b border-border/60">
-            <h2 className="font-heading text-[22px] text-text-heading">{title}</h2>
+            <h2 id={titleId} className="font-heading text-[22px] text-text-heading">{title}</h2>
             <button
               type="button"
               onClick={onClose}

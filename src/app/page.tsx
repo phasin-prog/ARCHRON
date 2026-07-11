@@ -1,13 +1,9 @@
 import Link from "next/link";
 import { RecentlyViewed } from "@/components/recently-viewed";
-import { DisciplineCard } from "@/components/discipline-card";
-import { DISCIPLINES } from "@/lib/content/disciplines";
 import { HomeSearch } from "@/components/home-search";
 import { ArrowRightIcon } from "@/components/icons";
 
 export default function HomePage() {
-  const latestKnowledge = DISCIPLINES.slice(0, 8);
-
   return (
     <main>
       {/* ── 1. HERO ── */}
@@ -73,26 +69,6 @@ export default function HomePage() {
               วิเคราะห์โครงสร้าง Ego ผ่านกรอบทฤษฎีจิตวิทยาเชิงลึกของคาร์ล ยุง
             </p>
           </Link>
-        </div>
-      </section>
-
-      {/* ── 5. LATEST KNOWLEDGE ── */}
-      <section className="tpl-content mt-20 pb-24">
-        <div className="flex items-baseline justify-between">
-          <h2 className="font-heading text-2xl font-semibold text-text-heading">
-            ความรู้ล่าสุด
-          </h2>
-          <Link
-            href="/knowledge"
-            className="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover"
-          >
-            ดูทั้งหมด <ArrowRightIcon className="h-4 w-4" />
-          </Link>
-        </div>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {latestKnowledge.map((d) => (
-            <DisciplineCard key={d.key} entry={d} />
-          ))}
         </div>
       </section>
     </main>

@@ -8,16 +8,20 @@ import { useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 // ARIA tablist เต็มรูปแบบ: tab ↔ tabpanel โยงด้วย id/aria-controls/aria-labelledby
 // + นำทางด้วยคีย์บอร์ด (←/→/Home/End) ตามแพตเทิร์น WAI-ARIA (roving tabindex)
 
-export type ProfileTabKey = "reading" | "work";
+export type ProfileTabKey = "reading" | "work" | "admin";
 
 export function ProfileTabs({
   reading,
   work,
+  admin,
   showWork,
+  showAdmin,
 }: {
   reading: ReactNode;
   work: ReactNode;
+  admin?: ReactNode;
   showWork: boolean;
+  showAdmin?: boolean;
 }) {
   const [active, setActive] = useState<ProfileTabKey>("reading");
   const tabRefs = useRef<Map<ProfileTabKey, HTMLButtonElement>>(new Map());
@@ -25,6 +29,7 @@ export function ProfileTabs({
   const tabs: { key: ProfileTabKey; label: string; icon: string; show: boolean }[] = [
     { key: "reading", label: "การอ่านของฉัน", icon: "auto_stories", show: true },
     { key: "work", label: "งานของฉัน", icon: "edit_note", show: showWork },
+    { key: "admin", label: "ดูแลระบบ", icon: "shield_person", show: showAdmin ?? false },
   ];
   const visibleTabs = tabs.filter((t) => t.show);
 
@@ -106,6 +111,18 @@ export function ProfileTabs({
             className="focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent/30 rounded"
           >
             {work}
+          </div>
+        ) : null}
+        {showAdmin ? (
+          <div
+            role="tabpanel"
+            id="profile-panel-admin"
+            aria-labelledby="profile-tab-admin"
+            tabIndex={0}
+            hidden={active !== "admin"}
+            className="focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent/30 rounded"
+          >
+            {admin}
           </div>
         ) : null}
       </div>

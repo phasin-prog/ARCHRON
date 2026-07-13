@@ -21,7 +21,6 @@ import {
   ArrowRightIcon,
   HistoryIcon,
   SchoolIcon,
-  GridIcon,
   ChevronDownIcon,
   BookIcon,
   ConceptIcon,
@@ -152,6 +151,7 @@ export function SiteHeader() {
     `gold-pill ${isActive(href) ? "gold-pill--active" : ""}`;
 
   return (
+    <>
     <header className={`sticky top-0 z-50 glass-nav ${scrolled ? "is-scrolled" : ""}`}>
       {/* Desktop (>lg) — center-aligned logo + gold pill nav */}
       <div className="hidden lg:block">
@@ -318,7 +318,9 @@ export function SiteHeader() {
         </button>
       </div>
 
-      {/* Mobile / tablet (< lg): Modern Full-screen Glass Overlay */}
+    </header>
+
+      {/* Mobile (<lg) — Full-screen overlay (sibling of header to escape backdrop-filter containing block) */}
       {open ? (
         <div
           id="mobile-nav"
@@ -468,6 +470,6 @@ export function SiteHeader() {
           </div>
         </div>
       ) : null}
-    </header>
+  </>
   );
 }

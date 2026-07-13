@@ -6,7 +6,7 @@ import { PageHeader } from "@/components/page-header";
 import { EmptyState } from "@/components/empty-state";
 import { ProfileTabs } from "@/components/profile/profile-tabs";
 import { getAuthedSupabase, getUserRole } from "@/lib/content/utils/server-auth";
-import { canWrite, ROLE_LABEL } from "@/lib/content/utils/roles";
+import { canWrite, isAdmin, ROLE_LABEL } from "@/lib/content/utils/roles";
 import { getMyProfile } from "@/lib/content/community/profile-db";
 import { listMyEntries } from "@/lib/content/publishing/entries-db";
 import { getPublicEntries } from "@/lib/content/publishing/public-source";
@@ -63,6 +63,7 @@ export default async function ProfilePage() {
   const { userId: uid, supabase } = await getAuthedSupabase();
   const role = await getUserRole();
   const isWriter = canWrite(role);
+  const isAdminUser = isAdmin(role);
 
   // ชื่อที่แสดง — จาก profiles ก่อน แล้ว fallback ไป Clerk
   const profile = await getMyProfile(supabase, uid);
@@ -107,6 +108,8 @@ export default async function ProfilePage() {
   );
 
   const workTab = <WorkTab entries={myEntries} />;
+
+  const adminTab = <AdminTab />;
 
   return (
     <main className="pb-24">
@@ -154,7 +157,7 @@ export default async function ProfilePage() {
 
         {/* แท็บ */}
         <div className="mt-8">
-          <ProfileTabs reading={readingTab} work={workTab} showWork={isWriter} />
+          <ProfileTabs reading={readingTab} work={workTab} admin={adminTab} showWork={isWriter} showAdmin={isAdminUser} />
         </div>
       </div>
 
@@ -414,5 +417,64 @@ function WorkTab({ entries }: { entries: ContentEntry[] }) {
         );
       })}
     </ul>
+  );
+}
+
+// ===== แท็บ "ดูแลระบบ" (แอดมินเท่านั้น) =====
+function AdminTab() {
+  return (
+    <div className="space-y-8">
+      <section className="archron-card p-6 sm:p-7">
+        <div className="flex items-center gap-4 mb-5">
+          <span className="inline-flex items-center justify-center w-11 h-11 flex-none border border-accent/30 rounded-[0.9rem_0.3rem] bg-accent/10 text-accent" aria-hidden="true">
+            <span className="text-lg">🛡</span>
+          </span>
+          <div>
+            <h3 className="font-serif text-xl text-text-heading">แผงควบคุมผู้ดูแล</h3>
+            <p className="text-sm text-text-secondary/70">จัดการคอมเมนต์และผู้ใช้ — สิทธิเฉพาะแอดมิน</p>
+          </div>
+        </div>
+      </section>
+
+      <div className="grid gap-5 sm:grid-cols-2">
+        <Link
+          href="/studio/comments"
+          className="archron-card group flex flex-col p-6 transition-all hover:-translate-y-0.5 hover:border-accent/30"
+        >
+          <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-border/30 bg-bg-elevated text-text-secondary group-hover:text-accent transition-colors">
+            <span className="text-lg">💬</span>
+          </span>
+          <h3 className="mt-3 font-serif text-lg text-text-heading group-hover:text-accent transition-colors">
+            จัดการคอมเมนต์
+          </h3>
+          <p className="mt-1.5 text-sm leading-relaxed text-text-secondary/70">
+            ตรวจสอบ ซ่อน หรือลบคอมเมนต์ทั้งหมดในระบบ — รวมถึงคอมเมนต์ที่ถูกรายงาน
+          </p>
+          <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-accent group-hover:gap-2 transition-all">
+            เปิดแผงจัดการคอมเมนต์
+            <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[14px]" aria-hidden="true">→</span>
+          </span>
+        </Link>
+
+        <Link
+          href="/studio/users"
+          className="archron-card group flex flex-col p-6 transition-all hover:-translate-y-0.5 hover:border-accent/30"
+        >
+          <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl border border-border/30 bg-bg-elevated text-text-secondary group-hover:text-accent transition-colors">
+            <span className="text-lg">👥</span>
+          </span>
+          <h3 className="mt-3 font-serif text-lg text-text-heading group-hover:text-accent transition-colors">
+            จัดการผู้ใช้
+          </h3>
+          <p className="mt-1.5 text-sm leading-relaxed text-text-secondary/70">
+            ดูรายชื่อผู้ใช้ทั้งหมด เปลี่ยนบทบาท (ผู้ใช้ / นักเขียน / ผู้ดูแล) และอนุมัติคำขอนักเขียน
+          </p>
+          <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-accent group-hover:gap-2 transition-all">
+            เปิดแผงจัดการผู้ใช้
+            <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[14px]" aria-hidden="true">→</span>
+          </span>
+        </Link>
+      </div>
+    </div>
   );
 }

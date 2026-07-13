@@ -61,6 +61,11 @@ export type EditorDraft = {
   // School-specific
   founder: string;
   period: string;
+
+  // CTA
+  articleSlugs?: string[];
+  conceptSlugs?: string[];
+  readingSetSlugs?: string[];
 };
 
 export const EMPTY_DRAFT: EditorDraft = {

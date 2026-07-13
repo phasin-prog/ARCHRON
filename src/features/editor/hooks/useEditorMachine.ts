@@ -63,7 +63,7 @@ export type EditorAction =
   | { type: "SET_TYPE_FILTER"; filter: string }
   | { type: "RESET" };
 
-function initialEditorState(draft: EditorDraft): EditorMachineState {
+export function initialEditorState(draft: EditorDraft): EditorMachineState {
   return {
     mode: "dashboard",
     draft,
@@ -76,7 +76,7 @@ function initialEditorState(draft: EditorDraft): EditorMachineState {
   };
 }
 
-function editorReducer(state: EditorMachineState, action: EditorAction): EditorMachineState {
+export function editorReducer(state: EditorMachineState, action: EditorAction): EditorMachineState {
   switch (action.type) {
     case "SET_MODE":
       return { ...state, mode: action.payload };

@@ -86,18 +86,37 @@ const TypeFilters = memo(function TypeFilters({
 const SearchResults = memo(function SearchResults({
   debouncedQuery,
   result,
+  setQuery,
 }: {
   debouncedQuery: string;
   result: SearchResult;
+  setQuery: (v: string) => void;
 }) {
   return (
     <div className="mt-8">
       {!debouncedQuery ? (
-        <p className="text-sm text-text-secondary/60">
-          พิมพ์คำค้น เช่น &ldquo;เงา&rdquo;, &ldquo;Jung&rdquo;, &ldquo;ปรัชญา&rdquo;, &ldquo;IPA&rdquo; — ค้นได้ทั้งแนวคิด บทความ ทรัพยากรภายนอก และหน้าต่าง ๆ
-        </p>
+        <div className="py-8 text-center">
+          <p className="text-sm text-text-secondary/50 mb-4">
+            พิมพ์คำค้นด้านบนเพื่อค้นทั่วทั้งคลังความรู้
+          </p>
+          <div className="flex flex-wrap gap-2 justify-center">
+            {["เงา", "Jung", "ปรัชญา", "IPA"].map((s) => (
+              <button
+                key={s}
+                type="button"
+                onClick={() => setQuery(s)}
+                className="rounded-full border border-border/40 px-3 py-1 text-xs text-text-secondary/60 transition-colors duration-200 hover:bg-accent/8 hover:text-accent hover:border-accent/20"
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+        </div>
       ) : result.total === 0 ? (
-        <p className="text-sm text-text-secondary/60">ไม่พบผลลัพธ์สำหรับ &ldquo;{debouncedQuery.trim()}&rdquo;</p>
+        <div className="py-8 text-center">
+          <p className="text-sm text-text-secondary/60 mb-4">ไม่พบผลลัพธ์สำหรับ &ldquo;{debouncedQuery.trim()}&rdquo;</p>
+          <p className="text-xs text-text-secondary/45">ลองใช้คำค้นอื่น หรือตรวจสอบการสะกด</p>
+        </div>
       ) : (
         <>
           <p className="mb-6 text-xs text-text-secondary/50">พบ {result.total} รายการ</p>
@@ -170,7 +189,7 @@ export function SearchClient({ items, initialQuery }: { items: SearchItem[]; ini
     <div className="mt-8">
       <SearchBar query={query} setQuery={setQuery} clear={clear} />
       <TypeFilters activeType={activeType} setActiveType={setActiveType} />
-      <SearchResults debouncedQuery={debouncedQuery} result={result} />
+      <SearchResults debouncedQuery={debouncedQuery} result={result} setQuery={setQuery} />
     </div>
   );
 }

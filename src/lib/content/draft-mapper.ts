@@ -67,7 +67,6 @@ export function entryToDraft(entry: DiscriminatedEntry): EditorDraft {
   const base = {
     id: entry.id ?? "", title: entry.title ?? "", slug: entry.slug ?? "",
     status: entry.status ?? "draft", contentType: entry.contentType ?? "article",
-    framework: entry.framework ?? "", school: entry.school ?? "",
     difficulty: entry.difficulty ?? "beginner",
     tags: entry.tags ?? [], bodyMarkdown: entry.bodyMarkdown ?? "",
     relatedConcepts: (entry.relatedConcepts ?? []).map((r) => ({
@@ -82,7 +81,8 @@ export function entryToDraft(entry: DiscriminatedEntry): EditorDraft {
 
   if (entry.contentType === "concept") {
     return {
-      ...base, mainTerm: entry.mainTerm, thaiName: entry.thaiName,
+      ...base, framework: entry.framework ?? "", school: entry.school ?? "",
+      mainTerm: entry.mainTerm, thaiName: entry.thaiName,
       originalTerm: entry.originalTerm ?? "",
       partOfSpeech: entry.partOfSpeech ?? "", languageRoot: entry.languageRoot ?? "",
       ipa: entry.ipa ?? "",
@@ -100,7 +100,8 @@ export function entryToDraft(entry: DiscriminatedEntry): EditorDraft {
   }
   if (entry.contentType === "person") {
     return {
-      ...base, mainTerm: entry.mainTerm, thaiName: entry.thaiName ?? "",
+      ...base, framework: entry.framework ?? "", school: entry.school ?? "",
+      mainTerm: entry.mainTerm, thaiName: entry.thaiName ?? "",
       mainThinker: entry.mainTerm,
       bornYear: entry.bornYear ?? "", diedYear: entry.diedYear ?? "",
       nationality: entry.nationality ?? "",
@@ -116,7 +117,8 @@ export function entryToDraft(entry: DiscriminatedEntry): EditorDraft {
   }
   if (entry.contentType === "book") {
     return {
-      ...base, mainTerm: entry.mainTerm ?? "", thaiName: entry.thaiName ?? "",
+      ...base, framework: entry.framework ?? "", school: "",
+      mainTerm: entry.mainTerm ?? "", thaiName: entry.thaiName ?? "",
       publicationYear: entry.publicationYear ?? "", publisher: entry.publisher ?? "",
       isbn: entry.isbn ?? "",
       originalTerm: "", partOfSpeech: "", languageRoot: "", ipa: "",
@@ -129,7 +131,8 @@ export function entryToDraft(entry: DiscriminatedEntry): EditorDraft {
   }
   if (entry.contentType === "school") {
     return {
-      ...base, mainTerm: entry.mainTerm ?? "", thaiName: entry.thaiName ?? "",
+      ...base, framework: entry.framework ?? "", school: entry.school ?? "",
+      mainTerm: entry.mainTerm ?? "", thaiName: entry.thaiName ?? "",
       founder: entry.founder ?? "", period: entry.period ?? "",
       keyIdeas: entry.keyIdeas?.join(", ") ?? "",
       originalTerm: "", partOfSpeech: "", languageRoot: "", ipa: "",
@@ -142,13 +145,12 @@ export function entryToDraft(entry: DiscriminatedEntry): EditorDraft {
   }
   if (entry.contentType === "article") {
     return {
-      ...base, mainTerm: "", thaiName: "",
+      ...base, framework: entry.framework ?? "", school: entry.school ?? "",
+      mainTerm: "", thaiName: "",
       originalTerm: "", partOfSpeech: "", languageRoot: "", ipa: "",
       visualExplanation: entry.visualExplanation ?? "",
       technicalMeaning: entry.technicalMeaning ?? "",
-      rootsEtymology: entry.roots?.etymology ?? "",
-      rootsMeaningShift: entry.roots?.meaningShift ?? "",
-      rootsCaution: entry.roots?.caution ?? "",
+      rootsEtymology: "", rootsMeaningShift: "", rootsCaution: "",
       mainThinker: entry.mainThinkers?.[0] ?? "",
       bornYear: "", diedYear: "", nationality: "",
       keyIdeas: "", notableWorks: "",
@@ -157,7 +159,8 @@ export function entryToDraft(entry: DiscriminatedEntry): EditorDraft {
     };
   }
   return {
-    ...base, mainTerm: "", thaiName: "", originalTerm: "", partOfSpeech: "",
+    ...base, framework: "", school: "",
+    mainTerm: "", thaiName: "", originalTerm: "", partOfSpeech: "",
     languageRoot: "", ipa: "", visualExplanation: "", technicalMeaning: "",
     rootsEtymology: "", rootsMeaningShift: "", rootsCaution: "",
     mainThinker: "", bornYear: "", diedYear: "", nationality: "",

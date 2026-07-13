@@ -1,5 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { ContentEntry } from "@/types/content";
+import type { DiscriminatedEntry } from "@/types/content";
 import type { Role } from "@/lib/content/roles";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { rowToEntry, type EntryRow } from "./entry-mapper";
@@ -9,7 +9,7 @@ import { invalidateRTK } from "@/lib/rtk/cache";
 // ============ Public reads (server, anon) ============
 // ใช้แทน static entries.ts ใน E8 (ตอนนี้พร้อมใช้ ยังไม่สลับ)
 
-export async function getPublishedEntries(contentType?: string): Promise<ContentEntry[]> {
+export async function getPublishedEntries(contentType?: string): Promise<DiscriminatedEntry[]> {
   const sb = createServerSupabase();
   let query = sb
     .from("entries")
@@ -25,7 +25,7 @@ export async function getPublishedEntries(contentType?: string): Promise<Content
 
 export async function getPublishedEntryBySlug(
   slug: string,
-): Promise<ContentEntry | null> {
+): Promise<DiscriminatedEntry | null> {
   const sb = createServerSupabase();
   const { data, error } = await sb
     .from("entries")
@@ -50,7 +50,7 @@ export async function listMyEntries(
   sb: SupabaseClient,
   authorId: string,
   role?: Role,
-): Promise<ContentEntry[]> {
+): Promise<DiscriminatedEntry[]> {
   let query = sb.from("entries").select("*");
   if (role !== "admin") {
     query = query.eq("author_id", authorId);
@@ -62,7 +62,7 @@ export async function listMyEntries(
 export async function getMyEntryBySlug(
   sb: SupabaseClient,
   slug: string,
-): Promise<ContentEntry | null> {
+): Promise<DiscriminatedEntry | null> {
   const { data, error } = await sb
     .from("entries")
     .select("*")

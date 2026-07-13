@@ -535,7 +535,7 @@ export async function ReadingPage({
                   <ArrowRightIcon className="h-3.5 w-3.5 rotate-180" /> ก่อนหน้า
                 </span>
                 <span className="font-serif text-text-body transition-colors group-hover:text-accent">
-                  {prevEntry.mainTerm ?? prevEntry.title}
+                  {("mainTerm" in prevEntry ? prevEntry.mainTerm : undefined) ?? prevEntry.title}
                 </span>
               </Link>
             ) : null}
@@ -552,7 +552,7 @@ export async function ReadingPage({
                   ถัดไป <ArrowRightIcon className="h-3.5 w-3.5" />
                 </span>
                 <span className="font-serif text-text-body transition-colors group-hover:text-accent">
-                  {nextEntry.mainTerm ?? nextEntry.title}
+                  {("mainTerm" in nextEntry ? nextEntry.mainTerm : undefined) ?? nextEntry.title}
                 </span>
               </Link>
             ) : null}

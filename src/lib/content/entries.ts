@@ -327,11 +327,7 @@ export const entries: DiscriminatedEntry[] = [
     ],
     references: [
       { sourceType: "primary-source", author: "C. G. Jung", title: "Collected Works Vol. 12: Psychology and Alchemy", relatedClaim: "บทวิเคราะห์สัญลักษณ์การเดินทางทางทะเลในยามค่ำคืน" }
-    ],
-    roots: {
-      etymology: "Night Sea Journey (Nekyia) มีรากมาจากพิธีกรรมโบราณและการสืบหาความรู้ในโลกหลังความตาย",
-      caution: "การเผชิญหน้ากับจิตไร้สำนึกมีความเสี่ยงที่ Ego จะถูกกลืนกิน หากไม่มีสติและการนำทางที่เหมาะสม"
-    }
+    ]
   } satisfies ArticleEntry,
 
   {
@@ -366,11 +362,7 @@ export const entries: DiscriminatedEntry[] = [
     ],
     references: [
       { sourceType: "primary-source", author: "C. G. Jung", title: "The Archetypes and the Collective Unconscious", relatedClaim: "แนวคิดพื้นฐานและการทำงานของ Archetypes" }
-    ],
-    roots: {
-      etymology: "มาจากภาษากรีก arkhe (ต้นกำเนิด) และ typos (แบบแผน/รอยพิมพ์)",
-      caution: "หลีกเลี่ยงการนำไปใช้เป็นแบบทดสอบบุคลิกภาพสำเร็จรูป ซึ่งลดทอนความลึกและจุดประสงค์ดั้งเดิมของทฤษฎี"
-    }
+    ]
   } satisfies ArticleEntry
 ];
 

@@ -72,29 +72,33 @@ export async function getPublicSchools(): Promise<School[]> {
         const dbThinkers = await getPublishedEntries("person");
 
         return dbSchools.map((schoolEntry) => {
+          const se = schoolEntry as DiscriminatedEntry & { originalTerm?: string; framework?: string };
           const thinkers = dbThinkers
-            .filter((t) => t.school === schoolEntry.slug)
-            .map((t) => ({
-              nameTh: t.title,
-              nameEn: t.originalTerm ?? "",
-              era: t.ipa ?? t.shortDescription ?? "",
-              quote: t.visualExplanation ?? "",
-              masterpieces: t.tags ?? [],
-              bio: t.bodyMarkdown,
-              relationships: t.technicalMeaning,
-              r2ContentKey: t.r2ContentKey,
-              r2ContentUrl: t.r2ContentUrl,
-            }));
+            .filter((t) => "school" in t && t.school === se.slug)
+            .map((t) => {
+              const te = t as DiscriminatedEntry & { originalTerm?: string; ipa?: string; visualExplanation?: string; bodyMarkdown?: string; technicalMeaning?: string; tags?: string[]; r2ContentKey?: string; r2ContentUrl?: string };
+              return {
+                nameTh: te.title,
+                nameEn: te.originalTerm ?? "",
+                era: te.ipa ?? te.shortDescription ?? "",
+                quote: te.visualExplanation ?? "",
+                masterpieces: te.tags ?? [],
+                bio: te.bodyMarkdown,
+                relationships: te.technicalMeaning,
+                r2ContentKey: te.r2ContentKey,
+                r2ContentUrl: te.r2ContentUrl,
+              };
+            });
 
           return {
-            id: schoolEntry.slug,
-            nameTh: schoolEntry.title,
-            nameEn: schoolEntry.originalTerm ?? "",
-            field: schoolEntry.framework as any,
-            description: schoolEntry.shortDescription,
-            history: schoolEntry.bodyMarkdown,
-            r2ContentKey: schoolEntry.r2ContentKey,
-            r2ContentUrl: schoolEntry.r2ContentUrl,
+            id: se.slug,
+            nameTh: se.title,
+            nameEn: se.originalTerm ?? "",
+            field: se.framework as unknown as School["field"],
+            description: se.shortDescription,
+            history: se.bodyMarkdown,
+            r2ContentKey: se.r2ContentKey,
+            r2ContentUrl: se.r2ContentUrl,
             thinkers,
           };
         });

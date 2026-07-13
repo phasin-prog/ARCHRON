@@ -51,15 +51,17 @@ export default async function SchoolDetailPage({ params }: PageProps) {
   // ค้นหาบทความและแนวคิดที่เกี่ยวข้องกับสำนักคิดนี้
   const allEntries = await getPublicEntries();
   const relatedEntries = allEntries.filter(
-    (e) =>
-      e.status === "published" &&
-      // จับคู่ด้วย slug ของสำนัก (s.id) เป็นหลัก เผื่อชื่อไทย/อังกฤษ และ framework
-      (e.school === s.id ||
-        e.school === s.nameTh ||
-        e.school === s.nameEn ||
-        (e.framework &&
-          (e.framework.toLowerCase() === s.nameEn.toLowerCase() ||
-            e.framework.toLowerCase() === s.nameTh.toLowerCase()))),
+    (e) => {
+      if (e.status !== "published") return false;
+      const school = "school" in e ? e.school : undefined;
+      const framework = "framework" in e ? e.framework : undefined;
+      return (
+        (school && (school === s.id || school === s.nameTh || school === s.nameEn)) ||
+        (framework &&
+          (framework.toLowerCase() === s.nameEn.toLowerCase() ||
+            framework.toLowerCase() === s.nameTh.toLowerCase()))
+      );
+    },
   );
 
   return (

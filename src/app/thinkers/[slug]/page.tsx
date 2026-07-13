@@ -97,12 +97,16 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
   // นักคิดคนอื่นยังพึ่งการปรากฏชื่อใน bodyMarkdown อยู่
   const allEntries = await getPublicEntries();
   const relatedEntries = allEntries.filter(
-    (e) =>
-      e.status === "published" &&
-      (e.mainThinkers?.includes(t.nameEn) ||
-        e.mainThinkers?.includes(t.nameTh) ||
+    (e) => {
+      if (e.status !== "published") return false;
+      const mainThinkers = "mainThinkers" in e ? e.mainThinkers : undefined;
+      return (
+        mainThinkers?.includes(t.nameEn) ||
+        mainThinkers?.includes(t.nameTh) ||
         e.bodyMarkdown?.includes(t.nameTh) ||
-        e.bodyMarkdown?.includes(t.nameEn)),
+        e.bodyMarkdown?.includes(t.nameEn)
+      );
+    },
   );
 
   return (

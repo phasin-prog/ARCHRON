@@ -1,6 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { EditorDraft } from "@/lib/content/publish-validation";
-import type { ContentEntry } from "@/types/content";
+import type { DiscriminatedEntry } from "@/types/content";
 import type { Role } from "@/lib/content/roles";
 import { draftToRow, entryToDraft } from "@/lib/content/draft-mapper";
 import { rowToEntry, type EntryRow } from "@/lib/content/entry-mapper";
@@ -77,7 +77,7 @@ export async function listMyDrafts(
   sb: SupabaseClient,
   authorId: string,
   role?: Role,
-): Promise<ContentEntry[]> {
+): Promise<DiscriminatedEntry[]> {
   let query = sb.from("entries").select("*");
   if (role !== "admin") {
     query = query.eq("author_id", authorId);

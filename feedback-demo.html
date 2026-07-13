@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feedback Modal Demo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui,sans-serif}
+body{background:#f5f7fa;display:flex;flex-direction:column;align-items:center;padding:60px 20px;gap:16px;min-height:100vh}
+h1{font-size:24px;color:#1a1a2e;margin-bottom:12px}
+.btn-group{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+button{cursor:pointer;padding:14px 26px;border:none;border-radius:12px;font-size:16px;transition:.25s;font-weight:500}
+button:hover{transform:translateY(-2px)}
+.btn-success{background:#6AAA7A;color:#fff}
+.btn-error{background:#CC7A7A;color:#fff}
+.btn-info{background:#8C1515;color:#fff}
+
+/* === Modal System === */
+.modal{position:fixed;inset:0;display:flex;justify-content:center;align-items:center;background:rgba(0,0,0,.45);opacity:0;visibility:hidden;transition:.25s;z-index:1000}
+.modal.show{opacity:1;visibility:visible}
+.modal-card{width:min(90%,420px);background:#fff;border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.18);overflow:hidden;transform:translateY(20px) scale(.96);transition:.25s}
+.modal.show .modal-card{transform:translateY(0) scale(1)}
+.header{display:flex;justify-content:space-between;align-items:center;padding:22px 28px;border-bottom:1px solid #eee}
+.header h2{font-size:20px;font-weight:600}
+.close{width:38px;height:38px;border:none;border-radius:10px;background:#f3f4f6;font-size:18px;transition:.2s}
+.close:hover{background:#e5e7eb}
+.content{display:flex;flex-direction:column;align-items:center;gap:16px;padding:32px 28px;text-align:center}
+.content .icon{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:#fff}
+.content .icon.success{background:#6AAA7A}
+.content .icon.error{background:#CC7A7A}
+.content .icon.info{background:#8C1515}
+.content h3{font-size:17px;font-weight:600}
+.content p{font-size:14px;line-height:1.7;color:#555}
+.footer{display:flex;justify-content:center;padding:0 28px 28px}
+.footer button{padding:10px 24px;border-radius:10px;font-size:14px;font-weight:500;border:none;color:#fff;transition:.2s}
+.footer button:hover{filter:brightness(1.1)}
+</style>
+</head>
+<body>
+
+<h1>Feedback Modal</h1>
+<p style="color:#666;margin-bottom:8px">กดปุ่มเพื่อดู Popup แต่ละประเภท</p>
+
+<div class="btn-group">
+  <button class="btn-success" onclick="openModal('success')">✅ Success</button>
+  <button class="btn-error" onclick="openModal('error')">❌ Error</button>
+  <button class="btn-info" onclick="openModal('info')">ℹ️ Info</button>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-card">
+    <div class="header">
+      <h2 id="modalTitle">แจ้งเตือน</h2>
+      <button class="close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="content" id="modalContent">
+      <div class="icon" id="modalIcon">✓</div>
+      <h3 id="modalHeading">สำเร็จ</h3>
+      <p id="modalMessage">เนื้อหาถูกบันทึกเรียบร้อยแล้ว</p>
+    </div>
+    <div class="footer">
+      <button id="modalAction" onclick="closeModal()">ปิด</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const modal = document.getElementById('modal');
+
+function openModal(type) {
+  const title = document.getElementById('modalTitle');
+  const icon = document.getElementById('modalIcon');
+  const heading = document.getElementById('modalHeading');
+  const message = document.getElementById('modalMessage');
+  const action = document.getElementById('modalAction');
+
+  icon.className = 'icon ' + type;
+
+  if (type === 'success') {
+    title.textContent = 'สำเร็จ';
+    icon.textContent = '✓';
+    heading.textContent = 'ดำเนินการสำเร็จ';
+    message.textContent = 'เนื้อหาถูกบันทึกและเผยแพร่เรียบร้อยแล้ว';
+    action.style.background = '#6AAA7A';
+  } else if (type === 'error') {
+    title.textContent = 'ข้อผิดพลาด';
+    icon.textContent = '!';
+    heading.textContent = 'เกิดข้อผิดพลาด';
+    message.textContent = 'ไม่สามารถบันทึกเนื้อหาได้ กรุณาลองอีกครั้ง หรือติดต่อผู้ดูแลระบบ';
+    action.style.background = '#CC7A7A';
+  } else if (type === 'info') {
+    title.textContent = 'แจ้งเตือน';
+    icon.textContent = 'ℹ';
+    heading.textContent = 'ข้อมูล';
+    message.textContent = 'กรุณาตรวจสอบความถูกต้องของเนื้อหาก่อนเผยแพร่';
+    action.style.background = '#8C1515';
+  }
+
+  modal.classList.add('show');
+}
+
+function closeModal() {
+  modal.classList.remove('show');
+}
+
+modal.onclick = (e) => {
+  if (e.target === modal) closeModal();
+};
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+</script>
+
+</body>
+</html>

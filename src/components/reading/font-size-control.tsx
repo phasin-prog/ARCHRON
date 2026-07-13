@@ -6,25 +6,33 @@ const STORAGE_KEY = "archron-reading-font-size";
 const STEPS = [0.85, 1, 1.15, 1.3, 1.5];
 const STEP_LABELS = ["เล็ก", "ปกติ", "กลาง", "ใหญ่", "ใหญ่มาก"];
 
+function setCssScale(s: number) {
+  const target = document.getElementById("reading-article") ?? document.documentElement;
+  target.style.setProperty("--reading-font-scale", String(STEPS[s]));
+}
+
 export function FontSizeControl() {
   const [step, setStep] = useState(1);
 
   useEffect(() => {
     try {
       const saved = parseInt(localStorage.getItem(STORAGE_KEY) ?? "1", 10);
-      if (saved >= 0 && saved < STEPS.length) setStep(saved);
-    } catch { /* */ }
+      if (saved >= 0 && saved < STEPS.length) {
+        setStep(saved);
+        setCssScale(saved);
+      } else {
+        setCssScale(1);
+      }
+    } catch {
+      setCssScale(1);
+    }
   }, []);
 
   const apply = useCallback((s: number) => {
     setStep(s);
     try { localStorage.setItem(STORAGE_KEY, String(s)); } catch { /* */ }
-    document.documentElement.style.setProperty("--reading-font-scale", String(STEPS[s]));
+    setCssScale(s);
   }, []);
-
-  useEffect(() => {
-    document.documentElement.style.setProperty("--reading-font-scale", String(STEPS[step]));
-  }, [step]);
 
   const canDown = step > 0;
   const canUp = step < STEPS.length - 1;

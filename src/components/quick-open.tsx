@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useState, useRef, useMemo, useCallback } from "react";
+import { useEffect, useState, useRef, useMemo, useCallback, useDeferredValue } from "react";
 import { useRouter } from "next/navigation";
 import { buildStaticIndex } from "@/features/search/index";
 import type { SearchItem } from "@/features/search/types";
-import { useDebounce } from "@/lib/hooks/use-debounce";
 
 type Item = SearchItem;
 
@@ -22,8 +21,6 @@ export function QuickOpen() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
-
-  const debouncedQuery = useDebounce(query, 200);
 
   // Cmd+K / Ctrl+K to toggle
   useEffect(() => {
@@ -50,9 +47,11 @@ export function QuickOpen() {
     }
   }, [open]);
 
+  const deferredQuery = useDeferredValue(query);
+
   const terms = useMemo(() => {
-    return debouncedQuery.trim().toLowerCase().split(/\s+/).filter(Boolean);
-  }, [debouncedQuery]);
+    return deferredQuery.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  }, [deferredQuery]);
 
   const matched = useMemo(() => {
     if (terms.length === 0) return INDEX.slice(0, 8);

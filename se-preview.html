@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ARCHRON · SEP Color Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Serif+Thai:wght@400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* SEP-inspired Color Tokens */
+  --color-bg: #F9F5F3;
+  --color-bg-card: #FFFFFF;
+  --color-bg-elevated: #EDEBE9;
+  --color-border: #D7D5D3;
+  --color-text-heading: #1A1815;
+  --color-text-body: #3A3835;
+  --color-text-secondary: #65625C;
+  --color-text-inverse: #FFFFFF;
+  --color-accent: #8C1515;
+  --color-accent-hover: #6B1010;
+  --color-accent-subtle: #F0E4E4;
+  --color-premium: #B89A63;
+  --color-premium-subtle: #F5F0E8;
+  --color-success: #6AAA7A;
+  --color-warning: #D4AA50;
+  --color-error: #CC7A7A;
+  --color-info: #7A8ABA;
+  --color-concept: #7BA3D4;
+  --color-thinker: #7AB57A;
+  --color-school: #7AACAC;
+  --color-book: #D4A96A;
+  --color-article: #C48A9A;
+  --color-symbol: #D4B050;
+  --color-shadow: #000000;
+  --measure: 68ch;
+
+  /* Fonts */
+  --font-heading: "Cormorant Garamond","Noto Serif Thai",Georgia,serif;
+  --font-body: "IBM Plex Sans Thai","Inter",system-ui,sans-serif;
+  --font-ui: "Inter","Noto Sans Thai",system-ui,sans-serif;
+  --font-serif: "Cormorant Garamond","Noto Serif Thai",Georgia,serif;
+  --font-mono: "JetBrains Mono","SF Mono",monospace;
+
+  /* Spacing */
+  --ease-soft: cubic-bezier(0.21,0.6,0.35,1);
+  --ease-out: cubic-bezier(0.16,1,0.3,1);
+  --dur-fast: 200ms;
+  --dur-base: 450ms;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text-body);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,h2,h3,h4 {
+  font-family: var(--font-heading);
+  color: var(--color-text-heading);
+  text-wrap: balance;
+  line-height: 1.3;
+  font-weight: 600;
+}
+h1 { font-size: 2.5rem; }
+h2 { font-size: 1.8rem; margin-top: 2rem; }
+h3 { font-size: 1.3rem; margin-top: 1.5rem; }
+
+nav, button, input, select, textarea, label, .badge, .chip, .tag, [role="button"] {
+  font-family: var(--font-ui);
+}
+
+/* Layout */
+.page { max-width: 1152px; margin: 0 auto; padding: 0 24px; }
+.section { margin: 3rem 0; }
+.section-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.5rem;
+}
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; }
+.flex { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; }
+.flex-col { flex-direction: column; align-items: flex-start; }
+
+/* Header */
+.demo-header {
+  padding: 2rem 0 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 2rem;
+}
+.demo-header h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.demo-header p {
+  color: var(--color-text-secondary);
+  margin-top: 0.25rem;
+  font-size: 0.95rem;
+}
+
+/* ---- Cards ---- */
+.archron-card {
+  position: relative;
+  border: 1px solid var(--color-border);
+  border-radius: 0.85rem;
+  background: var(--color-bg-card);
+  padding: 1.25rem;
+  transition: border-color var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+}
+.archron-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-accent);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08), 0 0 0 1px color-mix(in srgb, var(--color-accent) 20%, transparent);
+}
+.card-title { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 600; color: var(--color-text-heading); }
+.card-meta { font-size: 0.8rem; color: var(--color-text-secondary); margin-top: 0.25rem; }
+.card-desc { font-size: 0.9rem; color: var(--color-text-body); margin-top: 0.5rem; line-height: 1.6; }
+
+.card-accent { --card-accent: var(--color-accent); }
+.card-concept { --card-accent: var(--color-concept); }
+.card-thinker { --card-accent: var(--color-thinker); }
+.card-premium { border-color: color-mix(in srgb, var(--color-premium) 40%, transparent); }
+.card-premium:hover { border-color: var(--color-premium); box-shadow: 0 4px 16px rgba(184,154,99,0.15); }
+
+/* ---- Buttons ---- */
+.archron-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-ui);
+  font-weight: 500;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all var(--dur-fast) ease;
+}
+.btn-primary { background: var(--color-accent); color: var(--color-text-inverse); font-weight: 600; }
+.btn-primary:hover { filter: brightness(1.08); box-shadow: 0 2px 8px color-mix(in srgb, var(--color-accent) 30%, transparent); }
+.btn-secondary { background: transparent; border-color: var(--color-border); color: var(--color-text-heading); }
+.btn-secondary:hover { border-color: var(--color-accent); color: var(--color-accent); }
+.btn-tertiary { background: transparent; color: var(--color-accent); }
+.btn-tertiary:hover { background: color-mix(in srgb, var(--color-accent) 10%, transparent); }
+.btn-ghost { background: transparent; color: var(--color-text-secondary); border-color: transparent; }
+.btn-ghost:hover { color: var(--color-text-heading); background: color-mix(in srgb, var(--color-text-heading) 5%, transparent); }
+.btn-success { background: var(--color-success); color: var(--color-text-inverse); }
+.btn-sm { padding: 0.375rem 0.75rem; font-size: 0.75rem; }
+.btn-lg { padding: 0.75rem 1.5rem; font-size: 1rem; }
+.fab {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--color-accent); color: var(--color-text-inverse);
+  display: inline-flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--color-accent) 30%, transparent);
+  cursor: pointer;
+}
+
+/* ---- Badges ---- */
+.archron-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 1.25rem; height: 1.25rem; padding: 0 0.375rem;
+  font-size: 0.625rem; font-weight: 700;
+  color: var(--color-text-inverse); background: var(--color-accent);
+  border-radius: 9999px;
+}
+.badge-success { background: var(--color-success); }
+.badge-warning { background: var(--color-warning); }
+.badge-concept { background: var(--color-concept); }
+.badge-school { background: var(--color-school); }
+.badge-book { background: var(--color-book); }
+.badge-premium { background: var(--color-premium); }
+.badge-outline { background: transparent; border: 1px solid var(--color-accent); color: var(--color-accent); }
+.category-badge {
+  display: inline-flex; align-items: center;
+  padding: 0.2rem 0.6rem; border-radius: 9999px;
+  font-size: 0.7rem; font-weight: 600;
+}
+
+/* ---- Tags / Chips ---- */
+.chip {
+  display: inline-flex; align-items: center; gap: 0.25rem;
+  padding: 0.2rem 0.6rem; border-radius: 9999px;
+  font-size: 0.75rem; font-family: var(--font-ui);
+  background: var(--color-bg-elevated); color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+
+/* ---- Navigation ---- */
+.glass-nav {
+  background: color-mix(in srgb, var(--color-bg) 72%, transparent);
+  backdrop-filter: blur(24px) saturate(140%);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-accent) 18%, transparent);
+  padding: 0.75rem 1.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-link { color: var(--color-text-secondary); text-decoration: none; font-size: 0.875rem; transition: color var(--dur-fast) ease; }
+.nav-link:hover { color: var(--color-accent); }
+.nav-link.active { color: var(--color-accent); font-weight: 600; }
+
+/* Tabs */
+.archron-tabs { display: flex; border-bottom: 1px solid var(--color-border); }
+.archron-tab {
+  padding: 0.75rem 1rem; font-size: 0.875rem; font-weight: 500;
+  color: var(--color-text-secondary); background: transparent; border: none;
+  cursor: pointer; border-bottom: 2px solid transparent;
+  transition: color var(--dur-fast) ease;
+}
+.archron-tab:hover { color: var(--color-text-heading); }
+.archron-tab.active { color: var(--color-accent); border-bottom-color: var(--color-accent); }
+
+/* Breadcrumb */
+.archron-breadcrumb { display: flex; align-items: center; gap: 0.375rem; font-size: 0.75rem; color: var(--color-text-secondary); }
+.archron-breadcrumb a { color: var(--color-text-secondary); text-decoration: none; }
+.archron-breadcrumb a:hover { color: var(--color-accent); }
+.archron-breadcrumb-current { color: var(--color-text-heading); font-weight: 500; }
+.breadcrumb-sep { user-select: none; }
+
+/* Pills */
+.archron-pill-nav { display: flex; gap: 0.25rem; background: var(--color-bg-card); padding: 0.25rem; border-radius: 8px; }
+.archron-pill {
+  padding: 0.375rem 0.75rem; font-size: 0.75rem; font-weight: 500;
+  color: var(--color-text-secondary); background: transparent; border: none; border-radius: 6px; cursor: pointer;
+  transition: all var(--dur-fast) ease;
+}
+.archron-pill.active { color: var(--color-accent); background: var(--color-bg-card); box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+
+/* ---- Inputs ---- */
+.archron-input {
+  display: block; width: 100%; max-width: 400px;
+  font-family: var(--font-body); font-size: 0.875rem;
+  color: var(--color-text-heading); background: var(--color-bg-card);
+  border: 1px solid var(--color-border); border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  transition: border-color var(--dur-fast) ease, box-shadow var(--dur-fast) ease;
+}
+.archron-input::placeholder { color: var(--color-text-secondary); }
+.archron-input:focus { outline: none; border-color: var(--color-accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 15%, transparent); }
+.archron-label { display: block; font-family: var(--font-ui); font-size: 0.75rem; font-weight: 500; color: var(--color-text-secondary); margin-bottom: 0.25rem; }
+
+/* ---- Reading Content ---- */
+.reading-column { max-width: var(--measure); margin: 0 auto; padding: 2rem 1.5rem; line-height: 1.9; }
+.reading-column h2 { font-size: 1.8rem; margin-top: 2.25em; margin-bottom: 0.75em; }
+.reading-column h3 { font-size: 1.3rem; margin-top: 2em; margin-bottom: 0.6em; }
+.reading-column p { margin-bottom: 1.5em; color: var(--color-text-body); }
+.reading-column a { color: var(--color-accent); text-decoration: underline; text-underline-offset: 3px; }
+.reading-column a:hover { color: var(--color-accent-hover); }
+.reading-column blockquote {
+  margin: 2rem 0; padding: 1.5rem 1.75rem 1.5rem 2.6rem;
+  border: 1px solid var(--color-border); border-radius: 0.5rem;
+  background: var(--color-bg-elevated); font-family: var(--font-serif);
+  font-size: 1.1rem; line-height: 1.8;
+}
+.reading-column blockquote::before { content: "\201C"; float: left; font-size: 2.6rem; color: var(--color-accent); opacity: 0.4; margin: -0.2rem 0.3rem 0 0; }
+.reading-column ul, .reading-column ol { margin: 1.15rem 0; padding-left: 1.5rem; }
+.reading-column li { margin: 0.4rem 0; }
+.reading-column li::marker { color: var(--color-accent); }
+.reading-column hr { margin: 2.6rem 0; border: 0; border-top: 1px solid var(--color-border); }
+.reading-column .footnotes { margin-top: 2.75rem; border-top: 1px solid var(--color-border); padding-top: 1.25rem; font-size: 0.9rem; color: var(--color-text-secondary); }
+
+/* ---- Alerts ---- */
+.archron-alert { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.875rem 1rem; border-radius: 8px; font-size: 0.8125rem; border: 1px solid transparent; max-width: 600px; }
+.alert-info { background: color-mix(in srgb, var(--color-info) 10%, transparent); border-color: color-mix(in srgb, var(--color-info) 25%, transparent); }
+.alert-info .alert-icon { color: var(--color-accent); }
+.alert-success { background: color-mix(in srgb, var(--color-success) 10%, transparent); border-color: color-mix(in srgb, var(--color-success) 25%, transparent); }
+.alert-warning { background: color-mix(in srgb, var(--color-warning) 10%, transparent); border-color: color-mix(in srgb, var(--color-warning) 25%, transparent); }
+.alert-error { background: color-mix(in srgb, var(--color-error) 10%, transparent); border-color: color-mix(in srgb, var(--color-error) 25%, transparent); }
+
+/* ---- Progress / Spinner ---- */
+.archron-progress { width: 100%; max-width: 400px; height: 6px; background: var(--color-bg-elevated); border-radius: 3px; overflow: hidden; }
+.archron-progress-bar { height: 100%; background: var(--color-accent); border-radius: 3px; width: 65%; }
+.archron-spinner { display: inline-block; width: 1.5rem; height: 1.5rem; border: 2px solid var(--color-border); border-top-color: var(--color-accent); border-radius: 50%; animation: spin 0.6s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---- Empty State ---- */
+.archron-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 3rem 1.5rem; text-align: center; }
+.archron-empty-icon { width: 4rem; height: 4rem; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: color-mix(in srgb, var(--color-accent) 8%, transparent); color: var(--color-accent); margin-bottom: 1rem; opacity: 0.6; font-size: 1.5rem; }
+.archron-empty-title { font-family: var(--font-heading); font-size: 1rem; font-weight: 600; color: var(--color-text-heading); margin-bottom: 0.375rem; }
+.archron-empty-desc { font-size: 0.8125rem; color: var(--color-text-secondary); max-width: 20rem; line-height: 1.5; }
+
+/* ---- Swatch ---- */
+.swatch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.75rem; }
+.swatch { border-radius: 8px; overflow: hidden; border: 1px solid var(--color-border); }
+.swatch-color { height: 48px; }
+.swatch-label { padding: 0.375rem 0.5rem; font-size: 0.7rem; background: var(--color-bg-card); }
+.swatch-label strong { display: block; font-family: var(--font-ui); color: var(--color-text-heading); }
+.swatch-label span { color: var(--color-text-secondary); }
+
+/* ---- Divider ---- */
+.demo-divider { border: 0; border-top: 1px solid var(--color-border); margin: 2.5rem 0; }
+
+/* ---- Glow Cards (Special) ---- */
+.glass-card {
+  background: color-mix(in srgb, var(--color-bg-card) 60%, transparent);
+  backdrop-filter: blur(16px);
+  border: 1px solid color-mix(in srgb, var(--color-accent) 15%, transparent);
+  border-radius: 0.85rem; padding: 1.25rem;
+}
+</style>
+</head>
+<body>
+
+<div class="demo-header page">
+  <h1>ARCHRON</h1>
+  <p>SEP-inspired color system preview · Cardinal red accent · Warm academic palette</p>
+</div>
+
+<div class="page">
+
+<!-- Token Legend -->
+<div class="section">
+  <div class="section-title">Color Tokens</div>
+  <div class="swatch-grid">
+    <div class="swatch"><div class="swatch-color" style="background:#F9F5F3"></div><div class="swatch-label"><strong>bg</strong><span>#F9F5F3</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#FFFFFF;border-bottom:1px solid var(--color-border)"></div><div class="swatch-label"><strong>bg-card</strong><span>#FFFFFF</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#EDEBE9"></div><div class="swatch-label"><strong>bg-elevated</strong><span>#EDEBE9</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#D7D5D3"></div><div class="swatch-label"><strong>border</strong><span>#D7D5D3</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#1A1815"></div><div class="swatch-label"><strong>text-heading</strong><span>#1A1815</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#3A3835"></div><div class="swatch-label"><strong>text-body</strong><span>#3A3835</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#65625C"></div><div class="swatch-label"><strong>text-secondary</strong><span>#65625C</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#8C1515"></div><div class="swatch-label"><strong>accent</strong><span>#8C1515</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#6B1010"></div><div class="swatch-label"><strong>accent-hover</strong><span>#6B1010</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#F0E4E4"></div><div class="swatch-label"><strong>accent-subtle</strong><span>#F0E4E4</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#B89A63"></div><div class="swatch-label"><strong>premium</strong><span>#B89A63</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#7BA3D4"></div><div class="swatch-label"><strong>concept</strong><span>#7BA3D4</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#7AB57A"></div><div class="swatch-label"><strong>thinker</strong><span>#7AB57A</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#C48A9A"></div><div class="swatch-label"><strong>article</strong><span>#C48A9A</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#D4A96A"></div><div class="swatch-label"><strong>book</strong><span>#D4A96A</span></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#7AACAC"></div><div class="swatch-label"><strong>school</strong><span>#7AACAC</span></div></div>
+  </div>
+</div>
+
+<hr class="demo-divider">
+
+<!-- Typography -->
+<div class="section">
+  <div class="section-title">Typography</div>
+  <h1 style="font-size:2.8rem">หัวข้อหลัก — Heading 1 — มนุษย์กับจิตใจ</h1>
+  <h2>หัวข้อรอง Heading 2 — อิทธิพลของจิตไร้สำนึก</h2>
+  <h3>หัวข้อสาม Heading 3 — แนวคิดเชิงวิเคราะห์</h3>
+  <p style="margin-top:1rem;max-width:65ch">เนื้อหาบทความแบบ body text — นี่คือข้อความตัวอย่างที่แสดงถึงการใช้สีหลักของเนื้อหาในบทความต่าง ๆ ของคลังความรู้ อ่านง่าย สบายตา ด้วยฟอนต์ IBM Plex Sans Thai และ Inter ผสมผสานกับความเป็นวิชาการของ SEP Cardinal red accent</p>
+  <p style="color:var(--color-text-secondary);font-size:0.85rem;margin-top:0.5rem">ข้อความรอง — secondary text สำหรับ metadata คำอธิบายสั้น หรือเชิงอรรถ</p>
+</div>
+
+<hr class="demo-divider">
+
+<!-- Cards -->
+<div class="section">
+  <div class="section-title">Cards</div>
+  <div class="grid-3">
+    <div class="archron-card card-accent">
+      <div class="card-title">บทความ: จิตไร้สำนึก</div>
+      <div class="card-meta">หมวด: จิตวิทยา · 15 นาที</div>
+      <div class="card-desc">สำรวจแนวคิดจิตไร้สำนึกของฟรอยด์และจุง ผ่านมุมมองเชิงวิเคราะห์</div>
+    </div>
+    <div class="archron-card card-concept">
+      <div class="card-title">แนวคิด: เงาน (Shadow)</div>
+      <div class="card-meta">Carl Gustav Jung · Analytical Psychology</div>
+      <div class="card-desc">ด้านมืดของจิตใจที่เราปฏิเสธ — แก่นแท้ของการเข้าใจตนเอง</div>
+    </div>
+    <div class="archron-card card-premium">
+      <div class="card-title"><span style="color:var(--color-premium)">✦</span> คู่มือแนะนำ</div>
+      <div class="card-meta">fe · premium content</div>
+      <div class="card-desc">เริ่มต้นเข้าใจจิตใจมนุษย์ผ่านเส้นทางการอ่านที่ออกแบบไว้</div>
+    </div>
+  </div>
+</div>
+
+<hr class="demo-divider">
+
+<!-- Buttons -->
+<div class="section">
+  <div class="section-title">Buttons</div>
+  <div class="flex flex-col" style="gap:0.75rem">
+    <div class="flex">
+      <button class="archron-btn btn-primary">อ่านต่อ</button>
+      <button class="archron-btn btn-secondary">ดูเพิ่มเติม</button>
+      <button class="archron-btn btn-tertiary">เรียนรู้</button>
+      <button class="archron-btn btn-ghost">ยกเลิก</button>
+    </div>
+    <div class="flex">
+      <button class="archron-btn btn-primary btn-sm">เล็ก</button>
+      <button class="archron-btn btn-primary">ปกติ</button>
+      <button class="archron-btn btn-primary btn-lg">ใหญ่</button>
+      <button class="archron-btn btn-success btn-sm">บันทึก</button>
+      <span class="fab">✓</span>
+    </div>
+  </div>
+</div>
+
+<hr class="demo-divider">
+
+<!-- Badges & Tags -->
+<div class="section">
+  <div class="section-title">Badges &amp; Tags</div>
+  <div class="flex">
+    <span class="archron-badge">1</span>
+    <span class="archron-badge badge-success">published</span>
+    <span class="archron-badge badge-warning">review</span>
+    <span class="archron-badge badge-concept">concept</span>
+    <span class="archron-badge badge-school">school</span>
+    <span class="archron-badge badge-book">book</span>
+    <span class="archron-badge badge-premium">featured</span>
+    <span class="archron-badge badge-outline">outline</span>
+  </div>
+  <div class="flex" style="margin-top:0.75rem">
+    <span class="category-badge" style="background:color-mix(in srgb, var(--color-concept) 15%, transparent);color:var(--color-concept);border:1px solid color-mix(in srgb, var(--color-concept) 30%, transparent)">แนวคิด</span>
+    <span class="category-badge" style="background:color-mix(in srgb, var(--color-thinker) 15%, transparent);color:var(--color-thinker);border:1px solid color-mix(in srgb, var(--color-thinker) 30%, transparent)">นักปราชญ์</span>
+    <span class="category-badge" style="background:color-mix(in srgb, var(--color-book) 15%, transparent);color:var(--color-book);border:1px solid color-mix(in srgb, var(--color-book) 30%, transparent)">หนังสือ</span>
+    <span class="category-badge" style="background:color-mix(in srgb, var(--color-school) 15%, transparent);color:var(--color-school);border:1px solid color-mix(in srgb, var(--color-school) 30%, transparent)">สำนักคิด</span>
+    <span class="category-badge" style="background:color-mix(in srgb, var(--color-article) 15%, transparent);color:var(--color-article);border:1px solid color-mix(in srgb, var(--color-article) 30%, transparent)">บทความ</span>
+  </div>
+  <div class="flex" style="margin-top:0.75rem">
+    <span class="chip">จิตวิทยา</span>
+    <span class="chip">ปรัชญา</span>
+    <span class="chip">มานุษยวิทยา</span>
+    <span class="chip">ประวัติศาสตร์</span>
+  </div>
+</div>
+
+<hr class="demo-divider">
+
+<!-- Navigation -->
+<div class="section">
+  <div class="section-title">Navigation</div>
+  <div class="glass-nav" style="border-radius:12px;margin-bottom:1rem">
+    <div style="font-family:var(--font-serif);font-weight:700;font-size:1.2rem;color:var(--color-text-heading)">ARCHRON</div>
+    <div class="flex" style="gap:1.25rem">
+      <a class="nav-link active" href="#">คลังความรู้</a>
+      <a class="nav-link" href="#">สำรวจ</a>
+      <a class="nav-link" href="#">ค้นหา</a>
+      <a class="nav-link" href="#">สนับสนุน</a>
+    </div>
+  </div>
+  <div style="margin-bottom:0.75rem">
+    <div class="archron-breadcrumb">
+      <a href="#">หน้าแรก</a>
+      <span class="breadcrumb-sep">/</span>
+      <a href="#">บทความ</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="archron-breadcrumb-current">จิตไร้สำนึก</span>
+    </div>
+  </div>
+  <div class="archron-tabs">
+    <button class="archron-tab active">ทั้งหมด</button>
+    <button class="archron-tab">แนวคิด</button>
+    <button class="archron-tab">นักปราชญ์</button>
+    <button class="archron-tab">หนังสือ</button>
+  </div>
+  <div class="archron-pill-nav" style="margin-top:0.75rem">
+    <button class="archron-pill active">ยอดนิยม</button>
+    <button class="archron-pill">ล่าสุด</button>
+    <button class="archron-pill">แนะนำ</button>
+  </div>
+</div>
+
+<hr class="demo-divider">
+
+<!-- Inputs -->
+<div class="section">
+  <div class="section-title">Form Elements</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
+    <div>
+      <label class="archron-label">ค้นหาความรู้</label>
+      <input class="archron-input" type="text" placeholder="ค้นหาทุกสิ่ง..." style="margin-bottom:0.75rem">
+      <label class="archron-label">อีเมล</label>
+      <input class="archron-input" type="email" placeholder="your@email.com">
+    </div>
+    <div>
+      <div class="archron-alert alert-info">
+        <span class="alert-icon" style="flex-shrink:0">i</span>
+        <div>บทความนี้มีเนื้อหาเชิงวิชาการ ควรอ่านอย่างมีวิจารณญาณ</div>
+      </div>
+      <div class="archron-alert alert-success" style="margin-top:0.5rem">
+        <span style="flex-shrink:0">✓</span>
+        <div>เผยแพร่แล้ว — แก้ไขล่าสุด 12 ก.ค. 2026</div>
+      </div>
+      <div class="archron-alert alert-warning" style="margin-top:0.5rem">
+        <span style="flex-shrink:0">!</span>
+        <div>ต้องการตรวจสอบแหล่งอ้างอิงเพิ่มเติม</div>
+      </div>
+      <div class="archron-alert alert-error" style="margin-top:0.5rem">
+        <span style="flex-shrink:0">✕</span>
+        <div>เกิดข้อผิดพลาดในการโหลดข้อมูล กรุณาลองใหม่</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="demo-divider">
+
+<!-- Progress & Loading -->
+<div class="section">
+  <div class="section-title">Progress &amp; Loading</div>
+  <div class="flex flex-col" style="gap:0.75rem">
+    <div class="archron-progress"><div class="archron-progress-bar"></div></div>
+    <div class="flex"><div class="archron-spinner"></div><span style="font-size:0.85rem;color:var(--color-text-secondary)">กำลังโหลด...</span></div>
+  </div>
+</div>
+
+<hr class="demo-divider">
+
+<!-- Empty State -->
+<div class="section">
+  <div class="section-title">Empty State</div>
+  <div class="archron-empty" style="border:1px solid var(--color-border);border-radius:12px">
+    <div class="archron-empty-icon">○</div>
+    <div class="archron-empty-title">ยังไม่มีเนื้อหา</div>
+    <div class="archron-empty-desc">ไม่มีบทความในหมวดนี้ขณะนี้ ลองค้นหาหมวดอื่นดู</div>
+    <button class="archron-btn btn-secondary" style="margin-top:0.75rem">สำรวจทั้งหมด</button>
+  </div>
+</div>
+
+<hr class="demo-divider">
+
+<!-- Reading Content -->
+<div class="section">
+  <div class="section-title">Reading Content (Article Body)</div>
+  <div class="reading-column" style="border:1px solid var(--color-border);border-radius:12px;margin-top:1rem">
+    <h2>จิตไร้สำนึก: อาณาจักรที่ซ่อนอยู่</h2>
+    <p>แนวคิดเรื่อง <a href="#">จิตไร้สำนึก (Unconscious)</a> เป็นหนึ่งในรากฐานสำคัญของจิตวิทยาเชิงลึก ซิกมุนด์ ฟรอยด์เปรียบจิตใจมนุษย์เหมือน<strong>ภูเขาน้ำแข็ง</strong> — ส่วนที่อยู่เหนือน้ำคือจิตสำนึก ในขณะที่ส่วนใหญ่ซ่อนอยู่ใต้ผิวน้ำ นั่นคือจิตไร้สำนึก</p>
+    <blockquote>จิตไร้สำนึกไม่ใช่แค่ที่เก็บความทรงจำที่ถูกกดทับ แต่มันคือดินแดนแห่งศักยภาพที่ไร้ขอบเขต — Carl Gustav Jung</blockquote>
+    <p>คาร์ล กุสตาฟ จุง ขยายแนวคิดนี้ออกไปอีกชั้นด้วย <strong>จิตไร้สำนึกร่วม (Collective Unconscious)</strong> ซึ่งเป็นโครงสร้างจิตใจที่ทุกมนุษย์มีร่วมกันผ่าน <a href="#">ต้นแบบ (Archetypes)</a> เช่น เงา (Shadow), บุคคล (Persona), และตนเอง (Self)</p>
+    <h3>ต้นแบบสำคัญ</h3>
+    <ul>
+      <li><strong>เงา (Shadow)</strong> — ด้านมืดที่เราปฏิเสธ แต่มันคือกุญแจสู่การเข้าใจตนเอง</li>
+      <li><strong>บุคลิก (Persona)</strong> — หน้ากากที่เราแสดงต่อสังคม</li>
+      <li><strong>ตนเอง (Self)</strong> — จุดศูนย์กลางของจิตใจทั้งหมด เป้าหมายของปัจเจกภาพ</li>
+    </ul>
+    <hr>
+    <p style="color:var(--color-text-secondary);font-size:0.85rem">เนื้อหานี้เป็นส่วนหนึ่งของชุดความรู้ "จิตวิทยาเชิงลึก"</p>
+    <div class="footnotes">
+      <p>[1] Freud, S. (1915). The Unconscious. <em>Standard Edition</em>, 14, 159-215.</p>
+      <p>[2] Jung, C.G. (1959). <em>The Archetypes and the Collective Unconscious</em>. Princeton University Press.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="demo-divider">
+
+<!-- Glass / Special Effects -->
+<div class="section">
+  <div class="section-title">Special: Glass Card</div>
+  <div class="glass-card" style="max-width:400px">
+    <div style="font-family:var(--font-heading);font-weight:600;font-size:1.1rem;color:var(--color-text-heading)">ARCHRON</div>
+    <p style="font-size:0.85rem;color:var(--color-text-secondary);margin-top:0.25rem">He who looks outside dreams; he who looks inside awakens.</p>
+  </div>
+</div>
+
+</div><!-- /page -->
+</body>
+</html>

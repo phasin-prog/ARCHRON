@@ -31,7 +31,7 @@ const SearchBar = memo(function SearchBar({
         className="w-full bg-transparent text-lg font-ui text-text-heading placeholder:text-text-secondary/50 focus-visible:outline-none"
       />
       {query ? (
-        <div className="animate-in fade-in zoom-in-90 duration-200 animate-out fade-out zoom-out-90 duration-200">
+        <div className="animate-in fade-in zoom-in-90 duration-200">
           <button
             type="button"
             onClick={clear}

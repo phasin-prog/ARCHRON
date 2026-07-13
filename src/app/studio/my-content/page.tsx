@@ -79,10 +79,10 @@ export default function StudioMyContentPage() {
   const statusAccent = (s: string) => {
     const map: Record<string, string> = {
       draft: "var(--color-text-secondary)",
-      "needs-source-check": "#B8860B",
-      "ready-to-publish": "#5F8DCE",
-      published: "#2E7D32",
-      archived: "#8A8780",
+      "needs-source-check": "var(--color-amber-dark)",
+      "ready-to-publish": "var(--color-blue-slate)",
+      published: "var(--color-green-forest)",
+      archived: "var(--color-warm-gray)",
     };
     return map[s] ?? "var(--color-text-secondary)";
   };
@@ -138,11 +138,13 @@ export default function StudioMyContentPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="ค้นหาชื่อเรื่อง..."
+            aria-label="ค้นหาชื่อเรื่อง"
             className="min-w-[200px] flex-1 rounded-lg border border-border/40 bg-bg/60 px-3 py-2 text-sm text-text-heading outline-none focus:border-accent/50"
           />
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
+            aria-label="กรองตามประเภท"
             className="rounded-lg border border-border/40 bg-bg/60 px-3 py-2 text-xs text-text-heading outline-none focus:border-accent/50"
           >
             <option value="all">ทุกประเภท</option>
@@ -153,6 +155,7 @@ export default function StudioMyContentPage() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
+            aria-label="กรองตามสถานะ"
             className="rounded-lg border border-border/40 bg-bg/60 px-3 py-2 text-xs text-text-heading outline-none focus:border-accent/50"
           >
             <option value="all">ทุกสถานะ</option>

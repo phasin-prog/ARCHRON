@@ -154,6 +154,7 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
           <input
             type="text"
             placeholder="ค้นหาบทความ แนวคิด นักคิด สำนักคิด..."
+            aria-label="ค้นหา"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="w-full rounded-lg border border-border bg-bg-card py-3 pl-10 pr-4 text-sm text-text-heading placeholder-muted transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"

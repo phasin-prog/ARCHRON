@@ -345,6 +345,7 @@ export default function StudioEditorPage() {
               <select
                 value={typeFilter}
                 onChange={(e) => setTypeFilter(e.target.value)}
+                aria-label="กรองตามประเภท"
                 className="rounded-lg border border-border/40 bg-bg/60 px-3 py-1.5 text-xs text-text-heading outline-none focus:border-accent/50"
               >
                 <option value="all">ทุกประเภท</option>

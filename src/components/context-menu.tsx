@@ -52,12 +52,12 @@ export function ContextMenu({
     openAt(e.clientX, e.clientY);
   };
 
-  const clearPress = () => {
+  const clearPress = useCallback(() => {
     if (pressTimer.current !== null) {
       window.clearTimeout(pressTimer.current);
       pressTimer.current = null;
     }
-  };
+  }, []);
 
   const onTouchStart = (e: TouchEvent) => {
     const t = e.touches[0];
@@ -99,6 +99,12 @@ export function ContextMenu({
   }, [open, close]);
 
   // clamp ตำแหน่งไม่ให้ล้นจอ + โฟกัสรายการแรก (ทำใน rAF เลี่ยง setState ใน effect body)
+  useEffect(() => {
+    return () => {
+      clearPress();
+    };
+  }, [clearPress]);
+
   useEffect(() => {
     if (!open) return;
     const raf = requestAnimationFrame(() => {

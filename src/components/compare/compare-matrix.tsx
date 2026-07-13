@@ -57,10 +57,11 @@ export function CompareMatrix({ entries }: { entries: ContentEntry[] }) {
 
         {/* ตัวเลือกเปลี่ยนหัวข้อ */}
         <div className="border-b border-text-heading/10 pb-4">
-          <label className="block text-sm font-medium text-text-secondary/80 mb-2">
+          <label htmlFor={`compare-select-${currentSlug}`} className="block text-sm font-medium text-text-secondary/80 mb-2">
             {sideLabel}
           </label>
           <select
+            id={`compare-select-${currentSlug}`}
             value={currentSlug}
             onChange={(e) => onSelect?.(e.target.value)}
             className="w-full rounded-md border border-text-heading/20 bg-bg-card px-3 py-2 text-sm text-text-heading outline-none focus:border-accent"

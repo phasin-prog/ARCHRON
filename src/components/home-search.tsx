@@ -5,11 +5,6 @@ import { useRouter } from "next/navigation";
 import { SearchIcon } from "@/components/icons";
 import { buildStaticIndex } from "@/features/search/index";
 import { search } from "@/features/search/services";
-import {
-  SEARCH_TYPE_LABEL,
-  SEARCH_TYPE_ORDER,
-  type SearchType,
-} from "@/features/search/types";
 
 const INDEX = buildStaticIndex();
 const MAX_SUGGESTIONS = 8;

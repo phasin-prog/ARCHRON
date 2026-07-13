@@ -9,6 +9,10 @@ export function CardTilt({ children, className = "" }: { children: ReactNode; cl
     const el = ref.current;
     if (!el) return;
 
+    const enter = () => {
+      el.style.willChange = "transform";
+    };
+
     const move = (e: MouseEvent) => {
       const rect = el.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -22,11 +26,14 @@ export function CardTilt({ children, className = "" }: { children: ReactNode; cl
 
     const leave = () => {
       el.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0) scale(1)";
+      el.style.willChange = "auto";
     };
 
+    el.addEventListener("mouseenter", enter);
     el.addEventListener("mousemove", move);
     el.addEventListener("mouseleave", leave);
     return () => {
+      el.removeEventListener("mouseenter", enter);
       el.removeEventListener("mousemove", move);
       el.removeEventListener("mouseleave", leave);
     };
@@ -36,7 +43,7 @@ export function CardTilt({ children, className = "" }: { children: ReactNode; cl
     <div
       ref={ref}
       className={`archron-card ${className}`}
-      style={{ transformStyle: "preserve-3d", perspective: "1000px", willChange: "transform, box-shadow" }}
+      style={{ transformStyle: "preserve-3d", perspective: "1000px" }}
     >
       {children}
     </div>

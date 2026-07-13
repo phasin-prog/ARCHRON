@@ -208,9 +208,9 @@ function ReadingTab({
         <div className="mt-5">
           <div className="h-2.5 w-full overflow-hidden rounded-full bg-bg-card">
             <div
-              className="h-full rounded-full transition-[width] duration-700"
+              className="h-full rounded-full origin-left transition-transform duration-700"
               style={{
-                width: `${lp.pct}%`,
+                transform: `scaleX(${lp.pct / 100})`,
                 backgroundImage:
                   "linear-gradient(90deg, color-mix(in srgb, var(--accent) 55%, transparent), var(--accent))",
               }}

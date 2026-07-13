@@ -45,8 +45,8 @@ export function ReadingProgress({ targetId = "reading-article" }: { targetId?: s
       aria-valuemax={100}
     >
       <div
-        className="h-full origin-left bg-accent transition-[width] duration-150 ease-out motion-reduce:transition-none"
-        style={{ width: `${pct}%`, boxShadow: "0 0 10px var(--accent)" }}
+        className="h-full origin-left bg-accent transition-transform duration-150 ease-out motion-reduce:transition-none"
+        style={{ transform: `scaleX(${pct / 100})` }}
       />
     </div>
   );

@@ -124,7 +124,8 @@
   height: 100%;
   background: linear-gradient(90deg, var(--color-accent), var(--color-accent));
   border-radius: 3px;
-  transition: width 0.3s ease;
+  transition: transform 0.3s ease;
+  transform-origin: left;
 }
 
 .archron-progress-indeterminate .archron-progress-bar {
@@ -171,7 +172,7 @@
   height: 6px;
   background: var(--color-accent);
   border-radius: 50%;
-  animation: dots-bounce 1.2s ease-in-out infinite;
+  animation: dots-bounce 1.2s ease-out infinite;
 }
 
 .archron-dots span:nth-child(2) {

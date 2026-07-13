@@ -3,12 +3,14 @@
 import type { AcademicSeal } from "@/lib/content/seals";
 import { SealIcon } from "./seal-icon";
 import { Modal } from "@/components/modal";
+import { colors } from "@/lib/content/colors";
 
 interface SealDetailModalProps {
   seal: AcademicSeal | null;
   earnedAt?: Date;
   onClose: () => void;
 }
+
 
 const LEVEL_LABELS: Record<number, string> = {
   1: "Seeker",
@@ -21,10 +23,10 @@ const LEVEL_LABELS: Record<number, string> = {
 };
 
 function getLevelColorName(color: string): string {
-  if (color === "#465264") return "Slate";
-  if (color === "#8C3030") return "Cardinal";
-  if (color === "#C7D0DB") return "Silver";
-  if (color === "#B89A63") return "Gold";
+  if (color === colors.slateDark) return "Slate";
+  if (color === colors.cardinalAcademic) return "Cardinal";
+  if (color === colors.silverLight) return "Silver";
+  if (color === colors.premium) return "Gold";
   return "";
 }
 

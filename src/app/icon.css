@@ -43,7 +43,7 @@
 .archron-icon-box:hover {
   border-color: var(--color-accent);
   background-color: var(--color-bg-elevated);
-  box-shadow: 0 2px 12px rgba(37, 35, 31, 0.06);
+  box-shadow: 0 2px 12px color-mix(in srgb, var(--color-shadow) 6%, transparent);
 }
 
 .archron-icon-box:active {

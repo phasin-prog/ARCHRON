@@ -272,7 +272,7 @@ export function EditorForm({
           {draft.coverImage && (
             <div className="mt-4">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={draft.coverImage} alt={draft.title || "ภาพปก"} className="h-48 w-full rounded-md object-cover" />
+              <img src={draft.coverImage} alt={draft.title || "ภาพปก"} loading="lazy" decoding="async" className="h-48 w-full rounded-md object-cover" />
             </div>
           )}
           {draft.visualExplanation && <p className="mt-4 whitespace-pre-line text-text-body">{draft.visualExplanation}</p>}

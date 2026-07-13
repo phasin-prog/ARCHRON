@@ -107,7 +107,7 @@ export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
             className="w-full bg-transparent text-sm text-text-heading outline-none focus-visible:ring-2 focus-visible:ring-accent/30 placeholder:text-text-secondary/50"
           />
           {query ? (
-            <button type="button" onClick={() => setQuery("")} className="text-text-secondary hover:text-accent">
+            <button type="button" onClick={() => setQuery("")} aria-label="ล้างคำค้น" className="text-text-secondary hover:text-accent">
               <CloseIcon className="h-4.5 w-4.5" />
             </button>
           ) : null}

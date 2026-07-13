@@ -109,7 +109,7 @@ function SectionH3({
   className?: string;
 }) {
   return (
-    <h3 className={`flex items-center gap-3 font-serif text-fluid-h3 text-text-heading ${className}`}>
+    <h2 className={`flex items-center gap-3 font-serif text-fluid-h3 text-text-heading ${className}`}>
       <span
         className="flex h-9 w-9 flex-none items-center justify-center rounded-lg border"
         style={{
@@ -121,7 +121,7 @@ function SectionH3({
         <Icon className="h-5 w-5" />
       </span>
       <span>{children}</span>
-    </h3>
+    </h2>
   );
 }
 
@@ -286,7 +286,7 @@ export async function ReadingPage({
         {/* Header Zone */}
         <header className="scroll-reveal stagger-1 mt-7">
           {/* ชื่อภาษาอังกฤษ (Header 1) */}
-          <h1 className="font-serif text-fluid-h2 font-semibold text-text-heading">
+          <h1 className="font-serif text-fluid-h2 font-semibold text-text-heading break-words">
             {entry.mainTerm ?? entry.title}
           </h1>
 

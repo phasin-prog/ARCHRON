@@ -18,11 +18,16 @@ import {
   EditIcon,
   LogoutIcon,
   PersonIcon,
+  ArrowRightIcon,
   HistoryIcon,
   SchoolIcon,
-  SynthesisIcon,
   GridIcon,
   ChevronDownIcon,
+  BookIcon,
+  ConceptIcon,
+  PathIcon,
+  RootIcon,
+  SynthesisIcon,
 } from "@/components/icons";
 import { SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
 
@@ -38,6 +43,16 @@ const NAV: NavItem[] = [
   { label: "สำนักคิด", href: "/schools", Icon: SchoolIcon, tier: "standard" },
   { label: "แหล่งอ้างอิง", href: "/sources", Icon: QuoteIcon, tier: "standard" },
   { label: "คำถามที่พบบ่อย", href: "/faq", Icon: HelpIcon, tier: "standard" },
+];
+
+const KNOWLEDGE_SUB = [
+  { label: "อ่านงานเขียน", href: "/articles", desc: "บทความอธิบายแนวคิดสำคัญ", Icon: BookIcon },
+  { label: "คลังแนวคิด", href: "/concepts", desc: "ระบบความรู้แบบเชื่อมโยง", Icon: ConceptIcon },
+  { label: "สำนักคิดและนักปราชญ์", href: "/schools", desc: "ประวัติและคุณูปการ", Icon: SchoolIcon },
+  { label: "แผนที่ความสัมพันธ์", href: "/constellation", desc: "โครงข่ายความรู้", Icon: SynthesisIcon },
+  { label: "เส้นทางการอ่าน", href: "/reading-sets", desc: "ลำดับจากพื้นสู่ลึก", Icon: PathIcon },
+  { label: "แก่นเรื่อง", href: "/themes", desc: "ความคิดข้ามศาสตร์", Icon: RootIcon },
+  { label: "ศาสตร์ที่เราศึกษา", href: "/disciplines", desc: "สิบสองแขนง", Icon: GridIcon },
 ];
 
 // สีลิงก์เดสก์ท็อปตาม tier (ไม่มีไอคอนบนเดสก์ท็อป — ลดความแน่น)
@@ -156,7 +171,7 @@ export function SiteHeader() {
               <Link
                 href="/search"
                 aria-label="ค้นหา"
-                className="flex h-10 w-10 items-center justify-center rounded-full text-text-secondary transition-colors hover:text-accent"
+                className="flex h-11 w-11 items-center justify-center rounded-full text-text-secondary transition-colors hover:text-accent"
               >
                 <SearchIcon className="h-[20px] w-[20px]" />
               </Link>
@@ -164,7 +179,7 @@ export function SiteHeader() {
                 <Link
                   href="/profile"
                   aria-label="โปรไฟล์ของฉัน"
-                  className="flex h-10 w-10 items-center justify-center rounded-full text-text-secondary transition-colors hover:text-accent"
+                  className="flex h-11 w-11 items-center justify-center rounded-full text-text-secondary transition-colors hover:text-accent"
                 >
                   <PersonIcon className="h-[20px] w-[20px]" />
                 </Link>
@@ -229,7 +244,51 @@ export function SiteHeader() {
           <div className="h-px bg-accent/10" />
           {/* Row 2: Nav pills */}
           <nav className="flex justify-center gap-1.5 py-3" aria-label="เมนูหลัก">
-            {NAV.map((item) => (
+            {/* คลังความรู้ — dropdown */}
+            <div className="group relative">
+              <Link
+                href="/knowledge"
+                className={`${pillClass("/knowledge")} inline-flex items-center gap-1`}
+                data-nav-label="คลังความรู้"
+              >
+                คลังความรู้
+                <ChevronDownIcon className="h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180" />
+              </Link>
+              <div className="pointer-events-none absolute left-1/2 top-[calc(100%+6px)] z-50 w-[420px] -translate-x-1/2 rounded-xl border border-accent/15 bg-bg p-2 opacity-0 shadow-[0_24px_56px_-28px_rgba(0,0,0,0.6)] transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 focus-within:pointer-events-auto focus-within:opacity-100">
+                <div className="grid grid-cols-2 gap-0.5">
+                  {KNOWLEDGE_SUB.map((sub) => {
+                    const subActive = pathname === sub.href || pathname?.startsWith(sub.href + "/");
+                    return (
+                      <Link
+                        key={sub.href}
+                        href={sub.href}
+                        className={`flex items-start gap-3 rounded-lg px-3 py-2.5 transition-colors ${
+                          subActive
+                            ? "bg-accent/8 text-accent"
+                            : "text-text-body hover:bg-text-heading/5 hover:text-text-heading"
+                        }`}
+                      >
+                        <sub.Icon className={`mt-0.5 h-[18px] w-[18px] shrink-0 ${subActive ? "text-accent" : "text-accent/70"}`} />
+                        <div>
+                          <div className="text-sm font-medium">{sub.label}</div>
+                          <div className="text-xs text-text-secondary/70">{sub.desc}</div>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+                <div className="mx-2 my-1 h-px bg-border/30" />
+                <Link
+                  href="/knowledge"
+                  className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-accent transition-colors hover:bg-accent/8"
+                >
+                  ดูคลังความรู้ทั้งหมด
+                  <ArrowRightIcon className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            </div>
+            {/* ปุ่มที่เหลือ */}
+            {NAV.filter((item) => item.href !== "/knowledge").map((item) => (
               <Link key={item.href} href={item.href} className={pillClass(item.href)} data-nav-label={item.label}>
                 {item.label}
               </Link>
@@ -283,7 +342,7 @@ export function SiteHeader() {
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-text-heading/5 text-text-heading transition-colors hover:bg-text-heading/10"
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-text-heading/5 text-text-heading transition-colors hover:bg-text-heading/10"
               aria-label="ปิดเมนู"
             >
               <CloseIcon className="h-6 w-6" />

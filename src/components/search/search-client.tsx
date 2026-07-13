@@ -157,7 +157,7 @@ const SearchResults = memo(function SearchResults({
                       </>
                     );
                     const cls =
-                      "group block rounded-lg border border-border/50 bg-bg-card/60 px-5 py-4 transition-all duration-200 hover:border-accent/20 hover:shadow-sm hover:-translate-y-0.5 hover:border-l-2 hover:border-l-accent/40";
+                      "group block rounded-lg border border-border/50 bg-bg-card/60 px-5 py-4 transition-all duration-200 hover:border-accent/20 hover:shadow-sm hover:-translate-y-0.5 hover:bg-accent/[0.03]";
                     return (
                       <div key={it.id}>
                         {it.external ? (

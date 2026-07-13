@@ -134,8 +134,8 @@ export function ConstellationMindmap({
       {/* Map */}
       <div
         key={focus}
-        className="mm-fade relative mx-auto mt-6 h-[520px] max-w-[900px] sm:h-[620px]"
-        style={{ touchAction: "pan-x pan-y" }}
+        className="mm-fade relative mx-auto mt-6 max-w-[900px] sm:h-[620px]"
+        style={{ height: "min(520px, 75vh)", touchAction: "pan-x pan-y" }}
       >
         <svg
           viewBox="0 0 100 100"

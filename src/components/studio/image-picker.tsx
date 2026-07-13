@@ -89,6 +89,8 @@ export function ImagePicker({ value, onChange, onRemove, entryId, className = ""
           <img
             src={value}
             alt="ภาพปก"
+            loading="lazy"
+            decoding="async"
             className="h-48 w-full object-cover"
           />
           <div className="absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-black/70 to-transparent px-4 py-3">

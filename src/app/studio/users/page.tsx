@@ -155,6 +155,7 @@ export default function StudioUsersPage() {
                       <select
                         value={u.role}
                         onChange={(e) => changeRole(u.id, e.target.value as Role)}
+                        aria-label="เปลี่ยนบทบาท"
                         className="rounded-md border border-text-heading/15 bg-text-heading/50 px-2 py-1.5 text-sm text-text-heading outline-none focus:border-accent/50"
                       >
                         {ROLES.map((r) => (

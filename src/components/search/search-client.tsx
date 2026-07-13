@@ -100,44 +100,47 @@ const SearchResults = memo(function SearchResults({
         <p className="text-sm text-text-secondary/60">ไม่พบผลลัพธ์สำหรับ &ldquo;{debouncedQuery.trim()}&rdquo;</p>
       ) : (
         <>
-          <p className="mb-5 text-xs text-text-secondary/50">พบ {result.total} รายการ</p>
+          <p className="mb-6 text-xs text-text-secondary/50">พบ {result.total} รายการ</p>
           <div className="space-y-9">
             {result.groups.map((g) => (
               <section key={g.type}>
-                <h2 className="mb-3 text-xs font-semibold tracking-[0.05em] text-accent/70">
-                  {g.label} · {g.items.length}
-                </h2>
-                <ul className="divide-y divide-ink/5 overflow-hidden rounded-md border border-text-heading/10">
+                <div className="mb-4 flex items-center gap-3">
+                  <h2 className="text-xs font-semibold tracking-[0.05em] text-accent/70 whitespace-nowrap">
+                    {g.label} · {g.items.length}
+                  </h2>
+                  <span className="h-px flex-1 bg-accent/10" />
+                </div>
+                <div className="space-y-3">
                   {g.items.map(({ item: it }) => {
                     const inner = (
                       <>
                         <div className="flex items-center gap-2">
-                          <span className="font-serif text-base text-text-heading group-hover:text-accent">
+                          <span className="font-heading text-[1.05rem] text-text-heading group-hover:text-accent">
                             {it.thaiTitle || it.title}
                           </span>
                           {it.thaiTitle && it.thaiTitle !== it.title ? (
-                            <span className="text-xs text-text-secondary/45">{it.title}</span>
+                            <span className="ml-2 text-xs text-text-secondary/45">{it.title}</span>
                           ) : null}
                           {it.external ? (
                             <ExternalLinkIcon className="h-[15px] w-[15px] text-text-secondary/55" />
                           ) : null}
                         </div>
                         {it.description ? (
-                          <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-text-secondary/65">
+                          <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-text-body/70">
                             {it.description}
                           </p>
                         ) : null}
                         {it.badge ? (
-                          <span className="mt-2 inline-block text-[11px] text-text-secondary/45">
+                          <span className="mt-2.5 inline-flex text-[11px] px-1.5 py-0.5 rounded-md bg-accent/5 text-accent/70">
                             {it.badge}
                           </span>
                         ) : null}
                       </>
                     );
                     const cls =
-                      "group block bg-bg-card/40 px-4 py-3 transition-colors hover:bg-bg-card";
+                      "group block rounded-lg border border-border/50 bg-bg-card/60 px-5 py-4 transition-all duration-200 hover:border-accent/20 hover:shadow-sm hover:-translate-y-0.5 hover:border-l-2 hover:border-l-accent/40";
                     return (
-                      <li key={it.id}>
+                      <div key={it.id}>
                         {it.external ? (
                           <a href={it.href} target="_blank" rel="noopener noreferrer" className={cls}>
                             {inner}
@@ -147,10 +150,10 @@ const SearchResults = memo(function SearchResults({
                             {inner}
                           </Link>
                         )}
-                      </li>
+                      </div>
                     );
                   })}
-                </ul>
+                </div>
               </section>
             ))}
           </div>

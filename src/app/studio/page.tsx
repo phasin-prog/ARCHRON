@@ -197,6 +197,8 @@ export default function StudioLandingPage() {
                     <img
                       src={user.imageUrl}
                       alt={user.fullName || "รูปภาพโปรไฟล์"}
+                      width="80"
+                      height="80"
                       className="h-20 w-20 rounded-xl border-2 border-accent/30 object-cover shadow-lg transition-transform duration-500 group-hover:scale-[1.03]"
                     />
                     {/* Online indicator */}

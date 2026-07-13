@@ -20,12 +20,13 @@ import { ClerkProvider } from "@clerk/nextjs";
 
 // ── Focus First Typography ──────────────────────────────────────────────
 // สาย Display/Heading: Cormorant Garamond (อ่านง่าย, สงบ, คลาสสิก)
+// display: swap — แสดง fallback ทันทีก่อนสลับเป็นฟอนต์จริง (กัน FOIT, เนื้อหาอ่านได้เสมอ)
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["500", "600", "700"],
   style: ["normal", "italic"],
   variable: "--font-cormorant",
-  display: "optional",
+  display: "swap",
 });
 
 // สาย Body (Sans — อ่านยาวไม่ล้า): Inter (อังกฤษ) → IBM Plex Sans Thai (ไทย, body)
@@ -33,14 +34,14 @@ const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   variable: "--font-inter",
-  display: "optional",
+  display: "swap",
 });
 
 const ibmPlexThai = IBM_Plex_Sans_Thai({
   subsets: ["thai", "latin"],
   weight: ["400", "500", "600"],
   variable: "--font-ibm-plex-thai",
-  display: "optional",
+  display: "swap",
 });
 
 // UI (labels, nav, buttons): Inter + Noto Sans Thai
@@ -48,7 +49,7 @@ const notoSansThai = Noto_Sans_Thai({
   subsets: ["thai", "latin"],
   weight: ["400", "500", "600"],
   variable: "--font-noto-sans-thai",
-  display: "optional",
+  display: "swap",
 });
 
 // Serif Thai fallback — สำหรับ headings ไทย
@@ -56,7 +57,7 @@ const notoSerifThai = Noto_Serif_Thai({
   subsets: ["thai", "latin"],
   weight: ["500", "600", "700"],
   variable: "--font-noto-serif-thai",
-  display: "optional",
+  display: "swap",
 });
 
 export const viewport: Viewport = {

@@ -36,11 +36,13 @@ describe("editorReducer", () => {
       type: "LOAD_DRAFT", draft: { ...EMPTY_DRAFT, title: "X" },
     });
     const reset = editorReducer(modified, { type: "RESET" });
-    expect(reset.mode).toBe("dashboard");
+    expect(reset.mode).toBe("editing");
+    expect(reset.publishTried).toBe(false);
+    expect(reset.feedback).toBe(null);
   });
 
-  it("toggles dashboard", () => {
-    const next = editorReducer(initial, { type: "TOGGLE_DASHBOARD" });
-    expect(next.showDashboard).toBe(false);
+  it("returns same state for unknown action", () => {
+    const next = editorReducer(initial, { type: "UNKNOWN" } as never);
+    expect(next).toEqual(initial);
   });
 });

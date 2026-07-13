@@ -7,12 +7,9 @@ import type { SearchItem } from "@/features/search/types";
 
 type Item = SearchItem;
 
-// Escape regex special chars
 function escapeRegex(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
-
-const INDEX = buildStaticIndex();
 
 export function QuickOpen() {
   const router = useRouter();
@@ -21,12 +18,19 @@ export function QuickOpen() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
+  const [searchIndex, setSearchIndex] = useState<SearchItem[] | null>(null);
 
-  // Cmd+K / Ctrl+K to toggle
+  const ensureIndex = useCallback(() => {
+    if (searchIndex === null) {
+      setSearchIndex(buildStaticIndex());
+    }
+  }, [searchIndex]);
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
+        ensureIndex();
         setOpen((v) => !v);
         setQuery("");
         setSelectedIndex(0);
@@ -37,7 +41,7 @@ export function QuickOpen() {
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [open]);
+  }, [open, ensureIndex]);
 
   // Focus input when opened
   useEffect(() => {
@@ -54,11 +58,12 @@ export function QuickOpen() {
   }, [deferredQuery]);
 
   const matched = useMemo(() => {
+    const INDEX = searchIndex ?? [];
     if (terms.length === 0) return INDEX.slice(0, 8);
     return INDEX
       .filter((it) => terms.every((t) => it.keywords.includes(t)))
       .slice(0, 12);
-  }, [terms]);
+  }, [terms, searchIndex]);
 
   // Reset selection when results change
   useEffect(() => {

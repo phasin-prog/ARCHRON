@@ -89,6 +89,8 @@ export function ImagePicker({ value, onChange, onRemove, entryId, className = ""
           <img
             src={value}
             alt="ภาพปก"
+            width="900"
+            height="300"
             loading="lazy"
             decoding="async"
             className="h-48 w-full object-cover"

@@ -13,6 +13,7 @@ type PopupState = {
 export function ConceptPopup() {
   const ref = useRef<HTMLDivElement>(null);
   const [p, setP] = useState<PopupState>({ tag: "INSIGHT", text: "", x: 0, y: 0, visible: false });
+  const rafId = useRef<number>(0);
 
   useEffect(() => {
     const over = (e: MouseEvent) => {
@@ -22,16 +23,26 @@ export function ConceptPopup() {
       }
     };
 
+    let latestMove: MouseEvent | null = null;
+
     const move = (e: MouseEvent) => {
-      if (!ref.current) return;
-      const el = (e.target as HTMLElement).closest("[data-concept]");
-      if (!el) return;
-      let left = e.clientX + 18;
-      let top = e.clientY + 18;
-      const rect = ref.current.getBoundingClientRect();
-      if (left + rect.width > window.innerWidth - 20) left = e.clientX - rect.width - 18;
-      if (top + rect.height > window.innerHeight - 20) top = e.clientY - rect.height - 18;
-      setP((s) => ({ ...s, x: left, y: top }));
+      latestMove = e;
+      if (rafId.current === 0) {
+        rafId.current = requestAnimationFrame(() => {
+          rafId.current = 0;
+          const ev = latestMove;
+          latestMove = null;
+          if (!ev || !ref.current) return;
+          const el = (ev.target as HTMLElement).closest("[data-concept]");
+          if (!el) return;
+          let left = ev.clientX + 18;
+          let top = ev.clientY + 18;
+          const rect = ref.current.getBoundingClientRect();
+          if (left + rect.width > window.innerWidth - 20) left = ev.clientX - rect.width - 18;
+          if (top + rect.height > window.innerHeight - 20) top = ev.clientY - rect.height - 18;
+          setP((s) => ({ ...s, x: left, y: top }));
+        });
+      }
     };
 
     const out = (e: MouseEvent) => {
@@ -42,9 +53,10 @@ export function ConceptPopup() {
     };
 
     document.addEventListener("mouseover", over);
-    document.addEventListener("mousemove", move);
+    document.addEventListener("mousemove", move, { passive: true });
     document.addEventListener("mouseout", out);
     return () => {
+      cancelAnimationFrame(rafId.current);
       document.removeEventListener("mouseover", over);
       document.removeEventListener("mousemove", move);
       document.removeEventListener("mouseout", out);

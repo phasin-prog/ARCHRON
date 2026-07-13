@@ -21,24 +21,26 @@ const SearchBar = memo(function SearchBar({
   clear: () => void;
 }) {
   return (
-    <div className="flex items-center gap-3 rounded-lg border border-text-heading/12 bg-bg-card/60 px-4 py-3 focus-within:border-accent/40 focus-within:ring-1 focus-within:ring-accent/20 transition-colors">
+    <div className="flex items-center gap-3 rounded-xl border border-border bg-bg-card px-5 py-3.5 shadow-sm transition-all duration-300 focus-within:border-accent/30 focus-within:shadow-md focus-within:ring-1 focus-within:ring-accent/20">
       <SearchIcon className="h-5.5 w-5.5 text-accent" />
       <input
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="ค้นหาแนวคิด บทความ ทรัพยากร หรือหน้า..."
         aria-label="ค้นหา"
-        className="w-full bg-transparent text-base text-text-heading placeholder:text-text-secondary/50 focus-visible:outline-none"
+        className="w-full bg-transparent text-lg font-ui text-text-heading placeholder:text-text-secondary/50 focus-visible:outline-none"
       />
       {query ? (
-        <button
-          type="button"
-          onClick={clear}
-          aria-label="ล้างคำค้น"
-          className="rounded-md p-1 text-text-secondary/60 transition-colors hover:text-text-heading hover:bg-bg-card focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:outline-none"
-        >
-          <CloseIcon className="h-5 w-5" />
-        </button>
+        <div className="animate-in fade-in zoom-in-90 duration-200 animate-out fade-out zoom-out-90 duration-200">
+          <button
+            type="button"
+            onClick={clear}
+            aria-label="ล้างคำค้น"
+            className="rounded-md p-1 text-text-secondary/60 transition-colors hover:text-text-heading hover:bg-bg-card focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:outline-none"
+          >
+            <CloseIcon className="h-5 w-5" />
+          </button>
+        </div>
       ) : null}
     </div>
   );

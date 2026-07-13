@@ -18,3 +18,50 @@
   /* Duration tokens are in globals.css — only unique tokens here */
   --dur-normal: 350ms;
 }
+
+/* AnimatePresence — composable enter/exit animations */
+@keyframes tw-enter {
+  from {
+    opacity: var(--tw-enter-opacity, 1);
+    transform: scale(var(--tw-enter-scale, 1));
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes tw-exit {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: var(--tw-exit-opacity, 1);
+    transform: scale(var(--tw-exit-scale, 1));
+  }
+}
+
+@utility animate-in {
+  animation: tw-enter 200ms ease-out both;
+}
+
+@utility animate-out {
+  animation: tw-exit 200ms ease-out both;
+}
+
+@utility fade-in {
+  --tw-enter-opacity: 0;
+}
+
+@utility fade-out {
+  --tw-exit-opacity: 0;
+}
+
+@utility zoom-in-90 {
+  --tw-enter-scale: 0.9;
+}
+
+@utility zoom-out-90 {
+  --tw-exit-scale: 0.9;
+}

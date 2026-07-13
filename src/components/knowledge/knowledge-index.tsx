@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { useDebounce } from "@/lib/hooks/use-debounce";
 import {
   SearchIcon,
   CloseIcon,
@@ -53,6 +54,7 @@ type Props = {
 export function KnowledgeIndex({ articles, concepts, thinkers }: Props) {
   const [query, setQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState<FilterKey>("all");
+  const debouncedQuery = useDebounce(query, 200);
 
   const filtered = useMemo(() => {
     const all: KnowledgeRow[] = [...articles, ...concepts, ...thinkers];
@@ -63,7 +65,7 @@ export function KnowledgeIndex({ articles, concepts, thinkers }: Props) {
       result = result.filter((r) => r.type === activeFilter);
     }
 
-    const q = query.trim().toLowerCase();
+    const q = debouncedQuery.trim().toLowerCase();
     if (q.length > 0) {
       result = result.filter((r) => {
         const haystack = [
@@ -79,7 +81,7 @@ export function KnowledgeIndex({ articles, concepts, thinkers }: Props) {
     }
 
     return result;
-  }, [articles, concepts, thinkers, query, activeFilter]);
+  }, [articles, concepts, thinkers, debouncedQuery, activeFilter]);
 
   const groups = useMemo(() => {
     const articleItems = filtered.filter((r) => r.type === "article");

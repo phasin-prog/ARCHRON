@@ -649,6 +649,7 @@
 .js-reveal .scroll-reveal {
   opacity: 0;
   transform: translateY(30px);
+  will-change: transform, opacity;
 }
 .js-reveal .scroll-reveal.visible {
   opacity: 1;

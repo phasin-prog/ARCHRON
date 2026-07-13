@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, memo } from "react";
 import type { ContentEntry } from "@/types/content";
 import { disciplineMeta, type DisciplineKey } from "@/components/discipline-meta";
 import Link from "next/link";
-import { BookIcon, SymbolIcon, SearchIcon, ArrowRightIcon } from "@/components/icons";
+import { ArrowRightIcon } from "@/components/icons";
 
 function frameworkToDiscipline(framework?: string): DisciplineKey {
   if (!framework) return "philosophy";
@@ -20,6 +20,45 @@ function frameworkToDiscipline(framework?: string): DisciplineKey {
   if (fw.includes("art")) return "art";
   return "philosophy";
 }
+
+const ExploreEntryCard = memo(function ExploreEntryCard({ entry }: { entry: ContentEntry }) {
+  const discKey = frameworkToDiscipline(entry.framework);
+  const meta = disciplineMeta(discKey);
+  const href = entry.contentType === "concept" ? `/concepts/${entry.slug}` : `/articles/${entry.slug}`;
+  return (
+    <Link
+      href={href}
+      className="archron-card group relative flex flex-col justify-between p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 border-t-2"
+      style={{ borderTopColor: meta.accent } as React.CSSProperties}
+    >
+      <div className="space-y-3">
+        <div className="flex items-center justify-between gap-2 text-[11px] font-medium tracking-wider text-text-secondary">
+          <span className="uppercase" style={{ color: meta.accent }}>
+            {entry.framework ?? entry.contentType}
+          </span>
+          <span className="rounded bg-bg-card/80 px-2 py-0.5 text-[10px] text-text-secondary">
+            {entry.contentType === "concept" ? "แนวคิด" : "บทความ"}
+          </span>
+        </div>
+        <h3 className="font-serif text-lg leading-snug text-text-heading transition-colors group-hover:text-accent">
+          {entry.title}
+        </h3>
+        {entry.subtitle && (
+          <p className="line-clamp-2 text-xs leading-relaxed text-text-secondary">
+            {entry.subtitle}
+          </p>
+        )}
+      </div>
+      <div className="mt-6 flex items-center justify-between border-t border-text-heading/10 pt-3 text-xs text-text-secondary">
+        <span>{entry.mainThinkers?.[0] ?? "ARCHRON Library"}</span>
+        <span className="inline-flex items-center gap-1 text-accent opacity-80 group-hover:opacity-100 transition-opacity">
+          อ่านต่อ
+          <ArrowRightIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+        </span>
+      </div>
+    </Link>
+  );
+});
 
 type ExploreTab = "trending" | "latest" | "popular" | "random";
 
@@ -125,50 +164,9 @@ export function ExploreHub({ entries }: { entries: ContentEntry[] }) {
         </div>
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {displayedEntries.map((e) => {
-            const discKey = frameworkToDiscipline(e.framework);
-            const meta = disciplineMeta(discKey);
-            const href = e.contentType === "concept" ? `/concepts/${e.slug}` : `/articles/${e.slug}`;
-
-            return (
-              <Link
-                key={e.slug}
-                href={href}
-                className="archron-card group relative flex flex-col justify-between p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 border-t-2"
-                style={{ borderTopColor: meta.accent } as React.CSSProperties}
-              >
-
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between gap-2 text-[11px] font-medium tracking-wider text-text-secondary">
-                    <span className="uppercase" style={{ color: meta.accent }}>
-                      {e.framework ?? e.contentType}
-                    </span>
-                    <span className="rounded bg-bg-card/80 px-2 py-0.5 text-[10px] text-text-secondary">
-                      {e.contentType === "concept" ? "แนวคิด" : "บทความ"}
-                    </span>
-                  </div>
-
-                  <h3 className="font-serif text-lg leading-snug text-text-heading transition-colors group-hover:text-accent">
-                    {e.title}
-                  </h3>
-
-                  {e.subtitle && (
-                    <p className="line-clamp-2 text-xs leading-relaxed text-text-secondary">
-                      {e.subtitle}
-                    </p>
-                  )}
-                </div>
-
-                <div className="mt-6 flex items-center justify-between border-t border-text-heading/10 pt-3 text-xs text-text-secondary">
-                  <span>{e.mainThinkers?.[0] ?? "ARCHRON Library"}</span>
-                  <span className="inline-flex items-center gap-1 text-accent opacity-80 group-hover:opacity-100 transition-opacity">
-                    อ่านต่อ
-                    <ArrowRightIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-                  </span>
-                </div>
-              </Link>
-            );
-          })}
+          {displayedEntries.map((e) => (
+            <ExploreEntryCard key={e.slug} entry={e} />
+          ))}
         </div>
       )}
     </div>

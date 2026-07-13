@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, memo } from "react";
+import { useDebounce } from "@/lib/hooks/use-debounce";
 import { EN_LETTERS, THAI_LETTERS, type Thinker, type SchoolField } from "@/lib/content/core/seeds/schools";
 import { disciplineMeta } from "@/components/discipline-meta";
 import Link from "next/link";
@@ -13,12 +14,85 @@ interface ThinkerWithSchool extends Thinker {
   field?: SchoolField;
 }
 
+const ThinkerCard = memo(function ThinkerCard({ t }: { t: ThinkerWithSchool }) {
+  const meta = disciplineMeta(t.field);
+  const thinkerSlug = t.nameEn.toLowerCase().replace(/\s+/g, "-");
+  return (
+    <Link
+      href={`/thinkers/${thinkerSlug}`}
+      className="archron-card group relative flex flex-col justify-between overflow-hidden p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/45 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+      style={{
+        background: `linear-gradient(135deg, color-mix(in srgb, ${meta.accent} 5%, var(--color-bg-card)) 0%, var(--color-bg-card) 100%)`,
+      }}
+    >
+      <div>
+        <h2 className="font-serif text-2xl font-bold leading-tight text-text-heading transition-colors group-hover:text-accent">
+          {t.nameTh}
+        </h2>
+        <div className="mt-1 flex items-center gap-2 text-xs font-mono text-text-secondary/55">
+          <span>{t.nameEn}</span>
+          <span aria-hidden>·</span>
+          <span>{t.era}</span>
+        </div>
+        <p className="mt-2.5 text-xs">
+          <span className="text-text-secondary">สำนักคิด </span>
+          <span
+            className="font-medium transition-colors group-hover:text-accent/80"
+            style={{ color: meta.accent }}
+          >
+            {t.schoolNameTh}
+          </span>
+        </p>
+        {t.quote ? (
+          <blockquote
+            className="mt-4 rounded-r-sm border-l-2 pl-3 text-sm italic leading-relaxed text-text-secondary/80 line-clamp-3"
+            style={{
+              borderLeftColor: `color-mix(in srgb, ${meta.accent} 50%, transparent)`,
+              background: `linear-gradient(90deg, color-mix(in srgb, ${meta.accent} 6%, transparent) 0%, transparent 100%)`,
+            }}
+          >
+            &ldquo;{t.quote}&rdquo;
+          </blockquote>
+        ) : null}
+        {t.masterpieces.length > 0 ? (
+          <div className="mt-4 flex flex-wrap gap-1.5">
+            {t.masterpieces.slice(0, 2).map((m) => (
+              <span
+                key={m}
+                className="inline-flex items-center gap-1 rounded-full bg-text-heading/[0.04] px-2.5 py-0.5 text-[10px] text-text-secondary/70 border border-border/15"
+              >
+                {m}
+              </span>
+            ))}
+            {t.masterpieces.length > 2 ? (
+              <span className="inline-flex items-center rounded-full bg-text-heading/[0.04] px-2 py-0.5 text-[10px] text-text-secondary font-mono">
+                +{t.masterpieces.length - 2}
+              </span>
+            ) : null}
+          </div>
+        ) : null}
+      </div>
+      <div className="mt-6 flex items-center justify-between border-t border-border/15 pt-4">
+        <span
+          className="flex items-center gap-1 text-xs font-semibold transition-all duration-300 group-hover:gap-2"
+          style={{ color: meta.accent }}
+        >
+          ศึกษาประวัติ
+          <ArrowRightIcon className="h-4 w-4" />
+        </span>
+        <span className="text-[11px] font-mono text-text-secondary">ปราชญ์</span>
+      </div>
+    </Link>
+  );
+});
+
 export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
   const [query, setQuery] = useState("");
   const [letter, setLetter] = useState<string | null>(null);
   const [selectedField, setSelectedField] = useState<SchoolField | "all">("all");
 
-  const q = query.trim().toLowerCase();
+  const debouncedQuery = useDebounce(query, 200);
+  const q = debouncedQuery.trim().toLowerCase();
 
   const totalThinkers = thinkers.length;
   const totalSchools = useMemo(() => new Set(thinkers.map((t) => t.schoolId)).size, [thinkers]);
@@ -195,83 +269,9 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
           </p>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((t) => {
-              const meta = disciplineMeta(t.field);
-              const thinkerSlug = t.nameEn.toLowerCase().replace(/\s+/g, "-");
-              return (
-                <Link
-                  key={t.nameEn}
-                  href={`/thinkers/${thinkerSlug}`}
-                  className="archron-card group relative flex flex-col justify-between overflow-hidden p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/45 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
-                  style={{
-                    background: `linear-gradient(135deg, color-mix(in srgb, ${meta.accent} 5%, var(--color-bg-card)) 0%, var(--color-bg-card) 100%)`,
-                  }}
-                >
-                  <div>
-                    <h2 className="font-serif text-2xl font-bold leading-tight text-text-heading transition-colors group-hover:text-accent">
-                      {t.nameTh}
-                    </h2>
-
-                    <div className="mt-1 flex items-center gap-2 text-xs font-mono text-text-secondary/55">
-                      <span>{t.nameEn}</span>
-                      <span aria-hidden>·</span>
-                      <span>{t.era}</span>
-                    </div>
-
-                    <p className="mt-2.5 text-xs">
-                      <span className="text-text-secondary">สำนักคิด </span>
-                      <span
-                        className="font-medium transition-colors group-hover:text-accent/80"
-                        style={{ color: meta.accent }}
-                      >
-                        {t.schoolNameTh}
-                      </span>
-                    </p>
-
-                    {t.quote ? (
-                      <blockquote
-                        className="mt-4 rounded-r-sm border-l-2 pl-3 text-sm italic leading-relaxed text-text-secondary/80 line-clamp-3"
-                        style={{
-                          borderLeftColor: `color-mix(in srgb, ${meta.accent} 50%, transparent)`,
-                          background: `linear-gradient(90deg, color-mix(in srgb, ${meta.accent} 6%, transparent) 0%, transparent 100%)`,
-                        }}
-                      >
-                        &ldquo;{t.quote}&rdquo;
-                      </blockquote>
-                    ) : null}
-
-                    {t.masterpieces.length > 0 ? (
-                      <div className="mt-4 flex flex-wrap gap-1.5">
-                        {t.masterpieces.slice(0, 2).map((m) => (
-                          <span
-                            key={m}
-                            className="inline-flex items-center gap-1 rounded-full bg-text-heading/[0.04] px-2.5 py-0.5 text-[10px] text-text-secondary/70 border border-border/15"
-                          >
-                            {m}
-                          </span>
-                        ))}
-                        {t.masterpieces.length > 2 ? (
-                          <span className="inline-flex items-center rounded-full bg-text-heading/[0.04] px-2 py-0.5 text-[10px] text-text-secondary font-mono">
-                            +{t.masterpieces.length - 2}
-                          </span>
-                        ) : null}
-                      </div>
-                    ) : null}
-                  </div>
-
-                  <div className="mt-6 flex items-center justify-between border-t border-border/15 pt-4">
-                    <span
-                      className="flex items-center gap-1 text-xs font-semibold transition-all duration-300 group-hover:gap-2"
-                      style={{ color: meta.accent }}
-                    >
-                      ศึกษาประวัติ
-                      <ArrowRightIcon className="h-4 w-4" />
-                    </span>
-                    <span className="text-[11px] font-mono text-text-secondary">ปราชญ์</span>
-                  </div>
-                </Link>
-              );
-            })}
+            {filtered.map((t) => (
+              <ThinkerCard key={t.nameEn} t={t} />
+            ))}
           </div>
         )}
       </div>

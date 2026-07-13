@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, memo } from "react";
+import { useDebounce } from "@/lib/hooks/use-debounce";
 import Link from "next/link";
 import type { ContentEntry } from "@/types/content";
 import type { ConceptRegistryItem } from "@/lib/content/core/registry";
@@ -49,7 +50,8 @@ export function DiscoverGrid({ entries, concepts }: DiscoverGridProps) {
   const [category, setCategory] = useState<DiscoverCategory>("all");
   const [query, setQuery] = useState("");
 
-  const q = query.trim().toLowerCase();
+  const debouncedQuery = useDebounce(query, 200);
+  const q = debouncedQuery.trim().toLowerCase();
 
   // Filter entries by category and query
   const filteredEntries = useMemo(() => {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useDebounce } from "@/lib/hooks/use-debounce";
 import type { ExternalCategory } from "@/lib/content/utils/external-links";
 import { SearchIcon, CloseIcon, ExternalLinkIcon } from "@/components/icons";
 
@@ -16,7 +17,20 @@ export function ExternalLinksBrowser({ categories }: { categories: ExternalCateg
   const [active, setActive] = useState<string>("all");
   const [query, setQuery] = useState("");
 
-  const q = query.trim().toLowerCase();
+  const debouncedQuery = useDebounce(query, 200);
+  const q = debouncedQuery.trim().toLowerCase();
+
+  const hostCache = useMemo(() => {
+    const cache = new Map<string, string>();
+    for (const cat of categories) {
+      for (const item of cat.items) {
+        if (!cache.has(item.url)) {
+          cache.set(item.url, hostOf(item.url));
+        }
+      }
+    }
+    return cache;
+  }, [categories]);
 
   // กรองหมวดและรายการภายในหมวด
   const filtered = useMemo(() => {
@@ -25,7 +39,7 @@ export function ExternalLinksBrowser({ categories }: { categories: ExternalCateg
         // กรองรายการในแต่ละหมวด
         const matchedItems = cat.items.filter((item) => {
           if (!q) return true;
-          const host = hostOf(item.url);
+          const host = hostCache.get(item.url) ?? "";
           const inTitle = item.title.toLowerCase().includes(q);
           const inDesc = item.description.toLowerCase().includes(q);
           const inHost = host.toLowerCase().includes(q);
@@ -44,7 +58,7 @@ export function ExternalLinksBrowser({ categories }: { categories: ExternalCateg
     // กรองตามฟิลเตอร์แท็บ
     if (active === "all") return matchedCats;
     return matchedCats.filter((c) => c.id === active);
-  }, [categories, active, q]);
+  }, [categories, active, q, hostCache]);
 
   // นับจำนวนรวม
   const totalItemsCount = useMemo(() => {
@@ -122,7 +136,7 @@ export function ExternalLinksBrowser({ categories }: { categories: ExternalCateg
 
               <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
                 {cat.items.map((item) => {
-                  const host = hostOf(item.url);
+                  const host = hostCache.get(item.url) ?? "";
                   return (
                     <a
                       key={item.url}

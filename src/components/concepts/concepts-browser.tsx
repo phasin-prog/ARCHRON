@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useDebounce } from "@/lib/hooks/use-debounce";
 import type { ConceptRegistryItem, NodeType } from "@/lib/content/core/registry";
 import { ConceptCard } from "@/components/concepts/concept-card";
 import { SearchIcon, CloseIcon } from "@/components/icons";
@@ -25,7 +26,8 @@ export function ConceptsBrowser({ concepts, publishedSlugs }: ConceptsBrowserPro
   const [showStubs, setShowStubs] = useState(true);
 
   const publishedSet = useMemo(() => new Set(publishedSlugs), [publishedSlugs]);
-  const q = query.trim().toLowerCase();
+  const debouncedQuery = useDebounce(query, 200);
+  const q = debouncedQuery.trim().toLowerCase();
 
   // กรองรายการทั้งหมดตามเงื่อนไข
   const filtered = useMemo(() => {

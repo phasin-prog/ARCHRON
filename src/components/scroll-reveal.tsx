@@ -1,30 +1,15 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 
-// เปิดเอฟเฟกต์ค่อย ๆ ปรากฏ (.scroll-reveal → .visible) แบบทนทาน
-// - CSS ซ่อนเฉพาะเมื่อ html มีคลาส js-reveal (เติมที่นี่ตอน JS พร้อม) → ถ้า JS ช้า/พลาด เนื้อหายังแสดง
-// - ผูกกับ usePathname → re-scan ทุกการนำทาง (ไม่พึ่ง template re-mount อย่างเดียว)
-// - เผยรอบแรกทันที (sync) กัน flash + ขับด้วย scroll/resize จริง (ทนทานกว่า IntersectionObserver)
-// - เคารพ prefers-reduced-motion (บังคับ visible ใน globals.css)
 export function ScrollReveal() {
   const pathname = usePathname();
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
     const root = document.documentElement;
 
-    const remaining = () =>
-      Array.from(document.querySelectorAll<HTMLElement>(".scroll-reveal:not(.visible)"));
-
-    const revealInView = () => {
-      const vh = window.innerHeight || document.documentElement.clientHeight;
-      remaining().forEach((el) => {
-        if (el.getBoundingClientRect().top < vh * 0.98) el.classList.add("visible");
-      });
-    };
-
-    // ปิดเอฟเฟกต์แอนิเมชันทันทีบนหน้าจอขนาดเล็ก (Mobile/Tablet) เพื่อลดภาระการประมวลผลและการเลื่อนกระตุก
     if (typeof window !== "undefined" && window.innerWidth <= 768) {
       root.classList.add("js-reveal");
       document.querySelectorAll(".scroll-reveal").forEach((el) => {
@@ -33,40 +18,49 @@ export function ScrollReveal() {
       return;
     }
 
-    // เปิดโหมดซ่อน-แล้วเผย จากนั้นเผย element ที่อยู่ในจอทันที (sync, ก่อน paint รอบถัดไป → ไม่วาบ)
     root.classList.add("js-reveal");
-    revealInView();
 
-    let frame = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(revealInView);
-    };
+    observerRef.current?.disconnect();
 
-    // เผยซ้ำเมื่อ layout settle — ใช้ ResizeObserver + rAF loop แทน setTimeout
-    const ro = new ResizeObserver(() => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(revealInView);
-    });
-    ro.observe(document.body);
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observerRef.current?.unobserve(entry.target);
+          }
+        }
+      },
+      {
+        rootMargin: "0px 0px -5% 0px",
+        threshold: 0.01,
+      },
+    );
 
-    const r1 = requestAnimationFrame(() => requestAnimationFrame(revealInView));
-    const t1 = setTimeout(revealInView, 150);
-    const t2 = setTimeout(revealInView, 500);
-    const t3 = setTimeout(revealInView, 1200);
+    const all = document.querySelectorAll<HTMLElement>(".scroll-reveal");
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    for (const el of all) {
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.98) {
+        el.classList.add("visible");
+      } else {
+        observerRef.current.observe(el);
+      }
+    }
+
+    const settle = setTimeout(() => {
+      const remaining = document.querySelectorAll<HTMLElement>(".scroll-reveal:not(.visible)");
+      for (const el of remaining) {
+        if (el.getBoundingClientRect().top < window.innerHeight * 0.98) {
+          el.classList.add("visible");
+        } else {
+          observerRef.current?.observe(el);
+        }
+      }
+    }, 250);
 
     return () => {
-      cancelAnimationFrame(frame);
-      cancelAnimationFrame(r1);
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-      ro.disconnect();
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      observerRef.current?.disconnect();
+      clearTimeout(settle);
     };
   }, [pathname]);
 

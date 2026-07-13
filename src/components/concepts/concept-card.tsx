@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, type ComponentType } from "react";
+import { useState, type ComponentType, memo } from "react";
 import { ContextMenu, type ContextMenuItem } from "@/components/context-menu";
 import type { ConceptRegistryItem } from "@/lib/content/core/registry";
 import {
@@ -34,7 +34,7 @@ const NODE_ICON: Record<string, ComponentType<{ className?: string }>> = {
   term: TermIcon,
 };
 
-export function ConceptCard({ c, hasRealContent = false }: { c: ConceptRegistryItem; hasRealContent?: boolean }) {
+const ConceptCardInner = function ConceptCard({ c, hasRealContent = false }: { c: ConceptRegistryItem; hasRealContent?: boolean }) {
   const router = useRouter();
   const [copied, setCopied] = useState(false);
   const Icon = NODE_ICON[c.nodeType];
@@ -189,4 +189,6 @@ export function ConceptCard({ c, hasRealContent = false }: { c: ConceptRegistryI
       ) : null}
     </ContextMenu>
   );
-}
+};
+
+export const ConceptCard = memo(ConceptCardInner);

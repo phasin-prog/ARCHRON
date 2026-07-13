@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, memo } from "react";
 import type { ContentEntry } from "@/types/content";
+import { useDebounce } from "@/lib/hooks/use-debounce";
 import { disciplineMeta, type DisciplineKey } from "@/components/discipline-meta";
 import { ViewBadge } from "@/components/view-badge";
 import Link from "next/link";
@@ -26,6 +27,76 @@ function frameworkToDiscipline(framework?: string): DisciplineKey {
 
 const GRAIN_URL = "data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E";
 
+const ArticleCard = memo(function ArticleCard({ entry }: { entry: ContentEntry }) {
+  const discKey = frameworkToDiscipline(entry.framework);
+  const meta = disciplineMeta(discKey);
+  const bodyLen = entry.bodyMarkdown?.length ?? 0;
+  const readMin = Math.max(1, Math.round(bodyLen / 1200));
+  return (
+    <div className="relative">
+      <div
+        className="pointer-events-none absolute -inset-5 rounded-3xl opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100"
+        style={{
+          background: `radial-gradient(ellipse at 50% 35%, ${meta.accent}1e, transparent 70%)`,
+        }}
+        aria-hidden
+      />
+      <Link
+        href={`/articles/${entry.slug}`}
+        className="archron-card archron-card--article group relative z-surface flex min-h-[260px] flex-col justify-between overflow-hidden p-6 sm:p-7 transition-all duration-300"
+        style={
+          {
+            "--card-accent": meta.accent,
+            "--cosmology-accent": meta.accent,
+            "--cosmology-accent-soft": `color-mix(in srgb, ${meta.accent} 70%, transparent)`,
+          } as React.CSSProperties
+        }
+      >
+        <div
+          className="pointer-events-none absolute inset-0 z-10 rounded-[inherit] bg-repeat opacity-0 transition-opacity duration-500 group-hover:opacity-[0.04]"
+          style={{
+            backgroundImage: `url("${GRAIN_URL}")`,
+            backgroundSize: "256px 256px",
+          }}
+          aria-hidden
+        />
+        <div className="relative z-surface">
+          <div className="mb-4 flex items-center justify-between gap-2">
+            <span
+              className="inline-flex items-center gap-1.5 rounded-full px-3 py-0.5 text-xs font-semibold tracking-wide border"
+              style={{
+                backgroundColor: `${meta.accent}14`,
+                borderColor: `${meta.accent}33`,
+                color: meta.accent,
+              }}
+            >
+              {entry.framework ?? meta.label}
+            </span>
+            <span className="flex items-center gap-1 text-xs font-medium text-text-secondary/65">
+              <ClockIcon className="h-3.5 w-3.5" />
+              {readMin} นาที
+            </span>
+          </div>
+          <h2 className="font-serif text-2xl font-medium leading-snug tracking-tight text-text-heading transition-colors duration-200 group-hover:text-[var(--card-accent)]">
+            {entry.title}
+          </h2>
+          {entry.shortDescription ? (
+            <p className="mt-3 text-sm leading-relaxed text-text-secondary line-clamp-3">
+              {entry.shortDescription}
+            </p>
+          ) : null}
+        </div>
+        <div className="relative z-surface mt-6 pt-4 border-t border-border/40 flex items-center justify-between text-xs font-semibold text-text-secondary transition-colors group-hover:text-[var(--card-accent)]">
+          <span>อ่านบทความและวิเคราะห์เชิงลึก</span>
+          <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-border/40 transition-all duration-300 group-hover:border-[var(--card-accent)]/40 group-hover:bg-[var(--card-accent)]/10 group-hover:translate-x-0.5">
+            <ArrowRightIcon className="h-3.5 w-3.5" />
+          </span>
+        </div>
+      </Link>
+    </div>
+  );
+});
+
 export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
   const [query, setQuery] = useState("");
   const [selectedFramework, setSelectedFramework] = useState<string | "all">("all");
@@ -34,7 +105,8 @@ export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
   const [page, setPage] = useState(1);
 
   const ITEMS_PER_PAGE = 24;
-  const q = query.trim().toLowerCase();
+  const debouncedQuery = useDebounce(query, 200);
+  const q = debouncedQuery.trim().toLowerCase();
 
   const frameworks = useMemo(() => {
     const set = new Set<string>();
@@ -66,8 +138,7 @@ export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
         const inTitle = a.title.toLowerCase().includes(q);
         const inDesc = a.shortDescription?.toLowerCase().includes(q) || false;
         const inAuthor = a.author?.toLowerCase().includes(q) || false;
-        const inBody = a.bodyMarkdown?.toLowerCase().includes(q) || false;
-        if (!inTitle && !inDesc && !inAuthor && !inBody) return false;
+        if (!inTitle && !inDesc && !inAuthor) return false;
       }
       return true;
     });
@@ -173,84 +244,9 @@ export function ArticlesBrowser({ articles }: { articles: ContentEntry[] }) {
         </div>
       ) : (
         <div className="grid gap-7 md:grid-cols-2">
-          {paginated.map((e) => {
-            const discKey = frameworkToDiscipline(e.framework);
-            const meta = disciplineMeta(discKey);
-            const bodyLen = e.bodyMarkdown?.length ?? 0;
-            const readMin = Math.max(1, Math.round(bodyLen / 1200));
-            return (
-              <div key={e.slug} className="relative">
-                <div
-                  className="pointer-events-none absolute -inset-5 rounded-3xl opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100"
-                  style={{
-                    background: `radial-gradient(ellipse at 50% 35%, ${meta.accent}1e, transparent 70%)`,
-                  }}
-                  aria-hidden
-                />
-
-                <Link
-                  href={`/articles/${e.slug}`}
-                  className="archron-card archron-card--article group relative z-surface flex min-h-[260px] flex-col justify-between overflow-hidden p-6 sm:p-7 transition-all duration-300"
-                  style={
-                    {
-                      "--card-accent": meta.accent,
-                      "--cosmology-accent": meta.accent,
-                      "--cosmology-accent-soft": `color-mix(in srgb, ${meta.accent} 70%, transparent)`,
-                    } as React.CSSProperties
-                  }
-                >
-                  <div
-                    className="pointer-events-none absolute inset-0 z-10 rounded-[inherit] bg-repeat opacity-0 transition-opacity duration-500 group-hover:opacity-[0.04]"
-                    style={{
-                      backgroundImage: `url("${GRAIN_URL}")`,
-                      backgroundSize: "256px 256px",
-                    }}
-                    aria-hidden
-                  />
-
-                  <div className="relative z-surface">
-                    {/* Header Row: Discipline Tag + Reading Time */}
-                    <div className="mb-4 flex items-center justify-between gap-2">
-                      <span
-                        className="inline-flex items-center gap-1.5 rounded-full px-3 py-0.5 text-xs font-semibold tracking-wide border"
-                        style={{
-                          backgroundColor: `${meta.accent}14`,
-                          borderColor: `${meta.accent}33`,
-                          color: meta.accent,
-                        }}
-                      >
-                        {e.framework ?? meta.label}
-                      </span>
-                      <span className="flex items-center gap-1 text-xs font-medium text-text-secondary/65">
-                        <ClockIcon className="h-3.5 w-3.5" />
-                        {readMin} นาที
-                      </span>
-                    </div>
-
-                    {/* Title */}
-                    <h2 className="font-serif text-2xl font-medium leading-snug tracking-tight text-text-heading transition-colors duration-200 group-hover:text-[var(--card-accent)]">
-                      {e.title}
-                    </h2>
-
-                    {/* Description */}
-                    {e.shortDescription ? (
-                      <p className="mt-3 text-sm leading-relaxed text-text-secondary line-clamp-3">
-                        {e.shortDescription}
-                      </p>
-                    ) : null}
-                  </div>
-
-                  {/* Footer / Read Action Indicator */}
-                  <div className="relative z-surface mt-6 pt-4 border-t border-border/40 flex items-center justify-between text-xs font-semibold text-text-secondary transition-colors group-hover:text-[var(--card-accent)]">
-                    <span>อ่านบทความและวิเคราะห์เชิงลึก</span>
-                    <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-border/40 transition-all duration-300 group-hover:border-[var(--card-accent)]/40 group-hover:bg-[var(--card-accent)]/10 group-hover:translate-x-0.5">
-                      <ArrowRightIcon className="h-3.5 w-3.5" />
-                    </span>
-                  </div>
-                </Link>
-              </div>
-            );
-          })}
+          {paginated.map((e) => (
+            <ArticleCard key={e.slug} entry={e} />
+          ))}
         </div>
       )}
 

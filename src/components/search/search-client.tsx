@@ -54,14 +54,14 @@ const TypeFilters = memo(function TypeFilters({
   setActiveType: (v: string) => void;
 }) {
   const chip = (on: boolean) =>
-    `rounded-full border px-3 py-1 text-xs transition-colors duration-200 ${
+    `rounded-full border px-3.5 py-1.5 text-xs font-ui transition-all duration-200 ${
       on
-        ? "border-accent/50 bg-accent/10 text-accent"
-        : "border-text-heading/12 text-text-secondary hover:border-text-heading/25 hover:text-text-heading"
-    }`;
+        ? "border-accent/40 bg-accent-subtle text-accent shadow-sm"
+        : "border-border/60 bg-transparent text-text-secondary hover:border-text-heading/20 hover:bg-bg-elevated hover:text-text-heading"
+    } active:scale-[0.97]`;
 
   return (
-    <div className="mt-4 flex flex-wrap gap-2">
+    <div className="mt-6 flex flex-wrap gap-3">
       <button
         type="button"
         onClick={() => setActiveType("all")}

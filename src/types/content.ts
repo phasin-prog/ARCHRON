@@ -138,3 +138,34 @@ export type ContentEntry = {
   rowCode?: string;
   rowName?: string;
 };
+
+// ---- Discriminated union types (Phase: Major Overhaul Slice 1) ----
+import { z } from "zod";
+import type {
+  conceptSchema, personSchema, bookSchema, schoolSchema, articleSchema,
+  symbolSchema, termSchema, readingSetSchema, sourceNoteSchema,
+} from "@/types/content-schemas";
+
+export type ConceptEntry = z.infer<typeof conceptSchema>;
+export type PersonEntry = z.infer<typeof personSchema>;
+export type BookEntry = z.infer<typeof bookSchema>;
+export type SchoolEntry = z.infer<typeof schoolSchema>;
+export type ArticleEntry = z.infer<typeof articleSchema>;
+export type SymbolEntry = z.infer<typeof symbolSchema>;
+export type TermEntry = z.infer<typeof termSchema>;
+export type ReadingSetEntry = z.infer<typeof readingSetSchema>;
+export type SourceNoteEntry = z.infer<typeof sourceNoteSchema>;
+
+export type DiscriminatedEntry =
+  | ConceptEntry | PersonEntry | BookEntry | SchoolEntry | ArticleEntry
+  | SymbolEntry | TermEntry | ReadingSetEntry | SourceNoteEntry;
+
+export function isConcept(e: DiscriminatedEntry): e is ConceptEntry { return e.contentType === "concept"; }
+export function isPerson(e: DiscriminatedEntry): e is PersonEntry { return e.contentType === "person"; }
+export function isBook(e: DiscriminatedEntry): e is BookEntry { return e.contentType === "book"; }
+export function isSchool(e: DiscriminatedEntry): e is SchoolEntry { return e.contentType === "school"; }
+export function isArticle(e: DiscriminatedEntry): e is ArticleEntry { return e.contentType === "article"; }
+export function isSymbol(e: DiscriminatedEntry): e is SymbolEntry { return e.contentType === "symbol"; }
+export function isTerm(e: DiscriminatedEntry): e is TermEntry { return e.contentType === "term"; }
+export function isReadingSet(e: DiscriminatedEntry): e is ReadingSetEntry { return e.contentType === "reading-set"; }
+export function isSourceNote(e: DiscriminatedEntry): e is SourceNoteEntry { return e.contentType === "source-note"; }

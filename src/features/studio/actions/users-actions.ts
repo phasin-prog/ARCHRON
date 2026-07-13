@@ -1,7 +1,7 @@
 "use server";
 
 import { auth, clerkClient } from "@clerk/nextjs/server";
-import { roleFromMetadata, type Role } from "@/lib/content/roles";
+import { roleFromMetadata, type Role } from "@/lib/content/utils/roles";
 
 export type AdminUser = {
   id: string;

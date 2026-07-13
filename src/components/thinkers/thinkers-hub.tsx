@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { EN_LETTERS, THAI_LETTERS, type Thinker, type SchoolField } from "@/lib/content/schools";
+import { EN_LETTERS, THAI_LETTERS, type Thinker, type SchoolField } from "@/lib/content/core/seeds/schools";
 import { disciplineMeta } from "@/components/discipline-meta";
 import Link from "next/link";
 import { SearchIcon, CloseIcon, ArrowRightIcon } from "@/components/icons";

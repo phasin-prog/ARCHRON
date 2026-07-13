@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useAuth, useUser } from "@clerk/nextjs";
-import { roleFromMetadata, isAdmin } from "@/lib/content/roles";
+import { roleFromMetadata, isAdmin } from "@/lib/content/utils/roles";
 
 interface AnalyticsData {
   totalViews: number;

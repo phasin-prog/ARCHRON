@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getPublicEntries } from "@/lib/content/public-source";
+import { getPublicEntries } from "@/lib/content/publishing/public-source";
 import { buildSearchIndex } from "@/features/search/index";
 import { SearchClient } from "@/components/search/search-client";
 import { PageScaffold } from "@/components/page-scaffold";

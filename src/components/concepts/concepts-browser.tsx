@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { ConceptRegistryItem, NodeType } from "@/lib/content/concept-registry";
+import type { ConceptRegistryItem, NodeType } from "@/lib/content/core/registry";
 import { ConceptCard } from "@/components/concepts/concept-card";
 import { SearchIcon, CloseIcon } from "@/components/icons";
 

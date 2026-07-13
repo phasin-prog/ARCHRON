@@ -13,14 +13,14 @@ import {
   SynthesisIcon,
 } from "@/components/icons";
 import { PageScaffold } from "@/components/page-scaffold";
-import { COSMOLOGY_ACCENT, type Cosmology } from "@/lib/content/cosmology";
-import { conceptRegistry } from "@/lib/content/concept-registry";
+import { COSMOLOGY_ACCENT, type Cosmology } from "@/lib/content/core/cosmology";
+import { conceptRegistry } from "@/lib/content/core/registry";
 import {
   getPublicEntries,
   getPublicReadingSets,
   getPublicSchools,
-} from "@/lib/content/public-source";
-import { THEMES } from "@/lib/content/themes";
+} from "@/lib/content/publishing/public-source";
+import { THEMES } from "@/lib/content/core/seeds/themes";
 import { DISCIPLINE_META } from "@/components/discipline-meta";
 
 // ตัวเลขบนการ์ดมาจากข้อมูลจริง (DB → cache → seed) — รีเฟรชตามรอบ ISR เดียวกับหน้าเนื้อหา (§3)

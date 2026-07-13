@@ -1,10 +1,10 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { getAuthedSupabase, getUserRole } from "@/lib/content/server-auth";
-import { saveDraft as saveDraftDb, loadDraftBySlug, publishEntry } from "@/lib/content/draft-db";
-import { addRevision, getRevisions } from "@/lib/content/entries-db";
-import type { EditorDraft } from "@/lib/content/publish-validation";
+import { getAuthedSupabase, getUserRole } from "@/lib/content/utils/server-auth";
+import { saveDraft as saveDraftDb, loadDraftBySlug, publishEntry } from "@/lib/content/publishing/draft-db";
+import { addRevision, getRevisions } from "@/lib/content/publishing/entries-db";
+import type { EditorDraft } from "@/lib/content/publishing/publish-validation";
 import { invalidateEntry } from "@/lib/cache/cache";
 
 // E7 — revalidate public pages after publish
@@ -85,7 +85,7 @@ export async function loadRevisionsAction(entryId: string) {
 export async function listMyEntriesAction() {
   const { userId, supabase } = await getAuthedSupabase();
   const role = await getUserRole();
-  const entries = await import("@/lib/content/entries-db").then((m) =>
+  const entries = await import("@/lib/content/publishing/entries-db").then((m) =>
     m.listMyEntries(supabase, userId, role),
   );
   return { entries };

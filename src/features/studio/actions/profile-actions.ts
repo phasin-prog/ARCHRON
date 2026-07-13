@@ -1,13 +1,13 @@
 "use server";
 
-import { getAuthedSupabase } from "@/lib/content/server-auth";
+import { getAuthedSupabase } from "@/lib/content/utils/server-auth";
 import {
   getMyProfile,
   upsertMyProfile,
   requestWriter,
   type Profile,
   type ProfileInput,
-} from "@/lib/content/profile-db";
+} from "@/lib/content/community/profile-db";
 
 // โหลดโปรไฟล์ของตนเอง
 export async function getMyProfileAction(): Promise<Profile | null> {

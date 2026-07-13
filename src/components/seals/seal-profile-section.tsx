@@ -4,7 +4,7 @@ import { useState } from "react";
 import { SealGallery } from "./seal-gallery";
 import { SealDetailModal } from "./seal-detail-modal";
 import { SealIcon } from "./seal-icon";
-import { SEALS, type AcademicSeal } from "@/lib/content/seals";
+import { SEALS, type AcademicSeal } from "@/lib/content/community/seals";
 
 export function SealProfileSection() {
   const [showGallery, setShowGallery] = useState(false);

@@ -1,7 +1,7 @@
 // ARCHRON — โมเดลบทบาท (role) เก็บใน Clerk publicMetadata.role
 // admin = ผู้ดูแล (ทำได้ทุกอย่าง) · writer = นักเขียน (เขียน/แก้/เผยแพร่งานตัวเอง) · user = ผู้ใช้ (อ่านอย่างเดียว)
 
-import { colors } from "@/lib/content/colors";
+import { colors } from "@/lib/content/utils/colors";
 
 export type Role = "admin" | "writer" | "user";
 

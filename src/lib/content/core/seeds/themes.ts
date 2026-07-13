@@ -2,7 +2,7 @@
 // ต่อยอดบน entry.tags ที่มีอยู่ (ไม่เพิ่มคอลัมน์ DB) — theme = ชุด tag ที่คัดสรร
 // ใช้แสดง "ชิปแก่นเรื่อง" บนหน้าอ่าน และเชื่อมเนื้อหาต่างศาสตร์ที่พูดถึงแก่นเดียวกัน
 
-import { colors } from "@/lib/content/colors";
+import { colors } from "@/lib/content/utils/colors";
 import type { ContentEntry } from "@/types/content";
 
 export type Theme = {

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageScaffold } from "@/components/page-scaffold";
-import { getPublicEntries } from "@/lib/content/public-source";
-import { conceptRegistry } from "@/lib/content/concept-registry";
-import { getPublicSchools } from "@/lib/content/public-source";
+import { getPublicEntries } from "@/lib/content/publishing/public-source";
+import { conceptRegistry } from "@/lib/content/core/registry";
+import { getPublicSchools } from "@/lib/content/publishing/public-source";
 import { DiscoverGrid } from "@/components/discover/discover-grid";
 
 export const metadata: Metadata = {

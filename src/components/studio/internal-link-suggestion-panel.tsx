@@ -1,6 +1,6 @@
 "use client";
 
-import { findLinkSuggestions } from "@/lib/content/internal-links";
+import { findLinkSuggestions } from "@/lib/content/publishing/internal-links";
 
 // แสดงคำที่ตรงกับ Concept Registry จากเนื้อหาที่เขียน — ผู้เขียนกดเพื่อแทรก [[ ]] เอง (ไม่ auto-insert)
 export function InternalLinkSuggestionPanel({

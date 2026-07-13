@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
-import { getPublicEntries } from "@/lib/content/public-source";
-import { THEMES, entriesForTheme } from "@/lib/content/themes";
+import { getPublicEntries } from "@/lib/content/publishing/public-source";
+import { THEMES, entriesForTheme } from "@/lib/content/core/seeds/themes";
 
 export const metadata: Metadata = {
   title: "แก่นเรื่อง — ARCHRON",

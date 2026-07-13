@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { getConceptBySlug, conceptTitle } from "@/lib/content/concept-registry";
+import { getConceptBySlug, conceptTitle } from "@/lib/content/core/registry";
 import type { RelationType } from "@/types/content";
 import {
   ConceptIcon,

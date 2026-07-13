@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { SEALS, getSealById, getSealsByLevel, getSealsByCategory } from "@/lib/content/seals";
+import { SEALS, getSealById, getSealsByLevel, getSealsByCategory } from "@/lib/content/community/seals";
 
 describe("seal data", () => {
   it("has exactly 15 seals", () => {

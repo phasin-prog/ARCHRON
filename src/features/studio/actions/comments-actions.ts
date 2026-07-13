@@ -1,7 +1,7 @@
 "use server";
 
 import { auth, clerkClient } from "@clerk/nextjs/server";
-import { roleFromMetadata } from "@/lib/content/roles";
+import { roleFromMetadata } from "@/lib/content/utils/roles";
 import { createServiceSupabase } from "@/lib/supabase/server";
 
 export type ModComment = {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { conceptRegistry } from "@/lib/content/concept-registry";
+import { conceptRegistry } from "@/lib/content/core/registry";
 
 type RC = { conceptSlug: string; relationType: string; reason: string };
 

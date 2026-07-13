@@ -3,7 +3,7 @@ import type { CSSProperties } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/page-header";
-import { DISCIPLINES, getDiscipline } from "@/lib/content/disciplines";
+import { DISCIPLINES, getDiscipline } from "@/lib/content/core/seeds/disciplines";
 import { DISCIPLINE_META } from "@/components/discipline-meta";
 
 export function generateStaticParams() {

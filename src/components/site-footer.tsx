@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArchronLogomark, HeartIcon, SourceRefIcon, ArrowUpIcon } from "@/components/icons";
 import { createClerkSupabaseClient } from "@/lib/supabase/client";
-import { getTotalPageViews } from "@/lib/content/views-db";
+import { getTotalPageViews } from "@/lib/content/community/views-db";
 
 const EXPLORE = [
   { label: "เข้าสู่คลังความรู้", href: "/knowledge" },

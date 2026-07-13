@@ -1,6 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { DiscriminatedEntry } from "@/types/content";
-import type { Role } from "@/lib/content/roles";
+import type { Role } from "@/lib/content/utils/roles";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { rowToEntry, type EntryRow } from "./entry-mapper";
 import { refreshLibrary } from "@/lib/rtk/ingest";

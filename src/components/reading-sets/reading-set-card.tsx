@@ -1,7 +1,7 @@
 "use client";
 
-import type { ReadingSetItem } from "@/lib/content/reading-sets";
-import { difficultyMeta } from "@/lib/content/cosmology";
+import type { ReadingSetItem } from "@/lib/content/core/seeds/reading-sets";
+import { difficultyMeta } from "@/lib/content/core/cosmology";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";

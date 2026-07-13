@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageScaffold } from "@/components/page-scaffold";
-import { EXTERNAL_CATEGORIES } from "@/lib/content/external-links";
+import { EXTERNAL_CATEGORIES } from "@/lib/content/utils/external-links";
 import { ExternalLinksBrowser } from "@/components/external-links/external-links-browser";
 
 export const metadata: Metadata = {

@@ -3,10 +3,10 @@ import type { ComponentType, CSSProperties } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ReadingPage } from "@/components/reading/reading-page";
-import { conceptRegistry, getConceptBySlug } from "@/lib/content/concept-registry";
-import { nodeTypeAccent } from "@/lib/content/cosmology";
-import { entries } from "@/lib/content/entries";
-import { getPublicEntries, getPublicEntryBySlug } from "@/lib/content/public-source";
+import { conceptRegistry, getConceptBySlug } from "@/lib/content/core/registry";
+import { nodeTypeAccent } from "@/lib/content/core/cosmology";
+import { entries } from "@/lib/content/core/seeds/entries";
+import { getPublicEntries, getPublicEntryBySlug } from "@/lib/content/publishing/public-source";
 import {
   ConceptIcon,
   PersonIcon,

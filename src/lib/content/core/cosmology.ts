@@ -1,8 +1,9 @@
 // ARCHRON Content Colour Mapping — สีประจำประเภทเนื้อหา (Knowledge Categories palette)
 // แม็ปสีตามประเภทเนื้อหา (single source of truth)
 // ใช้สำหรับ badges / icons / graph nodes / per-content accent — ไม่ใช่สีหลักของ UI
+// Also contains: Knowledge Ontology (Phase 11) + Taxonomy System (Phase 15)
 
-import { colors } from "@/lib/content/colors";
+import { colors } from "@/lib/content/utils/colors";
 
 export type Cosmology =
   | "prima"
@@ -150,4 +151,166 @@ export function nodeTypeCosmology(nodeType: string | undefined | null): Cosmolog
 export const DOMAIN_LABEL: Record<string, string> = {};
 export function deriveDomain(_entry: unknown): string | null {
   return null;
+}
+
+// ============================================================================
+// Knowledge Ontology (Phase 11) — formerly ontology.ts
+// ============================================================================
+
+import type { ContentEntry, ContentType } from "@/types/content";
+
+export type KnowledgeObjectClass =
+  | "concept"
+  | "thinker"
+  | "school"
+  | "article"
+  | "source"
+  | "symbol"
+  | "term"
+  | "collection";
+
+export type OntologyValidationResult = {
+  valid: boolean;
+  warnings: string[];
+  cosmology: Cosmology;
+  objectClass: KnowledgeObjectClass;
+};
+
+// ถอดรหัสคลาสวัตถุความรู้จาก contentType
+export function classifyKnowledgeObject(type: ContentType | string | undefined): KnowledgeObjectClass {
+  switch (type) {
+    case "concept":
+      return "concept";
+    case "person":
+      return "thinker";
+    case "school":
+      return "school";
+    case "article":
+      return "article";
+    case "book":
+    case "source-note":
+      return "source";
+    case "symbol":
+      return "symbol";
+    case "term":
+      return "term";
+    case "reading-set":
+      return "collection";
+    default:
+      return "article";
+  }
+}
+
+// ตรวจสอบความถูกต้องตามหลัก Knowledge Ontology ของ ARCHRON
+export function validateOntologyEntry(entry: ContentEntry): OntologyValidationResult {
+  const warnings: string[] = [];
+  const objectClass = classifyKnowledgeObject(entry.contentType);
+  const cosmology = nodeTypeCosmology(entry.contentType);
+
+  if (!entry.title || entry.title.trim() === "") {
+    warnings.push("ระเบียนความรู้ขาดหัวข้อเรื่องหลัก (Title missing)");
+  }
+  if (!entry.slug || !/^[a-z0-9-]+$/.test(entry.slug)) {
+    warnings.push("รหัส Slug ไม่สอดคล้องกับระเบียบ URI มาตรฐาน (Slug format invalid)");
+  }
+
+  // กฎเฉพาะแต่ละคลาสความรู้
+  if (objectClass === "concept") {
+    if (!entry.shortDescription && !entry.subtitle) {
+      warnings.push("มโนทัศน์ (Concept) ควรมีคำอธิบายสั้น (shortDescription หรือ subtitle)");
+    }
+  }
+
+  if (objectClass === "article") {
+    if (!entry.author && entry.status === "published") {
+      warnings.push("บทความที่เผยแพร่แล้วควรมีผู้เขียนหรือองค์บรรณาธิการระบุไว้");
+    }
+  }
+
+  return {
+    valid: warnings.length === 0,
+    warnings,
+    cosmology,
+    objectClass,
+  };
+}
+
+// สรุปภาพรวมโครงสร้างความรู้ของระเบียน
+export function getOntologySummary(entry: ContentEntry) {
+  const validation = validateOntologyEntry(entry);
+  return {
+    id: entry.id,
+    slug: entry.slug,
+    objectClass: validation.objectClass,
+    cosmology: validation.cosmology,
+    relationsCount: entry.relatedConcepts?.length ?? 0,
+    referencesCount: entry.references?.length ?? 0,
+    isValid: validation.valid,
+  };
+}
+
+// ============================================================================
+// Taxonomy System (Phase 15) — formerly taxonomy.ts
+// ============================================================================
+
+import { DISCIPLINES } from "@/lib/content/core/seeds/disciplines";
+import type { DisciplineKey } from "@/components/discipline-meta";
+import { THEMES } from "@/lib/content/core/seeds/themes";
+
+export type TaxonomyCluster = {
+  key: string;
+  label: string;
+  description: string;
+  entrySlugs: string[];
+};
+
+export type TaxonomyRegistry = {
+  disciplines: Record<string, TaxonomyCluster>;
+  themes: Record<string, TaxonomyCluster>;
+  cosmologies: Record<string, TaxonomyCluster>;
+};
+
+// สกัดอนุกรมวิธานและจัดกลุ่ม entries ทั้งหมด
+export function buildTaxonomyRegistry(entries: ContentEntry[]): TaxonomyRegistry {
+  const publishedEntries = entries.filter((e) => e.status === "published");
+
+  const discClusters: Record<string, TaxonomyCluster> = {};
+  for (const disc of DISCIPLINES) {
+    discClusters[disc.key] = {
+      key: disc.key,
+      label: disc.en,
+      description: disc.desc,
+      entrySlugs: publishedEntries
+        .filter((e) => e.framework?.toLowerCase().includes(disc.key) || e.tags?.includes(disc.key))
+        .map((e) => e.slug),
+    };
+  }
+
+  const themeClusters: Record<string, TaxonomyCluster> = {};
+  for (const t of THEMES) {
+    themeClusters[t.key] = {
+      key: t.key,
+      label: t.label,
+      description: t.description,
+      entrySlugs: publishedEntries
+        .filter((e) => e.tags?.some((tag) => t.aliases.includes(tag.toLowerCase())))
+        .map((e) => e.slug),
+    };
+  }
+
+  const cosmologyClusters: Record<string, TaxonomyCluster> = {};
+  for (const [key, meta] of Object.entries(COSMOLOGY_KEYS)) {
+    cosmologyClusters[key] = {
+      key,
+      label: meta.label,
+      description: `Cosmology domain: ${meta.label}`,
+      entrySlugs: publishedEntries.map((e) => e.slug),
+    };
+  }
+
+  return {
+    disciplines: discClusters,
+    themes: themeClusters,
+    cosmologies: cosmologyClusters,
+  };
 }

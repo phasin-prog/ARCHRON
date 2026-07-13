@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageScaffold } from "@/components/page-scaffold";
 import { EmptyState } from "@/components/empty-state";
-import { getPublicEntries } from "@/lib/content/public-source";
+import { getPublicEntries } from "@/lib/content/publishing/public-source";
 import { BookCard } from "@/components/books/book-card";
 import { ArrowRightIcon } from "@/components/icons";
 

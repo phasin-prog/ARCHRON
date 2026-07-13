@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ContextMenu, type ContextMenuItem } from "@/components/context-menu";
-import { getConceptBySlug } from "@/lib/content/concept-registry";
+import { getConceptBySlug } from "@/lib/content/core/registry";
 
 // ลิงก์ [[wikilink]] ในเนื้อหาอ่าน + Glossary (A2): hover/focus เพื่อดูนิยามสั้น
 // + เมนูลัด wiki (inline, คลิกขวา/กดค้าง)

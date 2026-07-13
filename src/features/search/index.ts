@@ -1,6 +1,6 @@
-import { conceptRegistry } from "@/lib/content/concept-registry";
-import { EXTERNAL_CATEGORIES } from "@/lib/content/external-links";
-import { NODE_TYPE_LABEL } from "@/lib/content/graph";
+import { conceptRegistry } from "@/lib/content/core/registry";
+import { EXTERNAL_CATEGORIES } from "@/lib/content/utils/external-links";
+import { NODE_TYPE_LABEL } from "@/lib/content/reading/graph";
 import type { ContentEntry } from "@/types/content";
 import type { SearchItem, SearchType } from "./types";
 import { normalizeText } from "./tokenizer";

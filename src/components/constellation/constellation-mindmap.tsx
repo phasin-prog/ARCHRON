@@ -10,7 +10,7 @@ import {
   NODE_TYPE_LABEL,
   RELATION_LABEL,
   type GraphData,
-} from "@/lib/content/graph";
+} from "@/lib/content/reading/graph";
 import { ArrowRightIcon, SearchIcon } from "@/components/icons";
 
 // ARCHRON Color Cosmology — สีเส้นความสัมพันธ์ตามสถานะการสืบค้น

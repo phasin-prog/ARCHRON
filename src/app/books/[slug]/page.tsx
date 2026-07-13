@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageScaffold } from "@/components/page-scaffold";
-import { getPublicEntryBySlug } from "@/lib/content/public-source";
+import { getPublicEntryBySlug } from "@/lib/content/publishing/public-source";
 import { ReadingPage } from "@/components/reading/reading-page";
 
 interface PageProps {
@@ -13,7 +13,7 @@ export const dynamicParams = true;
 export const revalidate = 300;
 
 export async function generateStaticParams() {
-  const { allEntrySlugs } = await import("@/lib/content/entries");
+  const { allEntrySlugs } = await import("@/lib/content/core/seeds/entries");
   return allEntrySlugs()
     .filter((slug) => slug.startsWith("book-"))
     .map((slug) => ({ slug }));

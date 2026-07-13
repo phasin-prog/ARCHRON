@@ -1,4 +1,4 @@
-import { parseInternalLinks } from "@/lib/content/internal-links";
+import { parseInternalLinks } from "@/lib/content/publishing/internal-links";
 import { InternalConceptLink } from "@/components/reading/internal-concept-link";
 
 // render ข้อความที่อาจมี [[ ]] internal link เป็นข้อความ + ลิงก์ไป node จริง

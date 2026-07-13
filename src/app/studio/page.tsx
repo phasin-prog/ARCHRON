@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ClerkLoading, SignIn, SignedIn, SignedOut, useUser, useClerk } from "@clerk/nextjs";
 import { ArchronLogomark } from "@/components/icons";
-import { roleFromMetadata, canWrite, isAdmin } from "@/lib/content/roles";
+import { roleFromMetadata, canWrite, isAdmin } from "@/lib/content/utils/roles";
 import { EditorIcon } from "@/components/studio/editor-icon";
 
 // หน้า Studio landing/login เฉพาะนักเขียน — ปรับโฉมเป็น 2 คอลัมน์พรีเมียมตามจิตวิทยาสีและการเล่าเรื่อง

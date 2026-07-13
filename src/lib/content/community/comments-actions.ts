@@ -1,14 +1,14 @@
 "use server";
 
 import { auth } from "@clerk/nextjs/server";
-import { getAuthedSupabase } from "@/lib/content/server-auth";
+import { getAuthedSupabase } from "@/lib/content/utils/server-auth";
 import { createServerSupabase } from "@/lib/supabase/server";
 import {
   listComments,
   addComment,
   deleteComment,
   type Comment,
-} from "@/lib/content/comments-db";
+} from "@/lib/content/community/comments-db";
 
 // โหลดความคิดเห็น (public — ใช้ anon client, RLS อนุญาตอ่าน visible)
 export async function listCommentsAction(

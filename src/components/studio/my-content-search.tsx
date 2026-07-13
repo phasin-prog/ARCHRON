@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import type { ContentEntry } from "@/types/content";
 import { listMyEntriesAction } from "@/features/editor/actions";
-import { contentTypeMeta } from "@/lib/content/cosmology";
+import { contentTypeMeta } from "@/lib/content/core/cosmology";
 
 // ค้นหา/เปิดเนื้อหาของผู้เขียนเอง (Studio search) — ใช้ใน sidebar ของ editor
 // ใช้ <a> (full reload) เพื่อให้ editor โหลด draft ใหม่ตาม ?slug

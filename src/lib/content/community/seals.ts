@@ -1,4 +1,4 @@
-import { colors } from "@/lib/content/colors";
+import { colors } from "@/lib/content/utils/colors";
 
 export interface AcademicSeal {
   id: string;

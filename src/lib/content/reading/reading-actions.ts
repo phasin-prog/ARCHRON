@@ -2,11 +2,11 @@
 
 import { revalidatePath } from "next/cache";
 import { auth } from "@clerk/nextjs/server";
-import { getAuthedSupabase } from "@/lib/content/server-auth";
+import { getAuthedSupabase } from "@/lib/content/utils/server-auth";
 import {
   upsertReadingCompleted,
   syncAchievements,
-} from "@/lib/content/reading-db";
+} from "@/lib/content/reading/reading-db";
 
 // บันทึก "อ่านจบ" อัตโนมัติ (เรียกจาก ReadCompletionTracker เมื่อเข้าเงื่อนไข)
 // - ผู้ไม่ล็อกอิน → no-op เงียบ ๆ (ไม่ throw)

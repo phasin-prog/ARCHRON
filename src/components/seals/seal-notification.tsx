@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import type { AcademicSeal } from "@/lib/content/seals";
+import type { AcademicSeal } from "@/lib/content/community/seals";
 import { SealIcon } from "./seal-icon";
 
 interface SealNotificationProps {

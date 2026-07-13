@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PageNav } from "@/components/page-nav";
-import { getPublicEntryBySlug } from "@/lib/content/public-source";
+import { getPublicEntryBySlug } from "@/lib/content/publishing/public-source";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import {

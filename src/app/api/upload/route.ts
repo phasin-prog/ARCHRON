@@ -6,7 +6,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { clerkClient } from "@clerk/nextjs/server";
-import { roleFromMetadata, canWrite } from "@/lib/content/roles";
+import { roleFromMetadata, canWrite } from "@/lib/content/utils/roles";
 import { uploadToR2 } from "@/lib/storage/upload";
 
 export async function POST(request: Request) {

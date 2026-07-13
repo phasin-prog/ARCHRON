@@ -2,13 +2,13 @@ import type { DiscriminatedEntry } from "@/types/content";
 import {
   entries as staticEntries,
   getEntryBySlug as getStaticEntryBySlug,
-} from "@/lib/content/entries";
+} from "@/lib/content/core/seeds/entries";
 import {
   getPublishedEntries,
   getPublishedEntryBySlug,
-} from "@/lib/content/entries-db";
+} from "@/lib/content/publishing/entries-db";
 import { cached, KEYS } from "@/lib/cache/cache";
-import { SCHOOLS as staticSchools, type School } from "@/lib/content/schools";
+import { SCHOOLS as staticSchools, type School } from "@/lib/content/core/seeds/schools";
 
 // E8 — แหล่งข้อมูลหน้า public
 // อ่านจาก Supabase (เฉพาะ status=published) + Upstash cache (300s TTL)
@@ -116,7 +116,7 @@ import {
   READING_SETS,
   getReadingSetBySlug as getStaticReadingSetBySlug,
   type ReadingSetItem,
-} from "@/lib/content/reading-sets";
+} from "@/lib/content/core/seeds/reading-sets";
 
 // ดึงรายการเส้นทางการอ่าน (Reading Sets) ทั้งหมด
 export async function getPublicReadingSets(): Promise<ReadingSetItem[]> {

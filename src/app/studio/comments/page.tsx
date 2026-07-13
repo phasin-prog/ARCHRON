@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
-import { roleFromMetadata, isAdmin } from "@/lib/content/roles";
+import { roleFromMetadata, isAdmin } from "@/lib/content/utils/roles";
 import {
   listAllCommentsAction,
   setCommentStatusAction,

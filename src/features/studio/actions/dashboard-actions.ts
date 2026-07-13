@@ -1,6 +1,6 @@
 "use server";
 
-import { getAuthedSupabase } from "@/lib/content/server-auth";
+import { getAuthedSupabase } from "@/lib/content/utils/server-auth";
 
 export async function listMyDraftsAction() {
   const { supabase, userId } = await getAuthedSupabase();

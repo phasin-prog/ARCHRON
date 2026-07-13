@@ -4,7 +4,7 @@ import { MyContentSearch } from "@/components/studio/my-content-search";
 import { RevisionPanel } from "@/components/studio/revision-panel";
 import { InternalLinkSuggestionPanel } from "@/components/studio/internal-link-suggestion-panel";
 import { PublishChecklist } from "@/components/studio/publish-checklist";
-import type { ChecklistItem } from "@/lib/content/publish-validation";
+import type { ChecklistItem } from "@/lib/content/publishing/publish-validation";
 
 type Props = {
   checklist: ChecklistItem[];

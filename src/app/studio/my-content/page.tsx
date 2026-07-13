@@ -3,8 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useAuth, useUser } from "@clerk/nextjs";
-import { roleFromMetadata, canWrite } from "@/lib/content/roles";
-import { contentTypeMeta } from "@/lib/content/cosmology";
+import { roleFromMetadata, canWrite } from "@/lib/content/utils/roles";
+import { contentTypeMeta } from "@/lib/content/core/cosmology";
 import { listMyEntriesAction } from "@/features/editor/actions";
 import { EditorIcon } from "@/components/studio/editor-icon";
 import type { ContentEntry } from "@/types/content";

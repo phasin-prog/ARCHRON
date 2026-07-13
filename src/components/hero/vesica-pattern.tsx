@@ -1,4 +1,4 @@
-import { COSMOLOGY_ACCENT, type Cosmology } from "@/lib/content/cosmology";
+import { COSMOLOGY_ACCENT, type Cosmology } from "@/lib/content/core/cosmology";
 
 // VesicaPattern — พื้นหลัง vesica จาง ๆ ซ้ำเป็น grid สำหรับ section สาย
 // cosmology-aware: สี pattern อ่านจาก cosmology ของ section (ผ่าน inline style)

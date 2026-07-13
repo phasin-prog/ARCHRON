@@ -4,16 +4,16 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useAuth, useUser } from "@clerk/nextjs";
-import { roleFromMetadata, canWrite } from "@/lib/content/roles";
+import { roleFromMetadata, canWrite } from "@/lib/content/utils/roles";
 import {
   EMPTY_DRAFT, getPublishChecklist, canPublish, slugify, type EditorDraft, type EditorReference,
-} from "@/lib/content/publish-validation";
+} from "@/lib/content/publishing/publish-validation";
 import {
   saveDraftAction, saveDraftWithRevisionAction, loadDraftAction,
   publishAction,
 } from "@/features/editor/actions";
 import { listMyDraftsAction, listMyEntriesAction } from "@/features/studio/actions/dashboard-actions";
-import { findDeadLinks } from "@/lib/content/internal-links";
+import { findDeadLinks } from "@/lib/content/publishing/internal-links";
 import { getMyProfileAction } from "@/features/studio/actions/profile-actions";
 import { EditorHeader } from "@/components/studio/editor-header";
 import { EditorForm } from "@/components/studio/editor-form";

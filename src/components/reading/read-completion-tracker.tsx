@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { recordReadCompletion } from "@/lib/content/reading-actions";
+import { recordReadCompletion } from "@/lib/content/reading/reading-actions";
 
 // ตัวติดตาม "อ่านจบ" อัตโนมัติ (ไม่มีปุ่มกด — Decisions ข้อ 2)
 // เงื่อนไข: เลื่อนถึง sentinel ท้ายเนื้อหา (IntersectionObserver) และ

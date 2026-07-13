@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { SEALS, type AcademicSeal } from "@/lib/content/seals";
+import { SEALS, type AcademicSeal } from "@/lib/content/community/seals";
 import { SealIcon } from "./seal-icon";
 
 interface SealGalleryProps {

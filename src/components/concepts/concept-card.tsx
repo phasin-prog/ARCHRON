@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type ComponentType } from "react";
 import { ContextMenu, type ContextMenuItem } from "@/components/context-menu";
-import type { ConceptRegistryItem } from "@/lib/content/concept-registry";
+import type { ConceptRegistryItem } from "@/lib/content/core/registry";
 import {
   ConceptIcon,
   PersonIcon,
@@ -13,7 +13,7 @@ import {
   SymbolIcon,
   TermIcon,
 } from "@/components/icons";
-import { NODE_TYPE_COLOR } from "@/lib/content/graph";
+import { NODE_TYPE_COLOR } from "@/lib/content/reading/graph";
 import { ViewBadge } from "@/components/view-badge";
 
 const NODE_LABEL: Record<string, string> = {

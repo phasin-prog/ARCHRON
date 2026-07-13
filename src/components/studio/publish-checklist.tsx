@@ -1,7 +1,7 @@
 "use client";
 
 import { EditorIcon } from "@/components/studio/editor-icon";
-import type { ChecklistItem } from "@/lib/content/publish-validation";
+import type { ChecklistItem } from "@/lib/content/publishing/publish-validation";
 
 type Props = {
   items: ChecklistItem[];

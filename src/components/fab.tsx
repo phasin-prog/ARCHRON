@@ -2,7 +2,7 @@
 
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { conceptRegistry } from "@/lib/content/concept-registry";
+import { conceptRegistry } from "@/lib/content/core/registry";
 import { SearchIcon, KnowledgeHubIcon, CloseIcon } from "@/components/icons";
 
 type FabAction = {

@@ -8,7 +8,7 @@ import {
   MANIFESTO_SLUG,
   type AchievementKey,
   type ReadingStats,
-} from "@/lib/content/achievements";
+} from "@/lib/content/community/achievements";
 
 export type ReadingRow = {
   clerk_user_id: string;

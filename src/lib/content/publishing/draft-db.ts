@@ -1,10 +1,10 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { EditorDraft } from "@/lib/content/publish-validation";
+import type { EditorDraft } from "@/lib/content/publishing/publish-validation";
 import type { DiscriminatedEntry } from "@/types/content";
-import type { Role } from "@/lib/content/roles";
-import { draftToRow, entryToDraft } from "@/lib/content/draft-mapper";
-import { rowToEntry, type EntryRow } from "@/lib/content/entry-mapper";
-import { getMyProfile } from "@/lib/content/profile-db";
+import type { Role } from "@/lib/content/utils/roles";
+import { draftToRow, entryToDraft } from "@/lib/content/publishing/draft-mapper";
+import { rowToEntry, type EntryRow } from "@/lib/content/publishing/entry-mapper";
+import { getMyProfile } from "@/lib/content/community/profile-db";
 import { refreshLibrary } from "@/lib/rtk/ingest";
 
 const SYSTEM_AUTHOR_ID = "system-seed";

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ReadingPage } from "@/components/reading/reading-page";
-import { allEntrySlugs } from "@/lib/content/entries";
-import { getPublicEntryBySlug } from "@/lib/content/public-source";
+import { allEntrySlugs } from "@/lib/content/core/seeds/entries";
+import { getPublicEntryBySlug } from "@/lib/content/publishing/public-source";
 
 // Dynamic route — pre-render slug ที่มีอยู่ และรองรับ slug ใหม่ตอน runtime
 export const dynamicParams = true;

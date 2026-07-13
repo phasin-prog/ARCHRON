@@ -5,7 +5,7 @@ import type { ContentEntry, RelationType, SourceItem, Difficulty } from "@/types
 import { MarkdownRenderer } from "@/components/reading/markdown-renderer";
 import { InternalLinkText } from "@/components/reading/internal-link-text";
 import { InternalConceptLink } from "@/components/reading/internal-concept-link";
-import { conceptTitle } from "@/lib/content/concept-registry";
+import { conceptTitle } from "@/lib/content/core/registry";
 import {
   VisualMeaningIcon,
   ScholarIcon,
@@ -32,9 +32,9 @@ import { CommentSection } from "@/components/reading/comment-section";
 import { LocalGraph } from "@/components/reading/local-graph";
 import { ReadCompletionTracker } from "@/components/reading/read-completion-tracker";
 import { FontSizeControl } from "@/components/reading/font-size-control";
-import { themesForEntry } from "@/lib/content/themes";
-import { getPublicEntries } from "@/lib/content/public-source";
-import { getBacklinksForConcept } from "@/lib/content/related";
+import { themesForEntry } from "@/lib/content/core/seeds/themes";
+import { getPublicEntries } from "@/lib/content/publishing/public-source";
+import { getBacklinksForConcept } from "@/lib/content/reading/related";
 
 type Section = "articles" | "concepts" | "books";
 

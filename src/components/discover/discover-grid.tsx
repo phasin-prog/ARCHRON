@@ -3,8 +3,8 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import type { ContentEntry } from "@/types/content";
-import type { School } from "@/lib/content/schools";
-import type { ConceptRegistryItem } from "@/lib/content/concept-registry";
+import type { School } from "@/lib/content/core/seeds/schools";
+import type { ConceptRegistryItem } from "@/lib/content/core/registry";
 import { ViewBadge } from "@/components/view-badge";
 
 interface DiscoverGridProps {

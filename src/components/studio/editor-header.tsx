@@ -4,9 +4,9 @@ import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 import { EditorStatusBar } from "@/components/studio/editor-status-bar";
 import { EditorIcon } from "@/components/studio/editor-icon";
-import { statusMeta } from "@/lib/content/cosmology";
-import { isAdmin, type Role } from "@/lib/content/roles";
-import type { EditorDraft } from "@/lib/content/publish-validation";
+import { statusMeta } from "@/lib/content/core/cosmology";
+import { isAdmin, type Role } from "@/lib/content/utils/roles";
+import type { EditorDraft } from "@/lib/content/publishing/publish-validation";
 
 type Props = {
   draft: EditorDraft;

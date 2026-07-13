@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { colors } from "@/lib/content/colors";
+import { colors } from "@/lib/content/utils/colors";
 import { PageScaffold } from "@/components/page-scaffold";
-import { SOURCES } from "@/lib/content/sources";
+import { SOURCES } from "@/lib/content/utils/sources";
 import { SourcesBrowser } from "@/components/sources/sources-browser";
 import { PrimarySourceIcon, SecondarySourceIcon, InterpretationIcon } from "@/components/icons";
 

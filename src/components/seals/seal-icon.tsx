@@ -1,4 +1,4 @@
-import type { AcademicSeal } from "@/lib/content/seals";
+import type { AcademicSeal } from "@/lib/content/community/seals";
 
 interface SealIconProps {
   seal: AcademicSeal;

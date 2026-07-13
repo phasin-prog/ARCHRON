@@ -1,9 +1,9 @@
 "use client";
 
-import type { AcademicSeal } from "@/lib/content/seals";
+import type { AcademicSeal } from "@/lib/content/community/seals";
 import { SealIcon } from "./seal-icon";
 import { Modal } from "@/components/modal";
-import { colors } from "@/lib/content/colors";
+import { colors } from "@/lib/content/utils/colors";
 
 interface SealDetailModalProps {
   seal: AcademicSeal | null;

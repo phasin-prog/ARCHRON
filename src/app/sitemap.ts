@@ -1,8 +1,8 @@
 // app/sitemap.ts — ARCHRON Phase 20: SEO Sitemap Architecture
 import type { MetadataRoute } from "next";
-import { conceptRegistry } from "@/lib/content/concept-registry";
-import { READING_SETS } from "@/lib/content/reading-sets";
-import { SCHOOLS } from "@/lib/content/schools";
+import { conceptRegistry } from "@/lib/content/core/registry";
+import { READING_SETS } from "@/lib/content/core/seeds/reading-sets";
+import { SCHOOLS } from "@/lib/content/core/seeds/schools";
 
 export const dynamic = "force-static";
 

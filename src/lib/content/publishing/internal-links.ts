@@ -1,4 +1,4 @@
-import { conceptRegistry, resolveConcept } from "./concept-registry";
+import { conceptRegistry, resolveConcept } from "@/lib/content/core/registry";
 
 // Phase 10 — Internal link suggestion + Obsidian-like [[ ]] parsing
 

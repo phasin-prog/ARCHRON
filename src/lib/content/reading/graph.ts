@@ -1,11 +1,11 @@
 // lib/content/graph.ts — Constellation graph adapter (server-safe, ไม่มี "use client")
 // สร้างกราฟความสัมพันธ์จากข้อมูลจริง: nodes = concept-registry, edges = entries.relatedConcepts (+relatedCTA soft)
-import { colors } from "@/lib/content/colors";
+import { colors } from "@/lib/content/utils/colors";
 import {
   conceptRegistry,
   getConceptBySlug,
   type NodeType,
-} from "@/lib/content/concept-registry";
+} from "@/lib/content/core/registry";
 import type { ContentEntry, RelationType } from "@/types/content";
 
 export type GraphNode = {

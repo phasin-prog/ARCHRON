@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PageScaffold } from "@/components/page-scaffold";
-import { getPublicEntries } from "@/lib/content/public-source";
+import { getPublicEntries } from "@/lib/content/publishing/public-source";
 import { ExploreHub } from "@/components/explore/explore-hub";
 
 export const metadata: Metadata = {

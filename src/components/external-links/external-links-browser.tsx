@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { ExternalCategory } from "@/lib/content/external-links";
+import type { ExternalCategory } from "@/lib/content/utils/external-links";
 import { SearchIcon, CloseIcon, ExternalLinkIcon } from "@/components/icons";
 
 function hostOf(url: string): string {

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useAuth, useUser } from "@clerk/nextjs";
-import { roleFromMetadata, ROLE_LABEL, ROLE_META, canWrite } from "@/lib/content/roles";
+import { roleFromMetadata, ROLE_LABEL, ROLE_META, canWrite } from "@/lib/content/utils/roles";
 import { AchievementBadgeIcon } from "@/components/icons";
 import { EditorIcon } from "@/components/studio/editor-icon";
 import {
@@ -11,7 +11,7 @@ import {
   upsertMyProfileAction,
   requestWriterAction,
 } from "@/features/studio/actions/profile-actions";
-import type { Profile } from "@/lib/content/profile-db";
+import type { Profile } from "@/lib/content/community/profile-db";
 
 interface RecentItem {
   slug: string;

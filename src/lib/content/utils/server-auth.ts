@@ -1,7 +1,7 @@
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "@supabase/supabase-js";
-import { roleFromMetadata, type Role } from "@/lib/content/roles";
+import { roleFromMetadata, type Role } from "@/lib/content/utils/roles";
 
 // Server actions รันฝั่ง server เท่านั้น → ใช้ service-role client (ข้าม RLS)
 // แล้วตรวจสอบ ownership เองใน data layer (author_id === userId)

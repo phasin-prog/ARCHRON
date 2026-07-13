@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PageScaffold } from "@/components/page-scaffold";
-import { getPublicEntries } from "@/lib/content/public-source";
+import { getPublicEntries } from "@/lib/content/publishing/public-source";
 import { CompareMatrix } from "@/components/compare/compare-matrix";
 
 export const metadata: Metadata = {

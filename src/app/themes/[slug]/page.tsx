@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPublicEntries } from "@/lib/content/public-source";
-import { THEMES, themeByKey, entriesForTheme } from "@/lib/content/themes";
-import { contentTypeMeta } from "@/lib/content/cosmology";
+import { getPublicEntries } from "@/lib/content/publishing/public-source";
+import { THEMES, themeByKey, entriesForTheme } from "@/lib/content/core/seeds/themes";
+import { contentTypeMeta } from "@/lib/content/core/cosmology";
 import { EmptyState } from "@/components/empty-state";
 import { ArrowRightIcon } from "@/components/icons";
 

@@ -7,8 +7,8 @@ import {
   listCommentsAction,
   addCommentAction,
   deleteCommentAction,
-} from "@/lib/content/comments-actions";
-import type { Comment } from "@/lib/content/comments-db";
+} from "@/lib/content/community/comments-actions";
+import type { Comment } from "@/lib/content/community/comments-db";
 
 // ความคิดเห็นท้ายบทความ/แนวคิด — กรอบวิชาการ: ต้องมีบัญชีจึงร่วมอภิปรายได้
 // หมายเหตุ: ตัวห่อ ClerkProvider อยู่ที่ ReadingPage (island) เพื่อไม่กระทบ ISR หน้าอื่น

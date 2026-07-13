@@ -5,7 +5,7 @@ import {
   NODE_TYPE_COLOR,
   NODE_TYPE_LABEL,
   RELATION_LABEL,
-} from "@/lib/content/graph";
+} from "@/lib/content/reading/graph";
 import { KnowledgeHubIcon, ArrowRightIcon } from "@/components/icons";
 
 // Local Graph (B2) — มินิกราฟรายโหนด: โหนดเป้าหมายตรงกลาง + เพื่อนบ้านโดยตรงเป็นวงรอบ

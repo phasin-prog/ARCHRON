@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { loadRevisionsAction } from "@/features/editor/actions";
-import type { EditorDraft } from "@/lib/content/publish-validation";
+import type { EditorDraft } from "@/lib/content/publishing/publish-validation";
 import { Modal } from "@/components/modal";
 
 type RevisionRow = {

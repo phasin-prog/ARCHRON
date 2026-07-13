@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
 import { PageNav } from "@/components/page-nav";
 import { DisciplineCard } from "@/components/discipline-card";
-import { DISCIPLINES } from "@/lib/content/disciplines";
+import { DISCIPLINES } from "@/lib/content/core/seeds/disciplines";
 
 export const metadata: Metadata = {
   title: "ศาสตร์ที่เราศึกษา — ARCHRON",

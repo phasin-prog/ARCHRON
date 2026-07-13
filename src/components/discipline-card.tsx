@@ -2,7 +2,7 @@
 // ไอคอน/สี/ป้าย จาก discipline-meta · คำอธิบายจาก lib/content/disciplines
 import Link from "next/link";
 import { DISCIPLINE_META } from "@/components/discipline-meta";
-import type { DisciplineEntry } from "@/lib/content/disciplines";
+import type { DisciplineEntry } from "@/lib/content/core/seeds/disciplines";
 
 const CARD_CLASS =
   "group relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-border/25 bg-text-heading/[0.02] p-7 transition-all duration-500 hover:-translate-y-1.5 hover:border-accent/40 hover:shadow-[0_28px_56px_-30px_rgba(0,0,0,0.7)] focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none";

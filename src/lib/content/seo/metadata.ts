@@ -3,7 +3,7 @@
 
 import type { Metadata } from "next";
 import type { ContentEntry } from "@/types/content";
-import { classifyKnowledgeObject } from "@/lib/content/ontology";
+import { classifyKnowledgeObject } from "@/lib/content/core/cosmology";
 
 const DEFAULT_BASE_URL = "https://archron.io";
 

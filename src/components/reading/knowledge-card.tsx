@@ -1,9 +1,9 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import type { ContentEntry } from "@/types/content";
-import { contentTypeMeta, deriveDomain, DOMAIN_LABEL } from "@/lib/content/cosmology";
-import { conceptTitle } from "@/lib/content/concept-registry";
-import { themesForEntry } from "@/lib/content/themes";
+import { contentTypeMeta, deriveDomain, DOMAIN_LABEL } from "@/lib/content/core/cosmology";
+import { conceptTitle } from "@/lib/content/core/registry";
+import { themesForEntry } from "@/lib/content/core/seeds/themes";
 
 const THAI_MONTHS_SHORT = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
 function formatThaiDate(iso: string | undefined): string | null {

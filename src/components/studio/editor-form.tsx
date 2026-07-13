@@ -10,10 +10,10 @@ import { MarkdownRenderer } from "@/components/reading/markdown-renderer";
 import {
   contentTypeMeta, statusMeta, difficultyMeta,
   sourceTypeMeta, frameworkMeta,
-} from "@/lib/content/cosmology";
-import { slugify, type EditorDraft, type EditorReference } from "@/lib/content/publish-validation";
-import { SCHOOLS } from "@/lib/content/schools";
-import { THEME_TAG_SUGGESTIONS } from "@/lib/content/themes";
+} from "@/lib/content/core/cosmology";
+import { slugify, type EditorDraft, type EditorReference } from "@/lib/content/publishing/publish-validation";
+import { SCHOOLS } from "@/lib/content/core/seeds/schools";
+import { THEME_TAG_SUGGESTIONS } from "@/lib/content/core/seeds/themes";
 
 const CONTENT_TYPES = [
   "article", "concept", "reading-set", "source-note",

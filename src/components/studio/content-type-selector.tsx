@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import {
   contentTypeMeta,
-} from "@/lib/content/cosmology";
+} from "@/lib/content/core/cosmology";
 import { EditorIcon } from "@/components/studio/editor-icon";
 
 type ContentTypeOption = {

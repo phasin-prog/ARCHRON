@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getPublicSchools } from "@/lib/content/public-source";
+import { getPublicSchools } from "@/lib/content/publishing/public-source";
 import { PageScaffold } from "@/components/page-scaffold";
 import { ThinkersHub } from "@/components/thinkers/thinkers-hub";
 

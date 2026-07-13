@@ -1,5 +1,5 @@
-import type { EditorDraft } from "@/lib/content/publish-validation";
-import type { EntryRow } from "@/lib/content/entry-mapper";
+import type { EditorDraft } from "@/lib/content/publishing/publish-validation";
+import type { EntryRow } from "@/lib/content/publishing/entry-mapper";
 import type { DiscriminatedEntry } from "@/types/content";
 
 // EditorDraft (ฟอร์ม) → แถวสำหรับเขียนลง Supabase (snake_case)

@@ -3,8 +3,8 @@
 import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import { useAuth, useUser } from "@clerk/nextjs";
-import { colors } from "@/lib/content/colors";
-import { roleFromMetadata, canWrite, isAdmin } from "@/lib/content/roles";
+import { colors } from "@/lib/content/utils/colors";
+import { roleFromMetadata, canWrite, isAdmin } from "@/lib/content/utils/roles";
 import {
   listMyDraftsAction,
   listMyEntriesAction,

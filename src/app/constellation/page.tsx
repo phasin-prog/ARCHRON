@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getPublicEntries } from "@/lib/content/public-source";
+import { getPublicEntries } from "@/lib/content/publishing/public-source";
 import {
   buildGraph,
   NODE_TYPE_LABEL,
   NODE_TYPE_ORDER,
   type GraphNode,
-} from "@/lib/content/graph";
+} from "@/lib/content/reading/graph";
 import { ConstellationMindmap } from "@/components/constellation/constellation-mindmap";
 import { PageScaffold } from "@/components/page-scaffold";
 

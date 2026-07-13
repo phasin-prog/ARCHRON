@@ -3,9 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { getPublicReadingSetBySlug } from "@/lib/content/public-source";
-import { calculateReadingSetEstimatedMinutes } from "@/lib/content/reading-sets";
-import { difficultyMeta } from "@/lib/content/cosmology";
+import { getPublicReadingSetBySlug } from "@/lib/content/publishing/public-source";
+import { calculateReadingSetEstimatedMinutes } from "@/lib/content/core/seeds/reading-sets";
+import { difficultyMeta } from "@/lib/content/core/cosmology";
 import { ArrowRightIcon, ClockIcon } from "@/components/icons";
 
 export const dynamicParams = true;

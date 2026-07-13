@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { FAQ } from "@/lib/content/faq";
+import { FAQ } from "@/lib/content/utils/faq";
 import { Accordion } from "@/components/accordion";
 import { PageScaffold } from "@/components/page-scaffold";
 

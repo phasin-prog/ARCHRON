@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createClerkSupabaseClient } from "@/lib/supabase/client";
-import { incrementPageView, getPageView } from "@/lib/content/views-db";
+import { incrementPageView, getPageView } from "@/lib/content/community/views-db";
 import { recordView } from "@/components/recently-viewed";
 
 // ตัวนับผู้เยี่ยมชมต่อบทความ — เพิ่ม +1 ครั้งเดียวต่อ session ต่อ slug

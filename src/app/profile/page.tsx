@@ -5,19 +5,19 @@ import { auth, clerkClient } from "@clerk/nextjs/server";
 import { PageHeader } from "@/components/page-header";
 import { EmptyState } from "@/components/empty-state";
 import { ProfileTabs } from "@/components/profile/profile-tabs";
-import { getAuthedSupabase, getUserRole } from "@/lib/content/server-auth";
-import { canWrite, ROLE_LABEL } from "@/lib/content/roles";
-import { getMyProfile } from "@/lib/content/profile-db";
-import { listMyEntries } from "@/lib/content/entries-db";
-import { getPublicEntries } from "@/lib/content/public-source";
+import { getAuthedSupabase, getUserRole } from "@/lib/content/utils/server-auth";
+import { canWrite, ROLE_LABEL } from "@/lib/content/utils/roles";
+import { getMyProfile } from "@/lib/content/community/profile-db";
+import { listMyEntries } from "@/lib/content/publishing/entries-db";
+import { getPublicEntries } from "@/lib/content/publishing/public-source";
 import {
   getReadingStats,
   getReadingHistory,
   getUserAchievements,
   type ReadingRow,
-} from "@/lib/content/reading-db";
-import { levelProgress, LEVELS } from "@/lib/content/levels";
-import { ACHIEVEMENTS } from "@/lib/content/achievements";
+} from "@/lib/content/reading/reading-db";
+import { levelProgress, LEVELS } from "@/lib/content/community/levels";
+import { ACHIEVEMENTS } from "@/lib/content/community/achievements";
 import { SealProfileSection } from "@/components/seals/seal-profile-section";
 import { LevelBadgeIcon, AchievementBadgeIcon, ReadingSetBadgeIcon } from "@/components/icons";
 import type { ContentEntry } from "@/types/content";

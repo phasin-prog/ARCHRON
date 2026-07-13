@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PageScaffold } from "@/components/page-scaffold";
-import { conceptRegistry } from "@/lib/content/concept-registry";
-import { getPublicEntries } from "@/lib/content/public-source";
+import { conceptRegistry } from "@/lib/content/core/registry";
+import { getPublicEntries } from "@/lib/content/publishing/public-source";
 import { ConceptsBrowser } from "@/components/concepts/concepts-browser";
 
 export const metadata: Metadata = {

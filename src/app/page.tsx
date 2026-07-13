@@ -3,7 +3,7 @@ import { RecentlyViewed } from "@/components/recently-viewed";
 import { HomeSearch } from "@/components/home-search";
 import { ArrowRightIcon } from "@/components/icons";
 import { SectionHeading } from "@/components/section-heading";
-import { getPublicEntries } from "@/lib/content/public-source";
+import { getPublicEntries } from "@/lib/content/publishing/public-source";
 
 export const revalidate = 300;
 

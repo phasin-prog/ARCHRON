@@ -1,16 +1,27 @@
 "use client";
 
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ClerkLoading, SignIn, SignedIn, SignedOut, useUser, useClerk } from "@clerk/nextjs";
 import { ArchronLogomark } from "@/components/icons";
-import { roleFromMetadata, isAdmin } from "@/lib/content/roles";
+import { roleFromMetadata, canWrite, isAdmin } from "@/lib/content/roles";
 import { EditorIcon } from "@/components/studio/editor-icon";
 
 // หน้า Studio landing/login เฉพาะนักเขียน — ปรับโฉมเป็น 2 คอลัมน์พรีเมียมตามจิตวิทยาสีและการเล่าเรื่อง
 export default function StudioLandingPage() {
   const { user, isLoaded } = useUser();
   const clerk = useClerk();
-  const admin = isAdmin(roleFromMetadata(user?.publicMetadata));
+  const router = useRouter();
+  const role = roleFromMetadata(user?.publicMetadata);
+  const admin = isAdmin(role);
+  const writer = canWrite(role);
+
+  useEffect(() => {
+    if (user && writer) {
+      router.replace("/studio/dashboard");
+    }
+  }, [user, writer, router]);
 
   if (!isLoaded) {
     return (
@@ -50,6 +61,8 @@ export default function StudioLandingPage() {
       </main>
     );
   }
+
+  if (user && writer) return null;
 
   return (
     <main className="relative flex min-h-[85vh] flex-col items-center justify-center overflow-hidden px-4 py-16">

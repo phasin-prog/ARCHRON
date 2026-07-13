@@ -65,9 +65,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── 3. CONTINUE READING ── */}
-      <section className="tpl-content mt-20">
-        <RecentlyViewed />
-      </section>
+      <RecentlyViewed />
 
       {/* ── 4. FEATURED ARTICLES ── */}
       {articles.length > 0 && (

@@ -12,7 +12,6 @@ import {
   saveDraftAction, saveDraftWithRevisionAction, loadDraftAction,
   publishAction,
 } from "@/features/editor/actions";
-import { listMyDraftsAction, listMyEntriesAction } from "@/features/studio/actions/dashboard-actions";
 import { getMyProfileAction } from "@/features/studio/actions/profile-actions";
 import { findDeadLinks } from "@/lib/content/publishing/internal-links";
 import { EditorHeader } from "@/components/studio/editor-header";
@@ -20,7 +19,7 @@ import { EditorFeedback, type EditorFeedbackData } from "@/components/studio/edi
 import { EditorIcon } from "@/components/studio/editor-icon";
 import { useEditorMachine } from "@/features/editor/hooks/useEditorMachine";
 import {
-  EditorDashboard, EditorBasicInfo, EditorConceptFields,
+  EditorBasicInfo, EditorConceptFields,
   EditorPersonFields, EditorBookFields, EditorSchoolFields,
   EditorBody, EditorRelations, EditorCta, EditorPublishPanel,
 } from "@/components/studio/editor";
@@ -61,25 +60,6 @@ export default function StudioEditorPage() {
     })();
     return () => { active = false; };
   }, [userId, dispatch]);
-
-  // Load entries/drafts for dashboard
-  useEffect(() => {
-    if (!userId || mode !== "dashboard") return;
-    let active = true;
-    dispatch({ type: "SET_LOADING_ENTRIES", loading: true });
-    (async () => {
-      try {
-        const [entriesArr, draftsArr] = await Promise.all([listMyEntriesAction(), listMyDraftsAction()]);
-        if (active) {
-          if (entriesArr) dispatch({ type: "SET_ENTRIES", entries: entriesArr as any[] });
-          if (draftsArr) dispatch({ type: "SET_DRAFTS", drafts: draftsArr as any[] });
-        }
-      } catch {
-        /* ignore */
-      }
-    })();
-    return () => { active = false; };
-  }, [userId, mode, dispatch]);
 
   // Load draft from ?slug= or create from ?type=
   useEffect(() => {
@@ -199,21 +179,6 @@ export default function StudioEditorPage() {
           </Link>
         </div>
       </main>
-    );
-  }
-
-  // Dashboard mode
-  if (mode === "dashboard") {
-    return (
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <EditorDashboard
-          entries={state.entries} drafts={state.drafts}
-          loading={state.loadingEntries} typeFilter={state.typeFilter}
-          onNewDraft={() => { dispatch({ type: "RESET" }); dispatch({ type: "SET_MODE", payload: "editing" }); }}
-          onLoadEntry={(slug: string) => router.push(`/studio/editor?slug=${slug}`)}
-          onTypeFilterChange={(f: string) => dispatch({ type: "SET_TYPE_FILTER", filter: f })}
-        />
-      </div>
     );
   }
 

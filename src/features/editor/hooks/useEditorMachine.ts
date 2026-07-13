@@ -3,23 +3,13 @@
 import { useReducer, useCallback } from "react";
 import type { EditorDraft } from "@/lib/content/publishing/publish-validation";
 
-export type EditorMode = "dashboard" | "editing" | "preview";
+export type EditorMode = "editing" | "preview";
 export type AutoSaveState = "idle" | "saving" | "saved";
 
 export interface EditorFeedbackData {
   missingFields: string[];
   deadLinks: string[];
   suggestions: string[];
-}
-
-export interface EntryItem {
-  id: string; slug: string; title: string; status: string;
-  content_type: string; published_at: string | null; author_name?: string | null;
-}
-
-export interface DraftItem {
-  id: string; slug: string; title: string; status: string;
-  updated_at: string | null;
 }
 
 export interface EditorMachineState {
@@ -36,11 +26,6 @@ export interface EditorMachineState {
   activeSection: string;
   originalAuthorId: string | null;
   originalAuthorName: string | null;
-  showDashboard: boolean;
-  entries: EntryItem[];
-  drafts: DraftItem[];
-  loadingEntries: boolean;
-  typeFilter: string;
 }
 
 export type EditorAction =
@@ -56,23 +41,16 @@ export type EditorAction =
   | { type: "SET_DISPLAY_NAME"; name: string | null }
   | { type: "SET_ACTIVE_SECTION"; section: string }
   | { type: "SET_ORIGINAL_AUTHOR"; id: string | null; name: string | null }
-  | { type: "TOGGLE_DASHBOARD" }
-  | { type: "SET_ENTRIES"; entries: EntryItem[] }
-  | { type: "SET_DRAFTS"; drafts: DraftItem[] }
-  | { type: "SET_LOADING_ENTRIES"; loading: boolean }
-  | { type: "SET_TYPE_FILTER"; filter: string }
   | { type: "RESET" };
 
 export function initialEditorState(draft: EditorDraft): EditorMachineState {
   return {
-    mode: "dashboard",
+    mode: "editing",
     draft,
     entryId: null, savedAt: null, autoState: "idle",
     feedback: null, publishTried: false, publishing: false,
     loadingDraft: false, displayName: null, activeSection: "basic",
     originalAuthorId: null, originalAuthorName: null,
-    showDashboard: true,
-    entries: [], drafts: [], loadingEntries: true, typeFilter: "all",
   };
 }
 
@@ -106,16 +84,6 @@ export function editorReducer(state: EditorMachineState, action: EditorAction): 
       return { ...state, displayName: action.name };
     case "SET_ACTIVE_SECTION":
       return { ...state, activeSection: action.section };
-    case "TOGGLE_DASHBOARD":
-      return { ...state, showDashboard: !state.showDashboard };
-    case "SET_ENTRIES":
-      return { ...state, entries: action.entries, loadingEntries: false };
-    case "SET_DRAFTS":
-      return { ...state, drafts: action.drafts };
-    case "SET_LOADING_ENTRIES":
-      return { ...state, loadingEntries: action.loading };
-    case "SET_TYPE_FILTER":
-      return { ...state, typeFilter: action.filter };
     case "SET_ORIGINAL_AUTHOR":
       return { ...state, originalAuthorId: action.id, originalAuthorName: action.name };
     case "RESET":

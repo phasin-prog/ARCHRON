@@ -54,10 +54,40 @@ export default function StudioDashboardPage() {
   const [tab, setTab] = useState<Tab>("my");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [typeFilter, setTypeFilter] = useState<string>("all");
+  const [search, setSearch] = useState("");
+  const [showAllDrafts, setShowAllDrafts] = useState(false);
+
+  // Filtered entries for "บทความของฉัน"
+  const filteredDrafts = useMemo(() => {
+    let result = [...drafts];
+    const q = search.trim().toLowerCase();
+    if (q) {
+      result = result.filter(
+        (e) =>
+          e.title.toLowerCase().includes(q) ||
+          e.slug.toLowerCase().includes(q),
+      );
+    }
+    if (typeFilter !== "all") {
+      // Drafts don't have content_type, skip type filter for drafts
+    }
+    return result.sort((a, b) => (b.updated_at ?? "").localeCompare(a.updated_at ?? ""));
+  }, [drafts, search, typeFilter]);
+
+  const recentDrafts = filteredDrafts.slice(0, 5);
+  const displayDrafts = showAllDrafts ? filteredDrafts : recentDrafts;
 
   // Filtered entries for "บทความของฉัน"
   const myFilteredEntries = useMemo(() => {
     let result = [...entries];
+    const q = search.trim().toLowerCase();
+    if (q) {
+      result = result.filter(
+        (e) =>
+          e.title.toLowerCase().includes(q) ||
+          e.slug.toLowerCase().includes(q),
+      );
+    }
     if (statusFilter !== "all") {
       result = result.filter((e) => e.status === statusFilter);
     }
@@ -65,16 +95,24 @@ export default function StudioDashboardPage() {
       result = result.filter((e) => e.content_type === typeFilter);
     }
     return result.sort((a, b) => (b.published_at ?? "").localeCompare(a.published_at ?? ""));
-  }, [entries, statusFilter, typeFilter]);
+  }, [entries, search, statusFilter, typeFilter]);
 
   // Filtered entries for "บทความทั้งหมด"
   const allFilteredEntries = useMemo(() => {
     let result = [...allEntries];
+    const q = search.trim().toLowerCase();
+    if (q) {
+      result = result.filter(
+        (e) =>
+          e.title.toLowerCase().includes(q) ||
+          e.slug.toLowerCase().includes(q),
+      );
+    }
     if (typeFilter !== "all") {
       result = result.filter((e) => e.content_type === typeFilter);
     }
     return result;
-  }, [allEntries, typeFilter]);
+  }, [allEntries, search, typeFilter]);
 
   // Unique types for filter
   const availableTypes = useMemo(() => {
@@ -130,10 +168,6 @@ export default function StudioDashboardPage() {
 
   const published = entries.filter((e) => e.status === "published");
   const archived = entries.filter((e) => e.status === "archived");
-
-  const recentDrafts = drafts
-    .sort((a, b) => (b.updated_at ?? "").localeCompare(a.updated_at ?? ""))
-    .slice(0, 5);
 
   const statusLabel = (s: string) => {
     const map: Record<string, string> = {
@@ -210,7 +244,17 @@ export default function StudioDashboardPage() {
         </header>
 
         {/* Stats Cards — compact */}
-        <section className="mb-8">
+        <section className="mb-6">
+          {/* Search */}
+          <div className="mb-4">
+            <input
+              value={search}
+              onChange={(e) => { setSearch(e.target.value); setShowAllDrafts(false); }}
+              placeholder="ค้นหาชื่อเรื่องหรือ slug..."
+              aria-label="ค้นหาชื่อเรื่องหรือ slug"
+              className="w-full rounded-lg border border-border/40 bg-bg/60 px-4 py-2.5 text-sm text-text-heading outline-none focus:border-accent/50 placeholder:text-text-secondary/40"
+            />
+          </div>
           <div className="grid grid-cols-3 gap-3">
             <div className="archron-card p-4" style={{ "--cosmology-accent": colors.neutralMuted } as React.CSSProperties}>
               <div className="flex items-center gap-2">
@@ -250,14 +294,24 @@ export default function StudioDashboardPage() {
           </div>
         </section>
 
-        {/* Quick Drafts — ฉบับร่างล่าสุด */}
-        {recentDrafts.length > 0 && (
+        {/* Quick Drafts */}
+        {drafts.length > 0 && (
           <section className="mb-8">
-            <h2 className="mb-3 text-sm font-medium text-text-secondary/80">
-              ฉบับร่างล่าสุด
-            </h2>
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="text-sm font-medium text-text-secondary/80">
+                ฉบับร่าง — {filteredDrafts.length} รายการ
+              </h2>
+              {filteredDrafts.length > 5 && (
+                <button
+                  onClick={() => setShowAllDrafts(!showAllDrafts)}
+                  className="text-xs text-accent hover:underline"
+                >
+                  {showAllDrafts ? "แสดงน้อยลง" : `ดูทั้งหมด (${filteredDrafts.length})`}
+                </button>
+              )}
+            </div>
             <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-              {recentDrafts.map((d) => (
+              {displayDrafts.map((d) => (
                 <Link
                   key={d.id}
                   href={`/studio/editor?slug=${d.slug}`}

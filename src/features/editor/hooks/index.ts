@@ -1,2 +1,2 @@
 export { useEditorMachine, editorReducer, initialEditorState } from "./useEditorMachine";
-export type { EditorMode, AutoSaveState, EditorMachineState, EditorAction, EditorFeedbackData, EntryItem, DraftItem } from "./useEditorMachine";
+export type { EditorMode, AutoSaveState, EditorMachineState, EditorAction, EditorFeedbackData } from "./useEditorMachine";

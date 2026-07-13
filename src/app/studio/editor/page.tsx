@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useAuth, useUser } from "@clerk/nextjs";
 import { roleFromMetadata, canWrite } from "@/lib/content/roles";
 import {
@@ -12,19 +12,38 @@ import {
   saveDraftAction, saveDraftWithRevisionAction, loadDraftAction,
   publishAction,
 } from "@/features/editor/actions";
+import { listMyDraftsAction, listMyEntriesAction } from "@/features/studio/actions/dashboard-actions";
 import { findDeadLinks } from "@/lib/content/internal-links";
 import { getMyProfileAction } from "@/features/studio/actions/profile-actions";
-import { ContentTypeSelector } from "@/components/studio/content-type-selector";
 import { EditorHeader } from "@/components/studio/editor-header";
 import { EditorForm } from "@/components/studio/editor-form";
 import { EditorSidebar } from "@/components/studio/editor-sidebar";
 import { EditorFeedback, type EditorFeedbackData } from "@/components/studio/editor-feedback";
 import { EditorIcon } from "@/components/studio/editor-icon";
 
+interface DraftItem {
+  id: string;
+  slug: string;
+  title: string;
+  status: string;
+  updated_at: string | null;
+}
+
+interface EntryItem {
+  id: string;
+  slug: string;
+  title: string;
+  status: string;
+  content_type: string;
+  published_at: string | null;
+  author_name?: string | null;
+}
+
 export default function StudioEditorPage() {
   const { userId } = useAuth();
   const { user } = useUser();
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const [draft, setDraft] = useState<EditorDraft>(EMPTY_DRAFT);
   const [entryId, setEntryId] = useState<string | null>(null);
@@ -38,7 +57,11 @@ export default function StudioEditorPage() {
   const [publishing, setPublishing] = useState(false);
   const [displayName, setDisplayName] = useState<string | null>(null);
   const [loadingDraft, setLoadingDraft] = useState(false);
-  const [showSelector, setShowSelector] = useState(true);
+  const [showDashboard, setShowDashboard] = useState(true);
+  const [entries, setEntries] = useState<EntryItem[]>([]);
+  const [drafts, setDrafts] = useState<DraftItem[]>([]);
+  const [loadingEntries, setLoadingEntries] = useState(true);
+  const [typeFilter, setTypeFilter] = useState<string>("all");
   const [originalAuthorId, setOriginalAuthorId] = useState<string | null>(null);
   const [originalAuthorName, setOriginalAuthorName] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState("basic");
@@ -76,7 +99,7 @@ export default function StudioEditorPage() {
     const slug = searchParams.get("slug");
     const type = searchParams.get("type");
     if (slug) {
-      setShowSelector(false);
+      setShowDashboard(false);
       let active = true;
       setLoadingDraft(true);
       (async () => {
@@ -96,10 +119,32 @@ export default function StudioEditorPage() {
       return () => { active = false; };
     }
     if (type) {
-      setShowSelector(false);
+      setShowDashboard(false);
       setDraft((d) => ({ ...d, id: crypto.randomUUID(), contentType: type }));
     }
   }, [searchParams]);
+
+  useEffect(() => {
+    if (!userId || !showDashboard) return;
+    let active = true;
+    (async () => {
+      try {
+        const [d, e] = await Promise.all([
+          listMyDraftsAction(),
+          listMyEntriesAction(),
+        ]);
+        if (active) {
+          setDrafts(d);
+          setEntries(e);
+        }
+      } catch {
+        /* ignore */
+      } finally {
+        if (active) setLoadingEntries(false);
+      }
+    })();
+    return () => { active = false; };
+  }, [userId, showDashboard]);
 
   function set<K extends keyof EditorDraft>(key: K, value: EditorDraft[K]) {
     setDraft((d) => ({ ...d, [key]: value }));
@@ -220,7 +265,129 @@ export default function StudioEditorPage() {
     );
   }
 
-  if (showSelector) return <ContentTypeSelector />;
+  if (showDashboard) {
+    const published = entries.filter((e) => e.status === "published");
+    const recent = [...drafts, ...entries.filter((e) => e.status !== "published")]
+      .sort((a, b) => ((b as DraftItem).updated_at ?? (b as EntryItem).published_at ?? "").localeCompare((a as DraftItem).updated_at ?? (a as EntryItem).published_at ?? ""))
+      .slice(0, 8);
+    const filtered = typeFilter === "all" ? entries : entries.filter((e) => e.content_type === typeFilter);
+    const availableTypes = Array.from(new Set(entries.map((e) => e.content_type))).sort();
+
+    return (
+      <main className="px-4 sm:px-6 pb-24 pt-10">
+        <div className="mx-auto max-w-4xl">
+          <header className="mb-8 flex items-center justify-between">
+            <div>
+              <span className="text-sm font-medium text-text-secondary/80">Studio · Editor</span>
+              <h1 className="mt-2 font-serif text-3xl text-text-heading">เนื้อหาของ{user?.firstName ?? "ฉัน"}</h1>
+            </div>
+            <Link
+              href="/studio/editor?type=article"
+              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-accent to-accent px-5 py-2.5 text-sm font-semibold text-text-inverse shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/20"
+            >
+              <EditorIcon name="edit_note" className="h-[18px] w-[18px]" />
+              เขียนใหม่
+            </Link>
+          </header>
+
+          {/* Stats */}
+          <section className="mb-8 grid grid-cols-3 gap-3">
+            <div className="archron-card p-4">
+              <span className="text-xs text-text-secondary/60">ฉบับร่าง</span>
+              <p className="mt-1 font-serif text-3xl text-text-heading">{drafts.length}</p>
+            </div>
+            <div className="archron-card p-4">
+              <span className="text-xs text-text-secondary/60">เผยแพร่แล้ว</span>
+              <p className="mt-1 font-serif text-3xl text-text-heading">{published.length}</p>
+            </div>
+            <div className="archron-card p-4">
+              <span className="text-xs text-text-secondary/60">ทั้งหมด</span>
+              <p className="mt-1 font-serif text-3xl text-text-heading">{entries.length}</p>
+            </div>
+          </section>
+
+          {/* Recent */}
+          {recent.length > 0 && (
+            <section className="mb-8">
+              <h2 className="mb-3 text-sm font-medium text-text-secondary/80">ล่าสุด</h2>
+              <div className="grid gap-2 sm:grid-cols-2">
+                {recent.map((e) => (
+                  <button
+                    key={e.id}
+                    onClick={() => router.push(`/studio/editor?slug=${e.slug}`)}
+                    className="archron-card group flex items-center justify-between p-4 text-left"
+                  >
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-sm font-medium text-text-heading group-hover:text-accent transition-colors">
+                        {e.title || e.slug}
+                      </p>
+                      <p className="mt-0.5 text-[11px] text-text-secondary/50">
+                        {("updated_at" in e ? (e as DraftItem).updated_at : (e as EntryItem).published_at)
+                          ? new Date(("updated_at" in e ? (e as DraftItem).updated_at : (e as EntryItem).published_at)!).toLocaleDateString("th-TH")
+                          : "—"}
+                      </p>
+                    </div>
+                    <span
+                      className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
+                      style={{ backgroundColor: `${e.status === "published" ? "var(--color-accent)" : "var(--color-premium)"}20`, color: e.status === "published" ? "var(--color-accent)" : "var(--color-premium)" }}
+                    >
+                      {e.status === "published" ? "เผยแพร่แล้ว" : e.status === "draft" ? "ฉบับร่าง" : e.status}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* All entries with filter */}
+          <section>
+            <div className="mb-4 flex items-center gap-2">
+              <select
+                value={typeFilter}
+                onChange={(e) => setTypeFilter(e.target.value)}
+                className="rounded-lg border border-border/40 bg-bg/60 px-3 py-1.5 text-xs text-text-heading outline-none focus:border-accent/50"
+              >
+                <option value="all">ทุกประเภท</option>
+                {availableTypes.map((t) => (
+                  <option key={t} value={t}>{t}</option>
+                ))}
+              </select>
+              <span className="text-[11px] text-text-secondary/40">ทั้งหมด {filtered.length} รายการ</span>
+            </div>
+            {loadingEntries ? (
+              <div className="space-y-2">
+                {[1, 2, 3].map((i) => <div key={i} className="archron-card h-14 animate-pulse" />)}
+              </div>
+            ) : filtered.length === 0 ? (
+              <div className="archron-card p-12 text-center">
+                <p className="text-sm text-text-secondary/60">ยังไม่มีเนื้อหา</p>
+                <Link href="/studio/editor?type=article" className="mt-3 inline-flex text-xs font-semibold text-accent hover:underline">เริ่มเขียน →</Link>
+              </div>
+            ) : (
+              <div className="space-y-1.5">
+                {filtered.map((e) => (
+                  <button
+                    key={e.id}
+                    onClick={() => router.push(`/studio/editor?slug=${e.slug}`)}
+                    className="archron-card group flex w-full items-center gap-4 p-4 text-left"
+                  >
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-sm font-medium text-text-heading group-hover:text-accent transition-colors">{e.title}</p>
+                      <p className="mt-0.5 text-[11px] text-text-secondary/50">{e.content_type} · {e.published_at ? new Date(e.published_at).toLocaleDateString("th-TH") : "—"}</p>
+                    </div>
+                    <span className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
+                      style={{ backgroundColor: `${e.status === "published" ? "var(--color-accent)" : "var(--color-premium)"}20`, color: e.status === "published" ? "var(--color-accent)" : "var(--color-premium)" }}>
+                      {e.status === "published" ? "เผยแพร่แล้ว" : e.status === "draft" ? "ฉบับร่าง" : e.status}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </section>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <div className="min-h-screen">

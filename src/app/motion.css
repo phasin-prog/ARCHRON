@@ -31,16 +31,14 @@
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  @utility animate-in {
-    animation: tw-enter 200ms ease-out both;
-  }
+@utility animate-in {
+  animation: tw-enter 200ms ease-out both;
+}
 
-  @utility fade-in {
-    --tw-enter-opacity: 0;
-  }
+@utility fade-in {
+  --tw-enter-opacity: 0;
+}
 
-  @utility zoom-in-90 {
-    --tw-enter-scale: 0.9;
-  }
+@utility zoom-in-90 {
+  --tw-enter-scale: 0.9;
 }

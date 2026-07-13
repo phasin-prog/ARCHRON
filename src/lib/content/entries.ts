@@ -1,8 +1,8 @@
-import type { ContentEntry } from "@/types/content";
+import type { ConceptEntry, PersonEntry, ArticleEntry, DiscriminatedEntry } from "@/types/content";
 
 // Phase 13 — Initial Content Seed
 // slug ทุกตัวตรงกับ concept-registry เพื่อให้ related links, backlinks และ node pages เชื่อมกันจริง
-export const entries: ContentEntry[] = [
+export const entries: DiscriminatedEntry[] = [
   {
     id: "concept-concept",
     title: "Psyche",
@@ -43,7 +43,7 @@ export const entries: ContentEntry[] = [
       caution: "รากศัพท์ช่วยให้เห็นประวัติของคำ แต่ไม่ควรใช้แทนนิยามเชิงทฤษฎีโดยตรง",
     },
     relatedCTA: { conceptSlugs: ["ego", "unconscious", "self"], showConstellationMap: false },
-  },
+  } satisfies ConceptEntry,
 
   {
     id: "concept-ego",
@@ -83,7 +83,7 @@ export const entries: ContentEntry[] = [
       caution: "ในภาษาทั่วไป ego มักหมายถึงความถือตัว ซึ่งต่างจากความหมายเชิงเทคนิคในจิตวิทยาวิเคราะห์",
     },
     relatedCTA: { conceptSlugs: ["persona", "shadow", "self"], showConstellationMap: false },
-  },
+  } satisfies ConceptEntry,
 
   {
     id: "concept-persona",
@@ -121,7 +121,7 @@ export const entries: ContentEntry[] = [
       caution: "การโยงรากศัพท์ หน้ากาก ช่วยให้เห็นภาพ แต่ไม่ได้แปลว่า Persona เป็นเพียงการแกล้งทำเสมอไป",
     },
     relatedCTA: { conceptSlugs: ["ego", "shadow", "self"], showConstellationMap: false },
-  },
+  } satisfies ConceptEntry,
 
   {
     id: "concept-shadow",
@@ -155,7 +155,7 @@ export const entries: ContentEntry[] = [
       { sourceType: "editorial-interpretation", title: "การเรียบเรียงของ ARCHRON", relatedClaim: "คำอธิบายเชิงปฏิบัติเพื่อการอ่าน" },
     ],
     relatedCTA: { conceptSlugs: ["ego", "persona", "self", "archetype"], showConstellationMap: false },
-  },
+  } satisfies ConceptEntry,
 
   {
     id: "concept-self",
@@ -190,7 +190,7 @@ export const entries: ContentEntry[] = [
       { sourceType: "primary-source", author: "C. G. Jung", title: "Aion", relatedClaim: "นิยาม Self และความต่างจาก Ego" },
     ],
     relatedCTA: { conceptSlugs: ["ego", "individuation", "archetype"], showConstellationMap: false },
-  },
+  } satisfies ConceptEntry,
 
   {
     id: "concept-archetype",
@@ -228,7 +228,7 @@ export const entries: ContentEntry[] = [
       caution: "archetype ไม่ใช่ภาพสำเร็จรูป การตีความเป็นภาพตายตัวเป็นความเข้าใจผิดที่พบบ่อย",
     },
     relatedCTA: { conceptSlugs: ["collective-unconscious", "self", "shadow"], showConstellationMap: false },
-  },
+  } satisfies ConceptEntry,
 
   {
     id: "concept-individuation",
@@ -261,7 +261,7 @@ export const entries: ContentEntry[] = [
       { sourceType: "editorial-interpretation", title: "การเรียบเรียงของ ARCHRON", relatedClaim: "เน้นย้ำว่า individuation ไม่ใช่ self-help" },
     ],
     relatedCTA: { conceptSlugs: ["self", "ego", "shadow"], showConstellationMap: false },
-  },
+  } satisfies ConceptEntry,
 
   {
     id: "person-carl-jung",
@@ -293,7 +293,7 @@ export const entries: ContentEntry[] = [
       { sourceType: "secondary-source", title: "งานศึกษาเกี่ยวกับ Jung", relatedClaim: "บริบทและการตีความงานของ Jung" },
     ],
     relatedCTA: { conceptSlugs: ["self", "shadow", "archetype", "individuation"], showConstellationMap: false },
-  },
+  } satisfies PersonEntry,
 
   {
     id: "article-sea-journey",
@@ -332,7 +332,7 @@ export const entries: ContentEntry[] = [
       etymology: "Night Sea Journey (Nekyia) มีรากมาจากพิธีกรรมโบราณและการสืบหาความรู้ในโลกหลังความตาย",
       caution: "การเผชิญหน้ากับจิตไร้สำนึกมีความเสี่ยงที่ Ego จะถูกกลืนกิน หากไม่มีสติและการนำทางที่เหมาะสม"
     }
-  },
+  } satisfies ArticleEntry,
 
   {
     id: "article-archetypes-intro",
@@ -371,10 +371,10 @@ export const entries: ContentEntry[] = [
       etymology: "มาจากภาษากรีก arkhe (ต้นกำเนิด) และ typos (แบบแผน/รอยพิมพ์)",
       caution: "หลีกเลี่ยงการนำไปใช้เป็นแบบทดสอบบุคลิกภาพสำเร็จรูป ซึ่งลดทอนความลึกและจุดประสงค์ดั้งเดิมของทฤษฎี"
     }
-  }
+  } satisfies ArticleEntry
 ];
 
-export function getEntryBySlug(slug: string): ContentEntry | undefined {
+export function getEntryBySlug(slug: string): DiscriminatedEntry | undefined {
   return entries.find((e) => e.slug === slug);
 }
 

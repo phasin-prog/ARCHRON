@@ -47,10 +47,10 @@ export default async function BooksPage() {
                 <ArrowRightIcon className="h-4 w-4" />
               </Link>
               <Link
-                href="/schools"
+                href="/thinkers"
                 className="inline-flex items-center gap-1.5 rounded-lg border border-border/40 px-4 py-2 text-sm text-text-secondary transition-colors hover:bg-bg-card/50"
               >
-                สำนักคิดและนักปราชญ์
+                นักปราชญ์
               </Link>
             </div>
           </EmptyState>

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { PageScaffold } from "@/components/page-scaffold";
 import { getPublicEntries } from "@/lib/content/publishing/public-source";
 import { conceptRegistry } from "@/lib/content/core/registry";
-import { getPublicSchools } from "@/lib/content/publishing/public-source";
 import { DiscoverGrid } from "@/components/discover/discover-grid";
 
 export const metadata: Metadata = {
@@ -15,10 +14,7 @@ export const metadata: Metadata = {
 export const revalidate = 300;
 
 export default async function DiscoverPage() {
-  const [published, schools] = await Promise.all([
-    getPublicEntries(),
-    getPublicSchools(),
-  ]);
+  const published = await getPublicEntries();
 
   return (
     <PageScaffold
@@ -28,14 +24,13 @@ export default async function DiscoverPage() {
       ]}
       kicker="DISCOVER"
       title="ค้นพบ ARCHRON"
-      lead="สำรวจเนื้อหาตามหมวดหมู่ แขนงวิชา และหัวข้อที่สนใจ — เริ่มจากสิ่งที่อยากรู้ หรือเดินตามเส้นทางที่แนะนำ"
+      lead="สำรวจเนื้อหาตามหมวดหมู่และหัวข้อที่สนใจ — เริ่มจากสิ่งที่อยากรู้ หรือเดินตามเส้นทางที่แนะนำ"
       ambient
       navCurrent="/discover"
     >
       <section className="tpl-reference">
         <DiscoverGrid
           entries={published}
-          schools={schools}
           concepts={conceptRegistry}
         />
       </section>

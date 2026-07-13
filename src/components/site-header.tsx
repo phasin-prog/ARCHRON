@@ -40,7 +40,7 @@ type NavItem = { label: string; href: string; Icon: IconComponent; tier: Tier };
 const NAV: NavItem[] = [
   { label: "คลังความรู้", href: "/knowledge", Icon: KnowledgeHubIcon, tier: "primary" },
   { label: "แผนที่ความรู้", href: "/constellation", Icon: HistoryIcon, tier: "standard" },
-  { label: "สำนักคิด", href: "/schools", Icon: SchoolIcon, tier: "standard" },
+  { label: "นักปราชญ์", href: "/thinkers", Icon: SchoolIcon, tier: "standard" },
   { label: "แหล่งอ้างอิง", href: "/sources", Icon: QuoteIcon, tier: "standard" },
   { label: "คำถามที่พบบ่อย", href: "/faq", Icon: HelpIcon, tier: "standard" },
 ];
@@ -48,11 +48,10 @@ const NAV: NavItem[] = [
 const KNOWLEDGE_SUB = [
   { label: "อ่านงานเขียน", href: "/articles", desc: "บทความอธิบายแนวคิดสำคัญ", Icon: BookIcon },
   { label: "คลังแนวคิด", href: "/concepts", desc: "ระบบความรู้แบบเชื่อมโยง", Icon: ConceptIcon },
-  { label: "สำนักคิดและนักปราชญ์", href: "/schools", desc: "ประวัติและคุณูปการ", Icon: SchoolIcon },
+  { label: "นักปราชญ์", href: "/thinkers", desc: "ประวัติและคุณูปการ", Icon: SchoolIcon },
   { label: "แผนที่ความสัมพันธ์", href: "/constellation", desc: "โครงข่ายความรู้", Icon: SynthesisIcon },
   { label: "เส้นทางการอ่าน", href: "/reading-sets", desc: "ลำดับจากพื้นสู่ลึก", Icon: PathIcon },
   { label: "แก่นเรื่อง", href: "/themes", desc: "ความคิดข้ามศาสตร์", Icon: RootIcon },
-  { label: "ศาสตร์ที่เราศึกษา", href: "/disciplines", desc: "สิบสองแขนง", Icon: GridIcon },
 ];
 
 // สีลิงก์เดสก์ท็อปตาม tier (ไม่มีไอคอนบนเดสก์ท็อป — ลดความแน่น)
@@ -368,7 +367,7 @@ export function SiteHeader() {
                 let subLabel = "สำรวจและค้นหาเนื้อหาในคลังความรู้";
                 if (item.href === "/explore") subLabel = "สารบัญนำทางและแผนที่คลังความรู้ทั้งหมด";
                 else if (item.href === "/constellation") subLabel = "แผนที่ความสัมพันธ์ของแนวคิดและศาสตร์ต่าง ๆ";
-                else if (item.href === "/schools") subLabel = "สำนักคิด นักปราชญ์ และผู้รากฐานทฤษฎี";
+                else if (item.href === "/thinkers") subLabel = "นักปราชญ์และผู้รากฐานทฤษฎี";
                 else if (item.href === "/sources") subLabel = "แหล่งอ้างอิงและบรรณานุกรม";
                 else if (item.href === "/faq") subLabel = "คำถามที่พบบ่อยเกี่ยวกับโครงการ";
 

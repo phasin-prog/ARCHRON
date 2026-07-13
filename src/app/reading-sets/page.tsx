@@ -46,10 +46,10 @@ export default async function ReadingSetsPage() {
                   <ArrowRightIcon className="h-4 w-4" />
                 </Link>
                 <Link
-                  href="/schools"
+                  href="/thinkers"
                   className="inline-flex items-center gap-1.5 rounded-lg border border-border/50 px-4 py-2 text-sm text-text-body transition-colors hover:border-accent/40 hover:text-accent"
                 >
-                  สำนักคิด
+                  นักปราชญ์
                   <ArrowRightIcon className="h-4 w-4" />
                 </Link>
               </div>

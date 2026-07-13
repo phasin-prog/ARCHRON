@@ -11,7 +11,7 @@ const EXPLORE = [
   { label: "เข้าสู่คลังความรู้", href: "/knowledge" },
   { label: "อ่านงานเขียน", href: "/articles" },
   { label: "คลังแนวคิด", href: "/concepts" },
-  { label: "สำนักคิดและนักปราชญ์", href: "/schools" },
+  { label: "นักปราชญ์", href: "/thinkers" },
   { label: "แผนที่ความสัมพันธ์", href: "/constellation" },
   { label: "ซีรีส์การอ่าน", href: "/reading-sets" },
 ];

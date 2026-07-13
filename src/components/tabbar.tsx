@@ -18,7 +18,7 @@ const ITEMS: Item[] = [
   { href: "/constellation", label: "แผนที่", Icon: PathIcon },
   { href: "/", label: "หน้าแรก", Icon: ArchronMark },
   { href: "/search", label: "ค้นหา", Icon: SearchIcon },
-  { href: "/schools", label: "สำนักคิด", Icon: SchoolIcon },
+  { href: "/thinkers", label: "นักปราชญ์", Icon: SchoolIcon },
 ];
 
 function isActive(pathname: string, href: string): boolean {

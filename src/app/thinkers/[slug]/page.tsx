@@ -94,8 +94,7 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
       organizationLd(),
       breadcrumbLd([
         { name: "หน้าแรก", href: "/" },
-        { name: "สำนักคิดและนักปราชญ์", href: "/schools" },
-        { name: s.nameTh, href: `/schools/${s.id}` },
+        { name: "นักปราชญ์", href: "/thinkers" },
         { name: t.nameTh, href: `/thinkers/${slug}` },
       ]),
     ],
@@ -127,11 +126,7 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
               <ArrowRightIcon className="h-4 w-4" />
             </li>
             <li className="inline-flex items-center gap-0.5">
-              <Link href="/schools" className="rounded px-2 py-1.5 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:outline-none">สำนักคิดและนักปราชญ์</Link>
-              <ArrowRightIcon className="h-4 w-4" />
-            </li>
-            <li className="inline-flex items-center gap-0.5">
-              <Link href={`/schools/${s.id}`} className="rounded px-2 py-1.5 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:outline-none">{s.nameTh}</Link>
+              <Link href="/thinkers" className="rounded px-2 py-1.5 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:outline-none">นักปราชญ์</Link>
               <ArrowRightIcon className="h-4 w-4" />
             </li>
             <li className="px-2 py-1.5 text-text-body" aria-current="page">{t.nameTh}</li>
@@ -157,9 +152,9 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
             </h1>
             <p className="mt-1 text-sm text-text-secondary/60">
               {t.nameEn} · {t.era} · สังกัดสำนัก{" "}
-              <Link href={`/schools/${s.id}`} className="text-accent hover:underline transition-colors focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:outline-none rounded px-0.5">
+              <span className="text-text-body">
                 {s.nameTh} ({s.nameEn})
-              </Link>
+              </span>
             </p>
           </div>
 

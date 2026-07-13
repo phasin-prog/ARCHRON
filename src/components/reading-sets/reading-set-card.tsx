@@ -74,7 +74,7 @@ export function ReadingSetCard({ set }: { set: ReadingSetItem }) {
                   <Link
                     href={
                       step.type === "person"
-                        ? `/schools?person=${step.slug}`
+                        ? `/thinkers/${step.slug}`
                         : step.type === "article"
                           ? `/articles/${step.slug}`
                           : `/concepts/${step.slug}`

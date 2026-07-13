@@ -3,13 +3,11 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import type { ContentEntry } from "@/types/content";
-import type { School } from "@/lib/content/core/seeds/schools";
 import type { ConceptRegistryItem } from "@/lib/content/core/registry";
 import { ViewBadge } from "@/components/view-badge";
 
 interface DiscoverGridProps {
   entries: ContentEntry[];
-  schools: School[];
   concepts: ConceptRegistryItem[];
 }
 
@@ -18,7 +16,6 @@ type DiscoverCategory =
   | "articles"
   | "concepts"
   | "thinkers"
-  | "schools"
   | "books"
   | "timeline";
 
@@ -30,7 +27,6 @@ const CATEGORY_CONFIG: Record<
   articles: { label: "บทความ", icon: "article", color: "var(--color-accent)" },
   concepts: { label: "แนวคิด", icon: "psychology", color: "var(--color-concept)" },
   thinkers: { label: "นักคิด", icon: "person", color: "var(--color-thinker)" },
-  schools: { label: "สำนักคิด", icon: "school", color: "var(--color-accent)" },
   books: { label: "หนังสือ", icon: "book", color: "var(--color-accent)" },
   timeline: { label: "เส้นเวลา", icon: "timeline", color: "var(--color-accent)" },
 };
@@ -49,7 +45,7 @@ const DIFFICULTY_COLOR: Record<string, string> = {
   "source-note": "var(--color-text-secondary)",
 };
 
-export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) {
+export function DiscoverGrid({ entries, concepts }: DiscoverGridProps) {
   const [category, setCategory] = useState<DiscoverCategory>("all");
   const [query, setQuery] = useState("");
 
@@ -67,7 +63,7 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
       filtered = filtered.filter((e) => e.contentType !== "article");
     } else if (category === "books") {
       filtered = filtered.filter((e) => e.contentType === "book");
-    } else if (category === "thinkers" || category === "schools") {
+    } else if (category === "thinkers") {
       return [];
     }
 
@@ -89,25 +85,9 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
     });
   }, [entries, category, q]);
 
-  // Filter schools
-  const filteredSchools = useMemo(() => {
-    if (category !== "all" && category !== "schools") return [];
-
-    let filtered = schools;
-    if (q) {
-      filtered = filtered.filter(
-        (s) =>
-          s.nameTh.toLowerCase().includes(q) ||
-          s.nameEn.toLowerCase().includes(q) ||
-          s.field?.toLowerCase().includes(q),
-      );
-    }
-    return filtered;
-  }, [schools, category, q]);
-
   // Filter concepts
   const filteredConcepts = useMemo(() => {
-    if (category !== "all" && category !== "concepts") return [];
+    if (category !== "all" && category !== "concepts" && category !== "thinkers") return [];
 
     let filtered = concepts;
     if (q) {
@@ -121,29 +101,21 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
     return filtered.slice(0, 24);
   }, [concepts, category, q]);
 
-  // Extract unique thinkers from schools
+  // Filter thinkers from concept registry
   const filteredThinkers = useMemo(() => {
     if (category !== "all" && category !== "thinkers") return [];
 
-    const thinkers = schools.flatMap((s) =>
-      s.thinkers.map((t) => ({
-        ...t,
-        schoolNameTh: s.nameTh,
-        schoolNameEn: s.nameEn,
-        field: s.field,
-      })),
-    );
-
+    let filtered = concepts.filter((c) => c.nodeType === "person");
     if (q) {
-      return thinkers.filter(
-        (t) =>
-          t.nameTh.toLowerCase().includes(q) ||
-          t.nameEn.toLowerCase().includes(q) ||
-          t.schoolNameTh.toLowerCase().includes(q),
+      filtered = filtered.filter(
+        (c) =>
+          c.title.toLowerCase().includes(q) ||
+          c.thaiTitle?.toLowerCase().includes(q) ||
+          c.description?.toLowerCase().includes(q),
       );
     }
-    return thinkers.slice(0, 24);
-  }, [schools, category, q]);
+    return filtered.slice(0, 24);
+  }, [concepts, category, q]);
 
   return (
     <div>
@@ -153,7 +125,7 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary inline-flex items-center justify-center w-4 h-4" aria-hidden="true">🔍</span>
           <input
             type="text"
-            placeholder="ค้นหาบทความ แนวคิด นักคิด สำนักคิด..."
+            placeholder="ค้นหาบทความ แนวคิด นักคิด..."
             aria-label="ค้นหา"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -177,7 +149,7 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
               }`}
             >
               <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[18px]" aria-hidden="true">
-                {config.icon === "auto_stories" ? "📖" : config.icon === "menu_book" ? "📚" : config.icon === "bolt" ? "⚡" : config.icon === "school" ? "🎓" : config.icon === "person" ? "👤" : config.icon === "library_books" ? "📚" : "◆"}
+                {config.icon === "auto_stories" ? "📖" : config.icon === "menu_book" ? "📚" : config.icon === "bolt" ? "⚡" : config.icon === "person" ? "👤" : config.icon === "library_books" ? "📚" : "◆"}
               </span>
               {config.label}
             </button>
@@ -189,13 +161,12 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
       <div className="mb-4 text-xs text-text-secondary">
         {category === "all" && (
           <span>
-            {filteredEntries.length + filteredSchools.length + filteredConcepts.length + filteredThinkers.length} รายการ
+            {filteredEntries.length + filteredConcepts.length + filteredThinkers.length} รายการ
           </span>
         )}
         {category === "articles" && <span>{filteredEntries.length} บทความ</span>}
         {category === "concepts" && <span>{filteredConcepts.length} แนวคิด</span>}
         {category === "thinkers" && <span>{filteredThinkers.length} นักคิด</span>}
-        {category === "schools" && <span>{filteredSchools.length} สำนักคิด</span>}
         {category === "books" && <span>{filteredEntries.length} หนังสือ</span>}
         {category === "timeline" && (
           <Link href="/timeline" className="text-accent hover:underline">
@@ -322,47 +293,19 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {filteredThinkers.slice(0, category === "all" ? 8 : undefined).map((thinker) => (
                 <Link
-                  key={thinker.nameEn}
-                  href={`/thinkers/${thinker.nameEn.toLowerCase().replace(/\s+/g, "-")}`}
+                  key={thinker.slug}
+                  href={`/thinkers/${thinker.slug}`}
                   className="rounded-lg border border-border bg-bg-card p-3 transition-colors hover:border-thinker/30 hover:bg-bg-elevated"
                 >
                   <h4 className="text-sm font-semibold text-text-heading">
-                    {thinker.nameTh}
+                    {thinker.thaiTitle || thinker.title}
                   </h4>
-                  <p className="text-xs text-text-secondary">{thinker.nameEn}</p>
-                  <p className="mt-1 text-[10px] text-accent">
-                    {thinker.schoolNameTh}
-                  </p>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
-
-      {/* Schools Grid */}
-      {(category === "all" || category === "schools") &&
-        filteredSchools.length > 0 && (
-          <div className="mb-12">
-            {category === "all" && (
-              <h3 className="mb-4 font-serif text-lg font-semibold text-text-heading">
-                สำนักคิด
-              </h3>
-            )}
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {filteredSchools.slice(0, category === "all" ? 6 : undefined).map((school) => (
-                <Link
-                  key={school.id}
-                  href={`/schools/${school.id}`}
-                  className="rounded-lg border border-border bg-bg-card p-4 transition-colors hover:border-accent/30 hover:bg-bg-elevated"
-                >
-                  <h4 className="font-serif text-sm font-semibold text-text-heading">
-                    {school.nameTh}
-                  </h4>
-                  <p className="text-xs text-text-secondary">{school.nameEn}</p>
-                  <p className="mt-1 text-[10px] text-accent">{school.field}</p>
-                  <p className="mt-2 line-clamp-2 text-xs text-text-secondary">
-                    {school.description}
-                  </p>
+                  <p className="text-xs text-text-secondary">{thinker.title}</p>
+                  {thinker.framework && (
+                    <p className="mt-1 text-[10px] text-accent">
+                      {thinker.framework}
+                    </p>
+                  )}
                 </Link>
               ))}
             </div>
@@ -373,7 +316,6 @@ export function DiscoverGrid({ entries, schools, concepts }: DiscoverGridProps) 
       {filteredEntries.length === 0 &&
         filteredConcepts.length === 0 &&
         filteredThinkers.length === 0 &&
-        filteredSchools.length === 0 &&
         category !== "timeline" && (
           <div className="py-12 text-center">
             <span className="mb-4 text-4xl text-text-secondary inline-flex items-center justify-center w-9 h-9" aria-hidden="true">🔍</span>

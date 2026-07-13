@@ -146,7 +146,7 @@ export default async function ReadingSetDetailPage({
               const isLast = idx === set.steps.length - 1;
               const href =
                 step.type === "person"
-                  ? `/schools?person=${step.slug}`
+                  ? `/thinkers/${step.slug}`
                   : `/concepts/${step.slug}`;
 
               return (

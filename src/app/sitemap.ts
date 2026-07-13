@@ -2,10 +2,8 @@
 import type { MetadataRoute } from "next";
 import { conceptRegistry } from "@/lib/content/core/registry";
 import { READING_SETS } from "@/lib/content/core/seeds/reading-sets";
-import { SCHOOLS } from "@/lib/content/core/seeds/schools";
 import { entries } from "@/lib/content/core/seeds/entries";
 import { THEMES } from "@/lib/content/core/seeds/themes";
-import { DISCIPLINES } from "@/lib/content/core/seeds/disciplines";
 
 export const dynamic = "force-static";
 
@@ -17,10 +15,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { route: "/articles", priority: 0.9, freq: "weekly" as const },
     { route: "/concepts", priority: 0.9, freq: "weekly" as const },
     { route: "/books", priority: 0.8, freq: "weekly" as const },
-    { route: "/schools", priority: 0.8, freq: "weekly" as const },
     { route: "/thinkers", priority: 0.8, freq: "weekly" as const },
     { route: "/themes", priority: 0.8, freq: "weekly" as const },
-    { route: "/disciplines", priority: 0.7, freq: "weekly" as const },
     { route: "/reading-sets", priority: 0.8, freq: "weekly" as const },
     { route: "/constellation", priority: 0.7, freq: "weekly" as const },
     { route: "/explore", priority: 0.7, freq: "weekly" as const },
@@ -71,20 +67,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     }));
 
-  // schools
-  const schoolRoutes = SCHOOLS.map((s) => ({
-    url: `${baseUrl}/schools/${s.id}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-  }));
-
-  const thinkerRoutes = SCHOOLS.flatMap((s) => s.thinkers).map((thinker: { nameEn: string }) => ({
-    url: `${baseUrl}/thinkers/${thinker.nameEn.toLowerCase().replace(/\s+/g, "-")}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-  }));
+  const thinkerRoutes = conceptRegistry
+    .filter((c) => c.nodeType === "person")
+    .map((c) => ({
+      url: `${baseUrl}/thinkers/${c.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    }));
 
   // reading sets
   const setRoutes = READING_SETS.map((r) => ({
@@ -102,23 +92,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  // disciplines
-  const disciplineRoutes = DISCIPLINES.map((d) => ({
-    url: `${baseUrl}/disciplines/${d.key}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-  }));
-
   return [
     ...staticRoutes,
     ...conceptRoutes,
     ...articleRoutes,
     ...personRoutes,
-    ...schoolRoutes,
     ...thinkerRoutes,
     ...setRoutes,
     ...themeRoutes,
-    ...disciplineRoutes,
   ];
 }

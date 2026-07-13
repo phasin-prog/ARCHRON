@@ -32,11 +32,11 @@ export default async function ThinkersPage() {
       lead="สำรวจชีวประวัติ คุณูปการ และความสัมพันธ์เชิงอิทธิพลของนักคิดผู้บุกเบิกในศาสตร์ต่าง ๆ"
       breadcrumb={[
         { label: "หน้าแรก", href: "/" },
-        { label: "สำนักคิดและนักปราชญ์", href: "/schools" },
+        { label: "คลังความรู้", href: "/knowledge" },
         { label: "ดัชนีนักปราชญ์" },
       ]}
       ambient
-      navCurrent="/schools"
+      navCurrent="/thinkers"
       className="atmo-biography"
     >
       <div className="relative tpl-reference">

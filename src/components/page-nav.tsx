@@ -8,7 +8,7 @@ export const PAGE_ORDER = [
   { href: "/compare", label: "เปรียบเทียบ" },
   { href: "/timeline", label: "เส้นเวลา" },
   { href: "/concepts", label: "คลังแนวคิด" },
-  { href: "/schools", label: "สำนักคิด" },
+  { href: "/thinkers", label: "นักปราชญ์" },
   { href: "/articles", label: "บทความ" },
   { href: "/reading-sets", label: "ซีรีส์" },
   { href: "/sources", label: "แหล่งอ้างอิง" },

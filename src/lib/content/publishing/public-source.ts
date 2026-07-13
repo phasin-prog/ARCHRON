@@ -4,14 +4,22 @@ import {
   getEntryBySlug as getStaticEntryBySlug,
 } from "@/lib/content/core/seeds/entries";
 import {
-  getPublishedEntries,
-  getPublishedEntryBySlug,
+  getPublishedEntries as getDbPublishedEntries,
+  getPublishedEntryBySlug as getDbPublishedEntryBySlug,
 } from "@/lib/content/publishing/entries-db";
-import { cached, KEYS } from "@/lib/cache/cache";
+import { cache } from "react";
+import { unstable_cache } from "next/cache";
 import { SCHOOLS as staticSchools, type School } from "@/lib/content/core/seeds/schools";
+import {
+  READING_SETS,
+  getReadingSetBySlug as getStaticReadingSetBySlug,
+  type ReadingSetItem,
+} from "@/lib/content/core/seeds/reading-sets";
 
 // E8 — แหล่งข้อมูลหน้า public
-// อ่านจาก Supabase (เฉพาะ status=published) + Upstash cache (300s TTL)
+// อ่านจาก Supabase (เฉพาะ status=published) + layered cache:
+//   - unstable_cache: cross-request data cache (300s TTL, revalidate by tag)
+//   - React cache(): per-request deduplication
 // → fallback ไป seed static เพื่อให้เว็บไม่ล่มและ build ผ่านแม้ยังไม่ได้ตั้ง Supabase
 
 function hasSupabaseEnv(): boolean {
@@ -25,128 +33,138 @@ function staticPublished(): DiscriminatedEntry[] {
   return staticEntries.filter((e) => e.status === "published") as unknown as DiscriminatedEntry[];
 }
 
-export async function getPublicEntries(contentType?: string): Promise<DiscriminatedEntry[]> {
-  const cacheKey = contentType ? `${KEYS.entries}:${contentType}` : KEYS.entries;
-  if (hasSupabaseEnv()) {
-    try {
-      const cachedEntries = await cached(cacheKey, async () => {
-        const fromDb = await getPublishedEntries(contentType);
-        return fromDb.length > 0 ? fromDb : null;
-      });
-      if (cachedEntries) return cachedEntries;
-    } catch {
-      // DB เข้าถึงไม่ได้ — ใช้ static แทน
-    }
-  }
-  return contentType
-    ? staticPublished().filter((e) => e.contentType === contentType)
-    : staticPublished();
-}
-
-export async function getPublicEntryBySlug(
-  slug: string,
-): Promise<DiscriminatedEntry | null> {
-  if (hasSupabaseEnv()) {
-    try {
-      const dbEntry = await cached(KEYS.entryBySlug(slug), async () => {
-        return getPublishedEntryBySlug(slug);
-      });
-      if (dbEntry !== null) {
-        return dbEntry;
+export const getPublicEntries = cache(
+  unstable_cache(
+    async (contentType?: string): Promise<DiscriminatedEntry[]> => {
+      if (hasSupabaseEnv()) {
+        try {
+          const fromDb = await getDbPublishedEntries(contentType);
+          if (fromDb.length > 0) return fromDb;
+        } catch {
+          // DB เข้าถึงไม่ได้ — ใช้ static แทน
+        }
       }
-    } catch {
-      // DB เข้าถึงไม่ได้ — fallback ไป static
-    }
-  }
-  return getStaticEntryBySlug(slug) ?? null;
-}
+      return contentType
+        ? staticPublished().filter((e) => e.contentType === contentType)
+        : staticPublished();
+    },
+    ["public-entries"],
+    { revalidate: 300, tags: ["entries"] },
+  ),
+);
+
+export const getPublicEntryBySlug = cache(
+  unstable_cache(
+    async (slug: string): Promise<DiscriminatedEntry | null> => {
+      if (hasSupabaseEnv()) {
+        try {
+          const dbEntry = await getDbPublishedEntryBySlug(slug);
+          if (dbEntry !== null) return dbEntry;
+        } catch {
+          // DB เข้าถึงไม่ได้ — fallback ไป static
+        }
+      }
+      return getStaticEntryBySlug(slug) ?? null;
+    },
+    ["entry-by-slug"],
+    { revalidate: 300, tags: ["entries"] },
+  ),
+);
 
 // ดึงข้อมูลสำนักคิดและนักปราชญ์จากฐานข้อมูล (หรือ fallback ไปที่ static SCHOOLS)
-export async function getPublicSchools(): Promise<School[]> {
-  if (hasSupabaseEnv()) {
-    try {
-      const cachedSchools = await cached(KEYS.schools, async () => {
-        const dbSchools = await getPublishedEntries("school");
-        if (dbSchools.length === 0) return null;
+export const getPublicSchools = cache(
+  unstable_cache(
+    async (): Promise<School[]> => {
+      if (hasSupabaseEnv()) {
+        try {
+          const dbSchools = await getDbPublishedEntries("school");
+          if (dbSchools.length === 0) return staticSchools;
+          const dbThinkers = await getDbPublishedEntries("person");
 
-        const dbThinkers = await getPublishedEntries("person");
+          return dbSchools.map((schoolEntry) => {
+            const se = schoolEntry as DiscriminatedEntry & { originalTerm?: string; framework?: string };
+            const thinkers = dbThinkers
+              .filter((t) => "school" in t && t.school === se.slug)
+              .map((t) => {
+                const te = t as DiscriminatedEntry & { originalTerm?: string; ipa?: string; visualExplanation?: string; bodyMarkdown?: string; technicalMeaning?: string; tags?: string[]; r2ContentKey?: string; r2ContentUrl?: string };
+                return {
+                  nameTh: te.title,
+                  nameEn: te.originalTerm ?? "",
+                  era: te.ipa ?? te.shortDescription ?? "",
+                  quote: te.visualExplanation ?? "",
+                  masterpieces: te.tags ?? [],
+                  bio: te.bodyMarkdown,
+                  relationships: te.technicalMeaning,
+                  r2ContentKey: te.r2ContentKey,
+                  r2ContentUrl: te.r2ContentUrl,
+                };
+              });
 
-        return dbSchools.map((schoolEntry) => {
-          const se = schoolEntry as DiscriminatedEntry & { originalTerm?: string; framework?: string };
-          const thinkers = dbThinkers
-            .filter((t) => "school" in t && t.school === se.slug)
-            .map((t) => {
-              const te = t as DiscriminatedEntry & { originalTerm?: string; ipa?: string; visualExplanation?: string; bodyMarkdown?: string; technicalMeaning?: string; tags?: string[]; r2ContentKey?: string; r2ContentUrl?: string };
-              return {
-                nameTh: te.title,
-                nameEn: te.originalTerm ?? "",
-                era: te.ipa ?? te.shortDescription ?? "",
-                quote: te.visualExplanation ?? "",
-                masterpieces: te.tags ?? [],
-                bio: te.bodyMarkdown,
-                relationships: te.technicalMeaning,
-                r2ContentKey: te.r2ContentKey,
-                r2ContentUrl: te.r2ContentUrl,
-              };
-            });
-
-          return {
-            id: se.slug,
-            nameTh: se.title,
-            nameEn: se.originalTerm ?? "",
-            field: se.framework as unknown as School["field"],
-            description: se.shortDescription,
-            history: se.bodyMarkdown,
-            r2ContentKey: se.r2ContentKey,
-            r2ContentUrl: se.r2ContentUrl,
-            thinkers,
-          };
-        });
-      });
-
-      if (cachedSchools) return cachedSchools;
-    } catch {
-      // ดึงฐานข้อมูลล้มเหลว
-    }
-  }
-  return staticSchools;
-}
-
-import {
-  READING_SETS,
-  getReadingSetBySlug as getStaticReadingSetBySlug,
-  type ReadingSetItem,
-} from "@/lib/content/core/seeds/reading-sets";
+            return {
+              id: se.slug,
+              nameTh: se.title,
+              nameEn: se.originalTerm ?? "",
+              field: se.framework as unknown as School["field"],
+              description: se.shortDescription,
+              history: se.bodyMarkdown,
+              r2ContentKey: se.r2ContentKey,
+              r2ContentUrl: se.r2ContentUrl,
+              thinkers,
+            };
+          });
+        } catch {
+          // ดึงฐานข้อมูลล้มเหลว
+        }
+      }
+      return staticSchools;
+    },
+    ["public-schools"],
+    { revalidate: 300, tags: ["schools"] },
+  ),
+);
 
 // ดึงรายการเส้นทางการอ่าน (Reading Sets) ทั้งหมด
-export async function getPublicReadingSets(): Promise<ReadingSetItem[]> {
-  if (hasSupabaseEnv()) {
-    try {
-      const dbSets = await getPublicEntries("reading-set");
-      if (dbSets.length > 0) return dbSets as ReadingSetItem[];
-    } catch {
-      // DB เข้าถึงไม่ได้
-    }
-  }
-  return READING_SETS;
-}
+export const getPublicReadingSets = cache(
+  unstable_cache(
+    async (): Promise<ReadingSetItem[]> => {
+      if (hasSupabaseEnv()) {
+        try {
+          const dbSets = await getDbPublishedEntries("reading-set");
+          if (dbSets.length > 0) return dbSets as ReadingSetItem[];
+        } catch {
+          // DB เข้าถึงไม่ได้
+        }
+      }
+      return READING_SETS;
+    },
+    ["public-reading-sets"],
+    { revalidate: 300, tags: ["reading-sets"] },
+  ),
+);
 
 // ดึงข้อมูลเส้นทางการอ่านตาม slug
-export async function getPublicReadingSetBySlug(
-  slug: string,
-): Promise<ReadingSetItem | null> {
-  if (hasSupabaseEnv()) {
-    try {
-      const dbEntry = await cached(`${KEYS.entryBySlug}:rs:${slug}`, async () => {
-        return getPublishedEntryBySlug(slug);
-      });
-      if (dbEntry !== null && dbEntry.contentType === "reading-set") {
-        return dbEntry as ReadingSetItem;
+export const getPublicReadingSetBySlug = cache(
+  unstable_cache(
+    async (slug: string): Promise<ReadingSetItem | null> => {
+      if (hasSupabaseEnv()) {
+        try {
+          const dbEntry = await getDbPublishedEntryBySlug(slug);
+          if (dbEntry !== null && dbEntry.contentType === "reading-set") {
+            return dbEntry as ReadingSetItem;
+          }
+        } catch {
+          // DB เข้าถึงไม่ได้ — fallback ไป static
+        }
       }
-    } catch {
-      // DB เข้าถึงไม่ได้ — fallback ไป static
-    }
-  }
-  return getStaticReadingSetBySlug(slug) ?? null;
-}
+      return getStaticReadingSetBySlug(slug) ?? null;
+    },
+    ["reading-set-by-slug"],
+    { revalidate: 300, tags: ["reading-sets"] },
+  ),
+);
 
+// เรียกหลัง publish เพื่อ invalidate data cache
+export async function revalidateEntry(_slug: string) {
+  const { revalidateTag } = await import("next/cache");
+  revalidateTag("entries", "max");
+}

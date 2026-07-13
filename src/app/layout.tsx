@@ -25,7 +25,7 @@ const cormorant = Cormorant_Garamond({
   weight: ["500", "600", "700"],
   style: ["normal", "italic"],
   variable: "--font-cormorant",
-  display: "swap",
+  display: "optional",
 });
 
 // สาย Body (Sans — อ่านยาวไม่ล้า): Inter (อังกฤษ) → IBM Plex Sans Thai (ไทย, body)
@@ -33,14 +33,14 @@ const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   variable: "--font-inter",
-  display: "swap",
+  display: "optional",
 });
 
 const ibmPlexThai = IBM_Plex_Sans_Thai({
   subsets: ["thai", "latin"],
   weight: ["400", "500", "600"],
   variable: "--font-ibm-plex-thai",
-  display: "swap",
+  display: "optional",
 });
 
 // UI (labels, nav, buttons): Inter + Noto Sans Thai
@@ -48,7 +48,7 @@ const notoSansThai = Noto_Sans_Thai({
   subsets: ["thai", "latin"],
   weight: ["400", "500", "600"],
   variable: "--font-noto-sans-thai",
-  display: "swap",
+  display: "optional",
 });
 
 // Serif Thai fallback — สำหรับ headings ไทย
@@ -56,7 +56,7 @@ const notoSerifThai = Noto_Serif_Thai({
   subsets: ["thai", "latin"],
   weight: ["500", "600", "700"],
   variable: "--font-noto-serif-thai",
-  display: "swap",
+  display: "optional",
 });
 
 export const viewport: Viewport = {

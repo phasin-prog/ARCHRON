@@ -782,6 +782,145 @@
   animation: mm-fade var(--dur-base) var(--ease-out) both;
 }
 
+/* ── Navbar Mobile — Floating Pill Tabbar (zollastar-inspired) ── */
+
+/* Container: rounded pill tray */
+.nb-container {
+  position: relative;
+}
+
+/* Bottom indicator bar (iPhone-style) */
+.nb-container::after {
+  content: "";
+  position: absolute;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 3px;
+  background: var(--color-text-heading);
+  opacity: 0.12;
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+/* Per-tab bubble colors */
+.nb-color--knowledge { --nb-color: #7BA3D4; }
+.nb-color--constellation { --nb-color: #A89AC8; }
+.nb-color--home { --nb-color: var(--color-accent); }
+.nb-color--search { --nb-color: #2A8C82; }
+.nb-color--thinkers { --nb-color: #7AB57A; }
+
+/* Bubble wrapper — relative container for pseudo-elements */
+.nb-bubble-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+}
+
+/* Bubble circles (::before = solid, ::after = glow) */
+.nb-bubble-wrapper::before,
+.nb-bubble-wrapper::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  opacity: 0;
+  transition:
+    opacity var(--dur-base) cubic-bezier(0.71, 0.03, 0.23, 0.95),
+    transform var(--dur-base) cubic-bezier(0.71, 0.03, 0.23, 0.95);
+  pointer-events: none;
+}
+
+.nb-bubble-wrapper::before {
+  background: var(--nb-color, var(--color-accent));
+}
+
+.nb-bubble-wrapper::after {
+  background: var(--nb-color, var(--color-accent));
+  box-shadow: 0 7px 15px var(--nb-color, var(--color-accent));
+}
+
+/* Hover / Tap: bubble rises */
+.nb-bubble-wrapper:hover::before,
+.nb-bubble-wrapper:active::before,
+.nb-bubble--tap::before {
+  opacity: 1;
+  transform: translate(-50%, calc(-50% - 52px)) scale(1.1);
+}
+
+.nb-bubble-wrapper:hover::after,
+.nb-bubble-wrapper:active::after,
+.nb-bubble--tap::after {
+  opacity: 0.4;
+  transform: translate(-50%, calc(-50% - 52px)) scale(1.1);
+}
+
+/* Icon: rides inside bubble, turns white */
+.nb-icon {
+  transition:
+    color var(--dur-base) cubic-bezier(0.71, 0.03, 0.23, 0.95),
+    transform var(--dur-base) cubic-bezier(0.71, 0.03, 0.23, 0.95);
+}
+
+.nb-bubble-wrapper:hover .nb-icon,
+.nb-bubble-wrapper:active .nb-icon,
+.nb-bubble--tap .nb-icon {
+  color: #fff;
+  transform: translateY(-52px) scale(1.2);
+}
+
+/* Active icon (no bubble) — per-tab color */
+.nb-icon--active {
+  color: var(--nb-color, var(--color-accent));
+}
+
+/* Tap flash — brief pulse on touch */
+@keyframes nb-tap-flash {
+  0%   { opacity: 0.6; transform: translate(-50%, calc(-50% - 52px)) scale(1.1); }
+  50%  { opacity: 0.2; transform: translate(-50%, calc(-50% - 40px)) scale(1.0); }
+  100% { opacity: 0;   transform: translate(-50%, -50%) scale(0.8); }
+}
+
+.nb-bubble--tap::before,
+.nb-bubble--tap::after {
+  animation: nb-tap-flash 450ms var(--ease-out) both;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .nb-bubble-wrapper::before,
+  .nb-bubble-wrapper::after,
+  .nb-icon {
+    transition: none !important;
+    animation: none !important;
+  }
+  .nb-item--active .nb-icon,
+  .nb-bubble-wrapper:hover .nb-icon,
+  .nb-bubble-wrapper:active .nb-icon,
+  .nb-bubble--tap .nb-icon {
+    transform: none;
+  }
+  .nb-item--active .nb-bubble-wrapper::before,
+  .nb-bubble-wrapper:hover::before,
+  .nb-bubble-wrapper:active::before,
+  .nb-bubble--tap::before,
+  .nb-item--active .nb-bubble-wrapper::after,
+  .nb-bubble-wrapper:hover::after,
+  .nb-bubble-wrapper:active::after,
+  .nb-bubble--tap::after {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+
 @keyframes tab-float {
   0%   { opacity: 0.8; transform: translateY(0) scale(0.6); }
   50%  { opacity: 0.5; transform: translateY(-14px) scale(1.3); }

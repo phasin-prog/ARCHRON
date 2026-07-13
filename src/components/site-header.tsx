@@ -326,10 +326,11 @@ export function SiteHeader() {
           role="dialog"
           aria-modal="true"
           aria-label="เมนูนำทางและบัญชีผู้ใช้"
-          className="fixed inset-0 z-50 flex flex-col justify-between overflow-y-auto bg-bg/95 backdrop-blur-md transition-all duration-300 lg:hidden"
+          className="fixed inset-0 z-[60] flex flex-col justify-between overflow-y-auto bg-bg/98 backdrop-blur-md transition-all duration-300 lg:hidden print:hidden"
+          style={{ backgroundColor: "var(--color-bg)" }}
         >
           {/* Top Bar */}
-          <div className="sticky top-0 z-10 flex h-16 shrink-0 items-center justify-between border-b border-border/30 bg-bg/90 px-4 sm:px-6 backdrop-blur-md">
+          <div className="sticky top-0 z-10 flex h-16 shrink-0 items-center justify-between border-b border-border/30 bg-bg px-4 sm:px-6 backdrop-blur-md">
             <Link
               href="/"
               onClick={() => setOpen(false)}
@@ -408,7 +409,7 @@ export function SiteHeader() {
           </div>
 
           {/* Bottom Pinned Section: User Card & Support Footer */}
-          <div className="mt-auto shrink-0 border-t border-border/30 bg-bg/80 px-4 py-5 sm:px-6 backdrop-blur-md space-y-4">
+          <div className="mt-auto shrink-0 border-t border-border/30 bg-bg px-4 py-5 sm:px-6 backdrop-blur-md space-y-4">
             <SignedOut>
               <Link
                 href="/th/login"

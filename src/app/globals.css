@@ -124,21 +124,21 @@
   /* ---- Shadow color (for elevation — light bg, black shadow) ---- */
   --color-shadow: #000000;
 
-  /* ---- Dynamic Typography — Focus First (Cormorant Garamond + Sans Body) ---- */
-  /* Heading = สาย Serif: Cormorant Garamond (อังกฤษ) + Noto Serif Thai (ไทย) */
-  --font-heading: var(--font-cormorant), var(--font-noto-serif-thai), "Cormorant Garamond",
+  /* ---- Dynamic Typography — Classic Garamond (Pairing #5) ---- */
+  /* Heading = EB Garamond (อังกฤษ) + Noto Serif Thai (ไทย) */
+  --font-heading: var(--font-eb-garamond), var(--font-noto-serif-thai), "EB Garamond",
     "Noto Serif Thai", Georgia, serif;
-  /* Body = สาย Sans: IBM Plex Sans Thai + Inter — อ่านยาวไม่ล้า */
-  --font-body: var(--font-ibm-plex-thai), var(--font-inter), "IBM Plex Sans Thai",
-    "Inter", system-ui, sans-serif;
-  /* UI / Labels = สาย Sans: Inter + Noto Sans Thai */
-  --font-ui: var(--font-inter), var(--font-noto-sans-thai), "Inter",
-    "Noto Sans Thai", system-ui, sans-serif;
+  /* Body = Prompt (ไทย) + Crimson Pro (อังกฤษ) — serif วิชาการ อ่านลื่น */
+  --font-body: var(--font-prompt), var(--font-crimson-pro), "Prompt",
+    "Crimson Pro", system-ui, sans-serif;
+  /* UI / Labels = Figtree (อังกฤษ) + Prompt (ไทย) */
+  --font-ui: var(--font-figtree), var(--font-prompt), "Figtree",
+    "Prompt", system-ui, sans-serif;
   /* alias เดิม — ให้ utility ที่มีอยู่ทำงานต่อโดยไม่ต้องแก้รายไฟล์ */
   --font-sans: var(--font-ui);
   --font-serif: var(--font-heading);
-  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-  --font-wordmark: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-display: var(--font-eb-garamond), "EB Garamond", Georgia, serif;
+  --font-wordmark: var(--font-eb-garamond), "EB Garamond", Georgia, serif;
   --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", "Cascadia Code", ui-monospace, monospace;
 
   /* ── Editor (studio form inputs) ─────── */

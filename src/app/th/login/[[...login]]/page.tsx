@@ -63,7 +63,7 @@ export default function LoginPage() {
                   colorInputText: "var(--color-bg)",
                   colorText: "var(--color-border)",
                   colorTextSecondary: "var(--color-text-secondary)",
-                  fontFamily: "var(--font-ibm-plex-thai), sans-serif",
+                  fontFamily: "var(--font-prompt), sans-serif",
                 },
                 elements: {
                   cardBox: "shadow-none border-0",

@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import {
-  Inter,
-  IBM_Plex_Sans_Thai,
-  Noto_Sans_Thai,
+  EB_Garamond,
+  Crimson_Pro,
+  Prompt,
+  Figtree,
   Noto_Serif_Thai,
-  Cormorant_Garamond,
 } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
@@ -18,41 +18,42 @@ import { ConceptPopup } from "@/components/concept-popup";
 import { ClerkProvider } from "@clerk/nextjs";
 
 
-// ── Focus First Typography ──────────────────────────────────────────────
-// สาย Display/Heading: Cormorant Garamond (อ่านง่าย, สงบ, คลาสสิก)
-// display: swap — แสดง fallback ทันทีก่อนสลับเป็นฟอนต์จริง (กัน FOIT, เนื้อหาอ่านได้เสมอ)
-const cormorant = Cormorant_Garamond({
+// ── Classic Garamond Typography (Pairing #5) ─────────────────────────────
+// Display/Heading ENG: EB Garamond — pure, bookish, timeless
+// Body ENG: Crimson Pro — elegant academic serif
+// Body ไทย: Prompt — สะอาด โมเดิร์น อ่านง่าย
+// UI: Figtree — friendly modern sans
+// Thai Heading: Noto Serif Thai — เข้ากับ Garamond
+const ebGaramond = EB_Garamond({
   subsets: ["latin"],
   weight: ["500", "600", "700"],
   style: ["normal", "italic"],
-  variable: "--font-cormorant",
+  variable: "--font-eb-garamond",
   display: "swap",
 });
 
-// สาย Body (Sans — อ่านยาวไม่ล้า): Inter (อังกฤษ) → IBM Plex Sans Thai (ไทย, body)
-const inter = Inter({
+const crimsonPro = Crimson_Pro({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-inter",
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-crimson-pro",
   display: "swap",
 });
 
-const ibmPlexThai = IBM_Plex_Sans_Thai({
+const prompt = Prompt({
   subsets: ["thai", "latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-ibm-plex-thai",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-prompt",
   display: "swap",
 });
 
-// UI (labels, nav, buttons): Inter + Noto Sans Thai
-const notoSansThai = Noto_Sans_Thai({
-  subsets: ["thai", "latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-noto-sans-thai",
+const figtree = Figtree({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-figtree",
   display: "swap",
 });
 
-// Serif Thai fallback — สำหรับ headings ไทย
 const notoSerifThai = Noto_Serif_Thai({
   subsets: ["thai", "latin"],
   weight: ["500", "600", "700"],
@@ -80,7 +81,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html
         lang="th"
-        className={`${cormorant.variable} ${inter.variable} ${ibmPlexThai.variable} ${notoSansThai.variable} ${notoSerifThai.variable}`}
+        className={`${ebGaramond.variable} ${crimsonPro.variable} ${prompt.variable} ${figtree.variable} ${notoSerifThai.variable}`}
       >
         <head>
           <meta charSet="utf-8" />

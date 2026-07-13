@@ -36,7 +36,7 @@ export default function RegisterPage() {
               colorInputText: "var(--color-bg)",
               colorText: "var(--color-border)",
               colorTextSecondary: "var(--color-text-secondary)",
-              fontFamily: "var(--font-ibm-plex-thai), sans-serif",
+              fontFamily: "var(--font-prompt), sans-serif",
             },
             elements: {
               card: "border border-accent/45 shadow-xl rounded-lg bg-bg-elevated backdrop-blur-md p-6 ring-1 ring-accent/10",

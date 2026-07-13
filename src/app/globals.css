@@ -30,6 +30,9 @@
   --color-bg: #F9F5F3;            /* Page background — SEP warm off-white */
   --color-bg-card: #FFFFFF;       /* Card surface — clean white */
   --color-bg-elevated: #EDEBE9;   /* Hover states — SEP surface */
+  --color-surface-1: #EDEBE9;     /* Skeleton card bg */
+  --color-surface-2: #E3DFDB;     /* Skeleton secondary surface */
+  --color-surface-3: #D5D1CD;     /* Skeleton bar base */
   --color-border: #D7D5D3;        /* Borders, dividers — SEP light gray */
   --color-text-heading: #1A1815;  /* Headings — warm near-black */
   --color-text-body: #3A3835;     /* Body text — warm dark gray */

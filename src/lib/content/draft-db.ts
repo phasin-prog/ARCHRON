@@ -7,6 +7,8 @@ import { rowToEntry, type EntryRow } from "@/lib/content/entry-mapper";
 import { getMyProfile } from "@/lib/content/profile-db";
 import { refreshLibrary } from "@/lib/rtk/ingest";
 
+const SYSTEM_AUTHOR_ID = "system-seed";
+
 // ชั้น persistence ของ editor (E3) — เรียกด้วย Supabase service-role client
 // service role ข้าม RLS ได้ จึงต้องตรวจสอบ ownership เองทุก operation
 // (author_id === userId มิฉะนั้นผู้ใช้ A จะเขียนทับงานของ B ได้)
@@ -35,7 +37,7 @@ export async function saveDraft(
   role?: Role,
 ) {
   const existingAuthor = await getExistingAuthor(sb, draft.id);
-  if (existingAuthor !== null && existingAuthor !== authorId && role !== "admin") {
+  if (existingAuthor !== null && existingAuthor !== SYSTEM_AUTHOR_ID && existingAuthor !== authorId && role !== "admin") {
     return {
       data: null,
       error: { message: "slug นี้เป็นของผู้เขียนคนอื่น , ใช้ slug อื่น" } as {
@@ -94,7 +96,7 @@ export async function publishEntry(
   role?: Role,
 ) {
   const existingAuthor = await getExistingAuthor(sb, draft.id);
-  if (existingAuthor !== null && existingAuthor !== authorId && role !== "admin") {
+  if (existingAuthor !== null && existingAuthor !== SYSTEM_AUTHOR_ID && existingAuthor !== authorId && role !== "admin") {
     return {
       data: null,
       error: { message: "slug นี้เป็นของผู้เขียนคนอื่น , ไม่สามารถเผยแพร่ได้" } as {

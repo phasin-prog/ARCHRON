@@ -43,3 +43,16 @@ export async function listAllPublishedEntriesAction() {
 
   return data ?? [];
 }
+
+export async function listEntriesByTypeAction(contentType: string) {
+  const { supabase } = await getAuthedSupabase();
+
+  const { data } = await supabase
+    .from("entries")
+    .select("id, slug, title, status, content_type, author_id, author_name, published_at, updated_at")
+    .eq("content_type", contentType)
+    .order("updated_at", { ascending: false })
+    .limit(100);
+
+  return data ?? [];
+}

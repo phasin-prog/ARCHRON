@@ -9,6 +9,7 @@ import {
   listMyDraftsAction,
   listMyEntriesAction,
   listAllPublishedEntriesAction,
+  listEntriesByTypeAction,
 } from "@/features/studio/actions/dashboard-actions";
 import { EditorIcon } from "@/components/studio/editor-icon";
 
@@ -17,7 +18,7 @@ interface DraftItem {
   slug: string;
   title: string;
   status: string;
-  updated_at: string;
+  updated_at: string | null;
 }
 
 interface EntryItem {
@@ -26,13 +27,14 @@ interface EntryItem {
   title: string;
   status: string;
   content_type: string;
-  published_at: string;
+  published_at: string | null;
   author_name?: string | null;
 }
 
 interface AllEntryItem extends EntryItem {
   author_id: string;
   author_name: string | null;
+  updated_at?: string | null;
 }
 
 type Tab = "my" | "all";
@@ -47,6 +49,7 @@ export default function StudioDashboardPage() {
   const [drafts, setDrafts] = useState<DraftItem[]>([]);
   const [entries, setEntries] = useState<EntryItem[]>([]);
   const [allEntries, setAllEntries] = useState<AllEntryItem[]>([]);
+  const [schoolEntries, setSchoolEntries] = useState<AllEntryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState<Tab>("my");
   const [statusFilter, setStatusFilter] = useState<string>("all");
@@ -61,7 +64,7 @@ export default function StudioDashboardPage() {
     if (typeFilter !== "all") {
       result = result.filter((e) => e.content_type === typeFilter);
     }
-    return result.sort((a, b) => b.published_at.localeCompare(a.published_at));
+    return result.sort((a, b) => (b.published_at ?? "").localeCompare(a.published_at ?? ""));
   }, [entries, statusFilter, typeFilter]);
 
   // Filtered entries for "บทความทั้งหมด"
@@ -84,15 +87,17 @@ export default function StudioDashboardPage() {
     let active = true;
     (async () => {
       try {
-        const [d, e, a] = await Promise.all([
+        const [d, e, a, s] = await Promise.all([
           listMyDraftsAction(),
           listMyEntriesAction(),
           listAllPublishedEntriesAction(),
+          listEntriesByTypeAction("school"),
         ]);
         if (active) {
           setDrafts(d);
           setEntries(e);
           setAllEntries(a);
+          setSchoolEntries(s);
         }
       } catch {
         /* ignore */
@@ -127,7 +132,7 @@ export default function StudioDashboardPage() {
   const archived = entries.filter((e) => e.status === "archived");
 
   const recentDrafts = drafts
-    .sort((a, b) => b.updated_at.localeCompare(a.updated_at))
+    .sort((a, b) => (b.updated_at ?? "").localeCompare(a.updated_at ?? ""))
     .slice(0, 5);
 
   const statusLabel = (s: string) => {
@@ -263,7 +268,7 @@ export default function StudioDashboardPage() {
                       {d.title || d.slug}
                     </p>
                     <p className="mt-0.5 text-[11px] text-text-secondary/50">
-                      {new Date(d.updated_at).toLocaleDateString("th-TH")}
+                      {d.updated_at ? new Date(d.updated_at).toLocaleDateString("th-TH") : "—"}
                     </p>
                   </div>
                   <span
@@ -275,6 +280,46 @@ export default function StudioDashboardPage() {
                   >
                     {statusLabel(d.status)}
                   </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* School entries */}
+        {schoolEntries.length > 0 && (
+          <section className="mb-8">
+            <h2 className="mb-3 text-sm font-medium text-text-secondary/80">
+              เนื้อหา School
+            </h2>
+            <div className="space-y-1.5">
+              {schoolEntries.map((e) => (
+                <Link
+                  key={e.id}
+                  href={`/studio/editor?slug=${e.slug}`}
+                  className="archron-card archron-card--link group flex items-center gap-4 p-4"
+                >
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-medium text-text-heading group-hover:text-accent transition-colors">
+                      {e.title}
+                    </p>
+                    <p className="mt-0.5 text-[11px] text-text-secondary/50">
+                      {e.published_at
+                        ? `เผยแพร่ ${new Date(e.published_at).toLocaleDateString("th-TH", { day: "numeric", month: "short", year: "numeric" })}`
+                        : "—"}
+                      {e.author_name ? ` · ${e.author_name}` : " · system"}
+                    </p>
+                  </div>
+                  <span
+                    className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
+                    style={{
+                      backgroundColor: `${e.status === "published" ? "var(--color-accent)" : "var(--color-premium)"}20`,
+                      color: e.status === "published" ? "var(--color-accent)" : "var(--color-premium)",
+                    }}
+                  >
+                    {e.status === "published" ? "เผยแพร่แล้ว" : e.status}
+                  </span>
+                  <EditorIcon name="edit_note" className="h-4 w-4 text-text-secondary group-hover:text-accent" />
                 </Link>
               ))}
             </div>

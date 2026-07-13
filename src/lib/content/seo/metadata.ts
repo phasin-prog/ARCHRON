@@ -1,23 +1,36 @@
-// lib/content/metadata.ts — ARCHRON Phase 12: Metadata System
-// ผลิต Next.js 16 Metadata และ JSON-LD Structured Data ตามมาตรฐาน SEO & Semantic Web
-
 import type { Metadata } from "next";
-import type { ContentEntry } from "@/types/content";
-import { classifyKnowledgeObject } from "@/lib/content/core/cosmology";
+import type { DiscriminatedEntry } from "@/types/content";
 
-const DEFAULT_BASE_URL = "https://archron.io";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://archron.org";
+const SITE_NAME = "ARCHRON — คลังความรู้ภาษาไทยเรื่องจิตใจมนุษย์";
 
-// ผลิต Next.js 16 App Router Metadata สำหรับหน้าอ่าน
-export function generateEntryMetadata(entry: ContentEntry, baseUrl = DEFAULT_BASE_URL): Metadata {
-  const title = `${entry.title} | ARCHRON`;
-  const description =
-    entry.shortDescription ??
-    entry.subtitle ??
-    entry.visualExplanation ??
-    `บทความและแนวคิดเชิงจิตวิทยาและปรัชญาเรื่อง ${entry.title} โดย ARCHRON`;
+function descriptionFor(entry: DiscriminatedEntry): string {
+  if (entry.contentType === "concept" || entry.contentType === "article") {
+    return (entry as any).shortDescription || "";
+  }
+  if (entry.contentType === "person") {
+    return (entry as any).shortDescription ?? `${(entry as any).mainTerm} — นักคิดในคลัง ARCHRON`;
+  }
+  if (entry.contentType === "book") {
+    return (entry as any).shortDescription ?? `${entry.title} — หนังสือในคลัง ARCHRON`;
+  }
+  if (entry.contentType === "school") {
+    return (entry as any).shortDescription ?? `สำนักคิด ${entry.title} — ARCHRON`;
+  }
+  return `"${entry.title}" ในคลังความรู้ภาษาไทยเรื่องจิตใจมนุษย์ — ARCHRON`;
+}
 
-  const url = `${baseUrl}/articles/${entry.slug}`;
-  const ogImage = entry.coverImage ?? `${baseUrl}/og-default.jpg`;
+function slugFor(entry: DiscriminatedEntry): string {
+  const type = entry.contentType;
+  if (type === "reading-set") return `reading-sets/${entry.slug}`;
+  if (type === "source-note") return `sources/${entry.slug}`;
+  return `${type}s/${entry.slug}`;
+}
+
+export function generatePageMetadata(entry: DiscriminatedEntry): Metadata {
+  const title = `${entry.title} — ARCHRON`;
+  const description = descriptionFor(entry);
+  const slug = slugFor(entry);
 
   return {
     title,
@@ -25,73 +38,17 @@ export function generateEntryMetadata(entry: ContentEntry, baseUrl = DEFAULT_BAS
     openGraph: {
       title,
       description,
-      url,
-      siteName: "ARCHRON",
+      type: entry.contentType === "book" ? "book" : "article",
+      siteName: SITE_NAME,
       locale: "th_TH",
-      type: entry.contentType === "article" ? "article" : "website",
-      images: [
-        {
-          url: ogImage,
-          width: 1200,
-          height: 630,
-          alt: entry.title,
-        },
-      ],
+      images: [{ url: `${BASE_URL}/api/og?title=${encodeURIComponent(entry.title)}&type=${entry.contentType}`, width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [ogImage],
+      images: [`${BASE_URL}/api/og?title=${encodeURIComponent(entry.title)}&type=${entry.contentType}`],
     },
-  };
-}
-
-// ผลิต JSON-LD Structured Data (Schema.org) เพื่อเชื่อมโยง Search Engine สู่ Knowledge Graph
-export function generateJSONLD(entry: ContentEntry, baseUrl = DEFAULT_BASE_URL): Record<string, unknown> {
-  const objectClass = classifyKnowledgeObject(entry.contentType);
-  const url = `${baseUrl}/articles/${entry.slug}`;
-
-  const baseSchema = {
-    "@context": "https://schema.org",
-    url,
-    name: entry.title,
-    description: entry.shortDescription ?? entry.subtitle ?? `ข้อมูลเกี่ยวกับ ${entry.title}`,
-  };
-
-  if (objectClass === "concept") {
-    return {
-      ...baseSchema,
-      "@type": "DefinedTerm",
-      termCode: entry.slug,
-      inDefinedTermSet: `${baseUrl}/concepts`,
-    };
-  }
-
-  if (objectClass === "thinker") {
-    return {
-      ...baseSchema,
-      "@type": "Person",
-      jobTitle: "Philosopher / Psychologist",
-    };
-  }
-
-  if (objectClass === "school") {
-    return {
-      ...baseSchema,
-      "@type": "Organization",
-      knowsAbout: entry.framework ?? "Psychology / Philosophy",
-    };
-  }
-
-  return {
-    ...baseSchema,
-    "@type": "ScholarlyArticle",
-    headline: entry.title,
-    author: {
-      "@type": "Person",
-      name: entry.author ?? "ARCHRON Editorial Team",
-    },
-    datePublished: entry.publishedAt ?? new Date().toISOString(),
+    alternates: { canonical: `${BASE_URL}/${slug}` },
   };
 }

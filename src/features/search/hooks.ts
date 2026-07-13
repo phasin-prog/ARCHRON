@@ -31,6 +31,7 @@ export function useSearch(
     setQuery,
     activeType,
     setActiveType,
+    debouncedQuery,
     result,
     clear,
   };

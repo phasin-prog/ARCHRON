@@ -7,6 +7,8 @@ import { conceptRegistry, getConceptBySlug } from "@/lib/content/core/registry";
 import { nodeTypeAccent } from "@/lib/content/core/cosmology";
 import { entries } from "@/lib/content/core/seeds/entries";
 import { getPublicEntries, getPublicEntryBySlug } from "@/lib/content/publishing/public-source";
+import { generatePageMetadata } from "@/lib/content/seo/metadata";
+import { articleLd, breadcrumbLd, organizationLd } from "@/lib/content/seo/structured-data";
 import {
   ConceptIcon,
   PersonIcon,
@@ -16,9 +18,7 @@ import {
   TermIcon,
 } from "@/components/icons";
 
-// Dynamic route — รองรับ slug ใหม่ตอน runtime
 export const dynamicParams = true;
-// E8 — ISR: regenerate ทุก 5 นาที + on-demand revalidate จาก E7
 export const revalidate = 300;
 
 const NODE_LABEL: Record<string, string> = {
@@ -54,11 +54,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const entry = await getPublicEntryBySlug(slug);
+  if (entry) return generatePageMetadata(entry);
   const node = getConceptBySlug(slug);
-  const title = entry?.title ?? node?.title;
   return {
-    title: title
-      ? `${title} — ARCHRON`
+    title: node?.title
+      ? `${node.title} — ARCHRON`
       : "ไม่พบหน้า — ARCHRON",
   };
 }
@@ -73,29 +73,56 @@ export default async function ConceptNodePage({
   const { slug } = await params;
   const entry = await getPublicEntryBySlug(slug);
   const node = getConceptBySlug(slug);
-  // Dynamic Accent รายชิ้น — ตั้ง --accent ตาม nodeType ของเนื้อหานี้
   const accentStyle = {
     ["--accent"]: nodeTypeAccent(node?.nodeType ?? "concept"),
   } as CSSProperties;
 
-  // ถ้ามีเนื้อหาเต็ม → render รูปแบบเดียวกับ Article (ReadingPage)
   if (entry) {
+    const ldJson = {
+      "@context": "https://schema.org",
+      "@graph": [
+        organizationLd(),
+        breadcrumbLd([
+          { name: "หน้าแรก", href: "/" },
+          { name: "คลังแนวคิด", href: "/concepts" },
+          { name: entry.title, href: `/concepts/${entry.slug}` },
+        ]),
+        articleLd(entry),
+      ],
+    };
+
     return (
-      <div className="pb-24" style={accentStyle}>
-        <ReadingPage entry={entry} section="concepts" atmosphere="atmo-dictionary" />
-      </div>
+      <>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJson) }} />
+        <div className="pb-24" style={accentStyle}>
+          <ReadingPage entry={entry} section="concepts" atmosphere="atmo-dictionary" />
+        </div>
+      </>
     );
   }
 
-  // ยังไม่มีเนื้อหาเต็ม → stub จาก registry
   if (!node) {
     notFound();
   }
   const Icon = NODE_ICON[node.nodeType];
   const label = NODE_LABEL[node.nodeType] ?? node.nodeType;
 
+  const stubLdJson = {
+    "@context": "https://schema.org",
+    "@graph": [
+      organizationLd(),
+      breadcrumbLd([
+        { name: "หน้าแรก", href: "/" },
+        { name: "คลังแนวคิด", href: "/concepts" },
+        { name: node.title, href: `/concepts/${node.slug}` },
+      ]),
+    ],
+  };
+
   return (
-    <main className="atmo-dictionary pb-24" style={accentStyle}>
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(stubLdJson) }} />
+      <main className="atmo-dictionary pb-24" style={accentStyle}>
       <header className="mx-auto max-w-2xl px-6 pb-8 pt-20">
         <div className="flex items-center gap-3">
           {Icon ? <Icon className="h-7 w-7 text-accent" /> : null}
@@ -135,5 +162,6 @@ export default async function ConceptNodePage({
         </dl>
       </section>
     </main>
+    </>
   );
 }

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getPublicEntries } from "@/lib/content/publishing/public-source";
 import { THEMES, themeByKey, entriesForTheme } from "@/lib/content/core/seeds/themes";
 import { contentTypeMeta } from "@/lib/content/core/cosmology";
+import { breadcrumbLd, organizationLd } from "@/lib/content/seo/structured-data";
 import { EmptyState } from "@/components/empty-state";
 import { ArrowRightIcon } from "@/components/icons";
 
@@ -27,7 +28,6 @@ export async function generateMetadata({
   };
 }
 
-// ปลายทางหน้าอ่านตามชนิดเนื้อหา (article → /articles, อื่น ๆ → /concepts)
 function entryHref(contentType: string | undefined, slug: string): string {
   return contentType === "article" ? `/articles/${slug}` : `/concepts/${slug}`;
 }
@@ -44,9 +44,22 @@ export default async function ThemePage({
   const entries = await getPublicEntries();
   const matched = entriesForTheme(entries, theme.key);
 
+  const ldJson = {
+    "@context": "https://schema.org",
+    "@graph": [
+      organizationLd(),
+      breadcrumbLd([
+        { name: "หน้าแรก", href: "/" },
+        { name: "แก่นเรื่อง", href: "/themes" },
+        { name: theme.label, href: `/themes/${theme.key}` },
+      ]),
+    ],
+  };
+
   return (
-    <main className="tpl-reference pb-24 pt-10">
-        {/* Breadcrumb */}
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJson) }} />
+      <main className="tpl-reference pb-24 pt-10">
         <nav aria-label="เส้นทางนำทาง" className="flex flex-wrap items-center gap-1 text-xs text-text-secondary">
           <Link href="/" className="rounded px-2 py-1.5 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:outline-none">หน้าแรก</Link>
           <ArrowRightIcon className="h-4 w-4" />
@@ -77,7 +90,7 @@ export default async function ThemePage({
             <EmptyState
               icon="category"
               title="ยังไม่มีเนื้อหาเผยแพร่ภายใต้แก่นเรื่องนี้"
-              description={`เนื้อหาจะปรากฏเมื่อมีบทความ/แนวคิดติดแท็กแก่นเรื่อง “${theme.label}”`}
+              description={`เนื้อหาจะปรากฏเมื่อมีบทความ/แนวคิดติดแท็กแก่นเรื่อง "${theme.label}"`}
             />
           ) : (
             <div className="grid gap-4 md:grid-cols-2">
@@ -116,5 +129,6 @@ export default async function ThemePage({
           </Link>
         </div>
     </main>
+    </>
   );
 }

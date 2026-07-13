@@ -6,6 +6,9 @@ import remarkGfm from "remark-gfm";
 import { getPublicReadingSetBySlug } from "@/lib/content/publishing/public-source";
 import { calculateReadingSetEstimatedMinutes } from "@/lib/content/core/seeds/reading-sets";
 import { difficultyMeta } from "@/lib/content/core/cosmology";
+import { generatePageMetadata } from "@/lib/content/seo/metadata";
+import { articleLd, breadcrumbLd, organizationLd } from "@/lib/content/seo/structured-data";
+import type { DiscriminatedEntry } from "@/types/content";
 import { ArrowRightIcon, ClockIcon } from "@/components/icons";
 
 export const dynamicParams = true;
@@ -26,10 +29,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const set = await getPublicReadingSetBySlug(slug);
-  return {
-    title: set ? `${set.title} — ARCHRON` : "ไม่พบซีรีส์ — ARCHRON",
-    description: set?.shortDescription,
-  };
+  if (!set) return { title: "ไม่พบซีรีส์ — ARCHRON" };
+  return generatePageMetadata(set as DiscriminatedEntry);
 }
 
 const STEP_TYPE_LABEL: Record<string, string> = {
@@ -53,8 +54,23 @@ export default async function ReadingSetDetailPage({
   const diffMeta = difficultyMeta(set.difficulty ?? "beginner");
   const estimatedMinutes = calculateReadingSetEstimatedMinutes(set);
 
+  const ldJson = {
+    "@context": "https://schema.org",
+    "@graph": [
+      organizationLd(),
+      breadcrumbLd([
+        { name: "หน้าแรก", href: "/" },
+        { name: "ซีรีส์", href: "/reading-sets" },
+        { name: set.title, href: `/reading-sets/${set.slug}` },
+      ]),
+      articleLd(set as DiscriminatedEntry),
+    ],
+  };
+
   return (
-    <main className="atmo-dictionary pb-24">
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJson) }} />
+      <main className="atmo-dictionary pb-24">
       {/* Breadcrumb */}
       <nav aria-label="เส้นทางนำทาง" className="tpl-reading pt-20 text-xs text-text-secondary">
         <ol className="flex items-center gap-1.5">
@@ -135,17 +151,14 @@ export default async function ReadingSetDetailPage({
 
               return (
                 <li key={step.slug} className="relative flex gap-4 pb-6 last:pb-0">
-                  {/* เส้นเชื่อม */}
                   {!isLast && (
                     <div className="absolute left-[15px] top-[32px] bottom-0 w-px bg-border/25" />
                   )}
 
-                  {/* วงกลมหมายเลข */}
                   <div className="relative z-10 flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full border border-accent/30 bg-bg text-[11px] font-bold text-accent font-mono">
                     {idx + 1}
                   </div>
 
-                  {/* เนื้อหา step */}
                   <div className="flex-1 min-w-0 pt-0.5">
                     <Link
                       href={href}
@@ -205,5 +218,6 @@ export default async function ReadingSetDetailPage({
         </div>
       </section>
     </main>
+    </>
   );
 }

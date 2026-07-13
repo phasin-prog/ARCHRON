@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
@@ -7,6 +7,7 @@ import { getPublicEntries, getPublicSchools } from "@/lib/content/publishing/pub
 import { SCHOOLS } from "@/lib/content/core/seeds/schools";
 import { disciplineMeta } from "@/components/discipline-meta";
 import { readFromR2 } from "@/lib/storage";
+import { breadcrumbLd, organizationLd } from "@/lib/content/seo/structured-data";
 import { ArrowRightIcon, BookIcon, SchoolIcon } from "@/components/icons";
 
 interface PageProps {
@@ -39,7 +40,6 @@ export default async function SchoolDetailPage({ params }: PageProps) {
   const meta = disciplineMeta(s.field);
   const Icon = meta.Icon;
 
-  // ดึงประวัติความเป็นมาฉบับเต็มจาก R2 (ถ้ามี)
   let historyContent = s.history;
   if (s.r2ContentKey) {
     const r2Content = await readFromR2(s.r2ContentKey);
@@ -48,7 +48,18 @@ export default async function SchoolDetailPage({ params }: PageProps) {
     }
   }
 
-  // ค้นหาบทความและแนวคิดที่เกี่ยวข้องกับสำนักคิดนี้
+  const ldJson = {
+    "@context": "https://schema.org",
+    "@graph": [
+      organizationLd(),
+      breadcrumbLd([
+        { name: "หน้าแรก", href: "/" },
+        { name: "สำนักคิดและนักปราชญ์", href: "/schools" },
+        { name: s.nameTh, href: `/schools/${s.id}` },
+      ]),
+    ],
+  };
+
   const allEntries = await getPublicEntries();
   const relatedEntries = allEntries.filter(
     (e) => {
@@ -65,9 +76,10 @@ export default async function SchoolDetailPage({ params }: PageProps) {
   );
 
   return (
-    <main className="atmo-temple px-6 pb-24 pt-10">
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJson) }} />
+      <main className="atmo-temple px-6 pb-24 pt-10">
       <div className="tpl-reference">
-        {/* Breadcrumb */}
         <nav aria-label="เส้นทางนำทาง" className="flex flex-wrap items-center gap-1 text-xs text-text-secondary">
           <Link href="/" className="rounded px-2 py-1.5 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:text-accent focus-visible:outline-none">หน้าแรก</Link>
           <ArrowRightIcon className="h-4 w-4" />
@@ -76,7 +88,6 @@ export default async function SchoolDetailPage({ params }: PageProps) {
           <span className="px-2 py-1.5 text-text-body">{s.nameTh}</span>
         </nav>
 
-        {/* School Header */}
         <header 
           className="mt-8 relative overflow-hidden rounded-md border bg-bg-card/30 p-8 md:p-10"
           style={{ borderColor: `${meta.accent}44` }}
@@ -115,7 +126,6 @@ export default async function SchoolDetailPage({ params }: PageProps) {
           </div>
         </header>
 
-        {/* School History / Info */}
         <section className="mt-12">
           <h2 className="font-serif text-2xl font-semibold text-text-heading border-b border-border/20 pb-3">
             ประวัติความเป็นมาและทฤษฎี
@@ -127,7 +137,6 @@ export default async function SchoolDetailPage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* Key Ideas Section */}
         {s.keyIdeas && s.keyIdeas.length > 0 && (
           <section className="mt-12">
             <h2 className="font-serif text-2xl font-semibold text-text-heading border-b border-border/20 pb-3">
@@ -154,20 +163,17 @@ export default async function SchoolDetailPage({ params }: PageProps) {
           </section>
         )}
 
-        {/* Timeline Section */}
         {s.timeline && s.timeline.length > 0 && (
           <section className="mt-12">
             <h2 className="font-serif text-2xl font-semibold text-text-heading border-b border-border/20 pb-3">
               เส้นเวลาพัฒนาการ
             </h2>
             <div className="mt-6 relative">
-              {/* Vertical Line */}
               <div className="absolute left-4 top-0 bottom-0 w-px bg-border/30" />
               
               <div className="space-y-6">
                 {s.timeline.map((event, idx) => (
                   <div key={idx} className="relative pl-10">
-                    {/* Dot */}
                     <div className="absolute left-2.5 top-1.5 h-3 w-3 rounded-full border-2 border-accent bg-bg" />
                     
                     <div className="archron-panel p-4">
@@ -190,7 +196,6 @@ export default async function SchoolDetailPage({ params }: PageProps) {
           </section>
         )}
 
-        {/* Thinkers List */}
         <section className="mt-16">
           <h2 className="font-serif text-2xl font-semibold text-text-heading border-b border-border/20 pb-3">
             นักคิดและปราชญ์ในสังกัด
@@ -214,7 +219,7 @@ export default async function SchoolDetailPage({ params }: PageProps) {
                   
                   {t.quote && (
                     <blockquote className="mt-4 border-l border-accent/50 pl-3 text-xs italic text-text-secondary/75">
-                      “{t.quote}”
+                      &ldquo;{t.quote}&rdquo;
                     </blockquote>
                   )}
 
@@ -235,7 +240,6 @@ export default async function SchoolDetailPage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* Related Concepts & Articles */}
         <section className="mt-16">
           <h2 className="font-serif text-2xl font-semibold text-text-heading border-b border-border/20 pb-3">
             บทความและแนวคิดที่เกี่ยวข้อง
@@ -269,12 +273,10 @@ export default async function SchoolDetailPage({ params }: PageProps) {
           )}
         </section>
 
-        {/* Related Schools */}
         {(() => {
           const relatedSchools = schools
             .filter((other) => {
               if (other.id === s.id) return false;
-              // Check if same field or mentioned in description
               return (
                 other.field === s.field ||
                 s.description?.includes(other.nameEn) ||
@@ -327,5 +329,6 @@ export default async function SchoolDetailPage({ params }: PageProps) {
         })()}
       </div>
     </main>
+    </>
   );
 }

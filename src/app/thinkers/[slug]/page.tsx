@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import type { CSSProperties } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -10,10 +10,9 @@ import { getPublicEntries, getPublicSchools } from "@/lib/content/publishing/pub
 import { readFromR2 } from "@/lib/storage";
 import { disciplineMeta } from "@/components/discipline-meta";
 import { InternalConceptLink } from "@/components/reading/internal-concept-link";
+import { breadcrumbLd, organizationLd } from "@/lib/content/seo/structured-data";
 import { ArrowRightIcon } from "@/components/icons";
 
-// mdComponents — ชุดเดียวกับ reading-page.tsx: แปลงลิงก์ /concepts/<slug> → glossary hover,
-// เปิดลิงก์ภายนอกในแท็บใหม่ (Thai-first · noopener) · ลิงก์อื่น ๆ ผ่านตรง
 const mdComponents: Components = {
   a({ href, children }) {
     const h = typeof href === "string" ? href : "";
@@ -79,8 +78,6 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
   const { thinker: t, school: s } = res;
   const meta = disciplineMeta(s.field);
 
-  // ดึงประวัติชีวประวัติฉบับเต็มจาก R2 (ถ้ามี) — เนื้อหาใน R2 เป็น Markdown
-  // ใช้ react-markdown pipeline เดียวกับ reading-page; t.bio (seed) เป็น plain text
   let bioContent = t.bio;
   let bioIsMarkdown = false;
   if (t.r2ContentKey) {
@@ -91,10 +88,19 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
     }
   }
 
-  // ค้นหาบทความและแนวคิดที่เกี่ยวข้องกับนักคิดคนนี้
-  // ลำดับความสำคัญ: (1) ความสัมพันธ์ mainThinkers (canonical) → (2) ปรากฏชื่อในเนื้อหา
-  // เก็บ fallback (2) ไว้ เพราะ seed ปัจจุบันแท็ก mainThinkers เฉพาะ Carl Jung —
-  // นักคิดคนอื่นยังพึ่งการปรากฏชื่อใน bodyMarkdown อยู่
+  const ldJson = {
+    "@context": "https://schema.org",
+    "@graph": [
+      organizationLd(),
+      breadcrumbLd([
+        { name: "หน้าแรก", href: "/" },
+        { name: "สำนักคิดและนักปราชญ์", href: "/schools" },
+        { name: s.nameTh, href: `/schools/${s.id}` },
+        { name: t.nameTh, href: `/thinkers/${slug}` },
+      ]),
+    ],
+  };
+
   const allEntries = await getPublicEntries();
   const relatedEntries = allEntries.filter(
     (e) => {
@@ -110,9 +116,10 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
   );
 
   return (
-    <main className="atmo-biography px-4 sm:px-6 pb-24 pt-10">
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJson) }} />
+      <main className="atmo-biography px-4 sm:px-6 pb-24 pt-10">
       <div className="tpl-reference">
-        {/* Breadcrumb */}
         <nav aria-label="เส้นทางนำทาง" className="text-xs text-text-secondary">
           <ol className="flex flex-wrap items-center gap-1">
             <li className="inline-flex items-center gap-0.5">
@@ -131,7 +138,6 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
           </ol>
         </nav>
 
-        {/* Thinker Header */}
         <header
           className="mt-8 rounded-md border border-border/40 bg-bg-card/20 p-8 relative overflow-hidden"
           style={{ "--discipline-accent": meta.accent } as CSSProperties}
@@ -159,12 +165,11 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
 
           {t.quote && (
             <blockquote className="mt-8 border-l border-accent/50 pl-5 font-serif text-lg italic leading-relaxed text-accent">
-              “{t.quote}”
+              &ldquo;{t.quote}&rdquo;
             </blockquote>
           )}
         </header>
 
-        {/* Bio Section */}
         <section className="mt-12">
           <h2 className="font-serif text-2xl font-semibold text-text-heading border-b border-border/20 pb-3">
             ประวัติและชีวิตเบื้องต้น
@@ -188,7 +193,6 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
           )}
         </section>
 
-        {/* Relations Section */}
         {t.relationships && (
           <section className="mt-12">
             <h2 className="font-serif text-2xl font-semibold text-text-heading border-b border-border/20 pb-3">
@@ -200,7 +204,6 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
           </section>
         )}
 
-        {/* Masterpieces Section */}
         <section className="mt-12">
           <h2 className="font-serif text-2xl font-semibold text-text-heading border-b border-border/20 pb-3">
             ผลงานและเอกสารวิชาการสำคัญ
@@ -216,20 +219,17 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* Timeline Section */}
         {t.timeline && t.timeline.length > 0 && (
           <section className="mt-12">
             <h2 className="font-serif text-2xl font-semibold text-text-heading border-b border-border/20 pb-3">
               เส้นเวลาชีวิต
             </h2>
             <div className="mt-6 relative">
-              {/* Vertical Line */}
               <div className="absolute left-4 top-0 bottom-0 w-px bg-border/30" />
               
               <div className="space-y-6">
                 {t.timeline.map((event, idx) => (
                   <div key={idx} className="relative pl-10">
-                    {/* Dot */}
                     <div className="absolute left-2.5 top-1.5 h-3 w-3 rounded-full border-2 border-accent bg-bg" />
                     
                     <div className="archron-panel p-4">
@@ -252,7 +252,6 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
           </section>
         )}
 
-        {/* Related Thinkers */}
         {(() => {
           const relatedThinkers = schools
             .flatMap((sch) => sch.thinkers.map((th) => ({ ...th, schoolId: sch.id, schoolNameTh: sch.nameTh })))
@@ -299,7 +298,6 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
           );
         })()}
 
-        {/* Related Articles & Concepts */}
         <section className="mt-16">
           <h2 className="font-serif text-2xl font-semibold text-text-heading border-b border-border/20 pb-3">
             งานเขียนและแนวคิดที่เกี่ยวข้องในระบบ
@@ -334,5 +332,6 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
         </section>
       </div>
     </main>
+    </>
   );
 }

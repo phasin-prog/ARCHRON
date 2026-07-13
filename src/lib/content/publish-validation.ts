@@ -18,48 +18,63 @@ export type EditorDraft = {
   slug: string;
   status: string;
   contentType: string;
+
+  // Common fields
   framework: string;
-  mainThinker: string;
   difficulty: string;
   tags: string[];
-  visualExplanation: string;
-  technicalMeaning: string;
   bodyMarkdown: string;
   relatedConcepts: EditorRelatedConcept[];
   references: EditorReference[];
-  rootsEtymology: string;
-  rootsMeaningShift: string;
-  rootsCaution: string;
   coverImage: string;  // R2 URL or empty
   shortDescription: string;
   school: string;
   rowName: string;     // ชื่อแสดง (auto: title ถ้าไม่ใส่)
   rowCode: string;     // รหัสสั้น (auto: ART-001, CON-003 , ไม่แก้เอง)
+
+  // Concept-specific
+  mainTerm: string;
+  thaiName: string;
+  originalTerm: string;
+  partOfSpeech: string;
+  languageRoot: string;
+  ipa: string;
+  visualExplanation: string;
+  technicalMeaning: string;
+  rootsEtymology: string;
+  rootsMeaningShift: string;
+  rootsCaution: string;
+
+  // Person-specific
+  mainThinker: string;
+  bornYear: string;
+  diedYear: string;
+  nationality: string;
+  keyIdeas: string;       // comma-separated string for form editing
+  notableWorks: string;   // comma-separated string for form editing
+
+  // Book-specific
+  publicationYear: string;
+  publisher: string;
+  isbn: string;
+
+  // School-specific
+  founder: string;
+  period: string;
 };
 
 export const EMPTY_DRAFT: EditorDraft = {
-  id: "",
-  title: "",
-  slug: "",
-  status: "draft",
-  contentType: "article",
-  framework: "",
-  mainThinker: "",
-  difficulty: "beginner",
-  tags: [],
-  visualExplanation: "",
-  technicalMeaning: "",
-  bodyMarkdown: "",
-  relatedConcepts: [],
-  references: [],
-  rootsEtymology: "",
-  rootsMeaningShift: "",
-  rootsCaution: "",
-  coverImage: "",
-  shortDescription: "",
-  school: "",
-  rowName: "",
-  rowCode: "",
+  id: "", title: "", slug: "", status: "draft", contentType: "article",
+  framework: "", difficulty: "beginner", tags: [], bodyMarkdown: "",
+  relatedConcepts: [], references: [], coverImage: "", shortDescription: "",
+  school: "", rowName: "", rowCode: "",
+  mainTerm: "", thaiName: "", originalTerm: "", partOfSpeech: "",
+  languageRoot: "", ipa: "", visualExplanation: "", technicalMeaning: "",
+  rootsEtymology: "", rootsMeaningShift: "", rootsCaution: "",
+  mainThinker: "", bornYear: "", diedYear: "", nationality: "",
+  keyIdeas: "", notableWorks: "",
+  publicationYear: "", publisher: "", isbn: "",
+  founder: "", period: "",
 };
 
 export type ChecklistItem = { label: string; ok: boolean };

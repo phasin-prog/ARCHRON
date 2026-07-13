@@ -781,12 +781,23 @@
 .mm-fade {
   animation: mm-fade var(--dur-base) var(--ease-out) both;
 }
+
+@keyframes tab-float {
+  0%   { opacity: 0.8; transform: translateY(0) scale(0.6); }
+  50%  { opacity: 0.5; transform: translateY(-14px) scale(1.3); }
+  100% { opacity: 0;   transform: translateY(-30px) scale(1.6); }
+}
+.tab-float {
+  animation: tab-float 450ms var(--ease-out) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .route-fade,
   .menu-in,
   .ambient-glow,
   .concept-pulse,
-  .mm-fade {
+  .mm-fade,
+  .tab-float {
     animation: none !important;
   }
 }

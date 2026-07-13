@@ -15,7 +15,7 @@ export default async function HomePage() {
   return (
     <main>
       {/* ── 1. HERO ── */}
-      <section className="relative flex min-h-[40vh] flex-col items-center justify-center overflow-hidden px-4 text-center sm:min-h-[50vh]">
+      <section className="relative flex min-h-[35vh] flex-col items-center justify-center overflow-hidden px-4 text-center sm:min-h-[45vh]">
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -34,29 +34,6 @@ export default async function HomePage() {
           <p className="mt-2 font-serif text-base text-text-secondary">
             Understanding Humanity Through Knowledge
           </p>
-          <div
-            aria-hidden="true"
-            className="mx-auto mt-8 h-px w-16"
-            style={{
-              background: "color-mix(in srgb, var(--color-accent) 35%, transparent)",
-            }}
-          />
-          <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-            <Link
-              href="/knowledge"
-              className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-text-inverse transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-8px_color-mix(in_srgb,var(--color-accent)_35%,transparent)]"
-            >
-              สำรวจคลังความรู้
-              <ArrowRightIcon className="h-4 w-4" />
-            </Link>
-            <Link
-              href="/guide"
-              className="inline-flex items-center gap-2 rounded-full border border-accent/30 px-6 py-3 text-sm font-semibold text-accent transition-all hover:border-accent hover:bg-accent/8 hover:-translate-y-0.5"
-            >
-              วิเคราะห์บุคลิกภาพ
-              <ArrowRightIcon className="h-4 w-4" />
-            </Link>
-          </div>
         </div>
       </section>
 
@@ -64,6 +41,26 @@ export default async function HomePage() {
       <section className="relative z-10 -mt-8 flex justify-center px-4">
         <div className="w-full max-w-[720px]">
           <HomeSearch />
+        </div>
+      </section>
+
+      {/* ── 2.5 CTA ── */}
+      <section className="mt-8 flex justify-center px-4">
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <Link
+            href="/knowledge"
+            className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-text-inverse transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-8px_color-mix(in_srgb,var(--color-accent)_35%,transparent)]"
+          >
+            สำรวจคลังความรู้
+            <ArrowRightIcon className="h-4 w-4" />
+          </Link>
+          <Link
+            href="/guide"
+            className="inline-flex items-center gap-2 rounded-full border border-accent/30 px-6 py-3 text-sm font-semibold text-accent transition-all hover:border-accent hover:bg-accent/8 hover:-translate-y-0.5"
+          >
+            วิเคราะห์บุคลิกภาพ
+            <ArrowRightIcon className="h-4 w-4" />
+          </Link>
         </div>
       </section>
 

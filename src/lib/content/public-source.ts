@@ -1,4 +1,4 @@
-import type { ContentEntry } from "@/types/content";
+import type { DiscriminatedEntry } from "@/types/content";
 import {
   entries as staticEntries,
   getEntryBySlug as getStaticEntryBySlug,
@@ -21,11 +21,11 @@ function hasSupabaseEnv(): boolean {
   );
 }
 
-function staticPublished(): ContentEntry[] {
-  return staticEntries.filter((e) => e.status === "published");
+function staticPublished(): DiscriminatedEntry[] {
+  return staticEntries.filter((e) => e.status === "published") as unknown as DiscriminatedEntry[];
 }
 
-export async function getPublicEntries(contentType?: string): Promise<ContentEntry[]> {
+export async function getPublicEntries(contentType?: string): Promise<DiscriminatedEntry[]> {
   const cacheKey = contentType ? `${KEYS.entries}:${contentType}` : KEYS.entries;
   if (hasSupabaseEnv()) {
     try {
@@ -45,7 +45,7 @@ export async function getPublicEntries(contentType?: string): Promise<ContentEnt
 
 export async function getPublicEntryBySlug(
   slug: string,
-): Promise<ContentEntry | null> {
+): Promise<DiscriminatedEntry | null> {
   if (hasSupabaseEnv()) {
     try {
       const dbEntry = await cached(KEYS.entryBySlug(slug), async () => {

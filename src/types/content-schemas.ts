@@ -92,6 +92,8 @@ export const personSchema = baseEntryFields.extend({
   contentType: z.literal("person"),
   mainTerm: z.string(),
   thaiName: z.string().optional(),
+  originalTerm: z.string().optional(),
+  ipa: z.string().optional(),
   bornYear: z.string().optional(),
   diedYear: z.string().optional(),
   nationality: z.string().optional(),
@@ -104,6 +106,7 @@ export const personSchema = baseEntryFields.extend({
   shortDescription: z.string().optional(),
   visualExplanation: z.string().optional(),
   technicalMeaning: z.string().optional(),
+  realWorldExamples: z.string().optional(),
 });
 
 export const bookSchema = baseEntryFields.extend({

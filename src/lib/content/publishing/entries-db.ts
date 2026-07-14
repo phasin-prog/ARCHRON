@@ -13,7 +13,7 @@ export async function getPublishedEntries(contentType?: string): Promise<Discrim
   const sb = createServerSupabase();
   let query = sb
     .from("entries")
-    .select("id, slug, title, status, content_type, author_id, main_term, thai_name, original_term, part_of_speech, language_root, ipa, short_description, framework, main_thinkers, school, difficulty, tags, cover_image, roots, related_concepts, source_refs, related_cta, created_at, updated_at, published_at, r2_content_key, r2_content_url, row_id, row_i, row_code, row_name")
+    .select("id, slug, title, status, content_type, author_id, author_name, main_term, thai_name, original_term, part_of_speech, language_root, ipa, short_description, subtitle, series, volume, aliases, born_year, died_year, nationality, key_ideas, notable_works, publication_year, publisher, isbn, founder, period, framework, main_thinkers, school, difficulty, tags, visual_explanation, technical_meaning, real_world_examples, body_markdown, cover_image, roots, related_concepts, source_refs, related_cta, created_at, updated_at, published_at, r2_content_key, r2_content_url, row_id, row_i, row_code, row_name")
     .eq("status", "published");
   if (contentType) {
     query = query.eq("content_type", contentType);

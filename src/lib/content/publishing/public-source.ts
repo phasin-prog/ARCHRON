@@ -83,22 +83,29 @@ export const getPublicSchools = cache(
 
           return dbSchools.map((schoolEntry) => {
             const se = schoolEntry as DiscriminatedEntry & { originalTerm?: string; framework?: string };
-            const thinkers = dbThinkers
+            const dbThinkersForSchool = dbThinkers
               .filter((t) => "school" in t && t.school === se.slug)
               .map((t) => {
-                const te = t as DiscriminatedEntry & { originalTerm?: string; ipa?: string; visualExplanation?: string; bodyMarkdown?: string; technicalMeaning?: string; tags?: string[]; r2ContentKey?: string; r2ContentUrl?: string };
+                const te = t as DiscriminatedEntry & { originalTerm?: string; ipa?: string; visualExplanation?: string; bodyMarkdown?: string; technicalMeaning?: string; tags?: string[]; r2ContentKey?: string; r2ContentUrl?: string; notableWorks?: string[] };
                 return {
                   nameTh: te.title,
                   nameEn: te.originalTerm ?? "",
                   era: te.ipa ?? te.shortDescription ?? "",
                   quote: te.visualExplanation ?? "",
-                  masterpieces: te.tags ?? [],
+                  masterpieces: te.tags ?? te.notableWorks ?? [],
                   bio: te.bodyMarkdown,
                   relationships: te.technicalMeaning,
                   r2ContentKey: te.r2ContentKey,
                   r2ContentUrl: te.r2ContentUrl,
                 };
               });
+
+            // merge static thinkers เป็น fallback เมื่อ DB ไม่มีนักคิดในสำนักนี้
+            const staticSchool = staticSchools.find((ss) => ss.id === se.slug);
+            const staticThinkers = staticSchool?.thinkers ?? [];
+            const mergedThinkers = dbThinkersForSchool.length > 0
+              ? dbThinkersForSchool
+              : staticThinkers;
 
             return {
               id: se.slug,
@@ -109,7 +116,7 @@ export const getPublicSchools = cache(
               history: se.bodyMarkdown,
               r2ContentKey: se.r2ContentKey,
               r2ContentUrl: se.r2ContentUrl,
-              thinkers,
+              thinkers: mergedThinkers,
             };
           });
         } catch {

@@ -122,6 +122,8 @@ export function rowToEntry(r: EntryRow): DiscriminatedEntry {
         contentType: "person",
         mainTerm: r.main_term ?? "",
         thaiName: r.thai_name ?? undefined,
+        originalTerm: r.original_term ?? undefined,
+        ipa: r.ipa ?? undefined,
         bornYear: r.born_year ?? undefined,
         diedYear: r.died_year ?? undefined,
         nationality: r.nationality ?? undefined,
@@ -134,6 +136,7 @@ export function rowToEntry(r: EntryRow): DiscriminatedEntry {
         shortDescription: r.short_description ?? undefined,
         visualExplanation: r.visual_explanation ?? undefined,
         technicalMeaning: r.technical_meaning ?? undefined,
+        realWorldExamples: r.real_world_examples ?? undefined,
       };
     case "book":
       return {

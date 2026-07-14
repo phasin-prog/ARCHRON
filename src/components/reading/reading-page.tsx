@@ -26,6 +26,7 @@ import { Tooltip } from "@/components/tooltip";
 import { ContentCardList } from "@/components/content-card";
 import { ReadingToc } from "@/components/reading/reading-toc";
 import { ReadingDock } from "@/components/reading/reading-dock";
+import { CollapsibleSidebar } from "@/components/reading/collapsible-sidebar";
 import { ReadingProgress } from "@/components/reading/reading-progress";
 import { ViewCounter } from "@/components/reading/view-counter";
 import { CommentSection } from "@/components/reading/comment-section";
@@ -253,9 +254,11 @@ export async function ReadingPage({
 
       {/* Sticky TOC (เฉพาะ lg+ · ซ่อนบนจอเล็ก · ขึ้นเมื่อมีหัวข้อ >= 3) */}
       <aside className="hidden lg:block">
-        <div className="sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto py-10 pr-2">
-          <ReadingToc />
-        </div>
+        <CollapsibleSidebar side="left">
+          <div className="sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto py-10 pr-2">
+            <ReadingToc />
+          </div>
+        </CollapsibleSidebar>
       </aside>
 
       <main id="reading-article" className="relative z-10 w-full tpl-reading pb-24 pt-10 lg:mx-0">
@@ -569,7 +572,8 @@ export async function ReadingPage({
 
       {/* ข้อมูลเสริมคอลัมน์ขวา (Sticky Mini-Graph & Quick Nav สำหรับจอ Ultra-wide xl >= 1280px) */}
       <aside className="hidden xl:block">
-        <div className="sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto py-10 pl-2 space-y-6">
+        <CollapsibleSidebar side="right">
+          <div className="sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto py-10 pl-2 space-y-6">
           {entry.relatedConcepts.length > 0 ? (
             <div className="archron-panel p-5">
               <h4 className="flex items-center gap-2 font-serif text-base font-semibold text-text-heading">
@@ -619,7 +623,8 @@ export async function ReadingPage({
               </ul>
             </div>
           ) : null}
-        </div>
+          </div>
+        </CollapsibleSidebar>
       </aside>
 
       {/* แถบเครื่องมือหน้าอ่าน (desktop) */}

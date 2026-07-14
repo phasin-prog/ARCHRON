@@ -94,9 +94,7 @@ export default async function ConceptNodePage({
     return (
       <>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJson) }} />
-        <div className="pb-24" style={accentStyle}>
-          <ReadingPage entry={entry} section="concepts" atmosphere="atmo-dictionary" />
-        </div>
+        <ReadingPage entry={entry} section="concepts" atmosphere="atmo-dictionary" />
       </>
     );
   }

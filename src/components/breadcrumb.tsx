@@ -52,12 +52,12 @@ export function Breadcrumb({ items, className = "" }: BreadcrumbProps) {
             {item.href ? (
               <Link
                 href={item.href}
-                className="transition-colors hover:text-accent"
+                className="rounded px-2 py-1.5 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:text-accent focus-visible:outline-none"
               >
                 {item.label}
               </Link>
             ) : (
-              <span className="text-text-body">{item.label}</span>
+              <span className="rounded px-2 py-1.5 text-text-body">{item.label}</span>
             )}
           </span>
         ))}

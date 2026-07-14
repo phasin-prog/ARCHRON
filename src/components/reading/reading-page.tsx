@@ -28,6 +28,7 @@ import { ReadingToc } from "@/components/reading/reading-toc";
 import { ReadingDock } from "@/components/reading/reading-dock";
 import { CollapsibleSidebar } from "@/components/reading/collapsible-sidebar";
 import { ReadingProgress } from "@/components/reading/reading-progress";
+import { ScrollProgressBar } from "@/components/reading/scroll-progress-bar";
 import { ViewCounter } from "@/components/reading/view-counter";
 import { CommentSection } from "@/components/reading/comment-section";
 import { LocalGraph } from "@/components/reading/local-graph";
@@ -247,10 +248,22 @@ export async function ReadingPage({
   const nextEntry =
     navIdx >= 0 && navIdx < navPool.length - 1 ? navPool[navIdx + 1] : null;
 
+  const totalSections = [
+    entry.visualExplanation,
+    entry.technicalMeaning,
+    entry.realWorldExamples,
+    entry.bodyMarkdown?.trim(),
+    entry.roots?.caution,
+    entry.roots && (entry.roots.etymology || entry.roots.historicalUsage || entry.roots.meaningShift),
+    entry.references.length > 0,
+    entry.relatedConcepts.length > 0,
+  ].filter(Boolean).length;
+
   return (
     <div className={`mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 sm:px-6 lg:grid-cols-[1fr_min(760px,100%)_1fr] lg:gap-8${atmosphere ? ` ${atmosphere}` : ""}`}>
       {/* แถบความคืบหน้าการอ่าน (ทุกจอ) */}
       <ReadingProgress />
+      <ScrollProgressBar totalSections={totalSections} />
 
       {/* Sticky TOC (เฉพาะ lg+ · ซ่อนบนจอเล็ก · ขึ้นเมื่อมีหัวข้อ >= 3) */}
       <aside className="hidden lg:block">

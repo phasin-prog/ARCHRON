@@ -15,65 +15,76 @@ export default function SupportPage() {
       ambient={true}
       navCurrent="/support"
     >
-      <PageSection className="pt-6" title="ทำไมความรู้ต้องเปิดกว้าง">
-        <div className="space-y-4 text-sm leading-relaxed text-text-body">
-          <p className="leading-relaxed">
-            ความรู้ทางจิตวิทยา ปรัชญา มานุษยวิทยา และศาสตร์ที่ว่าด้วยความเป็นมนุษย์ ไม่ใช่สินค้าที่ควรถูกขายเป็นชิ้น ๆ ภายใต้ paywall หรือรอการปลดล็อก
-          </p>
-          <p className="leading-relaxed">
-            ARCHRON ดำรงอยู่เพราะความเชื่อที่ว่าผลงานทางปัญญาเหล่านี้เป็นมรดกร่วมของมนุษย์ — ทุกคนควรสามารถเข้าถึง เข้าใจ และนำไปคิดต่อได้โดยไม่มีกำแพง
-          </p>
-          <p className="leading-relaxed">
-            เนื้อหาหลักของคลังนี้จะยังคงเปิดให้อ่านฟรีต่อไป
-          </p>
+      <PageSection className="pt-6">
+        <div className="grid gap-10 md:grid-cols-2 md:gap-14">
+          <div>
+            <h2 className="font-serif text-2xl text-text-heading md:text-3xl">ทำไมความรู้ต้องเปิดกว้าง</h2>
+            <div className="mt-4 space-y-4 font-body text-base leading-relaxed text-text-body">
+              <p>
+                ความรู้ทางจิตวิทยา ปรัชญา มานุษยวิทยา และศาสตร์ที่ว่าด้วยความเป็นมนุษย์ ไม่ใช่สินค้าที่ควรถูกขายเป็นชิ้น ๆ ภายใต้ paywall หรือรอการปลดล็อก
+              </p>
+              <p>
+                ARCHRON ดำรงอยู่เพราะความเชื่อที่ว่าผลงานทางปัญญาเหล่านี้เป็นมรดกร่วมของมนุษย์ — ทุกคนควรสามารถเข้าถึง เข้าใจ และนำไปคิดต่อได้โดยไม่มีกำแพง
+              </p>
+              <p className="font-medium text-text-heading">
+                เนื้อหาหลักของคลังนี้จะยังคงเปิดให้อ่านฟรีต่อไป
+              </p>
+            </div>
+          </div>
+          <div>
+            <h2 className="font-serif text-2xl text-text-heading md:text-3xl">การดำรงอยู่ของคลังความรู้มีค่าใช้จ่าย</h2>
+            <div className="mt-4 space-y-4 font-body text-base leading-relaxed text-text-body">
+              <p>
+                เซิร์ฟเวอร์ โดเมน ที่จัดเก็บข้อมูล หนังสืออ้างอิงวิชาการ เวลาที่ใช้ในการค้นคว้า เขียน แปล เรียบเรียง และจัดระบบความรู้ — ล้วนมีค่าใช้จ่าย
+              </p>
+              <p>
+                การสนับสนุนจากผู้ที่เห็นคุณค่าของคลังนี้คือสิ่งที่ทำให้ทุกอย่างยังคงเดินหน้าต่อไปได้
+              </p>
+            </div>
+          </div>
         </div>
       </PageSection>
 
-      <PageSection title="การดำรงอยู่ของคลังความรู้มีค่าใช้จ่าย">
-        <div className="space-y-4 text-sm leading-relaxed text-text-body">
-          <p className="leading-relaxed">
-            เซิร์ฟเวอร์ โดเมน ที่จัดเก็บข้อมูล หนังสืออ้างอิงวิชาการ เวลาที่ใช้ในการค้นคว้า เขียน แปล เรียบเรียง และจัดระบบความรู้ — ล้วนมีค่าใช้จ่าย
+      <PageSection>
+        <div className="mb-8">
+          <h2 className="font-serif text-2xl text-text-heading md:text-3xl">หนทางแห่งการสนับสนุน</h2>
+          <p className="mt-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-accent transition-colors duration-700">
+            SUPPORT PATHS
           </p>
-          <p className="leading-relaxed">
-            การสนับสนุนจากผู้ที่เห็นคุณค่าของคลังนี้คือสิ่งที่ทำให้ทุกอย่างยังคงเดินหน้าต่อไปได้
+          <p className="mt-3 text-sm text-text-secondary">
+            ทุกทางเท่าเทียมกัน — ไม่มีทางไหนสำคัญกว่าทางอื่น
           </p>
         </div>
-      </PageSection>
-
-      <PageSection title="หนทางแห่งการสนับสนุน" kicker="SUPPORT PATHS">
-        <p className="-mt-4 mb-8 text-sm text-text-secondary">
-          ทุกทางเท่าเทียมกัน — ไม่มีทางไหนสำคัญกว่าทางอื่น
-        </p>
-        <div className="grid gap-4 md:grid-cols-3">
-          <article className="archron-panel flex flex-col justify-between p-6">
+        <div className="grid gap-5 md:grid-cols-3">
+          <article className="archron-card group flex flex-col justify-between p-6 md:p-7 transition-all duration-300 hover:border-accent/40">
             <div>
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-accent/10 text-accent" aria-hidden="true">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent transition-transform duration-300 group-hover:scale-105" aria-hidden="true">
                 <BookIcon className="h-5 w-5 stroke-[1.75]" />
               </span>
-              <h3 className="mt-4 font-serif text-lg text-text-heading">อ่านอย่างตั้งใจ</h3>
-              <p className="mt-2 text-xs leading-relaxed text-text-body">
+              <h3 className="mt-5 font-serif text-lg text-text-heading transition-colors group-hover:text-accent">อ่านอย่างตั้งใจ</h3>
+              <p className="mt-2 text-sm leading-relaxed text-text-body/85">
                 ใช้เวลากับเนื้อหา อ่านแหล่งอ้างอิง และแยกข้อเท็จจริงจากการตีความ
               </p>
             </div>
           </article>
-          <article className="archron-panel flex flex-col justify-between p-6">
+          <article className="archron-card group flex flex-col justify-between p-6 md:p-7 transition-all duration-300 hover:border-accent/40">
             <div>
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-accent/10 text-accent" aria-hidden="true">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent transition-transform duration-300 group-hover:scale-105" aria-hidden="true">
                 <ArrowRightIcon className="h-5 w-5 stroke-[1.75] -rotate-45" />
               </span>
-              <h3 className="mt-4 font-serif text-lg text-text-heading">แบ่งปันอย่างมีบริบท</h3>
-              <p className="mt-2 text-xs leading-relaxed text-text-body">
+              <h3 className="mt-5 font-serif text-lg text-text-heading transition-colors group-hover:text-accent">แบ่งปันอย่างมีบริบท</h3>
+              <p className="mt-2 text-sm leading-relaxed text-text-body/85">
                 ส่งต่อแนวคิดพร้อมบริบทเดิม ไม่ตัดทอนให้กลายเป็นคำคมสั้นที่ขาดความหมาย
               </p>
             </div>
           </article>
-          <article className="archron-panel flex flex-col justify-between p-6">
+          <article className="archron-card group flex flex-col justify-between p-6 md:p-7 transition-all duration-300 hover:border-accent/40">
             <div>
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-accent/10 text-accent" aria-hidden="true">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent transition-transform duration-300 group-hover:scale-105" aria-hidden="true">
                 <AuthorPenIcon className="h-5 w-5 stroke-[1.75]" />
               </span>
-              <h3 className="mt-4 font-serif text-lg text-text-heading">แจ้งข้อผิดพลาด</h3>
-              <p className="mt-2 text-xs leading-relaxed text-text-body">
+              <h3 className="mt-5 font-serif text-lg text-text-heading transition-colors group-hover:text-accent">แจ้งข้อผิดพลาด</h3>
+              <p className="mt-2 text-sm leading-relaxed text-text-body/85">
                 ช่วยทักท้วงหรือเพิ่มเติมข้อมูลอ้างอิง เพื่อให้คลังความรู้นี้ถูกต้องสมบูรณ์ยิ่งขึ้น
               </p>
             </div>
@@ -82,16 +93,16 @@ export default function SupportPage() {
       </PageSection>
 
       <PageSection>
-        <div className="rounded-xl border border-accent/25 bg-accent/[0.03] p-8 text-center md:p-10">
-          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">PATRONAGE</span>
-          <h2 className="mt-2 font-serif text-2xl text-accent md:text-3xl">ARCHRON Companion</h2>
-          <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-text-body">
+        <div className="rounded-2xl border border-accent/25 bg-accent/[0.03] p-8 text-center md:p-12">
+          <h2 className="font-serif text-2xl text-accent md:text-3xl">ARCHRON Companion</h2>
+          <span className="mt-1.5 block text-xs font-semibold uppercase tracking-[0.2em] text-accent/80">PATRONAGE</span>
+          <p className="mx-auto mt-4 max-w-lg font-body text-sm leading-relaxed text-text-body md:text-base">
             Companion คือผู้ที่เลือกเดินเคียงข้างโครงการนี้ เงียบ ๆ และช่วยให้มันคงอยู่ — ไม่ใช่การซื้อสิทธิพิเศษ แต่เป็นการร่วมดูแลคลังความรู้ที่คุณอยากให้คนรุ่นหลังมี
           </p>
-          <div className="mx-auto mt-8 inline-block rounded-lg border border-accent/20 bg-bg-card px-8 py-6 shadow-sm">
+          <div className="mx-auto mt-8 inline-block rounded-xl border border-accent/20 bg-bg-card px-8 py-6 shadow-sm transition-all duration-300 hover:border-accent/40 hover:shadow-md">
             <p className="text-xs font-medium text-text-secondary">ธนาคารกสิกรไทย</p>
             <p className="mt-1 text-sm font-medium text-text-heading">พศิน พสุมาตร</p>
-            <p className="mt-3 font-mono text-xl font-bold tracking-widest text-accent">
+            <p className="mt-3 font-mono text-xl font-bold tracking-widest text-accent md:text-2xl">
               146-1-96727-9
             </p>
           </div>
@@ -111,25 +122,31 @@ export default function SupportPage() {
         )}
       </PageSection>
 
-      <PageSection title="หนทางอื่นในการร่วมสนับสนุน" kicker="OTHER AVENUES">
+      <PageSection>
+        <div className="mb-8">
+          <h2 className="font-serif text-2xl text-text-heading md:text-3xl">หนทางอื่นในการร่วมสนับสนุน</h2>
+          <p className="mt-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-accent transition-colors duration-700">
+            OTHER AVENUES
+          </p>
+        </div>
         <div className="grid gap-6 md:grid-cols-2">
           <Link
             href="/guide"
-            className="archron-card group flex flex-col justify-between p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/45"
+            className="archron-card group flex flex-col justify-between p-6 md:p-7 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/45"
           >
             <div>
               <div className="flex items-start justify-between">
                 <span
-                  className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-[0.9rem_0.3rem] border border-border/40 bg-bg-card"
+                  className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-[0.9rem_0.3rem] border border-border/40 bg-bg-card transition-transform duration-300 group-hover:scale-105"
                   style={{ borderColor: "color-mix(in srgb, var(--color-accent) 26%, var(--color-border))" }}
                 >
                   <LanternBadgeIcon className="h-6 w-6 text-accent" />
                 </span>
               </div>
-              <h3 className="mt-4 font-serif text-xl text-text-heading transition-colors group-hover:text-accent">
+              <h3 className="mt-5 font-serif text-xl text-text-heading transition-colors group-hover:text-accent">
                 Jungian Type Guide
               </h3>
-              <p className="mt-2 text-xs leading-relaxed text-text-body/85">
+              <p className="mt-2 text-sm leading-relaxed text-text-body/85">
                 บริการวิเคราะห์เชิงลึกทางจิตวิทยาแบบ Jungian Psychological Type Guide ที่รายได้ส่วนหนึ่งสนับสนุนการดูแลรักษาคลังความรู้นี้
               </p>
             </div>
@@ -141,21 +158,21 @@ export default function SupportPage() {
 
           <Link
             href="/studio"
-            className="archron-card group flex flex-col justify-between p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/45"
+            className="archron-card group flex flex-col justify-between p-6 md:p-7 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/45"
           >
             <div>
               <div className="flex items-start justify-between">
                 <span
-                  className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-[0.9rem_0.3rem] border border-border/40 bg-bg-card"
+                  className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-[0.9rem_0.3rem] border border-border/40 bg-bg-card transition-transform duration-300 group-hover:scale-105"
                   style={{ borderColor: "color-mix(in srgb, var(--color-accent) 26%, var(--color-border))" }}
                 >
                   <InterpretationIcon className="h-6 w-6 text-accent" />
                 </span>
               </div>
-              <h3 className="mt-4 font-serif text-xl text-text-heading transition-colors group-hover:text-accent">
+              <h3 className="mt-5 font-serif text-xl text-text-heading transition-colors group-hover:text-accent">
                 ร่วมเป็นส่วนหนึ่งของเนื้อหา
               </h3>
-              <p className="mt-2 text-xs leading-relaxed text-text-body/85">
+              <p className="mt-2 text-sm leading-relaxed text-text-body/85">
                 หากคุณมีความรู้ในศาสตร์ที่เกี่ยวข้องและต้องการร่วมเขียน ร่วมตรวจสอบ หรือร่วมเรียบเรียงคลังความรู้แห่งนี้ — สมัครเป็นนักเขียนร่วมอ้างอิงใน Studio
               </p>
             </div>

@@ -22,6 +22,11 @@ export {
   PersonIcon,
   ChevronDownIcon,
   HistoryIcon,
+  KnowledgeHubIcon,
+  SynthesisIcon,
+  PathIcon,
+  RootIcon,
+  SchoolIcon,
 } from "@/components/phosphor-map";
 
 const SVG = (className: string, children: React.ReactNode, style?: React.CSSProperties) => (
@@ -45,7 +50,7 @@ const SVG = (className: string, children: React.ReactNode, style?: React.CSSProp
 export function ArchronMark({ className = "h-5 w-5" }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth={1.5} fill="currentColor" opacity={0.4} />
+      <circle cx="12" cy="12" r="8" fill="currentColor" opacity={0.4} />
       <circle cx="12" cy="12" r="1.5" fill="currentColor" />
     </svg>
   );
@@ -56,7 +61,7 @@ export function ArchronMark({ className = "h-5 w-5" }: IconProps) {
 export function ArchronLogomark({ className = "h-7 w-7" }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 48 48" fill="none" aria-hidden="true">
-      <circle cx="24" cy="24" r="21" stroke="currentColor" strokeWidth={1.1} fill="currentColor" opacity={0.4} />
+      <circle cx="24" cy="24" r="21" fill="currentColor" opacity={0.4} />
       <circle cx="17.5" cy="24" r="12.5" fill="currentColor" />
       <circle cx="30.5" cy="24" r="12.5" fill="currentColor" />
       <circle cx="24" cy="3.5" r="1.4" fill="currentColor" />
@@ -71,16 +76,6 @@ export function ArchronLogomark({ className = "h-7 w-7" }: IconProps) {
 
 
 
-
-export function SchoolIcon({ className = "h-5 w-5" }: IconProps) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M3 20V7L12 3L21 7V20" fill="currentColor" opacity={0.4} />
-      <rect x="7" y="9" width="3" height="12" fill="currentColor" />
-      <rect x="14" y="9" width="3" height="12" fill="currentColor" />
-    </svg>
-  );
-}
 
 export function SymbolIcon({ className = "h-5 w-5" }: IconProps) {
   return SVG(
@@ -114,17 +109,7 @@ export function SourceIcon({ className = "h-5 w-5" }: IconProps) {
   );
 }
 
-export function PathIcon({ className = "h-5 w-5" }: IconProps) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="4" cy="4" r="2" fill="currentColor" opacity={0.4} />
-      <circle cx="12" cy="12" r="2.5" fill="currentColor" />
-      <circle cx="20" cy="20" r="2" fill="currentColor" opacity={0.4} />
-      <line x1="6" y1="6" x2="9.5" y2="9.5" stroke="currentColor" strokeWidth={1.5} opacity={0.4} />
-      <line x1="14.5" y1="14.5" x2="18" y2="22" stroke="currentColor" strokeWidth={1.5} opacity={0.4} />
-    </svg>
-  );
-}
+
 
 
 
@@ -139,22 +124,7 @@ export function PathIcon({ className = "h-5 w-5" }: IconProps) {
    ============================================================================ */
 
 // คลังความรู้ — โหนดศูนย์กลาง + โหนดบริวารเชื่อม (แผนที่ความรู้)
-// แทนไอคอน explore เดิม (เลี่ยงสัญลักษณ์เข็มทิศ ตาม Founding Brand Codex)
-export function KnowledgeHubIcon({ className = "h-5 w-5" }: IconProps) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="5" cy="5" r="2.5" fill="currentColor" />
-      <circle cx="19" cy="5" r="2.5" fill="currentColor" />
-      <circle cx="5" cy="19" r="2.5" fill="currentColor" />
-      <circle cx="12" cy="12" r="2.5" fill="currentColor" />
-      <circle cx="19" cy="19" r="2.5" fill="currentColor" />
-      <line x1="7.5" y1="5" x2="9.5" y2="12" stroke="currentColor" strokeWidth={1.5} opacity={0.4} />
-      <line x1="16.5" y1="5" x2="14.5" y2="12" stroke="currentColor" strokeWidth={1.5} opacity={0.4} />
-      <line x1="7.5" y1="19" x2="9.5" y2="12" stroke="currentColor" strokeWidth={1.5} opacity={0.4} />
-      <line x1="16.5" y1="19" x2="14.5" y2="12" stroke="currentColor" strokeWidth={1.5} opacity={0.4} />
-    </svg>
-  );
-}
+
 
 
 
@@ -386,16 +356,7 @@ export function SourceRefIcon({ className = "h-5 w-5" }: IconProps) {
   );
 }
 
-// รากแนวคิด — ราก
-export function RootIcon({ className = "h-5 w-5" }: IconProps) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M12 22V10" stroke="currentColor" strokeWidth={2} opacity={0.4} />
-      <path d="M12 10C12 10 8 6 12 2C12 2 16 6 12 10Z" fill="currentColor" />
-      <circle cx="12" cy="22" r="1.5" fill="currentColor" />
-    </svg>
-  );
-}
+
 
 // ผู้เขียน — ปากกา
 export function AuthorPenIcon({ className = "h-5 w-5" }: IconProps) {
@@ -430,16 +391,7 @@ export function ClockIcon({ className = "h-5 w-5" }: IconProps) {
   );
 }
 
-// สังเคราะห์ — วงกลมสองวงประสานกัน (เปรียบเทียบ/บูรณาการ)
-export function SynthesisIcon({ className = "h-5 w-5" }: IconProps) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="7" cy="12" r="4.5" fill="currentColor" opacity={0.4} />
-      <circle cx="17" cy="12" r="4.5" fill="currentColor" opacity={0.4} />
-      <circle cx="12" cy="12" r="4.5" fill="currentColor" />
-    </svg>
-  );
-}
+
 
 // กริด/หมวดศาสตร์ — สี่ช่องมน (ใช้กับ "ศาสตร์ที่เราศึกษา")
 export function GridIcon({ className = "h-5 w-5" }: IconProps) {

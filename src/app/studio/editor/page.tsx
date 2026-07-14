@@ -22,6 +22,7 @@ import {
   EditorBasicInfo, EditorConceptFields,
   EditorPersonFields, EditorBookFields, EditorSchoolFields,
   EditorBody, EditorRelations, EditorCta, EditorPublishPanel,
+  EditorPreview,
 } from "@/components/studio/editor";
 
 export default function StudioEditorPage() {
@@ -198,24 +199,28 @@ export default function StudioEditorPage() {
 
       <EditorFeedback feedback={feedback} onClose={() => setFeedback(null)} />
 
-      <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
-        <EditorBasicInfo draft={draft} updateField={updateField} />
+      {mode === "preview" ? (
+        <EditorPreview draft={draft} displayName={state.displayName ?? undefined} />
+      ) : (
+        <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
+          <EditorBasicInfo draft={draft} updateField={updateField} />
 
-        {ct === "concept" && <EditorConceptFields draft={draft} updateField={updateField} />}
-        {ct === "person" && <EditorPersonFields draft={draft} updateField={updateField} />}
-        {ct === "book" && <EditorBookFields draft={draft} updateField={updateField} />}
-        {ct === "school" && <EditorSchoolFields draft={draft} updateField={updateField} />}
+          {ct === "concept" && <EditorConceptFields draft={draft} updateField={updateField} />}
+          {ct === "person" && <EditorPersonFields draft={draft} updateField={updateField} />}
+          {ct === "book" && <EditorBookFields draft={draft} updateField={updateField} />}
+          {ct === "school" && <EditorSchoolFields draft={draft} updateField={updateField} />}
 
-        <EditorBody draft={draft} updateField={updateField} />
-        <EditorRelations draft={draft} updateField={updateField} />
-        <EditorCta draft={draft} updateField={updateField} />
+          <EditorBody draft={draft} updateField={updateField} />
+          <EditorRelations draft={draft} updateField={updateField} />
+          <EditorCta draft={draft} updateField={updateField} />
 
-        <EditorPublishPanel
-          draft={draft} publishTried={state.publishTried}
-          deadLinks={deadLinks} onPublish={handlePublish}
-          publishing={state.publishing}
-        />
-      </div>
+          <EditorPublishPanel
+            draft={draft} publishTried={state.publishTried}
+            deadLinks={deadLinks} onPublish={handlePublish}
+            publishing={state.publishing}
+          />
+        </div>
+      )}
     </div>
   );
 }

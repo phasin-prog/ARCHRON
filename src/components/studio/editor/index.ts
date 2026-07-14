@@ -7,3 +7,4 @@ export { EditorBody } from "./editor-body";
 export { EditorRelations } from "./editor-relations";
 export { EditorCta } from "./editor-cta";
 export { EditorPublishPanel } from "./editor-publish-panel";
+export { EditorPreview } from "./editor-preview";

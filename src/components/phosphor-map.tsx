@@ -48,6 +48,43 @@ import {
   SquaresFour,
   GridFour,
   Files,
+  // Discipline rings
+  Brain,
+  Scales,
+  PersonSimple,
+  Translate,
+  Lightning,
+  Church,
+  Atom,
+  Shapes,
+  PaintBrush,
+  Robot,
+  Globe,
+  // Content types
+  Diamond,
+  Tag,
+  FileText,
+  // Manifesto
+  BookOpenText,
+  HandHeart,
+  Wrench,
+  Prohibit,
+  Gift,
+  ShieldCheck,
+  Plant,
+  CheckCircle,
+  // Reading page
+  Eye,
+  GraduationCap,
+  Lightbulb,
+  Pen,
+  // Badges
+  Star,
+  Trophy,
+  Certificate,
+  Flame,
+  // Source types
+  ChatDots,
 } from "@phosphor-icons/react";
 
 export function SearchIcon({ className = "h-5 w-5", style }: IconProps) {
@@ -220,4 +257,172 @@ export function CollectionIcon({ className = "h-5 w-5", style }: IconProps) {
 
 export function SourcesIcon({ className = "h-5 w-5", style }: IconProps) {
   return <Files className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+// ── Discipline rings ──
+
+export function PsychologyIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <Brain className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function PhilosophyIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <Scales className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function AnthropologyIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <PersonSimple className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function LanguageIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <Translate className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function MythologyIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <Lightning className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function ReligionIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <Church className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function ScienceIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <Atom className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function SymbolismIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <Shapes className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function ArtIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <PaintBrush className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function AIFutureIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <Robot className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function CivilizationIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <Globe className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+// ── Content types ──
+
+export function SymbolIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <Diamond className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function TermIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <Tag className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function SourceIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <FileText className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+// ── Manifesto section ──
+
+export function PreambleIcon({ className = "h-6 w-6", style }: IconProps) {
+  return <BookOpenText className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function WhyExistIcon({ className = "h-6 w-6", style }: IconProps) {
+  return <Question className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function WhatStudyIcon({ className = "h-6 w-6", style }: IconProps) {
+  return <MagnifyingGlass className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function WhatBelieveIcon({ className = "h-6 w-6", style }: IconProps) {
+  return <HandHeart className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function OurMethodIcon({ className = "h-6 w-6", style }: IconProps) {
+  return <Wrench className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function WhatRejectIcon({ className = "h-6 w-6", style }: IconProps) {
+  return <Prohibit className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function WhatOfferIcon({ className = "h-6 w-6", style }: IconProps) {
+  return <Gift className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function OurResponsibilityIcon({ className = "h-6 w-6", style }: IconProps) {
+  return <ShieldCheck className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function OurLegacyIcon({ className = "h-6 w-6", style }: IconProps) {
+  return <Plant className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function ClosingDeclIcon({ className = "h-6 w-6", style }: IconProps) {
+  return <CheckCircle className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+// ── Reading page section ──
+
+export function VisualMeaningIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <Eye className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function ScholarIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <GraduationCap className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function RealExampleIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <Lightbulb className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function SourceRefIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <FileText className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function AuthorPenIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <Pen className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+// ── Badges ──
+
+export function LevelBadgeIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <Star className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function AchievementBadgeIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <Trophy className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function ReadingSetBadgeIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <Books className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function SourceBadgeIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <Certificate className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function LanternBadgeIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <Flame className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function LanternIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <Flame className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function ReadingSetIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <Books className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+// ── Source types ──
+
+export function PrimarySourceIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <FileText className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function SecondarySourceIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <Files className={className} style={style} weight="duotone" aria-hidden="true" />;
+}
+
+export function InterpretationIcon({ className = "h-5 w-5", style }: IconProps) {
+  return <ChatDots className={className} style={style} weight="duotone" aria-hidden="true" />;
 }

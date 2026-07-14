@@ -112,7 +112,7 @@ export function EditorBody({
 
     template += `## 🎓 นิยามและความหมายทางวิชาการ (Technical Meaning)\n${draft.technicalMeaning || "[ระบุนิยามทางวิชาการที่แม่นยำตามทฤษฎีเชิงลึก และอธิบายกลไกการทำงานทางจิตวิทยาของแนวคิดนี้...]"}\n\n`;
 
-    if (ct === "concept" || ct === "article" || ct === "term") {
+    if (ct === "concept" || ct === "term") {
       template += `## 🏛️ รากศัพท์และการเปลี่ยนผ่านความหมาย (Etymology & Roots)\n- **ที่มาและรากคำดั้งเดิม:** ${draft.rootsEtymology || "[อธิบายรากคำในภาษากรีก/ละติน การเริ่มใช้ครั้งแรกโดยใครในบริบทใด...]"}\n- **ข้อควรระวังในการตีความ:** ${draft.rootsCaution || "[ข้อควรระวังไม่ให้นำไปสับสนกับความหมายในภาษาปุถุชนทั่วไป...]"}\n\n`;
     }
 
@@ -331,7 +331,7 @@ export function EditorBody({
                 <EditorIcon name={( /#[#]?\s*(นิยาม|ความหมายทางวิชาการ|นิยามและแก่น|นิยามเชิงเทคนิค|Technical Meaning|แก่นทางวิชาการ)/i.test(content) || draft.technicalMeaning.trim() !== "") ? "check_circle" : "report"} className="h-3.5 w-3.5" />
                 <span>ความหมายทางวิชาการ</span>
               </span>
-              {(draft.contentType === "concept" || draft.contentType === "article") && (
+              {(draft.contentType === "concept" || draft.contentType === "term") && (
                 <span className={`px-2.5 py-1 rounded-full font-medium transition-all flex items-center gap-1.5 ${
                   (/#[#]?\s*(รากศัพท์|ที่มาของคำ|Etymology|Roots|การเปลี่ยนความหมาย|รากคำ)/i.test(content) || (draft.rootsEtymology && draft.rootsEtymology.trim() !== "") || (draft.rootsCaution && draft.rootsCaution.trim() !== ""))
                     ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"

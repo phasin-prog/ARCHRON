@@ -122,14 +122,25 @@ export function validateEditorDraft(
     });
   }
 
-  // 6. Roots / Etymology / Caution
-  if ((isArticle || isConcept) && !hasRootsSSOT) {
+  // 6. Roots / Etymology / Caution — บังคับสำหรับ concept/term, แนะนำสำหรับ article
+  if ((isConcept || isTerm) && !hasRootsSSOT) {
     issues.push({
       fieldId: "field-body-markdown",
       label: "รากศัพท์หรือเหตุผลที่ยังไม่ใส่ (Roots / Etymology)",
       severity: "error",
       message: "🛑 ระบุที่มาและรากศัพท์ หรือเขียนหัวข้อ '## รากศัพท์และการเปลี่ยนความหมาย (Etymology & Roots)' ใน Body Markdown",
       whyItMatters: "การเข้าใจรากศัพท์และประวัติศาสตร์การเปลี่ยนความหมาย (Etymology) คือกุญแจสำคัญสู่ความเข้าใจจิตใจมนุษย์เชิงลึกตามวิถี Archron",
+      sectionName: "ห้องเขียนเนื้อหาหลัก (Studio Workspace)",
+    });
+  }
+
+  if (isArticle && !hasRootsSSOT) {
+    issues.push({
+      fieldId: "field-body-markdown",
+      label: "รากศัพท์หรือที่มา (Roots / Etymology) — ไม่บังคับ",
+      severity: "warning",
+      message: "💡 หากบทความเกี่ยวข้องกับศัพท์เฉพาะ แนะนำให้ระบุรากศัพท์ หรือเขียนหัวข้อ '## รากศัพท์และการเปลี่ยนความหมาย (Etymology & Roots)' ใน Body Markdown (ไม่บังคับสำหรับบทความ)",
+      whyItMatters: "รากศัพท์ช่วยให้ผู้อ่านเข้าใจที่มาของแนวคิด แต่บทความที่เป็นการตีความหรือวิเคราะห์อาจไม่จำเป็นต้องมี",
       sectionName: "ห้องเขียนเนื้อหาหลัก (Studio Workspace)",
     });
   }

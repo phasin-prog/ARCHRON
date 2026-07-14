@@ -15,9 +15,9 @@ export function EditorArticleFields({
 }) {
   return (
     <section className="space-y-4 border-t border-border pt-6">
-      <h2 className="font-serif text-lg font-semibold text-text-heading">ข้อมูลบทความและรากปัญญา (Article & Roots)</h2>
+      <h2 className="font-serif text-lg font-semibold text-text-heading">ข้อมูลบทความ (Article Fields)</h2>
       <p className="text-xs text-text-secondary">
-        กรอกข้อมูลส่วนนี้เพื่อให้ผ่านเกณฑ์ Publish Checklist ด้านความลึกซึ้งทางวิชาการและคำอธิบายให้เห็นภาพ
+        กรอกข้อมูลส่วนนี้เพื่อให้ผ่านเกณฑ์ Publish Checklist ด้านความลึกซึ้งทางวิชาการและคำอธิบายให้เห็นภาพ — Roots ไม่บังคับสำหรับบทความ
       </p>
 
       <div id="container-field-visual-explanation" className="rounded-lg transition-all duration-300">
@@ -55,9 +55,9 @@ export function EditorArticleFields({
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div id="container-field-roots-etymology" className="rounded-lg transition-all duration-300">
           <label htmlFor="field-roots-etymology" className="block text-sm font-medium text-text-body">
-            รากศัพท์หรือที่มา (Roots / Etymology) <span className="text-accent">*</span>
+            รากศัพท์หรือที่มา (Roots / Etymology) <span className="text-text-secondary/60 text-xs">(ไม่บังคับ)</span>
           </label>
-          <p className="mb-1 text-xs text-text-secondary/80">ที่มาของคำศัพท์ในภาษาละติน กรีก หรือประวัติศาสตร์แนวคิด</p>
+          <p className="mb-1 text-xs text-text-secondary/80">ที่มาของคำศัพท์ในภาษาละติน กรีก หรือประวัติศาสตร์แนวคิด — เว้นว่างได้หากบทความไม่เกี่ยวข้อง</p>
           <input
             id="field-roots-etymology"
             type="text"
@@ -71,9 +71,9 @@ export function EditorArticleFields({
 
         <div id="container-field-roots-caution" className="rounded-lg transition-all duration-300">
           <label htmlFor="field-roots-caution" className="block text-sm font-medium text-text-body">
-            เหตุผลที่ยังไม่ใส่ / คำเตือนการใช้ (Roots Caution) <span className="text-accent">*</span>
+            คำเตือนการใช้ (Roots Caution) <span className="text-text-secondary/60 text-xs">(ไม่บังคับ)</span>
           </label>
-          <p className="mb-1 text-xs text-text-secondary/80">หากไม่มีรากศัพท์ ให้ระบุเหตุผลที่นี่ หรือระบุข้อควรระวังในการแปลความหมาย</p>
+          <p className="mb-1 text-xs text-text-secondary/80">ข้อควรระวังในการแปลความหมาย — เว้นว่างได้</p>
           <input
             id="field-roots-caution"
             type="text"

@@ -149,8 +149,8 @@ export function getPublishChecklist(d: EditorDraft, contentType?: string): Check
       ok: Boolean(hasRefsSSOT),
     },
     {
-      label: "มี Roots หรือเหตุผลที่ยังไม่ใส่",
-      ok: isArticle || isConcept ? Boolean(hasRootsSSOT) : true,
+      label: isConcept || isTerm ? "มี Roots หรือเหตุผลที่ยังไม่ใส่" : "มี Roots (ไม่บังคับ)",
+      ok: isConcept || isTerm ? Boolean(hasRootsSSOT) : true,
     },
     {
       label: "มีเนื้อหา (Body Markdown)",

@@ -126,8 +126,12 @@ function CommentItem({
   useEffect(() => {
     let active = true;
     (async () => {
-      const n = await countRepliesAction(comment.id);
-      if (active) setReplyCount(n);
+      try {
+        const n = await countRepliesAction(comment.id);
+        if (active) setReplyCount(n);
+      } catch {
+        /* ignore — reply count silenly falls back to 0 */
+      }
     })();
     return () => {
       active = false;
@@ -286,15 +290,24 @@ export function CommentSection({
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
 
   const load = useCallback(async () => {
-    const data = await listCommentsAction(section, slug);
-    setComments(data);
+    try {
+      const data = await listCommentsAction(section, slug);
+      setComments(data);
+      setError(null);
+    } catch {
+      setError("ไม่สามารถโหลดความคิดเห็นได้ — กรุณาลองใหม่ภายหลัง");
+    }
   }, [section, slug]);
 
   useEffect(() => {
     let active = true;
     (async () => {
-      const data = await listCommentsAction(section, slug);
-      if (active) setComments(data);
+      try {
+        const data = await listCommentsAction(section, slug);
+        if (active) { setComments(data); setError(null); }
+      } catch {
+        if (active) setError("ไม่สามารถโหลดความคิดเห็นได้ — กรุณาลองใหม่ภายหลัง");
+      }
     })();
     return () => {
       active = false;
@@ -405,7 +418,11 @@ export function CommentSection({
       </div>
 
       <div className="mt-8 space-y-2">
-        {comments === null ? (
+        {error ? (
+          <p className="text-sm text-error italic">
+            {error}
+          </p>
+        ) : comments === null ? (
           <p className="text-sm text-text-secondary/75">
             ยังไม่เปิดระบบความคิดเห็นในขณะนี้
           </p>

@@ -66,8 +66,7 @@ export function ConceptPopup() {
   return (
     <div
       ref={ref}
-      className="pointer-events-none fixed z-[9999] max-w-sm rounded-2xl border border-accent/50 bg-bg-card/90 p-5 shadow-[0_20px_50px_rgba(0,0,0,0.8)] backdrop-blur-md transition-[opacity,transform] duration-300"
-      /* intentionally above all tokens */
+      className="pointer-events-none fixed z-[var(--z-popup)] max-w-sm rounded-2xl border border-accent/50 bg-bg-card/90 p-5 shadow-[0_20px_50px_rgba(0,0,0,0.8)] backdrop-blur-md transition-[opacity,transform] duration-300"
       style={{
         left: p.x,
         top: p.y,
@@ -82,9 +81,6 @@ export function ConceptPopup() {
             {p.tag}
           </span>
         </div>
-        <span className="rounded border border-border/50 px-2 py-0.5 font-mono text-[9px] text-text-secondary">
-          INSIGHT
-        </span>
       </div>
       <p className="font-body text-sm leading-relaxed text-text-heading">
         {p.text}

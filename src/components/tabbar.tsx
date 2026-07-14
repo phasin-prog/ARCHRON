@@ -14,11 +14,11 @@ import {
 type Item = { href: string; label: string; Icon: React.ComponentType<{ className?: string }>; color: string };
 
 const ITEMS: Item[] = [
-  { href: "/knowledge", label: "คลังความรู้", Icon: KnowledgeHubIcon, color: "#06b8ff" },
-  { href: "/constellation", label: "แผนที่ความรู้", Icon: PathIcon, color: "#8444d6" },
-  { href: "/", label: "หน้าแรก", Icon: ArchronMark, color: "#f2704d" },
-  { href: "/search", label: "ค้นหา", Icon: SearchIcon, color: "#f8cd4b" },
-  { href: "/thinkers", label: "นักปราชญ์", Icon: SchoolIcon, color: "#405fff" },
+  { href: "/knowledge", label: "คลังความรู้", Icon: KnowledgeHubIcon, color: "var(--tab-color-knowledge)" },
+  { href: "/constellation", label: "แผนที่ความรู้", Icon: PathIcon, color: "var(--tab-color-constellation)" },
+  { href: "/", label: "หน้าแรก", Icon: ArchronMark, color: "var(--tab-color-home)" },
+  { href: "/search", label: "ค้นหา", Icon: SearchIcon, color: "var(--tab-color-search)" },
+  { href: "/thinkers", label: "นักปราชญ์", Icon: SchoolIcon, color: "var(--tab-color-thinkers)" },
 ];
 
 function isActive(pathname: string, href: string): boolean {

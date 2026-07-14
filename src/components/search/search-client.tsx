@@ -50,7 +50,7 @@ const SearchBar = memo(function SearchBar({
       <button
         type="button"
         onClick={onSubmit}
-        className="shrink-0 rounded-xl bg-accent px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-accent/90 hover:shadow-md active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:outline-none"
+        className="shrink-0 rounded-xl bg-accent px-6 py-3.5 text-sm font-semibold text-text-inverse shadow-sm transition-all duration-200 hover:bg-accent/90 hover:shadow-md active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:outline-none"
       >
         ค้นหา
       </button>

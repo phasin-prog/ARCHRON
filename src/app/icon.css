@@ -94,7 +94,7 @@
 
 /* Variants */
 .archron-icon-box--knowledge {
-  border-color: var(--color-secondary, var(--color-accent));
+  border-color: var(--color-accent);
 }
 
 .archron-icon-box--featured {

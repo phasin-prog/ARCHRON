@@ -44,7 +44,7 @@ export function Tabbar() {
     if (timerRef.current) clearTimeout(timerRef.current);
     timerRef.current = setTimeout(() => {
       setHidden(false);
-    }, 400);
+    }, 1500);
   }, []);
 
   useEffect(() => {

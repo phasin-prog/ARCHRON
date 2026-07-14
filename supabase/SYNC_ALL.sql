@@ -116,8 +116,12 @@ create table if not exists public.comments (
   author_name text,
   body text not null,
   status text not null default 'visible',
+  parent_id text references public.comments(id) on delete cascade,
   created_at timestamptz not null default now()
 );
+
+-- migration: สำหรับตารางที่มีอยู่แล้วที่ยังไม่มี parent_id
+alter table public.comments add column if not exists parent_id text references public.comments(id) on delete cascade;
 
 -- =========================================================
 -- 5) page_views — visit counter
@@ -205,6 +209,7 @@ create index if not exists rev_entry_idx on public.entry_revisions (entry_id);
 create index if not exists profiles_username_idx on public.profiles (username);
 create index if not exists comments_target_idx on public.comments (section, slug, created_at);
 create index if not exists comments_user_idx on public.comments (clerk_user_id);
+create index if not exists comments_parent_idx on public.comments (parent_id);
 create index if not exists reading_progress_user_status_idx on public.reading_progress (clerk_user_id, status);
 create index if not exists user_achievements_user_idx on public.user_achievements (clerk_user_id);
 create index if not exists library_fts_idx on public.library using gin (fts);
@@ -215,7 +220,6 @@ create index if not exists chunks_fts_idx on public.chunks using gin (fts);
 create index if not exists chunks_library_idx on public.chunks (library_id);
 -- FK indexes สำหรับ CASCADE delete/UPDATE
 create index if not exists page_views_slug_idx on public.page_views (slug);
-create index if not exists collection_entries_collection_idx on public.collection_entries (collection_id);
 
 -- =========================================================
 -- TRIGGER FUNCTION: updated_at
@@ -542,6 +546,7 @@ comment on table public.collection_entries is 'รายการ entries ใน
 create index if not exists collections_slug_idx on public.collections (slug);
 create index if not exists collections_type_idx on public.collections (type);
 create index if not exists collection_entries_entry_idx on public.collection_entries (entry_id);
+create index if not exists collection_entries_collection_idx on public.collection_entries (collection_id);
 
 -- =========================================================
 -- collections — triggers
@@ -701,6 +706,21 @@ begin
   end loop;
 end;
 $$;
+
+-- =========================================================
+-- RPC: get_comment_subtree — recursive CTE for reply threads
+-- =========================================================
+create or replace function get_comment_subtree(root_id text)
+returns setof public.comments as $$
+  with recursive tree as (
+    select * from public.comments where id = root_id and status = 'visible'
+    union all
+    select c.* from public.comments c
+    join tree t on c.parent_id = t.id
+    where c.status = 'visible'
+  )
+  select * from tree;
+$$ language sql stable;
 
 -- =========================================================
 -- DONE — ตรวจสอบผลลัพธ์

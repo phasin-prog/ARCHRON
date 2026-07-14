@@ -12,6 +12,7 @@ export type ModComment = {
   author_name: string | null;
   body: string;
   status: string; // visible | hidden
+  parent_id: string | null;
   created_at: string;
 };
 
@@ -32,7 +33,7 @@ export async function listAllCommentsAction(): Promise<ModComment[]> {
   const supabase = createServiceSupabase();
   const { data, error } = await supabase
     .from("comments")
-    .select("id, section, slug, clerk_user_id, author_name, body, status, created_at")
+    .select("id, section, slug, clerk_user_id, author_name, body, status, parent_id, created_at")
     .order("created_at", { ascending: false })
     .limit(200);
   if (error) return [];

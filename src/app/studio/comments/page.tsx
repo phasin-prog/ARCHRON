@@ -127,6 +127,11 @@ export default function StudioCommentsPage() {
                     >
                       {hidden ? "ซ่อนอยู่" : "แสดงอยู่"}
                     </span>
+                    {c.parent_id ? (
+                      <span className="rounded-full bg-accent/15 px-2 py-0.5 text-[10px] font-medium text-accent">
+                        ↩ ตอบกลับ
+                      </span>
+                    ) : null}
                   </span>
                   <span className="text-xs text-text-secondary/45">{fmt(c.created_at)}</span>
                 </div>

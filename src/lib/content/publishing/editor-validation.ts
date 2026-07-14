@@ -101,7 +101,7 @@ export function validateEditorDraft(
   // 4. Visual Explanation
   if ((isArticle || isConcept || isSymbol || isTerm) && !hasVisualSSOT) {
     issues.push({
-      fieldId: "field-visual-explanation",
+      fieldId: "field-body-markdown",
       label: "คำอธิบายให้เห็นภาพ (Visual Explanation)",
       severity: "error",
       message: "🛑 อธิบายภาพเปรียบเปรยหรือเขียนหัวข้อ '## คำอธิบายให้เห็นภาพ (Visual Explanation)' ใน Body Markdown เพื่อให้บุคคลทั่วไปเข้าใจแนวคิดนี้ได้ทันทีตั้งแต่ย่อหน้าแรก",
@@ -113,7 +113,7 @@ export function validateEditorDraft(
   // 5. Technical Meaning
   if ((isArticle || isConcept || isPerson) && !hasTechnicalSSOT) {
     issues.push({
-      fieldId: "field-technical-meaning",
+      fieldId: "field-body-markdown",
       label: "ความหมายทางวิชาการ / เทคนิค (Technical Meaning)",
       severity: "error",
       message: "🛑 ระบุนิยามทางวิชาการหรือเขียนหัวข้อ '## นิยามและความหมายทางวิชาการ (Technical Meaning)' ใน Body Markdown เพื่อคงความแม่นยำตามมาตรฐาน Archron",
@@ -125,7 +125,7 @@ export function validateEditorDraft(
   // 6. Roots / Etymology / Caution
   if ((isArticle || isConcept) && !hasRootsSSOT) {
     issues.push({
-      fieldId: "field-roots-etymology",
+      fieldId: "field-body-markdown",
       label: "รากศัพท์หรือเหตุผลที่ยังไม่ใส่ (Roots / Etymology)",
       severity: "error",
       message: "🛑 ระบุที่มาและรากศัพท์ หรือเขียนหัวข้อ '## รากศัพท์และการเปลี่ยนความหมาย (Etymology & Roots)' ใน Body Markdown",
@@ -137,10 +137,10 @@ export function validateEditorDraft(
   // 7. Related Concepts
   if (!isTerm && !isSymbol && !hasRelatedSSOT) {
     issues.push({
-      fieldId: "field-related-concepts",
+      fieldId: "field-body-markdown",
       label: "Related Concepts (แนวคิดที่เกี่ยวข้อง)",
       severity: "error",
-      message: "🛑 ใช้ลิงก์ภายใน [[ชื่อโหนด]] ใน Body Markdown หรือเลือกรายการในกล่อง Related Concepts เพื่อขยายโครงข่ายปัญญา",
+      message: "🛑 ใช้ลิงก์ภายใน [[ชื่อโหนด]] ใน Body Markdown เพื่อเชื่อมโยงและขยายโครงข่ายปัญญา (Knowledge Graph)",
       whyItMatters: "โครงการ Archron ออกแบบในรูปแบบโครงข่ายความรู้ การเชื่อมโยงช่วยให้ผู้อ่านสำรวจหัวข้อที่เกี่ยวเนื่องและเห็นภาพรวมข้ามศาสตร์ได้ไม่รู้จบ",
       sectionName: "ห้องเขียนเนื้อหาหลัก (Studio Workspace)",
     });
@@ -149,10 +149,10 @@ export function validateEditorDraft(
   // 8. References
   if (!hasRefsSSOT) {
     issues.push({
-      fieldId: "field-references",
+      fieldId: "field-body-markdown",
       label: "References (แหล่งอ้างอิง/ตำรา)",
       severity: "error",
-      message: "🛑 ระบุแหล่งอ้างอิง หรือเขียนหัวข้อ '## แหล่งอ้างอิง (References)' หรือใช้เชิงอรรถ [^1] ใน Body Markdown",
+      message: "🛑 เขียนหัวข้อ '## แหล่งอ้างอิง (References)' หรือใช้เชิงอรรถ [^1] ใน Body Markdown เพื่อระบุตำราหลัก",
       whyItMatters: "แหล่งอ้างอิงคือเกราะป้องกันข้อมูลคลาดเคลื่อน และเป็นการให้เกียรติปัญญาชนผู้บุกเบิกทฤษฎี",
       sectionName: "ห้องเขียนเนื้อหาหลัก (Studio Workspace)",
     });

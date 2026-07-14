@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import type { ValidationIssue } from "@/lib/content/publishing/editor-validation";
+import { EditorIcon } from "@/components/studio/editor-icon";
 
 export function EditorValidationModal({
   open,
@@ -38,8 +39,8 @@ export function EditorValidationModal({
         {/* Header */}
         <div className="flex items-center justify-between border-b border-border px-6 py-4 bg-bg-elevated/80 shrink-0">
           <div className="flex items-center gap-3">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-red-500/15 text-red-600 text-xl shrink-0">
-              🛑
+            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-red-500/15 text-red-600 shrink-0">
+              <EditorIcon name="report" className="h-6 w-6" />
             </span>
             <div>
               <h3 className="font-serif text-lg font-bold text-text-heading">ยังไม่สามารถเผยแพร่เนื้อหาได้ (Cannot publish yet)</h3>
@@ -53,9 +54,10 @@ export function EditorValidationModal({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg p-2 text-text-secondary hover:bg-bg hover:text-text-heading transition-colors text-lg font-bold"
+            className="rounded-lg p-2 text-text-secondary hover:bg-bg hover:text-text-heading transition-colors"
+            title="ปิดหน้าต่าง"
           >
-            &times;
+            <EditorIcon name="close" className="h-5 w-5" />
           </button>
         </div>
 
@@ -65,7 +67,8 @@ export function EditorValidationModal({
           {errors.length > 0 && (
             <div className="space-y-3">
               <h4 className="text-xs font-bold uppercase tracking-wider text-red-600 dark:text-red-400 flex items-center gap-1.5">
-                <span>🛑 ส่วนที่ต้องแก้ไขก่อนเผยแพร่ ({errors.length})</span>
+                <EditorIcon name="report" className="h-4 w-4" />
+                <span>ส่วนที่ต้องแก้ไขก่อนเผยแพร่ ({errors.length})</span>
               </h4>
               <div className="space-y-2.5">
                 {errors.map((issue, idx) => (
@@ -101,7 +104,8 @@ export function EditorValidationModal({
           {warnings.length > 0 && (
             <div className={`space-y-3 ${errors.length > 0 ? "pt-5" : ""}`}>
               <h4 className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center gap-1.5">
-                <span>⚠️ คำเตือนเพื่อยกระดับคุณภาพ ({warnings.length})</span>
+                <EditorIcon name="schedule" className="h-4 w-4" />
+                <span>คำเตือนเพื่อยกระดับคุณภาพ ({warnings.length})</span>
               </h4>
               <div className="space-y-2.5">
                 {warnings.map((issue, idx) => (
@@ -136,7 +140,8 @@ export function EditorValidationModal({
           {suggestions.length > 0 && (
             <div className={`space-y-3 ${(errors.length > 0 || warnings.length > 0) ? "pt-5" : ""}`}>
               <h4 className="text-xs font-bold uppercase tracking-wider text-accent flex items-center gap-1.5">
-                <span>💡 ข้อเสนอแนะเสริมเพื่อความสมบูรณ์แบบ ({suggestions.length})</span>
+                <EditorIcon name="psychology" className="h-4 w-4 text-accent" />
+                <span>ข้อเสนอแนะเสริมเพื่อความสมบูรณ์แบบ ({suggestions.length})</span>
               </h4>
               <div className="space-y-2.5">
                 {suggestions.map((issue, idx) => (

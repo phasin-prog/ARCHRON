@@ -21,9 +21,7 @@ import { EditorFeedback, type EditorFeedbackData } from "@/components/studio/edi
 import { EditorIcon } from "@/components/studio/editor-icon";
 import { useEditorMachine } from "@/features/editor/hooks/useEditorMachine";
 import {
-  EditorBasicInfo, EditorArticleFields, EditorConceptFields,
-  EditorPersonFields, EditorBookFields, EditorSchoolFields,
-  EditorBody, EditorRelations, EditorCta, EditorPublishPanel,
+  EditorBasicInfo, EditorBody, EditorCta, EditorPublishPanel,
   EditorPreview, EditorValidationModal,
 } from "@/components/studio/editor";
 import { RevisionPanel } from "@/components/studio/revision-panel";
@@ -243,16 +241,7 @@ export default function StudioEditorPage() {
         <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
           <EditorBasicInfo draft={draft} updateField={updateField} validationIssues={validationResult.byField} />
 
-          {(ct === "article" || ct === "symbol" || ct === "term") && (
-            <EditorArticleFields draft={draft} updateField={updateField} validationIssues={validationResult.byField} />
-          )}
-          {ct === "concept" && <EditorConceptFields draft={draft} updateField={updateField} validationIssues={validationResult.byField} />}
-          {ct === "person" && <EditorPersonFields draft={draft} updateField={updateField} validationIssues={validationResult.byField} />}
-          {ct === "book" && <EditorBookFields draft={draft} updateField={updateField} />}
-          {ct === "school" && <EditorSchoolFields draft={draft} updateField={updateField} />}
-
           <EditorBody draft={draft} updateField={updateField} validationIssues={validationResult.byField} />
-          <EditorRelations draft={draft} updateField={updateField} validationIssues={validationResult.byField} />
           <EditorCta draft={draft} updateField={updateField} />
 
           <EditorPublishPanel

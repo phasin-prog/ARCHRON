@@ -3,6 +3,27 @@
 
 export type IconProps = { className?: string; style?: React.CSSProperties };
 
+// Standard UI icons — delegated to Phosphor duotone
+export {
+  SearchIcon,
+  MenuIcon,
+  ArrowRightIcon,
+  CloseIcon,
+  LoginIcon,
+  EditIcon,
+  LogoutIcon,
+  ExternalLinkIcon,
+  HelpIcon,
+  HeartIcon,
+  ManifestoIcon,
+  QuoteIcon,
+  BookIcon,
+  ConceptIcon,
+  PersonIcon,
+  ChevronDownIcon,
+  HistoryIcon,
+} from "@/components/phosphor-map";
+
 const SVG = (className: string, children: React.ReactNode, style?: React.CSSProperties) => (
   <svg
     className={className}
@@ -23,24 +44,9 @@ const SVG = (className: string, children: React.ReactNode, style?: React.CSSProp
 // แทนไอคอน compass เดิม ตาม Founding Brand Codex (เลี่ยงสัญลักษณ์เข็มทิศ)
 export function ArchronMark({ className = "h-5 w-5" }: IconProps) {
   return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <circle
-        cx="12"
-        cy="12"
-        r="8"
-        strokeDasharray="42 8.3"
-        transform="rotate(-55 12 12)"
-      />
-      <circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none" />
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth={1.5} fill="currentColor" opacity={0.4} />
+      <circle cx="12" cy="12" r="1.5" fill="currentColor" />
     </svg>
   );
 }
@@ -49,69 +55,30 @@ export function ArchronMark({ className = "h-5 w-5" }: IconProps) {
 // ใช้ currentColor คุมสีด้วย Tailwind text-* (ปกติ text-accent)
 export function ArchronLogomark({ className = "h-7 w-7" }: IconProps) {
   return (
-    <svg
-      className={className}
-      viewBox="0 0 48 48"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <circle cx="24" cy="24" r="21" strokeWidth="1.1" opacity="0.85" />
-      <circle cx="17.5" cy="24" r="12.5" strokeWidth="1.4" />
-      <circle cx="30.5" cy="24" r="12.5" strokeWidth="1.4" />
-      <circle cx="24" cy="3.5" r="1.4" fill="currentColor" stroke="none" />
-      <circle cx="24" cy="44.5" r="1.4" fill="currentColor" stroke="none" />
-      <circle cx="24" cy="24" r="2.6" fill="currentColor" stroke="none" />
+    <svg className={className} viewBox="0 0 48 48" fill="none" aria-hidden="true">
+      <circle cx="24" cy="24" r="21" stroke="currentColor" strokeWidth={1.1} fill="currentColor" opacity={0.4} />
+      <circle cx="17.5" cy="24" r="12.5" fill="currentColor" />
+      <circle cx="30.5" cy="24" r="12.5" fill="currentColor" />
+      <circle cx="24" cy="3.5" r="1.4" fill="currentColor" />
+      <circle cx="24" cy="44.5" r="1.4" fill="currentColor" />
+      <circle cx="24" cy="24" r="2.6" fill="currentColor" />
     </svg>
   );
 }
 
-export function ConceptIcon({ className = "h-5 w-5" }: IconProps) {
-  return SVG(
-    className,
-    <>
-      <circle cx="6" cy="12" r="2" />
-      <circle cx="18" cy="6" r="2" />
-      <circle cx="18" cy="18" r="2" />
-      <line x1="8" y1="11" x2="16" y2="7" />
-      <line x1="8" y1="13" x2="16" y2="17" />
-    </>,
-  );
-}
 
-export function PersonIcon({ className = "h-5 w-5" }: IconProps) {
-  return SVG(
-    className,
-    <>
-      <circle cx="12" cy="8" r="3.2" />
-      <path d="M5 19c0-3.3 3.1-5.5 7-5.5s7 2.2 7 5.5" />
-    </>,
-  );
-}
 
-export function BookIcon({ className = "h-5 w-5" }: IconProps) {
-  return SVG(
-    className,
-    <>
-      <path d="M12 6c-1.5-1.2-3.5-2-6-2v13c2.5 0 4.5.8 6 2 1.5-1.2 3.5-2 6-2V4c-2.5 0-4.5.8-6 2z" />
-      <line x1="12" y1="6" x2="12" y2="21" />
-    </>,
-  );
-}
+
+
+
 
 export function SchoolIcon({ className = "h-5 w-5" }: IconProps) {
-  return SVG(
-    className,
-    <>
-      <path d="M4 9l8-4 8 4" />
-      <line x1="6" y1="10" x2="6" y2="17" />
-      <line x1="10" y1="10" x2="10" y2="17" />
-      <line x1="14" y1="10" x2="14" y2="17" />
-      <line x1="18" y1="10" x2="18" y2="17" />
-      <line x1="4" y1="19" x2="20" y2="19" />
-    </>,
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M3 20V7L12 3L21 7V20" fill="currentColor" opacity={0.4} />
+      <rect x="7" y="9" width="3" height="12" fill="currentColor" />
+      <rect x="14" y="9" width="3" height="12" fill="currentColor" />
+    </svg>
   );
 }
 
@@ -148,48 +115,22 @@ export function SourceIcon({ className = "h-5 w-5" }: IconProps) {
 }
 
 export function PathIcon({ className = "h-5 w-5" }: IconProps) {
-  return SVG(
-    className,
-    <>
-      <circle cx="5" cy="6" r="1.8" />
-      <circle cx="12" cy="12" r="1.8" />
-      <circle cx="19" cy="18" r="1.8" />
-      <line x1="6.4" y1="7.2" x2="10.6" y2="10.8" />
-      <line x1="13.4" y1="13.2" x2="17.6" y2="16.8" />
-    </>,
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="4" cy="4" r="2" fill="currentColor" opacity={0.4} />
+      <circle cx="12" cy="12" r="2.5" fill="currentColor" />
+      <circle cx="20" cy="20" r="2" fill="currentColor" opacity={0.4} />
+      <line x1="6" y1="6" x2="9.5" y2="9.5" stroke="currentColor" strokeWidth={1.5} opacity={0.4} />
+      <line x1="14.5" y1="14.5" x2="18" y2="22" stroke="currentColor" strokeWidth={1.5} opacity={0.4} />
+    </svg>
   );
 }
 
-export function SearchIcon({ className = "h-5 w-5" }: IconProps) {
-  return SVG(
-    className,
-    <>
-      <circle cx="11" cy="11" r="6.2" />
-      <path d="M15.8 15.8L20.2 20.2" />
-    </>,
-  );
-}
 
-export function MenuIcon({ className = "h-5 w-5" }: IconProps) {
-  return SVG(
-    className,
-    <>
-      <line x1="4" y1="7" x2="20" y2="7" />
-      <line x1="4" y1="12" x2="20" y2="12" />
-      <line x1="4" y1="17" x2="20" y2="17" />
-    </>,
-  );
-}
 
-export function ArrowRightIcon({ className = "h-5 w-5" }: IconProps) {
-  return SVG(
-    className,
-    <>
-      <line x1="4" y1="12" x2="19" y2="12" />
-      <path d="M13 6l6 6-6 6" />
-    </>,
-  );
-}
+
+
+
 
 /* ============================================================================
    ARCHRON — HEADER NAV ICONS (ไอคอนนำทางแถบ header)
@@ -200,124 +141,38 @@ export function ArrowRightIcon({ className = "h-5 w-5" }: IconProps) {
 // คลังความรู้ — โหนดศูนย์กลาง + โหนดบริวารเชื่อม (แผนที่ความรู้)
 // แทนไอคอน explore เดิม (เลี่ยงสัญลักษณ์เข็มทิศ ตาม Founding Brand Codex)
 export function KnowledgeHubIcon({ className = "h-5 w-5" }: IconProps) {
-  return SVG(
-    className,
-    <>
-      <circle cx="12" cy="12" r="2.2" />
-      <circle cx="5" cy="5.5" r="1.4" />
-      <circle cx="19" cy="5.5" r="1.4" />
-      <circle cx="5" cy="18.5" r="1.4" />
-      <circle cx="19" cy="18.5" r="1.4" />
-      <line x1="10.4" y1="10.6" x2="6.2" y2="6.6" />
-      <line x1="13.6" y1="10.6" x2="17.8" y2="6.6" />
-      <line x1="10.4" y1="13.4" x2="6.2" y2="17.4" />
-      <line x1="13.6" y1="13.4" x2="17.8" y2="17.4" />
-    </>,
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="5" cy="5" r="2.5" fill="currentColor" />
+      <circle cx="19" cy="5" r="2.5" fill="currentColor" />
+      <circle cx="5" cy="19" r="2.5" fill="currentColor" />
+      <circle cx="12" cy="12" r="2.5" fill="currentColor" />
+      <circle cx="19" cy="19" r="2.5" fill="currentColor" />
+      <line x1="7.5" y1="5" x2="9.5" y2="12" stroke="currentColor" strokeWidth={1.5} opacity={0.4} />
+      <line x1="16.5" y1="5" x2="14.5" y2="12" stroke="currentColor" strokeWidth={1.5} opacity={0.4} />
+      <line x1="7.5" y1="19" x2="9.5" y2="12" stroke="currentColor" strokeWidth={1.5} opacity={0.4} />
+      <line x1="16.5" y1="19" x2="14.5" y2="12" stroke="currentColor" strokeWidth={1.5} opacity={0.4} />
+    </svg>
   );
 }
 
-// ปฏิญญา — เอกสาร + 3 บรรทัด (ถ้อยคำประกาศ)
-export function ManifestoIcon({ className = "h-5 w-5" }: IconProps) {
-  return SVG(
-    className,
-    <>
-      <path d="M6 3h9l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" />
-      <path d="M15 3v4h4" />
-      <line x1="8.5" y1="12" x2="15" y2="12" />
-      <line x1="8.5" y1="15" x2="15" y2="15" />
-      <line x1="8.5" y1="18" x2="12.5" y2="18" />
-    </>,
-  );
-}
 
-// แหล่งอ้างอิง — เครื่องหมายคำพูดคู่ (ถ้อยคำที่ยกมา)
-export function QuoteIcon({ className = "h-5 w-5" }: IconProps) {
-  return SVG(
-    className,
-    <>
-      <path d="M10 7c-2.5 0-4 2-4 4.5S7.5 16 10 16c0-2-1-3-2.5-3 .3-1.5 1.5-2.5 2.5-2.8z" />
-      <path d="M18 7c-2.5 0-4 2-4 4.5S15.5 16 18 16c0-2-1-3-2.5-3 .3-1.5 1.5-2.5 2.5-2.8z" />
-    </>,
-  );
-}
 
-// ทรัพยากรภายนอก — กรอบ + ลูกศรออกมุมบนขวา (นำออกไปภายนอก)
-export function ExternalLinkIcon({ className = "h-5 w-5" }: IconProps) {
-  return SVG(
-    className,
-    <>
-      <path d="M13.5 5H6a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7.5" />
-      <path d="M14 4.5h5.5V10" />
-      <line x1="10.5" y1="13.5" x2="19" y2="5" />
-    </>,
-  );
-}
 
-// คำถามที่พบบ่อย — เครื่องหมางคำถาม
-export function HelpIcon({ className = "h-5 w-5" }: IconProps) {
-  return SVG(
-    className,
-    <>
-      <circle cx="12" cy="12" r="9" />
-      <path d="M9.3 9.3a2.8 2.8 0 0 1 5.3 1.2c0 1.8-2.6 2.2-2.6 3.8" />
-      <circle cx="12" cy="17.2" r="0.6" fill="currentColor" stroke="none" />
-    </>,
-  );
-}
 
-// สนับสนุนโครงการ — หัวใจเรขาคณิต
-export function HeartIcon({ className = "h-5 w-5" }: IconProps) {
-  return SVG(
-    className,
-    <path d="M12 19.5C6.5 15.5 4 12.2 4 8.8 4 6.4 5.9 4.5 8.3 4.5c1.5 0 2.9.8 3.7 2 .8-1.2 2.2-2 3.7-2 2.4 0 4.3 1.9 4.3 4.3 0 3.4-2.5 6.7-8 10.7z" />,
-  );
-}
 
-// ปิดเมนู — กากบาท
-export function CloseIcon({ className = "h-5 w-5" }: IconProps) {
-  return SVG(
-    className,
-    <>
-      <line x1="6" y1="6" x2="18" y2="18" />
-      <line x1="18" y1="6" x2="6" y2="18" />
-    </>,
-  );
-}
 
-// เข้าสู่ระบบ — กรอบประตู + ลูกศรเข้า
-export function LoginIcon({ className = "h-5 w-5" }: IconProps) {
-  return SVG(
-    className,
-    <>
-      <path d="M14 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4" />
-      <line x1="4" y1="12" x2="15" y2="12" />
-      <path d="M10 7l5 5-5 5" />
-    </>,
-  );
-}
 
-// Studio — ดินสอ (เครื่องมือเขียน/แก้)
-export function EditIcon({ className = "h-5 w-5" }: IconProps) {
-  return SVG(
-    className,
-    <>
-      <path d="M4 20h4l10.5-10.5a1.4 1.4 0 0 0 0-2l-2-2a1.4 1.4 0 0 0-2 0L4 16z" />
-      <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
-    </>,
-  );
-}
 
-// ออกจากระบบ — กรอบประตู + ลูกศรออก
-export function LogoutIcon({ className = "h-5 w-5" }: IconProps) {
-  return SVG(
-    className,
-    <>
-      <path d="M10 4H6a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h4" />
-      <line x1="9" y1="12" x2="20" y2="12" />
-      <path d="M15 7l5 5-5 5" />
-    </>,
-  );
-}
+
+
+
+
+
+
+
+
+
 
 /* ============================================================================
    ARCHRON — ICON LANGUAGE (ชุดไอคอนประจำศาสตร์ ตาม brand board)
@@ -376,16 +231,7 @@ export function AnthropologyIcon({ className = "h-5 w-5" }: IconProps) {
   );
 }
 
-// ประวัติศาสตร์ — นาฬิกาทราย (กาลเวลา)
-export function HistoryIcon({ className = "h-5 w-5" }: IconProps) {
-  return SVG(
-    className,
-    <>
-      <circle cx="12" cy="12" r="7" />
-      <path d="M12 8.5V12H15" />
-    </>,
-  );
-}
+
 
 // ภาษา — หนังสือ/แผ่นจารึก (ตัวอักษรและการตีความ)
 export function LanguageIcon({ className = "h-5 w-5" }: IconProps) {
@@ -542,14 +388,12 @@ export function SourceRefIcon({ className = "h-5 w-5" }: IconProps) {
 
 // รากแนวคิด — ราก
 export function RootIcon({ className = "h-5 w-5" }: IconProps) {
-  return SVG(
-    className,
-    <>
-      <path d="M12 4.5v6" />
-      <path d="M12 10.5c0 2-1.6 3.1-3.2 4.1S5.5 16.5 5.5 19" />
-      <path d="M12 10.5c0 2 1.6 3.1 3.2 4.1S18.5 16.5 18.5 19" />
-      <circle cx="12" cy="4.3" r="1.4" fill="currentColor" stroke="none" />
-    </>,
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 22V10" stroke="currentColor" strokeWidth={2} opacity={0.4} />
+      <path d="M12 10C12 10 8 6 12 2C12 2 16 6 12 10Z" fill="currentColor" />
+      <circle cx="12" cy="22" r="1.5" fill="currentColor" />
+    </svg>
   );
 }
 
@@ -588,12 +432,12 @@ export function ClockIcon({ className = "h-5 w-5" }: IconProps) {
 
 // สังเคราะห์ — วงกลมสองวงประสานกัน (เปรียบเทียบ/บูรณาการ)
 export function SynthesisIcon({ className = "h-5 w-5" }: IconProps) {
-  return SVG(
-    className,
-    <>
-      <circle cx="9" cy="12" r="5.5" />
-      <circle cx="15" cy="12" r="5.5" />
-    </>,
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="7" cy="12" r="4.5" fill="currentColor" opacity={0.4} />
+      <circle cx="17" cy="12" r="4.5" fill="currentColor" opacity={0.4} />
+      <circle cx="12" cy="12" r="4.5" fill="currentColor" />
+    </svg>
   );
 }
 
@@ -651,12 +495,7 @@ export function ChevronRightIcon({ className = "h-5 w-5" }: IconProps) {
   );
 }
 
-export function ChevronDownIcon({ className = "h-5 w-5" }: IconProps) {
-  return SVG(
-    className,
-    <path d="M6 9l6 6 6-6" />
-  );
-}
+
 
 export function ArrowLeftIcon({ className = "h-5 w-5" }: IconProps) {
   return SVG(

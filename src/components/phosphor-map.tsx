@@ -1,3 +1,5 @@
+"use client";
+
 // Phosphor duotone icon mappings — standard UI icons
 // Each maps an Archron icon name to a Phosphor duotone variant
 // Props passthrough: className, style — consumer API unchanged

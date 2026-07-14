@@ -52,7 +52,7 @@ export function ScrollProgressBar({
 
   return (
     <div
-      className="pointer-events-none fixed inset-x-0 bottom-0 z-[var(--z-overlay)] h-[5px] bg-bg-elevated print:hidden"
+      className="pointer-events-none fixed inset-x-0 bottom-0 z-[var(--z-overlay)] h-[5px] bg-bg-elevated lg:hidden print:hidden"
       role="progressbar"
       aria-label="ความคืบหน้าการอ่านตามหัวข้อ"
       aria-valuenow={Math.round(pct)}

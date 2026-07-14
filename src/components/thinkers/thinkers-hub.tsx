@@ -1,11 +1,12 @@
 "use client";
 
-import { useMemo, useState, memo } from "react";
-import { useDebounce } from "@/lib/hooks/use-debounce";
+import { useMemo, useState, memo, useDeferredValue, useTransition } from "react";
 import { EN_LETTERS, THAI_LETTERS, type Thinker, type SchoolField } from "@/lib/content/core/seeds/schools";
 import { disciplineMeta } from "@/components/discipline-meta";
 import Link from "next/link";
 import { SearchIcon, CloseIcon, ArrowRightIcon } from "@/components/icons";
+
+const collator = new Intl.Collator("th");
 
 interface ThinkerWithSchool extends Thinker {
   schoolId: string;
@@ -20,10 +21,8 @@ const ThinkerCard = memo(function ThinkerCard({ t }: { t: ThinkerWithSchool }) {
   return (
     <Link
       href={`/thinkers/${thinkerSlug}`}
-      className="archron-card group relative flex flex-col justify-between overflow-hidden p-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/45 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
-      style={{
-        background: `linear-gradient(135deg, color-mix(in srgb, ${meta.accent} 5%, var(--color-bg-card)) 0%, var(--color-bg-card) 100%)`,
-      }}
+      className="thinker-card archron-card group relative flex flex-col justify-between overflow-hidden p-6 transition duration-300 ease-out hover:-translate-y-0.5 hover:border-accent/45 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+      style={{ "--thinker-accent": meta.accent } as React.CSSProperties}
     >
       <div>
         <h2 className="font-serif text-2xl font-bold leading-tight text-text-heading transition-colors group-hover:text-accent">
@@ -74,7 +73,7 @@ const ThinkerCard = memo(function ThinkerCard({ t }: { t: ThinkerWithSchool }) {
       </div>
       <div className="mt-6 flex items-center justify-between border-t border-border/15 pt-4">
         <span
-          className="flex items-center gap-1 text-xs font-semibold transition-all duration-300 group-hover:gap-2"
+          className="flex items-center gap-1 text-xs font-semibold group-hover:gap-2"
           style={{ color: meta.accent }}
         >
           ศึกษาประวัติ
@@ -90,9 +89,10 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
   const [query, setQuery] = useState("");
   const [letter, setLetter] = useState<string | null>(null);
   const [selectedField, setSelectedField] = useState<SchoolField | "all">("all");
+  const [, startTransition] = useTransition();
 
-  const debouncedQuery = useDebounce(query, 200);
-  const q = debouncedQuery.trim().toLowerCase();
+  const deferredQuery = useDeferredValue(query);
+  const q = deferredQuery.trim().toLowerCase();
 
   const totalThinkers = thinkers.length;
   const totalSchools = useMemo(() => new Set(thinkers.map((t) => t.schoolId)).size, [thinkers]);
@@ -135,7 +135,7 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
 
         return true;
       })
-      .sort((a, b) => a.nameTh.localeCompare(b.nameTh, "th"));
+      .sort((a, b) => collator.compare(a.nameTh, b.nameTh));
   }, [thinkers, letter, selectedField, q]);
 
   const fields = useMemo(() => {
@@ -190,7 +190,7 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
         <SearchIcon className="h-5.5 w-5.5 text-accent" />
         <input
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => startTransition(() => setQuery(e.target.value))}
           placeholder="ค้นหาชื่อนักคิด คำคม ผลงาน หรือสำนักคิด..."
           aria-label="ค้นหา"
           className="w-full bg-transparent text-base text-text-heading placeholder:text-text-secondary/55 focus-visible:ring-2 focus-visible:ring-accent/30 focus:outline-none"
@@ -212,7 +212,7 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
         <button
           type="button"
           onClick={() => setSelectedField("all")}
-          className={`inline-flex items-center rounded-full text-[11px] font-semibold leading-[1.4] bg-accent/10 text-accent px-3 py-1.5 cursor-pointer transition-all ${
+          className={`inline-flex items-center rounded-full text-[11px] font-semibold leading-[1.4] bg-accent/10 text-accent px-3 py-1.5 cursor-pointer transition-colors duration-200 ${
              selectedField === "all"
                ? "border border-accent/40 bg-accent/15 text-accent font-semibold"
                : "border border-transparent bg-text-heading/5 text-text-secondary/70 hover:text-text-body"
@@ -233,7 +233,7 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
                 backgroundColor: on ? `${meta.accent}24` : undefined,
                 color: on ? meta.accent : undefined,
               }}
-              className={`inline-flex items-center rounded-full text-[11px] font-semibold leading-[1.4] bg-accent/10 text-accent px-3 py-1.5 cursor-pointer transition-all ${
+              className={`inline-flex items-center rounded-full text-[11px] font-semibold leading-[1.4] bg-accent/10 text-accent px-3 py-1.5 cursor-pointer transition-colors duration-200 ${
                  on
                    ? "border font-semibold"
                    : "border border-transparent bg-text-heading/5 text-text-secondary/70 hover:text-text-body"

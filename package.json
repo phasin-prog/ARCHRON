@@ -21,6 +21,7 @@
     "@mdx-js/react": "^3.1.1",
     "@modelcontextprotocol/sdk": "^1.29.0",
     "@next/mdx": "^16.2.10",
+    "@phosphor-icons/react": "^2.1.10",
     "@supabase/supabase-js": "^2.110.0",
     "@types/mdx": "^2.0.14",
     "@types/three": "^0.185.0",

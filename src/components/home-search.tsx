@@ -5,11 +5,12 @@ import { useRouter } from "next/navigation";
 import { SearchIcon } from "@/components/icons";
 import { buildStaticIndex } from "@/features/search/index";
 import { search } from "@/features/search/services";
+import type { SearchItem } from "@/features/search/types";
 
-const INDEX = buildStaticIndex();
+const ALL_ITEMS = buildStaticIndex();
 const MAX_SUGGESTIONS = 8;
 
-function HomeSearch() {
+function HomeSearch({ publishedSlugs }: { publishedSlugs: string[] }) {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -18,9 +19,18 @@ function HomeSearch() {
 
   const deferredQuery = useDeferredValue(query);
 
+  const index = useMemo<SearchItem[]>(() => {
+    const publishedSet = new Set(publishedSlugs);
+    return ALL_ITEMS.filter((item) => {
+      if (item.type !== "concept") return true;
+      const slug = item.href.split("/concepts/")[1];
+      return publishedSet.has(slug);
+    });
+  }, [publishedSlugs]);
+
   const result = useMemo(
-    () => search(INDEX, deferredQuery, { limit: MAX_SUGGESTIONS }),
-    [deferredQuery],
+    () => search(index, deferredQuery, { limit: MAX_SUGGESTIONS }),
+    [index, deferredQuery],
   );
 
   const flatSuggestions = useMemo(

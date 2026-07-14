@@ -9,6 +9,7 @@ export const revalidate = 300;
 
 export default async function HomePage() {
   const published = await getPublicEntries();
+  const publishedSlugs = published.map((e) => e.slug);
   const articles = published.filter((e) => e.contentType === "article").slice(0, 3);
   const concepts = published.filter((e) => e.contentType === "concept").slice(0, 6);
 
@@ -40,7 +41,7 @@ export default async function HomePage() {
       {/* ── 2. SEARCH BAR ── */}
       <section className="relative z-10 -mt-8 flex justify-center px-4">
         <div className="w-full max-w-[720px]">
-          <HomeSearch />
+          <HomeSearch publishedSlugs={publishedSlugs} />
         </div>
       </section>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -29,13 +29,40 @@ function isActive(pathname: string, href: string): boolean {
 export function Tabbar() {
   const pathname = usePathname() || "/";
   const [tappedIndex, setTappedIndex] = useState<number | null>(null);
+  const [hidden, setHidden] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const ticking = useRef(false);
+
+  const handleScroll = useCallback(() => {
+    if (ticking.current) return;
+    ticking.current = true;
+    requestAnimationFrame(() => {
+      setHidden(true);
+      ticking.current = false;
+    });
+
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      setHidden(false);
+    }, 400);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [handleScroll]);
 
   if (pathname.startsWith("/studio")) return null;
 
   return (
     <nav
       aria-label="นำทางหลัก"
-      className="nb-pill fixed inset-x-0 bottom-0 z-40 flex items-center justify-around pb-[calc(env(safe-area-inset-bottom,0px)+4px)] max-lg:flex lg:hidden"
+      className={`nb-pill fixed inset-x-0 bottom-0 z-40 flex items-center justify-around pb-[calc(env(safe-area-inset-bottom,0px)+4px)] transition-transform duration-300 ease-out max-lg:flex lg:hidden ${
+        hidden ? "translate-y-full" : "translate-y-0"
+      }`}
     >
       {ITEMS.map((it, index) => {
         const active = isActive(pathname, it.href);

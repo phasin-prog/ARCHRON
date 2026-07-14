@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARCHRON Icons v2 — Editorial Custom Outline Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&family=Noto+Sans+Thai:wght@300;400;500;600&family=Noto+Serif+Thai:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #FAF8F5;
+      --bg-card: #FFFFFF;
+      --bg-elevated: #F5F3F0;
+      --border: #E5E2DC;
+      --border-hover: #D0CDC5;
+      --text-heading: #1A1815;
+      --text-body: #3A3835;
+      --text-secondary: #8A8780;
+      --accent: #5F8DCE;
+      --accent-soft: rgba(95, 141, 206, 0.12);
+      --premium: #B89A63;
+      --premium-soft: rgba(184, 154, 99, 0.12);
+      --font-display: 'Cinzel', serif;
+      --font-heading: 'IBM Plex Serif', 'Noto Serif Thai', serif;
+      --font-ui: 'Inter', 'Noto Sans Thai', sans-serif;
+      --stroke-width: 1.75px;
+    }
+
+    body.dark-mode {
+      --bg-main: #141312;
+      --bg-card: #1E1C1A;
+      --bg-elevated: #282523;
+      --border: #33302C;
+      --border-hover: #4A4640;
+      --text-heading: #F2EFE9;
+      --text-body: #C9C5BC;
+      --text-secondary: #8A8780;
+      --accent: #7EA6E0;
+      --accent-soft: rgba(126, 166, 224, 0.18);
+      --premium: #D4B679;
+      --premium-soft: rgba(212, 182, 121, 0.18);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: var(--font-ui);
+      background-color: var(--bg-main);
+      color: var(--text-body);
+      line-height: 1.6;
+      padding: 40px 24px 80px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+
+    /* ── Header Section ── */
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+      gap: 24px;
+    }
+
+    .header-info h1 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text-heading);
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header-info p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      max-width: 650px;
+    }
+
+    .badge-v2 {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      background: var(--premium-soft);
+      color: var(--premium);
+      border: 1px solid var(--premium);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ── Controls Toolbar ── */
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      background: var(--bg-card);
+      padding: 16px 24px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+      margin-bottom: 48px;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 260px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 16px 10px 42px;
+      font-family: var(--font-ui);
+      font-size: 14px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text-heading);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent);
+    }
+
+    .search-box svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      color: var(--text-secondary);
+    }
+
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .slider {
+      width: 120px;
+      accent-color: var(--accent);
+    }
+
+    .btn-toggle {
+      padding: 8px 16px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-family: var(--font-ui);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-heading);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-toggle:hover {
+      background: var(--border);
+    }
+
+    /* ── Reference Comparison Section (3 Cards) ── */
+    .showcase-section {
+      margin-bottom: 64px;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-heading);
+      margin-bottom: 8px;
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .ref-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .ref-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .ref-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 20px 40px rgba(95, 141, 206, 0.08);
+    }
+
+    .ref-icon-wrapper {
+      width: 80px;
+      height: 80px;
+      border-radius: 24px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      color: var(--text-heading);
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.3s;
+    }
+
+    .ref-card:hover .ref-icon-wrapper {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: rgba(95, 141, 206, 0.3);
+      transform: scale(1.05);
+    }
+
+    .ref-icon-wrapper svg {
+      width: 40px;
+      height: 40px;
+      stroke-width: var(--stroke-width);
+    }
+
+    .ref-title {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-heading);
+      margin-bottom: 6px;
+    }
+
+    .ref-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .ref-tag {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: var(--bg-elevated);
+      color: var(--text-secondary);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Category Sections ── */
+    .category-group {
+      margin-bottom: 48px;
+    }
+
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .category-header h3 {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-heading);
+    }
+
+    .category-header span {
+      font-size: 13px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .icons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 12px;
+    }
+
+    .icon-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 12px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .icon-card:hover {
+      border-color: var(--text-heading);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.04);
+    }
+
+    .icon-display {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-heading);
+      transition: color 0.2s;
+    }
+
+    .icon-card:hover .icon-display {
+      color: var(--accent);
+    }
+
+    .icon-display svg {
+      width: 24px;
+      height: 24px;
+      stroke-width: var(--stroke-width);
+    }
+
+    .icon-name {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-body);
+      text-align: center;
+      word-break: break-word;
+      line-height: 1.3;
+    }
+
+    .icon-sub {
+      font-size: 9px;
+      color: var(--text-secondary);
+      text-align: center;
+      margin-top: -6px;
+    }
+
+    /* ── Toast Copy Notification ── */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--text-heading);
+      color: var(--bg-main);
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.2s, transform 0.2s;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="header-info">
+        <h1>ARCHRON ICONS <span class="badge-v2">v2 Editorial Outline</span></h1>
+        <p>ชุดไอคอน Custom SVG ใหม่ทั้งระบบ 84 ตัว ออกแบบด้วยเส้น Outline เรขาคณิตเทียบเคียงภาพต้นฉบับ ปราศจากพื้นหลังทึบซ้อน พร้อมคงโลโก้แบรนด์ ArchronMark & Logomark ไว้ตามคำสั่งอย่างเคร่งครัด</p>
+      </div>
+    </header>
+
+    <!-- Controls -->
+    <div class="controls">
+      <div class="search-box">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" stroke-linejoin="round" d="M20 20l-3.5-3.5"/></svg>
+        <input type="text" id="searchInput" placeholder="ค้นหาชื่อไอคอน (เช่น Concept, Book, Search, Discipline)...">
+      </div>
+      <div class="control-group">
+        <label for="strokeSlider">ความหนาเส้น (<span id="strokeVal">1.75px</span>):</label>
+        <input type="range" id="strokeSlider" class="slider" min="1" max="2.5" step="0.25" value="1.75">
+      </div>
+      <button class="btn-toggle" id="themeBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <span>สลับโหมดมืด/สว่าง</span>
+      </button>
+    </div>
+
+    <!-- ── Section 1: Reference Cards Showcase (3 Cards from Reference Image) ── -->
+    <section class="showcase-section">
+      <h2 class="section-title">เทียบเคียงภาพตัวอย่างอ้างอิง (Reference Editorial Cards)</h2>
+      <p class="section-subtitle">การจำลอง Visual Output ตามรูปอ้างอิงของคุณ โดยใช้ Custom Outline SVG ที่สร้างขึ้นใหม่ใน <code>src/components/icons.tsx</code></p>
+      
+      <div class="ref-grid">
+        <!-- Card 1: แผนที่ความสัมพันธ์ -->
+        <div class="ref-card">
+          <span class="ref-tag">ConceptIcon</span>
+          <div class="ref-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="12" cy="8.5" r="5.5" />
+              <circle cx="8.25" cy="15" r="5.5" />
+              <circle cx="15.75" cy="15" r="5.5" />
+            </svg>
+          </div>
+          <h3 class="ref-title">แผนที่ความสัมพันธ์</h3>
+          <p class="ref-desc">โครงข่ายแนวคิดและทฤษฎี เชื่อมโยงกันด้วยวงกลมสามวงซ้อนประสาน (Borromean Rings) อย่างเรียบง่ายและเป็นระบบ</p>
+        </div>
+
+        <!-- Card 2: เส้นทางการอ่าน -->
+        <div class="ref-card">
+          <span class="ref-tag">BookIcon / ReadingSetIcon</span>
+          <div class="ref-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 6.75C3 5.784 3.784 5 4.75 5h5.5c1.1 0 2 .9 2 2v12c0-1.1-.9-2-2-2h-5.5C3.784 17 3 17.784 3 18.75v-12zM21 6.75C21 5.784 20.216 5 19.25 5h-5.5c-1.1 0-2 .9-2 2v12c0-1.1.9-2 2-2h5.5c.966 0 1.75.784 1.75 1.75v-12z" />
+            </svg>
+          </div>
+          <h3 class="ref-title">เส้นทางการอ่าน</h3>
+          <p class="ref-desc">ซีรีส์และชุดบทความที่คัดสรรเป็นลำดับขั้น เพื่อการศึกษาและทำความเข้าใจจิตใจมนุษย์อย่างลึกซึ้ง</p>
+        </div>
+
+        <!-- Card 3: แก่นเรื่องข้ามศาสตร์ -->
+        <div class="ref-card">
+          <span class="ref-tag">GridIcon / SynthesisIcon</span>
+          <div class="ref-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <rect x="3.5" y="3.5" width="7.5" height="7.5" rx="1.75" />
+              <rect x="13" y="3.5" width="7.5" height="7.5" rx="1.75" />
+              <rect x="3.5" y="13" width="7.5" height="7.5" rx="1.75" />
+              <rect x="13" y="13" width="7.5" height="7.5" rx="1.75" />
+            </svg>
+          </div>
+          <h3 class="ref-title">แก่นเรื่องข้ามศาสตร์</h3>
+          <p class="ref-desc">การบูรณาการความรู้จาก 12 แขนงวิชา เพื่ออธิบายปรากฏการณ์ของจิตใต้สำนึกและสังคมมนุษย์ในมิติรวม</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Section 2: All Icons Showcase by Category ── -->
+    <section id="iconsContainer">
+      <!-- Generated via JavaScript for clean structure -->
+    </section>
+
+  </div>
+
+  <div id="toast">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+    <span id="toastMsg">คัดลอกรหัส Component แล้ว!</span>
+  </div>
+
+  <script>
+    // ── All 86 Icons Data Definition ──
+    const iconCategories = [
+      {
+        title: "Brand LOGO (2 ตัว — คงไว้ตามคำสั่ง)",
+        icons: [
+          { name: "ArchronMark", sub: "Custom Logo", svg: `<circle cx="12" cy="12" r="9" stroke="currentColor"/><circle cx="12" cy="12" r="4" fill="currentColor"/>` },
+          { name: "ArchronLogomark", sub: "Custom Full Logo", svg: `<circle cx="12" cy="12" r="9" stroke="currentColor" stroke-dasharray="4 2"/><circle cx="12" cy="12" r="5" stroke="currentColor"/>` }
+        ]
+      },
+      {
+        title: "1. Core Navigation & UI Actions (31 ตัว)",
+        icons: [
+          { name: "SearchIcon", sub: "ค้นหา", svg: `<circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M20 20l-3.5-3.5"/>` },
+          { name: "MenuIcon", sub: "เมนู", svg: `<path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/>` },
+          { name: "ArrowRightIcon", sub: "ขวา", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/>` },
+          { name: "CloseIcon", sub: "ปิด", svg: `<path stroke-linecap="round" d="M6 6l12 12M6 18L18 6"/>` },
+          { name: "LoginIcon", sub: "เข้าสู่ระบบ", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3"/>` },
+          { name: "EditIcon", sub: "แก้ไข", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>` },
+          { name: "LogoutIcon", sub: "ออกจากระบบ", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/>` },
+          { name: "ExternalLinkIcon", sub: "ลิงก์ภายนอก", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/>` },
+          { name: "HelpIcon", sub: "ช่วยเหลือ", svg: `<circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="0.5" fill="currentColor"/>` },
+          { name: "HeartIcon", sub: "ถูกใจ", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>` },
+          { name: "BookmarkIcon", sub: "บันทึกอ่าน", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2v16z"/>` },
+          { name: "ShareIcon", sub: "แชร์", svg: `<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path stroke-linecap="round" d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/>` },
+          { name: "FilterIcon", sub: "กรองข้อมูล", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/>` },
+          { name: "SortIcon", sub: "จัดเรียง", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M11 5h10M11 9h7M11 13h4M3 17l3 3 3-3M6 18V4"/>` },
+          { name: "CopyIcon", sub: "คัดลอก", svg: `<rect x="9" y="9" width="13" height="13" rx="2"/><path stroke-linecap="round" d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>` },
+          { name: "MoreIcon", sub: "เพิ่มเติม", svg: `<circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="6" cy="12" r="1.5" fill="currentColor"/><circle cx="18" cy="12" r="1.5" fill="currentColor"/>` },
+          { name: "ChevronDownIcon", sub: "ลง", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/>` },
+          { name: "ChevronLeftIcon", sub: "ซ้าย", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6"/>` },
+          { name: "ChevronRightIcon", sub: "ขวา", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M9 18l6-6-6-6"/>` },
+          { name: "ArrowLeftIcon", sub: "ลูกศรซ้าย", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M11 18l-6-6 6-6"/>` },
+          { name: "ArrowUpIcon", sub: "ลูกศรบน", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M12 19V5M6 11l6-6 6 6"/>` },
+          { name: "NotificationIcon", sub: "แจ้งเตือน", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/>` },
+          { name: "CheckIcon", sub: "ยืนยัน", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M20 6L9 17l-5-5"/>` },
+          { name: "HomeIcon", sub: "หน้าแรก", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>` },
+          { name: "SparklesIcon", sub: "AI / ปัญญา", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M12 3l1.912 5.813a2 2 0 001.272 1.272L21 12l-5.813 1.912a2 2 0 00-1.272 1.272L12 21l-1.912-5.813a2 2 0 00-1.272-1.272L3 12l5.813-1.912a2 2 0 001.272-1.272L12 3z"/>` },
+          { name: "PlusIcon", sub: "เพิ่ม", svg: `<path stroke-linecap="round" d="M12 5v14M5 12h14"/>` },
+          { name: "MinusIcon", sub: "ลด", svg: `<path stroke-linecap="round" d="M5 12h14"/>` },
+          { name: "MaximizeIcon", sub: "ขยายจอ", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>` },
+          { name: "MinimizeIcon", sub: "ย่อจอ", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7"/>` },
+          { name: "RefreshIcon", sub: "รีเฟรช", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M23 4v6h-6M1 20v-6h6"/><path stroke-linecap="round" stroke-linejoin="round" d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>` },
+          { name: "TrashIcon", sub: "ถังขยะ", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>` }
+        ]
+      },
+      {
+        title: "2. Knowledge Objects & Core Content (12 ตัว)",
+        icons: [
+          { name: "ConceptIcon", sub: "แผนที่แนวคิด", svg: `<circle cx="12" cy="8.5" r="5.5"/><circle cx="8.25" cy="15" r="5.5"/><circle cx="15.75" cy="15" r="5.5"/>` },
+          { name: "BookIcon", sub: "หนังสือ/ตำรา", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M3 6.75C3 5.784 3.784 5 4.75 5h5.5c1.1 0 2 .9 2 2v12c0-1.1-.9-2-2-2h-5.5C3.784 17 3 17.784 3 18.75v-12zM21 6.75C21 5.784 20.216 5 19.25 5h-5.5c-1.1 0-2 .9-2 2v12c0-1.1.9-2 2-2h5.5c.966 0 1.75.784 1.75 1.75v-12z"/>` },
+          { name: "PersonIcon", sub: "นักปราชญ์", svg: `<circle cx="12" cy="7" r="4"/><path stroke-linecap="round" stroke-linejoin="round" d="M5.5 21a8.38 8.38 0 0113 0"/>` },
+          { name: "SchoolIcon", sub: "สำนักคิด", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/>` },
+          { name: "SymbolIcon", sub: "สัญลักษณ์", svg: `<polygon stroke-linejoin="round" points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>` },
+          { name: "TermIcon", sub: "คำศัพท์เฉพาะ", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M7 7h10M7 12h10M7 17h6"/><rect x="3" y="3" width="18" height="18" rx="2"/>` },
+          { name: "SourceIcon", sub: "แหล่งอ้างอิง", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path stroke-linecap="round" stroke-linejoin="round" d="M14 2v6h6"/>` },
+          { name: "PathIcon", sub: "เส้นทางปัญญา", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M9 18l6-6-6-6"/>` },
+          { name: "RootIcon", sub: "รากเหง้า", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M12 19V6M5 12l7-7 7 7"/>` },
+          { name: "SynthesisIcon", sub: "การสังเคราะห์", svg: `<rect x="3.5" y="3.5" width="7.5" height="7.5" rx="1.75"/><rect x="13" y="3.5" width="7.5" height="7.5" rx="1.75"/><rect x="3.5" y="13" width="7.5" height="7.5" rx="1.75"/><rect x="13" y="13" width="7.5" height="7.5" rx="1.75"/>` },
+          { name: "GridIcon", sub: "ตารางแนวคิด", svg: `<rect x="3.5" y="3.5" width="7.5" height="7.5" rx="1.75"/><rect x="13" y="3.5" width="7.5" height="7.5" rx="1.75"/><rect x="3.5" y="13" width="7.5" height="7.5" rx="1.75"/><rect x="13" y="13" width="7.5" height="7.5" rx="1.75"/>` },
+          { name: "ListIcon", sub: "รายการ", svg: `<path stroke-linecap="round" d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>` }
+        ]
+      },
+      {
+        title: "3. Domains / 12 Disciplines (12 ตัว)",
+        icons: [
+          { name: "PsychologyIcon", sub: "จิตวิทยา (Ψ)", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M6 8v3a6 6 0 0012 0V8"/>` },
+          { name: "PhilosophyIcon", sub: "ปรัชญา", svg: `<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/>` },
+          { name: "AnthropologyIcon", sub: "มานุษยวิทยา", svg: `<circle cx="12" cy="6" r="3"/><path stroke-linecap="round" stroke-linejoin="round" d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/>` },
+          { name: "LanguageIcon", sub: "ภาษา/สัญญะ", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M4 5h7M7.5 5v14M13 12l4 7 4-7M15 15h4"/>` },
+          { name: "MythologyIcon", sub: "ตำนานปรัมปรา", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 16.4 5.7 21l2.3-7-6-4.6h7.6z"/>` },
+          { name: "ReligionIcon", sub: "ศาสนา/จิตวิญญาณ", svg: `<circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 7v10M8 11h8"/>` },
+          { name: "ScienceIcon", sub: "วิทยาศาสตร์", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M9 3h6M10 3v5l-4 9a2 2 0 001.8 2.8h8.4a2 2 0 001.8-2.8l-4-9V3"/>` },
+          { name: "SymbolismIcon", sub: "สัญลักษณ์วิทยา", svg: `<polygon stroke-linejoin="round" points="12 3 19 12 12 21 5 12 12 3"/>` },
+          { name: "ArtIcon", sub: "ศิลปกรรม", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c1.1 0 2-.9 2-2 0-.53-.21-1.02-.55-1.38-.34-.36-.55-.84-.55-1.38 0-1.1.9-2 2-2h1.1c3.8 0 6.9-3.1 6.9-6.9 0-4.58-4.88-8.34-10.9-8.34z"/>` },
+          { name: "AIFutureIcon", sub: "ปัญญาประดิษฐ์", svg: `<rect x="4" y="4" width="16" height="16" rx="3"/><path stroke-linecap="round" d="M9 12h6M12 9v6"/>` },
+          { name: "CivilizationIcon", sub: "อารยธรรม", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M3 21h18M5 21V7l7-4 7 4v14M9 14h6"/>` },
+          { name: "HistoryIcon", sub: "ประวัติศาสตร์", svg: `<circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 3"/>` }
+        ]
+      },
+      {
+        title: "4. Manifesto & Reading Page (17 ตัว)",
+        icons: [
+          { name: "ManifestoIcon", sub: "จุดยืนโครงการ", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path stroke-linecap="round" d="M14 2v6h6M8 13h8M8 17h5"/>` },
+          { name: "QuoteIcon", sub: "คำคมอ้างอิง", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M10 11H6v-4h4v4zm8 0h-4v-4h4v4zM10 11v3a3 3 0 01-3 3M18 11v3a3 3 0 01-3 3"/>` },
+          { name: "VisualMeaningIcon", sub: "ภาพความหมาย", svg: `<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 15l-5-5L5 21"/>` },
+          { name: "ScholarIcon", sub: "นักวิชาการ", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>` },
+          { name: "CompareIcon", sub: "เปรียบเทียบ", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M9 6l-6 6 6 6M15 6l6 6-6 6"/>` },
+          { name: "TimelineIcon", sub: "เส้นเวลา", svg: `<path stroke-linecap="round" d="M12 3v18M8 7l4-4 4 4M8 17l4 4 4-4"/>` },
+          { name: "ExplorerIcon", sub: "การสำรวจ", svg: `<circle cx="12" cy="12" r="9"/><polygon stroke-linejoin="round" points="14.5 9.5 12.5 14.5 9.5 14.5 11.5 9.5 14.5 9.5"/>` },
+          { name: "FaqIcon", sub: "คำถามพบบ่อย", svg: `<circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="0.5" fill="currentColor"/>` },
+          { name: "ReadingSetIcon", sub: "ชุดการอ่าน", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M3 6.75C3 5.784 3.784 5 4.75 5h5.5c1.1 0 2 .9 2 2v12c0-1.1-.9-2-2-2h-5.5C3.784 17 3 17.784 3 18.75v-12zM21 6.75C21 5.784 20.216 5 19.25 5h-5.5c-1.1 0-2 .9-2 2v12c0-1.1.9-2 2-2h5.5c.966 0 1.75.784 1.75 1.75v-12z"/>` },
+          { name: "ThemeIcon", sub: "แก่นเรื่อง", svg: `<rect x="3.5" y="3.5" width="7.5" height="7.5" rx="1.75"/><rect x="13" y="3.5" width="7.5" height="7.5" rx="1.75"/><rect x="3.5" y="13" width="7.5" height="7.5" rx="1.75"/><rect x="13" y="13" width="7.5" height="7.5" rx="1.75"/>` },
+          { name: "GuideIcon", sub: "คู่มือนำทาง", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>` },
+          { name: "SupportIcon", sub: "สนับสนุน", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>` },
+          { name: "FontSizeIcon", sub: "ขนาดอักษร", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M4 7V4h16v3M9 20h6M12 4v16"/>` },
+          { name: "ContrastIcon", sub: "ความคมชัด", svg: `<circle cx="12" cy="12" r="9"/><path d="M12 3v18a9 9 0 000-18z" fill="currentColor"/>` },
+          { name: "ExpandIcon", sub: "ขยาย", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>` },
+          { name: "CollapseIcon", sub: "ย่อ", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7"/>` },
+          { name: "ArticleIcon", sub: "บทความ", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2z"/><path stroke-linecap="round" d="M7 11h8M7 15h5"/>` }
+        ]
+      },
+      {
+        title: "5. Badges & Sources (12 ตัว)",
+        icons: [
+          { name: "LevelBadgeIcon", sub: "ระดับตรา", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>` },
+          { name: "AchievementBadgeIcon", sub: "ความสำเร็จ", svg: `<circle cx="12" cy="8" r="6"/><path stroke-linecap="round" stroke-linejoin="round" d="M15.477 1.89L17 22l-5-3-5 3 1.523-9.11"/>` },
+          { name: "SourceBadgeIcon", sub: "ตราอ้างอิง", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/>` },
+          { name: "AcademicBadgeIcon", sub: "ตราวุฒิการศึกษา", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>` },
+          { name: "LanternIcon", sub: "ตะเกียงปัญญา", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M12 2v4m-4 0h8l1 6H7l1-6zm1 6v8a3 3 0 006 0v-8M9 22h6"/>` },
+          { name: "CompassIcon", sub: "เข็มทิศนำทาง", svg: `<circle cx="12" cy="12" r="9"/><polygon stroke-linejoin="round" points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>` },
+          { name: "QuillIcon", sub: "ปากกาขนนก", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M20.24 12.24a6 6 0 00-8.49-8.49L5 10.5V19h8.5l6.74-6.76zM16 8l-8 8"/>` },
+          { name: "ScrollIcon", sub: "ม้วนคัมภีร์", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M19 4H5a2 2 0 00-2 2v12a2 2 0 002 2h14v-4a2 2 0 00-2-2h-2"/><path stroke-linecap="round" d="M7 8h8M7 12h6"/>` },
+          { name: "PillarIcon", sub: "เสาหลักปัญญา", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M4 4h16M4 20h16M6 4v16M18 4v16M10 4v16M14 4v16"/>` },
+          { name: "KeyIcon", sub: "กุญแจความรู้", svg: `<circle cx="7.5" cy="15.5" r="4.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M11 12l9-9m0 0h-4m4 0v4"/>` },
+          { name: "ConstellationIcon", sub: "กลุ่มดาว", svg: `<circle cx="6" cy="6" r="1.5"/><circle cx="18" cy="8" r="1.5"/><circle cx="8" cy="18" r="1.5"/><circle cx="17" cy="16" r="1.5"/><path stroke-linecap="round" stroke-dasharray="2 2" d="M6 6l12 2M18 8l-1 8M17 16l-9 2M8 18l-2-12"/>` },
+          { name: "KnowledgeTreeIcon", sub: "ต้นไม้แห่งปัญญา", svg: `<path stroke-linecap="round" stroke-linejoin="round" d="M12 22V12M12 12C12 7 7 4 4 6c0 4 3 6 8 6zm0 0c0-5 5-8 8-6 0 4-3 6-8 6z"/>` }
+        ]
+      }
+    ];
+
+    const container = document.getElementById('iconsContainer');
+    const searchInput = document.getElementById('searchInput');
+    const strokeSlider = document.getElementById('strokeSlider');
+    const strokeVal = document.getElementById('strokeVal');
+    const themeBtn = document.getElementById('themeBtn');
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toastMsg');
+
+    // Render Function
+    function renderIcons(query = "") {
+      container.innerHTML = "";
+      
+      iconCategories.forEach(cat => {
+        const filtered = cat.icons.filter(i => 
+          i.name.toLowerCase().includes(query.toLowerCase()) || 
+          i.sub.toLowerCase().includes(query.toLowerCase())
+        );
+
+        if (filtered.length === 0) return;
+
+        const groupDiv = document.createElement('div');
+        groupDiv.className = 'category-group';
+        groupDiv.innerHTML = `
+          <div class="category-header">
+            <h3>${cat.title}</h3>
+            <span>${filtered.length} ไอคอน</span>
+          </div>
+          <div class="icons-grid">
+            ${filtered.map(i => `
+              <div class="icon-card" onclick="copyIconName('${i.name}')" title="คลิกเพื่อคัดลอก <${i.name} />">
+                <div class="icon-display">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    ${i.svg}
+                  </svg>
+                </div>
+                <div class="icon-name">${i.name}</div>
+                <div class="icon-sub">${i.sub}</div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+        container.appendChild(groupDiv);
+      });
+    }
+
+    // Copy Name Function
+    function copyIconName(name) {
+      navigator.clipboard.writeText(`<${name} />`);
+      toastMsg.innerText = `คัดลอก <${name} /> แล้ว!`;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+
+    // Stroke Slider Event
+    strokeSlider.addEventListener('input', (e) => {
+      const val = e.target.value + 'px';
+      document.documentElement.style.setProperty('--stroke-width', val);
+      strokeVal.innerText = val;
+    });
+
+    // Search Event
+    searchInput.addEventListener('input', (e) => {
+      renderIcons(e.target.value);
+    });
+
+    // Theme Toggle Event
+    themeBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+    });
+
+    // Initial Render
+    renderIcons();
+  </script>
+</body>
+</html>

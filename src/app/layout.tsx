@@ -92,7 +92,7 @@ export default function RootLayout({
           </noscript>
 
         </head>
-        <body className="min-h-screen bg-bg pb-16 text-text-body antialiased lg:pb-0">
+        <body className="min-h-screen bg-bg pb-28 text-text-body antialiased lg:pb-0">
           <SkipToContent />
           <SiteHeader />
           {children}

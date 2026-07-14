@@ -783,142 +783,159 @@
   animation: mm-fade var(--dur-base) var(--ease-out) both;
 }
 
-/* ── Navbar Mobile — Floating Pill Tabbar (zollastar-inspired) ── */
+/* ── Navbar Mobile — zollastar-style floating pill tabbar ── */
 
-/* Container: rounded pill tray */
-.nb-container {
+/* Container pill — rounded bottom corners, centered horizontally */
+.nb-pill {
   position: relative;
+  background: #fdfdfd;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px 15px;
+  box-shadow: 0px 20px 40px rgba(18, 34, 64, 0.1);
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
 }
 
-/* Bottom indicator bar (iPhone-style) */
-.nb-container::after {
+/* Bottom indicator bar */
+.nb-pill::after {
   content: "";
-  position: absolute;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 4px);
-  left: 50%;
-  transform: translateX(-50%);
   width: 120px;
+  background: #d9e0ea;
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
   height: 3px;
-  background: var(--color-text-heading);
-  opacity: 0.12;
-  border-radius: 2px;
-  pointer-events: none;
+  transform: translateX(-50%);
+  opacity: 0.7;
 }
 
-/* Per-tab bubble colors */
-.nb-color--knowledge { --nb-color: #7BA3D4; }
-.nb-color--constellation { --nb-color: #A89AC8; }
-.nb-color--home { --nb-color: var(--color-accent); }
-.nb-color--search { --nb-color: #2A8C82; }
-.nb-color--thinkers { --nb-color: #7AB57A; }
-
-/* Bubble wrapper — relative container for pseudo-elements */
-.nb-bubble-wrapper {
+/* Each tab item — 70×70, icon-only */
+.nb-item {
+  width: 70px;
+  height: 70px;
   position: relative;
-  display: flex;
+  cursor: pointer;
+  padding: 10px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  font-size: 21px;
+  color: inherit;
 }
 
-/* Bubble circles (::before = solid, ::after = glow) */
-.nb-bubble-wrapper::before,
-.nb-bubble-wrapper::after {
+/* Bubble circles (::before = solid, ::after = glow) — positioned at item top-left, full size */
+.nb-item::before,
+.nb-item::after {
   content: "";
   position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 44px;
-  height: 44px;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: currentColor;
   border-radius: 50%;
-  transform: translate(-50%, -50%) scale(0.8);
+  transform: scale(0.8);
   opacity: 0;
-  transition:
-    opacity var(--dur-base) cubic-bezier(0.71, 0.03, 0.23, 0.95),
-    transform var(--dur-base) cubic-bezier(0.71, 0.03, 0.23, 0.95);
-  pointer-events: none;
+  transition: all 0.55s cubic-bezier(0.71, 0.03, 0.23, 0.95);
 }
 
-.nb-bubble-wrapper::before {
-  background: var(--nb-color, var(--color-accent));
+.nb-item::after {
+  box-shadow: 0 7px 15px currentColor;
 }
 
-.nb-bubble-wrapper::after {
-  background: var(--nb-color, var(--color-accent));
-  box-shadow: 0 7px 15px var(--nb-color, var(--color-accent));
+/* Active tab: bubble stays up permanently */
+.nb-item--active::before,
+.nb-item--active::after {
+  transform: translateY(-60px) scale(1.1);
 }
 
-/* Hover / Tap: bubble rises */
-.nb-bubble-wrapper:hover::before,
-.nb-bubble-wrapper:active::before,
-.nb-bubble--tap::before {
+.nb-item--active::before {
   opacity: 1;
-  transform: translate(-50%, calc(-50% - 52px)) scale(1.1);
 }
 
-.nb-bubble-wrapper:hover::after,
-.nb-bubble-wrapper:active::after,
-.nb-bubble--tap::after {
+.nb-item--active::after {
   opacity: 0.4;
-  transform: translate(-50%, calc(-50% - 52px)) scale(1.1);
 }
 
-/* Icon: rides inside bubble, turns white */
-.nb-icon {
-  transition:
-    color var(--dur-base) cubic-bezier(0.71, 0.03, 0.23, 0.95),
-    transform var(--dur-base) cubic-bezier(0.71, 0.03, 0.23, 0.95);
-}
-
-.nb-bubble-wrapper:hover .nb-icon,
-.nb-bubble-wrapper:active .nb-icon,
-.nb-bubble--tap .nb-icon {
+.nb-item--active .nb-icon {
+  transform: translateY(-58px) scale(1.25);
   color: #fff;
-  transform: translateY(-52px) scale(1.2);
+  transition-delay: 0.1s, 0.1s;
 }
 
-/* Active icon (no bubble) — per-tab color */
-.nb-icon--active {
-  color: var(--nb-color, var(--color-accent));
+/* Hover / tap: bubble rises up (non-active items) */
+.nb-item:hover::before,
+.nb-item:hover::after,
+.nb-item:active::before,
+.nb-item:active::after,
+.nb-item--tap::before,
+.nb-item--tap::after {
+  transform: translateY(-60px) scale(1.1);
 }
 
-/* Tap flash — brief pulse on touch */
-@keyframes nb-tap-flash {
-  0%   { opacity: 0.6; transform: translate(-50%, calc(-50% - 52px)) scale(1.1); }
-  50%  { opacity: 0.2; transform: translate(-50%, calc(-50% - 40px)) scale(1.0); }
-  100% { opacity: 0;   transform: translate(-50%, -50%) scale(0.8); }
+.nb-item:hover::before,
+.nb-item:active::before,
+.nb-item--tap::before {
+  opacity: 1;
 }
 
-.nb-bubble--tap::before,
-.nb-bubble--tap::after {
-  animation: nb-tap-flash 450ms var(--ease-out) both;
+.nb-item:hover::after,
+.nb-item:active::after,
+.nb-item--tap::after {
+  opacity: 0.4;
+}
+
+/* Icon — rides inside bubble, turns white */
+.nb-item:hover .nb-icon,
+.nb-item:active .nb-icon,
+.nb-item--tap .nb-icon {
+  transform: translateY(-58px) scale(1.25);
+  color: #fff;
+  transition-delay: 0.1s, 0.1s;
+}
+
+.nb-icon {
+  transition: all 0.5s cubic-bezier(0.71, 0.03, 0.23, 0.95);
+  transition-delay: 0.1s;
+  display: inline-block;
+  position: relative;
+  z-index: 2;
+}
+
+/* SVG icon fills currentColor */
+.nb-icon-svg {
+  display: block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 2;
+  stroke: currentColor;
+  fill: none;
 }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .nb-bubble-wrapper::before,
-  .nb-bubble-wrapper::after,
-  .nb-icon {
+  .nb-item::before,
+  .nb-item::after {
     transition: none !important;
-    animation: none !important;
   }
   .nb-item--active .nb-icon,
-  .nb-bubble-wrapper:hover .nb-icon,
-  .nb-bubble-wrapper:active .nb-icon,
-  .nb-bubble--tap .nb-icon {
+  .nb-item:hover .nb-icon,
+  .nb-item:active .nb-icon,
+  .nb-item--tap .nb-icon {
     transform: none;
+    color: inherit;
   }
-  .nb-item--active .nb-bubble-wrapper::before,
-  .nb-bubble-wrapper:hover::before,
-  .nb-bubble-wrapper:active::before,
-  .nb-bubble--tap::before,
-  .nb-item--active .nb-bubble-wrapper::after,
-  .nb-bubble-wrapper:hover::after,
-  .nb-bubble-wrapper:active::after,
-  .nb-bubble--tap::after {
+  .nb-item--active::before,
+  .nb-item--active::after,
+  .nb-item:hover::before,
+  .nb-item:hover::after,
+  .nb-item:active::before,
+  .nb-item:active::after,
+  .nb-item--tap::before,
+  .nb-item--tap::after {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.8);
+    transform: scale(0.8);
   }
 }
 

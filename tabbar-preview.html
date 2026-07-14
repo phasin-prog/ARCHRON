@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabbar Preview — Mobile & Tablet</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f0ece8;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    h2 { font-size: 14px; color: #666; text-align: center; }
+
+    .preview-wrap {
+      position: relative;
+      border: 2px solid #ccc;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #F9F5F3;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+    }
+
+    .preview-wrap.mobile  { width: 375px; height: 667px; }
+    .preview-wrap.tablet  { width: 768px; height: 800px; }
+
+    .page-content {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ccc;
+      font-size: 48px;
+      user-select: none;
+    }
+
+    /* ═══════════════════════════════════════════════
+       EXACT CSS from globals.css + tabbar.tsx
+       ═══════════════════════════════════════════════ */
+
+    /* Outer nav — fixed bottom, centered */
+    .tabbar-nav {
+      position: absolute;
+      inset-inline: 0;
+      bottom: 0;
+      z-index: 40;
+      display: flex;
+      justify-content: center;
+      padding-bottom: 4px; /* matches pb-[calc(env(safe-area-inset-bottom,0px)+4px)] */
+    }
+
+    /* Container pill */
+    .nb-pill {
+      position: relative;
+      background: #fdfdfd;
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 20px 15px;
+      box-shadow: 0px 20px 40px rgba(18, 34, 64, 0.1);
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+    }
+
+    /* Bottom indicator bar */
+    .nb-pill::after {
+      content: "";
+      width: 120px;
+      background: #d9e0ea;
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      height: 3px;
+      transform: translateX(-50%);
+      opacity: 0.7;
+    }
+
+    /* Each tab item */
+    .nb-item {
+      width: 70px;
+      height: 70px;
+      position: relative;
+      cursor: pointer;
+      padding: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 21px;
+      text-decoration: none;
+    }
+
+    /* Bubble circles */
+    .nb-item::before,
+    .nb-item::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-color: currentColor;
+      border-radius: 50%;
+      transform: scale(0.8);
+      opacity: 0;
+      transition: all 0.55s cubic-bezier(0.71, 0.03, 0.23, 0.95);
+    }
+
+    .nb-item::after {
+      box-shadow: 0 7px 15px currentColor;
+    }
+
+    /* Active tab — bubble stays */
+    .nb-item--active::before,
+    .nb-item--active::after {
+      transform: translateY(-60px) scale(1.1);
+    }
+    .nb-item--active::before { opacity: 1; }
+    .nb-item--active::after  { opacity: 0.4; }
+    .nb-item--active .nb-icon {
+      transform: translateY(-58px) scale(1.25);
+      color: #fff;
+      transition-delay: 0.1s, 0.1s;
+    }
+
+    /* Hover / Tap */
+    .nb-item:hover::before,
+    .nb-item:hover::after,
+    .nb-item:active::before,
+    .nb-item:active::after,
+    .nb-item--tap::before,
+    .nb-item--tap::after {
+      transform: translateY(-60px) scale(1.1);
+    }
+    .nb-item:hover::before,
+    .nb-item:active::before,
+    .nb-item--tap::before {
+      opacity: 1;
+    }
+    .nb-item:hover::after,
+    .nb-item:active::after,
+    .nb-item--tap::after {
+      opacity: 0.4;
+    }
+    .nb-item:hover .nb-icon,
+    .nb-item:active .nb-icon,
+    .nb-item--tap .nb-icon {
+      transform: translateY(-58px) scale(1.25);
+      color: #fff;
+      transition-delay: 0.1s, 0.1s;
+    }
+
+    /* Icon wrapper */
+    .nb-icon {
+      transition: all 0.5s cubic-bezier(0.71, 0.03, 0.23, 0.95);
+      transition-delay: 0.1s;
+      display: inline-block;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* SVG icon */
+    .nb-icon-svg {
+      display: block;
+      width: 1em;
+      height: 1em;
+      stroke-width: 2;
+      stroke: currentColor;
+      fill: none;
+    }
+
+    /* Tab colors */
+    .nb-item--knowledge  { color: #06b8ff; }
+    .nb-item--map        { color: #8444d6; }
+    .nb-item--home       { color: #f2704d; }
+    .nb-item--search     { color: #f8cd4b; }
+    .nb-item--thinkers   { color: #405fff; }
+
+    /* ═══════════════════════════════════════════════
+       DEV TOOLS — Ruler & Info
+       ═══════════════════════════════════════════════ */
+
+    .ruler-h {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: rgba(255,0,0,0.3);
+      pointer-events: none;
+      z-index: 999;
+    }
+    .ruler-v {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(0,0,255,0.3);
+      pointer-events: none;
+      z-index: 999;
+    }
+    .ruler-label {
+      position: absolute;
+      font-size: 10px;
+      color: red;
+      pointer-events: none;
+      z-index: 999;
+      font-family: monospace;
+      background: rgba(255,255,255,0.8);
+      padding: 1px 4px;
+    }
+    .info-bar {
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 11px;
+      font-family: monospace;
+      color: #666;
+      background: rgba(255,255,255,0.9);
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-align: center;
+      line-height: 1.6;
+      z-index: 998;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Mobile 375×667 (iPhone) ── -->
+  <h2>📱 Mobile — 375×667 (iPhone SE/6/7/8)</h2>
+  <div class="preview-wrap mobile" id="mobile">
+    <div class="page-content"></div>
+
+    <div class="info-bar" id="mobile-info"></div>
+
+    <!-- Ruler: horizontal at top of pill -->
+    <div class="ruler-h" style="bottom:103px" id="ruler-pill-top-m"></div>
+    <div class="ruler-label" style="bottom:104px; left:4px" id="ruler-pill-top-label-m"></div>
+
+    <!-- Ruler: horizontal at bottom of screen -->
+    <div class="ruler-h" style="bottom:0"></div>
+
+    <!-- Tabbar -->
+    <nav class="tabbar-nav">
+      <div class="nb-pill">
+
+        <a href="#" class="nb-item nb-item--knowledge">
+          <span class="nb-icon">
+            <svg class="nb-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7" rx="1"/>
+              <rect x="14" y="3" width="7" height="7" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" rx="1"/>
+              <rect x="14" y="14" width="7" height="7" rx="1"/>
+            </svg>
+          </span>
+        </a>
+
+        <a href="#" class="nb-item nb-item--map nb-item--active">
+          <span class="nb-icon">
+            <svg class="nb-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"/>
+              <circle cx="5" cy="5" r="1.5"/>
+              <circle cx="19" cy="5" r="1.5"/>
+              <circle cx="5" cy="19" r="1.5"/>
+              <circle cx="19" cy="19" r="1.5"/>
+              <line x1="12" y1="12" x2="5" y2="5"/>
+              <line x1="12" y1="12" x2="19" y2="5"/>
+              <line x1="12" y1="12" x2="5" y2="19"/>
+              <line x1="12" y1="12" x2="19" y2="19"/>
+            </svg>
+          </span>
+        </a>
+
+        <a href="#" class="nb-item nb-item--home">
+          <span class="nb-icon">
+            <svg class="nb-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 12L12 3l9 9"/>
+              <path d="M5 10v10h5v-7h4v7h5V10"/>
+            </svg>
+          </span>
+        </a>
+
+        <a href="#" class="nb-item nb-item--search">
+          <span class="nb-icon">
+            <svg class="nb-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="10.5" cy="10.5" r="6.5"/>
+              <line x1="15" y1="15" x2="21" y2="21"/>
+            </svg>
+          </span>
+        </a>
+
+        <a href="#" class="nb-item nb-item--thinkers">
+          <span class="nb-icon">
+            <svg class="nb-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M4 22c0-4.418 3.582-8 8-8s8 3.582 8 8"/>
+            </svg>
+          </span>
+        </a>
+
+      </div>
+    </nav>
+  </div>
+
+  <!-- ── Tablet 768×800 (iPad Mini portrait) ── -->
+  <h2>📋 Tablet — 768×800</h2>
+  <div class="preview-wrap tablet" id="tablet">
+    <div class="page-content"></div>
+
+    <div class="info-bar" id="tablet-info"></div>
+
+    <!-- Ruler: horizontal at top of pill -->
+    <div class="ruler-h" style="bottom:103px" id="ruler-pill-top-t"></div>
+    <div class="ruler-label" style="bottom:104px; left:4px" id="ruler-pill-top-label-t"></div>
+
+    <!-- Ruler: horizontal at bottom of screen -->
+    <div class="ruler-h" style="bottom:0"></div>
+
+    <!-- Tabbar (same) -->
+    <nav class="tabbar-nav">
+      <div class="nb-pill">
+        <a href="#" class="nb-item nb-item--knowledge">
+          <span class="nb-icon">
+            <svg class="nb-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7" rx="1"/>
+              <rect x="14" y="3" width="7" height="7" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" rx="1"/>
+              <rect x="14" y="14" width="7" height="7" rx="1"/>
+            </svg>
+          </span>
+        </a>
+        <a href="#" class="nb-item nb-item--map nb-item--active">
+          <span class="nb-icon">
+            <svg class="nb-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"/>
+              <circle cx="5" cy="5" r="1.5"/>
+              <circle cx="19" cy="5" r="1.5"/>
+              <circle cx="5" cy="19" r="1.5"/>
+              <circle cx="19" cy="19" r="1.5"/>
+              <line x1="12" y1="12" x2="5" y2="5"/>
+              <line x1="12" y1="12" x2="19" y2="5"/>
+              <line x1="12" y1="12" x2="5" y2="19"/>
+              <line x1="12" y1="12" x2="19" y2="19"/>
+            </svg>
+          </span>
+        </a>
+        <a href="#" class="nb-item nb-item--home">
+          <span class="nb-icon">
+            <svg class="nb-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 12L12 3l9 9"/>
+              <path d="M5 10v10h5v-7h4v7h5V10"/>
+            </svg>
+          </span>
+        </a>
+        <a href="#" class="nb-item nb-item--search">
+          <span class="nb-icon">
+            <svg class="nb-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="10.5" cy="10.5" r="6.5"/>
+              <line x1="15" y1="15" x2="21" y2="21"/>
+            </svg>
+          </span>
+        </a>
+        <a href="#" class="nb-item nb-item--thinkers">
+          <span class="nb-icon">
+            <svg class="nb-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M4 22c0-4.418 3.582-8 8-8s8 3.582 8 8"/>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </nav>
+  </div>
+
+  <script>
+    function measure(id) {
+      const wrap = document.getElementById(id);
+      const pill = wrap.querySelector('.nb-pill');
+      const nav = wrap.querySelector('.tabbar-nav');
+
+      const wrapH = wrap.clientHeight;
+      const wrapW = wrap.clientWidth;
+      const pillRect = pill.getBoundingClientRect();
+      const wrapRect = wrap.getBoundingClientRect();
+
+      const pillTop = pillRect.top - wrapRect.top;
+      const pillBottom = pillRect.bottom - wrapRect.top;
+      const pillLeft = pillRect.left - wrapRect.left;
+      const pillRight = pillRect.right - wrapRect.left;
+      const pillW = pillRect.width;
+      const pillH = pillRect.height;
+
+      const gapTop = wrapH - pillBottom;  /* space from Pill top to viewport bottom */
+      const gapSide = (wrapW - pillW) / 2;
+
+      const navPB = parseInt(getComputedStyle(nav).paddingBottom);
+      const pillPT = parseInt(getComputedStyle(pill).paddingTop);
+      const pillPB = parseInt(getComputedStyle(pill).paddingBottom);
+      const pillPL = parseInt(getComputedStyle(pill).paddingLeft);
+      const pillPR = parseInt(getComputedStyle(pill).paddingRight);
+
+      return {
+        viewport: `${wrapW}×${wrapH}`,
+        pillW, pillH,
+        pillLeft, pillRight,
+        pillTop, pillBottom,
+        gapBottom: wrapH - pillBottom,
+        gapSide,
+        pillPT, pillPB, pillPL, pillPR,
+        navPB,
+        itemSize: '70×70',
+      };
+    }
+
+    function show(m, t) {
+      document.getElementById('mobile-info').textContent =
+        `Viewport: ${m.viewport}\nPill: ${m.pillW}×${m.pillH}px\nPill pos: left ${m.pillLeft}px · right ${m.pillRight}px\nGap bottom: ${m.gapBottom}px (pill ↔ จอ)\nGap side: ${Math.round(m.gapSide)}px\nPadding: T${m.pillPT} B${m.pillPB} L${m.pillPL} R${m.pillPR}\nItem: ${m.itemSize}\nNav padding-bottom: ${m.navPB}px`;
+
+      document.getElementById('tablet-info').textContent =
+        `Viewport: ${t.viewport}\nPill: ${t.pillW}×${t.pillH}px\nPill pos: left ${t.pillLeft}px · right ${t.pillRight}px\nGap bottom: ${t.gapBottom}px (pill ↔ จอ)\nGap side: ${Math.round(t.gapSide)}px\nPadding: T${t.pillPT} B${t.pillPB} L${t.pillPL} R${t.pillPR}\nItem: ${t.itemSize}\nNav padding-bottom: ${t.navPB}px`;
+
+      document.getElementById('ruler-pill-top-label-m').textContent = `${Math.round(m.gapBottom)}px`;
+      document.getElementById('ruler-pill-top-label-t').textContent = `${Math.round(t.gapBottom)}px`;
+    }
+
+    window.onload = () => {
+      const m = measure('mobile');
+      const t = measure('tablet');
+      show(m, t);
+    };
+    window.onresize = () => {
+      const m = measure('mobile');
+      const t = measure('tablet');
+      show(m, t);
+    };
+  </script>
+</body>
+</html>

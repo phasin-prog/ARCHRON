@@ -287,16 +287,22 @@ export async function ReadingPage({
         />
         {/* Breadcrumb + Font Size */}
         <div className="scroll-reveal flex flex-wrap items-center justify-between gap-3">
-          <nav aria-label="เส้นทางนำทาง" className="flex flex-wrap items-center gap-1 text-xs text-text-secondary">
-            <Link href="/" className="rounded px-2 py-2 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:text-accent focus-visible:outline-none">หน้าแรก</Link>
-            <ArrowRightIcon className="h-4 w-4 text-text-secondary" />
-            <Link href="/knowledge" className="rounded px-2 py-2 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:text-accent focus-visible:outline-none">คลังความรู้</Link>
-            <ArrowRightIcon className="h-4 w-4 text-text-secondary" />
-            <Link href={`/${section}`} className="rounded px-2 py-2 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:text-accent focus-visible:outline-none">
-              {SECTION_LABEL[section]}
-            </Link>
-            <ArrowRightIcon className="h-4 w-4 text-text-secondary" />
-            <span className="px-2 py-2 text-text-body">{entry.mainTerm ?? entry.title}</span>
+          <nav aria-label="เส้นทางนำทาง" className="flex w-full flex-wrap items-center gap-x-1 gap-y-0.5 text-xs text-text-secondary sm:w-auto">
+            <Link href="/" className="rounded px-1.5 py-1 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:text-accent focus-visible:outline-none">หน้าแรก</Link>
+            <span className="flex items-center gap-1">
+              <ArrowRightIcon className="h-3.5 w-3.5 shrink-0 text-text-secondary/50" />
+              <Link href="/knowledge" className="rounded px-1.5 py-1 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:text-accent focus-visible:outline-none">คลังความรู้</Link>
+            </span>
+            <span className="flex items-center gap-1">
+              <ArrowRightIcon className="h-3.5 w-3.5 shrink-0 text-text-secondary/50" />
+              <Link href={`/${section}`} className="rounded px-1.5 py-1 transition-colors hover:text-accent focus-visible:ring-1 focus-visible:ring-accent/60 focus-visible:text-accent focus-visible:outline-none">
+                {SECTION_LABEL[section]}
+              </Link>
+            </span>
+            <span className="flex min-w-0 items-center gap-1">
+              <ArrowRightIcon className="h-3.5 w-3.5 shrink-0 text-text-secondary/50" />
+              <span className="truncate rounded px-1.5 py-1 text-text-body max-w-[16rem] sm:max-w-[24rem]">{entry.mainTerm ?? entry.title}</span>
+            </span>
           </nav>
           <FontSizeControl />
         </div>

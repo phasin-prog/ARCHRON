@@ -8,6 +8,7 @@ import { roleFromMetadata, canWrite } from "@/lib/content/utils/roles";
 import {
   EMPTY_DRAFT, getPublishChecklist, canPublish,
 } from "@/lib/content/publishing/publish-validation";
+import type { EditorDraft } from "@/lib/content/publishing/publish-validation";
 import {
   saveDraftAction, saveDraftWithRevisionAction, loadDraftAction,
   publishAction,
@@ -24,6 +25,7 @@ import {
   EditorBody, EditorRelations, EditorCta, EditorPublishPanel,
   EditorPreview,
 } from "@/components/studio/editor";
+import { RevisionPanel } from "@/components/studio/revision-panel";
 
 export default function StudioEditorPage() {
   const { userId } = useAuth();
@@ -35,6 +37,7 @@ export default function StudioEditorPage() {
 
   const [feedback, setFeedback] = useState<EditorFeedbackData | null>(null);
   const [entryId, setEntryId] = useState<string | null>(null);
+  const [revisionKey, setRevisionKey] = useState(0);
   const [loadingDraft, setLoadingDraft] = useState(false);
 
   const role = roleFromMetadata(user?.publicMetadata);
@@ -123,6 +126,7 @@ export default function StudioEditorPage() {
     const row = result.data as { id?: string } | null;
     const id = row?.id ?? entryId;
     if (id && id !== entryId) setEntryId(id);
+    setRevisionKey((k) => k + 1);
     dispatch({ type: "AUTO_SAVE_DONE" });
     showSuccess("บันทึก + เวอร์ชันแล้ว");
   }
@@ -152,6 +156,12 @@ export default function StudioEditorPage() {
     updateField("status", "published");
     dispatch({ type: "PUBLISH_DONE" });
     showSuccess("เผยแพร่แล้ว");
+  }
+
+  function handleRestore(snapshot: EditorDraft) {
+    dispatch({ type: "LOAD_DRAFT", draft: snapshot });
+    setRevisionKey((k) => k + 1);
+    showSuccess("กู้คืนเวอร์ชันแล้ว — ยังไม่ได้บันทึก กด Save เพื่อยืนยัน");
   }
 
   function handleTogglePreview() {
@@ -218,6 +228,12 @@ export default function StudioEditorPage() {
             draft={draft} publishTried={state.publishTried}
             deadLinks={deadLinks} onPublish={handlePublish}
             publishing={state.publishing}
+          />
+
+          <RevisionPanel
+            entryId={entryId}
+            reloadKey={revisionKey}
+            onRestore={handleRestore}
           />
         </div>
       )}

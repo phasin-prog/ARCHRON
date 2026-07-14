@@ -270,9 +270,7 @@ export async function ReadingPage({
       {/* Sticky TOC (เฉพาะ lg+ · ซ่อนบนจอเล็ก · ขึ้นเมื่อมีหัวข้อ >= 3) */}
       <aside className="hidden lg:block">
         <CollapsibleSidebar side="left">
-          <div className="sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto py-10 pr-2">
-            <ReadingToc />
-          </div>
+          <ReadingToc />
         </CollapsibleSidebar>
       </aside>
 
@@ -594,7 +592,7 @@ export async function ReadingPage({
       {/* ข้อมูลเสริมคอลัมน์ขวา (Sticky Mini-Graph & Quick Nav สำหรับจอ Ultra-wide xl >= 1280px) */}
       <aside className="hidden xl:block">
         <CollapsibleSidebar side="right">
-          <div className="sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto py-10 pl-2 space-y-6">
+          <div className="space-y-6">
           {entry.relatedConcepts.length > 0 ? (
             <div className="archron-panel p-5">
               <h4 className="flex items-center gap-2 font-serif text-base font-semibold text-text-heading">

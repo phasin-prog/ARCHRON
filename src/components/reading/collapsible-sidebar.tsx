@@ -22,13 +22,16 @@ export function CollapsibleSidebar({
   const isLeft = side === "left";
 
   return (
-    <div data-collapsed-sidebar={collapsed ? side : undefined}>
+    <div
+      data-collapsed-sidebar={collapsed ? side : undefined}
+      className="sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto"
+    >
       {collapsed ? (
         <button
           type="button"
           onClick={toggle}
           aria-label={isLeft ? "เปิดสารบัญ" : "เปิดแผนที่ความเชื่อมโยง"}
-          className={`sticky top-28 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-accent/20 bg-bg-card/90 text-accent/70 shadow-sm backdrop-blur transition-colors hover:bg-bg-card hover:text-accent hover:border-accent/40 ${
+          className={`mt-10 flex h-10 w-10 items-center justify-center rounded-full border border-accent/20 bg-bg-card/90 text-accent/70 shadow-sm backdrop-blur transition-colors hover:bg-bg-card hover:text-accent hover:border-accent/40 ${
             isLeft ? "ml-0" : "mr-0"
           }`}
         >
@@ -39,7 +42,7 @@ export function CollapsibleSidebar({
           )}
         </button>
       ) : (
-        <div className="group relative">
+        <div className={`group relative ${isLeft ? "py-10 pr-2" : "py-10 pl-2"}`}>
           <button
             type="button"
             onClick={toggle}

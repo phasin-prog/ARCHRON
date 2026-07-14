@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useAuth, useUser } from "@clerk/nextjs";
-import { roleFromMetadata, ROLE_LABEL, ROLE_META, canWrite } from "@/lib/content/utils/roles";
+import { roleFromMetadata, ROLE_LABEL, ROLE_META, canWrite, isAdmin } from "@/lib/content/utils/roles";
 import { AchievementBadgeIcon } from "@/components/icons";
 import { EditorIcon } from "@/components/studio/editor-icon";
 import {
@@ -198,10 +198,20 @@ export default function StudioProfilePage() {
             <label htmlFor="display-name-input" className="mb-1.5 block text-sm font-medium text-text-body">ชื่อที่แสดง</label>
             <input id="display-name-input" autoComplete="name" className={inputClass} value={displayName} onChange={(e) => setDisplayName(e.target.value)} placeholder="ชื่อที่ปรากฏบนงานเขียน" />
           </div>
-          <div>
-            <label htmlFor="title-input" className="mb-1.5 block text-sm font-medium text-text-body">ยศ / ตำแหน่ง</label>
-            <input id="title-input" className={inputClass} value={title} onChange={(e) => setTitle(e.target.value)} placeholder="เช่น ผู้สนับสนุน, นักเขียนกิตติมศักดิ์" />
-          </div>
+          {isAdmin(role) ? (
+            <div>
+              <label htmlFor="title-input" className="mb-1.5 block text-sm font-medium text-text-body">ยศ / ตำแหน่ง</label>
+              <input id="title-input" className={inputClass} value={title} onChange={(e) => setTitle(e.target.value)} placeholder="เช่น ผู้สนับสนุน, นักเขียนกิตติมศักดิ์" />
+            </div>
+          ) : (
+            title ? (
+              <div>
+                <span className="mb-1.5 block text-sm font-medium text-text-body">ยศ / ตำแหน่ง</span>
+                <p className="text-text-body">{title}</p>
+                <p className="mt-0.5 text-xs text-text-secondary/50">มอบโดยผู้ดูแลโครงการเท่านั้น</p>
+              </div>
+            ) : null
+          )}
           <button onClick={handleSave} disabled={saving} className="inline-flex items-center gap-2 bg-gradient-to-br from-accent to-accent rounded px-6 py-2.5 text-sm font-semibold text-text-inverse transition-transform hover:-translate-y-0.5 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
             <span className="inline-flex items-center justify-center w-4.5 w-4.5 text-[18px]" aria-hidden="true">💾</span>
             {saving ? "กำลังบันทึก..." : "บันทึกโปรไฟล์"}

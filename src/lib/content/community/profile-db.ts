@@ -33,15 +33,17 @@ export async function upsertMyProfile(
   userId: string,
   input: ProfileInput,
 ): Promise<{ error: { message: string } | null }> {
-  const { error } = await supabase.from("profiles").upsert(
-    {
-      clerk_user_id: userId,
-      username: input.username?.trim() || null,
-      display_name: input.display_name?.trim() || null,
-      title: input.title?.trim() || null,
-    },
-    { onConflict: "clerk_user_id" },
-  );
+  const row: Record<string, unknown> = {
+    clerk_user_id: userId,
+    username: input.username?.trim() || null,
+    display_name: input.display_name?.trim() || null,
+  };
+  if (input.title !== undefined) {
+    row.title = input.title?.trim() || null;
+  }
+  const { error } = await supabase.from("profiles").upsert(row, {
+    onConflict: "clerk_user_id",
+  });
   return { error: error ? { message: error.message } : null };
 }
 

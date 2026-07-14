@@ -1,6 +1,7 @@
 "use server";
 
-import { getAuthedSupabase } from "@/lib/content/utils/server-auth";
+import { getAuthedSupabase, getUserRole } from "@/lib/content/utils/server-auth";
+import { isAdmin } from "@/lib/content/utils/roles";
 import {
   getMyProfile,
   upsertMyProfile,
@@ -20,7 +21,9 @@ export async function upsertMyProfileAction(
   input: ProfileInput,
 ): Promise<{ error: string | null }> {
   const { userId, supabase } = await getAuthedSupabase();
-  const { error } = await upsertMyProfile(supabase, userId, input);
+  const role = await getUserRole();
+  const safeInput = isAdmin(role) ? input : { ...input, title: undefined };
+  const { error } = await upsertMyProfile(supabase, userId, safeInput);
   return { error: error?.message ?? null };
 }
 

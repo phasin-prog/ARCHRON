@@ -95,6 +95,9 @@ export default function StudioUsersPage() {
   return (
     <main className="mx-auto max-w-4xl px-6 py-20">
       <header className="mb-10">
+        <Link href="/" className="inline-block mb-3 text-sm text-text-secondary hover:text-accent">
+          ← กลับหน้าแรก
+        </Link>
         <span className="text-[11px] uppercase tracking-[0.2em] text-accent/70">
           Studio · ผู้ดูแล
         </span>

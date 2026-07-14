@@ -38,9 +38,13 @@ export function EditorHeader({
     <div className="sticky top-0 z-40 border-b border-accent/15 bg-bg/80 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-6 py-3">
         <div className="flex items-center gap-3">
-          <Link href="/studio/dashboard" className="flex items-center gap-1.5 text-sm text-text-body hover:text-accent">
+          <Link href="/" className="flex items-center gap-1.5 text-sm text-text-body hover:text-accent">
             <EditorIcon name="arrow_left" className="h-4 w-4" />
-            กลับหน้า Dashboard
+            หน้าแรก
+          </Link>
+          <span className="text-text-secondary/30">|</span>
+          <Link href="/studio/dashboard" className="flex items-center gap-1.5 text-sm text-text-secondary hover:text-accent">
+            Dashboard
           </Link>
           {displayName && (
             <span className="hidden text-xs text-text-secondary sm:inline">

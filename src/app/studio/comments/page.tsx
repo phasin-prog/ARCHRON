@@ -84,6 +84,9 @@ export default function StudioCommentsPage() {
   return (
     <main className="mx-auto max-w-3xl px-6 py-16">
       <header className="mb-8">
+        <Link href="/" className="inline-block mb-3 text-sm text-text-secondary hover:text-accent">
+          ← กลับหน้าแรก
+        </Link>
         <span className="text-[11px] uppercase tracking-[0.2em] text-accent/70">
           Studio · โมเดอเรชัน
         </span>

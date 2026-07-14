@@ -224,6 +224,9 @@ export default function StudioDashboardPage() {
       <div className="tpl-dashboard">
         {/* Header */}
         <header className="mb-8">
+          <Link href="/" className="inline-block mb-3 text-sm text-text-secondary hover:text-accent">
+            ← กลับหน้าแรก
+          </Link>
           <div className="flex items-center justify-between">
             <div>
               <span className="text-sm font-medium text-text-secondary/80">

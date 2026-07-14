@@ -30,8 +30,6 @@ export function Tabbar() {
   const pathname = usePathname() || "/";
   const [tappedIndex, setTappedIndex] = useState<number | null>(null);
 
-  if (pathname.startsWith("/studio")) return null;
-
   return (
     <nav
       aria-label="นำทางหลัก"

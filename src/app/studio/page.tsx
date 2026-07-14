@@ -65,18 +65,24 @@ export default function StudioLandingPage() {
   if (user && writer) return null;
 
   return (
-    <main className="relative flex min-h-[85vh] flex-col items-center justify-center overflow-hidden px-4 py-16">
-      {/* แสงเรืองออร่าแบบ Cosmic (ทอง + น้ำลึก) ปรับปรุงตามจิตวิทยาสี */}
-      <div 
-        className="pointer-events-none absolute left-1/4 top-1/3 -z-10 h-[300px] w-[300px] sm:h-[450px] sm:w-[450px] rounded-full bg-concept/8 blur-[130px] animate-pulse" 
-        style={{ animationDuration: "12s" }} 
-      />
-      <div 
-        className="pointer-events-none absolute right-1/4 bottom-1/3 -z-10 h-[300px] w-[300px] sm:h-[450px] sm:w-[450px] rounded-full bg-accent/6 blur-[130px]" 
-      />
+    <>
+      <div className="px-4 pt-6 lg:hidden">
+        <Link href="/" className="text-sm text-text-secondary hover:text-accent">
+          ← กลับหน้าแรก
+        </Link>
+      </div>
+      <main className="relative flex min-h-[85vh] flex-col items-center justify-center overflow-hidden px-4 py-16">
+        {/* แสงเรืองออร่าแบบ Cosmic (ทอง + น้ำลึก) ปรับปรุงตามจิตวิทยาสี */}
+        <div 
+          className="pointer-events-none absolute left-1/4 top-1/3 -z-10 h-[300px] w-[300px] sm:h-[450px] sm:w-[450px] rounded-full bg-concept/8 blur-[130px] animate-pulse" 
+          style={{ animationDuration: "12s" }} 
+        />
+        <div 
+          className="pointer-events-none absolute right-1/4 bottom-1/3 -z-10 h-[300px] w-[300px] sm:h-[450px] sm:w-[450px] rounded-full bg-accent/6 blur-[130px]" 
+        />
 
-      {/* กัน flash จอเปล่าระหว่าง Clerk โหลด — SignedIn/SignedOut ยังไม่เรนเดอร์จนกว่า SDK พร้อม */}
-      <ClerkLoading>
+        {/* กัน flash จอเปล่าระหว่าง Clerk โหลด — SignedIn/SignedOut ยังไม่เรนเดอร์จนกว่า SDK พร้อม */}
+        <ClerkLoading>
         <div className="w-full max-w-md" role="status" aria-label="กำลังเตรียมห้องเขียน">
           <div className="rounded-md border border-accent/20 bg-bg-elevated/80 p-8 text-center shadow-2xl backdrop-blur-md">
             <div className="mx-auto h-20 w-20 animate-pulse rounded-full bg-surface-3" />
@@ -299,5 +305,6 @@ export default function StudioLandingPage() {
         </div>
       </SignedIn>
     </main>
+    </>
   );
 }

@@ -1,115 +1,499 @@
 <!DOCTYPE html>
-<!-- OBSOLETED: This preview reflects an earlier design phase. Fonts, colors, and component structure are out of sync with the current design system (src/app/globals.css). Do not use as reference. -->
 <html lang="th">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feedback Modal Demo</title>
+<title>Archron — Viewport-Centered Feedback Modal Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@600;700&family=Figtree:wght@500;600;700&family=IBM+Plex+Serif:wght@600;700&family=Noto+Sans+Thai:wght@400;500;600;700&family=Noto+Serif+Thai:wght@600;700&family=Prompt:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui,sans-serif}
-body{background:#f5f7fa;display:flex;flex-direction:column;align-items:center;padding:60px 20px;gap:16px;min-height:100vh}
-h1{font-size:24px;color:#1a1a2e;margin-bottom:12px}
-.btn-group{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-button{cursor:pointer;padding:14px 26px;border:none;border-radius:12px;font-size:16px;transition:.25s;font-weight:500}
-button:hover{transform:translateY(-2px)}
-.btn-success{background:#6AAA7A;color:#fff}
-.btn-error{background:#CC7A7A;color:#fff}
-.btn-info{background:#8C1515;color:#fff}
+:root {
+  --color-bg: #F9F5F3;
+  --color-bg-card: #FFFFFF;
+  --color-bg-elevated: #EDEBE9;
+  --color-border: #D7D5D3;
+  --color-text-heading: #1A1815;
+  --color-text-body: #3A3835;
+  --color-text-secondary: #65625C;
+  --color-text-inverse: #FFFFFF;
+  --color-accent: #8C1515;
+  
+  /* Status Colors */
+  --color-success: #6AAA7A;
+  --color-warning: #D4AA50;
+  --color-error: #CC7A7A;
+  --color-info: #5F8DCE;
 
-/* === Modal System === */
-.modal{position:fixed;inset:0;display:flex;justify-content:center;align-items:center;background:rgba(0,0,0,.45);opacity:0;visibility:hidden;transition:.25s;z-index:1000}
-.modal.show{opacity:1;visibility:visible}
-.modal-card{width:min(90%,420px);background:#fff;border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.18);overflow:hidden;transform:translateY(20px) scale(.96);transition:.25s}
-.modal.show .modal-card{transform:translateY(0) scale(1)}
-.header{display:flex;justify-content:space-between;align-items:center;padding:22px 28px;border-bottom:1px solid #eee}
-.header h2{font-size:20px;font-weight:600}
-.close{width:38px;height:38px;border:none;border-radius:10px;background:#f3f4f6;font-size:18px;transition:.2s}
-.close:hover{background:#e5e7eb}
-.content{display:flex;flex-direction:column;align-items:center;gap:16px;padding:32px 28px;text-align:center}
-.content .icon{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:#fff}
-.content .icon.success{background:#6AAA7A}
-.content .icon.error{background:#CC7A7A}
-.content .icon.info{background:#8C1515}
-.content h3{font-size:17px;font-weight:600}
-.content p{font-size:14px;line-height:1.7;color:#555}
-.footer{display:flex;justify-content:center;padding:0 28px 28px}
-.footer button{padding:10px 24px;border-radius:10px;font-size:14px;font-weight:500;border:none;color:#fff;transition:.2s}
-.footer button:hover{filter:brightness(1.1)}
+  /* Fonts */
+  --font-heading: 'IBM Plex Serif', 'Noto Serif Thai', Georgia, serif;
+  --font-body: 'Prompt', system-ui, sans-serif;
+  --font-ui: 'Figtree', 'Prompt', system-ui, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-body);
+  font-family: var(--font-body);
+  min-height: 200vh; /* เพิ่มความสูงของหน้าเว็บให้เลื่อน scroll ได้เพื่อทดสอบ Viewport-Centered positioning */
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.demo-header {
+  max-width: 640px;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.demo-header h1 {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text-heading);
+  margin-bottom: 8px;
+}
+
+.demo-header p {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.scroll-notice {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin-bottom: 32px;
+  max-width: 580px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.btn-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 60px;
+}
+
+.btn-demo {
+  cursor: pointer;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  font-family: var(--font-ui);
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.btn-demo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.btn-demo:active {
+  transform: translateY(0);
+}
+
+.btn-success { background: var(--color-success); color: var(--color-text-inverse); }
+.btn-warning { background: var(--color-warning); color: var(--color-text-heading); }
+.btn-error { background: var(--color-error); color: var(--color-text-inverse); }
+.btn-info { background: var(--color-info); color: var(--color-text-inverse); }
+
+.dummy-content {
+  max-width: 600px;
+  width: 100%;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 32px;
+  opacity: 0.75;
+}
+
+.dummy-content h3 {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  color: var(--color-text-heading);
+  margin-bottom: 12px;
+}
+
+.dummy-content p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+  margin-bottom: 16px;
+}
+
+/* ============================================================================
+   Viewport-Centered Modal Engine (Exact Spec)
+   - position: fixed; inset: 0; display: flex; justify-content: center; align-items: center;
+   ============================================================================ */
+.modal-container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.modal-container.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.modal-card {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 440px;
+  background: var(--color-bg-card);
+  border: 1px solid rgba(215, 213, 211, 0.8);
+  border-radius: 20px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.22);
+  overflow: hidden;
+  transform: translateY(16px) scale(0.96);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-container.open .modal-card {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.modal-close {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.modal-close:hover {
+  background: var(--color-bg-elevated);
+  color: var(--color-text-heading);
+}
+
+.modal-body {
+  padding: 32px 28px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.modal-icon-ring {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.modal-icon-ring svg {
+  width: 28px;
+  height: 28px;
+}
+
+.modal-icon-ring.success {
+  background: rgba(106, 170, 122, 0.15);
+  border: 1px solid rgba(106, 170, 122, 0.3);
+  color: var(--color-success);
+}
+
+.modal-icon-ring.warning {
+  background: rgba(212, 170, 80, 0.15);
+  border: 1px solid rgba(212, 170, 80, 0.3);
+  color: var(--color-warning);
+}
+
+.modal-icon-ring.error {
+  background: rgba(204, 122, 122, 0.15);
+  border: 1px solid rgba(204, 122, 122, 0.3);
+  color: var(--color-error);
+}
+
+.modal-icon-ring.info {
+  background: rgba(95, 141, 206, 0.15);
+  border: 1px solid rgba(95, 141, 206, 0.3);
+  color: var(--color-info);
+}
+
+.modal-title {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-text-heading);
+  line-height: 1.3;
+}
+
+.modal-message {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+}
+
+.modal-footer {
+  padding: 4px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (min-width: 480px) {
+  .modal-footer {
+    flex-direction: row-reverse;
+    justify-content: center;
+  }
+}
+
+.btn-action {
+  cursor: pointer;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 24px;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.15s ease;
+  min-width: 120px;
+  text-align: center;
+}
+
+.btn-action.primary {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.btn-action.primary:hover {
+  filter: brightness(1.1);
+}
+
+.btn-action.secondary {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+.btn-action.secondary:hover {
+  background: var(--color-bg-elevated);
+  color: var(--color-text-heading);
+}
+
+/* Severity Primary Button Styles */
+.btn-action.primary.success { background: var(--color-success); color: var(--color-text-inverse); }
+.btn-action.primary.warning { background: var(--color-warning); color: var(--color-text-heading); }
+.btn-action.primary.error { background: var(--color-error); color: var(--color-text-inverse); }
+.btn-action.primary.info { background: var(--color-info); color: var(--color-text-inverse); }
 </style>
 </head>
 <body>
 
-<h1>Feedback Modal</h1>
-<p style="color:#666;margin-bottom:8px">กดปุ่มเพื่อดู Popup แต่ละประเภท</p>
-
-<div class="btn-group">
-  <button class="btn-success" onclick="openModal('success')">✅ Success</button>
-  <button class="btn-error" onclick="openModal('error')">❌ Error</button>
-  <button class="btn-info" onclick="openModal('info')">ℹ️ Info</button>
+<div class="demo-header">
+  <h1>Viewport-Centered Feedback Modal</h1>
+  <p>ระบบแจ้งเตือนแบบยึดกึ่งกลาง Viewport เสมอ (ไม่ผูกกับหน้า Document) พร้อมรองรับ Scroll-locking และ Focus Trap ตามมาตรฐาน WAI-ARIA</p>
 </div>
 
-<div class="modal" id="modal">
-  <div class="modal-card">
-    <div class="header">
-      <h2 id="modalTitle">แจ้งเตือน</h2>
-      <button class="close" onclick="closeModal()">✕</button>
+<div class="scroll-notice">
+  💡 <strong>ลองเลื่อนหน้าเว็บลงไปด้านล่าง (Scroll down) แล้วกดเปิด Modal</strong><br>
+  คุณจะพบว่า Modal ลอยขึ้นมากึ่งกลางหน้าจอตรงหน้าคุณพอดี โดยไม่ต้องเลื่อนกลับไปด้านบน
+</div>
+
+<div class="btn-group">
+  <button class="btn-demo btn-success" onclick="openModal('success')">✅ Success</button>
+  <button class="btn-demo btn-warning" onclick="openModal('warning')">⚠️ Warning</button>
+  <button class="btn-demo btn-error" onclick="openModal('error')">❌ Error</button>
+  <button class="btn-demo btn-info" onclick="openModal('info')">ℹ️ Information</button>
+</div>
+
+<!-- Dummy content for scroll testing -->
+<div class="dummy-content">
+  <h3>ข้อความจำลองสำหรับเลื่อนหน้าเว็บ 1</h3>
+  <p>คลังความรู้ Archron ได้ถูกออกแบบโดยคำนึงถึงสถาปัตยกรรมทางปัญญา (Knowledge Architecture) ที่เชื่อมโยงแนวคิดทางจิตวิทยา ปรัชญา มนุษยวิทยา และประวัติศาสตร์เข้าด้วยกัน ผ่านระบบเครือข่ายความสัมพันธ์ (Constellation Mindmap) และเส้นทางการอ่านที่ออกแบบมาอย่างประณีต</p>
+  <p>เมื่อผู้ใช้ทำ Action สำคัญ เช่น การบันทึกเนื้อหา (Save) หรือเผยแพร่บทความ (Publish) ระบบจะต้องส่งข้อความตอบกลับที่ชัดเจน กระชับ และไม่รบกวนการทำงาน (Concise and action-oriented feedback)</p>
+</div>
+
+<div class="dummy-content">
+  <h3>ข้อความจำลองสำหรับเลื่อนหน้าเว็บ 2</h3>
+  <p>การใช้ Viewport-based positioning (fixed inset-0) ช่วยให้แน่ใจได้ว่า Modal จะปรากฏในจุดสายตาของผู้ใช้ (Where the user is currently looking) โดยไม่ต้องให้ผู้ใช้เลื่อนหา พร้อมทั้งกัก Focus (Focus trap) ให้อยู่ภายในกล่องโต้ตอบจนกว่าจะปิด</p>
+</div>
+
+<div class="btn-group" style="margin-top: 20px;">
+  <button class="btn-demo btn-success" onclick="openModal('success')">✅ Success (จากด้านล่าง)</button>
+  <button class="btn-demo btn-error" onclick="openModal('error')">❌ Error (จากด้านล่าง)</button>
+</div>
+
+<!-- Modal Container -->
+<div class="modal-container" id="modalContainer" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalMessage">
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+  <div class="modal-card" id="modalCard" tabindex="-1">
+    <button class="modal-close" onclick="closeModal()" aria-label="ปิดหน้าต่าง">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+      </svg>
+    </button>
+    <div class="modal-body">
+      <div class="modal-icon-ring" id="modalIconRing"></div>
+      <h2 class="modal-title" id="modalTitle">แจ้งเตือน</h2>
+      <p class="modal-message" id="modalMessage">รายละเอียดการแจ้งเตือน</p>
     </div>
-    <div class="content" id="modalContent">
-      <div class="icon" id="modalIcon">✓</div>
-      <h3 id="modalHeading">สำเร็จ</h3>
-      <p id="modalMessage">เนื้อหาถูกบันทึกเรียบร้อยแล้ว</p>
-    </div>
-    <div class="footer">
-      <button id="modalAction" onclick="closeModal()">ปิด</button>
+    <div class="modal-footer">
+      <button class="btn-action primary" id="modalPrimaryBtn" onclick="closeModal()">ตกลง</button>
+      <button class="btn-action secondary" id="modalSecondaryBtn" onclick="closeModal()" style="display: none;">ยกเลิก</button>
     </div>
   </div>
 </div>
 
 <script>
-const modal = document.getElementById('modal');
+const modalContainer = document.getElementById('modalContainer');
+const modalBackdrop = document.getElementById('modalBackdrop');
+const modalCard = document.getElementById('modalCard');
+const modalIconRing = document.getElementById('modalIconRing');
+const modalTitle = document.getElementById('modalTitle');
+const modalMessage = document.getElementById('modalMessage');
+const modalPrimaryBtn = document.getElementById('modalPrimaryBtn');
+const modalSecondaryBtn = document.getElementById('modalSecondaryBtn');
 
-function openModal(type) {
-  const title = document.getElementById('modalTitle');
-  const icon = document.getElementById('modalIcon');
-  const heading = document.getElementById('modalHeading');
-  const message = document.getElementById('modalMessage');
-  const action = document.getElementById('modalAction');
+let activeTriggerElement = null;
 
-  icon.className = 'icon ' + type;
+const SVGS = {
+  success: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`,
+  warning: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>`,
+  error: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>`,
+  info: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`
+};
 
-  if (type === 'success') {
-    title.textContent = 'สำเร็จ';
-    icon.textContent = '✓';
-    heading.textContent = 'ดำเนินการสำเร็จ';
-    message.textContent = 'เนื้อหาถูกบันทึกและเผยแพร่เรียบร้อยแล้ว';
-    action.style.background = '#6AAA7A';
-  } else if (type === 'error') {
-    title.textContent = 'ข้อผิดพลาด';
-    icon.textContent = '!';
-    heading.textContent = 'เกิดข้อผิดพลาด';
-    message.textContent = 'ไม่สามารถบันทึกเนื้อหาได้ กรุณาลองอีกครั้ง หรือติดต่อผู้ดูแลระบบ';
-    action.style.background = '#CC7A7A';
-  } else if (type === 'info') {
-    title.textContent = 'แจ้งเตือน';
-    icon.textContent = 'ℹ';
-    heading.textContent = 'ข้อมูล';
-    message.textContent = 'กรุณาตรวจสอบความถูกต้องของเนื้อหาก่อนเผยแพร่';
-    action.style.background = '#8C1515';
+function openModal(severity) {
+  activeTriggerElement = document.activeElement;
+
+  modalIconRing.className = 'modal-icon-ring ' + severity;
+  modalIconRing.innerHTML = SVGS[severity] || SVGS.info;
+  modalPrimaryBtn.className = 'btn-action primary ' + severity;
+
+  modalSecondaryBtn.style.display = 'none';
+
+  if (severity === 'success') {
+    modalTitle.textContent = 'ดำเนินการสำเร็จ (Success)';
+    modalMessage.textContent = 'Article published successfully. / Changes have been saved.';
+    modalPrimaryBtn.textContent = 'ตกลง (OK)';
+  } else if (severity === 'warning') {
+    modalTitle.textContent = 'แจ้งเตือนการตรวจสอบ (Warning)';
+    modalMessage.textContent = 'Please complete all required fields before publishing. / Some information is missing.';
+    modalPrimaryBtn.textContent = 'รับทราบ (Understood)';
+    modalSecondaryBtn.textContent = 'กลับไปแก้ไข';
+    modalSecondaryBtn.style.display = 'inline-block';
+  } else if (severity === 'error') {
+    modalTitle.textContent = 'เกิดข้อผิดพลาด (Error)';
+    modalMessage.textContent = 'Failed to publish the article. / Network connection lost. / Please try again.';
+    modalPrimaryBtn.textContent = 'ลองใหม่ (Retry)';
+    modalSecondaryBtn.textContent = 'ปิด (Close)';
+    modalSecondaryBtn.style.display = 'inline-block';
+  } else if (severity === 'info') {
+    modalTitle.textContent = 'ข้อมูลและการดำเนินการ (Information)';
+    modalMessage.textContent = 'The process has completed. / Your request has been processed.';
+    modalPrimaryBtn.textContent = 'ตกลง (OK)';
   }
 
-  modal.classList.add('show');
+  // Lock body scroll
+  document.body.style.overflow = 'hidden';
+
+  // Show modal
+  modalContainer.classList.add('open');
+
+  // Focus primary button or card after small delay
+  setTimeout(() => {
+    modalPrimaryBtn.focus();
+  }, 30);
 }
 
 function closeModal() {
-  modal.classList.remove('show');
+  modalContainer.classList.remove('open');
+  document.body.style.overflow = '';
+  if (activeTriggerElement) {
+    activeTriggerElement.focus();
+  }
 }
 
-modal.onclick = (e) => {
-  if (e.target === modal) closeModal();
+// Backdrop click close
+modalBackdrop.onclick = () => {
+  closeModal();
 };
 
+// Keyboard ESC close & Tab trapping
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeModal();
+  if (!modalContainer.classList.contains('open')) return;
+
+  if (e.key === 'Escape') {
+    e.preventDefault();
+    closeModal();
+    return;
+  }
+
+  if (e.key === 'Tab') {
+    const focusable = modalCard.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    if (focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (e.shiftKey) {
+      if (document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else {
+      if (document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  }
 });
 </script>
 

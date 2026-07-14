@@ -2,9 +2,17 @@
 
 import { useState } from "react";
 import type { EditorDraft, EditorRelatedConcept, EditorReference } from "@/lib/content/publishing/publish-validation";
+import type { ValidationIssue } from "@/lib/content/publishing/editor-validation";
+import { InlineGuidance } from "./inline-guidance";
 
-export function EditorRelations({ draft, updateField }: {
-  draft: EditorDraft; updateField: (field: keyof EditorDraft, value: unknown) => void;
+export function EditorRelations({
+  draft,
+  updateField,
+  validationIssues,
+}: {
+  draft: EditorDraft;
+  updateField: (field: keyof EditorDraft, value: unknown) => void;
+  validationIssues?: Record<string, ValidationIssue>;
 }) {
   const [newConcept, setNewConcept] = useState<EditorRelatedConcept>({
     conceptSlug: "", relationType: "related", reason: "",
@@ -35,10 +43,10 @@ export function EditorRelations({ draft, updateField }: {
 
   return (
     <section className="space-y-6 border-t border-border pt-6">
-      <h2 className="font-serif text-lg font-semibold text-text-heading">ความสัมพันธ์และอ้างอิง</h2>
+      <h2 className="font-serif text-lg font-semibold text-text-heading">ความสัมพันธ์และอ้างอิง (Relations & References)</h2>
 
-      <div className="space-y-3">
-        <h3 className="text-base font-medium text-text-heading">Related Concepts</h3>
+      <div id="container-field-related-concepts" className="space-y-3 rounded-lg transition-all duration-300">
+        <h3 className="text-base font-medium text-text-heading">Related Concepts (แนวคิดที่เกี่ยวข้อง)</h3>
         {draft.relatedConcepts.map((c, i) => (
           <div key={i} className="flex items-center gap-2 rounded-md border border-text-heading/10 bg-bg-elevated px-3 py-2 text-sm text-text-body">
             <span className="flex-1">
@@ -52,9 +60,14 @@ export function EditorRelations({ draft, updateField }: {
           </div>
         ))}
         <div className="grid grid-cols-3 gap-2">
-          <input type="text" value={newConcept.conceptSlug} onChange={(e) => setNewConcept({ ...newConcept, conceptSlug: e.target.value })}
+          <input
+            id="field-related-concepts"
+            type="text"
+            value={newConcept.conceptSlug}
+            onChange={(e) => setNewConcept({ ...newConcept, conceptSlug: e.target.value })}
             placeholder="Concept slug"
-            className="rounded-md border border-text-heading/15 px-3 py-2 bg-bg-card text-text-heading text-sm outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/30" />
+            className="rounded-md border border-text-heading/15 px-3 py-2 bg-bg-card text-text-heading text-sm outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/30"
+          />
           <select value={newConcept.relationType} onChange={(e) => setNewConcept({ ...newConcept, relationType: e.target.value })}
             className="rounded-md border border-text-heading/15 px-3 py-2 bg-bg-card text-text-heading text-sm outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/30">
             <option value="related">related</option>
@@ -71,10 +84,11 @@ export function EditorRelations({ draft, updateField }: {
         <input type="text" value={newConcept.reason} onChange={(e) => setNewConcept({ ...newConcept, reason: e.target.value })}
           placeholder="เหตุผล (optional)"
           className="w-full rounded-md border border-text-heading/15 px-3 py-2 bg-bg-card text-text-heading text-sm outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/30" />
+        <InlineGuidance issue={validationIssues?.["field-related-concepts"]} />
       </div>
 
-      <div className="space-y-3">
-        <h3 className="text-base font-medium text-text-heading">References</h3>
+      <div id="container-field-references" className="space-y-3 rounded-lg transition-all duration-300">
+        <h3 className="text-base font-medium text-text-heading">References (แหล่งอ้างอิง/ตำรา)</h3>
         {draft.references.map((r, i) => (
           <div key={i} className="flex items-center gap-2 rounded-md border border-text-heading/10 bg-bg-elevated px-3 py-2 text-sm text-text-body">
             <span className="flex-1">
@@ -88,9 +102,14 @@ export function EditorRelations({ draft, updateField }: {
           </div>
         ))}
         <div className="grid grid-cols-3 gap-2">
-          <input type="text" value={newRef.title} onChange={(e) => setNewRef({ ...newRef, title: e.target.value })}
+          <input
+            id="field-references"
+            type="text"
+            value={newRef.title}
+            onChange={(e) => setNewRef({ ...newRef, title: e.target.value })}
             placeholder="ชื่อแหล่งอ้างอิง"
-            className="rounded-md border border-text-heading/15 px-3 py-2 bg-bg-card text-text-heading text-sm outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/30" />
+            className="rounded-md border border-text-heading/15 px-3 py-2 bg-bg-card text-text-heading text-sm outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/30"
+          />
           <select value={newRef.sourceType} onChange={(e) => setNewRef({ ...newRef, sourceType: e.target.value })}
             className="rounded-md border border-text-heading/15 px-3 py-2 bg-bg-card text-text-heading text-sm outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/30">
             <option value="primary-source">primary-source</option>
@@ -107,6 +126,7 @@ export function EditorRelations({ draft, updateField }: {
         <input type="text" value={newRef.relatedClaim} onChange={(e) => setNewRef({ ...newRef, relatedClaim: e.target.value })}
           placeholder="ข้อกล่าวอ้างที่อ้างอิง (optional)"
           className="w-full rounded-md border border-text-heading/15 px-3 py-2 bg-bg-card text-text-heading text-sm outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/30" />
+        <InlineGuidance issue={validationIssues?.["field-references"]} />
       </div>
     </section>
   );

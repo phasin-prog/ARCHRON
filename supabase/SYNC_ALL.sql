@@ -34,6 +34,23 @@ create table if not exists public.entries (
   difficulty text,
   tags text[],
 
+  -- specialized content type fields (person, book, school, article)
+  subtitle text,
+  series text,
+  volume text,
+  aliases text[],
+  born_year text,
+  died_year text,
+  nationality text,
+  key_ideas text[],
+  notable_works text[],
+  publication_year text,
+  publisher text,
+  isbn text,
+  founder text,
+  period text,
+  real_world_examples text,
+
   -- content (reading body)
   visual_explanation text,
   technical_meaning text,
@@ -69,6 +86,21 @@ ALTER TABLE public.entries ADD COLUMN IF NOT EXISTS row_id uuid DEFAULT gen_rand
 ALTER TABLE public.entries ADD COLUMN IF NOT EXISTS row_i integer;
 ALTER TABLE public.entries ADD COLUMN IF NOT EXISTS row_code text;
 ALTER TABLE public.entries ADD COLUMN IF NOT EXISTS row_name text;
+ALTER TABLE public.entries ADD COLUMN IF NOT EXISTS subtitle text;
+ALTER TABLE public.entries ADD COLUMN IF NOT EXISTS series text;
+ALTER TABLE public.entries ADD COLUMN IF NOT EXISTS volume text;
+ALTER TABLE public.entries ADD COLUMN IF NOT EXISTS aliases text[];
+ALTER TABLE public.entries ADD COLUMN IF NOT EXISTS born_year text;
+ALTER TABLE public.entries ADD COLUMN IF NOT EXISTS died_year text;
+ALTER TABLE public.entries ADD COLUMN IF NOT EXISTS nationality text;
+ALTER TABLE public.entries ADD COLUMN IF NOT EXISTS key_ideas text[];
+ALTER TABLE public.entries ADD COLUMN IF NOT EXISTS notable_works text[];
+ALTER TABLE public.entries ADD COLUMN IF NOT EXISTS publication_year text;
+ALTER TABLE public.entries ADD COLUMN IF NOT EXISTS publisher text;
+ALTER TABLE public.entries ADD COLUMN IF NOT EXISTS isbn text;
+ALTER TABLE public.entries ADD COLUMN IF NOT EXISTS founder text;
+ALTER TABLE public.entries ADD COLUMN IF NOT EXISTS period text;
+ALTER TABLE public.entries ADD COLUMN IF NOT EXISTS real_world_examples text;
 
 -- row_id unique constraint
 DO $$

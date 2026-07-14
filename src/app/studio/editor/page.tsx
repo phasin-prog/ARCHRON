@@ -9,6 +9,7 @@ import {
   EMPTY_DRAFT, getPublishChecklist, canPublish,
 } from "@/lib/content/publishing/publish-validation";
 import type { EditorDraft } from "@/lib/content/publishing/publish-validation";
+import { validateEditorDraft } from "@/lib/content/publishing/editor-validation";
 import {
   saveDraftAction, saveDraftWithRevisionAction, loadDraftAction,
   publishAction,
@@ -20,10 +21,10 @@ import { EditorFeedback, type EditorFeedbackData } from "@/components/studio/edi
 import { EditorIcon } from "@/components/studio/editor-icon";
 import { useEditorMachine } from "@/features/editor/hooks/useEditorMachine";
 import {
-  EditorBasicInfo, EditorConceptFields,
+  EditorBasicInfo, EditorArticleFields, EditorConceptFields,
   EditorPersonFields, EditorBookFields, EditorSchoolFields,
   EditorBody, EditorRelations, EditorCta, EditorPublishPanel,
-  EditorPreview,
+  EditorPreview, EditorValidationModal,
 } from "@/components/studio/editor";
 import { RevisionPanel } from "@/components/studio/revision-panel";
 
@@ -39,12 +40,16 @@ export default function StudioEditorPage() {
   const [entryId, setEntryId] = useState<string | null>(null);
   const [revisionKey, setRevisionKey] = useState(0);
   const [loadingDraft, setLoadingDraft] = useState(false);
+  const [showValidationModal, setShowValidationModal] = useState(false);
 
   const role = roleFromMetadata(user?.publicMetadata);
   const canSave = draft.slug.trim() !== "" && draft.title.trim() !== "";
   const ct = draft.contentType;
   const canPreview = draft.title.trim() !== "" && draft.contentType !== "";
   const checklist = getPublishChecklist(draft);
+
+  const validationResult = useMemo(() => validateEditorDraft(draft), [draft]);
+
 
   const deadLinks = useMemo(
     () => Array.from(new Set(findDeadLinks(`${draft.visualExplanation} ${draft.technicalMeaning} ${draft.bodyMarkdown}`))),
@@ -131,12 +136,35 @@ export default function StudioEditorPage() {
     showSuccess("บันทึก + เวอร์ชันแล้ว");
   }
 
+  function handleGoToField(fieldId: string) {
+    setShowValidationModal(false);
+    setTimeout(() => {
+      const containerId = `container-${fieldId}`;
+      const container = document.getElementById(containerId) || document.getElementById(fieldId);
+      const input = document.getElementById(fieldId) as HTMLElement | null;
+
+      if (container) {
+        container.scrollIntoView({ behavior: "smooth", block: "center" });
+        container.classList.add("ring-2", "ring-red-500", "ring-offset-4", "ring-offset-bg", "bg-red-500/10");
+        setTimeout(() => {
+          container.classList.remove("ring-2", "ring-red-500", "ring-offset-4", "ring-offset-bg", "bg-red-500/10");
+        }, 3000);
+      } else if (input) {
+        input.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+
+      if (input && typeof input.focus === "function") {
+        input.focus();
+      }
+    }, 200);
+  }
+
   async function handlePublish() {
     dispatch({ type: "PUBLISH_TRIED" });
     if (!userId) { showError("ยังไม่ได้เข้าสู่ระบบ"); return; }
     if (!canSave) { showError("ต้องมี Title และ Slug ก่อนเผยแพร่"); return; }
-    if (!canPublish(checklist)) {
-      showError("ยังเผยแพร่ไม่ได้ — ทำรายการใน Publish Checklist ให้ครบก่อน");
+    if (!validationResult.canPublish) {
+      setShowValidationModal(true);
       return;
     }
     if (deadLinks.length > 0) {
@@ -213,21 +241,24 @@ export default function StudioEditorPage() {
         <EditorPreview draft={draft} displayName={state.displayName ?? undefined} />
       ) : (
         <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
-          <EditorBasicInfo draft={draft} updateField={updateField} />
+          <EditorBasicInfo draft={draft} updateField={updateField} validationIssues={validationResult.byField} />
 
-          {ct === "concept" && <EditorConceptFields draft={draft} updateField={updateField} />}
-          {ct === "person" && <EditorPersonFields draft={draft} updateField={updateField} />}
+          {(ct === "article" || ct === "symbol" || ct === "term") && (
+            <EditorArticleFields draft={draft} updateField={updateField} validationIssues={validationResult.byField} />
+          )}
+          {ct === "concept" && <EditorConceptFields draft={draft} updateField={updateField} validationIssues={validationResult.byField} />}
+          {ct === "person" && <EditorPersonFields draft={draft} updateField={updateField} validationIssues={validationResult.byField} />}
           {ct === "book" && <EditorBookFields draft={draft} updateField={updateField} />}
           {ct === "school" && <EditorSchoolFields draft={draft} updateField={updateField} />}
 
-          <EditorBody draft={draft} updateField={updateField} />
-          <EditorRelations draft={draft} updateField={updateField} />
+          <EditorBody draft={draft} updateField={updateField} validationIssues={validationResult.byField} />
+          <EditorRelations draft={draft} updateField={updateField} validationIssues={validationResult.byField} />
           <EditorCta draft={draft} updateField={updateField} />
 
           <EditorPublishPanel
             draft={draft} publishTried={state.publishTried}
             deadLinks={deadLinks} onPublish={handlePublish}
-            publishing={state.publishing}
+            publishing={state.publishing} validationIssues={validationResult.all}
           />
 
           <RevisionPanel
@@ -237,6 +268,13 @@ export default function StudioEditorPage() {
           />
         </div>
       )}
+
+      <EditorValidationModal
+        open={showValidationModal}
+        onClose={() => setShowValidationModal(false)}
+        issues={validationResult.all}
+        onGoToField={handleGoToField}
+      />
     </div>
   );
 }

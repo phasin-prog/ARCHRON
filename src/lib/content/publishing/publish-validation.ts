@@ -86,46 +86,75 @@ export type ChecklistItem = { label: string; ok: boolean };
 
 export function getPublishChecklist(d: EditorDraft, contentType?: string): ChecklistItem[] {
   const ct = contentType || d.contentType;
-  const hasRefsOrNeedsCheck =
-    d.references.length > 0 || d.status === "needs-source-check";
-  const hasRoots =
-    d.rootsEtymology.trim() !== "" || d.rootsCaution.trim() !== "";
+  const bm = d.bodyMarkdown || "";
+
+  const hasFrameworkSSOT =
+    d.framework.trim() !== "" ||
+    /#[#]?\s*(กรอบคิด|กรอบทฤษฎี|Framework|แขนงวิชา)/i.test(bm) ||
+    /\[Framework:\s*[^\]]+\]/i.test(bm);
+
+  const hasVisualSSOT =
+    d.visualExplanation.trim() !== "" ||
+    /#[#]?\s*(คำอธิบายเชิงประจักษ์|คำอธิบายให้เห็นภาพ|ภาพเปรียบเปรย|Visual Explanation|ตัวอย่างให้เห็นภาพ)/i.test(bm) ||
+    />\s*\[!(NOTE|TIP|IMPORTANT)\]\s*คำอธิบาย/i.test(bm);
+
+  const hasTechnicalSSOT =
+    d.technicalMeaning.trim() !== "" ||
+    /#[#]?\s*(นิยาม|ความหมายทางวิชาการ|นิยามและแก่น|นิยามเชิงเทคนิค|Technical Meaning|แก่นทางวิชาการ)/i.test(bm);
+
+  const hasRootsSSOT =
+    (d.rootsEtymology && d.rootsEtymology.trim() !== "") ||
+    (d.rootsCaution && d.rootsCaution.trim() !== "") ||
+    /#[#]?\s*(รากศัพท์|ที่มาของคำ|Etymology|Roots|การเปลี่ยนความหมาย|รากคำ)/i.test(bm);
+
+  const hasRelatedSSOT =
+    d.relatedConcepts.length > 0 ||
+    /\[\[[^\]]+\]\]/.test(bm) ||
+    /#[#]?\s*(แนวคิดที่เกี่ยวข้อง|Related Concepts|เชื่อมโยง)/i.test(bm);
+
+  const hasRefsSSOT =
+    d.references.length > 0 ||
+    d.status === "needs-source-check" ||
+    /\[\^?\d+\]/.test(bm) ||
+    /#[#]?\s*(แหล่งอ้างอิง|อ้างอิง|References|Citations|ตำรา)/i.test(bm);
+
   const isArticle = ct === "article";
   const isConcept = ct === "concept";
   const isPerson = ct === "person";
   const isSymbol = ct === "symbol";
   const isTerm = ct === "term";
+
   return [
     { label: "มี Title", ok: d.title.trim() !== "" },
     { label: "มี Slug", ok: d.slug.trim() !== "" },
     { label: "มี Content Type", ok: d.contentType !== "" },
     {
       label: "มี Framework",
-      ok: isTerm || isSymbol ? true : d.framework.trim() !== "",
+      ok: isTerm || isSymbol ? true : Boolean(hasFrameworkSSOT),
     },
     {
       label: "มีคำอธิบายให้เห็นภาพ",
-      ok: isArticle || isConcept || isSymbol || isTerm ? d.visualExplanation.trim() !== "" : true,
+      ok: isArticle || isConcept || isSymbol || isTerm ? Boolean(hasVisualSSOT) : true,
     },
     {
       label: "มีความหมายทางวิชาการ / เทคนิค",
-      ok: isArticle || isConcept || isPerson ? d.technicalMeaning.trim() !== "" : true,
+      ok: isArticle || isConcept || isPerson ? Boolean(hasTechnicalSSOT) : true,
     },
     {
       label: "มี Related Concepts อย่างน้อย 1",
-      ok: isTerm || isSymbol ? true : d.relatedConcepts.length > 0,
+      ok: isTerm || isSymbol ? true : Boolean(hasRelatedSSOT),
     },
     {
       label: "มี References หรือ Status = Needs Source Check",
-      ok: hasRefsOrNeedsCheck,
+      ok: Boolean(hasRefsSSOT),
     },
     {
       label: "มี Roots หรือเหตุผลที่ยังไม่ใส่",
-      ok: isArticle || isConcept ? hasRoots : true,
+      ok: isArticle || isConcept ? Boolean(hasRootsSSOT) : true,
     },
     {
       label: "มีเนื้อหา (Body Markdown)",
-      ok: isArticle ? d.bodyMarkdown.trim() !== "" : true,
+      ok: isArticle ? bm.trim() !== "" : true,
     },
   ];
 }

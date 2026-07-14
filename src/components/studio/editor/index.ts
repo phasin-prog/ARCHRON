@@ -1,4 +1,5 @@
 export { EditorBasicInfo } from "./editor-basic-info";
+export { EditorArticleFields } from "./editor-article-fields";
 export { EditorConceptFields } from "./editor-concept-fields";
 export { EditorPersonFields } from "./editor-person-fields";
 export { EditorBookFields } from "./editor-book-fields";
@@ -8,3 +9,5 @@ export { EditorRelations } from "./editor-relations";
 export { EditorCta } from "./editor-cta";
 export { EditorPublishPanel } from "./editor-publish-panel";
 export { EditorPreview } from "./editor-preview";
+export { EditorValidationModal } from "./editor-validation-modal";
+export { InlineGuidance } from "./inline-guidance";

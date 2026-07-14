@@ -2,9 +2,12 @@
 
 import { useState, useRef } from "react";
 import type { EditorDraft } from "@/lib/content/publishing/publish-validation";
+import type { ValidationIssue } from "@/lib/content/publishing/editor-validation";
 import { MarkdownRenderer } from "@/components/reading/markdown-renderer";
+import { InlineGuidance } from "./inline-guidance";
 
 type ViewMode = "write" | "split" | "preview";
+
 
 type ToolbarItem =
   | { type: "divider" }
@@ -37,14 +40,25 @@ const TOOLBAR_ITEMS: ToolbarItem[] = [
   { label: "Link", title: "แทรกลิงก์ (External Link)", prefix: "[", suffix: "](https://example.com)", defaultText: "ชื่อลิงก์" },
   { label: "[[Concept]]", title: "เชื่อมโยงแนวคิดภายใน (Wikilink)", prefix: "[[", suffix: "|ชื่อที่แสดง]]", defaultText: "concept-slug", highlight: true },
   { label: "[[Cite]]", title: "แทรกจุดอ้างอิง (Citation)", prefix: "[[cite: ", suffix: "]]", defaultText: "1, 2", highlight: true },
+  { type: "divider" },
+  {
+    label: "📑 ปลูกโครงสร้างมาตรฐาน (Insert SSOT Template)",
+    title: "แทรกโครงสร้างหัวข้อมาตรฐาน Archron (Visual, Technical, Roots, References) ลงใน Body Markdown",
+    prefix: "## 🌟 คำอธิบายให้เห็นภาพ (Visual Explanation)\n[อธิบายเปรียบเปรยหรือตัวอย่างเชิงประจักษ์ด้วยภาษาที่เข้าใจง่าย เพื่อให้บุคคลทั่วไปเข้าใจได้ทันที...]\n\n## 🎓 นิยามและแก่นทางวิชาการ (Technical Meaning)\n[ระบุนิยามทางวิชาการและทฤษฎีที่เกี่ยวข้อง...]\n\n## 🏛️ รากศัพท์และการเปลี่ยนผ่านความหมาย (Etymology & Roots)\n[ระบุที่มาของคำเดิมในภาษากรีก/ละติน หรือเหตุผล...]\n\n## 📖 เนื้อหาและคำอธิบายเชิงลึก (Core Content)\n",
+    suffix: "\n\n## 🔗 แนวคิดที่เกี่ยวข้อง (Related Concepts)\n- [[Analytical Psychology]] : กรอบคิดและโครงข่ายหลัก\n\n## 📚 แหล่งอ้างอิงและตำรา (References)\n- [1] Jung, C. G. (1968). *The Archetypes and the Collective Unconscious*.\n",
+    defaultText: "เริ่มเขียนการวิเคราะห์ทั้งหมดที่นี่...",
+    highlight: true,
+  },
 ];
 
 export function EditorBody({
   draft,
   updateField,
+  validationIssues,
 }: {
   draft: EditorDraft;
   updateField: (field: keyof EditorDraft, value: unknown) => void;
+  validationIssues?: Record<string, ValidationIssue>;
 }) {
   const [viewMode, setViewMode] = useState<ViewMode>("split");
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -155,9 +169,10 @@ export function EditorBody({
         )}
 
         {/* View Layouts */}
-        <div className="p-1">
+        <div id="container-field-body-markdown" className="p-1 rounded-lg transition-all duration-300">
           {viewMode === "write" && (
             <textarea
+              id="field-body-markdown"
               ref={textareaRef}
               value={content}
               onChange={(e) => updateField("bodyMarkdown", e.target.value)}
@@ -172,6 +187,7 @@ export function EditorBody({
               {/* Left Column: Write */}
               <div className="border-b lg:border-b-0 lg:border-r border-border/60 p-2">
                 <textarea
+                  id="field-body-markdown"
                   ref={textareaRef}
                   value={content}
                   onChange={(e) => updateField("bodyMarkdown", e.target.value)}
@@ -211,6 +227,9 @@ export function EditorBody({
               )}
             </div>
           )}
+          <div className="px-3 pb-2">
+            <InlineGuidance issue={validationIssues?.["field-body-markdown"]} />
+          </div>
         </div>
 
         {/* Live Metrics Footer Bar */}

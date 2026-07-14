@@ -85,10 +85,13 @@ const ThinkerCard = memo(function ThinkerCard({ t }: { t: ThinkerWithSchool }) {
   );
 });
 
+const ITEMS_PER_PAGE = 24;
+
 export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
   const [query, setQuery] = useState("");
   const [letter, setLetter] = useState<string | null>(null);
   const [selectedField, setSelectedField] = useState<SchoolField | "all">("all");
+  const [page, setPage] = useState(1);
   const [, startTransition] = useTransition();
 
   const deferredQuery = useDeferredValue(query);
@@ -138,6 +141,13 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
       .sort((a, b) => collator.compare(a.nameTh, b.nameTh));
   }, [thinkers, letter, selectedField, q]);
 
+  const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
+  const safePage = Math.min(page, totalPages);
+  const paginated = useMemo(() => {
+    const start = (safePage - 1) * ITEMS_PER_PAGE;
+    return filtered.slice(start, start + ITEMS_PER_PAGE);
+  }, [filtered, safePage]);
+
   const fields = useMemo(() => {
     const set = new Set<SchoolField>();
     for (const t of thinkers) {
@@ -154,7 +164,7 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
         key={ch}
         type="button"
         disabled={!has}
-        onClick={() => setLetter(on ? null : ch)}
+        onClick={() => { setLetter(on ? null : ch); setPage(1); }}
         className={`flex h-7 min-w-7 items-center justify-center rounded px-1 text-xs transition-colors ${
           on
             ? "bg-accent/15 text-accent"
@@ -190,7 +200,7 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
         <SearchIcon className="h-5.5 w-5.5 text-accent" />
         <input
           value={query}
-          onChange={(e) => startTransition(() => setQuery(e.target.value))}
+          onChange={(e) => startTransition(() => { setQuery(e.target.value); setPage(1); })}
           placeholder="ค้นหาชื่อนักคิด คำคม ผลงาน หรือสำนักคิด..."
           aria-label="ค้นหา"
           className="w-full bg-transparent text-base text-text-heading placeholder:text-text-secondary/55 focus-visible:ring-2 focus-visible:ring-accent/30 focus:outline-none"
@@ -211,7 +221,7 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
         <span className="text-xs text-text-secondary/70 mr-2">ศาสตร์วิชา:</span>
         <button
           type="button"
-          onClick={() => setSelectedField("all")}
+          onClick={() => { setSelectedField("all"); setPage(1); }}
           className={`inline-flex items-center rounded-full text-[11px] font-semibold leading-[1.4] bg-accent/10 text-accent px-3 py-1.5 cursor-pointer transition-colors duration-200 ${
              selectedField === "all"
                ? "border border-accent/40 bg-accent/15 text-accent font-semibold"
@@ -227,7 +237,7 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
             <button
               key={f}
               type="button"
-              onClick={() => setSelectedField(f)}
+              onClick={() => { setSelectedField(f); setPage(1); }}
               style={{
                 borderColor: on ? meta.accent : "transparent",
                 backgroundColor: on ? `${meta.accent}24` : undefined,
@@ -248,7 +258,7 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
       <div className="flex flex-wrap items-center gap-1 border-t border-border/20 pt-4">
         <button
           type="button"
-          onClick={() => setLetter(null)}
+          onClick={() => { setLetter(null); setPage(1); }}
           className={`mr-1 rounded px-2.5 py-1 text-xs transition-colors ${
             letter === null
               ? "bg-accent/15 text-accent"
@@ -262,6 +272,13 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
         {EN_LETTERS.map((ch) => letterBtn(ch))}
       </div>
 
+      <div className="flex items-center justify-between text-xs text-text-secondary/60">
+        <p>พบทั้งหมด {filtered.length} นักปราชญ์</p>
+        {totalPages > 1 && (
+          <p>หน้า {safePage} จาก {totalPages}</p>
+        )}
+      </div>
+
       <div>
         {filtered.length === 0 ? (
           <p className="rounded-md border border-text-heading/10 bg-bg-card/40 p-8 text-center text-sm text-text-secondary/60">
@@ -269,12 +286,38 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
           </p>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((t) => (
+            {paginated.map((t) => (
               <ThinkerCard key={t.nameEn} t={t} />
             ))}
           </div>
         )}
       </div>
+
+      {totalPages > 1 && (
+        <div className="mt-10 flex items-center justify-center gap-4">
+          <button
+            type="button"
+            disabled={safePage === 1}
+            onClick={() => { setPage((p) => Math.max(1, p - 1)); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+            className="flex items-center gap-1 rounded-md border border-border/30 bg-bg-card/40 px-3 py-2 text-sm text-text-body hover:border-accent/40 hover:text-accent disabled:opacity-30 disabled:hover:border-border/30 disabled:hover:text-text-body"
+          >
+            <ArrowRightIcon className="h-4 w-4" style={{ transform: "rotate(180deg)" }} />
+            ก่อนหน้า
+          </button>
+          <span className="text-sm text-text-secondary/60">
+            {safePage} / {totalPages}
+          </span>
+          <button
+            type="button"
+            disabled={safePage === totalPages}
+            onClick={() => { setPage((p) => Math.min(totalPages, p + 1)); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+            className="flex items-center gap-1 rounded-md border border-border/30 bg-bg-card/40 px-3 py-2 text-sm text-text-body hover:border-accent/40 hover:text-accent disabled:opacity-30 disabled:hover:border-border/30 disabled:hover:text-text-body"
+          >
+            ถัดไป
+            <ArrowRightIcon className="h-4 w-4" />
+          </button>
+        </div>
+      )}
     </div>
   );
 }

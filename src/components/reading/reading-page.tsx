@@ -260,7 +260,7 @@ export async function ReadingPage({
   ].filter(Boolean).length;
 
   return (
-    <div className={`mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 sm:px-6 lg:grid-cols-[1fr_min(760px,100%)_1fr] lg:gap-8${atmosphere ? ` ${atmosphere}` : ""}`}>
+    <div className={`reading-grid mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 sm:px-6 lg:grid-cols-[1fr_min(760px,100%)_1fr] lg:gap-8${atmosphere ? ` ${atmosphere}` : ""}`}>
       {/* แถบความคืบหน้าการอ่าน (ทุกจอ) */}
       <ReadingProgress />
       <ScrollProgressBar totalSections={totalSections} />

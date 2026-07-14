@@ -22,7 +22,7 @@ export function CollapsibleSidebar({
   const isLeft = side === "left";
 
   return (
-    <>
+    <div data-collapsed-sidebar={collapsed ? side : undefined}>
       {collapsed ? (
         <button
           type="button"
@@ -53,6 +53,6 @@ export function CollapsibleSidebar({
           {children}
         </div>
       )}
-    </>
+    </div>
   );
 }

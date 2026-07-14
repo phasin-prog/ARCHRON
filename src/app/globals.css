@@ -901,6 +901,21 @@
   }
 }
 
+/* ============================================================================
+   Reading Grid — sidebar collapse adjustments
+   ============================================================================ */
+@media (min-width: 1024px) {
+  .reading-grid:has([data-collapsed-sidebar="left"]) {
+    grid-template-columns: auto minmax(0px, 900px) 1fr;
+  }
+  .reading-grid:has([data-collapsed-sidebar="right"]) {
+    grid-template-columns: 1fr minmax(0px, 900px) auto;
+  }
+  .reading-grid:has([data-collapsed-sidebar="left"]):has([data-collapsed-sidebar="right"]) {
+    grid-template-columns: auto minmax(0px, 100%) auto;
+  }
+}
+
 @keyframes seal-stagger {
   from {
     opacity: 0;

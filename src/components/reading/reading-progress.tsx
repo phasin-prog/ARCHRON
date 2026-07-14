@@ -37,7 +37,7 @@ export function ReadingProgress({ targetId = "reading-article" }: { targetId?: s
 
   return (
     <div
-      className="pointer-events-none fixed inset-x-0 top-0 z-overlay h-[3px] bg-transparent print:hidden"
+      className="pointer-events-none fixed inset-x-0 top-0 z-[var(--z-overlay)] h-[3px] bg-transparent print:hidden"
       role="progressbar"
       aria-label="ความคืบหน้าการอ่าน"
       aria-valuenow={Math.round(pct)}

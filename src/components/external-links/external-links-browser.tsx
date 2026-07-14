@@ -3,7 +3,25 @@
 import { useMemo, useState } from "react";
 import { useDebounce } from "@/lib/hooks/use-debounce";
 import type { ExternalCategory } from "@/lib/content/utils/external-links";
-import { SearchIcon, CloseIcon, ExternalLinkIcon } from "@/components/icons";
+import {
+  SearchIcon,
+  CloseIcon,
+  ExternalLinkIcon,
+  BookIcon,
+  LinkIcon,
+  SchoolIcon,
+  GlobeIcon,
+  SymbolIcon,
+} from "@/components/icons";
+
+function CategoryIcon({ icon }: { icon?: string }) {
+  const className = "h-6 w-6 shrink-0 text-accent stroke-[1.75]";
+  if (icon === "menu_book") return <BookIcon className={className} aria-hidden="true" />;
+  if (icon === "link") return <LinkIcon className={className} aria-hidden="true" />;
+  if (icon === "school") return <SchoolIcon className={className} aria-hidden="true" />;
+  if (icon === "public") return <GlobeIcon className={className} aria-hidden="true" />;
+  return <SymbolIcon className={className} aria-hidden="true" />;
+}
 
 function hostOf(url: string): string {
   try {
@@ -126,7 +144,7 @@ export function ExternalLinksBrowser({ categories }: { categories: ExternalCateg
                 id={`cat-${cat.id}`}
                 className="flex items-center gap-2.5 border-b border-border/20 pb-3 font-serif text-2xl text-text-heading"
               >
-                <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-accent" aria-hidden="true">{cat.icon === "menu_book" ? "📚" : cat.icon === "link" ? "🔗" : cat.icon === "school" ? "🎓" : cat.icon === "public" ? "🌐" : "◆"}</span>
+                <CategoryIcon icon={cat.icon} />
                 {cat.thaiLabel}
                 <span className="text-base text-text-secondary/50">({cat.enLabel})</span>
                 <span className="ml-auto text-sm font-normal text-text-secondary/40">
@@ -150,7 +168,7 @@ export function ExternalLinksBrowser({ categories }: { categories: ExternalCateg
                         <div className="flex items-center justify-between gap-3">
                           {host ? (
                             <span className="inline-flex min-w-0 items-center gap-1.5 text-xs text-text-secondary/55">
-                              <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[15px] text-accent/70" aria-hidden="true">🌐</span>
+                              <GlobeIcon className="h-3.5 w-3.5 shrink-0 text-accent/70 stroke-[1.75]" aria-hidden="true" />
                               <span className="truncate">{host}</span>
                             </span>
                           ) : (

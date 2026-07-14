@@ -3,7 +3,16 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArchronLogomark, HeartIcon, SourceRefIcon, ArrowUpIcon } from "@/components/icons";
+import {
+  ArchronLogomark,
+  HeartIcon,
+  ManifestoIcon,
+  ArrowUpIcon,
+  PersonIcon,
+  ExplorerIcon,
+  BookIcon,
+  EyeIcon,
+} from "@/components/icons";
 import { createClerkSupabaseClient } from "@/lib/supabase/client";
 import { getTotalPageViews } from "@/lib/content/community/views-db";
 
@@ -49,7 +58,7 @@ export function SiteFooter() {
       <div className="mx-auto grid max-w-(--width-content) grid-cols-1 gap-12 px-4 sm:px-6 md:grid-cols-12 md:gap-x-14">
         {/* Brand */}
         <div className="md:col-span-6">
-          <h6 className="archive-hall__heading"><span aria-hidden="true">🏛</span> ผู้เขียน</h6>
+          <h6 className="archive-hall__heading flex items-center gap-1.5"><PersonIcon className="h-4 w-4 shrink-0 text-accent stroke-[1.75]" aria-hidden="true" /> ผู้เขียน</h6>
           <div className="flex items-center gap-3 text-accent">
             <ArchronLogomark className="h-8 w-8 shrink-0" />
             <span className="font-wordmark text-[23px] font-semibold tracking-[0.22em]">ARCHRON</span>
@@ -78,14 +87,14 @@ export function SiteFooter() {
               aria-label="ปฏิญญา"
               className="flex h-11 w-11 items-center justify-center rounded-lg border border-accent/20 text-accent/70 transition-all hover:border-accent/50 hover:text-accent"
             >
-              <SourceRefIcon className="h-[18px] w-[18px]" />
+              <ManifestoIcon className="h-[18px] w-[18px]" />
             </Link>
           </div>
         </div>
 
         {/* Explore */}
         <div className="md:col-span-3">
-          <h6 className="archive-hall__heading"><span aria-hidden="true">📜</span> สำรวจ</h6>
+          <h6 className="archive-hall__heading flex items-center gap-1.5"><ExplorerIcon className="h-4 w-4 shrink-0 text-accent stroke-[1.75]" aria-hidden="true" /> สำรวจ</h6>
           <ul className="flex flex-col gap-3">
             {EXPLORE.map((item) => (
               <li key={item.href}>
@@ -99,7 +108,7 @@ export function SiteFooter() {
 
         {/* เกี่ยวกับ */}
         <div className="md:col-span-3">
-          <h6 className="archive-hall__heading"><span aria-hidden="true">📖</span> เกี่ยวกับ</h6>
+          <h6 className="archive-hall__heading flex items-center gap-1.5"><BookIcon className="h-4 w-4 shrink-0 text-accent stroke-[1.75]" aria-hidden="true" /> เกี่ยวกับ</h6>
           <ul className="flex flex-col gap-3">
             {ABOUT.map((item) => (
               <li key={item.href}>
@@ -119,7 +128,7 @@ export function SiteFooter() {
             <>
               <span className="px-1.5 text-text-secondary/50">·</span>
               <span className="inline-flex items-center gap-1 text-text-secondary/70">
-                <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[14px] text-accent/70" aria-hidden="true">👁</span>
+                <EyeIcon className="h-3.5 w-3.5 shrink-0 text-accent/70 stroke-[1.75]" aria-hidden="true" />
                 ผู้เยี่ยมชม {totalViews.toLocaleString("th-TH")} ครั้ง
               </span>
             </>

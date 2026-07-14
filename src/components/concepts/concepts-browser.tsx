@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { useDebounce } from "@/lib/hooks/use-debounce";
 import type { ConceptRegistryItem, NodeType } from "@/lib/content/core/registry";
 import { ConceptCard } from "@/components/concepts/concept-card";
-import { SearchIcon, CloseIcon } from "@/components/icons";
+import { SearchIcon, CloseIcon, CheckIcon, ClockIcon, EyeIcon } from "@/components/icons";
 
 interface ConceptsBrowserProps {
   concepts: ConceptRegistryItem[];
@@ -117,9 +117,7 @@ export function ConceptsBrowser({ concepts, publishedSlugs }: ConceptsBrowserPro
           onClick={() => setShowStubs((prev) => !prev)}
           className="flex items-center gap-1.5 rounded border border-border/30 bg-bg-card/40 px-2.5 py-1 transition-colors hover:border-accent/40 hover:text-accent"
         >
-          <span className="inline-flex items-center justify-center w-4 h-4 text-[16px]" aria-hidden="true">
-            {showStubs ? "⊝" : "⊙"}
-          </span>
+          <EyeIcon className="h-4 w-4 shrink-0 text-accent stroke-[1.75]" aria-hidden="true" />
           {showStubs ? "ซ่อนโครงร่างรอเขียน" : "แสดงโครงร่างรอเขียน"}
         </button>
       </div>
@@ -127,7 +125,7 @@ export function ConceptsBrowser({ concepts, publishedSlugs }: ConceptsBrowserPro
       {/* ส่วนที่ 1: รายการที่มีเนื้อหาแล้ว (เผยแพร่แล้ว) */}
       <div className="space-y-4">
         <h2 className="font-serif text-lg font-semibold text-accent flex items-center gap-2">
-          <span className="inline-flex items-center justify-center w-5 h-5" aria-hidden="true">✓</span>
+          <CheckIcon className="h-4 w-4 shrink-0 text-accent stroke-[1.75]" aria-hidden="true" />
           ชิ้นความรู้ที่เรียบเรียงแล้ว ({realConcepts.length})
         </h2>
         {realConcepts.length === 0 ? (
@@ -147,7 +145,7 @@ export function ConceptsBrowser({ concepts, publishedSlugs }: ConceptsBrowserPro
       {showStubs && stubConcepts.length > 0 && (
         <div className="mt-12 space-y-4 border-t border-border/20 pt-8">
           <h2 className="font-serif text-lg font-semibold text-text-secondary flex items-center gap-2">
-            <span className="inline-flex items-center justify-center w-5 h-5" aria-hidden="true">⏳</span>
+            <ClockIcon className="h-4 w-4 shrink-0 text-text-secondary stroke-[1.75]" aria-hidden="true" />
             โครงร่างและบันทึกความรู้ย่อ ({stubConcepts.length})
           </h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

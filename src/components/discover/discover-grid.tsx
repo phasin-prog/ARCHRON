@@ -6,6 +6,24 @@ import Link from "next/link";
 import type { ContentEntry } from "@/types/content";
 import type { ConceptRegistryItem } from "@/lib/content/core/registry";
 import { ViewBadge } from "@/components/view-badge";
+import {
+  SearchIcon,
+  BookIcon,
+  ConceptIcon,
+  PersonIcon,
+  CollectionIcon,
+  SymbolIcon,
+} from "@/components/icons";
+
+function DiscoverCatIcon({ icon }: { icon: string }) {
+  const className = "h-4 w-4 shrink-0 stroke-[1.75]";
+  if (icon === "auto_stories") return <BookIcon className={className} aria-hidden="true" />;
+  if (icon === "menu_book") return <BookIcon className={className} aria-hidden="true" />;
+  if (icon === "bolt") return <ConceptIcon className={className} aria-hidden="true" />;
+  if (icon === "person") return <PersonIcon className={className} aria-hidden="true" />;
+  if (icon === "library_books") return <CollectionIcon className={className} aria-hidden="true" />;
+  return <SymbolIcon className={className} aria-hidden="true" />;
+}
 
 interface DiscoverGridProps {
   entries: ContentEntry[];
@@ -124,7 +142,7 @@ export function DiscoverGrid({ entries, concepts }: DiscoverGridProps) {
       {/* Search Bar */}
       <div className="mb-8">
         <div className="relative">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary inline-flex items-center justify-center w-4 h-4" aria-hidden="true">🔍</span>
+          <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-secondary stroke-[1.75]" aria-hidden="true" />
           <input
             type="text"
             placeholder="ค้นหาบทความ แนวคิด นักคิด..."
@@ -150,9 +168,7 @@ export function DiscoverGrid({ entries, concepts }: DiscoverGridProps) {
                   : "text-text-secondary hover:bg-bg-card hover:text-text-heading"
               }`}
             >
-              <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[18px]" aria-hidden="true">
-                {config.icon === "auto_stories" ? "📖" : config.icon === "menu_book" ? "📚" : config.icon === "bolt" ? "⚡" : config.icon === "person" ? "👤" : config.icon === "library_books" ? "📚" : "◆"}
-              </span>
+              <DiscoverCatIcon icon={config.icon} />
               {config.label}
             </button>
           );
@@ -320,7 +336,7 @@ export function DiscoverGrid({ entries, concepts }: DiscoverGridProps) {
         filteredThinkers.length === 0 &&
         category !== "timeline" && (
           <div className="py-12 text-center">
-            <span className="mb-4 text-4xl text-text-secondary inline-flex items-center justify-center w-9 h-9" aria-hidden="true">🔍</span>
+            <SearchIcon className="mx-auto mb-4 h-9 w-9 text-text-secondary/50 stroke-[1.5]" aria-hidden="true" />
             <p className="text-sm text-text-secondary">
               ไม่พบเนื้อหาที่ตรงกับคำค้นหา
             </p>

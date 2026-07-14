@@ -12,6 +12,7 @@ import {
   SchoolIcon,
   SymbolIcon,
   TermIcon,
+  ArrowRightIcon,
 } from "@/components/icons";
 import { NODE_TYPE_COLOR } from "@/lib/content/reading/graph";
 import { ViewBadge } from "@/components/view-badge";
@@ -177,7 +178,7 @@ const ConceptCardInner = function ConceptCard({ c, hasRealContent = false }: { c
             style={{ color: hasRealContent ? accent : `color-mix(in srgb, ${accent} 50%, var(--color-text-secondary))` }}
           >
             {hasRealContent ? "สำรวจ" : "เปิดดู"}
-            <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[15px]" aria-hidden="true">→</span>
+            <ArrowRightIcon className="h-3.5 w-3.5 shrink-0 stroke-[1.75]" aria-hidden="true" />
           </span>
           <ViewBadge slug={c.slug} />
         </div>

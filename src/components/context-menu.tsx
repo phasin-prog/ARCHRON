@@ -10,6 +10,7 @@ import {
   type TouchEvent,
 } from "react";
 import { createPortal } from "react-dom";
+import { SymbolIcon } from "@/components/icons";
 
 export type ContextMenuItem = {
   label: string;
@@ -156,7 +157,7 @@ export function ContextMenu({
                   className="flex w-full items-center gap-2.5 px-4 py-3 text-left text-sm text-text-heading transition-colors hover:bg-accent/12 hover:text-accent focus:bg-accent/12 focus:text-accent focus:outline-none"
                 >
                   {it.icon ? (
-                    <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[18px] text-accent" aria-hidden="true">◆</span>
+                    <SymbolIcon className="h-4 w-4 shrink-0 text-accent stroke-[1.75]" aria-hidden="true" />
                   ) : null}
                   {it.label}
                 </button>

@@ -4,7 +4,13 @@ import { useState, useMemo, memo } from "react";
 import type { ContentEntry } from "@/types/content";
 import { disciplineMeta, type DisciplineKey } from "@/components/discipline-meta";
 import Link from "next/link";
-import { ArrowRightIcon } from "@/components/icons";
+import {
+  ArrowRightIcon,
+  TrendingUpIcon,
+  ClockIcon,
+  DiscoverIcon,
+  ShuffleIcon,
+} from "@/components/icons";
 
 function frameworkToDiscipline(framework?: string): DisciplineKey {
   if (!framework) return "philosophy";
@@ -110,12 +116,13 @@ export function ExploreHub({ entries }: { entries: ContentEntry[] }) {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-text-heading/10 pb-4">
         <div className="flex flex-wrap gap-2" role="tablist" aria-label="หมวดหมู่การสำรวจ">
           {[
-            { id: "trending", label: "กระแสยอดนิยม", icon: "trending_up" },
-            { id: "latest", label: "เผยแพร่ล่าสุด", icon: "schedule" },
-            { id: "popular", label: "คัดสรรอมตะ", icon: "auto_awesome" },
-            { id: "random", label: "สุ่มค้นพบ", icon: "shuffle" },
+            { id: "trending", label: "กระแสยอดนิยม", Icon: TrendingUpIcon },
+            { id: "latest", label: "เผยแพร่ล่าสุด", Icon: ClockIcon },
+            { id: "popular", label: "คัดสรรอมตะ", Icon: DiscoverIcon },
+            { id: "random", label: "สุ่มค้นพบ", Icon: ShuffleIcon },
           ].map((tab) => {
             const isActive = activeTab === tab.id;
+            const TabIcon = tab.Icon;
             return (
               <button
                 key={tab.id}
@@ -131,7 +138,7 @@ export function ExploreHub({ entries }: { entries: ContentEntry[] }) {
                     : "bg-bg-card/40 text-text-secondary hover:bg-bg-card hover:text-text-heading border border-transparent"
                 }`}
               >
-                <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[18px]" aria-hidden="true">{tab.icon === "menu_book" ? "📚" : tab.icon === "lightbulb" ? "💡" : tab.icon === "language" ? "🌐" : "◆"}</span>
+                <TabIcon className="h-4 w-4 shrink-0 stroke-[1.75]" aria-hidden="true" />
                 <span>{tab.label}</span>
               </button>
             );
@@ -143,7 +150,7 @@ export function ExploreHub({ entries }: { entries: ContentEntry[] }) {
             onClick={handleRandomize}
             className="inline-flex items-center gap-2 rounded-lg border border-accent/30 bg-bg-card px-3.5 py-2 text-xs text-accent hover:bg-accent/10 transition-colors self-start sm:self-auto"
           >
-            <span className="inline-flex items-center justify-center w-4 h-4" aria-hidden="true">↻</span>
+            <ShuffleIcon className="h-3.5 w-3.5 shrink-0 stroke-[1.75]" aria-hidden="true" />
             <span>สุ่มความรู้อีกครั้ง</span>
           </button>
         )}

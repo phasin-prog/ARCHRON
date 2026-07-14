@@ -55,8 +55,8 @@ export const SEARCH_TYPE_LABEL: Record<SearchType, string> = {
 export const SEARCH_TYPE_ORDER: SearchType[] = ["concept", "article", "resource", "section"];
 
 export const SEARCH_TYPE_BOOST: Record<SearchType, number> = {
-  concept: 15,
-  article: 10,
-  resource: 5,
-  section: 0,
+  concept: 1.5,
+  article: 1.0,
+  resource: 0.8,
+  section: 0.5,
 };

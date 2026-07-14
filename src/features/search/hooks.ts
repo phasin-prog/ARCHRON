@@ -1,38 +1,42 @@
 "use client";
 
 import { useMemo, useState, useCallback } from "react";
-import type { SearchItem, SearchOptions, SearchResult } from "./types";
+import type { SearchItem, SearchResult } from "./types";
 import { search } from "./services";
-import { useDebounce } from "@/lib/hooks/use-debounce";
 
 export function useSearch(
   items: SearchItem[],
   initialQuery: string = "",
 ) {
   const [query, setQuery] = useState(initialQuery);
+  const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [activeType, setActiveType] = useState<string>("all");
 
-  const debouncedQuery = useDebounce(query, 200);
+  const submit = useCallback(() => {
+    setSearchQuery(query);
+  }, [query]);
 
   const result = useMemo<SearchResult>(
     () =>
-      search(items, debouncedQuery, {
+      search(items, searchQuery, {
         filters: { type: activeType as any },
       }),
-    [items, debouncedQuery, activeType],
+    [items, searchQuery, activeType],
   );
 
   const clear = useCallback(() => {
     setQuery("");
+    setSearchQuery("");
   }, []);
 
   return {
     query,
     setQuery,
+    searchQuery,
     activeType,
     setActiveType,
-    debouncedQuery,
     result,
     clear,
+    submit,
   };
 }

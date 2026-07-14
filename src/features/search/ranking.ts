@@ -1,76 +1,64 @@
 import type { SearchItem, SearchMatch, SearchType } from "./types";
 import { SEARCH_TYPE_BOOST } from "./types";
-import { normalizeText, tokenize, matchesToken, prefixMatches } from "./tokenizer";
+import { normalizeText } from "./tokenizer";
 
-type ScoredField = {
-  field: string;
-  base: number;
-  value: string | undefined | null;
-};
+function fieldScore(item: SearchItem, norm: string): number {
+  const title = normalizeText(item.title);
 
-function scoreItem(item: SearchItem, token: string): ScoredField | null {
-  const norm = normalizeText(token);
-  if (!norm) return null;
+  if (title === norm) return 500;
+  if (title.startsWith(norm)) return 250;
+  const titleWords = title.split(/\s+/);
+  if (titleWords.includes(norm)) return 200;
+  if (title.includes(norm)) return 100;
 
-  const fields: ScoredField[] = [
-    { field: "title", base: 100, value: item.title },
-    { field: "thaiTitle", base: 70, value: item.thaiTitle },
-    { field: "description", base: 30, value: item.description },
-    { field: "badge", base: 10, value: item.badge },
-  ];
-
-  let best: ScoredField | null = null;
-
-  if (prefixMatches(item.title, norm)) {
-    best = { field: "title", base: 80, value: item.title };
+  if (item.thaiTitle) {
+    const thai = normalizeText(item.thaiTitle);
+    if (thai === norm) return 400;
+    if (thai.startsWith(norm)) return 200;
+    const thaiWords = thai.split(/\s+/);
+    if (thaiWords.includes(norm)) return 160;
+    if (thai.includes(norm)) return 80;
   }
 
-  for (const f of fields) {
-    if (f.value && matchesToken(f.value, norm)) {
-      if (!best || f.base > best.base) {
-        best = f;
-      }
-    }
+  if (item.description) {
+    const desc = normalizeText(item.description);
+    const descWords = desc.split(/\s+/);
+    if (descWords.includes(norm)) return 50;
+    if (desc.includes(norm)) return 30;
   }
 
-  if (matchesToken(item.keywords, norm)) {
-    const keywordScore: ScoredField = { field: "keywords", base: 40, value: item.keywords };
-    if (!best || keywordScore.base > best.base) {
-      best = keywordScore;
-    }
-  }
+  const kw = normalizeText(item.keywords);
+  const kwWords = kw.split(/\s+/);
+  if (kwWords.includes(norm)) return 20;
+  if (kw.includes(norm)) return 10;
 
-  return best;
+  if (item.badge && normalizeText(item.badge).includes(norm)) return 5;
+
+  return 0;
 }
 
-export function rankItem(item: SearchItem, tokens: string[], typeBoost: number): SearchMatch | null {
-  let totalScore = 0;
-  let matchField: string | undefined;
+export function rankItem(item: SearchItem, tokens: string[], typeMultiplier: number): SearchMatch | null {
+  let total = 0;
 
   for (const token of tokens) {
-    const scored = scoreItem(item, token);
-    if (!scored) return null;
-    totalScore += scored.base;
-    if (!matchField) matchField = scored.field;
+    const s = fieldScore(item, normalizeText(token));
+    if (s === 0) return null;
+    total += s;
   }
 
-  // Average score across tokens so multi-token queries don't dominate
-  const avgScore = Math.round(totalScore / tokens.length) + typeBoost;
+  const avg = Math.round(total / tokens.length);
+  const score = Math.round(avg * typeMultiplier * 100) / 100;
 
-  return {
-    item,
-    score: avgScore,
-    matchField,
-  };
+  return { item, score };
 }
 
 export function rankItems(items: SearchItem[], tokens: string[], type: SearchType): SearchMatch[] {
   if (tokens.length === 0) return [];
-  const boost = SEARCH_TYPE_BOOST[type];
+  const multiplier = SEARCH_TYPE_BOOST[type];
 
   const results: SearchMatch[] = [];
   for (const item of items) {
-    const match = rankItem(item, tokens, boost);
+    const match = rankItem(item, tokens, multiplier);
     if (match) results.push(match);
   }
 

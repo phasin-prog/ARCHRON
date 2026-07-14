@@ -1,5 +1,5 @@
 import type { SearchItem, SearchOptions, SearchResult, SearchType } from "./types";
-import { SEARCH_TYPE_LABEL, SEARCH_TYPE_ORDER, SEARCH_TYPE_BOOST } from "./types";
+import { SEARCH_TYPE_LABEL, SEARCH_TYPE_ORDER } from "./types";
 import { tokenize } from "./tokenizer";
 import { rankItems } from "./ranking";
 import { applyFilters } from "./filters";
@@ -23,7 +23,7 @@ export function search(
 
   const filters = options?.filters;
   const filterKey = filters?.type ?? "all";
-  const cacheKey = `${query}:${filterKey}:${options?.limit ?? "all"}`;
+  const cacheKey = `${query}:${filterKey}:${options?.limit ?? 10}`;
   const cached = queryCache.get(cacheKey);
   if (cached) return cached;
 
@@ -40,7 +40,7 @@ export function search(
 
   allMatches.sort(sortByScore);
 
-  const limit = options?.limit ?? allMatches.length;
+  const limit = options?.limit ?? 10;
   const top = allMatches.slice(0, limit);
 
   const groups = SEARCH_TYPE_ORDER

@@ -15,33 +15,45 @@ const SearchBar = memo(function SearchBar({
   query,
   setQuery,
   clear,
+  onSubmit,
 }: {
   query: string;
   setQuery: (v: string) => void;
   clear: () => void;
+  onSubmit: () => void;
 }) {
   return (
-    <div className="flex items-center gap-3 rounded-xl border border-border bg-bg-card px-5 py-3.5 shadow-sm transition-all duration-300 focus-within:border-accent/30 focus-within:shadow-md focus-within:ring-1 focus-within:ring-accent/20">
-      <SearchIcon className="h-5.5 w-5.5 text-accent" />
-      <input
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="ค้นหาแนวคิด บทความ ทรัพยากร หรือหน้า..."
-        aria-label="ค้นหา"
-        className="w-full bg-transparent text-lg font-ui text-text-heading placeholder:text-text-secondary/50 focus-visible:outline-none"
-      />
-      {query ? (
-        <div className="animate-in fade-in zoom-in-90 duration-200">
-          <button
-            type="button"
-            onClick={clear}
-            aria-label="ล้างคำค้น"
-            className="rounded-md p-1 text-text-secondary/60 transition-colors hover:text-text-heading hover:bg-bg-card focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:outline-none"
-          >
-            <CloseIcon className="h-5 w-5" />
-          </button>
-        </div>
-      ) : null}
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-3">
+      <div className="flex flex-1 items-center gap-3 rounded-xl border border-border bg-bg-card px-5 py-3.5 shadow-sm transition-all duration-300 focus-within:border-accent/30 focus-within:shadow-md focus-within:ring-1 focus-within:ring-accent/20">
+        <SearchIcon className="h-5.5 w-5.5 text-accent" />
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={(e) => { if (e.key === "Enter") onSubmit(); }}
+          placeholder="ค้นหาแนวคิด บทความ ทรัพยากร หรือหน้า..."
+          aria-label="ค้นหา"
+          className="w-full bg-transparent text-lg font-ui text-text-heading placeholder:text-text-secondary/50 focus-visible:outline-none"
+        />
+        {query ? (
+          <div className="animate-in fade-in zoom-in-90 duration-200">
+            <button
+              type="button"
+              onClick={clear}
+              aria-label="ล้างคำค้น"
+              className="rounded-md p-1 text-text-secondary/60 transition-colors hover:text-text-heading hover:bg-bg-card focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:outline-none"
+            >
+              <CloseIcon className="h-5 w-5" />
+            </button>
+          </div>
+        ) : null}
+      </div>
+      <button
+        type="button"
+        onClick={onSubmit}
+        className="shrink-0 rounded-xl bg-accent px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-accent/90 hover:shadow-md active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:outline-none"
+      >
+        ค้นหา
+      </button>
     </div>
   );
 });
@@ -84,17 +96,17 @@ const TypeFilters = memo(function TypeFilters({
 });
 
 const SearchResults = memo(function SearchResults({
-  debouncedQuery,
+  searchQuery,
   result,
   setQuery,
 }: {
-  debouncedQuery: string;
+  searchQuery: string;
   result: SearchResult;
   setQuery: (v: string) => void;
 }) {
   return (
     <div className="mt-8">
-      {!debouncedQuery ? (
+      {!searchQuery ? (
         <div className="py-8 text-center">
           <p className="text-sm text-text-secondary/50 mb-4">
             พิมพ์คำค้นด้านบนเพื่อค้นทั่วทั้งคลังความรู้
@@ -114,7 +126,7 @@ const SearchResults = memo(function SearchResults({
         </div>
       ) : result.total === 0 ? (
         <div className="py-8 text-center">
-          <p className="text-sm text-text-secondary/60 mb-4">ไม่พบผลลัพธ์สำหรับ &ldquo;{debouncedQuery.trim()}&rdquo;</p>
+          <p className="text-sm text-text-secondary/60 mb-4">ไม่พบผลลัพธ์สำหรับ &ldquo;{searchQuery.trim()}&rdquo;</p>
           <p className="text-xs text-text-secondary/45">ลองใช้คำค้นอื่น หรือตรวจสอบการสะกด</p>
         </div>
       ) : (
@@ -183,13 +195,13 @@ const SearchResults = memo(function SearchResults({
 });
 
 export function SearchClient({ items, initialQuery }: { items: SearchItem[]; initialQuery?: string }) {
-  const { query, setQuery, activeType, setActiveType, debouncedQuery, result, clear } = useSearch(items, initialQuery ?? "");
+  const { query, setQuery, activeType, setActiveType, searchQuery, result, clear, submit } = useSearch(items, initialQuery ?? "");
 
   return (
     <div className="mt-8">
-      <SearchBar query={query} setQuery={setQuery} clear={clear} />
+      <SearchBar query={query} setQuery={setQuery} clear={clear} onSubmit={submit} />
       <TypeFilters activeType={activeType} setActiveType={setActiveType} />
-      <SearchResults debouncedQuery={debouncedQuery} result={result} setQuery={setQuery} />
+      <SearchResults searchQuery={searchQuery} result={result} setQuery={setQuery} />
     </div>
   );
 }

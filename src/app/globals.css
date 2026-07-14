@@ -785,11 +785,11 @@
 
 /* ── Navbar Mobile — zollastar-style floating pill tabbar ── */
 
-/* Container pill — rounded bottom corners, centered horizontally */
+/* Container pill — full-width, rounded top, anchored to bottom */
 .nb-pill {
   position: relative;
   background: #fdfdfd;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   padding: 10px 20px 15px;
   box-shadow: 0px 20px 40px rgba(18, 34, 64, 0.1);

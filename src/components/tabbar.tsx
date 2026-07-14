@@ -30,32 +30,32 @@ export function Tabbar() {
   const pathname = usePathname() || "/";
   const [tappedIndex, setTappedIndex] = useState<number | null>(null);
 
+  if (pathname.startsWith("/studio")) return null;
+
   return (
     <nav
       aria-label="นำทางหลัก"
-      className="fixed inset-x-0 bottom-0 z-40 flex justify-center pb-[calc(env(safe-area-inset-bottom,0px)+4px)] max-lg:flex lg:hidden"
+      className="nb-pill fixed inset-x-0 bottom-0 z-40 flex items-center justify-around pb-[calc(env(safe-area-inset-bottom,0px)+4px)] max-lg:flex lg:hidden"
     >
-      <div className="nb-pill">
-        {ITEMS.map((it, index) => {
-          const active = isActive(pathname, it.href);
-          return (
-            <Link
-              key={it.href}
-              href={it.href}
-              onClick={() => setTappedIndex(index)}
-              aria-label={it.label}
-              aria-current={active ? "page" : undefined}
-              style={{ color: it.color }}
-              className={`nb-item ${active ? "nb-item--active" : ""} ${tappedIndex === index ? "nb-item--tap" : ""}`}
-              onAnimationEnd={() => setTappedIndex(null)}
-            >
-              <span className="nb-icon">
-                <it.Icon className="nb-icon-svg" />
-              </span>
-            </Link>
-          );
-        })}
-      </div>
+      {ITEMS.map((it, index) => {
+        const active = isActive(pathname, it.href);
+        return (
+          <Link
+            key={it.href}
+            href={it.href}
+            onClick={() => setTappedIndex(index)}
+            aria-label={it.label}
+            aria-current={active ? "page" : undefined}
+            style={{ color: it.color }}
+            className={`nb-item ${active ? "nb-item--active" : ""} ${tappedIndex === index ? "nb-item--tap" : ""}`}
+            onAnimationEnd={() => setTappedIndex(null)}
+          >
+            <span className="nb-icon">
+              <it.Icon className="nb-icon-svg" />
+            </span>
+          </Link>
+        );
+      })}
     </nav>
   );
 }

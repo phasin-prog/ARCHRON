@@ -152,20 +152,6 @@ export function rowToEntry(r: EntryRow): DiscriminatedEntry {
         difficulty: (r.difficulty ?? undefined) as Difficulty | undefined,
         shortDescription: r.short_description ?? undefined,
       };
-    case "school":
-      return {
-        ...base,
-        contentType: "school",
-        mainTerm: r.main_term ?? undefined,
-        thaiName: r.thai_name ?? undefined,
-        founder: r.founder ?? undefined,
-        period: r.period ?? undefined,
-        keyIdeas: r.key_ideas ?? undefined,
-        framework: r.framework ?? undefined,
-        school: r.school ?? undefined,
-        difficulty: (r.difficulty ?? undefined) as Difficulty | undefined,
-        shortDescription: r.short_description ?? undefined,
-      };
     case "article":
       return {
         ...base,

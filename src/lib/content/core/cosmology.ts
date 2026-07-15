@@ -43,7 +43,6 @@ const CONTENT_TYPE_META: Record<string, ContentTypeMeta> = {
   "source-note": { icon: "format_quote", accent: colors.sageGreen, label: "บันทึกแหล่งอ้างอิง" },
   person: { icon: "person", accent: COSMOLOGY_ACCENT.mercurius, label: "นักคิด" },
   book: { icon: "menu_book", accent: colors.amberBrown, label: "หนังสือ" },
-  school: { icon: "groups_2", accent: colors.forestGreen, label: "สำนักคิด" },
   symbol: { icon: "category", accent: COSMOLOGY_ACCENT.lumen, label: "สัญลักษณ์" },
   term: { icon: "tag", accent: colors.warmGray, label: "คำศัพท์" },
 };
@@ -162,7 +161,6 @@ import type { ContentEntry, ContentType } from "@/types/content";
 export type KnowledgeObjectClass =
   | "concept"
   | "thinker"
-  | "school"
   | "article"
   | "source"
   | "symbol"
@@ -183,8 +181,6 @@ export function classifyKnowledgeObject(type: ContentType | string | undefined):
       return "concept";
     case "person":
       return "thinker";
-    case "school":
-      return "school";
     case "article":
       return "article";
     case "book":

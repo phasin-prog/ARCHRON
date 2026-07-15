@@ -71,58 +71,11 @@ export const getPublicEntryBySlug = cache(
   ),
 );
 
-// ดึงข้อมูลสำนักคิดและนักปราชญ์จากฐานข้อมูล (หรือ fallback ไปที่ static SCHOOLS)
+// ดึงข้อมูลสำนักคิดและนักปราชญ์จาก static SCHOOLS seed
+// (school content type ถูกปลดออกแล้ว — /thinkers ใช้ seed เท่านั้น)
 export const getPublicSchools = cache(
   unstable_cache(
     async (): Promise<School[]> => {
-      if (hasSupabaseEnv()) {
-        try {
-          const dbSchools = await getDbPublishedEntries("school");
-          if (dbSchools.length === 0) return staticSchools;
-          const dbThinkers = await getDbPublishedEntries("person");
-
-          return dbSchools.map((schoolEntry) => {
-            const se = schoolEntry as DiscriminatedEntry & { originalTerm?: string; framework?: string };
-            const dbThinkersForSchool = dbThinkers
-              .filter((t) => "school" in t && t.school === se.slug)
-              .map((t) => {
-                const te = t as DiscriminatedEntry & { originalTerm?: string; ipa?: string; visualExplanation?: string; bodyMarkdown?: string; technicalMeaning?: string; tags?: string[]; r2ContentKey?: string; r2ContentUrl?: string; notableWorks?: string[] };
-                return {
-                  nameTh: te.title,
-                  nameEn: te.originalTerm ?? "",
-                  era: te.ipa ?? te.shortDescription ?? "",
-                  quote: te.visualExplanation ?? "",
-                  masterpieces: te.tags ?? te.notableWorks ?? [],
-                  bio: te.bodyMarkdown,
-                  relationships: te.technicalMeaning,
-                  r2ContentKey: te.r2ContentKey,
-                  r2ContentUrl: te.r2ContentUrl,
-                };
-              });
-
-            // merge static thinkers เป็น fallback เมื่อ DB ไม่มีนักคิดในสำนักนี้
-            const staticSchool = staticSchools.find((ss) => ss.id === se.slug);
-            const staticThinkers = staticSchool?.thinkers ?? [];
-            const mergedThinkers = dbThinkersForSchool.length > 0
-              ? dbThinkersForSchool
-              : staticThinkers;
-
-            return {
-              id: se.slug,
-              nameTh: se.title,
-              nameEn: se.originalTerm ?? "",
-              field: se.framework as unknown as School["field"],
-              description: se.shortDescription,
-              history: se.bodyMarkdown,
-              r2ContentKey: se.r2ContentKey,
-              r2ContentUrl: se.r2ContentUrl,
-              thinkers: mergedThinkers,
-            };
-          });
-        } catch {
-          // ดึงฐานข้อมูลล้มเหลว
-        }
-      }
       return staticSchools;
     },
     ["public-schools"],

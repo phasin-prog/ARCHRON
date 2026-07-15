@@ -14,9 +14,6 @@ function descriptionFor(entry: DiscriminatedEntry): string {
   if (entry.contentType === "book") {
     return (entry as any).shortDescription ?? `${entry.title} — หนังสือในคลัง ARCHRON`;
   }
-  if (entry.contentType === "school") {
-    return (entry as any).shortDescription ?? `สำนักคิด ${entry.title} — ARCHRON`;
-  }
   return `"${entry.title}" ในคลังความรู้ภาษาไทยเรื่องจิตใจมนุษย์ — ARCHRON`;
 }
 

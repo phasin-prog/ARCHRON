@@ -129,20 +129,6 @@ export function entryToDraft(entry: DiscriminatedEntry): EditorDraft {
       founder: "", period: "",
     };
   }
-  if (entry.contentType === "school") {
-    return {
-      ...base, framework: entry.framework ?? "", school: entry.school ?? "",
-      mainTerm: entry.mainTerm ?? "", thaiName: entry.thaiName ?? "",
-      founder: entry.founder ?? "", period: entry.period ?? "",
-      keyIdeas: entry.keyIdeas?.join(", ") ?? "",
-      originalTerm: "", partOfSpeech: "", languageRoot: "", ipa: "",
-      visualExplanation: "", technicalMeaning: "",
-      rootsEtymology: "", rootsMeaningShift: "", rootsCaution: "",
-      mainThinker: "", bornYear: "", diedYear: "", nationality: "",
-      notableWorks: "",
-      publicationYear: "", publisher: "", isbn: "",
-    };
-  }
   if (entry.contentType === "article") {
     return {
       ...base, framework: entry.framework ?? "", school: entry.school ?? "",

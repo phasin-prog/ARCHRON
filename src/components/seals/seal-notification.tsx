@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import type { AcademicSeal } from "@/lib/content/community/seals";
 import { SealIcon } from "./seal-icon";
 
@@ -11,12 +12,20 @@ interface SealNotificationProps {
 }
 
 export function SealNotification({ seal, onClose, onView }: SealNotificationProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   useEffect(() => {
     const timer = setTimeout(onClose, 8000);
     return () => clearTimeout(timer);
   }, [onClose]);
 
-  return (
+  if (!mounted || typeof document === "undefined") return null;
+
+  return createPortal(
     <div
       className="fixed left-1/2 top-8 z-[var(--z-toast)] -translate-x-1/2"
       role="status"
@@ -52,6 +61,7 @@ export function SealNotification({ seal, onClose, onView }: SealNotificationProp
           ✕
         </button>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

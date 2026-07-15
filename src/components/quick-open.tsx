@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef, useMemo, useCallback, useDeferredValue } from "react";
+import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { buildStaticIndex } from "@/features/search/index";
 import type { SearchItem } from "@/features/search/types";
@@ -13,6 +14,12 @@ function escapeRegex(s: string): string {
 
 export function QuickOpen() {
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -102,7 +109,7 @@ export function QuickOpen() {
     el?.scrollIntoView?.({ block: "nearest" });
   }, [selectedIndex]);
 
-  if (!open) return null;
+  if (!open || !mounted || typeof document === "undefined") return null;
 
   // Highlight matching terms
   const highlight = (text: string): React.ReactNode => {
@@ -121,7 +128,7 @@ export function QuickOpen() {
     );
   };
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-toast flex items-start justify-center pt-[15vh]">
       {/* Backdrop */}
       <div
@@ -237,6 +244,7 @@ export function QuickOpen() {
           </span>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

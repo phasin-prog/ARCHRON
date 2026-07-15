@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type MouseEvent } from "react";
+import { createPortal } from "react-dom";
 
 type TocItem = { id: string; text: string; level: 2 | 3 };
 
@@ -22,6 +23,11 @@ export function FloatingToc({ containerId = "reading-article" }: { containerId?:
   const [items, setItems] = useState<TocItem[]>([]);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string>("");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const root = document.getElementById(containerId);
@@ -83,9 +89,9 @@ export function FloatingToc({ containerId = "reading-article" }: { containerId?:
   };
 
   // Don't render on xl+ (sidebar TOC exists) or if too few headings
-  if (items.length < 3) return null;
+  if (items.length < 3 || !mounted || typeof document === "undefined") return null;
 
-  return (
+  return createPortal(
     <>
       {/* Floating button */}
       <button
@@ -140,6 +146,7 @@ export function FloatingToc({ containerId = "reading-article" }: { containerId?:
           ))}
         </ul>
       </nav>
-    </>
+    </>,
+    document.body
   );
 }

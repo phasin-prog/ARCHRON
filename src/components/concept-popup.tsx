@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 type PopupState = {
   tag: string;
@@ -12,8 +13,13 @@ type PopupState = {
 
 export function ConceptPopup() {
   const ref = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
   const [p, setP] = useState<PopupState>({ tag: "INSIGHT", text: "", x: 0, y: 0, visible: false });
   const rafId = useRef<number>(0);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const over = (e: MouseEvent) => {
@@ -63,7 +69,9 @@ export function ConceptPopup() {
     };
   }, []);
 
-  return (
+  if (!mounted || typeof document === "undefined") return null;
+
+  return createPortal(
     <div
       ref={ref}
       className="pointer-events-none fixed z-[var(--z-popup)] max-w-sm rounded-2xl border border-accent/50 bg-bg-card/90 p-5 shadow-[0_20px_50px_rgba(0,0,0,0.8)] backdrop-blur-md transition-[opacity,transform] duration-300"
@@ -85,6 +93,7 @@ export function ConceptPopup() {
       <p className="font-body text-sm leading-relaxed text-text-heading">
         {p.text}
       </p>
-    </div>
+    </div>,
+    document.body
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useId, useRef, type ReactNode } from "react";
+import { useCallback, useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 
 type Props = {
   open: boolean;
@@ -13,10 +14,15 @@ type Props = {
 const FOCUSABLE = 'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 export function Modal({ open, onClose, title, children, footer }: Props) {
+  const [mounted, setMounted] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const prevFocusRef = useRef<HTMLElement | null>(null);
   const titleId = useId();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === "Escape") {
@@ -64,7 +70,9 @@ export function Modal({ open, onClose, title, children, footer }: Props) {
     };
   }, [open]);
 
-  return (
+  if (!mounted || typeof document === "undefined") return null;
+
+  return createPortal(
     <div
       ref={containerRef}
       className={`fixed inset-0 z-[var(--z-overlay)] flex items-center justify-center bg-black/45 transition-[opacity,visibility] duration-250 ${
@@ -107,6 +115,7 @@ export function Modal({ open, onClose, title, children, footer }: Props) {
           </div>
         )}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useCallback, useEffect, useId, useRef, type ReactNode } from "react";
+import React, { useCallback, useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { CheckIcon, CloseIcon } from "@/components/icons";
 
 export type FeedbackSeverity = "success" | "warning" | "error" | "info";
@@ -139,6 +140,11 @@ export function FeedbackModal({
   const prevFocusRef = useRef<HTMLElement | null>(null);
   const titleId = useId();
   const messageId = useId();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const config = SEVERITY_CONFIG[severity] || SEVERITY_CONFIG.info;
   const IconComponent = config.icon;
@@ -206,7 +212,9 @@ export function FeedbackModal({
     };
   }, [open, handleKeyDown]);
 
-  return (
+  if (!mounted || typeof document === "undefined") return null;
+
+  return createPortal(
     <div
       style={{
         position: "fixed",
@@ -304,6 +312,7 @@ export function FeedbackModal({
           </div>
         )}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

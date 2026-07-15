@@ -1,15 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { SealGallery } from "./seal-gallery";
 import { SealDetailModal } from "./seal-detail-modal";
 import { SealIcon } from "./seal-icon";
 import { SEALS, type AcademicSeal } from "@/lib/content/community/seals";
 
 export function SealProfileSection() {
+  const [mounted, setMounted] = useState(false);
   const [showGallery, setShowGallery] = useState(false);
   const [selectedSeal, setSelectedSeal] = useState<AcademicSeal | null>(null);
   const earnedSealIds: string[] = []; // UI-only — no DB backing yet
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <>
@@ -39,29 +45,32 @@ export function SealProfileSection() {
         </button>
       </section>
 
-      {showGallery && (
-        <div className="fixed inset-0 z-[var(--z-overlay)] overflow-y-auto bg-black/50 p-4">
-          <div className="mx-auto mt-8 max-w-4xl rounded-xl border border-border bg-bg p-8">
-            <div className="mb-6 flex items-center justify-between">
-              <h2 className="font-heading text-2xl font-semibold text-text-heading">
-                ตราประทับวิชาการทั้งหมด
-              </h2>
-              <button
-                type="button"
-                onClick={() => setShowGallery(false)}
-                className="text-text-secondary hover:text-text-heading"
-                aria-label="ปิด"
-              >
-                ✕
-              </button>
-            </div>
-            <SealGallery
-              earnedSealIds={earnedSealIds}
-              onSelectSeal={(seal) => setSelectedSeal(seal)}
-            />
-          </div>
-        </div>
-      )}
+      {showGallery && mounted && typeof document !== "undefined"
+        ? createPortal(
+            <div className="fixed inset-0 z-[var(--z-overlay)] flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
+              <div className="w-full max-w-4xl max-h-[85vh] overflow-y-auto rounded-xl border border-border bg-bg p-6 sm:p-8 shadow-2xl">
+                <div className="mb-6 flex items-center justify-between">
+                  <h2 className="font-heading text-2xl font-semibold text-text-heading">
+                    ตราประทับวิชาการทั้งหมด
+                  </h2>
+                  <button
+                    type="button"
+                    onClick={() => setShowGallery(false)}
+                    className="text-text-secondary hover:text-text-heading"
+                    aria-label="ปิด"
+                  >
+                    ✕
+                  </button>
+                </div>
+                <SealGallery
+                  earnedSealIds={earnedSealIds}
+                  onSelectSeal={(seal) => setSelectedSeal(seal)}
+                />
+              </div>
+            </div>,
+            document.body
+          )
+        : null}
 
       <SealDetailModal
         seal={selectedSeal}

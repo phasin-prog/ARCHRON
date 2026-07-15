@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import type { ValidationIssue } from "@/lib/content/publishing/editor-validation";
 import { EditorIcon } from "@/components/studio/editor-icon";
 
@@ -15,6 +16,12 @@ export function EditorValidationModal({
   issues: ValidationIssue[];
   onGoToField: (fieldId: string) => void;
 }) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // ESC key to close
   useEffect(() => {
     if (!open) return;
@@ -25,7 +32,7 @@ export function EditorValidationModal({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [open, onClose]);
 
-  if (!open) return null;
+  if (!open || !mounted || typeof document === "undefined") return null;
 
   const errors = issues.filter((i) => i.severity === "error");
   const warnings = issues.filter((i) => i.severity === "warning");
@@ -33,7 +40,7 @@ export function EditorValidationModal({
 
   const firstIssue = issues[0];
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/65 backdrop-blur-sm p-4 animate-in fade-in duration-200">
       <div className="w-full max-w-2xl max-h-[85vh] flex flex-col rounded-2xl border border-border bg-bg-card shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
         {/* Header */}
@@ -194,6 +201,7 @@ export function EditorValidationModal({
           )}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

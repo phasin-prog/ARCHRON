@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 
 interface MediaItem {
@@ -18,7 +19,13 @@ interface MediaManagerProps {
 }
 
 export function MediaManager({ onSelect, allowMultiple = false }: MediaManagerProps) {
+  const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const [mediaItems, setMediaItems] = useState<MediaItem[]>([]);
   const [uploading, setUploading] = useState(false);
   const [filter, setFilter] = useState<"all" | "image" | "video" | "audio" | "document">("all");
@@ -77,7 +84,7 @@ export function MediaManager({ onSelect, allowMultiple = false }: MediaManagerPr
         จัดการสื่อ
       </button>
 
-      {isOpen && (
+      {isOpen && mounted && typeof document !== "undefined" ? createPortal(
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
           <div className="mx-4 flex max-h-[80vh] w-full max-w-3xl flex-col rounded-xl border border-border bg-bg-card shadow-2xl">
             {/* Header */}
@@ -194,8 +201,9 @@ export function MediaManager({ onSelect, allowMultiple = false }: MediaManagerPr
               </button>
             </div>
           </div>
-        </div>
-      )}
+        </div>,
+        document.body
+      ) : null}
     </>
   );
 }

@@ -1,6 +1,7 @@
 "use server";
 
-import { getAuthedSupabase } from "@/lib/content/utils/server-auth";
+import { getAuthedSupabase, getUserRole } from "@/lib/content/utils/server-auth";
+import { invalidateRTK } from "@/lib/rtk/cache";
 
 export async function listMyDraftsAction() {
   const { supabase, userId } = await getAuthedSupabase();
@@ -55,4 +56,40 @@ export async function listEntriesByTypeAction(contentType: string) {
     .limit(100);
 
   return data ?? [];
+}
+
+export async function deleteEntriesAction(
+  ids: string[],
+): Promise<{ ok: boolean; count: number; error?: string }> {
+  if (ids.length === 0) return { ok: true, count: 0 };
+  try {
+    const { userId, supabase } = await getAuthedSupabase();
+    const role = await getUserRole();
+    let q = supabase.from("entries").delete().in("id", ids);
+    if (role !== "admin") q = q.eq("author_id", userId);
+    const { error, count } = await q;
+    if (error) throw new Error(error.message);
+    await invalidateRTK().catch(() => {});
+    return { ok: true, count: count ?? ids.length };
+  } catch (e) {
+    return { ok: false, count: 0, error: e instanceof Error ? e.message : "ลบไม่สำเร็จ" };
+  }
+}
+
+export async function archiveEntriesAction(
+  ids: string[],
+): Promise<{ ok: boolean; count: number; error?: string }> {
+  if (ids.length === 0) return { ok: true, count: 0 };
+  try {
+    const { userId, supabase } = await getAuthedSupabase();
+    const role = await getUserRole();
+    let q = supabase.from("entries").update({ status: "archived" }).in("id", ids);
+    if (role !== "admin") q = q.eq("author_id", userId);
+    const { error, count } = await q;
+    if (error) throw new Error(error.message);
+    await invalidateRTK().catch(() => {});
+    return { ok: true, count: count ?? ids.length };
+  } catch (e) {
+    return { ok: false, count: 0, error: e instanceof Error ? e.message : "เก็บถาวรไม่สำเร็จ" };
+  }
 }

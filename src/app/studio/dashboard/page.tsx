@@ -10,8 +10,11 @@ import {
   listMyEntriesAction,
   listAllPublishedEntriesAction,
   listEntriesByTypeAction,
+  deleteEntriesAction,
+  archiveEntriesAction,
 } from "@/features/studio/actions/dashboard-actions";
 import { EditorIcon } from "@/components/studio/editor-icon";
+import { FeedbackModal } from "@/components/feedback-modal";
 
 interface DraftItem {
   id: string;
@@ -56,6 +59,18 @@ export default function StudioDashboardPage() {
   const [typeFilter, setTypeFilter] = useState<string>("all");
   const [search, setSearch] = useState("");
   const [showAllDrafts, setShowAllDrafts] = useState(false);
+  const [selectMode, setSelectMode] = useState(false);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [confirm, setConfirm] = useState<null | {
+    kind: "delete" | "archive";
+    ids: string[];
+    titles: string[];
+  }>(null);
+  const [result, setResult] = useState<null | {
+    severity: "success" | "error";
+    message: string;
+  }>(null);
+  const [acting, setActing] = useState(false);
 
   // Filtered entries for "บทความของฉัน"
   const filteredDrafts = useMemo(() => {
@@ -147,6 +162,74 @@ export default function StudioDashboardPage() {
       active = false;
     };
   }, [userId, writer]);
+
+  const toggleSelect = (id: string) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const switchTab = (next: Tab) => {
+    setTab(next);
+    setSelectMode(false);
+    setSelectedIds(new Set());
+  };
+
+  const requestAction = (
+    kind: "delete" | "archive",
+    ids: string[],
+    titles: string[],
+  ) => {
+    if (ids.length === 0) return;
+    setConfirm({ kind, ids, titles });
+  };
+
+  const executeAction = async () => {
+    if (!confirm) return;
+    const { kind, ids } = confirm;
+    setActing(true);
+    setConfirm(null);
+    try {
+      const action =
+        kind === "delete" ? deleteEntriesAction : archiveEntriesAction;
+      const res = await action(ids);
+      if (!res.ok) {
+        setResult({
+          severity: "error",
+          message: res.error ?? "ทำรายการไม่สำเร็จ",
+        });
+      } else {
+        if (kind === "delete") {
+          setEntries((prev) => prev.filter((e) => !ids.includes(e.id)));
+          setDrafts((prev) => prev.filter((d) => !ids.includes(d.id)));
+          setResult({ severity: "success", message: `ลบแล้ว ${res.count} รายการ` });
+        } else {
+          setEntries((prev) =>
+            prev.map((e) =>
+              ids.includes(e.id) ? { ...e, status: "archived" } : e,
+            ),
+          );
+          setDrafts((prev) => prev.filter((d) => !ids.includes(d.id)));
+          setResult({
+            severity: "success",
+            message: `เก็บถาวรแล้ว ${res.count} รายการ`,
+          });
+        }
+        setSelectedIds(new Set());
+        setSelectMode(false);
+      }
+    } catch (e) {
+      setResult({
+        severity: "error",
+        message: e instanceof Error ? e.message : "เกิดข้อผิดพลาด",
+      });
+    } finally {
+      setActing(false);
+    }
+  };
 
   if (!writer) {
     return (
@@ -387,7 +470,7 @@ export default function StudioDashboardPage() {
         <section>
           <div className="mb-4 flex items-center gap-1 rounded-xl border border-border/30 bg-bg/40 p-1">
             <button
-              onClick={() => setTab("my")}
+              onClick={() => switchTab("my")}
               className={`flex-1 rounded-lg px-4 py-2 text-sm font-medium transition-all ${
                 tab === "my"
                   ? "bg-accent/15 text-accent shadow-sm"
@@ -399,7 +482,7 @@ export default function StudioDashboardPage() {
             </button>
             {admin && (
               <button
-                onClick={() => setTab("all")}
+                onClick={() => switchTab("all")}
                 className={`flex-1 rounded-lg px-4 py-2 text-sm font-medium transition-all ${
                   tab === "all"
                     ? "bg-accent/15 text-accent shadow-sm"
@@ -414,6 +497,21 @@ export default function StudioDashboardPage() {
 
           {/* Filter bar */}
           <div className="mb-4 flex flex-wrap items-center gap-2">
+            {tab === "my" && (
+              <button
+                onClick={() => {
+                  setSelectMode(!selectMode);
+                  setSelectedIds(new Set());
+                }}
+                className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all ${
+                  selectMode
+                    ? "bg-error/15 text-error"
+                    : "border border-border/40 text-text-secondary hover:text-text-heading"
+                }`}
+              >
+                {selectMode ? "เลิกเลือก" : "เลือกเพื่อลบ"}
+              </button>
+            )}
             {tab === "my" && (
               <select
                 value={statusFilter}
@@ -468,12 +566,215 @@ export default function StudioDashboardPage() {
                 </Link>
               )}
             </div>
+          ) : tab === "my" && selectMode ? (
+            <div className="space-y-3">
+              {/* Bulk action bar */}
+              <div className="sticky top-2 z-20 flex flex-wrap items-center gap-2 rounded-xl border border-border/50 bg-bg-card/95 p-2.5 shadow-sm backdrop-blur">
+                <button
+                  onClick={() => {
+                    const ids = myFilteredEntries.map((e) => e.id);
+                    if (ids.every((id) => selectedIds.has(id))) {
+                      setSelectedIds(new Set());
+                    } else {
+                      setSelectedIds(new Set(ids));
+                    }
+                  }}
+                  className="rounded-md px-2.5 py-1 text-xs font-medium text-text-secondary hover:text-text-heading transition-colors"
+                >
+                  {myFilteredEntries.length > 0 &&
+                  myFilteredEntries.every((e) => selectedIds.has(e.id))
+                    ? "ยกเลิกการเลือก"
+                    : "เลือกทั้งหมด"}
+                </button>
+                <span className="text-xs text-text-secondary/60">
+                  {selectedIds.size} รายการที่เลือก
+                </span>
+                <div className="ml-auto flex items-center gap-2">
+                  {(() => {
+                    const hasPublished = [...selectedIds].some((id) => {
+                      const e = entries.find((en) => en.id === id);
+                      return e?.status === "published";
+                    });
+                    if (!hasPublished) return null;
+                    const pubIds = [...selectedIds].filter((id) => {
+                      const e = entries.find((en) => en.id === id);
+                      return e?.status === "published";
+                    });
+                    return (
+                      <button
+                        onClick={() =>
+                          requestAction(
+                            "archive",
+                            pubIds,
+                            pubIds
+                              .map((id) => entries.find((e) => e.id === id)?.title ?? "")
+                              .filter(Boolean),
+                          )
+                        }
+                        disabled={acting || pubIds.length === 0}
+                        className="rounded-md border border-text-heading/20 px-3 py-1.5 text-xs font-medium text-text-heading hover:border-warning hover:bg-warning/5 disabled:opacity-40 transition-colors"
+                      >
+                        เก็บถาวร ({pubIds.length})
+                      </button>
+                    );
+                  })()}
+                  <button
+                    onClick={() => {
+                      const ids = [...selectedIds];
+                      const titles = ids
+                        .map((id) => entries.find((e) => e.id === id)?.title ?? "")
+                        .filter(Boolean);
+                      requestAction("delete", ids, titles);
+                    }}
+                    disabled={acting || selectedIds.size === 0}
+                    className="rounded-md bg-error px-3 py-1.5 text-xs font-semibold text-text-inverse hover:brightness-110 disabled:opacity-40 transition-all"
+                  >
+                    ลบถาวร ({selectedIds.size})
+                  </button>
+                  <button
+                    onClick={() => {
+                      setSelectMode(false);
+                      setSelectedIds(new Set());
+                    }}
+                    className="rounded-md px-2.5 py-1 text-xs text-text-secondary hover:text-text-heading transition-colors"
+                  >
+                    เลิกเลือก
+                  </button>
+                </div>
+              </div>
+
+              {/* Checkbox rows */}
+              <div className="space-y-1.5">
+                {myFilteredEntries.map((e) => {
+                  const checked = selectedIds.has(e.id);
+                  return (
+                    <button
+                      key={e.id}
+                      onClick={() => toggleSelect(e.id)}
+                      className={`archron-card group flex w-full items-center gap-4 p-4 text-left transition-all ${
+                        checked
+                          ? "ring-2 ring-accent/40 bg-accent/5"
+                          : "hover:border-accent/30"
+                      }`}
+                    >
+                      <span
+                        className={`flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-all ${
+                          checked
+                            ? "border-accent bg-accent text-text-inverse"
+                            : "border-border text-transparent"
+                        }`}
+                        aria-hidden="true"
+                      >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
+                          <path d="M20 6 9 17l-5-5" />
+                        </svg>
+                      </span>
+                      <span
+                        className="inline-flex shrink-0 rounded-lg px-2.5 py-1 text-[10px] font-semibold"
+                        style={{
+                          backgroundColor: `${typeAccent(e.content_type)}15`,
+                          color: typeAccent(e.content_type),
+                        }}
+                      >
+                        {typeLabel(e.content_type)}
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-sm font-medium text-text-heading">
+                          {e.title}
+                        </p>
+                        <p className="mt-0.5 text-[11px] text-text-secondary/50">
+                          {e.published_at
+                            ? new Date(e.published_at).toLocaleDateString("th-TH", { day: "numeric", month: "short", year: "numeric" })
+                            : "—"}
+                        </p>
+                      </div>
+                      <span
+                        className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
+                        style={{
+                          backgroundColor: `${statusAccent(e.status)}15`,
+                          color: statusAccent(e.status),
+                        }}
+                      >
+                        {statusLabel(e.status)}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ) : tab === "my" ? (
+            <div className="space-y-1.5">
+              {myFilteredEntries.map((e) => (
+                <div
+                  key={e.id}
+                  className="archron-card archron-card--link group flex items-center gap-4 p-4"
+                >
+                  <span
+                    className="inline-flex shrink-0 rounded-lg px-2.5 py-1 text-[10px] font-semibold"
+                    style={{
+                      backgroundColor: `${typeAccent(e.content_type)}15`,
+                      color: typeAccent(e.content_type),
+                    }}
+                  >
+                    {typeLabel(e.content_type)}
+                  </span>
+                  <Link
+                    href={e.status === "published" ? `/articles/${e.slug}` : `/studio/editor?slug=${e.slug}`}
+                    className="min-w-0 flex-1"
+                  >
+                    <p className="truncate text-sm font-medium text-text-heading group-hover:text-accent transition-colors">
+                      {e.title}
+                    </p>
+                    <p className="mt-0.5 text-[11px] text-text-secondary/50">
+                      {e.published_at
+                        ? new Date(e.published_at).toLocaleDateString("th-TH", { day: "numeric", month: "short", year: "numeric" })
+                        : "—"}
+                    </p>
+                  </Link>
+                  <span
+                    className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
+                    style={{
+                      backgroundColor: `${statusAccent(e.status)}15`,
+                      color: statusAccent(e.status),
+                    }}
+                  >
+                    {statusLabel(e.status)}
+                  </span>
+                  {e.status === "published" && (
+                    <button
+                      onClick={(ev) => {
+                        ev.preventDefault();
+                        ev.stopPropagation();
+                        requestAction("archive", [e.id], [e.title]);
+                      }}
+                      disabled={acting}
+                      className="shrink-0 rounded-md px-2 py-1 text-[11px] font-medium text-text-secondary hover:text-warning disabled:opacity-40 transition-colors"
+                      aria-label={`เก็บถาวร ${e.title}`}
+                    >
+                      เก็บถาวร
+                    </button>
+                  )}
+                  <button
+                    onClick={(ev) => {
+                      ev.preventDefault();
+                      ev.stopPropagation();
+                      requestAction("delete", [e.id], [e.title]);
+                    }}
+                    disabled={acting}
+                    className="shrink-0 rounded-md px-2 py-1 text-[11px] font-medium text-error/80 hover:text-error hover:bg-error/5 disabled:opacity-40 transition-colors"
+                    aria-label={`ลบ ${e.title}`}
+                  >
+                    ลบ
+                  </button>
+                </div>
+              ))}
+            </div>
           ) : (
             <div className="space-y-1.5">
-              {(tab === "my" ? myFilteredEntries : allFilteredEntries).map((e) => (
+              {allFilteredEntries.map((e) => (
                 <Link
                   key={e.id}
-                  href={tab === "all" ? `/studio/editor?slug=${e.slug}` : (e.status === "published" ? `/articles/${e.slug}` : `/studio/editor?slug=${e.slug}`)}
+                  href={`/studio/editor?slug=${e.slug}`}
                   className="archron-card archron-card--link group flex items-center gap-4 p-4"
                 >
                   <span
@@ -491,27 +792,58 @@ export default function StudioDashboardPage() {
                     </p>
                     <p className="mt-0.5 text-[11px] text-text-secondary/50">
                       {e.published_at ? new Date(e.published_at).toLocaleDateString("th-TH", { day: "numeric", month: "short", year: "numeric" }) : "—"}
-                      {tab === "all" && e.author_name ? ` · ${e.author_name}` : ""}
+                      {e.author_name ? ` · ${e.author_name}` : ""}
                     </p>
                   </div>
-                  {tab === "my" && (
-                    <span
-                      className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
-                      style={{
-                        backgroundColor: `${statusAccent(e.status)}15`,
-                        color: statusAccent(e.status),
-                      }}
-                    >
-                      {statusLabel(e.status)}
-                    </span>
-                  )}
-                  <EditorIcon name={tab === "all" ? "edit_note" : "arrow_right"} className="h-4 w-4 text-text-secondary group-hover:text-accent" />
+                  <EditorIcon name="edit_note" className="h-4 w-4 text-text-secondary group-hover:text-accent" />
                 </Link>
               ))}
             </div>
           )}
         </section>
       </div>
+
+      {/* Confirm modal */}
+      <FeedbackModal
+        open={confirm !== null}
+        onClose={() => setConfirm(null)}
+        severity="warning"
+        title={confirm?.kind === "delete" ? "ยืนยันการลบถาวร" : "ยืนยันการเก็บถาวร"}
+        message={
+          confirm ? (
+            <>
+              {confirm.kind === "delete" ? (
+                <p>
+                  กำลังลบถาวร <strong>{confirm.ids.length}</strong> รายการ — การลบไม่สามารถย้อนกลับได้
+                </p>
+              ) : (
+                <p>
+                  เนื้อหา <strong>{confirm.ids.length}</strong> รายการจะไม่แสดงต่อสาธารณะ แต่ยังอยู่ในระบบ (ไม่ถูกลบถาวร)
+                </p>
+              )}
+              {confirm.titles.length > 0 && (
+                <span className="mt-2 block text-xs text-text-secondary/60">
+                  {confirm.titles.slice(0, 3).join(" · ")}
+                  {confirm.titles.length > 3 && ` และอีก ${confirm.titles.length - 3} รายการ`}
+                </span>
+              )}
+            </>
+          ) : ""
+        }
+        primaryActionText={confirm?.kind === "delete" ? "ลบถาวร" : "เก็บถาวร"}
+        onPrimaryAction={executeAction}
+        secondaryActionText="ยกเลิก"
+        allowOutsideClick={false}
+      />
+
+      {/* Result modal */}
+      <FeedbackModal
+        open={result !== null}
+        onClose={() => setResult(null)}
+        severity={result?.severity ?? "info"}
+        message={result?.message ?? ""}
+        primaryActionText="ตกลง"
+      />
     </main>
   );
 }

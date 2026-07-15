@@ -81,7 +81,7 @@ function IdentitySection({ entry }: { entry: ContentEntry }) {
   if (ct === "book") {
     const sp = [entry.series, entry.volume ? `เล่ม ${entry.volume}` : null].filter(Boolean);
     if (sp.length > 0) chips.push(<Chip key="series" icon="library_books">{sp.join(" · ")}</Chip>);
-  } else if (ct === "person" || ct === "school") {
+  } else if (ct === "person") {
     if (entry.school) chips.push(<Chip key="school" icon="account_balance">{entry.school}</Chip>);
   } else {
     if (entry.framework) chips.push(<Chip key="framework" icon="psychology">{entry.framework}</Chip>);
@@ -128,12 +128,6 @@ function KnowledgeMetadataSection({ entry }: { entry: ContentEntry }) {
     if (entry.publicationYear) rows.push({ label: "ปีตีพิมพ์", value: entry.publicationYear });
     if (entry.publisher) rows.push({ label: "สำนักพิมพ์", value: entry.publisher });
     if (entry.isbn) rows.push({ label: "ISBN", value: entry.isbn });
-    if (entry.keyIdeas && entry.keyIdeas.length > 0) rows.push({ label: "แนวคิดหลัก", value: entry.keyIdeas.join(", ") });
-  } else if (ct === "school") {
-    if (entry.founder) rows.push({ label: "ผู้ก่อตั้ง", value: entry.founder });
-    if (entry.period) rows.push({ label: "ช่วงเวลา", value: entry.period });
-    if (domainLabel) rows.push({ label: "ศาสตร์", value: domainLabel });
-    if (thinkers) rows.push({ label: "นักคิดสำคัญ", value: thinkers });
     if (entry.keyIdeas && entry.keyIdeas.length > 0) rows.push({ label: "แนวคิดหลัก", value: entry.keyIdeas.join(", ") });
   } else if (ct === "symbol") {
     if (entry.shortDescription) rows.push({ label: "ความหมาย", value: entry.shortDescription });

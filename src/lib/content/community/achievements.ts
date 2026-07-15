@@ -6,7 +6,6 @@
 export type AchievementKey =
   | "first-read"
   | "explorer-10"
-  | "cross-schools-5"
   | "streak-7"
   | "deep-50"
   | "manifesto";
@@ -32,12 +31,6 @@ export const ACHIEVEMENTS: Achievement[] = [
     icon: "explore",
   },
   {
-    key: "cross-schools-5",
-    title: "ข้ามสำนักคิด",
-    description: "อ่านเนื้อหาครบ 5 สำนักคิด",
-    icon: "hub",
-  },
-  {
     key: "streak-7",
     title: "ไฟไม่มอด",
     description: "อ่านต่อเนื่อง 7 วัน",
@@ -60,7 +53,6 @@ export const ACHIEVEMENTS: Achievement[] = [
 // สถิติผู้ใช้ที่ใช้ประเมินเงื่อนไข (คำนวณฝั่ง server จาก reading_progress)
 export type ReadingStats = {
   completed: number; // จำนวนชิ้นความรู้ (ทุกชนิด) ที่อ่านจบ
-  distinctSchools: number; // จำนวนสำนักคิดที่อ่านเนื้อหาจบ (นับแบบ distinct)
   streakDays: number; // จำนวนวันอ่านต่อเนื่องล่าสุด
   readManifesto: boolean; // อ่านปฏิญญาก่อตั้ง (slug=manifesto) จบแล้วหรือไม่
 };
@@ -73,7 +65,6 @@ export function evaluateAchievements(stats: ReadingStats): AchievementKey[] {
   const unlocked: AchievementKey[] = [];
   if (stats.completed >= 1) unlocked.push("first-read");
   if (stats.completed >= 10) unlocked.push("explorer-10");
-  if (stats.distinctSchools >= 5) unlocked.push("cross-schools-5");
   if (stats.streakDays >= 7) unlocked.push("streak-7");
   if (stats.completed >= 50) unlocked.push("deep-50");
   if (stats.readManifesto) unlocked.push("manifesto");

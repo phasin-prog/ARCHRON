@@ -106,26 +106,18 @@ export async function getReadingStats(
     .eq("status", "completed");
 
   if (error || !data) {
-    return { completed: 0, distinctSchools: 0, streakDays: 0, readManifesto: false };
+    return { completed: 0, streakDays: 0, readManifesto: false };
   }
 
   const rows = data as Pick<ReadingRow, "slug" | "content_type" | "completed_at">[];
 
   const completed = rows.length;
 
-  // distinctSchools (การประมาณ): นับ distinct slug ของเนื้อหาที่ content_type='school'
-  // ที่อ่านจบ — schools ถูกแทนด้วย entry content_type='school' (ดู entries/public-source)
-  // ถ้าภายหลังต้องการนับ "สำนักคิดที่เกี่ยวข้องกับบทความ" ให้ปรับ mapping ตรงนี้
-  const schoolSlugs = new Set(
-    rows.filter((r) => r.content_type === "school").map((r) => r.slug),
-  );
-  const distinctSchools = schoolSlugs.size;
-
   const streakDays = computeStreak(rows.map((r) => r.completed_at ?? ""));
 
   const readManifesto = rows.some((r) => r.slug === MANIFESTO_SLUG);
 
-  return { completed, distinctSchools, streakDays, readManifesto };
+  return { completed, streakDays, readManifesto };
 }
 
 // ประวัติการอ่านล่าสุด (ทั้ง reading + completed) เรียงใหม่→เก่า

@@ -177,7 +177,7 @@ function ReadingTab({
 }: {
   displayName: string;
   lp: ReturnType<typeof levelProgress>;
-  stats: { completed: number; distinctSchools: number; streakDays: number; readManifesto: boolean };
+  stats: { completed: number; streakDays: number; readManifesto: boolean };
   history: ReadingRow[];
   unlockedKeys: Set<string>;
   titleBySlug: Map<string, string>;

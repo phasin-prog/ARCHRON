@@ -8,4 +8,3 @@ export * from "./faq";
 export * from "./timeline";
 export * from "./external-links";
 export * from "./prompt-library";
-export * from "./import-schools";

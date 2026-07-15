@@ -118,7 +118,7 @@ export function JungianServicePlatform() {
         });
       }
     });
-  }, [supabase]);
+  }, []);
 
   const handleOpenBooking = () => {
     setBookingOpen(true);

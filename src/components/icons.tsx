@@ -818,7 +818,7 @@ export function LanternIcon({ className = "h-5 w-5", style }: IconProps) {
 export function ArchronMark({ className = "h-5 w-5", style }: IconProps) {
   return (
     <img
-      src="/spiral_of_becoming_logo_high_res.svg"
+      src="/spiral_of_becoming_logo.png"
       alt="Archron Mark"
       className={className}
       style={{ objectFit: "contain", ...style }}
@@ -830,7 +830,7 @@ export function ArchronMark({ className = "h-5 w-5", style }: IconProps) {
 export function ArchronLogomark({ className = "h-7 w-7", style }: IconProps) {
   return (
     <img
-      src="/spiral_of_becoming_logo_high_res.svg"
+      src="/spiral_of_becoming_logo.png"
       alt="Archron Logo"
       className={className}
       style={{ objectFit: "contain", ...style }}

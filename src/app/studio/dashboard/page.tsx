@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import Link from "next/link";
 import { useAuth, useUser } from "@clerk/nextjs";
 import { colors } from "@/lib/content/utils/colors";
@@ -20,6 +20,11 @@ import {
   SearchIcon,
   BookIcon,
   ArrowRightIcon,
+  ChevronDownIcon,
+  BookmarkIcon,
+  CloseIcon,
+  FilterIcon,
+  CheckIcon,
 } from "@/components/icons";
 
 interface DraftItem {
@@ -85,6 +90,20 @@ export default function StudioDashboardPage() {
     message: string;
   }>(null);
   const [acting, setActing] = useState(false);
+
+  // Status filter dropdown state
+  const [statusFilterOpen, setStatusFilterOpen] = useState(false);
+  const statusFilterRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (statusFilterRef.current && !statusFilterRef.current.contains(e.target as Node)) {
+        setStatusFilterOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   // กรองรายการฉบับร่างตามคำค้นหา
   const filteredDrafts = useMemo(() => {
@@ -283,6 +302,17 @@ export default function StudioDashboardPage() {
       archived: "เก็บถาวร",
     };
     return map[s] ?? s;
+  };
+
+  const statusDotColor = (s: string): string => {
+    const map: Record<string, string> = {
+      draft: colors.neutralMuted,
+      "needs-source-check": colors.article,
+      "ready-to-publish": colors.book,
+      published: colors.success,
+      archived: colors.mutedSlate,
+    };
+    return map[s] ?? colors.neutralMuted;
   };
 
   const statusAccent = (s: string) => {
@@ -576,12 +606,16 @@ export default function StudioDashboardPage() {
                       </p>
                     </div>
                     <span
-                      className="shrink-0 rounded-full px-2.5 py-0.5 text-[10px] font-semibold"
+                      className="inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-semibold leading-relaxed"
                       style={{
                         backgroundColor: `${statusAccent(d.status)}15`,
                         color: statusAccent(d.status),
                       }}
                     >
+                      <span
+                        className="h-1.5 w-1.5 rounded-full"
+                        style={{ backgroundColor: statusAccent(d.status) }}
+                      />
                       {statusLabel(d.status)}
                     </span>
                   </Link>
@@ -646,17 +680,63 @@ export default function StudioDashboardPage() {
                 </button>
               )}
               {tab === "my" && (
-                <select
-                  value={statusFilter}
-                  onChange={(e) => setStatusFilter(e.target.value)}
-                  aria-label="กรองตามสถานะ"
-                  className="rounded-xl border border-border/40 bg-bg-card px-3 py-1.5 text-xs text-text-heading outline-none focus:border-accent/60 focus:ring-1 focus:ring-accent/20"
-                >
-                  <option value="all">ทุกสถานะ</option>
-                  <option value="draft">ฉบับร่าง</option>
-                  <option value="published">เผยแพร่แล้ว</option>
-                  <option value="archived">เก็บถาวร</option>
-                </select>
+                <div ref={statusFilterRef} className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setStatusFilterOpen((v) => !v)}
+                    aria-label="กรองตามสถานะ"
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-border/40 bg-bg-card/60 px-3 py-1.5 text-xs font-medium text-text-heading transition-all hover:border-border/80"
+                  >
+                    <FilterIcon className="h-3.5 w-3.5 text-text-secondary" />
+                    <span
+                      className="h-1.5 w-1.5 rounded-full"
+                      style={{ backgroundColor: statusDotColor(statusFilter) }}
+                    />
+                    <span className="mr-0.5">
+                      {statusFilter === "all"
+                        ? "ทุกสถานะ"
+                        : statusLabel(statusFilter)}
+                    </span>
+                    <ChevronDownIcon
+                      className={`h-3 w-3 text-text-secondary transition-transform ${
+                        statusFilterOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                  {statusFilterOpen && (
+                    <div className="absolute right-0 top-full z-20 mt-1.5 min-w-[180px] overflow-hidden rounded-xl border border-border/50 bg-bg-card py-1 shadow-lg">
+                      {[
+                        { value: "all", label: "ทุกสถานะ", dot: colors.neutralMuted },
+                        { value: "draft", label: "ฉบับร่าง", dot: colors.neutralMuted },
+                        { value: "published", label: "เผยแพร่แล้ว", dot: colors.success },
+                        { value: "archived", label: "เก็บถาวร", dot: colors.mutedSlate },
+                      ].map((opt) => (
+                        <button
+                          key={opt.value}
+                          type="button"
+                          onClick={() => {
+                            setStatusFilter(opt.value);
+                            setStatusFilterOpen(false);
+                          }}
+                          className={`flex w-full items-center gap-2.5 px-3.5 py-2 text-xs transition-colors hover:bg-bg-elevated ${
+                            statusFilter === opt.value
+                              ? "font-semibold text-text-heading"
+                              : "text-text-secondary"
+                          }`}
+                        >
+                          <span
+                            className="h-1.5 w-1.5 rounded-full"
+                            style={{ backgroundColor: opt.dot }}
+                          />
+                          {opt.label}
+                          {statusFilter === opt.value && (
+                            <CheckIcon className="ml-auto h-3 w-3 text-accent" />
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
               )}
               <select
                 value={typeFilter}
@@ -787,20 +867,23 @@ export default function StudioDashboardPage() {
                   {/* Right metadata and contextual actions */}
                   <div className="flex items-center gap-3 shrink-0">
                     <span
-                      className="rounded-full px-2.5 py-0.5 text-[11px] font-medium"
+                      className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-medium leading-relaxed"
                       style={{
                         backgroundColor: `${statusAccent(e.status)}15`,
                         color: statusAccent(e.status),
                       }}
                     >
+                      <span
+                        className="h-1.5 w-1.5 rounded-full"
+                        style={{ backgroundColor: statusAccent(e.status) }}
+                      />
                       {statusLabel(e.status)}
                     </span>
 
-                    {/* Contextual Actions (Hover/Focus revealed to reduce visual slop) */}
-                    <div className="flex items-center gap-1.5 opacity-40 group-hover:opacity-100 transition-opacity">
+                    <div className="flex items-center gap-1.5">
                       <Link
                         href={`/studio/editor?slug=${e.slug}`}
-                        className="rounded-lg p-1.5 text-text-secondary hover:text-accent hover:bg-accent/10 transition-colors"
+                        className="rounded-lg p-1.5 text-text-secondary/50 hover:text-accent hover:bg-accent/10 transition-colors"
                         title="แก้ไขบทความ"
                       >
                         <EditorIcon name="edit_note" className="h-4 w-4" />
@@ -813,12 +896,24 @@ export default function StudioDashboardPage() {
                             requestAction("archive", [e.id], [e.title]);
                           }}
                           disabled={acting}
-                          className="rounded-lg px-2 py-1 text-[11px] font-medium text-text-secondary hover:text-warning hover:bg-warning/10 disabled:opacity-40 transition-colors"
-                          title="เก็บถาวร (ไม่แสดงสาธารณะ)"
+                          className="rounded-lg p-1.5 text-text-secondary/50 hover:text-warning hover:bg-warning/10 disabled:opacity-40 transition-colors"
+                          title="เก็บถาวร"
                         >
-                          เก็บถาวร
+                          <BookmarkIcon className="h-4 w-4" />
                         </button>
                       )}
+                      <button
+                        onClick={(ev) => {
+                          ev.preventDefault();
+                          ev.stopPropagation();
+                          requestAction("delete", [e.id], [e.title]);
+                        }}
+                        disabled={acting}
+                        className="rounded-lg p-1.5 text-text-secondary/50 hover:text-error hover:bg-error/10 disabled:opacity-40 transition-colors"
+                        title="ลบถาวร"
+                      >
+                        <CloseIcon className="h-4 w-4" />
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -923,20 +1018,23 @@ export default function StudioDashboardPage() {
 
                   <div className="flex items-center gap-3 shrink-0">
                     <span
-                      className="rounded-full px-2.5 py-0.5 text-[11px] font-medium"
+                      className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-medium leading-relaxed"
                       style={{
                         backgroundColor: `${statusAccent(e.status)}15`,
                         color: statusAccent(e.status),
                       }}
                     >
+                      <span
+                        className="h-1.5 w-1.5 rounded-full"
+                        style={{ backgroundColor: statusAccent(e.status) }}
+                      />
                       {statusLabel(e.status)}
                     </span>
 
-                    {/* Contextual actions for admins */}
-                    <div className="flex items-center gap-1.5 opacity-40 group-hover:opacity-100 transition-opacity">
+                    <div className="flex items-center gap-1.5">
                       <Link
                         href={`/studio/editor?slug=${e.slug}`}
-                        className="rounded-lg p-1.5 text-text-secondary hover:text-accent hover:bg-accent/10 transition-colors"
+                        className="rounded-lg p-1.5 text-text-secondary/50 hover:text-accent hover:bg-accent/10 transition-colors"
                         title="แก้ไขบทความ"
                       >
                         <EditorIcon name="edit_note" className="h-4 w-4" />
@@ -945,12 +1043,20 @@ export default function StudioDashboardPage() {
                         <button
                           onClick={() => requestAction("archive", [e.id], [e.title])}
                           disabled={acting}
-                          className="rounded-lg px-2 py-1 text-[11px] font-medium text-text-secondary hover:text-warning hover:bg-warning/10 disabled:opacity-40 transition-colors"
-                          title="เก็บถาวร (ไม่แสดงสาธารณะ)"
+                          className="rounded-lg p-1.5 text-text-secondary/50 hover:text-warning hover:bg-warning/10 disabled:opacity-40 transition-colors"
+                          title="เก็บถาวร"
                         >
-                          เก็บถาวร
+                          <BookmarkIcon className="h-4 w-4" />
                         </button>
                       )}
+                      <button
+                        onClick={() => requestAction("delete", [e.id], [e.title])}
+                        disabled={acting}
+                        className="rounded-lg p-1.5 text-text-secondary/50 hover:text-error hover:bg-error/10 disabled:opacity-40 transition-colors"
+                        title="ลบถาวร"
+                      >
+                        <CloseIcon className="h-4 w-4" />
+                      </button>
                     </div>
                   </div>
                 </div>

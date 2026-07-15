@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckIcon } from "@/components/icons";
+import { BookmarkIcon, CheckIcon, CloseIcon } from "@/components/icons";
 
 type BulkActionBarProps = {
   totalItems: number;
@@ -31,33 +31,37 @@ export function BulkActionBar({
     <div className="sticky top-0 z-20 flex flex-wrap items-center gap-2 rounded-xl border border-border/50 bg-bg-card/95 p-3 shadow-sm backdrop-blur">
       <button
         onClick={onSelectAllToggle}
-        className="rounded-md px-3 py-1.5 text-xs font-medium text-text-secondary hover:text-text-heading transition-colors"
+        className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium text-text-secondary hover:text-text-heading transition-colors"
       >
+        <CheckIcon className="h-3.5 w-3.5" />
         {allSelected ? "ยกเลิกการเลือก" : "เลือกทั้งหมด"}
       </button>
-      <span className="text-xs text-text-secondary/80">
-        {selectedCount} รายการที่เลือก
+      <span className="text-xs text-text-secondary/60">
+        {selectedCount} รายการ
       </span>
-      <div className="ml-auto flex items-center gap-2">
+      <div className="ml-auto flex items-center gap-1.5">
         {onArchive && (
           <button
             onClick={onArchive}
             disabled={acting || archiveDisabled}
-            className="rounded-md border border-text-heading/20 px-3 py-1.5 text-xs font-medium text-text-heading hover:border-warning hover:bg-warning/5 disabled:opacity-40 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-warning/30 px-3 py-1.5 text-xs font-medium text-warning transition-colors hover:bg-warning/10 disabled:opacity-40"
           >
+            <BookmarkIcon className="h-3.5 w-3.5" />
             เก็บถาวร{archiveCount ? ` (${archiveCount})` : ""}
           </button>
         )}
+        <span className="mx-0.5 h-5 w-px bg-border/40" aria-hidden="true" />
         <button
           onClick={onDelete}
           disabled={acting || selectedCount === 0}
-          className="rounded-md bg-error px-3 py-1.5 text-xs font-semibold text-text-inverse hover:brightness-110 disabled:opacity-40 transition-all"
+          className="inline-flex items-center gap-1.5 rounded-lg bg-error/10 px-3 py-1.5 text-xs font-semibold text-error transition-all hover:bg-error/20 disabled:opacity-40"
         >
+          <CloseIcon className="h-3.5 w-3.5" />
           ลบถาวร ({selectedCount})
         </button>
         <button
           onClick={onCancel}
-          className="rounded-md px-3 py-1.5 text-xs text-text-secondary hover:text-text-heading transition-colors"
+          className="rounded-lg px-3 py-1.5 text-xs text-text-secondary hover:text-text-heading transition-colors"
         >
           เลิกเลือก
         </button>
@@ -128,12 +132,16 @@ export function SelectRow({
         )}
       </div>
       <span
-        className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
+        className="inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-semibold leading-relaxed"
         style={{
           backgroundColor: `${statusBadge.color}15`,
           color: statusBadge.color,
         }}
       >
+        <span
+          className="h-1.5 w-1.5 rounded-full"
+          style={{ backgroundColor: statusBadge.color }}
+        />
         {statusBadge.label}
       </span>
     </button>

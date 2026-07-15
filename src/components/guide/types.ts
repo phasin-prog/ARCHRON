@@ -25,6 +25,9 @@ export interface InvoiceData {
   status: PaymentStatus;
   paymentMethod: string;
   promptPayNumber: string;
+  slipImageUrl?: string;
+  reportPdfUrl?: string;
+  notes?: string;
 }
 
 export interface AppointmentItem {
@@ -380,7 +383,14 @@ export const SAMPLE_INVOICE: InvoiceData = {
   amount: 399.00,
   status: "paid",
   paymentMethod: "PromptPay QR Code",
-  promptPayNumber: "081-538-2404",
+  promptPayNumber: "xxx-x-x6727-x (นาย พศิน พสุมาตร)",
+};
+
+export const SAMPLE_PENDING_INVOICE: InvoiceData = {
+  ...SAMPLE_INVOICE,
+  invoiceNumber: "INV-20260715-0102",
+  customerName: "คุณผู้สำรวจ โครงสร้างจิต",
+  status: "pending",
 };
 
 export function generateInvoiceNumber(): string {
@@ -411,7 +421,7 @@ export function generateInvoiceData(formData: BookingFormData, invoiceNumber: st
     amount: 399.00,
     status: "pending",
     paymentMethod: "PromptPay QR Code",
-    promptPayNumber: "081-538-2404",
+    promptPayNumber: "xxx-x-x6727-x (นาย พศิน พสุมาตร)",
   };
 }
 

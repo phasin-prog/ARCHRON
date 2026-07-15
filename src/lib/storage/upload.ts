@@ -12,6 +12,7 @@ const ALLOWED_TYPES = [
   "image/gif",
   "image/svg+xml",
   "image/avif",
+  "application/pdf",
   "text/markdown",
   "text/plain",
 ];

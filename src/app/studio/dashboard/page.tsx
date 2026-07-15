@@ -389,6 +389,15 @@ export default function StudioDashboardPage() {
                 <EditorIcon name="edit_note" className="h-4 w-4" />
                 <span>เขียนบทความใหม่</span>
               </Link>
+              {admin && (
+                <Link
+                  href="/studio/invoices"
+                  className="group inline-flex items-center gap-2 rounded-xl border border-accent/40 bg-accent/10 px-5 py-2.5 text-sm font-semibold text-accent shadow-2xs transition-all duration-300 hover:bg-accent/20 hover:border-accent"
+                >
+                  <span className="flex h-2 w-2 rounded-full bg-accent animate-pulse" />
+                  <span>📑 จัดการคิวและสลิป R2 (Invoices)</span>
+                </Link>
+              )}
             </div>
           </div>
 

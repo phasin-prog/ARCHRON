@@ -1,5 +1,3 @@
-"use client";
-
 import { FEATURE_ITEMS, type FeatureCardItem } from "@/components/guide/types";
 import {
   AuthorPenIcon,

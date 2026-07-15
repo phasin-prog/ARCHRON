@@ -813,27 +813,28 @@ export function LanternIcon({ className = "h-5 w-5", style }: IconProps) {
   );
 }
 
-// ARCHRON mark — วงกลมเปิด (ความรู้ไม่สิ้นสุด) + จุดศูนย์กลาง (มนุษย์)
-export function ArchronMark({ className = "h-5 w-5" }: IconProps) {
+/* eslint-disable @next/next/no-img-element */
+// ARCHRON mark — The Spiral of Becoming (Golden Dragon Spiral)
+export function ArchronMark({ className = "h-5 w-5", style }: IconProps) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="8" fill="currentColor" opacity={0.4} />
-      <circle cx="12" cy="12" r="1.5" fill="currentColor" />
-    </svg>
+    <img
+      src="/spiral_of_becoming_logo_high_res.svg"
+      alt="Archron Mark"
+      className={className}
+      style={{ objectFit: "contain", ...style }}
+    />
   );
 }
 
-// ARCHRON Logomark — vesica: วงรอบ (อารยธรรม) + สองวงซ้อน (จุดตัดของศาสตร์) + จุดศูนย์กลาง (มนุษย์)
-export function ArchronLogomark({ className = "h-7 w-7" }: IconProps) {
+// ARCHRON Logomark — The Spiral of Becoming (Golden Dragon Spiral)
+export function ArchronLogomark({ className = "h-7 w-7", style }: IconProps) {
   return (
-    <svg className={className} viewBox="0 0 48 48" fill="none" aria-hidden="true">
-      <circle cx="24" cy="24" r="21" fill="currentColor" opacity={0.4} />
-      <circle cx="17.5" cy="24" r="12.5" fill="currentColor" />
-      <circle cx="30.5" cy="24" r="12.5" fill="currentColor" />
-      <circle cx="24" cy="3.5" r="1.4" fill="currentColor" />
-      <circle cx="24" cy="44.5" r="1.4" fill="currentColor" />
-      <circle cx="24" cy="24" r="2.6" fill="currentColor" />
-    </svg>
+    <img
+      src="/spiral_of_becoming_logo_high_res.svg"
+      alt="Archron Logo"
+      className={className}
+      style={{ objectFit: "contain", ...style }}
+    />
   );
 }
 

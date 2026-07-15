@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Modal } from "@/components/modal";
 import type { InvoiceData, PaymentStatus } from "@/components/guide/types";
 import { AuthorPenIcon } from "@/components/icons";
@@ -54,6 +55,34 @@ export function InvoicePreview({
 
   if (!invoice) return null;
 
+  const handleRealSlipUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    const file = e.target.files[0];
+    setIsVerifying(true);
+    setNotification(null);
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("invoiceNumber", invoice.invoiceNumber);
+
+    try {
+      const res = await fetch("/api/upload/slip", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "อัปโหลดสลิปไม่สำเร็จ");
+      }
+      onPaymentVerified(invoice.invoiceNumber);
+      setNotification("✓ อัปโหลดสลิปเข้าสู่ระบบ Cloudflare R2 เรียบร้อยแล้ว! ทีมงานจะตรวจสอบและยืนยันนัดหมายทางอีเมลโดยเร็วที่สุด");
+    } catch (err) {
+      setNotification(`✕ ${err instanceof Error ? err.message : "เกิดข้อผิดพลาดในการอัปโหลด"}`);
+    } finally {
+      setIsVerifying(false);
+    }
+  };
+
   const handleSimulatePayment = async () => {
     setIsVerifying(true);
     setNotification(null);
@@ -82,11 +111,40 @@ export function InvoicePreview({
   };
 
   return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      title={`ใบแจ้งยอดชำระเงิน #${invoice.invoiceNumber}`}
-      className="w-[min(95%,700px)]"
+    <>
+      <style jsx global>{`
+        @media print {
+          body * {
+            visibility: hidden !important;
+          }
+          #printable-invoice-area,
+          #printable-invoice-area * {
+            visibility: visible !important;
+          }
+          #printable-invoice-area {
+            position: absolute !important;
+            left: 0 !important;
+            top: 0 !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 30px !important;
+            border: none !important;
+            box-shadow: none !important;
+            background: white !important;
+            color: black !important;
+            z-index: 99999 !important;
+          }
+          .no-print {
+            display: none !important;
+          }
+        }
+      `}</style>
+      <Modal
+        open={open}
+        onClose={onClose}
+        title={`ใบแจ้งยอดชำระเงิน #${invoice.invoiceNumber}`}
+        className="w-[min(95%,700px)]"
       footer={
         <div className="flex w-full flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-2">
@@ -162,7 +220,7 @@ export function InvoicePreview({
         </div>
 
         {/* Invoice Printable Area */}
-        <div className="rounded-xl border border-border/70 bg-bg p-6 shadow-sm">
+        <div id="printable-invoice-area" className="rounded-xl border border-border/70 bg-bg p-6 shadow-sm">
           {/* Header */}
           <div className="flex flex-wrap items-start justify-between gap-4 border-b border-border/50 pb-5">
             <div>
@@ -173,7 +231,9 @@ export function InvoicePreview({
                 </span>
               </div>
               <p className="mt-1 text-xs text-text-secondary/80">
-                Jungian Type Analysis Consulting Institute
+                {invoice.status === "paid" || invoice.status === "completed"
+                  ? "✓ ใบเสร็จรับเงินอย่างเป็นทางการ (Official Receipt / Confirmation)"
+                  : "Jungian Type Analysis Consulting Institute (Invoice)"}
               </p>
             </div>
 
@@ -242,61 +302,53 @@ export function InvoicePreview({
           {invoice.status === "pending" && (
             <div className="mt-5 rounded-lg border border-accent/25 bg-accent/5 p-4 text-center">
               <span className="block text-xs font-bold text-accent uppercase tracking-wider">
-                ชำระเงินผ่าน PromptPay QR Code
+                ชำระเงินผ่าน THAI QR PAYMENT / PromptPay
               </span>
               <p className="mt-1 text-[11px] text-text-secondary/90">
-                สแกนผ่านแอปพลิเคชันธนาคารทุกธนาคาร หรือโอนเข้าบัญชี PromptPay: <strong className="font-mono text-text-heading">{invoice.promptPayNumber}</strong> (Phasin Pasumart)
+                สแกนผ่านแอปพลิเคชันธนาคารทุกธนาคาร หรือโอนเข้าบัญชี: <strong className="font-mono text-text-heading">{invoice.promptPayNumber}</strong>
               </p>
 
-              {/* Simulated Professional QR Code Graphic */}
-              <div className="mx-auto mt-4 flex size-[150px] items-center justify-center rounded-lg border-2 border-border/70 bg-bg-card p-3 shadow-inner">
-                <div className="flex size-full flex-col items-center justify-center rounded border border-border/40 bg-bg p-2 font-mono text-[9px] text-text-secondary/60">
-                  <div className="grid grid-cols-5 gap-1 size-20 mb-1.5">
-                    <div className="bg-text-heading size-full rounded-xs" />
-                    <div className="bg-text-heading size-full rounded-xs" />
-                    <div className="bg-text-heading size-full rounded-xs" />
-                    <div className="bg-transparent size-full" />
-                    <div className="bg-text-heading size-full rounded-xs" />
-                    <div className="bg-text-heading size-full rounded-xs" />
-                    <div className="bg-transparent size-full" />
-                    <div className="bg-text-heading size-full rounded-xs" />
-                    <div className="bg-text-heading size-full rounded-xs" />
-                    <div className="bg-text-heading size-full rounded-xs" />
-                    <div className="bg-text-heading size-full rounded-xs" />
-                    <div className="bg-text-heading size-full rounded-xs" />
-                    <div className="bg-text-heading size-full rounded-xs" />
-                    <div className="bg-transparent size-full" />
-                    <div className="bg-text-heading size-full rounded-xs" />
-                    <div className="bg-transparent size-full" />
-                    <div className="bg-text-heading size-full rounded-xs" />
-                    <div className="bg-text-heading size-full rounded-xs" />
-                    <div className="bg-text-heading size-full rounded-xs" />
-                    <div className="bg-transparent size-full" />
-                    <div className="bg-text-heading size-full rounded-xs" />
-                    <div className="bg-text-heading size-full rounded-xs" />
-                    <div className="bg-text-heading size-full rounded-xs" />
-                    <div className="bg-text-heading size-full rounded-xs" />
-                    <div className="bg-text-heading size-full rounded-xs" />
-                  </div>
-                  <span>SCAN PROMPTPAY</span>
-                </div>
+              {/* Official PromptPay QR Code Image */}
+              <div className="mx-auto mt-4 flex flex-col items-center justify-center rounded-xl border-2 border-accent/40 bg-bg-card p-3 shadow-md max-w-[260px]">
+                <Image
+                  src="/promptpay-qr.jpg"
+                  alt="THAI QR PAYMENT - PromptPay นาย พศิน พสุมาตร บัญชี xxx-x-x6727-x"
+                  width={230}
+                  height={300}
+                  className="rounded object-contain w-full h-auto"
+                  priority
+                  unoptimized
+                />
               </div>
 
-              <div className="mt-4">
+              <div className="mt-4 flex flex-wrap items-center justify-center gap-2 no-print">
+                <label className="cursor-pointer inline-flex items-center gap-2 rounded-md bg-success px-5 py-2.5 text-xs font-bold text-white shadow-sm transition-all hover:bg-success/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success disabled:opacity-60">
+                  {isVerifying ? (
+                    <>
+                      <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                      <span>กำลังส่งไฟล์สลิป...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>📤 แนบสลิปชำระเงินจริง (Cloudflare R2)</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        disabled={isVerifying}
+                        onChange={handleRealSlipUpload}
+                        className="hidden"
+                      />
+                    </>
+                  )}
+                </label>
+
                 <button
                   type="button"
                   onClick={handleSimulatePayment}
                   disabled={isVerifying}
-                  className="inline-flex items-center gap-2 rounded-md bg-accent px-5 py-2.5 text-xs font-semibold text-text-inverse shadow-sm transition-all hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent disabled:opacity-60"
+                  className="inline-flex items-center gap-1.5 rounded-md border border-border bg-bg-card px-4 py-2.5 text-xs font-semibold text-text-secondary hover:border-accent hover:text-accent focus-visible:outline-none disabled:opacity-60"
                 >
-                  {isVerifying ? (
-                    <>
-                      <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-text-inverse border-t-transparent" />
-                      <span>กำลังตรวจสอบหลักฐาน...</span>
-                    </>
-                  ) : (
-                    <span>[ จำลอง ] แจ้งสลิปชำระเงิน &amp; ยืนยันคิวทันที</span>
-                  )}
+                  <span>[ จำลอง ] ยืนยันสลิปทันที</span>
                 </button>
               </div>
             </div>
@@ -315,5 +367,6 @@ export function InvoicePreview({
         </div>
       </div>
     </Modal>
+    </>
   );
 }

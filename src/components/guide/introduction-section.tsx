@@ -1,5 +1,3 @@
-"use client";
-
 import { PsychologyIcon, SynthesisIcon, GridIcon } from "@/components/icons";
 
 export function IntroductionSection() {

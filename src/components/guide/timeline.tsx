@@ -1,5 +1,3 @@
-"use client";
-
 import { TIMELINE_STEPS } from "@/components/guide/types";
 
 export function AnalysisTimeline() {

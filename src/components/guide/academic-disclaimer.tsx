@@ -1,5 +1,3 @@
-"use client";
-
 import { BOUNDARIES_ITEMS } from "@/components/guide/types";
 
 export function AcademicDisclaimer() {

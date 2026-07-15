@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { CONTACT_CHANNELS, type ContactChannelItem } from "@/components/guide/types";
 import { PersonIcon, SchoolIcon } from "@/components/icons";

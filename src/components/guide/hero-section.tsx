@@ -7,9 +7,10 @@ import { PsycheCompass } from "@/components/guide/psyche-compass";
 interface HeroSectionProps {
   onBookClick: () => void;
   onPricingClick: () => void;
+  onPreviewInvoiceClick?: () => void;
 }
 
-export function HeroSection({ onBookClick, onPricingClick }: HeroSectionProps) {
+export function HeroSection({ onBookClick, onPricingClick, onPreviewInvoiceClick }: HeroSectionProps) {
   return (
     <section className="relative overflow-hidden border-b border-border/40 bg-bg px-6 py-20 lg:py-28">
       {/* Subtle academic background glow */}
@@ -54,7 +55,7 @@ export function HeroSection({ onBookClick, onPricingClick }: HeroSectionProps) {
               สแกนและอ่านโครงสร้างความโน้มเอียงของ Ego ในการรับและตัดสินข้อมูล เพื่อทำความเข้าใจทิศทางพลังงานจิต (Introversion / Extraversion) พร้อมประเมิน Function Stack ค้นหากลไกป้องกันตัวและการตอบสนองยามตกอยู่ภายใต้ความเครียดเชิงลึกอย่างมีสติ
             </p>
 
-            <div className="mt-9 flex flex-wrap items-center gap-4">
+            <div className="mt-9 flex flex-wrap items-center gap-3">
               <button
                 type="button"
                 onClick={onBookClick}
@@ -71,6 +72,16 @@ export function HeroSection({ onBookClick, onPricingClick }: HeroSectionProps) {
               >
                 ตรวจสอบราคาและเงื่อนไข
               </button>
+
+              {onPreviewInvoiceClick && (
+                <button
+                  type="button"
+                  onClick={onPreviewInvoiceClick}
+                  className="rounded-md border border-accent/40 bg-accent/10 px-6 py-4 text-sm font-semibold text-accent transition-colors duration-200 hover:bg-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                >
+                  📄 ดูตัวอย่างใบแจ้งยอด (รอชำระเงิน)
+                </button>
+              )}
             </div>
 
             <div className="mt-8 flex items-center gap-6 border-t border-border/30 pt-6 text-xs text-text-secondary/80">

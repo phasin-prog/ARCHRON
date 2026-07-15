@@ -1,5 +1,3 @@
-"use client";
-
 import { SCOPE_ITEMS, type ScopeCardItem } from "@/components/guide/types";
 import {
   SynthesisIcon,

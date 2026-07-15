@@ -4,9 +4,10 @@ import { ArrowRightIcon } from "@/components/icons";
 
 interface PricingSectionProps {
   onBookClick: () => void;
+  onPreviewInvoiceClick?: () => void;
 }
 
-export function PricingSection({ onBookClick }: PricingSectionProps) {
+export function PricingSection({ onBookClick, onPreviewInvoiceClick }: PricingSectionProps) {
   return (
     <section id="pricing" className="border-b border-border/30 bg-bg px-6 py-20 lg:py-24">
       <div className="mx-auto max-w-5xl">
@@ -49,7 +50,7 @@ export function PricingSection({ onBookClick }: PricingSectionProps) {
                 <div className="flex flex-col">
                   <span className="text-sm font-semibold text-text-heading">บาท / ครั้ง</span>
                   <span className="text-[11px] text-text-secondary/70">
-                    (ผ่านพ้นกำหนดราคาทดลอง 249 บาท เมื่อ 30 มิ.ย. 69)
+                    (ผ่านพ้นกำหนดราคатดลอง 249 บาท เมื่อ 30 มิ.ย. 69)
                   </span>
                 </div>
               </div>
@@ -86,6 +87,16 @@ export function PricingSection({ onBookClick }: PricingSectionProps) {
                 <span>จองคิวนัดหมาย (Book Session)</span>
                 <ArrowRightIcon className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
               </button>
+
+              {onPreviewInvoiceClick && (
+                <button
+                  type="button"
+                  onClick={onPreviewInvoiceClick}
+                  className="mt-2.5 flex w-full items-center justify-center gap-2 rounded-md border border-accent/40 bg-accent/10 py-3 text-xs font-semibold text-accent transition-all duration-200 hover:bg-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                >
+                  <span>📄 ดูตัวอย่างใบแจ้งยอด (รอชำระเงิน)</span>
+                </button>
+              )}
 
               <div className="mt-3 text-center text-[11px] text-text-secondary/75">
                 <span className="font-semibold text-accent/90">ไม่มีค่าใช้จ่ายแฝงใดๆ ทั้งสิ้น</span> · ชำระเงินผ่าน PromptPay หรือโอนธนาคารเมื่อจองสำเร็จ

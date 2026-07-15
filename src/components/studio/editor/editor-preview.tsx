@@ -37,7 +37,6 @@ const CT_LABEL: Record<string, string> = {
   concept: "แนวคิด",
   person: "นักปราชญ์",
   book: "หนังสือ",
-  school: "สำนักคิด",
   symbol: "สัญลักษณ์",
   term: "ศัพท์",
   "reading-set": "ชุดการอ่าน",
@@ -383,26 +382,6 @@ export function EditorPreview({
               <div>
                 <span className="text-text-secondary">ISBN: </span>
                 <span>{draft.isbn}</span>
-              </div>
-            ) : null}
-          </div>
-        </section>
-      ) : null}
-
-      {draft.contentType === "school" ? (
-        <section className="mt-14">
-          <SectionH3 icon={ScholarIcon}>ข้อมูลสำนักคิด</SectionH3>
-          <div className="archron-panel mt-4 p-5 space-y-3 text-sm text-text-body">
-            {draft.founder ? (
-              <div>
-                <span className="text-text-secondary">ผู้ก่อตั้ง: </span>
-                <span>{draft.founder}</span>
-              </div>
-            ) : null}
-            {draft.period ? (
-              <div>
-                <span className="text-text-secondary">ยุคสมัย: </span>
-                <span>{draft.period}</span>
               </div>
             ) : null}
           </div>

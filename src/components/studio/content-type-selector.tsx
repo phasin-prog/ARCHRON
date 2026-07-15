@@ -33,12 +33,6 @@ const CONTENT_TYPE_OPTIONS: ContentTypeOption[] = [
     accent: "var(--color-quote)",
   },
   {
-    type: "school",
-    description: "สำนักคิดหรือประเพณีทางปัญญา",
-    fields: ["Title", "Thai Title", "Aliases", "Tags", "คำอธิบาย"],
-    accent: "var(--color-thinker)",
-  },
-  {
     type: "book",
     description: "หนังสือหรืองานเขียนสำคัญ",
     fields: ["Title", "Aliases", "Framework", "Tags", "ผู้เขียน"],

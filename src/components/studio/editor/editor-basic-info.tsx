@@ -70,7 +70,6 @@ export function EditorBasicInfo({
             <option value="concept">แนวคิด (Concept)</option>
             <option value="person">นักคิด (Person)</option>
             <option value="book">หนังสือ (Book)</option>
-            <option value="school">สำนักคิด (School)</option>
             <option value="symbol">สัญลักษณ์ (Symbol)</option>
             <option value="term">คำศัพท์ (Term)</option>
           </select>

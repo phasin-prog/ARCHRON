@@ -38,19 +38,29 @@ export function ScrollReveal() {
     );
 
     const all = document.querySelectorAll<HTMLElement>(".scroll-reveal");
+    const viewportThreshold = window.innerHeight * 0.98;
 
-    for (const el of all) {
-      if (el.getBoundingClientRect().top < window.innerHeight * 0.98) {
+    const geometryPass = Array.from(all).map((el) => ({
+      el,
+      top: el.getBoundingClientRect().top,
+    }));
+
+    for (const { el, top } of geometryPass) {
+      if (top < viewportThreshold) {
         el.classList.add("visible");
       } else {
-        observerRef.current.observe(el);
+        observerRef.current?.observe(el);
       }
     }
 
     const settle = setTimeout(() => {
       const remaining = document.querySelectorAll<HTMLElement>(".scroll-reveal:not(.visible)");
-      for (const el of remaining) {
-        if (el.getBoundingClientRect().top < window.innerHeight * 0.98) {
+      const geometrySettle = Array.from(remaining).map((el) => ({
+        el,
+        top: el.getBoundingClientRect().top,
+      }));
+      for (const { el, top } of geometrySettle) {
+        if (top < viewportThreshold) {
           el.classList.add("visible");
         } else {
           observerRef.current?.observe(el);

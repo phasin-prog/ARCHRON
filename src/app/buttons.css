@@ -19,7 +19,7 @@
   border: 1px solid transparent;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
   text-decoration: none;
   white-space: nowrap;
 }
@@ -33,13 +33,13 @@
 .btn-sm {
   padding: 0.375rem 0.75rem;
   font-size: 0.75rem;
-  min-height: 44px;
+  min-height: 36px;
 }
 
 .btn-md {
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
-  min-height: 44px;
+  min-height: 40px;
 }
 
 .btn-lg {
@@ -50,7 +50,7 @@
 
 /* ---- Button Variants ---- */
 
-/* Primary (Gold) */
+/* Primary (Accent) */
 .btn-primary {
   background: var(--color-accent);
   color: var(--color-text-inverse);
@@ -58,7 +58,7 @@
 }
 
 .btn-primary:hover {
-  filter: brightness(1.05);
+  background: var(--color-accent-hover);
   box-shadow: 0 2px 8px color-mix(in srgb, var(--color-accent) 30%, transparent);
 }
 
@@ -202,7 +202,7 @@
   justify-content: center;
   box-shadow: 0 4px 12px color-mix(in srgb, var(--color-accent) 30%, transparent);
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
   z-index: var(--z-nav);
 }
 

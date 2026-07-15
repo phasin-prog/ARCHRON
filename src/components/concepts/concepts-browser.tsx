@@ -20,10 +20,13 @@ const NODE_LABEL: Record<NodeType, string> = {
   term: "คำศัพท์",
 };
 
+const ITEMS_PER_PAGE = 24;
+
 export function ConceptsBrowser({ concepts, publishedSlugs }: ConceptsBrowserProps) {
   const [query, setQuery] = useState("");
   const [selectedType, setSelectedType] = useState<NodeType | "all">("all");
   const [showStubs, setShowStubs] = useState(true);
+  const [page, setPage] = useState(1);
 
   const publishedSet = useMemo(() => new Set(publishedSlugs), [publishedSlugs]);
   const debouncedQuery = useDebounce(query, 200);
@@ -70,6 +73,26 @@ export function ConceptsBrowser({ concepts, publishedSlugs }: ConceptsBrowserPro
     };
   }, [filtered, publishedSet]);
 
+  const totalItems = realConcepts.length + (showStubs ? stubConcepts.length : 0);
+  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+
+  const { paginatedReal, paginatedStubs } = useMemo(() => {
+    const start = (page - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
+    if (start < realConcepts.length) {
+      const pReal = realConcepts.slice(start, end);
+      const remainingSlots = Math.max(0, ITEMS_PER_PAGE - pReal.length);
+      const pStubs = showStubs ? stubConcepts.slice(0, remainingSlots) : [];
+      return { paginatedReal: pReal, paginatedStubs: pStubs };
+    } else {
+      const stubStart = start - realConcepts.length;
+      return {
+        paginatedReal: [],
+        paginatedStubs: showStubs ? stubConcepts.slice(stubStart, stubStart + ITEMS_PER_PAGE) : [],
+      };
+    }
+  }, [realConcepts, stubConcepts, showStubs, page]);
+
   return (
     <div className="space-y-8">
       {/* แท่งค้นหาและตัวกรอง */}
@@ -79,13 +102,24 @@ export function ConceptsBrowser({ concepts, publishedSlugs }: ConceptsBrowserPro
           <SearchIcon className="h-5 w-5 text-accent" />
           <input
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setPage(1);
+            }}
             placeholder="ค้นหาชื่อแนวคิด คำแปล หรือคำอธิบายย่อ..."
             aria-label="ค้นหาแนวคิด"
             className="w-full bg-transparent text-sm text-text-heading focus-visible:outline-none placeholder:text-text-secondary/50"
           />
           {query ? (
-            <button type="button" onClick={() => setQuery("")} aria-label="ล้างคำค้น" className="rounded-md p-1 text-text-secondary hover:text-accent hover:bg-bg-card focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:outline-none">
+            <button
+              type="button"
+              onClick={() => {
+                setQuery("");
+                setPage(1);
+              }}
+              aria-label="ล้างคำค้น"
+              className="rounded-md p-1 text-text-secondary hover:text-accent hover:bg-bg-card focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:outline-none"
+            >
               <CloseIcon className="h-4.5 w-4.5" />
             </button>
           ) : null}
@@ -94,7 +128,10 @@ export function ConceptsBrowser({ concepts, publishedSlugs }: ConceptsBrowserPro
         {/* เลือกประเภท */}
         <select
           value={selectedType}
-          onChange={(e) => setSelectedType(e.target.value as any)}
+          onChange={(e) => {
+            setSelectedType(e.target.value as any);
+            setPage(1);
+          }}
           aria-label="กรองตามประเภท"
           className="rounded-lg border border-text-heading/12 bg-bg-card/60 px-3 py-2.5 text-sm text-text-heading focus-visible:ring-2 focus-visible:ring-accent/30 focus-visible:outline-none focus:border-accent/45 transition-colors"
         >
@@ -114,7 +151,10 @@ export function ConceptsBrowser({ concepts, publishedSlugs }: ConceptsBrowserPro
         </p>
         <button
           type="button"
-          onClick={() => setShowStubs((prev) => !prev)}
+          onClick={() => {
+            setShowStubs((prev) => !prev);
+            setPage(1);
+          }}
           className="flex items-center gap-1.5 rounded border border-border/30 bg-bg-card/40 px-2.5 py-1 transition-colors hover:border-accent/40 hover:text-accent"
         >
           <EyeIcon className="h-4 w-4 shrink-0 text-accent stroke-[1.75]" aria-hidden="true" />
@@ -123,36 +163,63 @@ export function ConceptsBrowser({ concepts, publishedSlugs }: ConceptsBrowserPro
       </div>
 
       {/* ส่วนที่ 1: รายการที่มีเนื้อหาแล้ว (เผยแพร่แล้ว) */}
-      <div className="space-y-4">
-        <h2 className="font-serif text-lg font-semibold text-accent flex items-center gap-2">
-          <CheckIcon className="h-4 w-4 shrink-0 text-accent stroke-[1.75]" aria-hidden="true" />
-          ชิ้นความรู้ที่เรียบเรียงแล้ว ({realConcepts.length})
-        </h2>
-        {realConcepts.length === 0 ? (
-          <p className="rounded-md border border-text-heading/10 bg-bg-card/20 p-8 text-center text-sm text-text-secondary/50">
-            ยังไม่มีชิ้นความรู้ในกลุ่มนี้ที่ได้รับการเผยแพร่ (ค้นหาในกลุ่มโครงร่างเพิ่มเติมด้านล่าง)
-          </p>
-        ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {realConcepts.map((c) => (
-              <ConceptCard key={c.slug} c={c} hasRealContent={true} />
-            ))}
-          </div>
-        )}
-      </div>
+      {(paginatedReal.length > 0 || realConcepts.length === 0) && (
+        <div className="space-y-4">
+          <h2 className="font-serif text-lg font-semibold text-accent flex items-center gap-2">
+            <CheckIcon className="h-4 w-4 shrink-0 text-accent stroke-[1.75]" aria-hidden="true" />
+            ชิ้นความรู้ที่เรียบเรียงแล้ว ({realConcepts.length})
+          </h2>
+          {realConcepts.length === 0 ? (
+            <p className="rounded-md border border-text-heading/10 bg-bg-card/20 p-8 text-center text-sm text-text-secondary/50">
+              ยังไม่มีชิ้นความรู้ในกลุ่มนี้ที่ได้รับการเผยแพร่ (ค้นหาในกลุ่มโครงร่างเพิ่มเติมด้านล่าง)
+            </p>
+          ) : paginatedReal.length > 0 ? (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {paginatedReal.map((c) => (
+                <ConceptCard key={c.slug} c={c} hasRealContent={true} />
+              ))}
+            </div>
+          ) : null}
+        </div>
+      )}
 
       {/* ส่วนที่ 2: โครงร่างรอเขียน (Stubs) */}
-      {showStubs && stubConcepts.length > 0 && (
+      {showStubs && paginatedStubs.length > 0 && (
         <div className="mt-12 space-y-4 border-t border-border/20 pt-8">
           <h2 className="font-serif text-lg font-semibold text-text-secondary flex items-center gap-2">
             <ClockIcon className="h-4 w-4 shrink-0 text-text-secondary stroke-[1.75]" aria-hidden="true" />
             โครงร่างและบันทึกความรู้ย่อ ({stubConcepts.length})
           </h2>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {stubConcepts.map((c) => (
+            {paginatedStubs.map((c) => (
               <ConceptCard key={c.slug} c={c} hasRealContent={false} />
             ))}
           </div>
+        </div>
+      )}
+
+      {/* ควบคุมปุ่มเปลี่ยนหน้า (Pagination Controls) */}
+      {totalPages > 1 && (
+        <div className="mt-10 flex items-center justify-center gap-4 border-t border-border/10 pt-6 text-sm">
+          <button
+            type="button"
+            disabled={page === 1}
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            className="rounded-lg border border-border/40 bg-bg-card/60 px-4 py-2 font-medium text-text-heading transition-colors hover:border-accent hover:text-accent disabled:pointer-events-none disabled:opacity-40"
+          >
+            ก่อนหน้า
+          </button>
+          <span className="text-text-secondary">
+            หน้า <strong className="font-semibold text-text-heading">{page}</strong> จาก {totalPages}
+          </span>
+          <button
+            type="button"
+            disabled={page === totalPages}
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            className="rounded-lg border border-border/40 bg-bg-card/60 px-4 py-2 font-medium text-text-heading transition-colors hover:border-accent hover:text-accent disabled:pointer-events-none disabled:opacity-40"
+          >
+            ถัดไป
+          </button>
         </div>
       )}
     </div>

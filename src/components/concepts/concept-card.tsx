@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, type ComponentType, memo } from "react";
+import { useState, useMemo, type ComponentType, memo } from "react";
 import { ContextMenu, type ContextMenuItem } from "@/components/context-menu";
 import type { ConceptRegistryItem } from "@/lib/content/core/registry";
 import {
@@ -42,7 +42,7 @@ const ConceptCardInner = function ConceptCard({ c, hasRealContent = false }: { c
   const accent = NODE_TYPE_COLOR[c.nodeType] ?? "var(--color-accent)";
   const href = `/concepts/${c.slug}`;
 
-  const items: ContextMenuItem[] = [
+  const items: ContextMenuItem[] = useMemo(() => [
     { label: "เปิดหน้าเต็ม", icon: "open_in_full", onSelect: () => router.push(href) },
     {
       label: "ดูในแผนที่ความสัมพันธ์",
@@ -63,7 +63,7 @@ const ConceptCardInner = function ConceptCard({ c, hasRealContent = false }: { c
           .catch(() => {});
       },
     },
-  ];
+  ], [router, href, c.slug]);
 
   return (
     <ContextMenu items={items} className="relative">

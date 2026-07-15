@@ -37,7 +37,7 @@
   border: none;
   cursor: pointer;
   white-space: nowrap;
-  transition: color 0.2s ease;
+  transition: color var(--dur-fast) var(--ease-out);
 }
 
 .archron-tab:hover {
@@ -52,7 +52,7 @@
   right: 0;
   height: 2px;
   background: transparent;
-  transition: background 0.2s ease;
+  transition: background var(--dur-fast) var(--ease-out);
 }
 
 .archron-tab[aria-selected="true"],
@@ -97,7 +97,7 @@
 .archron-breadcrumb-link {
   color: var(--color-text-secondary);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color var(--dur-fast) var(--ease-out);
 }
 
 .archron-breadcrumb-link:hover {
@@ -134,7 +134,7 @@
   border: 1px solid transparent;
   border-radius: 6px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
 }
 
 .archron-page-btn:hover {
@@ -176,7 +176,7 @@
   color: var(--color-text-secondary);
   border-radius: 6px;
   text-decoration: none;
-  transition: all 0.15s ease;
+  transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
 }
 
 .archron-sidenav-item:hover {
@@ -215,7 +215,7 @@
   color: var(--color-text-secondary);
   background: transparent;
   flex-shrink: 0;
-  transition: all 0.2s ease;
+  transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
 }
 
 .archron-step.active .archron-step-number {
@@ -263,7 +263,7 @@
   font-size: 0.8125rem;
   color: var(--color-text-secondary);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color var(--dur-fast) var(--ease-out);
 }
 
 .archron-back:hover {
@@ -288,7 +288,7 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
 }
 
 .archron-pill:hover {
@@ -334,7 +334,7 @@
   color: var(--color-text-secondary);
   text-decoration: none;
   font-size: 0.625rem;
-  transition: color 0.2s ease;
+  transition: color var(--dur-fast) var(--ease-out);
 }
 
 .archron-tabbar-item.active {

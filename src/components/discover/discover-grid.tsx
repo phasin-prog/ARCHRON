@@ -67,24 +67,24 @@ const DIFFICULTY_COLOR: Record<string, string> = {
 export function DiscoverGrid({ entries, concepts }: DiscoverGridProps) {
   const [category, setCategory] = useState<DiscoverCategory>("all");
   const [query, setQuery] = useState("");
+  const [page, setPage] = useState(1);
+  const ITEMS_PER_PAGE = 24;
 
   const debouncedQuery = useDebounce(query, 200);
   const q = debouncedQuery.trim().toLowerCase();
 
   // Filter entries by category and query
-  const filteredEntries = useMemo(() => {
-    if (category === "timeline") return [];
+  const { paginatedEntries, totalEntryPages, totalEntriesCount } = useMemo(() => {
+    if (category === "timeline" || category === "concepts" || category === "thinkers") {
+      return { paginatedEntries: [], totalEntryPages: 0, totalEntriesCount: 0 };
+    }
 
     let filtered = entries.filter((e) => e.status === "published");
 
     if (category === "articles") {
       filtered = filtered.filter((e) => e.contentType === "article");
-    } else if (category === "concepts") {
-      filtered = filtered.filter((e) => e.contentType !== "article");
     } else if (category === "books") {
       filtered = filtered.filter((e) => e.contentType === "book");
-    } else if (category === "thinkers") {
-      return [];
     }
 
     if (q) {
@@ -98,16 +98,30 @@ export function DiscoverGrid({ entries, concepts }: DiscoverGridProps) {
       );
     }
 
-    return filtered.sort((a, b) => {
+    filtered.sort((a, b) => {
       const au = a.updatedAt ?? "";
       const bu = b.updatedAt ?? "";
       return bu.localeCompare(au);
     });
-  }, [entries, category, q]);
+
+    if (category === "all") {
+      return { paginatedEntries: filtered.slice(0, 6), totalEntryPages: 1, totalEntriesCount: filtered.length };
+    }
+
+    const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+    const start = (page - 1) * ITEMS_PER_PAGE;
+    return {
+      paginatedEntries: filtered.slice(start, start + ITEMS_PER_PAGE),
+      totalEntryPages: totalPages,
+      totalEntriesCount: filtered.length,
+    };
+  }, [entries, category, q, page]);
 
   // Filter concepts
-  const filteredConcepts = useMemo(() => {
-    if (category !== "all" && category !== "concepts" && category !== "thinkers") return [];
+  const { paginatedConcepts, totalConceptPages, totalConceptCount } = useMemo(() => {
+    if (category !== "all" && category !== "concepts" && category !== "thinkers") {
+      return { paginatedConcepts: [], totalConceptPages: 0, totalConceptCount: 0 };
+    }
 
     let filtered = concepts;
     if (q) {
@@ -118,12 +132,25 @@ export function DiscoverGrid({ entries, concepts }: DiscoverGridProps) {
           c.description?.toLowerCase().includes(q),
       );
     }
-    return filtered.slice(0, 24);
-  }, [concepts, category, q]);
+
+    if (category === "all") {
+      return { paginatedConcepts: filtered.slice(0, 8), totalConceptPages: 1, totalConceptCount: filtered.length };
+    }
+
+    const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+    const start = (page - 1) * ITEMS_PER_PAGE;
+    return {
+      paginatedConcepts: filtered.slice(start, start + ITEMS_PER_PAGE),
+      totalConceptPages: totalPages,
+      totalConceptCount: filtered.length,
+    };
+  }, [concepts, category, q, page]);
 
   // Filter thinkers from concept registry
-  const filteredThinkers = useMemo(() => {
-    if (category !== "all" && category !== "thinkers") return [];
+  const { paginatedThinkers, totalThinkerPages, totalThinkerCount } = useMemo(() => {
+    if (category !== "all" && category !== "thinkers") {
+      return { paginatedThinkers: [], totalThinkerPages: 0, totalThinkerCount: 0 };
+    }
 
     let filtered = concepts.filter((c) => c.nodeType === "person");
     if (q) {
@@ -134,8 +161,19 @@ export function DiscoverGrid({ entries, concepts }: DiscoverGridProps) {
           c.description?.toLowerCase().includes(q),
       );
     }
-    return filtered.slice(0, 24);
-  }, [concepts, category, q]);
+
+    if (category === "all") {
+      return { paginatedThinkers: filtered.slice(0, 8), totalThinkerPages: 1, totalThinkerCount: filtered.length };
+    }
+
+    const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+    const start = (page - 1) * ITEMS_PER_PAGE;
+    return {
+      paginatedThinkers: filtered.slice(start, start + ITEMS_PER_PAGE),
+      totalThinkerPages: totalPages,
+      totalThinkerCount: filtered.length,
+    };
+  }, [concepts, category, q, page]);
 
   return (
     <div>
@@ -148,7 +186,10 @@ export function DiscoverGrid({ entries, concepts }: DiscoverGridProps) {
             placeholder="ค้นหาบทความ แนวคิด นักคิด..."
             aria-label="ค้นหา"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setPage(1);
+            }}
             className="w-full rounded-lg border border-border bg-bg-card py-3 pl-10 pr-4 text-sm text-text-heading placeholder-muted transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
           />
         </div>
@@ -161,7 +202,10 @@ export function DiscoverGrid({ entries, concepts }: DiscoverGridProps) {
           return (
             <button
               key={cat}
-              onClick={() => setCategory(cat)}
+              onClick={() => {
+                setCategory(cat);
+                setPage(1);
+              }}
               className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
                 category === cat
                   ? "bg-accent/15 text-accent"
@@ -179,13 +223,13 @@ export function DiscoverGrid({ entries, concepts }: DiscoverGridProps) {
       <div className="mb-4 text-xs text-text-secondary">
         {category === "all" && (
           <span>
-            {filteredEntries.length + filteredConcepts.length + filteredThinkers.length} รายการ
+            {totalEntriesCount + totalConceptCount + totalThinkerCount} รายการ
           </span>
         )}
-        {category === "articles" && <span>{filteredEntries.length} บทความ</span>}
-        {category === "concepts" && <span>{filteredConcepts.length} แนวคิด</span>}
-        {category === "thinkers" && <span>{filteredThinkers.length} นักคิด</span>}
-        {category === "books" && <span>{filteredEntries.length} หนังสือ</span>}
+        {category === "articles" && <span>{totalEntriesCount} บทความ</span>}
+        {category === "concepts" && <span>{totalConceptCount} แนวคิด</span>}
+        {category === "thinkers" && <span>{totalThinkerCount} นักคิด</span>}
+        {category === "books" && <span>{totalEntriesCount} หนังสือ</span>}
         {category === "timeline" && (
           <Link href="/timeline" className="text-accent hover:underline">
             ไปที่เส้นเวลา →
@@ -195,7 +239,7 @@ export function DiscoverGrid({ entries, concepts }: DiscoverGridProps) {
 
       {/* Entries Grid */}
       {(category === "all" || category === "articles" || category === "books") &&
-        filteredEntries.length > 0 && (
+        paginatedEntries.length > 0 && (
           <div className="mb-12">
             {category === "all" && (
               <h3 className="mb-4 font-serif text-lg font-semibold text-text-heading">
@@ -203,7 +247,7 @@ export function DiscoverGrid({ entries, concepts }: DiscoverGridProps) {
               </h3>
             )}
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {filteredEntries.slice(0, category === "all" ? 6 : undefined).map((entry) => (
+              {paginatedEntries.map((entry) => (
                 <Link
                   key={entry.slug}
                   href={`/articles/${entry.slug}`}
@@ -249,7 +293,7 @@ export function DiscoverGrid({ entries, concepts }: DiscoverGridProps) {
 
       {/* Concepts Grid */}
       {(category === "all" || category === "concepts") &&
-        filteredConcepts.length > 0 && (
+        paginatedConcepts.length > 0 && (
           <div className="mb-12">
             {category === "all" && (
               <h3 className="mb-4 font-serif text-lg font-semibold text-text-heading">
@@ -257,7 +301,7 @@ export function DiscoverGrid({ entries, concepts }: DiscoverGridProps) {
               </h3>
             )}
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {filteredConcepts.slice(0, category === "all" ? 8 : undefined).map((concept) => (
+              {paginatedConcepts.map((concept) => (
                 <Link
                   key={concept.slug}
                   href={`/concepts/${concept.slug}`}
@@ -301,7 +345,7 @@ export function DiscoverGrid({ entries, concepts }: DiscoverGridProps) {
 
       {/* Thinkers Grid */}
       {(category === "all" || category === "thinkers") &&
-        filteredThinkers.length > 0 && (
+        paginatedThinkers.length > 0 && (
           <div className="mb-12">
             {category === "all" && (
               <h3 className="mb-4 font-serif text-lg font-semibold text-text-heading">
@@ -309,7 +353,7 @@ export function DiscoverGrid({ entries, concepts }: DiscoverGridProps) {
               </h3>
             )}
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {filteredThinkers.slice(0, category === "all" ? 8 : undefined).map((thinker) => (
+              {paginatedThinkers.map((thinker) => (
                 <Link
                   key={thinker.slug}
                   href={`/thinkers/${thinker.slug}`}
@@ -330,10 +374,48 @@ export function DiscoverGrid({ entries, concepts }: DiscoverGridProps) {
           </div>
         )}
 
+      {/* Pagination Controls */}
+      {category !== "all" && (
+        (() => {
+          const totalPages =
+            category === "articles" || category === "books"
+              ? totalEntryPages
+              : category === "concepts"
+                ? totalConceptPages
+                : category === "thinkers"
+                  ? totalThinkerPages
+                  : 0;
+          if (totalPages <= 1) return null;
+          return (
+            <div className="mt-10 flex items-center justify-center gap-4 border-t border-border/10 pt-6 text-sm">
+              <button
+                type="button"
+                disabled={page === 1}
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                className="rounded-lg border border-border/40 bg-bg-card/60 px-4 py-2 font-medium text-text-heading transition-colors hover:border-accent hover:text-accent disabled:pointer-events-none disabled:opacity-40"
+              >
+                ก่อนหน้า
+              </button>
+              <span className="text-text-secondary">
+                หน้า <strong className="font-semibold text-text-heading">{page}</strong> จาก {totalPages}
+              </span>
+              <button
+                type="button"
+                disabled={page === totalPages}
+                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                className="rounded-lg border border-border/40 bg-bg-card/60 px-4 py-2 font-medium text-text-heading transition-colors hover:border-accent hover:text-accent disabled:pointer-events-none disabled:opacity-40"
+              >
+                ถัดไป
+              </button>
+            </div>
+          );
+        })()
+      )}
+
       {/* Empty State */}
-      {filteredEntries.length === 0 &&
-        filteredConcepts.length === 0 &&
-        filteredThinkers.length === 0 &&
+      {paginatedEntries.length === 0 &&
+        paginatedConcepts.length === 0 &&
+        paginatedThinkers.length === 0 &&
         category !== "timeline" && (
           <div className="py-12 text-center">
             <SearchIcon className="mx-auto mb-4 h-9 w-9 text-text-secondary/50 stroke-[1.5]" aria-hidden="true" />

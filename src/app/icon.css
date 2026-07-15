@@ -65,7 +65,6 @@
 .archron-icon-box--sm {
   width: 40px;
   height: 40px;
-  border-radius: 10px;
 }
 .archron-icon-box--sm svg {
   width: 20px;
@@ -75,7 +74,6 @@
 .archron-icon-box--md {
   width: 56px;
   height: 56px;
-  border-radius: 12px;
 }
 .archron-icon-box--md svg {
   width: 24px;
@@ -85,7 +83,6 @@
 .archron-icon-box--lg {
   width: 72px;
   height: 72px;
-  border-radius: 16px;
 }
 .archron-icon-box--lg svg {
   width: 32px;

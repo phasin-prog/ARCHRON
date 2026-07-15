@@ -1,7 +1,6 @@
 /* Card Variants — 7 รูปแบบตามประเภทเนื้อหา (Premium Editorial Craft) */
 .archron-card--article {
   --card-accent: var(--color-accent);
-  border-radius: 0.85rem;
 }
 .archron-card--article:hover {
   background: color-mix(in srgb, var(--card-accent) 2.5%, var(--color-bg-card));
@@ -10,7 +9,6 @@
 
 .archron-card--concept {
   --card-accent: var(--color-concept);
-  border-radius: 1.15rem 0.45rem;
 }
 .archron-card--concept:hover {
   background: color-mix(in srgb, var(--card-accent) 3.5%, var(--color-bg-card));
@@ -19,7 +17,6 @@
 
 .archron-card--person {
   --card-accent: var(--color-thinker);
-  border-radius: 0.75rem;
 }
 .archron-card--person:hover {
   background: color-mix(in srgb, var(--card-accent) 3%, var(--color-bg-card));
@@ -28,7 +25,6 @@
 
 .archron-card--book {
   --card-accent: var(--color-accent);
-  border-radius: 0.35rem 1.1rem 1.1rem 0.35rem;
   background: color-mix(in srgb, var(--card-accent) 3%, var(--color-bg-card));
   border: 1px solid color-mix(in srgb, var(--card-accent) 25%, var(--color-border));
 }
@@ -39,7 +35,6 @@
 
 .archron-card--school {
   --card-accent: var(--color-accent);
-  border-radius: 0.45rem;
 }
 .archron-card--school:hover {
   transform: translateY(-3.5px);
@@ -49,7 +44,6 @@
 
 .archron-card--symbol {
   --card-accent: var(--color-text-secondary);
-  border-radius: 0.65rem;
   text-align: center;
 }
 .archron-card--symbol:hover {
@@ -59,7 +53,6 @@
 
 .archron-card--term {
   --card-accent: var(--color-text-body);
-  border-radius: 0.45rem;
   background: color-mix(in srgb, var(--card-accent) 2.5%, var(--color-bg-card));
   border-color: color-mix(in srgb, var(--card-accent) 12%, var(--color-border));
 }
@@ -72,6 +65,6 @@
 
 .card-panel {
   border: 1px solid color-mix(in srgb, var(--color-text-heading) 6%, var(--color-border));
-  border-radius: 0.65rem;
+  border-radius: var(--radius-md);
   background: color-mix(in srgb, var(--color-text-heading) 2.5%, var(--color-bg-card));
 }

@@ -5,6 +5,7 @@ import {
   useEffect,
   useRef,
   useState,
+  memo,
   type ReactNode,
   type MouseEvent,
   type TouchEvent,
@@ -23,7 +24,7 @@ type Pos = { x: number; y: number };
 // ContextMenu — เมนูลัดแบบ wiki (คลิกขวา desktop / กดค้าง touch)
 // ปิดเมื่อ: คลิกนอก · Esc · scroll · resize · clamp ไม่ให้ล้นจอ · กัน click ซ้อนหลัง long-press
 // motion: ใช้ .menu-in เดิม (transform/opacity + เคารพ prefers-reduced-motion)
-export function ContextMenu({
+export const ContextMenu = memo(function ContextMenu({
   items,
   children,
   className,
@@ -168,4 +169,4 @@ export function ContextMenu({
         : null}
     </Wrapper>
   );
-}
+});

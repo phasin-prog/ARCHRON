@@ -6,15 +6,13 @@ import { createPortal } from "react-dom";
 type PopupState = {
   tag: string;
   text: string;
-  x: number;
-  y: number;
   visible: boolean;
 };
 
 export function ConceptPopup() {
   const ref = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
-  const [p, setP] = useState<PopupState>({ tag: "INSIGHT", text: "", x: 0, y: 0, visible: false });
+  const [p, setP] = useState<PopupState>({ tag: "INSIGHT", text: "", visible: false });
   const rafId = useRef<number>(0);
 
   useEffect(() => {
@@ -46,7 +44,9 @@ export function ConceptPopup() {
           const rect = ref.current.getBoundingClientRect();
           if (left + rect.width > window.innerWidth - 20) left = ev.clientX - rect.width - 18;
           if (top + rect.height > window.innerHeight - 20) top = ev.clientY - rect.height - 18;
-          setP((s) => ({ ...s, x: left, y: top }));
+          if (ref.current) {
+            ref.current.style.transform = `translate3d(${left}px, ${top}px, 0) scale(${ref.current.style.opacity === "1" ? 1 : 0.95})`;
+          }
         });
       }
     };
@@ -76,10 +76,10 @@ export function ConceptPopup() {
       ref={ref}
       className="pointer-events-none fixed z-[var(--z-popup)] max-w-sm rounded-2xl border border-accent/50 bg-bg-card/90 p-5 shadow-[0_20px_50px_rgba(0,0,0,0.8)] backdrop-blur-md transition-[opacity,transform] duration-300"
       style={{
-        left: p.x,
-        top: p.y,
+        left: 0,
+        top: 0,
         opacity: p.visible ? 1 : 0,
-        transform: p.visible ? "scale(1) translateY(0)" : "scale(0.95) translateY(8px)",
+        transform: p.visible ? "scale(1)" : "scale(0.95) translateY(8px)",
       }}
     >
       <div className="mb-2.5 flex items-center justify-between gap-3 border-b border-accent/20 pb-2">

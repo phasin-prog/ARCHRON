@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { createClerkSupabaseClient } from "@/lib/supabase/client";
 
@@ -54,7 +54,7 @@ function schedule() {
   });
 }
 
-export function ViewBadge({ slug, className }: { slug: string; className?: string }) {
+export const ViewBadge = memo(function ViewBadge({ slug, className }: { slug: string; className?: string }) {
   const [n, setN] = useState<number | null>(() => (cache.has(slug) ? cache.get(slug)! : null));
 
   useEffect(() => {
@@ -86,4 +86,4 @@ export function ViewBadge({ slug, className }: { slug: string; className?: strin
       {n.toLocaleString("th-TH")}
     </span>
   );
-}
+});

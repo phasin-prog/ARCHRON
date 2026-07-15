@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 // แถบความคืบหน้าการอ่าน — เติมตามระยะเลื่อนภายในเนื้อหาบทความ (#reading-article)
 // สีใช้ dynamic accent (ผูกกับ cosmology ของหน้า) · เคารพ prefers-reduced-motion
 export function ReadingProgress({ targetId = "reading-article" }: { targetId?: string }) {
-  const [pct, setPct] = useState(0);
+  const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = document.getElementById(targetId);
@@ -17,8 +17,11 @@ export function ReadingProgress({ targetId = "reading-article" }: { targetId?: s
       const vh = window.innerHeight || document.documentElement.clientHeight;
       const total = rect.height - vh; // ระยะที่เลื่อนได้ภายในบทความ
       const scrolled = Math.min(Math.max(-rect.top, 0), Math.max(total, 0));
-      const p = total > 0 ? (scrolled / total) * 100 : 0;
-      setPct(Math.min(100, Math.max(0, p)));
+      const p = total > 0 ? Math.min(100, Math.max(0, (scrolled / total) * 100)) : 0;
+      if (barRef.current) {
+        barRef.current.style.transform = `scaleX(${p / 100})`;
+        barRef.current.parentElement?.setAttribute("aria-valuenow", Math.round(p).toString());
+      }
     };
     const onScroll = () => {
       cancelAnimationFrame(raf);
@@ -40,14 +43,16 @@ export function ReadingProgress({ targetId = "reading-article" }: { targetId?: s
       className="pointer-events-none fixed inset-x-0 top-0 z-[var(--z-overlay)] h-[3px] bg-transparent lg:hidden print:hidden"
       role="progressbar"
       aria-label="ความคืบหน้าการอ่าน"
-      aria-valuenow={Math.round(pct)}
+      aria-valuenow={0}
       aria-valuemin={0}
       aria-valuemax={100}
     >
       <div
+        ref={barRef}
         className="h-full origin-left bg-accent transition-transform duration-150 ease-out motion-reduce:transition-none"
-        style={{ transform: `scaleX(${pct / 100})` }}
+        style={{ transform: "scaleX(0)" }}
       />
     </div>
   );
 }
+

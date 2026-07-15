@@ -25,6 +25,19 @@ import {
   EditorPreview, EditorValidationModal,
 } from "@/components/studio/editor";
 import { RevisionPanel } from "@/components/studio/revision-panel";
+import {
+  StudioIdeWorkspace,
+  BlueprintSelectorModal,
+  type SidebarPanelItem,
+} from "@/components/studio/ide";
+import {
+  MetadataReviewPanel,
+  DiagnosticsPanel,
+  OutlinePanel,
+} from "@/components/studio/ide/panels";
+import { parseMdxSemantic } from "@/lib/content/studio/semantic-parser";
+import { evaluateKnowledgeHealth } from "@/lib/content/studio/knowledge-health";
+import type { BlueprintId } from "@/lib/content/studio/blueprints";
 
 export default function StudioEditorPage() {
   const { userId } = useAuth();
@@ -39,6 +52,8 @@ export default function StudioEditorPage() {
   const [revisionKey, setRevisionKey] = useState(0);
   const [loadingDraft, setLoadingDraft] = useState(false);
   const [showValidationModal, setShowValidationModal] = useState(false);
+  const [showBlueprintModal, setShowBlueprintModal] = useState(false);
+  const [showAdvancedForms, setShowAdvancedForms] = useState(false);
 
   const role = roleFromMetadata(user?.publicMetadata);
   const canSave = draft.slug.trim() !== "" && draft.title.trim() !== "";
@@ -47,6 +62,72 @@ export default function StudioEditorPage() {
   const checklist = getPublishChecklist(draft);
 
   const validationResult = useMemo(() => validateEditorDraft(draft), [draft]);
+
+  const analysis = useMemo(
+    () => parseMdxSemantic(draft.bodyMarkdown || ""),
+    [draft.bodyMarkdown]
+  );
+  const healthReport = useMemo(
+    () => evaluateKnowledgeHealth(draft, analysis),
+    [draft, analysis]
+  );
+
+  const sidebarPanels = useMemo<SidebarPanelItem[]>(() => [
+    {
+      id: "outline",
+      label: "โครงสร้าง",
+      icon: "list",
+      badge: analysis.headings.length > 0 ? analysis.headings.length : undefined,
+      content: (
+        <OutlinePanel
+          headings={analysis.headings}
+          onHeadingClick={(id) => {
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+          }}
+        />
+      ),
+    },
+    {
+      id: "health",
+      label: "สุขภาพความรู้",
+      icon: "health_and_safety",
+      badge: `${healthReport.totalScore}/100`,
+      content: (
+        <DiagnosticsPanel
+          report={healthReport}
+          onGoToLineOrSection={(target) => {
+            handleGoToField(String(target));
+          }}
+        />
+      ),
+    },
+    {
+      id: "metadata",
+      label: "ข้อมูลสกัด",
+      icon: "database",
+      content: (
+        <MetadataReviewPanel
+          draft={draft}
+          analysis={analysis}
+          onUpdateDraft={updateField}
+        />
+      ),
+    },
+  ], [analysis, healthReport, draft, updateField]);
+
+  function handleSelectBlueprint(
+    blueprintId: BlueprintId,
+    generatedMdx: string,
+    initialTitle?: string,
+    initialSlug?: string
+  ) {
+    updateField("bodyMarkdown", generatedMdx);
+    if (initialTitle) updateField("title", initialTitle);
+    if (initialSlug) updateField("slug", initialSlug);
+    setShowBlueprintModal(false);
+    showSuccess(`ใช้แม่พิมพ์ความรู้ "${blueprintId}" สำหรับสร้างเนื้อหาแล้ว`);
+  }
 
 
   const deadLinks = useMemo(
@@ -235,26 +316,74 @@ export default function StudioEditorPage() {
 
       <EditorFeedback feedback={feedback} onClose={() => setFeedback(null)} />
 
+      {mode !== "preview" && (
+        <div className="border-b border-border/60 bg-bg-card/50 px-6 py-2.5">
+          <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setShowBlueprintModal(true)}
+                className="inline-flex items-center gap-1.5 rounded-lg border border-accent/40 bg-accent/10 px-3 py-1.5 text-xs font-semibold text-accent hover:bg-accent hover:text-text-inverse transition-all"
+              >
+                <EditorIcon name="auto_awesome" className="h-4 w-4" />
+                📑 เลือกแม่พิมพ์ความรู้ (Knowledge Blueprint)
+              </button>
+            </div>
+            <div className="flex items-center gap-3 text-xs text-text-secondary">
+              <span className="hidden sm:inline">MDX คือแหล่งความรู้หลัก (Single Source of Truth)</span>
+              <button
+                type="button"
+                onClick={() => setShowAdvancedForms((prev) => !prev)}
+                className="underline hover:text-accent transition-colors"
+              >
+                {showAdvancedForms ? "▲ ซ่อนฟอร์มข้อมูลขั้นสูง" : "▼ แสดงฟอร์มข้อมูลขั้นสูง"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {mode === "preview" ? (
         <EditorPreview draft={draft} displayName={state.displayName ?? undefined} />
       ) : (
-        <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
-          <EditorBasicInfo draft={draft} updateField={updateField} validationIssues={validationResult.byField} />
+        <div className="space-y-6">
+          <div className="h-[calc(100vh-140px)] min-h-[600px] border-b border-border">
+            <StudioIdeWorkspace
+              draft={draft}
+              onChangeDraft={updateField}
+              onSave={handleManualSave}
+              onPublish={handlePublish}
+              publishing={state.publishing}
+              autoSaveState={state.autoState}
+              sidebarPanels={sidebarPanels}
+            />
+          </div>
 
-          <EditorBody draft={draft} updateField={updateField} validationIssues={validationResult.byField} />
-          <EditorCta draft={draft} updateField={updateField} />
+          <div className="mx-auto max-w-5xl px-4 pb-12 space-y-8">
+            {showAdvancedForms && (
+              <div className="space-y-8 rounded-xl border border-border bg-bg-card p-6 shadow-xs animate-fade-in">
+                <div className="border-b border-border pb-3">
+                  <h3 className="font-serif text-lg font-bold text-text-heading">🛠️ ฟอร์มแก้ไขข้อมูลขั้นสูง (Advanced Form Overrides)</h3>
+                  <p className="text-xs text-text-secondary">ใช้สำหรับปรับแต่งค่าฟิลด์พิเศษ หรือข้อมูลที่ต้องการกำหนดค่าเฉพาะเจาะจงนอกเหนือจาก MDX</p>
+                </div>
+                <EditorBasicInfo draft={draft} updateField={updateField} validationIssues={validationResult.byField} />
+                <EditorBody draft={draft} updateField={updateField} validationIssues={validationResult.byField} />
+                <EditorCta draft={draft} updateField={updateField} />
+              </div>
+            )}
 
-          <EditorPublishPanel
-            draft={draft} publishTried={state.publishTried}
-            deadLinks={deadLinks} onPublish={handlePublish}
-            publishing={state.publishing} validationIssues={validationResult.all}
-          />
+            <EditorPublishPanel
+              draft={draft} publishTried={state.publishTried}
+              deadLinks={deadLinks} onPublish={handlePublish}
+              publishing={state.publishing} validationIssues={validationResult.all}
+            />
 
-          <RevisionPanel
-            entryId={entryId}
-            reloadKey={revisionKey}
-            onRestore={handleRestore}
-          />
+            <RevisionPanel
+              entryId={entryId}
+              reloadKey={revisionKey}
+              onRestore={handleRestore}
+            />
+          </div>
         </div>
       )}
 
@@ -263,6 +392,13 @@ export default function StudioEditorPage() {
         onClose={() => setShowValidationModal(false)}
         issues={validationResult.all}
         onGoToField={handleGoToField}
+      />
+
+      <BlueprintSelectorModal
+        open={showBlueprintModal}
+        onClose={() => setShowBlueprintModal(false)}
+        onSelectBlueprint={handleSelectBlueprint}
+        currentDraftTitle={draft.title}
       />
     </div>
   );

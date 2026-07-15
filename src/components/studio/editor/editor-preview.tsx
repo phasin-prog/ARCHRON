@@ -12,7 +12,7 @@ import {
   SchoolIcon,
 } from "@/components/icons";
 import { InternalLinkText } from "@/components/reading/internal-link-text";
-import { MarkdownRenderer } from "@/components/reading/markdown-renderer";
+import { SemanticMdxEngine as MarkdownRenderer } from "@/components/reading/semantic-mdx-engine";
 import type { EditorDraft } from "@/lib/content/publishing/publish-validation";
 
 const DIFFICULTY_LABEL: Record<string, string> = {

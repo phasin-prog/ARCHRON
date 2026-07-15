@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { createClient } from "@supabase/supabase-js";
 import {
   listServiceInvoices,
@@ -12,79 +12,42 @@ import { IntroductionSection } from "@/components/guide/introduction-section";
 import { FeatureCards } from "@/components/guide/feature-cards";
 import { AnalysisCards } from "@/components/guide/analysis-cards";
 import { AnalysisTimeline } from "@/components/guide/timeline";
-import { SampleReportPreview } from "@/components/guide/sample-report";
+import { ReportSample } from "@/components/guide/report-sample";
 import { PricingSection } from "@/components/guide/pricing-card";
 import { FAQSection } from "@/components/guide/faq-accordion";
 import { AcademicDisclaimer } from "@/components/guide/academic-disclaimer";
 import { ContactSection } from "@/components/guide/contact-card";
 import { BookingDialog } from "@/components/guide/booking-dialog";
-import { InvoicePreview } from "@/components/guide/invoice-preview";
-import { ClientDashboard } from "@/components/guide/client-dashboard";
+import { InvoiceModal } from "@/components/guide/invoice-modal";
 import {
   generateInvoiceNumber,
   generateInvoiceData,
-  SAMPLE_INVOICE,
-  SAMPLE_PENDING_INVOICE,
   type BookingFormData,
   type InvoiceData,
   type AppointmentItem,
   type ReportItem,
 } from "@/components/guide/types";
-import { PersonIcon, ExplorerIcon } from "@/components/icons";
 
 export function JungianServicePlatform() {
-  const [activeView, setActiveView] = useState<"platform" | "portal">("platform");
   const [platformTab, setPlatformTab] = useState<"overview" | "scope" | "process" | "pricing">("overview");
   const [bookingOpen, setBookingOpen] = useState(false);
   const [invoiceModalOpen, setInvoiceModalOpen] = useState(false);
   const [selectedInvoice, setSelectedInvoice] = useState<InvoiceData | null>(null);
 
-  // Dynamic state simulation for interactive end-to-end user workflow
-  const [invoices, setInvoices] = useState<InvoiceData[]>([SAMPLE_PENDING_INVOICE, SAMPLE_INVOICE]);
-  const [appointments, setAppointments] = useState<AppointmentItem[]>([
-    {
-      id: "APT-SAMPLE-PENDING",
-      invoiceId: SAMPLE_PENDING_INVOICE.invoiceNumber,
-      serviceName: "Jungian Type Analysis - เซสชัน 90 นาที (รอชำระเงิน)",
-      date: SAMPLE_PENDING_INVOICE.appointmentDate,
-      time: SAMPLE_PENDING_INVOICE.appointmentTime,
-      status: "pending",
-      notes: "ตัวอย่างรายการจองคิวใหม่ที่รอการสแกน QR Code หรือจำลองชำระเงิน",
-    },
-    {
-      id: "APT-SAMPLE-01",
-      invoiceId: SAMPLE_INVOICE.invoiceNumber,
-      serviceName: "Jungian Type Analysis - เซสชัน 90 นาที",
-      date: SAMPLE_INVOICE.appointmentDate,
-      time: SAMPLE_INVOICE.appointmentTime,
-      status: "confirmed",
-      notes: "ต้องการปรึกษาเรื่องฟังก์ชัน Dominant และ Shadow ยามความเครียดจากงาน",
-    },
-  ]);
-  const [reports] = useState<ReportItem[]>([
-    {
-      id: "REP-SAMPLE-01",
-      title: "รายงานสรุปจิตวิเคราะห์ Jungian Type Analysis (ฉบับสมบูรณ์)",
-      date: "14 กรกฎาคม 2569",
-      pagesCount: 3,
-      fileSize: "1.4 MB",
-      status: "ready",
-      downloadUrl: "/guide/sample-report",
-    },
-  ]);
+  const [invoices, setInvoices] = useState<InvoiceData[]>([]);
+  const [appointments, setAppointments] = useState<AppointmentItem[]>([]);
+  const [reports] = useState<ReportItem[]>([]);
 
-  // Connect to Supabase for real database persistence if env keys exist
-  const supabaseRef = useRef<ReturnType<typeof createClient> | null>(null);
-  if (!supabaseRef.current) {
+  const supabase = useMemo(() => {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
     if (supabaseUrl && supabaseKey) {
-      supabaseRef.current = createClient(supabaseUrl, supabaseKey);
+      return createClient(supabaseUrl, supabaseKey);
     }
-  }
+    return null;
+  }, []);
 
   useEffect(() => {
-    const supabase = supabaseRef.current;
     if (!supabase) return;
     listServiceInvoices(supabase).then((dbInvoices) => {
       if (dbInvoices && dbInvoices.length > 0) {
@@ -118,7 +81,7 @@ export function JungianServicePlatform() {
         });
       }
     });
-  }, []);
+  }, [supabase]);
 
   const handleOpenBooking = () => {
     setBookingOpen(true);
@@ -150,9 +113,8 @@ export function JungianServicePlatform() {
     setSelectedInvoice(newInvoice);
     setInvoiceModalOpen(true);
 
-    // Persist to Supabase Database asynchronously
-    if (supabaseRef.current) {
-      upsertServiceInvoice(supabaseRef.current, newInvoice, formData.notes);
+    if (supabase) {
+      upsertServiceInvoice(supabase, newInvoice, formData.notes);
     }
 
     // Trigger instant Resend automated email with Invoice & PromptPay QR
@@ -175,9 +137,8 @@ export function JungianServicePlatform() {
       )
     );
 
-    // Update status inside Supabase Database asynchronously
-    if (supabaseRef.current) {
-      updateServiceInvoiceStatus(supabaseRef.current, invoiceNumber, "paid");
+    if (supabase) {
+      updateServiceInvoiceStatus(supabase, invoiceNumber, "paid");
     }
   };
 
@@ -202,53 +163,10 @@ export function JungianServicePlatform() {
 
   return (
     <div className="min-h-screen bg-bg text-text-body">
-      {/* Sub-header Navigation Switcher (Service Platform vs Client Portal) */}
-      <div className="sticky top-[4.5rem] z-30 border-b border-border/60 bg-bg/95 backdrop-blur-md px-6 py-3 shadow-xs">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 text-xs">
-          <div className="flex items-center gap-2">
-            <span className="font-serif font-bold text-text-heading tracking-wider">ARCHRON GUIDE :</span>
-            <span className="text-text-secondary/85 hidden sm:inline">
-              ศูนย์บริการวิเคราะห์โครงสร้างจิต Jungian Type Analysis
-            </span>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => setActiveView("platform")}
-              className={`inline-flex items-center gap-1.5 rounded-md px-3.5 py-1.5 font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
-                activeView === "platform"
-                  ? "bg-accent text-text-inverse shadow-xs"
-                  : "bg-bg-card/80 text-text-body hover:bg-bg-card"
-              }`}
-            >
-              <ExplorerIcon className="h-3.5 w-3.5" />
-              <span>แพลตฟอร์มบริการหลัก</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveView("portal")}
-              className={`inline-flex items-center gap-1.5 rounded-md px-3.5 py-1.5 font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
-                activeView === "portal"
-                  ? "bg-text-heading text-text-inverse shadow-xs"
-                  : "bg-bg-card/80 text-text-body hover:bg-bg-card"
-              }`}
-            >
-              <PersonIcon className="h-3.5 w-3.5" />
-              <span>Client Portal ({appointments.length})</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Content Area */}
-      {activeView === "platform" ? (
-        <main className="pb-20">
+      <main className="pb-20">
           <HeroSection
             onBookClick={handleOpenBooking}
             onPricingClick={handleScrollToPricing}
-            onPreviewInvoiceClick={() => handleOpenInvoiceModal(SAMPLE_PENDING_INVOICE)}
           />
 
           {/* Sticky Platform Navigation Tabs (Eliminates Cognitive Load & Scrolling) */}
@@ -342,7 +260,7 @@ export function JungianServicePlatform() {
             {platformTab === "scope" && (
               <>
                 <AnalysisCards />
-                <SampleReportPreview />
+                <ReportSample />
 
                 {/* Next Tab Strip */}
                 <div className="mx-auto max-w-5xl px-6 py-10">
@@ -403,30 +321,14 @@ export function JungianServicePlatform() {
               <>
                 <PricingSection
                   onBookClick={handleOpenBooking}
-                  onPreviewInvoiceClick={() => handleOpenInvoiceModal(SAMPLE_PENDING_INVOICE)}
                 />
                 <FAQSection />
                 <AcademicDisclaimer />
                 <ContactSection />
               </>
             )}
-          </div>
-        </main>
-      ) : (
-        <main>
-          <ClientDashboard
-            appointments={appointments}
-            invoices={invoices}
-            reports={reports}
-            onOpenInvoice={handleOpenInvoiceModal}
-            onNewBookingClick={() => {
-              setActiveView("platform");
-              setPlatformTab("pricing");
-              setBookingOpen(true);
-            }}
-          />
-        </main>
-      )}
+        </div>
+      </main>
 
       {/* Booking Dialog Modal */}
       <BookingDialog
@@ -435,8 +337,8 @@ export function JungianServicePlatform() {
         onSubmitSuccess={handleBookingSubmitSuccess}
       />
 
-      {/* Invoice Preview Modal */}
-      <InvoicePreview
+      {/* Invoice Modal */}
+      <InvoiceModal
         open={invoiceModalOpen}
         onClose={() => setInvoiceModalOpen(false)}
         invoice={selectedInvoice}

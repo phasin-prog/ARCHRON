@@ -4,9 +4,9 @@ import { useState } from "react";
 import Image from "next/image";
 import { Modal } from "@/components/modal";
 import type { InvoiceData, PaymentStatus } from "@/components/guide/types";
-import { AuthorPenIcon } from "@/components/icons";
+import { AuthorPenIcon, CheckIcon } from "@/components/icons";
 
-interface InvoicePreviewProps {
+interface InvoiceModalProps {
   open: boolean;
   onClose: () => void;
   invoice: InvoiceData | null;
@@ -44,12 +44,12 @@ function renderStatusBadge(status: PaymentStatus) {
   }
 }
 
-export function InvoicePreview({
+export function InvoiceModal({
   open,
   onClose,
   invoice,
   onPaymentVerified,
-}: InvoicePreviewProps) {
+}: InvoiceModalProps) {
   const [isVerifying, setIsVerifying] = useState(false);
   const [notification, setNotification] = useState<string | null>(null);
 
@@ -75,21 +75,12 @@ export function InvoicePreview({
         throw new Error(data.error || "อัปโหลดสลิปไม่สำเร็จ");
       }
       onPaymentVerified(invoice.invoiceNumber);
-      setNotification("✓ อัปโหลดสลิปเข้าสู่ระบบ Cloudflare R2 เรียบร้อยแล้ว! ทีมงานจะตรวจสอบและยืนยันนัดหมายทางอีเมลโดยเร็วที่สุด");
+      setNotification("อัปโหลดสลิปเข้าสู่ระบบ Cloudflare R2 เรียบร้อยแล้ว! ทีมงานจะตรวจสอบและยืนยันนัดหมายทางอีเมลโดยเร็วที่สุด");
     } catch (err) {
-      setNotification(`✕ ${err instanceof Error ? err.message : "เกิดข้อผิดพลาดในการอัปโหลด"}`);
+      setNotification(`เกิดข้อผิดพลาด: ${err instanceof Error ? err.message : "การอัปโหลดล้มเหลว"}`);
     } finally {
       setIsVerifying(false);
     }
-  };
-
-  const handleSimulatePayment = async () => {
-    setIsVerifying(true);
-    setNotification(null);
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    setIsVerifying(false);
-    onPaymentVerified(invoice.invoiceNumber);
-    setNotification("✓ ตรวจสอบสลิปสำเร็จ! ระบบยืนยันคิวนัดหมายและจัดส่งอีเมลยืนยันเรียบร้อยแล้ว");
   };
 
   const handlePrint = () => {
@@ -97,14 +88,14 @@ export function InvoicePreview({
   };
 
   const handleDownloadPDF = () => {
-    setNotification("↓ กำลังสร้างไฟล์ PDF... (บันทึกเอกสารลงระบบ Client Portal เรียบร้อย)");
+    setNotification("กำลังสร้างไฟล์ PDF... (บันทึกเอกสารลงระบบ Client Portal เรียบร้อย)");
     setTimeout(() => {
       setNotification(null);
     }, 4500);
   };
 
   const handleEmailInvoice = () => {
-    setNotification(`✉ จัดส่งใบแจ้งยอดเข้าสู่มืออีเมล: ${invoice.customerEmail} เรียบร้อยแล้ว`);
+    setNotification(`จัดส่งใบแจ้งยอดไปยังอีเมล ${invoice.customerEmail} เรียบร้อยแล้ว`);
     setTimeout(() => {
       setNotification(null);
     }, 4500);
@@ -153,7 +144,7 @@ export function InvoicePreview({
               onClick={handleDownloadPDF}
               className="rounded-md border border-border/70 bg-bg-card px-3.5 py-2 text-xs font-medium text-text-body transition-colors hover:bg-bg-elevated hover:text-text-heading focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
-              ↓ ดาวน์โหลด PDF
+              ดาวน์โหลด PDF
             </button>
 
             <button
@@ -161,7 +152,7 @@ export function InvoicePreview({
               onClick={handlePrint}
               className="rounded-md border border-border/70 bg-bg-card px-3.5 py-2 text-xs font-medium text-text-body transition-colors hover:bg-bg-elevated hover:text-text-heading focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
-              🖨 พิมพ์ใบแจ้งยอด
+              พิมพ์ใบแจ้งยอด
             </button>
 
             <button
@@ -169,7 +160,7 @@ export function InvoicePreview({
               onClick={handleEmailInvoice}
               className="rounded-md border border-border/70 bg-bg-card px-3.5 py-2 text-xs font-medium text-text-body transition-colors hover:bg-bg-elevated hover:text-text-heading focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
-              ✉ ส่งเข้าอีเมล
+              ส่งเข้าอีเมล
             </button>
           </div>
 
@@ -194,25 +185,29 @@ export function InvoicePreview({
         <div className="rounded-lg border border-border/50 bg-bg-elevated/50 p-4">
           <div className="flex items-center justify-between text-[11px] font-semibold">
             <div className="flex items-center gap-1.5 text-success">
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-success text-text-inverse">✓</span>
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-success text-text-inverse">
+                <CheckIcon className="h-3 w-3" />
+              </span>
               <span>1. จองคิว</span>
             </div>
             <div className="h-px flex-1 bg-border/80 mx-2" />
             <div className="flex items-center gap-1.5 text-success">
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-success text-text-inverse">✓</span>
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-success text-text-inverse">
+                <CheckIcon className="h-3 w-3" />
+              </span>
               <span>2. ออกใบแจ้งยอด</span>
             </div>
             <div className="h-px flex-1 bg-border/80 mx-2" />
             <div className={`flex items-center gap-1.5 ${invoice.status === "paid" ? "text-success" : "text-accent font-bold"}`}>
               <span className={`flex h-5 w-5 items-center justify-center rounded-full ${invoice.status === "paid" ? "bg-success text-text-inverse" : "border-2 border-accent text-accent"}`}>
-                {invoice.status === "paid" ? "✓" : "3"}
+                {invoice.status === "paid" ? <CheckIcon className="h-3 w-3" /> : "3"}
               </span>
               <span>3. แจ้งชำระเงิน</span>
             </div>
             <div className="h-px flex-1 bg-border/80 mx-2" />
             <div className={`flex items-center gap-1.5 ${invoice.status === "paid" ? "text-success" : "text-text-secondary/50"}`}>
               <span className={`flex h-5 w-5 items-center justify-center rounded-full ${invoice.status === "paid" ? "bg-success text-text-inverse" : "border border-border text-text-secondary/60"}`}>
-                {invoice.status === "paid" ? "✓" : "4"}
+                {invoice.status === "paid" ? <CheckIcon className="h-3 w-3" /> : "4"}
               </span>
               <span>4. ยืนยันเวลานัด</span>
             </div>
@@ -232,7 +227,7 @@ export function InvoicePreview({
               </div>
               <p className="mt-1 text-xs text-text-secondary/80">
                 {invoice.status === "paid" || invoice.status === "completed"
-                  ? "✓ ใบเสร็จรับเงินอย่างเป็นทางการ (Official Receipt / Confirmation)"
+                  ? "ใบเสร็จรับเงินอย่างเป็นทางการ (Official Receipt / Confirmation)"
                   : "Jungian Type Analysis Consulting Institute (Invoice)"}
               </p>
             </div>
@@ -330,7 +325,7 @@ export function InvoicePreview({
                     </>
                   ) : (
                     <>
-                      <span>📤 แนบสลิปชำระเงินจริง (Cloudflare R2)</span>
+                      <span>แนบสลิปชำระเงิน (Cloudflare R2)</span>
                       <input
                         type="file"
                         accept="image/*"
@@ -341,26 +336,18 @@ export function InvoicePreview({
                     </>
                   )}
                 </label>
-
-                <button
-                  type="button"
-                  onClick={handleSimulatePayment}
-                  disabled={isVerifying}
-                  className="inline-flex items-center gap-1.5 rounded-md border border-border bg-bg-card px-4 py-2.5 text-xs font-semibold text-text-secondary hover:border-accent hover:text-accent focus-visible:outline-none disabled:opacity-60"
-                >
-                  <span>[ จำลอง ] ยืนยันสลิปทันที</span>
-                </button>
               </div>
             </div>
           )}
 
           {invoice.status === "paid" && (
             <div className="mt-5 rounded-lg border border-success/40 bg-success/10 p-4 text-center">
-              <span className="font-serif text-sm font-bold text-success">
-                ✓ ชำระเงินและยืนยันคิวนัดหมายเรียบร้อยแล้ว
+              <span className="inline-flex items-center gap-2 font-serif text-sm font-bold text-success">
+                <CheckIcon className="h-4 w-4" />
+                ชำระเงินและยืนยันคิวนัดหมายเรียบร้อยแล้ว
               </span>
               <p className="mt-1 text-xs text-text-secondary/90">
-                ระบบได้จัดส่งลิงก์ห้องสัมภาษณ์ออนไลน์และรายละเอียดการเตรียมตัวไปที่อีเมลของคุณแล้ว คุณสามารถตรวจสอบนัดหมายได้ที่แท็บ Client Portal
+                ระบบได้จัดส่งลิงก์ห้องสัมภาษณ์ออนไลน์และรายละเอียดการเตรียมตัวไปที่อีเมลของคุณแล้ว
               </p>
             </div>
           )}

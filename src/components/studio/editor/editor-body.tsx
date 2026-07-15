@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import type { EditorDraft } from "@/lib/content/publishing/publish-validation";
 import type { ValidationIssue } from "@/lib/content/publishing/editor-validation";
 import { MarkdownRenderer } from "@/components/reading/markdown-renderer";
-import { EditorIcon } from "@/components/studio/editor-icon";
+import { EditIcon, ConceptIcon, SourceIcon, PersonIcon, CheckIcon, ClockIcon } from "@/components/icons";
 import { InlineGuidance } from "./inline-guidance";
 
 type ViewMode = "write" | "split" | "preview";
@@ -183,7 +183,7 @@ export function EditorBody({
         <div className="rounded-lg border border-accent/30 bg-accent/5 px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 select-none">
           <div>
             <span className="font-semibold text-xs text-accent flex items-center gap-1.5">
-              <EditorIcon name="edit_note" className="h-4 w-4 text-accent" />
+              <EditIcon className="h-4 w-4 text-accent" />
               <span>ปลูกโครงสร้างแม่แบบอัตโนมัติ (Generate MDX/GFM Template)</span>
             </span>
             <p className="text-[11px] text-text-secondary mt-0.5">
@@ -196,7 +196,7 @@ export function EditorBody({
               onClick={() => generateSSOTTemplate("concept")}
               className="inline-flex items-center gap-1.5 rounded-md bg-accent px-3 py-1.5 text-xs font-semibold text-text-inverse shadow-xs hover:brightness-110 transition-all"
             >
-              <EditorIcon name="psychology" className="h-3.5 w-3.5" />
+              <ConceptIcon className="h-3.5 w-3.5" />
               แม่แบบ Concept
             </button>
             <button
@@ -204,7 +204,7 @@ export function EditorBody({
               onClick={() => generateSSOTTemplate("article")}
               className="inline-flex items-center gap-1.5 rounded-md border border-accent/40 bg-bg-card px-3 py-1.5 text-xs font-medium text-accent hover:bg-accent/10 transition-all"
             >
-              <EditorIcon name="article" className="h-3.5 w-3.5" />
+              <SourceIcon className="h-3.5 w-3.5" />
               แม่แบบ Article
             </button>
             <button
@@ -212,7 +212,7 @@ export function EditorBody({
               onClick={() => generateSSOTTemplate("person")}
               className="inline-flex items-center gap-1.5 rounded-md border border-accent/40 bg-bg-card px-3 py-1.5 text-xs font-medium text-accent hover:bg-accent/10 transition-all"
             >
-              <EditorIcon name="person" className="h-3.5 w-3.5" />
+              <PersonIcon className="h-3.5 w-3.5" />
               แม่แบบ Person
             </button>
           </div>
@@ -312,7 +312,7 @@ export function EditorBody({
           {viewMode !== "preview" && (
             <div className="px-4 py-3 border-t border-border/60 bg-bg-elevated/30 flex flex-wrap items-center gap-2 text-xs">
               <span className="font-semibold text-text-heading mr-1 flex items-center gap-1.5">
-                <EditorIcon name="check_circle" className="h-4 w-4 text-accent" />
+                <CheckIcon className="h-4 w-4 text-accent" />
                 <span>ตรวจโครงสร้าง SSOT สด:</span>
               </span>
               <span className={`px-2.5 py-1 rounded-full font-medium transition-all flex items-center gap-1.5 ${
@@ -320,7 +320,7 @@ export function EditorBody({
                   ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
                   : "bg-amber-500/10 text-amber-700 border border-amber-500/20"
               }`}>
-                <EditorIcon name={( /#[#]?\s*(คำอธิบายเชิงประจักษ์|คำอธิบายให้เห็นภาพ|ภาพเปรียบเปรย|Visual Explanation|ตัวอย่างให้เห็นภาพ)/i.test(content) || />\s*\[!(NOTE|TIP|IMPORTANT)\]\s*คำอธิบาย/i.test(content) || draft.visualExplanation.trim() !== "") ? "check_circle" : "report"} className="h-3.5 w-3.5" />
+                {( /#[#]?\s*(คำอธิบายเชิงประจักษ์|คำอธิบายให้เห็นภาพ|ภาพเปรียบเปรย|Visual Explanation|ตัวอย่างให้เห็นภาพ)/i.test(content) || />\s*\[!(NOTE|TIP|IMPORTANT)\]\s*คำอธิบาย/i.test(content) || draft.visualExplanation.trim() !== "") ? <CheckIcon className="h-3.5 w-3.5" /> : <ClockIcon className="h-3.5 w-3.5" />}
                 <span>คำอธิบายให้เห็นภาพ</span>
               </span>
               <span className={`px-2.5 py-1 rounded-full font-medium transition-all flex items-center gap-1.5 ${
@@ -328,7 +328,7 @@ export function EditorBody({
                   ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
                   : "bg-amber-500/10 text-amber-700 border border-amber-500/20"
               }`}>
-                <EditorIcon name={( /#[#]?\s*(นิยาม|ความหมายทางวิชาการ|นิยามและแก่น|นิยามเชิงเทคนิค|Technical Meaning|แก่นทางวิชาการ)/i.test(content) || draft.technicalMeaning.trim() !== "") ? "check_circle" : "report"} className="h-3.5 w-3.5" />
+                {( /#[#]?\s*(นิยาม|ความหมายทางวิชาการ|นิยามและแก่น|นิยามเชิงเทคนิค|Technical Meaning|แก่นทางวิชาการ)/i.test(content) || draft.technicalMeaning.trim() !== "") ? <CheckIcon className="h-3.5 w-3.5" /> : <ClockIcon className="h-3.5 w-3.5" />}
                 <span>ความหมายทางวิชาการ</span>
               </span>
               {(draft.contentType === "concept" || draft.contentType === "term") && (
@@ -337,7 +337,7 @@ export function EditorBody({
                     ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
                     : "bg-amber-500/10 text-amber-700 border border-amber-500/20"
                 }`}>
-                  <EditorIcon name={( /#[#]?\s*(รากศัพท์|ที่มาของคำ|Etymology|Roots|การเปลี่ยนความหมาย|รากคำ)/i.test(content) || (draft.rootsEtymology && draft.rootsEtymology.trim() !== "") || (draft.rootsCaution && draft.rootsCaution.trim() !== "")) ? "check_circle" : "report"} className="h-3.5 w-3.5" />
+                  {( /#[#]?\s*(รากศัพท์|ที่มาของคำ|Etymology|Roots|การเปลี่ยนความหมาย|รากคำ)/i.test(content) || (draft.rootsEtymology && draft.rootsEtymology.trim() !== "") || (draft.rootsCaution && draft.rootsCaution.trim() !== "")) ? <CheckIcon className="h-3.5 w-3.5" /> : <ClockIcon className="h-3.5 w-3.5" />}
                   <span>รากศัพท์ / ข้อควรระวัง</span>
                 </span>
               )}
@@ -346,7 +346,7 @@ export function EditorBody({
                   ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
                   : "bg-amber-500/10 text-amber-700 border border-amber-500/20"
               }`}>
-                <EditorIcon name={( /\[\[[^\]]+\]\]/.test(content) || /#[#]?\s*(แนวคิดที่เกี่ยวข้อง|Related Concepts|เชื่อมโยง)/i.test(content) || (draft.relatedConcepts && draft.relatedConcepts.length > 0)) ? "check_circle" : "report"} className="h-3.5 w-3.5" />
+                {( /\[\[[^\]]+\]\]/.test(content) || /#[#]?\s*(แนวคิดที่เกี่ยวข้อง|Related Concepts|เชื่อมโยง)/i.test(content) || (draft.relatedConcepts && draft.relatedConcepts.length > 0)) ? <CheckIcon className="h-3.5 w-3.5" /> : <ClockIcon className="h-3.5 w-3.5" />}
                 <span>แนวคิดที่เกี่ยวข้อง ([[Wikilink]])</span>
               </span>
               <span className={`px-2.5 py-1 rounded-full font-medium transition-all flex items-center gap-1.5 ${
@@ -354,7 +354,7 @@ export function EditorBody({
                   ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
                   : "bg-amber-500/10 text-amber-700 border border-amber-500/20"
               }`}>
-                <EditorIcon name={( /\[\^?\d+\]/.test(content) || /#[#]?\s*(แหล่งอ้างอิง|อ้างอิง|References|Citations|ตำรา)/i.test(content) || (draft.references && draft.references.length > 0) || draft.status === "needs-source-check") ? "check_circle" : "report"} className="h-3.5 w-3.5" />
+                {( /\[\^?\d+\]/.test(content) || /#[#]?\s*(แหล่งอ้างอิง|อ้างอิง|References|Citations|ตำรา)/i.test(content) || (draft.references && draft.references.length > 0) || draft.status === "needs-source-check") ? <CheckIcon className="h-3.5 w-3.5" /> : <ClockIcon className="h-3.5 w-3.5" />}
                 <span>แหล่งอ้างอิง ([^1])</span>
               </span>
             </div>

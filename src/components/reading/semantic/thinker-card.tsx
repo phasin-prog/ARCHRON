@@ -5,9 +5,11 @@ import Link from "next/link";
 import { PersonIcon, SchoolIcon, ArrowRightIcon } from "@/components/icons";
 
 export interface ThinkerCardProps {
-  slug: string;
+  slug?: string;
+  name?: string;
   nameTh?: string;
   nameEn?: string;
+  role?: string;
   school?: string;
   period?: string;
   summary?: string;
@@ -15,18 +17,22 @@ export interface ThinkerCardProps {
 
 export function ThinkerCard({
   slug,
+  name,
   nameTh,
   nameEn,
+  role,
   school,
   period,
   summary,
 }: ThinkerCardProps) {
-  const displayName = nameTh || nameEn || slug;
+  const displayName = name || nameTh || nameEn || slug || "";
+  const schoolName = school || role || "";
+  const linkSlug = slug || displayName.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9\-]/g, "");
 
   return (
     <div className="my-4">
       <Link
-        href={`/thinkers/${slug}`}
+        href={`/thinkers/${linkSlug}`}
         className="group relative flex flex-col justify-between bg-bg-card border border-border rounded-xl p-4 transition-all duration-300 hover:border-accent/60 hover:-translate-y-0.5 shadow-xs hover:shadow-sm"
       >
         <div>
@@ -48,10 +54,10 @@ export function ThinkerCard({
               </div>
             </div>
 
-            {school && (
+            {schoolName && (
               <span className="inline-flex items-center gap-1 text-xs bg-accent/10 text-accent px-2.5 py-0.5 rounded-full font-medium border border-accent/20 shrink-0">
                 <SchoolIcon className="w-3.5 h-3.5" />
-                <span>{school}</span>
+                <span>{schoolName}</span>
               </span>
             )}
           </div>

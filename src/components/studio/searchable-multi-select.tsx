@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { EditorIcon } from "@/components/studio/editor-icon";
+import { CloseIcon } from "@/components/icons";
 
 export function SearchableMultiSelect({
   values,
@@ -33,7 +33,7 @@ export function SearchableMultiSelect({
             <span key={v} className="inline-flex items-center gap-1 rounded-full border border-accent/30 bg-accent/10 px-2.5 py-1 text-xs text-accent">
               {v}
               <button type="button" onClick={() => onChange(values.filter((x) => x !== v))} aria-label={`ลบ "${v}"`} className="text-accent/70 hover:text-accent">
-                <EditorIcon name="close" className="h-3 w-3" />
+                <CloseIcon className="h-3 w-3" />
               </button>
             </span>
           ))}

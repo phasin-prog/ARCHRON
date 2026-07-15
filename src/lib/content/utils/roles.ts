@@ -12,8 +12,8 @@ export const ROLE_LABEL: Record<Role, string> = {
 };
 
 export const ROLE_META: Record<Role, { icon: string; accent: string }> = {
-  admin: { icon: "shield_person", accent: colors.ochreGold }, // Sapientia
-  writer: { icon: "edit_note", accent: colors.steelBlue }, // Psyche
+  admin: { icon: "edit", accent: colors.ochreGold }, // Sapientia
+  writer: { icon: "edit", accent: colors.steelBlue }, // Psyche
   user: { icon: "person", accent: colors.ashGray }, // ash
 };
 

@@ -18,7 +18,7 @@ import { getMyProfileAction } from "@/features/studio/actions/profile-actions";
 import { findDeadLinks } from "@/lib/content/publishing/internal-links";
 import { EditorHeader } from "@/components/studio/editor-header";
 import { EditorFeedback, type EditorFeedbackData } from "@/components/studio/editor-feedback";
-import { EditorIcon } from "@/components/studio/editor-icon";
+import { EditIcon } from "@/components/icons";
 import { useEditorMachine } from "@/features/editor/hooks/useEditorMachine";
 import {
   EditorBasicInfo, EditorBody, EditorCta, EditorPublishPanel,
@@ -280,7 +280,7 @@ export default function StudioEditorPage() {
     return (
       <main className="mx-auto flex min-h-[70vh] max-w-lg flex-col items-center justify-center px-6 text-center">
         <span className="flex h-14 w-14 items-center justify-center rounded-full border border-accent/30 text-accent">
-          <EditorIcon name="edit_note" className="h-6 w-6" accent="var(--color-accent)" />
+          <EditIcon className="h-6 w-6" />
         </span>
         <h1 className="mt-6 font-serif text-2xl text-text-heading">ห้องเขียนสำหรับนักเขียน</h1>
         <p className="mt-3 text-sm leading-relaxed text-text-secondary/70">
@@ -289,7 +289,7 @@ export default function StudioEditorPage() {
         </p>
         <div className="mt-7 flex flex-col gap-3 sm:flex-row">
           <Link href="/studio/profile" className="inline-flex min-h-[44px] items-center justify-center gap-2 bg-accent px-6 py-2.5 text-sm font-semibold text-text-inverse hover:brightness-110 transition-all">
-            <EditorIcon name="edit_note" className="h-4 w-4" />
+            <EditIcon className="h-4 w-4" />
             ขอเป็นนักเขียน
           </Link>
           <Link href="/studio" className="inline-flex min-h-[44px] items-center justify-center gap-2 border border-accent/40 px-6 py-2.5 text-sm text-accent hover:bg-accent/10">
@@ -325,7 +325,7 @@ export default function StudioEditorPage() {
                 onClick={() => setShowBlueprintModal(true)}
                 className="inline-flex items-center gap-1.5 rounded-lg border border-accent/40 bg-accent/10 px-3 py-1.5 text-xs font-semibold text-accent hover:bg-accent hover:text-text-inverse transition-all"
               >
-                <EditorIcon name="auto_awesome" className="h-4 w-4" />
+                <EditIcon className="h-4 w-4" />
                 📑 เลือกแม่พิมพ์ความรู้ (Knowledge Blueprint)
               </button>
             </div>

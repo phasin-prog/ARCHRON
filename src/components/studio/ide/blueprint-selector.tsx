@@ -9,7 +9,8 @@ import {
   type BlueprintId,
   type KnowledgeBlueprint,
 } from "@/lib/content/studio/blueprints";
-import { EditorIcon } from "@/components/studio/editor-icon";
+import { CloseIcon, BookIcon, EditIcon } from "@/components/icons";
+import { resolveIcon } from "@/lib/content/core/icon-map";
 import { slugify } from "@/lib/content/publishing/publish-validation";
 
 export interface BlueprintSelectorModalProps {
@@ -121,7 +122,7 @@ export function BlueprintSelectorModal({
             className="rounded-lg p-2 text-text-secondary hover:bg-bg hover:text-text-heading transition-colors shrink-0"
             title="ปิดหน้าต่าง"
           >
-            <EditorIcon name="close" className="h-5 w-5" />
+            <CloseIcon className="h-5 w-5" />
           </button>
         </div>
 
@@ -161,7 +162,7 @@ export function BlueprintSelectorModal({
                             : "bg-accent/10 text-accent group-hover:bg-accent/20"
                         }`}
                       >
-                        <EditorIcon name={bp.icon} className="h-5 w-5" />
+                        {(() => { const BpIcon = resolveIcon(bp.icon); return BpIcon ? <BpIcon className="h-5 w-5" /> : null; })()}
                       </div>
                       <div className="text-right shrink-0">
                         <span className="inline-block rounded bg-bg-elevated px-1.5 py-0.5 text-[10px] font-mono text-text-secondary uppercase">
@@ -211,7 +212,7 @@ export function BlueprintSelectorModal({
             <div className="lg:col-span-6 rounded-xl border border-border bg-bg-elevated/40 p-4 space-y-3">
               <div className="flex items-center justify-between">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-text-secondary flex items-center gap-1.5">
-                  <EditorIcon name="layers" className="h-4 w-4 text-accent" />
+                  <BookIcon className="h-4 w-4 text-accent" />
                   <span>
                     ตัวอย่างโครงสร้างหัวข้อ ({activeBlueprint.nameTh} — {activeBlueprint.nameEn})
                   </span>
@@ -236,7 +237,7 @@ export function BlueprintSelectorModal({
             <div className="lg:col-span-6 rounded-xl border border-border bg-bg-card p-4 space-y-4 flex flex-col justify-between">
               <div className="space-y-3">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-text-secondary flex items-center gap-1.5">
-                  <EditorIcon name="edit_note" className="h-4 w-4 text-accent" />
+                  <EditIcon className="h-4 w-4 text-accent" />
                   <span>ตั้งชื่อและเริ่มต้นทันที (Quick Setup)</span>
                 </h4>
 

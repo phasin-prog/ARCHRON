@@ -6,9 +6,73 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const nextConfig = {
   pageExtensions: ["ts", "tsx", "md", "mdx"],
-  // ระบุ workspace root ให้ Turbopack — เลี่ยงการสแกนหา lockfile ขึ้นไปใน parent directory
+
+  // ── Next.js 16.3 Speed Optimizations ───────────────────────────────
+  // Cache Components: enables PPR + use cache + instant navigation
+  // Replaces v15's experimental.ppr / dynamicIO / useCache
+  cacheComponents: true,
+
+  // React Compiler — auto-memoizes components (promoted from experimental in v16)
+  reactCompiler: true,
+
+  // typedRoutes — catch broken links at build time
+  typedRoutes: true,
+
+  experimental: {
+    // staleTimes — extend client router cache to reduce re-fetches
+    staleTimes: {
+      dynamic: 30,
+      static: 180,
+    },
+    // Bundle optimization: dedupe common packages (barrel-file tree-shaking)
+    optimizePackageImports: [
+      "@phosphor-icons/react",
+      "three",
+      "rehype-autolink-headings",
+    ],
+  },
+
+  // Image optimization defaults
+  images: {
+    formats: ["image/avif", "image/webp"],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
+    minimumCacheTTL: 31536000, // 1 year for static images
+  },
+
+  // Turbopack for dev speed + production build
   turbopack: {
     root: __dirname,
+  },
+
+  // Log slow fetches to identify bottlenecks
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
+
+  // Cache-Control headers for static assets
+  async headers() {
+    return [
+      {
+        source: "/icons/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/fonts/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+    ];
   },
 };
 

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { SAMPLE_REPORT_PAGES } from "@/components/guide/types";
 import { AuthorPenIcon, EyeIcon } from "@/components/icons";
 
-export function SampleReportPreview() {
+export function ReportSample() {
   const [activeTab, setActiveTab] = useState("page-1");
 
   const currentPage =
@@ -21,7 +21,7 @@ export function SampleReportPreview() {
             ตัวอย่างเอกสารรายงานสรุปรายบุคคล
           </h2>
           <p className="mt-3 text-sm text-text-secondary/85 md:text-base">
-            พรีวิวหน้าเอกสารรายงานจริงที่ลูกค้าจะได้รับ (ไม่ใช่รายงานของคุณ เป็นเพียงตัวอย่างเพื่อประกอบการตัดสินใจ)
+            ตัวอย่างหน้าเอกสารรายงานวิเคราะห์ที่ลูกค้าจะได้รับหลังจากเสร็จสิ้นเซสชันสัมภาษณ์
           </p>
         </div>
 
@@ -58,11 +58,8 @@ export function SampleReportPreview() {
               </span>
             </div>
 
-            <div className="flex items-center gap-3 font-mono text-[11px]">
-              <span className="rounded bg-accent/10 px-2.5 py-1 font-semibold text-accent">
-                SAMPLE PREVIEW ONLY
-              </span>
-              <span>DOC-ID: ARCH-SAMPLE-2026</span>
+            <div className="font-mono text-[11px] text-text-secondary/70">
+              DOC-ID: ARCH-REPORT-2026
             </div>
           </div>
 
@@ -90,12 +87,12 @@ export function SampleReportPreview() {
             </div>
           </div>
 
-          {/* Watermark overlay across bottom */}
+          {/* Page footer */}
           <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-border/50 pt-6 text-xs text-text-secondary/70">
             <div className="flex items-center gap-2 text-accent/90">
               <EyeIcon className="h-4 w-4" />
               <span className="font-medium">
-                นี่คือหน้าตัวอย่างเอกสารจำลองเพื่อแสดงมาตรฐานเชิงวิชาการ (ไม่ใช่ผลวิเคราะห์จริงของคุณ)
+                เอกสารนี้เป็นลิขสิทธิ์ของ Archron Institute of Typology — สงวนไว้ซึ่งสิทธิ์ในการเผยแพร่
               </span>
             </div>
 

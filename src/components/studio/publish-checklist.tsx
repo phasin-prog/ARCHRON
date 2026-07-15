@@ -1,6 +1,6 @@
 "use client";
 
-import { EditorIcon } from "@/components/studio/editor-icon";
+import { CheckIcon, ClockIcon } from "@/components/icons";
 import type { ChecklistItem } from "@/lib/content/publishing/publish-validation";
 
 type Props = {
@@ -19,7 +19,7 @@ export function PublishChecklist({ items, deadLinks, publishTried }: Props) {
         {items.map((c) => (
           <li key={c.label} className={`flex items-center gap-2 ${c.ok ? "text-text-body" : "text-text-secondary"}`}>
             <span className={c.ok ? "text-success" : "text-error"}>
-              <EditorIcon name={c.ok ? "check_circle" : "report"} className="h-3.5 w-3.5" />
+              {c.ok ? <CheckIcon className="h-3.5 w-3.5" /> : <ClockIcon className="h-3.5 w-3.5" />}
             </span>
             {c.label}
           </li>

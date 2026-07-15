@@ -4,7 +4,8 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSession, useUser } from "@clerk/nextjs";
 import { createClerkSupabaseClient } from "@/lib/supabase/client";
-import { EditorIcon } from "@/components/studio/editor-icon";
+import { resolveIcon } from "@/lib/content/core/icon-map";
+import { EditIcon } from "@/components/icons";
 import {
   roleFromMetadata,
   ROLE_LABEL,
@@ -79,7 +80,7 @@ export default function StudioUsersPage() {
     return (
       <main className="mx-auto flex min-h-[70vh] max-w-lg flex-col items-center justify-center px-6 text-center">
         <span className="flex h-14 w-14 items-center justify-center rounded-full border border-accent/30 text-accent">
-          <EditorIcon name="edit_note" className="h-7 w-7" />
+          <EditIcon className="h-7 w-7" />
         </span>
         <h1 className="mt-6 font-serif text-2xl text-text-heading">เฉพาะผู้ดูแล</h1>
         <p className="mt-3 text-sm text-text-secondary/70">
@@ -139,7 +140,7 @@ export default function StudioUsersPage() {
                         <span className="text-xs text-text-secondary/50">{u.email}</span>
                         {requested ? (
                           <span className="mt-1 inline-flex w-fit items-center gap-1 rounded-full bg-warning/15 px-2 py-0.5 text-[10px] text-warning">
-                            <EditorIcon name="edit_note" className="h-3 w-3" />
+                            <EditIcon className="h-3 w-3" />
                             ขอเป็นนักเขียน
                           </span>
                         ) : null}
@@ -150,7 +151,7 @@ export default function StudioUsersPage() {
                         className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium"
                         style={{ backgroundColor: `${meta.accent}1f`, color: meta.accent }}
                       >
-                        <EditorIcon name={meta.icon} className="h-[1em] w-[1em]" />
+                        {(function() { const IconComp = resolveIcon(meta.icon); return IconComp ? <IconComp className="h-[1em] w-[1em]" /> : null; })()}
                         {ROLE_LABEL[u.role]}
                       </span>
                     </td>

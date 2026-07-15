@@ -1,6 +1,6 @@
 "use client";
 
-import { EditorIcon } from "@/components/studio/editor-icon";
+import { CheckIcon } from "@/components/icons";
 
 type Props = {
   autoState: "idle" | "saving" | "saved";
@@ -25,7 +25,7 @@ export function EditorStatusBar({ autoState, savedAt }: Props) {
   if (autoState === "saved" && savedAt) {
     return (
       <span className="inline-flex items-center gap-1 rounded-full bg-success/15 px-2.5 py-0.5 text-xs text-success">
-        <EditorIcon name="check_circle" className="h-3 w-3" />
+        <CheckIcon className="h-3 w-3" />
         บันทึกแล้ว {savedAt}
       </span>
     );

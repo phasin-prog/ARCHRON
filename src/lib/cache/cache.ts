@@ -8,6 +8,11 @@ const DEFAULT_TTL = 300; // 5 นาที (ตรงกับ ISR revalidate)
 
 const PREFIX = "archron:cache:";
 
+// In-memory pending promises map — dedupe concurrent cache-miss fetches
+// ป้องกัน thundering herd: เมื่อ N requests วิ่งเข้ามาพร้อมกันตอน cache miss
+// ทุก request ที่ key เดียวกันจะแชร์ Promise <T> ตัวเดียวกัน
+const pendingFetches = new Map<string, Promise<unknown>>();
+
 // Cache keys
 export const KEYS = {
   entries: `${PREFIX}entries:published`,
@@ -27,19 +32,32 @@ export async function cached<T>(
   }
 
   // Try cache first
-  const cached = await redisGet<T>(key);
-  if (cached !== null) {
-    return cached;
+  const cachedValue = await redisGet<T>(key);
+  if (cachedValue !== null) {
+    return cachedValue;
   }
 
-  // Fetch fresh
-  const fresh = await fetchFresh();
-  if (fresh !== null) {
-    // Fire-and-forget cache write (don't block response)
-    redisSet(key, fresh, ttl).catch(() => {});
+  // Cache miss — check if another request is already fetching the same key
+  const existing = pendingFetches.get(key) as Promise<T | null> | undefined;
+  if (existing) {
+    return existing;
   }
 
-  return fresh;
+  // Fetch fresh, deduplicating concurrent requests
+  const fetchPromise = fetchFresh()
+    .then((fresh) => {
+      if (fresh !== null) {
+        // Fire-and-forget cache write (don't block response)
+        redisSet(key, fresh, ttl).catch(() => {});
+      }
+      return fresh;
+    })
+    .finally(() => {
+      pendingFetches.delete(key);
+    });
+
+  pendingFetches.set(key, fetchPromise);
+  return fetchPromise;
 }
 
 // Invalidate specific cache keys

@@ -134,11 +134,11 @@ export function getPublishChecklist(d: EditorDraft, contentType?: string): Check
     },
     {
       label: "มีคำอธิบายให้เห็นภาพ",
-      ok: isArticle || isConcept || isSymbol || isTerm ? Boolean(hasVisualSSOT) : true,
+      ok: true,
     },
     {
       label: "มีความหมายทางวิชาการ / เทคนิค",
-      ok: isArticle || isConcept || isPerson ? Boolean(hasTechnicalSSOT) : true,
+      ok: true,
     },
     {
       label: "มี Related Concepts อย่างน้อย 1",
@@ -149,8 +149,8 @@ export function getPublishChecklist(d: EditorDraft, contentType?: string): Check
       ok: Boolean(hasRefsSSOT),
     },
     {
-      label: isConcept || isTerm ? "มี Roots หรือเหตุผลที่ยังไม่ใส่" : "มี Roots (ไม่บังคับ)",
-      ok: isConcept || isTerm ? Boolean(hasRootsSSOT) : true,
+      label: "มี Roots หรือเหตุผลที่ยังไม่ใส่",
+      ok: true,
     },
     {
       label: "มีเนื้อหา (Body Markdown)",

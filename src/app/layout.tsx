@@ -10,11 +10,10 @@ import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ScrollToTop } from "@/components/scroll-to-top";
-import { Tabbar } from "@/components/tabbar";
-
 import { SkipToContent } from "@/components/skip-to-content";
-import { QuickOpen } from "@/components/quick-open";
-import { ConceptPopup } from "@/components/concept-popup";
+import { QuickOpen } from "@/components/quick-open-wrapper";
+import { ConceptPopup } from "@/components/concept-popup-wrapper";
+import { Tabbar } from "@/components/tabbar-wrapper";
 import { ClerkProvider } from "@clerk/nextjs";
 
 
@@ -85,12 +84,10 @@ export default function RootLayout({
       >
         <head>
           <meta charSet="utf-8" />
-          {/* Custom SVG icons ใช้แทน Material Symbols */}
           <meta name="color-scheme" content="light" />
           <noscript>
             <style>{`.scroll-reveal{opacity:1!important;transform:none!important}`}</style>
           </noscript>
-
         </head>
         <body className="min-h-screen bg-bg pb-28 text-text-body antialiased lg:pb-0">
           <SkipToContent />

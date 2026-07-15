@@ -127,6 +127,20 @@ export function SkeletonAccordion({ count = 5 }: { count?: number }) {
   );
 }
 
+// Recently viewed section skeleton — horizontal card strip
+export function RecentlyViewedSkeleton() {
+  return (
+    <section className="tpl-content mt-4" aria-hidden="true">
+      <div className="h-6 w-48 skeleton-shimmer rounded mb-4" />
+      <div className="flex gap-4 overflow-hidden">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <div key={i} className="min-w-[240px] h-32 rounded-xl bg-surface-1 skeleton-shimmer" />
+        ))}
+      </div>
+    </section>
+  );
+}
+
 // Icon grid skeleton — small square boxes
 export function SkeletonIconGrid({ count = 24 }: { count?: number }) {
   return (

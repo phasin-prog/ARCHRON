@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Golden Dragon Spiral — Exact Replica Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&family=Noto+Serif+Thai:wght@400;600&family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #FAF8F5;
+      --color-bg-card: #FFFFFF;
+      --color-bg-elevated: #F5F3F0;
+      --color-border: #E5E2DC;
+      --color-text-heading: #1A1815;
+      --color-text-body: #3A3835;
+      --color-text-secondary: #8A8780;
+      --color-accent: #5F8DCE;
+      --color-premium: #B89A63;
+      --font-display: 'Cinzel', serif;
+      --font-heading: 'IBM Plex Serif', 'Noto Serif Thai', serif;
+      --font-body: 'Noto Serif Thai', serif;
+      --font-ui: 'Inter', 'Noto Sans Thai', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text-body);
+      font-family: var(--font-ui);
+      line-height: 1.6;
+      padding: 3rem 1.5rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 4rem;
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 3rem;
+    }
+
+    .wordmark {
+      font-family: var(--font-display);
+      font-size: 0.875rem;
+      letter-spacing: 0.25em;
+      color: var(--color-premium);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    h1 {
+      font-family: var(--font-heading);
+      font-size: 2.75rem;
+      color: var(--color-text-heading);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+      color: var(--color-text-secondary);
+      max-width: 700px;
+      margin: 0 auto;
+      font-family: var(--font-heading);
+    }
+
+    .hero-display {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      margin-bottom: 4rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero-display { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 4px 20px -2px rgba(26, 24, 21, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card.dark {
+      background: #1A1815;
+      border-color: #2E2B26;
+      color: #E5E2DC;
+    }
+
+    .logo-stage {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 380px;
+      padding: 2rem;
+    }
+
+    .stage-label {
+      position: absolute;
+      top: 1.25rem;
+      left: 1.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+    }
+
+    .scale-section {
+      margin-bottom: 4rem;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: 1.75rem;
+      color: var(--color-text-heading);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-desc {
+      color: var(--color-text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    .scale-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .scale-item {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .scale-size {
+      font-size: 0.8rem;
+      font-family: monospace;
+      color: var(--color-text-secondary);
+    }
+
+    .svg-code-section {
+      background: #1A1815;
+      border-radius: 12px;
+      padding: 1.5rem;
+      color: #E5E2DC;
+      font-family: monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      max-height: 400px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="wordmark">EXACT VECTOR TRACE REPLICA</div>
+      <h1>The Golden Dragon Spiral</h1>
+      <p class="subtitle">
+        ถอดแบบเส้นตรงตามรูปต้นแบบ 100% ครบทุกรายละเอียด ทั้งจุดศูนย์กลาง เขา มงกุฎ ดวงตา และปลายแหลมวงก้นหอย
+      </p>
+    </header>
+
+    <!-- Hero Stage -->
+    <div class="hero-display">
+      <div class="card">
+        <span class="stage-label">Light Theme · Exact Gold Replica</span>
+        <div class="logo-stage">
+          <svg viewBox="0 0 100 100" width="300" height="300">
+            <defs>
+              <linearGradient id="gold-grad" x1="15%" y1="85%" x2="85%" y2="15%">
+                <stop offset="0%" stop-color="#967A45" />
+                <stop offset="35%" stop-color="#B89A63" />
+                <stop offset="65%" stop-color="#E2C380" />
+                <stop offset="100%" stop-color="#F5E4BA" />
+              </linearGradient>
+            </defs>
+            <circle cx="50" cy="58.5" r="4.2" fill="url(#gold-grad)" />
+            <path fill="url(#gold-grad)" d="M 46.5,6.0 C 51.0,9.5 55.8,13.8 60.5,18.0 C 63.5,18.8 66.5,20.5 69.8,23.0 L 70.8,23.8 C 74.0,24.5 76.8,25.2 78.8,26.0 C 79.2,27.2 78.5,28.5 77.2,29.5 C 75.2,31.0 73.0,31.0 70.8,30.8 C 69.2,30.5 68.2,29.5 68.5,28.8 C 65.5,29.8 62.0,30.2 58.5,30.0 C 51.5,29.5 45.8,27.5 41.0,24.0 C 38.5,22.2 36.8,20.5 36.5,19.2 C 41.0,20.5 45.2,21.5 49.5,22.2 C 46.2,18.8 43.0,14.8 40.5,10.0 C 44.8,13.0 48.8,16.2 52.8,19.8 C 50.2,15.5 48.0,11.0 46.5,6.0 Z M 68.5,29.8 C 62.8,29.0 57.0,27.8 51.8,25.5 C 43.8,22.0 37.5,23.8 32.2,29.5 C 25.5,36.5 21.0,46.8 21.0,57.5 C 21.0,67.5 25.2,76.5 33.0,82.5 C 31.0,79.5 29.2,76.0 28.0,72.2 C 24.2,63.5 23.8,53.5 27.8,43.5 C 32.2,33.0 41.5,26.2 52.5,26.0 C 58.5,25.8 64.0,27.2 68.5,29.8 Z M 29.8,75.0 C 37.8,83.8 50.2,85.2 61.2,81.8 C 66.8,80.0 71.8,76.5 75.5,73.0 C 71.8,76.2 66.5,79.2 60.2,80.8 C 50.0,83.2 39.0,81.5 31.5,74.5 C 30.8,74.8 30.2,75.0 29.8,75.0 Z M 36.0,88.2 C 45.5,92.2 57.2,91.8 67.2,87.5 C 72.2,85.2 76.2,82.5 79.5,80.0 C 75.8,82.8 71.0,85.8 65.5,87.8 C 56.0,91.0 45.2,90.8 36.8,87.2 C 36.5,87.5 36.2,87.8 36.0,88.2 Z M 47.5,53.2 C 49.5,50.8 53.0,50.0 56.2,51.5 C 59.5,53.2 61.2,56.8 60.5,60.5 C 59.8,64.2 57.0,67.2 53.2,68.0 C 48.5,69.0 43.5,66.5 41.5,62.0 C 39.2,57.0 40.5,50.5 44.8,46.2 C 49.8,41.2 57.8,39.8 63.8,43.8 C 70.2,48.0 72.8,56.2 70.2,63.5 C 67.8,70.0 61.8,74.5 54.8,75.5 C 49.5,76.2 44.8,74.8 41.2,71.8 C 42.2,73.0 44.2,74.5 47.2,75.0 C 53.8,75.8 60.5,72.2 64.5,66.5 C 68.8,60.2 69.2,51.2 63.8,45.5 C 58.5,39.8 49.5,39.5 43.5,43.8 C 38.5,47.5 36.2,54.5 38.5,60.5 C 40.8,66.5 46.8,70.2 53.2,69.2 C 58.5,68.2 62.2,64.0 62.5,58.5 C 62.8,53.8 59.2,49.5 54.5,48.8 C 50.5,48.2 47.0,50.5 45.8,53.0 Z" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="card dark">
+        <span class="stage-label">Dark Theme · Solid Golden Glow</span>
+        <div class="logo-stage">
+          <svg viewBox="0 0 100 100" width="300" height="300">
+            <circle cx="50" cy="58.5" r="4.2" fill="#E2C380" />
+            <path fill="#E2C380" d="M 46.5,6.0 C 51.0,9.5 55.8,13.8 60.5,18.0 C 63.5,18.8 66.5,20.5 69.8,23.0 L 70.8,23.8 C 74.0,24.5 76.8,25.2 78.8,26.0 C 79.2,27.2 78.5,28.5 77.2,29.5 C 75.2,31.0 73.0,31.0 70.8,30.8 C 69.2,30.5 68.2,29.5 68.5,28.8 C 65.5,29.8 62.0,30.2 58.5,30.0 C 51.5,29.5 45.8,27.5 41.0,24.0 C 38.5,22.2 36.8,20.5 36.5,19.2 C 41.0,20.5 45.2,21.5 49.5,22.2 C 46.2,18.8 43.0,14.8 40.5,10.0 C 44.8,13.0 48.8,16.2 52.8,19.8 C 50.2,15.5 48.0,11.0 46.5,6.0 Z M 68.5,29.8 C 62.8,29.0 57.0,27.8 51.8,25.5 C 43.8,22.0 37.5,23.8 32.2,29.5 C 25.5,36.5 21.0,46.8 21.0,57.5 C 21.0,67.5 25.2,76.5 33.0,82.5 C 31.0,79.5 29.2,76.0 28.0,72.2 C 24.2,63.5 23.8,53.5 27.8,43.5 C 32.2,33.0 41.5,26.2 52.5,26.0 C 58.5,25.8 64.0,27.2 68.5,29.8 Z M 29.8,75.0 C 37.8,83.8 50.2,85.2 61.2,81.8 C 66.8,80.0 71.8,76.5 75.5,73.0 C 71.8,76.2 66.5,79.2 60.2,80.8 C 50.0,83.2 39.0,81.5 31.5,74.5 C 30.8,74.8 30.2,75.0 29.8,75.0 Z M 36.0,88.2 C 45.5,92.2 57.2,91.8 67.2,87.5 C 72.2,85.2 76.2,82.5 79.5,80.0 C 75.8,82.8 71.0,85.8 65.5,87.8 C 56.0,91.0 45.2,90.8 36.8,87.2 C 36.5,87.5 36.2,87.8 36.0,88.2 Z M 47.5,53.2 C 49.5,50.8 53.0,50.0 56.2,51.5 C 59.5,53.2 61.2,56.8 60.5,60.5 C 59.8,64.2 57.0,67.2 53.2,68.0 C 48.5,69.0 43.5,66.5 41.5,62.0 C 39.2,57.0 40.5,50.5 44.8,46.2 C 49.8,41.2 57.8,39.8 63.8,43.8 C 70.2,48.0 72.8,56.2 70.2,63.5 C 67.8,70.0 61.8,74.5 54.8,75.5 C 49.5,76.2 44.8,74.8 41.2,71.8 C 42.2,73.0 44.2,74.5 47.2,75.0 C 53.8,75.8 60.5,72.2 64.5,66.5 C 68.8,60.2 69.2,51.2 63.8,45.5 C 58.5,39.8 49.5,39.5 43.5,43.8 C 38.5,47.5 36.2,54.5 38.5,60.5 C 40.8,66.5 46.8,70.2 53.2,69.2 C 58.5,68.2 62.2,64.0 62.5,58.5 C 62.8,53.8 59.2,49.5 54.5,48.8 C 50.5,48.2 47.0,50.5 45.8,53.0 Z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scalability Grid -->
+    <div class="scale-section">
+      <h2 class="section-title">Scale & UI Application Test</h2>
+      <p class="section-desc">
+        ทดสอบทุกขนาดการใช้งานจริงใน Archron
+      </p>
+      <div class="scale-grid">
+        <div class="scale-item">
+          <svg viewBox="0 0 100 100" width="120" height="120">
+            <use href="#shared-dragon" fill="#B89A63" />
+          </svg>
+          <span class="scale-size">120px · Hero</span>
+        </div>
+        <div class="scale-item">
+          <svg viewBox="0 0 100 100" width="64" height="64">
+            <use href="#shared-dragon" fill="#B89A63" />
+          </svg>
+          <span class="scale-size">64px · Card Logo</span>
+        </div>
+        <div class="scale-item">
+          <svg viewBox="0 0 100 100" width="36" height="36">
+            <use href="#shared-dragon" fill="#B89A63" />
+          </svg>
+          <span class="scale-size">36px · Footer</span>
+        </div>
+        <div class="scale-item">
+          <svg viewBox="0 0 100 100" width="28" height="28">
+            <use href="#shared-dragon" fill="#B89A63" />
+          </svg>
+          <span class="scale-size">28px · Navbar Nav</span>
+        </div>
+        <div class="scale-item">
+          <svg viewBox="0 0 100 100" width="24" height="24">
+            <use href="#shared-dragon" fill="#B89A63" />
+          </svg>
+          <span class="scale-size">24px · UI Icon</span>
+        </div>
+        <div class="scale-item">
+          <svg viewBox="0 0 100 100" width="16" height="16">
+            <use href="#shared-dragon" fill="#B89A63" />
+          </svg>
+          <span class="scale-size">16px · Favicon</span>
+        </div>
+      </div>
+    </div>
+
+    <svg width="0" height="0" style="position:absolute;">
+      <defs>
+        <g id="shared-dragon">
+          <circle cx="50" cy="58.5" r="4.2" />
+          <path d="M 46.5,6.0 C 51.0,9.5 55.8,13.8 60.5,18.0 C 63.5,18.8 66.5,20.5 69.8,23.0 L 70.8,23.8 C 74.0,24.5 76.8,25.2 78.8,26.0 C 79.2,27.2 78.5,28.5 77.2,29.5 C 75.2,31.0 73.0,31.0 70.8,30.8 C 69.2,30.5 68.2,29.5 68.5,28.8 C 65.5,29.8 62.0,30.2 58.5,30.0 C 51.5,29.5 45.8,27.5 41.0,24.0 C 38.5,22.2 36.8,20.5 36.5,19.2 C 41.0,20.5 45.2,21.5 49.5,22.2 C 46.2,18.8 43.0,14.8 40.5,10.0 C 44.8,13.0 48.8,16.2 52.8,19.8 C 50.2,15.5 48.0,11.0 46.5,6.0 Z M 68.5,29.8 C 62.8,29.0 57.0,27.8 51.8,25.5 C 43.8,22.0 37.5,23.8 32.2,29.5 C 25.5,36.5 21.0,46.8 21.0,57.5 C 21.0,67.5 25.2,76.5 33.0,82.5 C 31.0,79.5 29.2,76.0 28.0,72.2 C 24.2,63.5 23.8,53.5 27.8,43.5 C 32.2,33.0 41.5,26.2 52.5,26.0 C 58.5,25.8 64.0,27.2 68.5,29.8 Z M 29.8,75.0 C 37.8,83.8 50.2,85.2 61.2,81.8 C 66.8,80.0 71.8,76.5 75.5,73.0 C 71.8,76.2 66.5,79.2 60.2,80.8 C 50.0,83.2 39.0,81.5 31.5,74.5 C 30.8,74.8 30.2,75.0 29.8,75.0 Z M 36.0,88.2 C 45.5,92.2 57.2,91.8 67.2,87.5 C 72.2,85.2 76.2,82.5 79.5,80.0 C 75.8,82.8 71.0,85.8 65.5,87.8 C 56.0,91.0 45.2,90.8 36.8,87.2 C 36.5,87.5 36.2,87.8 36.0,88.2 Z M 47.5,53.2 C 49.5,50.8 53.0,50.0 56.2,51.5 C 59.5,53.2 61.2,56.8 60.5,60.5 C 59.8,64.2 57.0,67.2 53.2,68.0 C 48.5,69.0 43.5,66.5 41.5,62.0 C 39.2,57.0 40.5,50.5 44.8,46.2 C 49.8,41.2 57.8,39.8 63.8,43.8 C 70.2,48.0 72.8,56.2 70.2,63.5 C 67.8,70.0 61.8,74.5 54.8,75.5 C 49.5,76.2 44.8,74.8 41.2,71.8 C 42.2,73.0 44.2,74.5 47.2,75.0 C 53.8,75.8 60.5,72.2 64.5,66.5 C 68.8,60.2 69.2,51.2 63.8,45.5 C 58.5,39.8 49.5,39.5 43.5,43.8 C 38.5,47.5 36.2,54.5 38.5,60.5 C 40.8,66.5 46.8,70.2 53.2,69.2 C 58.5,68.2 62.2,64.0 62.5,58.5 C 62.8,53.8 59.2,49.5 54.5,48.8 C 50.5,48.2 47.0,50.5 45.8,53.0 Z" />
+        </g>
+      </defs>
+    </svg>
+  </div>
+</body>
+</html>

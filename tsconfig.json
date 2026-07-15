@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
+    "target": "ES2024",
     "lib": [
       "dom",
       "dom.iterable",
@@ -17,6 +17,10 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
+    // TS 7: enable erasable syntax only (type annotations stripped at build, no type emit)
+    "erasableSyntaxOnly": true,
+    // TS 7: generate .d.ts.map for faster editor navigation to source
+    "declarationMap": true,
     "plugins": [
       {
         "name": "next"

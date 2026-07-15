@@ -4,9 +4,8 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ClerkLoading, SignIn, SignedIn, SignedOut, useUser, useClerk } from "@clerk/nextjs";
-import { ArchronLogomark } from "@/components/icons";
+import { ArchronLogomark, EditIcon, ArrowRightIcon, QuoteIcon, LogoutIcon } from "@/components/icons";
 import { roleFromMetadata, canWrite, isAdmin } from "@/lib/content/utils/roles";
-import { EditorIcon } from "@/components/studio/editor-icon";
 
 // หน้า Studio landing/login เฉพาะนักเขียน — ปรับโฉมเป็น 2 คอลัมน์พรีเมียมตามจิตวิทยาสีและการเล่าเรื่อง
 export default function StudioLandingPage() {
@@ -240,9 +239,9 @@ export default function StudioLandingPage() {
                 href="/studio/editor"
                 className="group/btn relative flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-xl bg-gradient-to-br from-accent to-accent px-6 py-3.5 text-sm font-semibold text-text-inverse shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/20 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
               >
-                  <EditorIcon name="edit_note" className="h-5 w-5" />
+                  <EditIcon className="h-5 w-5" />
                 เข้าสู่ห้องเขียน
-                <EditorIcon name="arrow_right" className="h-[18px] w-[18px] transition-transform duration-300 group-hover/btn:translate-x-1" />
+                <ArrowRightIcon className="h-[18px] w-[18px] transition-transform duration-300 group-hover/btn:translate-x-1" />
               </Link>
 
               {/* Admin grid — จัดการผู้ใช้ / ดูแลความเห็น */}
@@ -253,7 +252,7 @@ export default function StudioLandingPage() {
                     className="group/admin flex items-center gap-2.5 rounded-xl border border-border/30 bg-text-heading/[0.02] px-4 py-3 text-left text-xs font-medium text-text-heading transition-all duration-300 hover:-translate-y-0.5 hover:border-concept/40 hover:bg-concept/5 hover:shadow-lg hover:shadow-concept/5"
                   >
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-concept/20 bg-concept/10 text-concept transition-transform duration-300 group-hover/admin:scale-110">
-                      <EditorIcon name="edit_note" className="h-4 w-4" />
+                      <EditIcon className="h-4 w-4" />
                     </span>
                     <div>
                       <span className="block text-[11px] text-text-heading">จัดการผู้ใช้</span>
@@ -265,7 +264,7 @@ export default function StudioLandingPage() {
                     className="group/admin flex items-center gap-2.5 rounded-xl border border-border/30 bg-text-heading/[0.02] px-4 py-3 text-left text-xs font-medium text-text-heading transition-all duration-300 hover:-translate-y-0.5 hover:border-thinker/40 hover:bg-thinker/5 hover:shadow-lg hover:shadow-thinker/5"
                   >
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-thinker/20 bg-thinker/10 text-thinker transition-transform duration-300 group-hover/admin:scale-110">
-                      <EditorIcon name="format_quote" className="h-4 w-4" />
+                      <QuoteIcon className="h-4 w-4" />
                     </span>
                     <div>
                       <span className="block text-[11px] text-text-heading">ดูแลความเห็น</span>
@@ -281,14 +280,14 @@ export default function StudioLandingPage() {
                   onClick={() => clerk.openUserProfile()}
                   className="group/sec flex flex-1 items-center justify-center gap-2 rounded-xl border border-border/30 bg-text-heading/[0.015] px-4 py-2.5 text-[11px] font-medium text-text-secondary/70 transition-all duration-300 hover:border-accent/30 hover:text-text-heading hover:bg-text-heading/[0.04]"
                 >
-                  <EditorIcon name="edit_note" className="h-[15px] w-[15px] transition-transform duration-300 group-hover/sec:rotate-45" />
+                  <EditIcon className="h-[15px] w-[15px] transition-transform duration-300 group-hover/sec:rotate-45" />
                   จัดการบัญชี
                 </button>
                 <button
                   onClick={() => clerk.signOut({ redirectUrl: "/studio" })}
                   className="group/sec flex flex-1 items-center justify-center gap-2 rounded-xl border border-border/30 bg-text-heading/[0.015] px-4 py-2.5 text-[11px] font-medium text-text-secondary/70 transition-all duration-300 hover:border-error/30 hover:text-error hover:bg-error/5"
                 >
-                  <EditorIcon name="logout" className="h-[15px] w-[15px] transition-transform duration-300 group-hover/sec:-translate-x-0.5" />
+                  <LogoutIcon className="h-[15px] w-[15px] transition-transform duration-300 group-hover/sec:-translate-x-0.5" />
                   ออกจากระบบ
                 </button>
               </div>

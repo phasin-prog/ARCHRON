@@ -12,7 +12,6 @@ import {
   deleteEntriesAction,
   archiveEntriesAction,
 } from "@/features/studio/actions/dashboard-actions";
-import { EditorIcon } from "@/components/studio/editor-icon";
 import { FeedbackModal } from "@/components/feedback-modal";
 import { BulkActionBar, SelectRow } from "@/components/studio/bulk-action-bar";
 import { DashboardEmptyState } from "@/components/studio/dashboard-empty-state";
@@ -20,11 +19,13 @@ import {
   SearchIcon,
   BookIcon,
   ArrowRightIcon,
+  ArrowLeftIcon,
   ChevronDownIcon,
   BookmarkIcon,
   CloseIcon,
   FilterIcon,
   CheckIcon,
+  EditIcon,
 } from "@/components/icons";
 
 interface DraftItem {
@@ -273,7 +274,7 @@ export default function StudioDashboardPage() {
     return (
       <main className="min-h-[70vh] flex flex-col items-center justify-center px-4 py-20 text-center">
         <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-accent/10 text-accent mb-6">
-          <EditorIcon name="edit_note" className="h-8 w-8" />
+          <EditIcon className="h-8 w-8" />
         </div>
         <h1 className="font-serif text-2xl md:text-3xl font-medium text-text-heading">
           พื้นที่สงวนเฉพาะนักเขียน Archron
@@ -362,7 +363,7 @@ export default function StudioDashboardPage() {
               href="/" 
               className="group inline-flex items-center gap-1.5 text-xs font-medium text-text-secondary/70 hover:text-accent transition-colors"
             >
-              <EditorIcon name="arrow_left" className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" />
+              <ArrowLeftIcon className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" />
               กลับคลังความรู้หลัก
             </Link>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-border/40 bg-bg-card px-3 py-1 text-[11px] font-medium text-text-secondary/80 shadow-2xs">
@@ -386,7 +387,7 @@ export default function StudioDashboardPage() {
                 href="/studio/editor"
                 className="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-accent to-accent px-5 py-2.5 text-sm font-semibold text-text-inverse shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:shadow-accent/20 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
               >
-                <EditorIcon name="edit_note" className="h-4 w-4" />
+                <EditIcon className="h-4 w-4" />
                 <span>เขียนบทความใหม่</span>
               </Link>
               {admin && (
@@ -429,7 +430,7 @@ export default function StudioDashboardPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-accent/10 text-accent">
-                <EditorIcon name="edit_note" className="h-4 w-4" />
+                <EditIcon className="h-4 w-4" />
               </span>
               <h2 className="font-heading text-lg font-semibold text-text-heading">
                 เขียนต่อ (Continue Writing)
@@ -458,7 +459,7 @@ export default function StudioDashboardPage() {
                 href="/studio/editor"
                 className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-accent hover:underline"
               >
-                <EditorIcon name="edit_note" className="h-3.5 w-3.5" />
+                <EditIcon className="h-3.5 w-3.5" />
                 เริ่มต้นจรดปากการ่างแรก
               </Link>
             </div>
@@ -895,7 +896,7 @@ export default function StudioDashboardPage() {
                         className="rounded-lg p-1.5 text-text-secondary/50 hover:text-accent hover:bg-accent/10 transition-colors"
                         title="แก้ไขบทความ"
                       >
-                        <EditorIcon name="edit_note" className="h-4 w-4" />
+                        <EditIcon className="h-4 w-4" />
                       </Link>
                       {e.status === "published" && (
                         <button
@@ -1046,7 +1047,7 @@ export default function StudioDashboardPage() {
                         className="rounded-lg p-1.5 text-text-secondary/50 hover:text-accent hover:bg-accent/10 transition-colors"
                         title="แก้ไขบทความ"
                       >
-                        <EditorIcon name="edit_note" className="h-4 w-4" />
+                        <EditIcon className="h-4 w-4" />
                       </Link>
                       {e.status === "published" && (
                         <button

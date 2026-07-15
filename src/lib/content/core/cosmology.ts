@@ -37,14 +37,14 @@ export const COSMOLOGY_KEYS: Record<CosmologyKey, { label: string; accent: strin
 export type ContentTypeMeta = { icon: string; accent: string; label: string };
 
 const CONTENT_TYPE_META: Record<string, ContentTypeMeta> = {
-  article: { icon: "newspaper", accent: colors.roseMuted, label: "บทความ" },
-  concept: { icon: "psychology", accent: COSMOLOGY_ACCENT.psyche, label: "แนวคิด" },
-  "reading-set": { icon: "layers", accent: colors.indigoSoft, label: "ชุดอ่าน" },
-  "source-note": { icon: "format_quote", accent: colors.sageGreen, label: "บันทึกแหล่งอ้างอิง" },
+  article: { icon: "source", accent: colors.roseMuted, label: "บทความ" },
+  concept: { icon: "concept", accent: COSMOLOGY_ACCENT.psyche, label: "แนวคิด" },
+  "reading-set": { icon: "book", accent: colors.indigoSoft, label: "ชุดอ่าน" },
+  "source-note": { icon: "quote", accent: colors.sageGreen, label: "บันทึกแหล่งอ้างอิง" },
   person: { icon: "person", accent: COSMOLOGY_ACCENT.mercurius, label: "นักคิด" },
-  book: { icon: "menu_book", accent: colors.amberBrown, label: "หนังสือ" },
-  symbol: { icon: "category", accent: COSMOLOGY_ACCENT.lumen, label: "สัญลักษณ์" },
-  term: { icon: "tag", accent: colors.warmGray, label: "คำศัพท์" },
+  book: { icon: "book", accent: colors.amberBrown, label: "หนังสือ" },
+  symbol: { icon: "symbol", accent: COSMOLOGY_ACCENT.lumen, label: "สัญลักษณ์" },
+  term: { icon: "term", accent: colors.warmGray, label: "คำศัพท์" },
 };
 
 export function contentTypeMeta(type: string | undefined | null): ContentTypeMeta {
@@ -62,46 +62,46 @@ const fallback = (): Meta => ({ icon: "circle", accent: colors.warmGray });
 
 // Status — สถานะการเผยแพร่
 const STATUS_META: Record<string, Meta> = {
-  draft: { icon: "edit_note", accent: colors.warmGray },
-  "needs-source-check": { icon: "report", accent: colors.redMuted },
-  "ready-to-publish": { icon: "schedule", accent: colors.amberDark },
-  published: { icon: "check_circle", accent: colors.greenForest },
-  archived: { icon: "inventory_2", accent: colors.warmGray },
+  draft: { icon: "edit", accent: colors.warmGray },
+  "needs-source-check": { icon: "clock", accent: colors.redMuted },
+  "ready-to-publish": { icon: "clock", accent: colors.amberDark },
+  published: { icon: "check", accent: colors.greenForest },
+  archived: { icon: "clock", accent: colors.warmGray },
 };
 export const statusMeta = (v: string): Meta => STATUS_META[v] ?? fallback();
 
 // Difficulty — ระดับความลึก
 const DIFFICULTY_META: Record<string, Meta> = {
-  beginner: { icon: "eco", accent: colors.greenForest },
-  intermediate: { icon: "trending_up", accent: colors.blueSlate },
-  advanced: { icon: "workspace_premium", accent: colors.amberDark },
-  "source-note": { icon: "format_quote", accent: colors.sageGreen },
+  beginner: { icon: "concept", accent: colors.greenForest },
+  intermediate: { icon: "trending", accent: colors.blueSlate },
+  advanced: { icon: "achievement", accent: colors.amberDark },
+  "source-note": { icon: "quote", accent: colors.sageGreen },
 };
 export const difficultyMeta = (v: string): Meta => DIFFICULTY_META[v] ?? fallback();
 
 // Source type — ชนิดแหล่งอ้างอิง
 const SOURCE_TYPE_META: Record<string, Meta> = {
-  "primary-source": { icon: "verified", accent: colors.amberBrown },
-  "secondary-source": { icon: "menu_book", accent: colors.softBlue },
-  commentary: { icon: "forum", accent: colors.forestGreen },
-  "editorial-interpretation": { icon: "edit_note", accent: colors.roseMuted },
-  website: { icon: "language", accent: colors.blueSlate },
-  "dictionary-lexicon": { icon: "import_contacts", accent: colors.warmGray },
-  other: { icon: "more_horiz", accent: colors.warmGray },
+  "primary-source": { icon: "check", accent: colors.amberBrown },
+  "secondary-source": { icon: "book", accent: colors.softBlue },
+  commentary: { icon: "quote", accent: colors.forestGreen },
+  "editorial-interpretation": { icon: "edit", accent: colors.roseMuted },
+  website: { icon: "source", accent: colors.blueSlate },
+  "dictionary-lexicon": { icon: "book", accent: colors.warmGray },
+  other: { icon: "more", accent: colors.warmGray },
 };
 export const sourceTypeMeta = (v: string): Meta => SOURCE_TYPE_META[v] ?? fallback();
 
 // Framework — กรอบทฤษฎี → สีตามแขนง
 const FRAMEWORK_META: Record<string, Meta> = {
-  "Analytical Psychology": { icon: "psychology", accent: colors.softBlue },
-  "Depth Psychology": { icon: "psychology_alt", accent: colors.softBlue },
-  Psychoanalysis: { icon: "visibility", accent: colors.softBlue },
-  Philosophy: { icon: "auto_stories", accent: colors.amberBrown },
-  Existentialism: { icon: "self_improvement", accent: colors.mutedSlate },
-  Phenomenology: { icon: "blur_on", accent: colors.mutedSlate },
-  "Symbol / Myth": { icon: "category", accent: colors.warmGold },
-  "Comparative Thought": { icon: "compare_arrows", accent: colors.forestGreen },
-  "Editorial Interpretation": { icon: "edit_note", accent: colors.roseMuted },
+  "Analytical Psychology": { icon: "concept", accent: colors.softBlue },
+  "Depth Psychology": { icon: "concept", accent: colors.softBlue },
+  Psychoanalysis: { icon: "eye", accent: colors.softBlue },
+  Philosophy: { icon: "book", accent: colors.amberBrown },
+  Existentialism: { icon: "person", accent: colors.mutedSlate },
+  Phenomenology: { icon: "concept", accent: colors.mutedSlate },
+  "Symbol / Myth": { icon: "symbol", accent: colors.warmGold },
+  "Comparative Thought": { icon: "shuffle", accent: colors.forestGreen },
+  "Editorial Interpretation": { icon: "edit", accent: colors.roseMuted },
 };
 export const frameworkMeta = (v: string): Meta => FRAMEWORK_META[v] ?? fallback();
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, type DragEvent, type ChangeEvent } from "react";
-import { EditorIcon } from "@/components/studio/editor-icon";
+import { SourceIcon } from "@/components/icons";
 
 type ImagePickerProps = {
   value: string; // current URL (empty = no image)
@@ -126,7 +126,7 @@ export function ImagePicker({ value, onChange, onRemove, entryId, className = ""
             </>
           ) : (
             <>
-              <EditorIcon name="newspaper" className="h-8 w-8 text-text-secondary/30" />
+              <SourceIcon className="h-8 w-8 text-text-secondary/30" />
               <div className="text-center">
                 <p className="text-sm text-text-secondary">
                   ลากรูปมาวาง หรือคลิกเพื่อเลือกไฟล์

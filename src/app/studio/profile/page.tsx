@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useAuth, useUser } from "@clerk/nextjs";
 import { roleFromMetadata, ROLE_LABEL, ROLE_META, canWrite, isAdmin } from "@/lib/content/utils/roles";
-import { AchievementBadgeIcon } from "@/components/icons";
-import { EditorIcon } from "@/components/studio/editor-icon";
+import { AchievementBadgeIcon, EditIcon, CloseIcon } from "@/components/icons";
 import {
   getMyProfileAction,
   upsertMyProfileAction,
@@ -224,7 +223,7 @@ export default function StudioProfilePage() {
                 ผู้ใช้ทั่วไปอ่านได้ทุกอย่าง หากต้องการเขียนและเรียบเรียงเนื้อหา ส่งคำขอเป็นนักเขียนเพื่อให้แอดมินพิจารณา
               </p>
               <button onClick={handleRequestWriter} disabled={writerRequested} className="mt-4 inline-flex items-center gap-2 rounded border border-accent/45 px-4 py-2 text-sm text-accent transition-colors hover:bg-accent/10 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
-                <EditorIcon name="edit_note" className="h-[18px] w-[18px]" />
+                <EditIcon className="h-[18px] w-[18px]" />
                 {writerRequested ? "ส่งคำขอแล้ว — รออนุมัติ" : "ขอเป็นนักเขียน"}
               </button>
             </div>
@@ -270,7 +269,7 @@ export default function StudioProfilePage() {
                       className="shrink-0 ml-2 p-1 text-text-secondary hover:text-error transition-colors"
                       aria-label="ลบรายการบันทึก"
                     >
-                      <EditorIcon name="close" className="h-4 w-4" />
+                      <CloseIcon className="h-4 w-4" />
                     </button>
                   </div>
                 ))}

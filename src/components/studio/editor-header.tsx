@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 import { EditorStatusBar } from "@/components/studio/editor-status-bar";
-import { EditorIcon } from "@/components/studio/editor-icon";
+import { ArrowLeftIcon, EditIcon } from "@/components/icons";
+import { resolveIcon } from "@/lib/content/core/icon-map";
 import { statusMeta } from "@/lib/content/core/cosmology";
 import { isAdmin, type Role } from "@/lib/content/utils/roles";
 import type { EditorDraft } from "@/lib/content/publishing/publish-validation";
@@ -32,6 +33,7 @@ export function EditorHeader({
   role, originalAuthorId, originalAuthorName, userId, displayName,
 }: Props) {
   const status = statusMeta(draft.status);
+  const StatusIcon = resolveIcon(status.icon);
   const editingOther = isAdmin(role) && originalAuthorId && originalAuthorId !== userId;
 
   return (
@@ -39,7 +41,7 @@ export function EditorHeader({
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-6 py-3">
         <div className="flex items-center gap-3">
           <Link href="/" className="flex items-center gap-1.5 text-sm text-text-body hover:text-accent">
-            <EditorIcon name="arrow_left" className="h-4 w-4" />
+            <ArrowLeftIcon className="h-4 w-4" />
             หน้าแรก
           </Link>
           <span className="text-text-secondary/30">|</span>
@@ -58,7 +60,7 @@ export function EditorHeader({
             className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-semibold leading-[1.4]"
             style={{ backgroundColor: `${status.accent}1f`, color: status.accent }}
           >
-            <EditorIcon name={draft.status === "published" ? "check_circle" : "edit_note"} className="h-3 w-3" />
+            {StatusIcon && <StatusIcon className="h-3 w-3" />}
             {draft.status}
           </span>
           <EditorStatusBar autoState={autoState} savedAt={savedAt} />
@@ -93,7 +95,7 @@ export function EditorHeader({
       {editingOther && (
         <div className="mx-auto max-w-6xl px-6 pb-2">
           <div className="rounded-md border border-accent/30 bg-accent/5 px-3 py-2 text-xs text-accent">
-            <EditorIcon name="edit_note" className="mr-1 inline h-3.5 w-3.5 align-middle" />
+            <EditIcon className="mr-1 inline h-3.5 w-3.5 align-middle" />
             กำลังแก้ไขเนื้อหาของ: <span className="font-semibold">{originalAuthorName || originalAuthorId}</span>
           </div>
         </div>

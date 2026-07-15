@@ -1,16 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRightIcon } from "@/components/icons";
+import { ArrowRightIcon, CheckIcon } from "@/components/icons";
 import { PsycheCompass } from "@/components/guide/psyche-compass";
 
 interface HeroSectionProps {
   onBookClick: () => void;
   onPricingClick: () => void;
-  onPreviewInvoiceClick?: () => void;
 }
 
-export function HeroSection({ onBookClick, onPricingClick, onPreviewInvoiceClick }: HeroSectionProps) {
+export function HeroSection({ onBookClick, onPricingClick }: HeroSectionProps) {
   return (
     <section className="relative overflow-hidden border-b border-border/40 bg-bg px-6 py-20 lg:py-28">
       {/* Subtle academic background glow */}
@@ -72,29 +71,25 @@ export function HeroSection({ onBookClick, onPricingClick, onPreviewInvoiceClick
               >
                 ตรวจสอบราคาและเงื่อนไข
               </button>
-
-              {onPreviewInvoiceClick && (
-                <button
-                  type="button"
-                  onClick={onPreviewInvoiceClick}
-                  className="rounded-md border border-accent/40 bg-accent/10 px-6 py-4 text-sm font-semibold text-accent transition-colors duration-200 hover:bg-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-                >
-                  📄 ดูตัวอย่างใบแจ้งยอด (รอชำระเงิน)
-                </button>
-              )}
             </div>
 
             <div className="mt-8 flex items-center gap-6 border-t border-border/30 pt-6 text-xs text-text-secondary/80">
               <div className="flex items-center gap-2">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-success/15 text-[11px] font-bold text-success">✓</span>
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-success/15 text-success">
+                  <CheckIcon className="h-3 w-3" />
+                </span>
                 <span>เซสชันส่วนตัว 90 นาที</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-success/15 text-[11px] font-bold text-success">✓</span>
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-success/15 text-success">
+                  <CheckIcon className="h-3 w-3" />
+                </span>
                 <span>รายงานสรุปรายบุคคล 2–3 หน้า</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-success/15 text-[11px] font-bold text-success">✓</span>
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-success/15 text-success">
+                  <CheckIcon className="h-3 w-3" />
+                </span>
                 <span>คลังดิจิทัล Client Portal</span>
               </div>
             </div>

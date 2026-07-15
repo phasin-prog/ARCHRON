@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Font Preview — Archron</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&family=Charm:wght@400;700&family=Chonburi&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Inter:wght@400;500;600&family=Kanit:wght@300;400;500;600&family=Mitr:wght@300;400;500;600&family=Noto+Sans+Thai:wght@400;500;600&family=Noto+Serif+Thai:wght@500;600;700&family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Srisakdi:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #F9F5F3;
+    color: #1A1815;
+    font-family: system-ui, sans-serif;
+    padding: 2rem;
+  }
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    margin-bottom: 0.25rem;
+    color: #8C1515;
+  }
+  .subtitle { color: #65625C; margin-bottom: 2rem; font-size: 1rem; }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #D7D5D3;
+    color: #3A3835;
+  }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 1.25rem; }
+
+  .card {
+    background: #FFFFFF;
+    border: 1px solid #D7D5D3;
+    border-radius: 10px;
+    padding: 1.5rem;
+  }
+  .card h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #65625C;
+    margin-bottom: 0.15rem;
+  }
+  .card h3 span {
+    color: #8C1515;
+    font-weight: 600;
+  }
+
+  /* ---- Font samples inside cards ---- */
+  .sample-display  { font-size: 2.2rem; line-height: 1.25; margin: 0.3rem 0 0.5rem; font-weight: 700; }
+  .sample-heading  { font-size: 1.35rem; line-height: 1.4;  margin: 0.3rem 0 0.35rem; font-weight: 600; }
+  .sample-body     { font-size: 1.05rem; line-height: 1.8;  margin: 0.3rem 0 0.35rem; font-weight: 400; }
+  .sample-ui       { font-size: 0.85rem; line-height: 1.4;  margin: 0.3rem 0 0.35rem; font-weight: 500; }
+  .sample-caption  { font-size: 0.75rem; line-height: 1.5;  color: #65625C; margin-top: 0.5rem; }
+
+  .weights { display: flex; gap: 0.6rem; margin-top: 0.4rem; flex-wrap: wrap; }
+  .weights span { font-size: 1rem; }
+
+  /* Assign fonts to samples via data attributes */
+  [data-font="Cormorant Garamond"] * { font-family: 'Cormorant Garamond', serif; }
+  [data-font="Charm"] *                   { font-family: 'Charm', serif; }
+  [data-font="Srisakdi"] *                { font-family: 'Srisakdi', cursive; }
+  [data-font="Chonburi"] *                { font-family: 'Chonburi', serif; }
+  [data-font="Noto Serif Thai"] *         { font-family: 'Noto Serif Thai', serif; }
+
+  [data-font="Prompt"] *                  { font-family: 'Prompt', sans-serif; }
+  [data-font="Sarabun"] *                 { font-family: 'Sarabun', sans-serif; }
+  [data-font="Anuphan"] *                 { font-family: 'Anuphan', sans-serif; }
+  [data-font="Kanit"] *                   { font-family: 'Kanit', sans-serif; }
+  [data-font="Mitr"] *                    { font-family: 'Mitr', sans-serif; }
+  [data-font="IBM Plex Sans Thai"] *      { font-family: 'IBM Plex Sans Thai', sans-serif; }
+  [data-font="Noto Sans Thai"] *          { font-family: 'Noto Sans Thai', sans-serif; }
+  [data-font="Inter"] *                   { font-family: 'Inter', sans-serif; }
+
+  /* Recommend badge */
+  .badge {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 2px 8px;
+    border-radius: 99px;
+    margin-left: 0.4rem;
+    vertical-align: middle;
+  }
+  .badge-rec { background: #8C1515; color: #fff; }
+  .badge-now { background: #D7D5D3; color: #65625C; }
+</style>
+</head>
+<body>
+
+<h1>Font Preview</h1>
+<p class="subtitle">ตัวอย่างฟอนต์ไทย — Google Fonts · Archron</p>
+
+<!-- ============================================================ -->
+<!-- DISPLAY / HEADING SERIF -->
+<!-- ============================================================ -->
+<div class="section-title">🎩 Display / หัวข้อ (Serif — สง่า มีเสน่ห์)</div>
+<div class="grid">
+
+  <div class="card" data-font="Cormorant Garamond">
+    <h3>Cormorant Garamond <span class="badge badge-now">ใช้อยู่ — ENG Display</span></h3>
+    <div class="sample-display">The Human Soul</div>
+    <div class="sample-heading">Psychological Types · Individuation</div>
+    <div class="sample-body">The meeting of two personalities is like the contact of two chemical substances: if there is any reaction, both are transformed.</div>
+    <div class="sample-caption">500 · 600 · 700 / Italic — latin only</div>
+  </div>
+
+  <div class="card" data-font="Charm">
+    <h3>Charm <span class="badge badge-rec">แนะนำ</span></h3>
+    <div class="sample-display">จิตวิญญาณของมนุษย์</div>
+    <div class="sample-heading">จิตวิทยาเชิงลึก · ปัจเจกภาพ</div>
+    <div class="sample-body">การพบกันของบุคลิกภาพสองคนเปรียบเสมือนการสัมผัสของสารเคมีสองชนิด หากเกิดปฏิกิริยาขึ้น ทั้งคู่ย่อมถูกเปลี่ยน</div>
+    <div class="sample-caption">400 · 700 — Thai + Latin</div>
+  </div>
+
+  <div class="card" data-font="Srisakdi">
+    <h3>Srisakdi</h3>
+    <div class="sample-display">จิตวิญญาณของมนุษย์</div>
+    <div class="sample-heading">จิตวิทยาเชิงลึก · ปัจเจกภาพ</div>
+    <div class="sample-body">การพบกันของบุคลิกภาพสองคนเปรียบเสมือนการสัมผัสของสารเคมีสองชนิด หากเกิดปฏิกิริยาขึ้น ทั้งคู่ย่อมถูกเปลี่ยน</div>
+    <div class="sample-caption">400 · 700 — Thai + Latin (ตัวเขียน)</div>
+  </div>
+
+  <div class="card" data-font="Chonburi">
+    <h3>Chonburi</h3>
+    <div class="sample-display">จิตวิญญาณของมนุษย์</div>
+    <div class="sample-heading">จิตวิทยาเชิงลึก</div>
+    <div class="sample-body">การพบกันของบุคลิกภาพสองคนเปรียบเสมือนการสัมผัสของสารเคมี</div>
+    <div class="sample-caption">400 only — Thai + Latin (Display เท่านั้น)</div>
+  </div>
+
+  <div class="card" data-font="Noto Serif Thai">
+    <h3>Noto Serif Thai <span class="badge badge-now">ใช้อยู่ — TH Heading</span></h3>
+    <div class="sample-display">จิตวิญญาณของมนุษย์</div>
+    <div class="sample-heading">จิตวิทยาเชิงลึก · ปัจเจกภาพ</div>
+    <div class="sample-body">การพบกันของบุคลิกภาพสองคนเปรียบเสมือนการสัมผัสของสารเคมีสองชนิด หากเกิดปฏิกิริยาขึ้น ทั้งคู่ย่อมถูกเปลี่ยน</div>
+    <div class="sample-caption">500 · 600 · 700 — Thai + Latin</div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- BODY SANS -->
+<!-- ============================================================ -->
+<div class="section-title">📖 เนื้อหา / Body (Sans — สะอาด อ่านง่าย)</div>
+<div class="grid">
+
+  <div class="card" data-font="Prompt">
+    <h3>Prompt <span class="badge badge-rec">แนะนำ</span></h3>
+    <div class="sample-heading">จิตวิทยาเชิงลึก · ปัจเจกภาพ</div>
+    <div class="sample-body">การพบกันของบุคลิกภาพสองคนเปรียบเสมือนการสัมผัสของสารเคมีสองชนิด หากเกิดปฏิกิริยาขึ้น ทั้งคู่ย่อมถูกเปลี่ยนไปอย่างถาวร ไม่มีใครสามารถผ่านประสบการณ์แห่งการเผชิญหน้ากับอีกคนหนึ่งโดยไม่ถูกเปลี่ยน</div>
+    <div class="weights">
+      <span style="font-weight:300">Thin</span>
+      <span style="font-weight:400">Regular</span>
+      <span style="font-weight:500">Medium</span>
+      <span style="font-weight:600">SemiBold</span>
+      <span style="font-weight:700">Bold</span>
+    </div>
+    <div class="sample-caption">100-900 (9 weights) — Thai + Latin · โมเดิร์นสุด</div>
+  </div>
+
+  <div class="card" data-font="Sarabun">
+    <h3>Sarabun <span class="badge badge-rec">แนะนำ</span></h3>
+    <div class="sample-heading">จิตวิทยาเชิงลึก · ปัจเจกภาพ</div>
+    <div class="sample-body">การพบกันของบุคลิกภาพสองคนเปรียบเสมือนการสัมผัสของสารเคมีสองชนิด หากเกิดปฏิกิริยาขึ้น ทั้งคู่ย่อมถูกเปลี่ยนไปอย่างถาวร ไม่มีใครสามารถผ่านประสบการณ์แห่งการเผชิญหน้ากับอีกคนหนึ่งโดยไม่ถูกเปลี่ยน</div>
+    <div class="weights">
+      <span style="font-weight:300">Light</span>
+      <span style="font-weight:400">Regular</span>
+      <span style="font-weight:500">Medium</span>
+      <span style="font-weight:600">SemiBold</span>
+      <span style="font-weight:700">Bold</span>
+    </div>
+    <div class="sample-caption">100-800 (8 weights) — Thai + Latin · คลีน น่าเชื่อถือ</div>
+  </div>
+
+  <div class="card" data-font="Anuphan">
+    <h3>Anuphan</h3>
+    <div class="sample-heading">จิตวิทยาเชิงลึก · ปัจเจกภาพ</div>
+    <div class="sample-body">การพบกันของบุคลิกภาพสองคนเปรียบเสมือนการสัมผัสของสารเคมีสองชนิด หากเกิดปฏิกิริยาขึ้น ทั้งคู่ย่อมถูกเปลี่ยนไปอย่างถาวร ไม่มีใครสามารถผ่านประสบการณ์แห่งการเผชิญหน้ากับอีกคนหนึ่งโดยไม่ถูกเปลี่ยน</div>
+    <div class="weights">
+      <span style="font-weight:300">Light</span>
+      <span style="font-weight:400">Regular</span>
+      <span style="font-weight:500">Medium</span>
+      <span style="font-weight:600">SemiBold</span>
+      <span style="font-weight:700">Bold</span>
+    </div>
+    <div class="sample-caption">100-700 — Thai + Latin · ละมุน ทันสมัย</div>
+  </div>
+
+  <div class="card" data-font="IBM Plex Sans Thai">
+    <h3>IBM Plex Sans Thai <span class="badge badge-now">ใช้อยู่ — TH Body</span></h3>
+    <div class="sample-heading">จิตวิทยาเชิงลึก · ปัจเจกภาพ</div>
+    <div class="sample-body">การพบกันของบุคลิกภาพสองคนเปรียบเสมือนการสัมผัสของสารเคมีสองชนิด หากเกิดปฏิกิริยาขึ้น ทั้งคู่ย่อมถูกเปลี่ยนไปอย่างถาวร ไม่มีใครสามารถผ่านประสบการณ์แห่งการเผชิญหน้ากับอีกคนหนึ่งโดยไม่ถูกเปลี่ยน</div>
+    <div class="sample-caption">400 · 500 · 600 — Thai + Latin</div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- UI / LABELS -->
+<!-- ============================================================ -->
+<div class="section-title">🏷 UI / ป้ายกำกับ (Sans — กระชับ)</div>
+<div class="grid">
+
+  <div class="card" data-font="Kanit">
+    <h3>Kanit <span class="badge badge-rec">แนะนำ</span></h3>
+    <div class="sample-ui">อ่านต่อ · บันทึก · แก้ไข · เผยแพร่</div>
+    <div class="sample-ui" style="margin-top:0.5rem; letter-spacing:0.04em; color:#8C1515; font-weight:600;">จิตวิทยา · ปรัชญา · ประวัติศาสตร์ · ภาษา</div>
+    <div class="weights">
+      <span style="font-weight:300">Light</span>
+      <span style="font-weight:400">Regular</span>
+      <span style="font-weight:500">Medium</span>
+      <span style="font-weight:600">SemiBold</span>
+    </div>
+    <div class="sample-caption">300-600 — Thai + Latin · เรขาคณิต โมเดิร์น</div>
+  </div>
+
+  <div class="card" data-font="Mitr">
+    <h3>Mitr</h3>
+    <div class="sample-ui">อ่านต่อ · บันทึก · แก้ไข · เผยแพร่</div>
+    <div class="sample-ui" style="margin-top:0.5rem; letter-spacing:0.04em; color:#8C1515; font-weight:600;">จิตวิทยา · ปรัชญา · ประวัติศาสตร์ · ภาษา</div>
+    <div class="weights">
+      <span style="font-weight:300">Light</span>
+      <span style="font-weight:400">Regular</span>
+      <span style="font-weight:500">Medium</span>
+      <span style="font-weight:600">SemiBold</span>
+    </div>
+    <div class="sample-caption">300-600 — Thai + Latin · มน เป็นมิตร</div>
+  </div>
+
+  <div class="card" data-font="Noto Sans Thai">
+    <h3>Noto Sans Thai <span class="badge badge-now">ใช้อยู่ — UI</span></h3>
+    <div class="sample-ui">อ่านต่อ · บันทึก · แก้ไข · เผยแพร่</div>
+    <div class="sample-ui" style="margin-top:0.5rem; letter-spacing:0.04em; color:#8C1515; font-weight:600;">จิตวิทยา · ปรัชญา · ประวัติศาสตร์ · ภาษา</div>
+    <div class="sample-caption">400 · 500 · 600 — Thai + Latin</div>
+  </div>
+
+  <div class="card" data-font="Inter">
+    <h3>Inter <span class="badge badge-now">ใช้อยู่ — ENG UI</span></h3>
+    <div class="sample-ui">Read More · Save · Edit · Publish</div>
+    <div class="sample-ui" style="margin-top:0.5rem; letter-spacing:0.04em; color:#8C1515; font-weight:600;">PSYCHOLOGY · PHILOSOPHY · HISTORY</div>
+    <div class="sample-caption">400 · 500 · 600 — Latin only</div>
+  </div>
+
+</div>
+
+</body>
+</html>

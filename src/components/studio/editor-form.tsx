@@ -1,6 +1,7 @@
 "use client";
 
-import { EditorIcon } from "@/components/studio/editor-icon";
+import { EditIcon } from "@/components/icons";
+import { resolveIcon } from "@/lib/content/core/icon-map";
 import { SectionIndicator } from "@/components/studio/section-indicator";
 import { SearchableSelect } from "@/components/studio/searchable-select";
 import { SearchableMultiSelect } from "@/components/studio/searchable-multi-select";
@@ -77,6 +78,7 @@ export function EditorForm({
   newRef, setNewRef, onAddRef, onRemoveRef, activeSection, onSectionClick,
 }: Props) {
   const typeMeta = contentTypeMeta(draft.contentType);
+  const TypeIcon = resolveIcon(typeMeta.icon);
 
   const sections = [
     { id: "basic", label: "ข้อมูลพื้นฐาน", visible: true },
@@ -127,7 +129,7 @@ export function EditorForm({
                   className="mt-2 inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-semibold leading-[1.4]"
                   style={{ backgroundColor: `${typeMeta.accent}1f`, color: typeMeta.accent }}
                 >
-                  <EditorIcon name={typeMeta.icon} className="h-3 w-3" />
+                  {TypeIcon && <TypeIcon className="h-3 w-3" />}
                   {typeMeta.label}
                 </span>
               )}
@@ -236,7 +238,7 @@ export function EditorForm({
           <div key={i} className="flex items-start justify-between gap-3 rounded-md archron-panel p-3">
             <div className="text-sm text-text-body">
               <span className="inline-flex items-center gap-1 text-xs" style={{ color: sourceTypeMeta(r.sourceType).accent }}>
-                <EditorIcon name={sourceTypeMeta(r.sourceType).icon} className="h-3 w-3" />
+                {(() => { const SrcIcon = resolveIcon(sourceTypeMeta(r.sourceType).icon); return SrcIcon ? <SrcIcon className="h-3 w-3" /> : null; })()}
                 {r.sourceType}
               </span>
               <span className="ml-2 text-text-heading">{r.title}</span>
@@ -265,7 +267,7 @@ export function EditorForm({
       {preview && (
         <section className="archron-panel max-w-[var(--measure)] p-6">
           <p className="flex items-center gap-1 text-xs tracking-widest text-accent">
-            <EditorIcon name="edit_note" className="h-3 w-3" />
+            <EditIcon className="h-3 w-3" />
             พรีวิว (ไม่เผยแพร่)
           </p>
           {draft.title && <h3 className="mt-2 font-serif text-2xl text-text-heading">{draft.title}</h3>}

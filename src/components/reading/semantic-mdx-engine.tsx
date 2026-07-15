@@ -8,7 +8,7 @@ import remarkFrontmatter from "remark-frontmatter";
 import rehypeSlug from "rehype-slug";
 import rehypeSanitize, { defaultSchema } from "rehype-sanitize";
 import { mdComponents, wikilinkify } from "@/components/reading/markdown-renderer";
-import { EditorIcon } from "@/components/studio/editor-icon";
+import { resolveIcon } from "@/lib/content/core/icon-map";
 import {
   ThinkerCard,
   DefinitionBlock,
@@ -32,8 +32,8 @@ const sanitizeSchema = {
   attributes: {
     ...defaultSchema.attributes,
     "*": [
-      "className", "class", "id", "style", "slug", "nameTh", "nameEn",
-      "school", "period", "summary", "term", "phonetic", "etymology",
+      "className", "class", "id", "style", "slug", "name", "nameTh", "nameEn",
+      "role", "school", "period", "summary", "term", "phonetic", "etymology",
       "definition", "category", "titleTh", "titleEn", "author", "year",
       "coverUrl", "archetype", "shortMeaning", "items", "number", "text", "sourceUrl",
     ],
@@ -99,7 +99,7 @@ export function CalloutBox({ type, children }: { type: CalloutType; children: Re
     <aside className={`my-6 rounded-r-xl ${styling.border} ${styling.bg} p-4 sm:p-5 shadow-xs transition-all`}>
       <div className="mb-2 flex items-center gap-2 font-sans text-sm font-bold tracking-wide">
         <span className="flex h-5 w-5 items-center justify-center rounded-full bg-current/10">
-          <EditorIcon name={styling.icon} className={`h-3.5 w-3.5 ${styling.titleColor}`} />
+          {(function() { const IconComp = resolveIcon(styling.icon); return IconComp ? <IconComp className={`h-3.5 w-3.5 ${styling.titleColor}`} /> : null; })()}
         </span>
         <span className={styling.titleColor}>{styling.title}</span>
       </div>

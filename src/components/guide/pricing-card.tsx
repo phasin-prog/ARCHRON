@@ -1,13 +1,12 @@
 "use client";
 
-import { ArrowRightIcon } from "@/components/icons";
+import { ArrowRightIcon, CheckIcon } from "@/components/icons";
 
 interface PricingSectionProps {
   onBookClick: () => void;
-  onPreviewInvoiceClick?: () => void;
 }
 
-export function PricingSection({ onBookClick, onPreviewInvoiceClick }: PricingSectionProps) {
+export function PricingSection({ onBookClick }: PricingSectionProps) {
   return (
     <section id="pricing" className="border-b border-border/30 bg-bg px-6 py-20 lg:py-24">
       <div className="mx-auto max-w-5xl">
@@ -60,19 +59,27 @@ export function PricingSection({ onBookClick, onPreviewInvoiceClick }: PricingSe
                   สิ่งที่รวมอยู่ในอัตราบริการนี้ (What&apos;s Included):
                 </span>
                 <div className="flex items-start gap-3 text-xs leading-relaxed text-text-body">
-                  <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-success/15 font-bold text-success">✓</span>
+                  <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-success/15 text-success">
+                    <CheckIcon className="h-3 w-3" />
+                  </span>
                   <span><strong>เซสชันสัมภาษณ์ออนไลน์ 90 นาที</strong> แบบส่วนตัว 1-on-1 ผ่าน Video Conference</span>
                 </div>
                 <div className="flex items-start gap-3 text-xs leading-relaxed text-text-body">
-                  <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-success/15 font-bold text-success">✓</span>
+                  <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-success/15 text-success">
+                    <CheckIcon className="h-3 w-3" />
+                  </span>
                   <span><strong>รายงานสรุปรายบุคคล 2–3 หน้า</strong> จัดส่งผ่าน PDF และบันทึกใน Client Portal</span>
                 </div>
                 <div className="flex items-start gap-3 text-xs leading-relaxed text-text-body">
-                  <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-success/15 font-bold text-success">✓</span>
+                  <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-success/15 text-success">
+                    <CheckIcon className="h-3 w-3" />
+                  </span>
                   <span><strong>วิเคราะห์ Function Stack &amp; Stress Loop</strong> เพื่อการตระหนักรู้และนำไปพัฒนาต่อ</span>
                 </div>
                 <div className="flex items-start gap-3 text-xs leading-relaxed text-text-body">
-                  <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-success/15 font-bold text-success">✓</span>
+                  <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-success/15 text-success">
+                    <CheckIcon className="h-3 w-3" />
+                  </span>
                   <span><strong>เปิดพื้นที่ติดตามผล</strong> สอบถามข้อสงสัยเพิ่มเติมหลังอ่านรายงานได้โดยตรง</span>
                 </div>
               </div>
@@ -88,17 +95,7 @@ export function PricingSection({ onBookClick, onPreviewInvoiceClick }: PricingSe
                 <ArrowRightIcon className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
               </button>
 
-              {onPreviewInvoiceClick && (
-                <button
-                  type="button"
-                  onClick={onPreviewInvoiceClick}
-                  className="mt-2.5 flex w-full items-center justify-center gap-2 rounded-md border border-accent/40 bg-accent/10 py-3 text-xs font-semibold text-accent transition-all duration-200 hover:bg-accent/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-                >
-                  <span>📄 ดูตัวอย่างใบแจ้งยอด (รอชำระเงิน)</span>
-                </button>
-              )}
-
-              <div className="mt-3 text-center text-[11px] text-text-secondary/75">
+              <div className="mt-5 text-center text-[11px] text-text-secondary/75">
                 <span className="font-semibold text-accent/90">ไม่มีค่าใช้จ่ายแฝงใดๆ ทั้งสิ้น</span> · ชำระเงินผ่าน PromptPay หรือโอนธนาคารเมื่อจองสำเร็จ
               </div>
             </div>

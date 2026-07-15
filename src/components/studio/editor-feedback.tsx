@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { EditorIcon } from "@/components/studio/editor-icon";
+import { CheckIcon, ClockIcon, EditIcon } from "@/components/icons";
 import { Modal } from "@/components/modal";
 
 export type EditorFeedbackData = {
@@ -29,19 +29,19 @@ export function EditorFeedback({ feedback, onClose }: Props) {
     error: "var(--color-error)",
     info: "var(--color-accent)",
   };
-  const iconMap = {
-    success: "check_circle" as const,
-    error: "report" as const,
-    info: "edit_note" as const,
-  };
+  const iconComponents = {
+    success: CheckIcon,
+    error: ClockIcon,
+    info: EditIcon,
+  } as const;
   const accent = accentMap[feedback.type];
-  const iconName = iconMap[feedback.type];
+  const Icon = iconComponents[feedback.type];
 
   return (
     <Modal open={!!feedback} onClose={onClose}>
       <div className="flex flex-col items-center gap-4 text-center">
         <span className="flex h-14 w-14 items-center justify-center rounded-full" style={{ backgroundColor: `${accent}18` }}>
-          <EditorIcon name={iconName} className="h-7 w-7" accent={accent} />
+          {Icon && <Icon className="h-7 w-7" style={{ color: accent }} />}
         </span>
         <div>
           <h3 className="text-base font-semibold" style={{ color: accent }}>{feedback.title}</h3>

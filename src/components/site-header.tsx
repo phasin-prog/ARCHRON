@@ -29,6 +29,7 @@ import {
   SynthesisIcon,
 } from "@/components/icons";
 import { SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
+import { AccountPortalSummary } from "@/components/guide/account-portal-summary";
 
 type IconComponent = React.ComponentType<{ className?: string }>;
 type Tier = "primary" | "standard";
@@ -204,9 +205,9 @@ export function SiteHeader() {
                 <div
                     id="account-menu"
                     role="menu"
-                    className={`glass-nav-panel absolute right-0 top-[calc(100%+10px)] min-w-[214px] rounded-xl border border-accent/20 p-1.5 shadow-[0_24px_50px_-24px_rgba(0,0,0,0.85)] transition-all duration-200 ${
-                      acctOpen ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-1"
-                    }`}
+                     className={`glass-nav-panel absolute right-0 top-[calc(100%+10px)] min-w-[280px] rounded-xl border border-accent/20 p-1.5 shadow-[0_24px_50px_-24px_rgba(0,0,0,0.85)] transition-all duration-200 ${
+                       acctOpen ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-1"
+                     }`}
                   >
                     <SignedOut>
                       <p className="px-3 pb-1 pt-2 text-sm font-medium text-text-secondary/80">ยินดีต้อนรับ</p>
@@ -225,6 +226,10 @@ export function SiteHeader() {
                         <EditIcon className="h-[18px] w-[18px] text-accent" />
                         Studio
                       </Link>
+                      <span className="my-1.5 block h-px bg-border/30" aria-hidden="true" />
+                      <div className="rounded-lg bg-bg-elevated/50 mx-1">
+                        <AccountPortalSummary />
+                      </div>
                       <span className="my-1.5 block h-px bg-border/30" aria-hidden="true" />
                       <button
                         type="button"

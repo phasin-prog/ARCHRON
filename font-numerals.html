@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Numeral Preview — Beautiful Thai Digits</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&family=Chakra+Petch:wght@300;400;500;600;700&family=Charm:wght@400;700&family=Chonburi&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=K2D:wght@300;400;500;600;700&family=Kanit:wght@300;400;500;600;700&family=Mitr:wght@300;400;500;600&family=Noto+Sans+Thai:wght@400;500;600&family=Noto+Serif+Thai:wght@500;600;700&family=Prompt:wght@300;400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700;800&family=Srisakdi:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #F9F5F3;
+    color: #1A1815;
+    font-family: system-ui, sans-serif;
+    padding: 2rem;
+  }
+  h1 {
+    font-family: 'Prompt', sans-serif;
+    font-size: 2.2rem;
+    margin-bottom: 0.2rem;
+    color: #8C1515;
+  }
+  .subtitle { color: #65625C; margin-bottom: 2rem; font-size: 0.95rem; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(460px, 1fr)); gap: 1.25rem; }
+
+  .card {
+    background: #FFFFFF;
+    border: 1px solid #D7D5D3;
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: border-color 0.15s;
+  }
+  .card:hover { border-color: #8C1515; }
+
+  .card h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #65625C;
+    margin-bottom: 0.6rem;
+  }
+
+  .num-row {
+    display: flex;
+    gap: 2rem;
+    align-items: baseline;
+    margin-bottom: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .num-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .num-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #8C1515;
+  }
+
+  .num-lg  { font-size: 3rem;  line-height: 1.1; font-weight: 700; letter-spacing: 0.02em; }
+  .num-md  { font-size: 1.8rem; line-height: 1.2; font-weight: 500; letter-spacing: 0.02em; }
+  .num-sm  { font-size: 1.1rem; line-height: 1.3; font-weight: 400; letter-spacing: 0.03em; }
+
+  .num-thai { color: #1A1815; }
+  .num-arab { color: #3A3835; }
+  .num-mono {
+    font-variant-numeric: tabular-nums;
+  }
+
+  hr.divider {
+    border: none;
+    border-top: 1px solid #EDEBE9;
+    margin: 0.5rem 0;
+  }
+
+  /* Font assignments */
+  [data-font="Prompt"] .card-inner * { font-family: 'Prompt', sans-serif; }
+  [data-font="Sarabun"] .card-inner * { font-family: 'Sarabun', sans-serif; }
+  [data-font="Kanit"] .card-inner * { font-family: 'Kanit', sans-serif; }
+  [data-font="Mitr"] .card-inner * { font-family: 'Mitr', sans-serif; }
+  [data-font="Anuphan"] .card-inner * { font-family: 'Anuphan', sans-serif; }
+  [data-font="K2D"] .card-inner * { font-family: 'K2D', sans-serif; }
+  [data-font="Chakra Petch"] .card-inner * { font-family: 'Chakra Petch', sans-serif; }
+  [data-font="Noto Sans Thai"] .card-inner * { font-family: 'Noto Sans Thai', sans-serif; }
+  [data-font="IBM Plex Sans Thai"] .card-inner * { font-family: 'IBM Plex Sans Thai', sans-serif; }
+  [data-font="Noto Serif Thai"] .card-inner * { font-family: 'Noto Serif Thai', serif; }
+  [data-font="Charm"] .card-inner * { font-family: 'Charm', serif; }
+  [data-font="Srisakdi"] .card-inner * { font-family: 'Srisakdi', cursive; }
+  [data-font="Chonburi"] .card-inner * { font-family: 'Chonburi', serif; }
+
+  .badge {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 2px 7px;
+    border-radius: 99px;
+    margin-left: 0.3rem;
+    vertical-align: middle;
+  }
+  .badge-top { background: #8C1515; color: #fff; }
+  .badge-good { background: #EDEBE9; color: #8C1515; }
+  .badge-cur { background: #D7D5D3; color: #65625C; }
+
+  section h2 {
+    font-family: 'Prompt', sans-serif;
+    font-size: 1.2rem;
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #D7D5D3;
+    color: #3A3835;
+  }
+</style>
+</head>
+<body>
+
+<h1>089 ๑๒๓ — เลขสวย</h1>
+<p class="subtitle">ตัวอย่างตัวเลขไทย + อารบิก — Google Fonts</p>
+
+<!-- ============================================================ -->
+<!-- TOP PICKS -->
+<!-- ============================================================ -->
+<section>
+  <h2>🏆 ตัวเลขเด่น — สวย สะอาด อ่านชัด</h2>
+  <div class="grid">
+
+    <!-- Prompt -->
+    <div class="card" data-font="Prompt">
+      <div class="card-inner">
+        <h3>Prompt <span class="badge badge-top">TOP PICK</span></h3>
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-label">ไทย</span>
+            <span class="num-lg num-thai num-mono">๑๒๓ ๔๕๖ ๗๘๙ ๐</span>
+            <span class="num-md num-thai num-mono">๑ ๒ ๓ ๔ ๕ ๖ ๗ ๘ ๙ ๐ . ,</span>
+            <span class="num-sm num-thai">บทที่ ๑๒ · หน้า ๓๖๘ · พ.ศ. ๒๕๖๙</span>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-label">Arabic</span>
+            <span class="num-lg num-arab num-mono">123 456 789 0</span>
+            <span class="num-md num-arab num-mono">1 2 3 4 5 6 7 8 9 0 . ,</span>
+            <span class="num-sm num-arab">Chapter 12 · Page 368 · 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sarabun -->
+    <div class="card" data-font="Sarabun">
+      <div class="card-inner">
+        <h3>Sarabun <span class="badge badge-top">TOP PICK</span></h3>
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-label">ไทย</span>
+            <span class="num-lg num-thai num-mono">๑๒๓ ๔๕๖ ๗๘๙ ๐</span>
+            <span class="num-md num-thai num-mono">๑ ๒ ๓ ๔ ๕ ๖ ๗ ๘ ๙ ๐ . ,</span>
+            <span class="num-sm num-thai">บทที่ ๑๒ · หน้า ๓๖๘ · พ.ศ. ๒๕๖๙</span>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-label">Arabic</span>
+            <span class="num-lg num-arab num-mono">123 456 789 0</span>
+            <span class="num-md num-arab num-mono">1 2 3 4 5 6 7 8 9 0 . ,</span>
+            <span class="num-sm num-arab">Chapter 12 · Page 368 · 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kanit -->
+    <div class="card" data-font="Kanit">
+      <div class="card-inner">
+        <h3>Kanit <span class="badge badge-top">TOP PICK</span></h3>
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-label">ไทย</span>
+            <span class="num-lg num-thai num-mono">๑๒๓ ๔๕๖ ๗๘๙ ๐</span>
+            <span class="num-md num-thai num-mono">๑ ๒ ๓ ๔ ๕ ๖ ๗ ๘ ๙ ๐ . ,</span>
+            <span class="num-sm num-thai">บทที่ ๑๒ · หน้า ๓๖๘ · พ.ศ. ๒๕๖๙</span>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-label">Arabic</span>
+            <span class="num-lg num-arab num-mono">123 456 789 0</span>
+            <span class="num-md num-arab num-mono">1 2 3 4 5 6 7 8 9 0 . ,</span>
+            <span class="num-sm num-arab">Chapter 12 · Page 368 · 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Anuphan -->
+    <div class="card" data-font="Anuphan">
+      <div class="card-inner">
+        <h3>Anuphan <span class="badge badge-good">ดี</span></h3>
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-label">ไทย</span>
+            <span class="num-lg num-thai num-mono">๑๒๓ ๔๕๖ ๗๘๙ ๐</span>
+            <span class="num-md num-thai num-mono">๑ ๒ ๓ ๔ ๕ ๖ ๗ ๘ ๙ ๐ . ,</span>
+            <span class="num-sm num-thai">บทที่ ๑๒ · หน้า ๓๖๘ · พ.ศ. ๒๕๖๙</span>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-label">Arabic</span>
+            <span class="num-lg num-arab num-mono">123 456 789 0</span>
+            <span class="num-md num-arab num-mono">1 2 3 4 5 6 7 8 9 0 . ,</span>
+            <span class="num-sm num-arab">Chapter 12 · Page 368 · 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- K2D -->
+    <div class="card" data-font="K2D">
+      <div class="card-inner">
+        <h3>K2D <span class="badge badge-good">ดี</span></h3>
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-label">ไทย</span>
+            <span class="num-lg num-thai num-mono">๑๒๓ ๔๕๖ ๗๘๙ ๐</span>
+            <span class="num-md num-thai num-mono">๑ ๒ ๓ ๔ ๕ ๖ ๗ ๘ ๙ ๐ . ,</span>
+            <span class="num-sm num-thai">บทที่ ๑๒ · หน้า ๓๖๘ · พ.ศ. ๒๕๖๙</span>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-label">Arabic</span>
+            <span class="num-lg num-arab num-mono">123 456 789 0</span>
+            <span class="num-md num-arab num-mono">1 2 3 4 5 6 7 8 9 0 . ,</span>
+            <span class="num-sm num-arab">Chapter 12 · Page 368 · 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- TABULAR NUMS (monospace) -->
+<!-- ============================================================ -->
+<section>
+  <h2>📊 Tabular Figures — เรียงชิดตรง (ตาราง, สถิติ, เวลา)</h2>
+  <div class="grid">
+
+    <div class="card" data-font="Prompt">
+      <div class="card-inner">
+        <h3>Prompt</h3>
+        <div class="num-row">
+          <div class="num-block" style="gap:0.05rem">
+            <span class="num-sm num-arab num-mono" style="font-weight:500">2024    1,250,800    45.6%    08:30</span>
+            <span class="num-sm num-arab num-mono">2025      892,400    32.1%    14:55</span>
+            <span class="num-sm num-arab num-mono">2026    2,001,150    78.3%    23:59</span>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="num-row">
+          <div class="num-block" style="gap:0.05rem">
+            <span class="num-sm num-thai num-mono" style="font-weight:500">๒๕๖๗    ๑,๒๕๐,๘๐๐    ๔๕.๖%    ๐๘:๓๐</span>
+            <span class="num-sm num-thai num-mono">๒๕๖๘      ๘๙๒,๔๐๐    ๓๒.๑%    ๑๔:๕๕</span>
+            <span class="num-sm num-thai num-mono">๒๕๖๙    ๒,๐๐๑,๑๕๐    ๗๘.๓%    ๒๓:๕๙</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-font="Sarabun">
+      <div class="card-inner">
+        <h3>Sarabun</h3>
+        <div class="num-row">
+          <div class="num-block" style="gap:0.05rem">
+            <span class="num-sm num-arab num-mono" style="font-weight:500">2024    1,250,800    45.6%    08:30</span>
+            <span class="num-sm num-arab num-mono">2025      892,400    32.1%    14:55</span>
+            <span class="num-sm num-arab num-mono">2026    2,001,150    78.3%    23:59</span>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="num-row">
+          <div class="num-block" style="gap:0.05rem">
+            <span class="num-sm num-thai num-mono" style="font-weight:500">๒๕๖๗    ๑,๒๕๐,๘๐๐    ๔๕.๖%    ๐๘:๓๐</span>
+            <span class="num-sm num-thai num-mono">๒๕๖๘      ๘๙๒,๔๐๐    ๓๒.๑%    ๑๔:๕๕</span>
+            <span class="num-sm num-thai num-mono">๒๕๖๙    ๒,๐๐๑,๑๕๐    ๗๘.๓%    ๒๓:๕๙</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-font="Kanit">
+      <div class="card-inner">
+        <h3>Kanit</h3>
+        <div class="num-row">
+          <div class="num-block" style="gap:0.05rem">
+            <span class="num-sm num-arab num-mono" style="font-weight:500">2024    1,250,800    45.6%    08:30</span>
+            <span class="num-sm num-arab num-mono">2025      892,400    32.1%    14:55</span>
+            <span class="num-sm num-arab num-mono">2026    2,001,150    78.3%    23:59</span>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="num-row">
+          <div class="num-block" style="gap:0.05rem">
+            <span class="num-sm num-thai num-mono" style="font-weight:500">๒๕๖๗    ๑,๒๕๐,๘๐๐    ๔๕.๖%    ๐๘:๓๐</span>
+            <span class="num-sm num-thai num-mono">๒๕๖๘      ๘๙๒,๔๐๐    ๓๒.๑%    ๑๔:๕๕</span>
+            <span class="num-sm num-thai num-mono">๒๕๖๙    ๒,๐๐๑,๑๕๐    ๗๘.๓%    ๒๓:๕๙</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-font="Anuphan">
+      <div class="card-inner">
+        <h3>Anuphan</h3>
+        <div class="num-row">
+          <div class="num-block" style="gap:0.05rem">
+            <span class="num-sm num-arab num-mono" style="font-weight:500">2024    1,250,800    45.6%    08:30</span>
+            <span class="num-sm num-arab num-mono">2025      892,400    32.1%    14:55</span>
+            <span class="num-sm num-arab num-mono">2026    2,001,150    78.3%    23:59</span>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="num-row">
+          <div class="num-block" style="gap:0.05rem">
+            <span class="num-sm num-thai num-mono" style="font-weight:500">๒๕๖๗    ๑,๒๕๐,๘๐๐    ๔๕.๖%    ๐๘:๓๐</span>
+            <span class="num-sm num-thai num-mono">๒๕๖๘      ๘๙๒,๔๐๐    ๓๒.๑%    ๑๔:๕๕</span>
+            <span class="num-sm num-thai num-mono">๒๕๖๙    ๒,๐๐๑,๑๕๐    ๗๘.๓%    ๒๓:๕๙</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- OLD FONTS FOR REFERENCE -->
+<!-- ============================================================ -->
+<section>
+  <h2>📦 ของเดิม — ไว้เทียบ</h2>
+  <div class="grid">
+
+    <div class="card" data-font="IBM Plex Sans Thai">
+      <div class="card-inner">
+        <h3>IBM Plex Sans Thai <span class="badge badge-cur">ใช้อยู่ — Body</span></h3>
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-lg num-thai">๑๒๓ ๔๕๖ ๗๘๙ ๐</span>
+            <span class="num-sm num-thai">บทที่ ๑๒ · หน้า ๓๖๘ · พ.ศ. ๒๕๖๙</span>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-lg num-arab">123 456 789 0</span>
+            <span class="num-sm num-arab">Chapter 12 · Page 368 · 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-font="Noto Sans Thai">
+      <div class="card-inner">
+        <h3>Noto Sans Thai <span class="badge badge-cur">ใช้อยู่ — UI</span></h3>
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-lg num-thai">๑๒๓ ๔๕๖ ๗๘๙ ๐</span>
+            <span class="num-sm num-thai">บทที่ ๑๒ · หน้า ๓๖๘ · พ.ศ. ๒๕๖๙</span>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-lg num-arab">123 456 789 0</span>
+            <span class="num-sm num-arab">Chapter 12 · Page 368 · 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-font="Noto Serif Thai">
+      <div class="card-inner">
+        <h3>Noto Serif Thai <span class="badge badge-cur">ใช้อยู่ — Heading</span></h3>
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-lg num-thai">๑๒๓ ๔๕๖ ๗๘๙ ๐</span>
+            <span class="num-sm num-thai">บทที่ ๑๒ · หน้า ๓๖๘ · พ.ศ. ๒๕๖๙</span>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-lg num-arab">123 456 789 0</span>
+            <span class="num-sm num-arab">Chapter 12 · Page 368 · 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- EXTRA: DISPLAY / STYLIZED -->
+<!-- ============================================================ -->
+<section>
+  <h2>🎨 Display / Stylized — ตัวเลขมีสไตล์</h2>
+  <div class="grid">
+
+    <div class="card" data-font="Mitr">
+      <div class="card-inner">
+        <h3>Mitr</h3>
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-lg num-thai">๑๒๓ ๔๕๖ ๗๘๙ ๐</span>
+            <span class="num-sm num-thai">บทที่ ๑๒ · หน้า ๓๖๘ · พ.ศ. ๒๕๖๙</span>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-lg num-arab">123 456 789 0</span>
+            <span class="num-sm num-arab">Chapter 12 · Page 368 · 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-font="Chakra Petch">
+      <div class="card-inner">
+        <h3>Chakra Petch</h3>
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-lg num-thai">๑๒๓ ๔๕๖ ๗๘๙ ๐</span>
+            <span class="num-sm num-thai">บทที่ ๑๒ · หน้า ๓๖๘ · พ.ศ. ๒๕๖๙</span>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-lg num-arab">123 456 789 0</span>
+            <span class="num-sm num-arab">Chapter 12 · Page 368 · 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-font="Charm">
+      <div class="card-inner">
+        <h3>Charm</h3>
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-lg num-thai">๑๒๓ ๔๕๖ ๗๘๙ ๐</span>
+            <span class="num-sm num-thai">บทที่ ๑๒ · หน้า ๓๖๘ · พ.ศ. ๒๕๖๙</span>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-lg num-arab">123 456 789 0</span>
+            <span class="num-sm num-arab">Chapter 12 · Page 368 · 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-font="Chonburi">
+      <div class="card-inner">
+        <h3>Chonburi</h3>
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-lg num-thai">๑๒๓ ๔๕๖ ๗๘๙ ๐</span>
+            <span class="num-sm num-thai">บทที่ ๑๒ · หน้า ๓๖๘ · พ.ศ. ๒๕๖๙</span>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-lg num-arab">123 456 789 0</span>
+            <span class="num-sm num-arab">Chapter 12 · Page 368 · 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-font="Srisakdi">
+      <div class="card-inner">
+        <h3>Srisakdi</h3>
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-lg num-thai">๑๒๓ ๔๕๖ ๗๘๙ ๐</span>
+            <span class="num-sm num-thai">บทที่ ๑๒ · หน้า ๓๖๘ · พ.ศ. ๒๕๖๙</span>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="num-row">
+          <div class="num-block">
+            <span class="num-lg num-arab">123 456 789 0</span>
+            <span class="num-sm num-arab">Chapter 12 · Page 368 · 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>

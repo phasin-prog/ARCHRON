@@ -3,8 +3,9 @@
 import React, { useState, useRef, useMemo, useCallback } from "react";
 import type { EditorDraft } from "@/lib/content/publishing/publish-validation";
 import { SemanticMdxEngine as MarkdownRenderer } from "@/components/reading/semantic-mdx-engine";
-import { EditorIcon } from "@/components/studio/editor-icon";
 import { statusMeta, contentTypeMeta } from "@/lib/content/core/cosmology";
+import { resolveIcon } from "@/lib/content/core/icon-map";
+import { BookIcon, CheckIcon, TermIcon, ConceptIcon, SymbolIcon, ClockIcon, EditIcon, EyeIcon } from "@/components/icons";
 
 export interface SidebarPanelItem {
   id: string;
@@ -185,7 +186,7 @@ export function StudioIdeWorkspace({
         <div className="space-y-3 font-ui text-xs">
           <div className="border-b border-border pb-2">
             <h4 className="font-semibold text-text-heading flex items-center gap-1.5">
-              <EditorIcon name="menu_book" className="h-4 w-4 text-accent" />
+              <BookIcon className="h-4 w-4 text-accent" />
               <span>โครงสร้างและหัวข้อหลัก (Outline)</span>
             </h4>
             <p className="text-[11px] text-text-secondary mt-0.5">
@@ -243,7 +244,7 @@ export function StudioIdeWorkspace({
         <div className="space-y-3 font-ui text-xs">
           <div className="border-b border-border pb-2">
             <h4 className="font-semibold text-text-heading flex items-center gap-1.5">
-              <EditorIcon name="verified" className="h-4 w-4 text-accent" />
+              <CheckIcon className="h-4 w-4 text-accent" />
               <span>สุขภาพความรู้และตรวจทาน (Knowledge Health)</span>
             </h4>
             <p className="text-[11px] text-text-secondary mt-0.5">
@@ -301,7 +302,7 @@ export function StudioIdeWorkspace({
         <div className="space-y-3 font-ui text-xs">
           <div className="border-b border-border pb-2">
             <h4 className="font-semibold text-text-heading flex items-center gap-1.5">
-              <EditorIcon name="tag" className="h-4 w-4 text-accent" />
+              <TermIcon className="h-4 w-4 text-accent" />
               <span>แผงตรวจสอบข้อมูลสกัด (Metadata)</span>
             </h4>
             <p className="text-[11px] text-text-secondary mt-0.5">
@@ -312,7 +313,7 @@ export function StudioIdeWorkspace({
             <div className="rounded-md border border-border/60 bg-bg-elevated/30 p-2.5">
               <div className="text-[11px] text-text-secondary">ประเภทเนื้อหา (Content Type)</div>
               <div className="font-semibold text-text-heading mt-0.5 flex items-center gap-1.5">
-                <EditorIcon name={typeInfo.icon} accent={typeInfo.accent} className="h-3.5 w-3.5" />
+                {(() => { const T = resolveIcon(typeInfo.icon); return T ? <T className="h-3.5 w-3.5" style={{ color: typeInfo.accent }} /> : null; })()}
                 <span>{typeInfo.label}</span>
               </div>
             </div>
@@ -362,7 +363,7 @@ export function StudioIdeWorkspace({
         <div className="space-y-3 font-ui text-xs">
           <div className="border-b border-border pb-2">
             <h4 className="font-semibold text-text-heading flex items-center gap-1.5">
-              <EditorIcon name="psychology" className="h-4 w-4 text-accent" />
+              <ConceptIcon className="h-4 w-4 text-accent" />
               <span>ผู้ช่วย AI เชิงวิชาการ (Knowledge Assistant)</span>
             </h4>
             <p className="text-[11px] text-text-secondary mt-0.5">
@@ -410,7 +411,7 @@ export function StudioIdeWorkspace({
         <div className="space-y-3 font-ui text-xs">
           <div className="border-b border-border pb-2">
             <h4 className="font-semibold text-text-heading flex items-center gap-1.5">
-              <EditorIcon name="category" className="h-4 w-4 text-accent" />
+              <SymbolIcon className="h-4 w-4 text-accent" />
               <span>โครงข่ายความรู้และการอ้างอิง (Relations & Refs)</span>
             </h4>
             <p className="text-[11px] text-text-secondary mt-0.5">
@@ -468,7 +469,7 @@ export function StudioIdeWorkspace({
         <div className="space-y-3 font-ui text-xs">
           <div className="border-b border-border pb-2">
             <h4 className="font-semibold text-text-heading flex items-center gap-1.5">
-              <EditorIcon name="schedule" className="h-4 w-4 text-accent" />
+              <ClockIcon className="h-4 w-4 text-accent" />
               <span>ประวัติการแก้ไขและสถานะ (Revision History)</span>
             </h4>
             <p className="text-[11px] text-text-secondary mt-0.5">
@@ -557,7 +558,7 @@ export function StudioIdeWorkspace({
           title="แทรกโครงสร้างหัวข้อมาตรฐาน Archron (Visual, Technical, Roots, References)"
           className="inline-flex items-center gap-1 rounded bg-accent/10 px-2.5 py-1 font-semibold text-accent hover:bg-accent hover:text-white transition-all"
         >
-          <EditorIcon name="edit_note" className="h-3.5 w-3.5" />
+          <EditIcon className="h-3.5 w-3.5" />
           <span>📑 ปลูกโครงสร้างมาตรฐาน</span>
         </button>
       </div>
@@ -634,7 +635,7 @@ export function StudioIdeWorkspace({
             className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 font-semibold text-[11px]"
             style={{ backgroundColor: `${statusInfo.accent}1f`, color: statusInfo.accent }}
           >
-            <EditorIcon name={statusInfo.icon} accent={statusInfo.accent} className="h-3.5 w-3.5" />
+            {(() => { const S = resolveIcon(statusInfo.icon); return S ? <S className="h-3.5 w-3.5" style={{ color: statusInfo.accent }} /> : null; })()}
             <span>{statusLabel}</span>
           </span>
 
@@ -698,7 +699,7 @@ export function StudioIdeWorkspace({
                         : "border-transparent text-text-secondary hover:text-text-heading hover:bg-bg-elevated/60"
                     }`}
                   >
-                    <EditorIcon name={panel.icon} className="h-4 w-4" />
+                    {(() => { const P = resolveIcon(panel.icon); return P ? <P className="h-4 w-4" /> : null; })()}
                     <span>{panel.label}</span>
                     {panel.badge !== undefined && (
                       <span className="ml-0.5 rounded-full bg-bg-elevated px-1.5 py-0.5 text-[10px] font-semibold text-text-secondary">
@@ -728,7 +729,7 @@ export function StudioIdeWorkspace({
             <div className="w-[50%] h-full flex flex-col overflow-y-auto bg-bg p-6">
               <div className="border-b border-border pb-3 mb-4 flex items-center justify-between">
                 <span className="font-semibold text-xs text-accent flex items-center gap-1.5">
-                  <EditorIcon name="visibility" className="h-4 w-4 text-accent" />
+                  <EyeIcon className="h-4 w-4 text-accent" />
                   <span>👁️ แสดงผลตัวอย่างคู่ขนาน (Live MDX Preview)</span>
                 </span>
                 <span className="text-[11px] text-text-secondary">อัปเดตทันทีเมื่อพิมพ์</span>
@@ -749,7 +750,7 @@ export function StudioIdeWorkspace({
                     className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold"
                     style={{ backgroundColor: `${typeInfo.accent}1f`, color: typeInfo.accent }}
                   >
-                    <EditorIcon name={typeInfo.icon} accent={typeInfo.accent} className="h-3.5 w-3.5" />
+                    {(() => { const T = resolveIcon(typeInfo.icon); return T ? <T className="h-3.5 w-3.5" style={{ color: typeInfo.accent }} /> : null; })()}
                     <span>{typeInfo.label}</span>
                   </span>
                   <span

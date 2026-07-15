@@ -103,8 +103,8 @@ export function validateEditorDraft(
     issues.push({
       fieldId: "field-body-markdown",
       label: "คำอธิบายให้เห็นภาพ (Visual Explanation)",
-      severity: "error",
-      message: "🛑 อธิบายภาพเปรียบเปรยหรือเขียนหัวข้อ '## คำอธิบายให้เห็นภาพ (Visual Explanation)' ใน Body Markdown เพื่อให้บุคคลทั่วไปเข้าใจแนวคิดนี้ได้ทันทีตั้งแต่ย่อหน้าแรก",
+      severity: "suggestion",
+      message: "💡 แนะนำให้อธิบายภาพเปรียบเปรย หรือเขียนหัวข้อ '## คำอธิบายให้เห็นภาพ (Visual Explanation)' ใน Body Markdown เพื่อให้บุคคลทั่วไปเข้าใจแนวคิดนี้ได้ทันทีตั้งแต่ย่อหน้าแรก",
       whyItMatters: "ช่วยเปลี่ยนนามธรรมที่ซับซ้อนให้กลายเป็นภาพจำในใจผู้อ่าน ทำให้เนื้อหาวิชาการเข้าถึงง่ายและน่าติดตาม",
       sectionName: "ห้องเขียนเนื้อหาหลัก (Studio Workspace)",
     });
@@ -115,20 +115,20 @@ export function validateEditorDraft(
     issues.push({
       fieldId: "field-body-markdown",
       label: "ความหมายทางวิชาการ / เทคนิค (Technical Meaning)",
-      severity: "error",
-      message: "🛑 ระบุนิยามทางวิชาการหรือเขียนหัวข้อ '## นิยามและความหมายทางวิชาการ (Technical Meaning)' ใน Body Markdown เพื่อคงความแม่นยำตามมาตรฐาน Archron",
+      severity: "suggestion",
+      message: "💡 แนะนำให้ระบุนิยามทางวิชาการหรือเขียนหัวข้อ '## นิยามและความหมายทางวิชาการ (Technical Meaning)' ใน Body Markdown เพื่อคงความแม่นยำตามมาตรฐาน Archron",
       whyItMatters: "เป็นรากฐานความแม่นยำทางวิชาการ สำหรับนักศึกษาและผู้ค้นคว้าที่ต้องการอ้างอิงและทำความเข้าใจแก่นทฤษฎีเชิงลึก",
       sectionName: "ห้องเขียนเนื้อหาหลัก (Studio Workspace)",
     });
   }
 
-  // 6. Roots / Etymology / Caution — บังคับสำหรับ concept/term, แนะนำสำหรับ article
+  // 6. Roots / Etymology / Caution — แนะนำสำหรับ concept/term/article
   if ((isConcept || isTerm) && !hasRootsSSOT) {
     issues.push({
       fieldId: "field-body-markdown",
       label: "รากศัพท์หรือเหตุผลที่ยังไม่ใส่ (Roots / Etymology)",
-      severity: "error",
-      message: "🛑 ระบุที่มาและรากศัพท์ หรือเขียนหัวข้อ '## รากศัพท์และการเปลี่ยนความหมาย (Etymology & Roots)' ใน Body Markdown",
+      severity: "suggestion",
+      message: "💡 แนะนำให้ระบุที่มาและรากศัพท์ หรือเขียนหัวข้อ '## รากศัพท์และการเปลี่ยนความหมาย (Etymology & Roots)' ใน Body Markdown",
       whyItMatters: "การเข้าใจรากศัพท์และประวัติศาสตร์การเปลี่ยนความหมาย (Etymology) คือกุญแจสำคัญสู่ความเข้าใจจิตใจมนุษย์เชิงลึกตามวิถี Archron",
       sectionName: "ห้องเขียนเนื้อหาหลัก (Studio Workspace)",
     });

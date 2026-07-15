@@ -216,101 +216,101 @@ export function FeedbackModal({
 
   return createPortal(
     <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-      className={`fixed inset-0 z-[var(--z-overlay,9999)] flex items-center justify-center p-4 sm:p-6 transition-[opacity,visibility] duration-200 ${
+      className={`fixed inset-0 z-[var(--z-overlay,9999)] overflow-y-auto p-4 sm:p-6 transition-[opacity,visibility] duration-200 ${
         open ? "opacity-100 visible pointer-events-auto" : "opacity-0 invisible pointer-events-none"
       }`}
     >
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/45 backdrop-blur-[2px] transition-opacity duration-200"
+        className="fixed inset-0 bg-black/45 backdrop-blur-[2px] transition-opacity duration-200"
         onClick={() => {
           if (canClickOutside) onClose();
         }}
         aria-hidden="true"
       />
 
-      {/* Modal Card */}
       <div
-        ref={cardRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={titleId}
-        aria-describedby={messageId}
-        tabIndex={-1}
-        className={`relative z-10 w-full max-w-[440px] overflow-hidden rounded-[1.25rem] bg-bg-card shadow-[0_25px_70px_rgba(0,0,0,0.22)] border border-border/80 transition-all duration-200 focus-visible:outline-none ${
-          open ? "translate-y-0 scale-100 opacity-100" : "translate-y-4 scale-[0.96] opacity-0"
-        } ${className}`}
-        onClick={(e) => e.stopPropagation()}
+        className="flex min-h-full items-center justify-center py-4"
+        onClick={() => {
+          if (canClickOutside) onClose();
+        }}
       >
-        {/* Close Button */}
-        <div className="absolute right-4 top-4">
-          <button
-            type="button"
-            onClick={onClose}
-            className="flex size-9 items-center justify-center rounded-xl border-none bg-transparent text-text-secondary transition-colors hover:bg-bg-elevated hover:text-text-heading focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
-            aria-label="ปิดหน้าต่าง"
-          >
-            <CloseIcon className="size-5" />
-          </button>
-        </div>
-
-        {/* Content Section */}
-        <div className="pt-8 pb-6 px-7 sm:px-8 text-center flex flex-col items-center gap-4">
-          <div className={`flex size-14 shrink-0 items-center justify-center rounded-full shadow-sm ${config.bgRingClass}`}>
-            <IconComponent className={`size-7 ${config.textClass}`} />
-          </div>
-
-          <div className="space-y-2 max-w-full">
-            <h2 id={titleId} className="font-heading text-xl font-bold text-text-heading leading-snug">
-              {displayTitle}
-            </h2>
-            <div id={messageId} className="font-body text-sm text-text-secondary leading-relaxed">
-              {message}
-            </div>
-          </div>
-        </div>
-
-        {/* Actions Section */}
-        <div className="px-7 pb-7 pt-1 flex flex-col sm:flex-row-reverse items-center justify-center gap-3">
-          <button
-            ref={primaryBtnRef}
-            type="button"
-            onClick={() => {
-              if (onPrimaryAction) onPrimaryAction();
-              else onClose();
-            }}
-            className={`w-full sm:w-auto min-w-[120px] inline-flex items-center justify-center rounded-xl px-6 py-2.5 font-ui text-sm font-semibold shadow-sm transition-all active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${config.btnClass}`}
-          >
-            {primaryText}
-          </button>
-
-          {(secondaryActionText || onSecondaryAction) && (
+        {/* Modal Card */}
+        <div
+          ref={cardRef}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={titleId}
+          aria-describedby={messageId}
+          tabIndex={-1}
+          className={`relative z-10 flex max-h-[calc(100vh-3rem)] w-full max-w-[440px] flex-col overflow-hidden rounded-[1.25rem] bg-bg-card shadow-[0_25px_70px_rgba(0,0,0,0.22)] border border-border/80 transition-all duration-200 focus-visible:outline-none ${
+            open ? "translate-y-0 scale-100 opacity-100" : "translate-y-4 scale-[0.96] opacity-0"
+          } ${className}`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Close Button */}
+          <div className="absolute right-4 top-4 z-20">
             <button
               type="button"
+              onClick={onClose}
+              className="flex size-9 items-center justify-center rounded-xl border-none bg-transparent text-text-secondary transition-colors hover:bg-bg-elevated hover:text-text-heading focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
+              aria-label="ปิดหน้าต่าง"
+            >
+              <CloseIcon className="size-5" />
+            </button>
+          </div>
+
+          {/* Scrollable Content Section */}
+          <div className="flex-1 overflow-y-auto overscroll-contain pt-8 pb-6 px-7 sm:px-8 text-center flex flex-col items-center gap-4">
+            <div className={`flex size-14 shrink-0 items-center justify-center rounded-full shadow-sm ${config.bgRingClass}`}>
+              <IconComponent className={`size-7 ${config.textClass}`} />
+            </div>
+
+            <div className="space-y-2 max-w-full">
+              <h2 id={titleId} className="font-heading text-xl font-bold text-text-heading leading-snug">
+                {displayTitle}
+              </h2>
+              <div id={messageId} className="font-body text-sm text-text-secondary leading-relaxed">
+                {message}
+              </div>
+            </div>
+          </div>
+
+          {/* Actions Section */}
+          <div className="shrink-0 px-7 pb-7 pt-2 flex flex-col sm:flex-row-reverse items-center justify-center gap-3 bg-bg-card border-t border-border/40">
+            <button
+              ref={primaryBtnRef}
+              type="button"
               onClick={() => {
-                if (onSecondaryAction) onSecondaryAction();
+                if (onPrimaryAction) onPrimaryAction();
                 else onClose();
               }}
-              className="w-full sm:w-auto min-w-[100px] inline-flex items-center justify-center rounded-xl border border-border px-5 py-2.5 font-ui text-sm font-medium text-text-secondary transition-colors hover:bg-bg-elevated hover:text-text-heading active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border"
+              className={`w-full sm:w-auto min-w-[120px] inline-flex items-center justify-center rounded-xl px-6 py-2.5 font-ui text-sm font-semibold shadow-sm transition-all active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${config.btnClass}`}
             >
-              {secondaryActionText || "ยกเลิก"}
+              {primaryText}
             </button>
+
+            {(secondaryActionText || onSecondaryAction) && (
+              <button
+                type="button"
+                onClick={() => {
+                  if (onSecondaryAction) onSecondaryAction();
+                  else onClose();
+                }}
+                className="w-full sm:w-auto min-w-[100px] inline-flex items-center justify-center rounded-xl border border-border px-5 py-2.5 font-ui text-sm font-medium text-text-secondary transition-colors hover:bg-bg-elevated hover:text-text-heading active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border"
+              >
+                {secondaryActionText || "ยกเลิก"}
+              </button>
+            )}
+          </div>
+
+          {/* Custom Footer Option */}
+          {footer && (
+            <div className="shrink-0 w-full px-7 pb-6 pt-3 border-t border-border/60 text-left text-sm text-text-secondary bg-bg-card">
+              {footer}
+            </div>
           )}
         </div>
-
-        {/* Custom Footer Option */}
-        {footer && (
-          <div className="w-full px-7 pb-6 pt-3 border-t border-border/60 text-left text-sm text-text-secondary">
-            {footer}
-          </div>
-        )}
       </div>
     </div>,
     document.body

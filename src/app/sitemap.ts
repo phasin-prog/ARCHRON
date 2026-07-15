@@ -30,6 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { route: "/guide", priority: 0.6, freq: "monthly" as const },
     { route: "/manifesto", priority: 0.5, freq: "monthly" as const },
     { route: "/support", priority: 0.4, freq: "monthly" as const },
+    { route: "/icons", priority: 0.3, freq: "monthly" as const },
     { route: "/knowledge", priority: 0.6, freq: "monthly" as const },
   ].map(({ route, priority, freq }) => ({
     url: `${baseUrl}${route}`,
@@ -53,15 +54,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     .filter((e) => e.contentType === "article")
     .map((e) => ({
       url: `${baseUrl}/articles/${e.slug}`,
-      lastModified: new Date(e.updatedAt ?? e.publishedAt ?? ""),
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    }));
-
-  const personRoutes = publishedEntries
-    .filter((e) => e.contentType === "person")
-    .map((e) => ({
-      url: `${baseUrl}/concepts/${e.slug}`,
       lastModified: new Date(e.updatedAt ?? e.publishedAt ?? ""),
       changeFrequency: "monthly" as const,
       priority: 0.7,
@@ -92,13 +84,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
+  // books from registry
+  const bookRoutes = conceptRegistry
+    .filter((c) => c.nodeType === "book")
+    .map((c) => ({
+      url: `${baseUrl}/books/${c.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    }));
+
   return [
     ...staticRoutes,
     ...conceptRoutes,
     ...articleRoutes,
-    ...personRoutes,
     ...thinkerRoutes,
     ...setRoutes,
     ...themeRoutes,
+    ...bookRoutes,
   ];
 }

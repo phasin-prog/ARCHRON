@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
@@ -14,6 +14,15 @@ import {
 } from "@/features/studio/actions/dashboard-actions";
 import { EditorIcon } from "@/components/studio/editor-icon";
 import { FeedbackModal } from "@/components/feedback-modal";
+import { BulkActionBar, SelectRow } from "@/components/studio/bulk-action-bar";
+import { DashboardEmptyState } from "@/components/studio/dashboard-empty-state";
+import {
+  SearchIcon,
+  GlobeIcon,
+  BookmarkIcon,
+  BookIcon,
+  ArrowRightIcon,
+} from "@/components/icons";
 
 interface DraftItem {
   id: string;
@@ -324,7 +333,7 @@ export default function StudioDashboardPage() {
             </div>
             <Link
               href="/studio/editor"
-              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-accent to-accent px-5 py-2.5 text-sm font-semibold text-text-inverse shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/20"
+              className="inline-flex items-center gap-2 rounded-xl bg-accent px-5 py-2 text-sm font-semibold text-text-inverse shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md hover:shadow-accent/20"
             >
               <EditorIcon name="edit_note" className="h-[18px] w-[18px]" />
               เขียนใหม่
@@ -332,19 +341,23 @@ export default function StudioDashboardPage() {
           </div>
         </header>
 
-        {/* Stats Cards — compact */}
-        <section className="mb-6">
-          {/* Search */}
-          <div className="mb-4">
-            <input
-              value={search}
-              onChange={(e) => { setSearch(e.target.value); setShowAllDrafts(false); }}
-              placeholder="ค้นหาชื่อเรื่องหรือ slug..."
-              aria-label="ค้นหาชื่อเรื่องหรือ slug"
-              className="w-full rounded-lg border border-border/40 bg-bg/60 px-4 py-2.5 text-sm text-text-heading outline-none focus:border-accent/50 placeholder:text-text-secondary/40"
-            />
-          </div>
-          <div className="grid grid-cols-3 gap-3">
+        {/* Search toolbar */}
+        <div className="relative mb-6">
+          <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-text-secondary/50">
+            <SearchIcon className="h-4 w-4" />
+          </span>
+          <input
+            value={search}
+            onChange={(e) => { setSearch(e.target.value); setShowAllDrafts(false); }}
+            placeholder="ค้นหาชื่อเรื่องหรือ slug..."
+            aria-label="ค้นหาเนื้อหาใน Dashboard"
+            className="w-full rounded-xl border border-border/40 bg-bg/60 pl-10 pr-4 py-2.5 text-sm text-text-heading outline-none transition-colors focus:border-accent/50 focus:bg-bg-card/80 placeholder:text-text-secondary/50"
+          />
+        </div>
+
+        {/* Stats Cards */}
+        <section className="mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="archron-card p-4" style={{ "--cosmology-accent": colors.neutralMuted } as React.CSSProperties}>
               <div className="flex items-center gap-2">
                 <span className="flex h-8 w-8 items-center justify-center rounded-lg"
@@ -352,7 +365,7 @@ export default function StudioDashboardPage() {
                 >
                   <EditorIcon name="edit_note" className="h-4 w-4" />
                 </span>
-                <span className="text-xs text-text-secondary/60">ฉบับร่าง</span>
+                <span className="text-xs text-text-secondary/80">ฉบับร่าง</span>
               </div>
               <p className="mt-2 font-serif text-3xl text-text-heading">{drafts.length}</p>
             </div>
@@ -362,9 +375,9 @@ export default function StudioDashboardPage() {
                 <span className="flex h-8 w-8 items-center justify-center rounded-lg"
                   style={{ backgroundColor: `color-mix(in srgb, ${colors.success} 12%, transparent)`, color: colors.success }}
                 >
-                  <span className="inline-flex items-center justify-center w-4 h-4 text-[16px]" aria-hidden="true">📤</span>
+                  <GlobeIcon className="h-4 w-4" />
                 </span>
-                <span className="text-xs text-text-secondary/60">เผยแพร่แล้ว</span>
+                <span className="text-xs text-text-secondary/80">เผยแพร่แล้ว</span>
               </div>
               <p className="mt-2 font-serif text-3xl text-text-heading">{published.length}</p>
             </div>
@@ -374,181 +387,14 @@ export default function StudioDashboardPage() {
                 <span className="flex h-8 w-8 items-center justify-center rounded-lg"
                   style={{ backgroundColor: `color-mix(in srgb, ${colors.mutedSlate} 12%, transparent)`, color: colors.mutedSlate }}
                 >
-                  <span className="inline-flex items-center justify-center w-4 h-4 text-[16px]" aria-hidden="true">📦</span>
+                  <BookmarkIcon className="h-4 w-4" />
                 </span>
-                <span className="text-xs text-text-secondary/60">เก็บถาวร</span>
+                <span className="text-xs text-text-secondary/80">เก็บถาวร</span>
               </div>
               <p className="mt-2 font-serif text-3xl text-text-heading">{archived.length}</p>
             </div>
           </div>
         </section>
-
-        {/* Quick Drafts */}
-        {drafts.length > 0 && (
-          <section className="mb-8">
-            <div className="mb-3 flex items-center justify-between gap-2">
-              <h2 className="text-sm font-medium text-text-secondary/80">
-                ฉบับร่าง — {filteredDrafts.length} รายการ
-              </h2>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => {
-                    if (selectScope === "drafts") {
-                      setSelectMode(false);
-                      setSelectedIds(new Set());
-                      setSelectScope(null);
-                    } else {
-                      setSelectMode(true);
-                      setSelectScope("drafts");
-                    }
-                  }}
-                  className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all ${
-                    selectScope === "drafts"
-                      ? "bg-error/15 text-error"
-                      : "border border-border/40 text-text-secondary hover:text-text-heading"
-                  }`}
-                >
-                  {selectScope === "drafts" ? "เลิกเลือก" : "เลือกเพื่อลบ"}
-                </button>
-                {filteredDrafts.length > 5 && (
-                  <button
-                    onClick={() => setShowAllDrafts(!showAllDrafts)}
-                    className="text-xs text-accent hover:underline"
-                  >
-                    {showAllDrafts ? "แสดงน้อยลง" : `ดูทั้งหมด (${filteredDrafts.length})`}
-                  </button>
-                )}
-              </div>
-            </div>
-            {selectScope === "drafts" ? (
-              <div className="space-y-3">
-                {/* Drafts bulk action bar */}
-                <div className="sticky top-2 z-20 flex flex-wrap items-center gap-2 rounded-xl border border-border/50 bg-bg-card/95 p-2.5 shadow-sm backdrop-blur">
-                  <button
-                    onClick={() => {
-                      const ids = filteredDrafts.map((d) => d.id);
-                      if (ids.every((id) => selectedIds.has(id))) {
-                        setSelectedIds(new Set());
-                      } else {
-                        setSelectedIds(new Set(ids));
-                      }
-                    }}
-                    className="rounded-md px-2.5 py-1 text-xs font-medium text-text-secondary hover:text-text-heading transition-colors"
-                  >
-                    {filteredDrafts.length > 0 &&
-                    filteredDrafts.every((d) => selectedIds.has(d.id))
-                      ? "ยกเลิกการเลือก"
-                      : "เลือกทั้งหมด"}
-                  </button>
-                  <span className="text-xs text-text-secondary/60">
-                    {selectedIds.size} รายการที่เลือก
-                  </span>
-                  <div className="ml-auto flex items-center gap-2">
-                    <button
-                      onClick={() => {
-                        const ids = [...selectedIds];
-                        const titles = ids
-                          .map((id) => drafts.find((d) => d.id === id)?.title ?? "")
-                          .filter(Boolean);
-                        requestAction("delete", ids, titles);
-                      }}
-                      disabled={acting || selectedIds.size === 0}
-                      className="rounded-md bg-error px-3 py-1.5 text-xs font-semibold text-text-inverse hover:brightness-110 disabled:opacity-40 transition-all"
-                    >
-                      ลบถาวร ({selectedIds.size})
-                    </button>
-                    <button
-                      onClick={() => {
-                        setSelectMode(false);
-                        setSelectedIds(new Set());
-                        setSelectScope(null);
-                      }}
-                      className="rounded-md px-2.5 py-1 text-xs text-text-secondary hover:text-text-heading transition-colors"
-                    >
-                      เลิกเลือก
-                    </button>
-                  </div>
-                </div>
-
-                {/* Checkbox rows */}
-                <div className="space-y-1.5">
-                  {displayDrafts.map((d) => {
-                    const checked = selectedIds.has(d.id);
-                    return (
-                      <button
-                        key={d.id}
-                        onClick={() => toggleSelect(d.id)}
-                        className={`archron-card group flex w-full items-center gap-4 p-4 text-left transition-all ${
-                          checked
-                            ? "ring-2 ring-accent/40 bg-accent/5"
-                            : "hover:border-accent/30"
-                        }`}
-                      >
-                        <span
-                          className={`flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-all ${
-                            checked
-                              ? "border-accent bg-accent text-text-inverse"
-                              : "border-border text-transparent"
-                          }`}
-                          aria-hidden="true"
-                        >
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
-                            <path d="M20 6 9 17l-5-5" />
-                          </svg>
-                        </span>
-                        <div className="min-w-0 flex-1">
-                          <p className="truncate text-sm font-medium text-text-heading">
-                            {d.title || d.slug}
-                          </p>
-                          <p className="mt-0.5 text-[11px] text-text-secondary/50">
-                            {d.updated_at ? new Date(d.updated_at).toLocaleDateString("th-TH") : "—"}
-                          </p>
-                        </div>
-                        <span
-                          className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
-                          style={{
-                            backgroundColor: `${statusAccent(d.status)}15`,
-                            color: statusAccent(d.status),
-                          }}
-                        >
-                          {statusLabel(d.status)}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            ) : (
-              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                {displayDrafts.map((d) => (
-                  <Link
-                    key={d.id}
-                    href={`/studio/editor?slug=${d.slug}`}
-                    className="archron-card archron-card--link group flex items-center justify-between p-4"
-                  >
-                    <div className="min-w-0">
-                      <p className="truncate text-sm font-medium text-text-heading group-hover:text-accent transition-colors">
-                        {d.title || d.slug}
-                      </p>
-                      <p className="mt-0.5 text-[11px] text-text-secondary/50">
-                        {d.updated_at ? new Date(d.updated_at).toLocaleDateString("th-TH") : "—"}
-                      </p>
-                    </div>
-                    <span
-                      className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
-                      style={{
-                        backgroundColor: `${statusAccent(d.status)}15`,
-                        color: statusAccent(d.status),
-                      }}
-                    >
-                      {statusLabel(d.status)}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            )}
-          </section>
-        )}
 
         {/* Tabs: บทความของฉัน / บทความทั้งหมด */}
         <section>
@@ -558,11 +404,11 @@ export default function StudioDashboardPage() {
               className={`flex-1 rounded-lg px-4 py-2 text-sm font-medium transition-all ${
                 tab === "my"
                   ? "bg-accent/15 text-accent shadow-sm"
-                  : "text-text-secondary/60 hover:text-text-heading"
+                  : "text-text-secondary/70 hover:text-text-heading"
               }`}
             >
               บทความของฉัน
-              <span className="ml-1.5 text-[11px] opacity-60">({entries.length})</span>
+              <span className="ml-1.5 text-[11px] opacity-80">({entries.length})</span>
             </button>
             {admin && (
               <button
@@ -570,11 +416,11 @@ export default function StudioDashboardPage() {
                 className={`flex-1 rounded-lg px-4 py-2 text-sm font-medium transition-all ${
                   tab === "all"
                     ? "bg-accent/15 text-accent shadow-sm"
-                    : "text-text-secondary/60 hover:text-text-heading"
-                }`}
-              >
-                บทความทั้งหมด
-                <span className="ml-1.5 text-[11px] opacity-60">({allEntries.length})</span>
+                  : "text-text-secondary/70 hover:text-text-heading"
+              }`}
+            >
+              บทความทั้งหมด
+                <span className="ml-1.5 text-[11px] opacity-80">({allEntries.length})</span>
               </button>
             )}
           </div>
@@ -593,13 +439,13 @@ export default function StudioDashboardPage() {
                     setSelectScope(tab);
                   }
                 }}
-                className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all ${
+                className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
                   selectMode
-                    ? "bg-error/15 text-error"
-                    : "border border-border/40 text-text-secondary hover:text-text-heading"
+                    ? "bg-error text-text-inverse shadow-sm"
+                    : "border-2 border-error/50 text-error hover:bg-error/10"
                 }`}
               >
-                {selectMode ? "เลิกเลือก" : "เลือกเพื่อลบ"}
+                {selectMode ? "✕ เลิกเลือก" : "🗑 เลือกเพื่อลบ"}
               </button>
             )}
             {tab === "my" && (
@@ -626,7 +472,7 @@ export default function StudioDashboardPage() {
                 <option key={t} value={t}>{typeLabel(t)}</option>
               ))}
             </select>
-            <span className="text-[11px] text-text-secondary/40">
+            <span className="text-[11px] text-text-secondary/70">
               แสดง {(tab === "my" ? myFilteredEntries : allFilteredEntries).length} รายการ
             </span>
           </div>
@@ -639,158 +485,74 @@ export default function StudioDashboardPage() {
               ))}
             </div>
           ) : (tab === "my" ? myFilteredEntries : allFilteredEntries).length === 0 ? (
-            <div className="archron-card p-12 text-center">
-              <span className="inline-flex items-center justify-center w-12 h-12 text-[48px] text-text-secondary" aria-hidden="true">
-                {tab === "my" ? "📝" : "⊘"}
-              </span>
-              <p className="mt-3 text-sm text-text-secondary/60">
-                {tab === "my" ? "ยังไม่มีบทความ" : "ไม่พบรายการที่ตรงกับตัวกรอง"}
-              </p>
-              {tab === "my" && (
-                <Link
-                  href="/studio/editor"
-                  className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-accent hover:underline"
-                >
-                  เริ่มเขียน
-                  <span className="inline-flex items-center justify-center w-[1em] h-[1em] text-[14px]" aria-hidden="true">→</span>
-                </Link>
-              )}
-            </div>
+            <DashboardEmptyState
+              icon={tab === "my" ? <BookIcon className="h-6 w-6" /> : <SearchIcon className="h-6 w-6" />}
+              title={tab === "my" ? "ยังไม่มีบทความ" : "ไม่พบรายการที่ตรงกับตัวกรอง"}
+              message={tab === "my" ? "เริ่มเขียนบทความแรกของคุณ" : "ลองเปลี่ยนคำค้นหาหรือตัวกรอง"}
+              cta={tab === "my" ? { label: "เริ่มเขียน", href: "/studio/editor" } : undefined}
+            />
           ) : tab === "my" && selectScope === "my" ? (
             <div className="space-y-3">
-              {/* Bulk action bar */}
-              <div className="sticky top-2 z-20 flex flex-wrap items-center gap-2 rounded-xl border border-border/50 bg-bg-card/95 p-2.5 shadow-sm backdrop-blur">
-                <button
-                  onClick={() => {
-                    const ids = myFilteredEntries.map((e) => e.id);
-                    if (ids.every((id) => selectedIds.has(id))) {
-                      setSelectedIds(new Set());
-                    } else {
-                      setSelectedIds(new Set(ids));
-                    }
-                  }}
-                  className="rounded-md px-2.5 py-1 text-xs font-medium text-text-secondary hover:text-text-heading transition-colors"
-                >
-                  {myFilteredEntries.length > 0 &&
-                  myFilteredEntries.every((e) => selectedIds.has(e.id))
-                    ? "ยกเลิกการเลือก"
-                    : "เลือกทั้งหมด"}
-                </button>
-                <span className="text-xs text-text-secondary/60">
-                  {selectedIds.size} รายการที่เลือก
-                </span>
-                <div className="ml-auto flex items-center gap-2">
-                  {(() => {
-                    const hasPublished = [...selectedIds].some((id) => {
-                      const e = entries.find((en) => en.id === id);
-                      return e?.status === "published";
-                    });
-                    if (!hasPublished) return null;
-                    const pubIds = [...selectedIds].filter((id) => {
-                      const e = entries.find((en) => en.id === id);
-                      return e?.status === "published";
-                    });
-                    return (
-                      <button
-                        onClick={() =>
-                          requestAction(
-                            "archive",
-                            pubIds,
-                            pubIds
-                              .map((id) => entries.find((e) => e.id === id)?.title ?? "")
-                              .filter(Boolean),
-                          )
-                        }
-                        disabled={acting || pubIds.length === 0}
-                        className="rounded-md border border-text-heading/20 px-3 py-1.5 text-xs font-medium text-text-heading hover:border-warning hover:bg-warning/5 disabled:opacity-40 transition-colors"
-                      >
-                        เก็บถาวร ({pubIds.length})
-                      </button>
-                    );
-                  })()}
-                  <button
-                    onClick={() => {
-                      const ids = [...selectedIds];
-                      const titles = ids
-                        .map((id) => entries.find((e) => e.id === id)?.title ?? "")
-                        .filter(Boolean);
-                      requestAction("delete", ids, titles);
-                    }}
-                    disabled={acting || selectedIds.size === 0}
-                    className="rounded-md bg-error px-3 py-1.5 text-xs font-semibold text-text-inverse hover:brightness-110 disabled:opacity-40 transition-all"
-                  >
-                    ลบถาวร ({selectedIds.size})
-                  </button>
-                  <button
-                    onClick={() => {
-                      setSelectMode(false);
-                      setSelectedIds(new Set());
-                      setSelectScope(null);
-                    }}
-                    className="rounded-md px-2.5 py-1 text-xs text-text-secondary hover:text-text-heading transition-colors"
-                  >
-                    เลิกเลือก
-                  </button>
-                </div>
-              </div>
-
-              {/* Checkbox rows */}
+              <BulkActionBar
+                totalItems={myFilteredEntries.length}
+                allSelected={myFilteredEntries.length > 0 && myFilteredEntries.every((e) => selectedIds.has(e.id))}
+                onSelectAllToggle={() => {
+                  const ids = myFilteredEntries.map((e) => e.id);
+                  if (ids.every((id) => selectedIds.has(id))) {
+                    setSelectedIds(new Set());
+                  } else {
+                    setSelectedIds(new Set(ids));
+                  }
+                }}
+                selectedCount={selectedIds.size}
+                acting={acting}
+                onArchive={() => {
+                  const pubIds = [...selectedIds].filter((id) => {
+                    const e = entries.find((en) => en.id === id);
+                    return e?.status === "published";
+                  });
+                  const titles = pubIds
+                    .map((id) => entries.find((e) => e.id === id)?.title ?? "")
+                    .filter(Boolean);
+                  requestAction("archive", pubIds, titles);
+                }}
+                archiveCount={[...selectedIds].filter((id) => {
+                  const e = entries.find((en) => en.id === id);
+                  return e?.status === "published";
+                }).length}
+                archiveDisabled={acting || [...selectedIds].filter((id) => {
+                  const e = entries.find((en) => en.id === id);
+                  return e?.status === "published";
+                }).length === 0}
+                onDelete={() => {
+                  const ids = [...selectedIds];
+                  const titles = ids
+                    .map((id) => entries.find((e) => e.id === id)?.title ?? "")
+                    .filter(Boolean);
+                  requestAction("delete", ids, titles);
+                }}
+                onCancel={() => {
+                  setSelectMode(false);
+                  setSelectedIds(new Set());
+                  setSelectScope(null);
+                }}
+              />
               <div className="space-y-1.5">
-                {myFilteredEntries.map((e) => {
-                  const checked = selectedIds.has(e.id);
-                  return (
-                    <button
-                      key={e.id}
-                      onClick={() => toggleSelect(e.id)}
-                      className={`archron-card group flex w-full items-center gap-4 p-4 text-left transition-all ${
-                        checked
-                          ? "ring-2 ring-accent/40 bg-accent/5"
-                          : "hover:border-accent/30"
-                      }`}
-                    >
-                      <span
-                        className={`flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-all ${
-                          checked
-                            ? "border-accent bg-accent text-text-inverse"
-                            : "border-border text-transparent"
-                        }`}
-                        aria-hidden="true"
-                      >
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
-                          <path d="M20 6 9 17l-5-5" />
-                        </svg>
-                      </span>
-                      <span
-                        className="inline-flex shrink-0 rounded-lg px-2.5 py-1 text-[10px] font-semibold"
-                        style={{
-                          backgroundColor: `${typeAccent(e.content_type)}15`,
-                          color: typeAccent(e.content_type),
-                        }}
-                      >
-                        {typeLabel(e.content_type)}
-                      </span>
-                      <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-medium text-text-heading">
-                          {e.title}
-                        </p>
-                        <p className="mt-0.5 text-[11px] text-text-secondary/50">
-                          {e.published_at
-                            ? new Date(e.published_at).toLocaleDateString("th-TH", { day: "numeric", month: "short", year: "numeric" })
-                            : "—"}
-                        </p>
-                      </div>
-                      <span
-                        className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
-                        style={{
-                          backgroundColor: `${statusAccent(e.status)}15`,
-                          color: statusAccent(e.status),
-                        }}
-                      >
-                        {statusLabel(e.status)}
-                      </span>
-                    </button>
-                  );
-                })}
+                {myFilteredEntries.map((e) => (
+                  <SelectRow
+                    key={e.id}
+                    checked={selectedIds.has(e.id)}
+                    onToggle={() => toggleSelect(e.id)}
+                    ariaLabel={`เลือก ${e.title}`}
+                    typeBadge={{ label: typeLabel(e.content_type), color: typeAccent(e.content_type) }}
+                    title={e.title}
+                    subtitle={e.published_at
+                      ? new Date(e.published_at).toLocaleDateString("th-TH", { day: "numeric", month: "short", year: "numeric" })
+                      : "—"
+                    }
+                    statusBadge={{ label: statusLabel(e.status), color: statusAccent(e.status) }}
+                  />
+                ))}
               </div>
             </div>
           ) : tab === "my" ? (
@@ -816,7 +578,7 @@ export default function StudioDashboardPage() {
                     <p className="truncate text-sm font-medium text-text-heading group-hover:text-accent transition-colors">
                       {e.title}
                     </p>
-                    <p className="mt-0.5 text-[11px] text-text-secondary/50">
+                    <p className="mt-0.5 text-[11px] text-text-secondary/70">
                       {e.published_at
                         ? new Date(e.published_at).toLocaleDateString("th-TH", { day: "numeric", month: "short", year: "numeric" })
                         : "—"}
@@ -862,146 +624,73 @@ export default function StudioDashboardPage() {
             </div>
           ) : tab === "all" && selectScope === "all" ? (
             <div className="space-y-3">
-              {/* Admin bulk action bar */}
-              <div className="sticky top-2 z-20 flex flex-wrap items-center gap-2 rounded-xl border border-border/50 bg-bg-card/95 p-2.5 shadow-sm backdrop-blur">
-                <button
-                  onClick={() => {
-                    const ids = allFilteredEntries.map((e) => e.id);
-                    if (ids.every((id) => selectedIds.has(id))) {
-                      setSelectedIds(new Set());
-                    } else {
-                      setSelectedIds(new Set(ids));
-                    }
-                  }}
-                  className="rounded-md px-2.5 py-1 text-xs font-medium text-text-secondary hover:text-text-heading transition-colors"
-                >
-                  {allFilteredEntries.length > 0 &&
-                  allFilteredEntries.every((e) => selectedIds.has(e.id))
-                    ? "ยกเลิกการเลือก"
-                    : "เลือกทั้งหมด"}
-                </button>
-                <span className="text-xs text-text-secondary/60">
-                  {selectedIds.size} รายการที่เลือก
-                </span>
-                <div className="ml-auto flex items-center gap-2">
-                  {(() => {
-                    const hasPublished = [...selectedIds].some((id) => {
-                      const e = allEntries.find((en) => en.id === id);
-                      return e?.status === "published";
-                    });
-                    if (!hasPublished) return null;
-                    const pubIds = [...selectedIds].filter((id) => {
-                      const e = allEntries.find((en) => en.id === id);
-                      return e?.status === "published";
-                    });
-                    return (
-                      <button
-                        onClick={() =>
-                          requestAction(
-                            "archive",
-                            pubIds,
-                            pubIds
-                              .map((id) => allEntries.find((e) => e.id === id)?.title ?? "")
-                              .filter(Boolean),
-                          )
-                        }
-                        disabled={acting || pubIds.length === 0}
-                        className="rounded-md border border-text-heading/20 px-3 py-1.5 text-xs font-medium text-text-heading hover:border-warning hover:bg-warning/5 disabled:opacity-40 transition-colors"
-                      >
-                        เก็บถาวร ({pubIds.length})
-                      </button>
-                    );
-                  })()}
-                  <button
-                    onClick={() => {
-                      const ids = [...selectedIds];
-                      const titles = ids
-                        .map((id) => allEntries.find((e) => e.id === id)?.title ?? "")
-                        .filter(Boolean);
-                      requestAction("delete", ids, titles);
-                    }}
-                    disabled={acting || selectedIds.size === 0}
-                    className="rounded-md bg-error px-3 py-1.5 text-xs font-semibold text-text-inverse hover:brightness-110 disabled:opacity-40 transition-all"
-                  >
-                    ลบถาวร ({selectedIds.size})
-                  </button>
-                  <button
-                    onClick={() => {
-                      setSelectMode(false);
-                      setSelectedIds(new Set());
-                      setSelectScope(null);
-                    }}
-                    className="rounded-md px-2.5 py-1 text-xs text-text-secondary hover:text-text-heading transition-colors"
-                  >
-                    เลิกเลือก
-                  </button>
-                </div>
-              </div>
-
-              {/* Checkbox rows */}
+              <BulkActionBar
+                totalItems={allFilteredEntries.length}
+                allSelected={allFilteredEntries.length > 0 && allFilteredEntries.every((e) => selectedIds.has(e.id))}
+                onSelectAllToggle={() => {
+                  const ids = allFilteredEntries.map((e) => e.id);
+                  if (ids.every((id) => selectedIds.has(id))) {
+                    setSelectedIds(new Set());
+                  } else {
+                    setSelectedIds(new Set(ids));
+                  }
+                }}
+                selectedCount={selectedIds.size}
+                acting={acting}
+                onArchive={() => {
+                  const pubIds = [...selectedIds].filter((id) => {
+                    const e = allEntries.find((en) => en.id === id);
+                    return e?.status === "published";
+                  });
+                  const titles = pubIds
+                    .map((id) => allEntries.find((e) => e.id === id)?.title ?? "")
+                    .filter(Boolean);
+                  requestAction("archive", pubIds, titles);
+                }}
+                archiveCount={[...selectedIds].filter((id) => {
+                  const e = allEntries.find((en) => en.id === id);
+                  return e?.status === "published";
+                }).length}
+                archiveDisabled={acting || [...selectedIds].filter((id) => {
+                  const e = allEntries.find((en) => en.id === id);
+                  return e?.status === "published";
+                }).length === 0}
+                onDelete={() => {
+                  const ids = [...selectedIds];
+                  const titles = ids
+                    .map((id) => allEntries.find((e) => e.id === id)?.title ?? "")
+                    .filter(Boolean);
+                  requestAction("delete", ids, titles);
+                }}
+                onCancel={() => {
+                  setSelectMode(false);
+                  setSelectedIds(new Set());
+                  setSelectScope(null);
+                }}
+              />
               <div className="space-y-1.5">
-                {allFilteredEntries.map((e) => {
-                  const checked = selectedIds.has(e.id);
-                  return (
-                    <button
-                      key={e.id}
-                      onClick={() => toggleSelect(e.id)}
-                      className={`archron-card group flex w-full items-center gap-4 p-4 text-left transition-all ${
-                        checked
-                          ? "ring-2 ring-accent/40 bg-accent/5"
-                          : "hover:border-accent/30"
-                      }`}
-                    >
-                      <span
-                        className={`flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-all ${
-                          checked
-                            ? "border-accent bg-accent text-text-inverse"
-                            : "border-border text-transparent"
-                        }`}
-                        aria-hidden="true"
-                      >
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
-                          <path d="M20 6 9 17l-5-5" />
-                        </svg>
-                      </span>
-                      <span
-                        className="inline-flex shrink-0 rounded-lg px-2.5 py-1 text-[10px] font-semibold"
-                        style={{
-                          backgroundColor: `${typeAccent(e.content_type)}15`,
-                          color: typeAccent(e.content_type),
-                        }}
-                      >
-                        {typeLabel(e.content_type)}
-                      </span>
-                      <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-medium text-text-heading">
-                          {e.title}
-                        </p>
-                        <p className="mt-0.5 text-[11px] text-text-secondary/50">
-                          {e.published_at ? new Date(e.published_at).toLocaleDateString("th-TH", { day: "numeric", month: "short", year: "numeric" }) : "—"}
-                          {e.author_name ? ` · ${e.author_name}` : ""}
-                        </p>
-                      </div>
-                      <span
-                        className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
-                        style={{
-                          backgroundColor: `${statusAccent(e.status)}15`,
-                          color: statusAccent(e.status),
-                        }}
-                      >
-                        {statusLabel(e.status)}
-                      </span>
-                    </button>
-                  );
-                })}
+                {allFilteredEntries.map((e) => (
+                  <SelectRow
+                    key={e.id}
+                    checked={selectedIds.has(e.id)}
+                    onToggle={() => toggleSelect(e.id)}
+                    ariaLabel={`เลือก ${e.title}`}
+                    typeBadge={{ label: typeLabel(e.content_type), color: typeAccent(e.content_type) }}
+                    title={e.title}
+                    subtitle={(e.published_at
+                      ? new Date(e.published_at).toLocaleDateString("th-TH", { day: "numeric", month: "short", year: "numeric" })
+                      : "—"
+                    ) + (e.author_name ? ` · ${e.author_name}` : "")}
+                    statusBadge={{ label: statusLabel(e.status), color: statusAccent(e.status) }}
+                  />
+                ))}
               </div>
             </div>
           ) : tab === "all" ? (
             <div className="space-y-1.5">
               {allFilteredEntries.map((e) => (
-                <Link
+                <div
                   key={e.id}
-                  href={`/studio/editor?slug=${e.slug}`}
                   className="archron-card archron-card--link group flex items-center gap-4 p-4"
                 >
                   <span
@@ -1013,25 +702,205 @@ export default function StudioDashboardPage() {
                   >
                     {typeLabel(e.content_type)}
                   </span>
-                  <div className="min-w-0 flex-1">
+                  <Link
+                    href={`/studio/editor?slug=${e.slug}`}
+                    className="min-w-0 flex-1"
+                  >
                     <p className="truncate text-sm font-medium text-text-heading group-hover:text-accent transition-colors">
                       {e.title}
                     </p>
-                    <p className="mt-0.5 text-[11px] text-text-secondary/50">
+                    <p className="mt-0.5 text-[11px] text-text-secondary/70">
                       {e.published_at ? new Date(e.published_at).toLocaleDateString("th-TH", { day: "numeric", month: "short", year: "numeric" }) : "—"}
                       {e.author_name ? ` · ${e.author_name}` : ""}
                     </p>
-                  </div>
-                  <EditorIcon name="edit_note" className="h-4 w-4 text-text-secondary group-hover:text-accent" />
-                </Link>
+                  </Link>
+                  <span
+                    className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
+                    style={{
+                      backgroundColor: `${statusAccent(e.status)}15`,
+                      color: statusAccent(e.status),
+                    }}
+                  >
+                    {statusLabel(e.status)}
+                  </span>
+                  {e.status === "published" && (
+                    <button
+                      onClick={() => requestAction("archive", [e.id], [e.title])}
+                      disabled={acting}
+                      className="shrink-0 rounded-md px-2 py-1 text-[11px] font-medium text-text-secondary hover:text-warning disabled:opacity-40 transition-colors"
+                      aria-label={`เก็บถาวร ${e.title}`}
+                    >
+                      เก็บถาวร
+                    </button>
+                  )}
+                  <button
+                    onClick={() => requestAction("delete", [e.id], [e.title])}
+                    disabled={acting}
+                    className="shrink-0 rounded-md px-2 py-1 text-[11px] font-medium text-error/80 hover:text-error hover:bg-error/5 disabled:opacity-40 transition-colors"
+                    aria-label={`ลบ ${e.title}`}
+                  >
+                    ลบ
+                  </button>
+                </div>
               ))}
             </div>
           ) : (
             <div className="archron-card p-12 text-center">
-              <p className="text-sm text-text-secondary/60">ไม่พบรายการ</p>
+              <p className="text-sm text-text-secondary/80">ไม่พบรายการ</p>
             </div>
           )}
         </section>
+
+        {/* Continue Writing — latest draft hero */}
+        {filteredDrafts.length > 0 && (() => {
+          const latestDraft = filteredDrafts[0];
+          return (
+            <section className="mb-8">
+              <Link
+                href={`/studio/editor?slug=${latestDraft.slug}`}
+                className="archron-card archron-card--link group flex items-center gap-5 p-5"
+              >
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
+                  <EditorIcon name="edit_note" className="h-5 w-5" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs text-text-secondary/80">เขียนต่อ</p>
+                  <p className="truncate text-base font-medium text-text-heading group-hover:text-accent transition-colors">
+                    {latestDraft.title || latestDraft.slug}
+                  </p>
+                  <p className="mt-0.5 text-[11px] text-text-secondary/70">
+                    แก้ไขล่าสุด {latestDraft.updated_at ? new Date(latestDraft.updated_at).toLocaleDateString("th-TH") : "—"}
+                  </p>
+                </div>
+                <span className="shrink-0 rounded-full px-3 py-1 text-xs font-semibold bg-accent/10 text-accent">
+                  เขียนต่อ
+                </span>
+              </Link>
+            </section>
+          );
+        })()}
+
+        {/* Quick Drafts */}
+        <section className="mb-8">
+          <div className="mb-3 flex items-center justify-between gap-4">
+            <h2 className="font-heading text-base font-semibold text-text-heading">
+              ฉบับร่าง
+            </h2>
+            <div className="flex items-center gap-3">
+              <span className="text-xs text-text-secondary/80">{filteredDrafts.length} รายการ</span>
+              <button
+                onClick={() => {
+                  if (selectScope === "drafts") {
+                    setSelectMode(false);
+                    setSelectedIds(new Set());
+                    setSelectScope(null);
+                  } else {
+                    setSelectMode(true);
+                    setSelectScope("drafts");
+                  }
+                }}
+                className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all ${
+                  selectScope === "drafts"
+                    ? "bg-error/15 text-error"
+                    : "border border-border/40 text-text-secondary hover:text-text-heading"
+                }`}
+              >
+                {selectScope === "drafts" ? "เลิกเลือก" : "เลือกเพื่อลบ"}
+              </button>
+              {drafts.length > 5 && (
+                <button
+                  onClick={() => setShowAllDrafts(!showAllDrafts)}
+                  className="text-xs text-accent hover:underline"
+                >
+                  {showAllDrafts ? "แสดงน้อยลง" : `ดูทั้งหมด (${filteredDrafts.length})`}
+                </button>
+              )}
+            </div>
+          </div>
+
+          {drafts.length === 0 ? (
+            <DashboardEmptyState
+              icon={<BookIcon className="h-6 w-6" />}
+              title="ยังไม่มีฉบับร่าง"
+              message="ฉบับร่างจะปรากฏที่นี่เมื่อคุณเริ่มเขียน"
+              cta={{ label: "เริ่มเขียนบทความแรก", href: "/studio/editor" }}
+            />
+          ) : selectScope === "drafts" ? (
+            <div className="space-y-3">
+              <BulkActionBar
+                totalItems={filteredDrafts.length}
+                allSelected={
+                  filteredDrafts.length > 0 &&
+                  filteredDrafts.every((d) => selectedIds.has(d.id))
+                }
+                onSelectAllToggle={() => {
+                  const ids = filteredDrafts.map((d) => d.id);
+                  if (ids.every((id) => selectedIds.has(id))) {
+                    setSelectedIds(new Set());
+                  } else {
+                    setSelectedIds(new Set(ids));
+                  }
+                }}
+                selectedCount={selectedIds.size}
+                acting={acting}
+                onDelete={() => {
+                  const ids = [...selectedIds];
+                  const titles = ids
+                    .map((id) => drafts.find((d) => d.id === id)?.title ?? "")
+                    .filter(Boolean);
+                  requestAction("delete", ids, titles);
+                }}
+                onCancel={() => {
+                  setSelectMode(false);
+                  setSelectedIds(new Set());
+                  setSelectScope(null);
+                }}
+              />
+              <div className="space-y-1.5">
+                {displayDrafts.map((d) => (
+                  <SelectRow
+                    key={d.id}
+                    checked={selectedIds.has(d.id)}
+                    onToggle={() => toggleSelect(d.id)}
+                    ariaLabel={`เลือก ${d.title || d.slug}`}
+                    title={d.title || d.slug}
+                    subtitle={d.updated_at ? new Date(d.updated_at).toLocaleDateString("th-TH") : "—"}
+                    statusBadge={{ label: statusLabel(d.status), color: statusAccent(d.status) }}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              {displayDrafts.map((d) => (
+                <Link
+                  key={d.id}
+                  href={`/studio/editor?slug=${d.slug}`}
+                  className="archron-card archron-card--link group flex items-center justify-between p-4"
+                >
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-medium text-text-heading group-hover:text-accent transition-colors">
+                      {d.title || d.slug}
+                    </p>
+                    <p className="mt-0.5 text-[11px] text-text-secondary/70">
+                      {d.updated_at ? new Date(d.updated_at).toLocaleDateString("th-TH") : "—"}
+                    </p>
+                  </div>
+                  <span
+                    className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
+                    style={{
+                      backgroundColor: `${statusAccent(d.status)}15`,
+                      color: statusAccent(d.status),
+                    }}
+                  >
+                    {statusLabel(d.status)}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          )}
+        </section>
+
       </div>
 
       {/* Confirm modal */}
@@ -1053,7 +922,7 @@ export default function StudioDashboardPage() {
                 </p>
               )}
               {confirm.titles.length > 0 && (
-                <span className="mt-2 block text-xs text-text-secondary/60">
+                <span className="mt-2 block text-xs text-text-secondary/80">
                   {confirm.titles.slice(0, 3).join(" · ")}
                   {confirm.titles.length > 3 && ` และอีก ${confirm.titles.length - 3} รายการ`}
                 </span>

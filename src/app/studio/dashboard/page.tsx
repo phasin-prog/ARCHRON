@@ -59,6 +59,7 @@ export default function StudioDashboardPage() {
   const [showAllDrafts, setShowAllDrafts] = useState(false);
   const [selectMode, setSelectMode] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [selectScope, setSelectScope] = useState<"drafts" | "my" | "all" | null>(null);
   const [confirm, setConfirm] = useState<null | {
     kind: "delete" | "archive";
     ids: string[];
@@ -172,6 +173,7 @@ export default function StudioDashboardPage() {
     setTab(next);
     setSelectMode(false);
     setSelectedIds(new Set());
+    setSelectScope(null);
   };
 
   const requestAction = (
@@ -201,6 +203,7 @@ export default function StudioDashboardPage() {
         if (kind === "delete") {
           setEntries((prev) => prev.filter((e) => !ids.includes(e.id)));
           setDrafts((prev) => prev.filter((d) => !ids.includes(d.id)));
+          setAllEntries((prev) => prev.filter((e) => !ids.includes(e.id)));
           setResult({ severity: "success", message: `ลบแล้ว ${res.count} รายการ` });
         } else {
           setEntries((prev) =>
@@ -209,6 +212,11 @@ export default function StudioDashboardPage() {
             ),
           );
           setDrafts((prev) => prev.filter((d) => !ids.includes(d.id)));
+          setAllEntries((prev) =>
+            prev.map((e) =>
+              ids.includes(e.id) ? { ...e, status: "archived" } : e,
+            ),
+          );
           setResult({
             severity: "success",
             message: `เก็บถาวรแล้ว ${res.count} รายการ`,
@@ -216,6 +224,7 @@ export default function StudioDashboardPage() {
         }
         setSelectedIds(new Set());
         setSelectMode(false);
+        setSelectScope(null);
       }
     } catch (e) {
       setResult({
@@ -377,46 +386,167 @@ export default function StudioDashboardPage() {
         {/* Quick Drafts */}
         {drafts.length > 0 && (
           <section className="mb-8">
-            <div className="mb-3 flex items-center justify-between">
+            <div className="mb-3 flex items-center justify-between gap-2">
               <h2 className="text-sm font-medium text-text-secondary/80">
                 ฉบับร่าง — {filteredDrafts.length} รายการ
               </h2>
-              {filteredDrafts.length > 5 && (
+              <div className="flex items-center gap-2">
                 <button
-                  onClick={() => setShowAllDrafts(!showAllDrafts)}
-                  className="text-xs text-accent hover:underline"
+                  onClick={() => {
+                    if (selectScope === "drafts") {
+                      setSelectMode(false);
+                      setSelectedIds(new Set());
+                      setSelectScope(null);
+                    } else {
+                      setSelectMode(true);
+                      setSelectScope("drafts");
+                    }
+                  }}
+                  className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all ${
+                    selectScope === "drafts"
+                      ? "bg-error/15 text-error"
+                      : "border border-border/40 text-text-secondary hover:text-text-heading"
+                  }`}
                 >
-                  {showAllDrafts ? "แสดงน้อยลง" : `ดูทั้งหมด (${filteredDrafts.length})`}
+                  {selectScope === "drafts" ? "เลิกเลือก" : "เลือกเพื่อลบ"}
                 </button>
-              )}
-            </div>
-            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-              {displayDrafts.map((d) => (
-                <Link
-                  key={d.id}
-                  href={`/studio/editor?slug=${d.slug}`}
-                  className="archron-card archron-card--link group flex items-center justify-between p-4"
-                >
-                  <div className="min-w-0">
-                    <p className="truncate text-sm font-medium text-text-heading group-hover:text-accent transition-colors">
-                      {d.title || d.slug}
-                    </p>
-                    <p className="mt-0.5 text-[11px] text-text-secondary/50">
-                      {d.updated_at ? new Date(d.updated_at).toLocaleDateString("th-TH") : "—"}
-                    </p>
-                  </div>
-                  <span
-                    className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
-                    style={{
-                      backgroundColor: `${statusAccent(d.status)}15`,
-                      color: statusAccent(d.status),
-                    }}
+                {filteredDrafts.length > 5 && (
+                  <button
+                    onClick={() => setShowAllDrafts(!showAllDrafts)}
+                    className="text-xs text-accent hover:underline"
                   >
-                    {statusLabel(d.status)}
-                  </span>
-                </Link>
-              ))}
+                    {showAllDrafts ? "แสดงน้อยลง" : `ดูทั้งหมด (${filteredDrafts.length})`}
+                  </button>
+                )}
+              </div>
             </div>
+            {selectScope === "drafts" ? (
+              <div className="space-y-3">
+                {/* Drafts bulk action bar */}
+                <div className="sticky top-2 z-20 flex flex-wrap items-center gap-2 rounded-xl border border-border/50 bg-bg-card/95 p-2.5 shadow-sm backdrop-blur">
+                  <button
+                    onClick={() => {
+                      const ids = filteredDrafts.map((d) => d.id);
+                      if (ids.every((id) => selectedIds.has(id))) {
+                        setSelectedIds(new Set());
+                      } else {
+                        setSelectedIds(new Set(ids));
+                      }
+                    }}
+                    className="rounded-md px-2.5 py-1 text-xs font-medium text-text-secondary hover:text-text-heading transition-colors"
+                  >
+                    {filteredDrafts.length > 0 &&
+                    filteredDrafts.every((d) => selectedIds.has(d.id))
+                      ? "ยกเลิกการเลือก"
+                      : "เลือกทั้งหมด"}
+                  </button>
+                  <span className="text-xs text-text-secondary/60">
+                    {selectedIds.size} รายการที่เลือก
+                  </span>
+                  <div className="ml-auto flex items-center gap-2">
+                    <button
+                      onClick={() => {
+                        const ids = [...selectedIds];
+                        const titles = ids
+                          .map((id) => drafts.find((d) => d.id === id)?.title ?? "")
+                          .filter(Boolean);
+                        requestAction("delete", ids, titles);
+                      }}
+                      disabled={acting || selectedIds.size === 0}
+                      className="rounded-md bg-error px-3 py-1.5 text-xs font-semibold text-text-inverse hover:brightness-110 disabled:opacity-40 transition-all"
+                    >
+                      ลบถาวร ({selectedIds.size})
+                    </button>
+                    <button
+                      onClick={() => {
+                        setSelectMode(false);
+                        setSelectedIds(new Set());
+                        setSelectScope(null);
+                      }}
+                      className="rounded-md px-2.5 py-1 text-xs text-text-secondary hover:text-text-heading transition-colors"
+                    >
+                      เลิกเลือก
+                    </button>
+                  </div>
+                </div>
+
+                {/* Checkbox rows */}
+                <div className="space-y-1.5">
+                  {displayDrafts.map((d) => {
+                    const checked = selectedIds.has(d.id);
+                    return (
+                      <button
+                        key={d.id}
+                        onClick={() => toggleSelect(d.id)}
+                        className={`archron-card group flex w-full items-center gap-4 p-4 text-left transition-all ${
+                          checked
+                            ? "ring-2 ring-accent/40 bg-accent/5"
+                            : "hover:border-accent/30"
+                        }`}
+                      >
+                        <span
+                          className={`flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-all ${
+                            checked
+                              ? "border-accent bg-accent text-text-inverse"
+                              : "border-border text-transparent"
+                          }`}
+                          aria-hidden="true"
+                        >
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
+                            <path d="M20 6 9 17l-5-5" />
+                          </svg>
+                        </span>
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-sm font-medium text-text-heading">
+                            {d.title || d.slug}
+                          </p>
+                          <p className="mt-0.5 text-[11px] text-text-secondary/50">
+                            {d.updated_at ? new Date(d.updated_at).toLocaleDateString("th-TH") : "—"}
+                          </p>
+                        </div>
+                        <span
+                          className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
+                          style={{
+                            backgroundColor: `${statusAccent(d.status)}15`,
+                            color: statusAccent(d.status),
+                          }}
+                        >
+                          {statusLabel(d.status)}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : (
+              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                {displayDrafts.map((d) => (
+                  <Link
+                    key={d.id}
+                    href={`/studio/editor?slug=${d.slug}`}
+                    className="archron-card archron-card--link group flex items-center justify-between p-4"
+                  >
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-medium text-text-heading group-hover:text-accent transition-colors">
+                        {d.title || d.slug}
+                      </p>
+                      <p className="mt-0.5 text-[11px] text-text-secondary/50">
+                        {d.updated_at ? new Date(d.updated_at).toLocaleDateString("th-TH") : "—"}
+                      </p>
+                    </div>
+                    <span
+                      className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
+                      style={{
+                        backgroundColor: `${statusAccent(d.status)}15`,
+                        color: statusAccent(d.status),
+                      }}
+                    >
+                      {statusLabel(d.status)}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            )}
           </section>
         )}
 
@@ -451,11 +581,17 @@ export default function StudioDashboardPage() {
 
           {/* Filter bar */}
           <div className="mb-4 flex flex-wrap items-center gap-2">
-            {tab === "my" && (
+            {(tab === "my" || (tab === "all" && admin)) && (
               <button
                 onClick={() => {
-                  setSelectMode(!selectMode);
-                  setSelectedIds(new Set());
+                  if (selectMode) {
+                    setSelectMode(false);
+                    setSelectedIds(new Set());
+                    setSelectScope(null);
+                  } else {
+                    setSelectMode(true);
+                    setSelectScope(tab);
+                  }
                 }}
                 className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all ${
                   selectMode
@@ -520,7 +656,7 @@ export default function StudioDashboardPage() {
                 </Link>
               )}
             </div>
-          ) : tab === "my" && selectMode ? (
+          ) : tab === "my" && selectScope === "my" ? (
             <div className="space-y-3">
               {/* Bulk action bar */}
               <div className="sticky top-2 z-20 flex flex-wrap items-center gap-2 rounded-xl border border-border/50 bg-bg-card/95 p-2.5 shadow-sm backdrop-blur">
@@ -589,6 +725,7 @@ export default function StudioDashboardPage() {
                     onClick={() => {
                       setSelectMode(false);
                       setSelectedIds(new Set());
+                      setSelectScope(null);
                     }}
                     className="rounded-md px-2.5 py-1 text-xs text-text-secondary hover:text-text-heading transition-colors"
                   >
@@ -723,7 +860,143 @@ export default function StudioDashboardPage() {
                 </div>
               ))}
             </div>
-          ) : (
+          ) : tab === "all" && selectScope === "all" ? (
+            <div className="space-y-3">
+              {/* Admin bulk action bar */}
+              <div className="sticky top-2 z-20 flex flex-wrap items-center gap-2 rounded-xl border border-border/50 bg-bg-card/95 p-2.5 shadow-sm backdrop-blur">
+                <button
+                  onClick={() => {
+                    const ids = allFilteredEntries.map((e) => e.id);
+                    if (ids.every((id) => selectedIds.has(id))) {
+                      setSelectedIds(new Set());
+                    } else {
+                      setSelectedIds(new Set(ids));
+                    }
+                  }}
+                  className="rounded-md px-2.5 py-1 text-xs font-medium text-text-secondary hover:text-text-heading transition-colors"
+                >
+                  {allFilteredEntries.length > 0 &&
+                  allFilteredEntries.every((e) => selectedIds.has(e.id))
+                    ? "ยกเลิกการเลือก"
+                    : "เลือกทั้งหมด"}
+                </button>
+                <span className="text-xs text-text-secondary/60">
+                  {selectedIds.size} รายการที่เลือก
+                </span>
+                <div className="ml-auto flex items-center gap-2">
+                  {(() => {
+                    const hasPublished = [...selectedIds].some((id) => {
+                      const e = allEntries.find((en) => en.id === id);
+                      return e?.status === "published";
+                    });
+                    if (!hasPublished) return null;
+                    const pubIds = [...selectedIds].filter((id) => {
+                      const e = allEntries.find((en) => en.id === id);
+                      return e?.status === "published";
+                    });
+                    return (
+                      <button
+                        onClick={() =>
+                          requestAction(
+                            "archive",
+                            pubIds,
+                            pubIds
+                              .map((id) => allEntries.find((e) => e.id === id)?.title ?? "")
+                              .filter(Boolean),
+                          )
+                        }
+                        disabled={acting || pubIds.length === 0}
+                        className="rounded-md border border-text-heading/20 px-3 py-1.5 text-xs font-medium text-text-heading hover:border-warning hover:bg-warning/5 disabled:opacity-40 transition-colors"
+                      >
+                        เก็บถาวร ({pubIds.length})
+                      </button>
+                    );
+                  })()}
+                  <button
+                    onClick={() => {
+                      const ids = [...selectedIds];
+                      const titles = ids
+                        .map((id) => allEntries.find((e) => e.id === id)?.title ?? "")
+                        .filter(Boolean);
+                      requestAction("delete", ids, titles);
+                    }}
+                    disabled={acting || selectedIds.size === 0}
+                    className="rounded-md bg-error px-3 py-1.5 text-xs font-semibold text-text-inverse hover:brightness-110 disabled:opacity-40 transition-all"
+                  >
+                    ลบถาวร ({selectedIds.size})
+                  </button>
+                  <button
+                    onClick={() => {
+                      setSelectMode(false);
+                      setSelectedIds(new Set());
+                      setSelectScope(null);
+                    }}
+                    className="rounded-md px-2.5 py-1 text-xs text-text-secondary hover:text-text-heading transition-colors"
+                  >
+                    เลิกเลือก
+                  </button>
+                </div>
+              </div>
+
+              {/* Checkbox rows */}
+              <div className="space-y-1.5">
+                {allFilteredEntries.map((e) => {
+                  const checked = selectedIds.has(e.id);
+                  return (
+                    <button
+                      key={e.id}
+                      onClick={() => toggleSelect(e.id)}
+                      className={`archron-card group flex w-full items-center gap-4 p-4 text-left transition-all ${
+                        checked
+                          ? "ring-2 ring-accent/40 bg-accent/5"
+                          : "hover:border-accent/30"
+                      }`}
+                    >
+                      <span
+                        className={`flex h-5 w-5 shrink-0 items-center justify-center rounded border-2 transition-all ${
+                          checked
+                            ? "border-accent bg-accent text-text-inverse"
+                            : "border-border text-transparent"
+                        }`}
+                        aria-hidden="true"
+                      >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
+                          <path d="M20 6 9 17l-5-5" />
+                        </svg>
+                      </span>
+                      <span
+                        className="inline-flex shrink-0 rounded-lg px-2.5 py-1 text-[10px] font-semibold"
+                        style={{
+                          backgroundColor: `${typeAccent(e.content_type)}15`,
+                          color: typeAccent(e.content_type),
+                        }}
+                      >
+                        {typeLabel(e.content_type)}
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-sm font-medium text-text-heading">
+                          {e.title}
+                        </p>
+                        <p className="mt-0.5 text-[11px] text-text-secondary/50">
+                          {e.published_at ? new Date(e.published_at).toLocaleDateString("th-TH", { day: "numeric", month: "short", year: "numeric" }) : "—"}
+                          {e.author_name ? ` · ${e.author_name}` : ""}
+                        </p>
+                      </div>
+                      <span
+                        className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
+                        style={{
+                          backgroundColor: `${statusAccent(e.status)}15`,
+                          color: statusAccent(e.status),
+                        }}
+                      >
+                        {statusLabel(e.status)}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ) : tab === "all" ? (
             <div className="space-y-1.5">
               {allFilteredEntries.map((e) => (
                 <Link
@@ -753,6 +1026,10 @@ export default function StudioDashboardPage() {
                 </Link>
               ))}
             </div>
+          ) : (
+            <div className="archron-card p-12 text-center">
+              <p className="text-sm text-text-secondary/60">ไม่พบรายการ</p>
+            </div>
           )}
         </section>
       </div>
@@ -761,7 +1038,7 @@ export default function StudioDashboardPage() {
       <FeedbackModal
         open={confirm !== null}
         onClose={() => setConfirm(null)}
-        severity="warning"
+        severity={confirm?.kind === "delete" ? "error" : "warning"}
         title={confirm?.kind === "delete" ? "ยืนยันการลบถาวร" : "ยืนยันการเก็บถาวร"}
         message={
           confirm ? (

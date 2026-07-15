@@ -17,7 +17,7 @@ import { THEME_TAG_SUGGESTIONS } from "@/lib/content/core/seeds/themes";
 
 const CONTENT_TYPES = [
   "article", "concept", "reading-set", "source-note",
-  "person", "book", "school", "symbol", "term",
+  "person", "book", "symbol", "term",
 ];
 const STATUSES = [
   "draft", "needs-source-check", "ready-to-publish", "published", "archived",

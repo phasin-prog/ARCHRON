@@ -9,7 +9,6 @@ import {
   listMyDraftsAction,
   listMyEntriesAction,
   listAllPublishedEntriesAction,
-  listEntriesByTypeAction,
   deleteEntriesAction,
   archiveEntriesAction,
 } from "@/features/studio/actions/dashboard-actions";
@@ -52,7 +51,6 @@ export default function StudioDashboardPage() {
   const [drafts, setDrafts] = useState<DraftItem[]>([]);
   const [entries, setEntries] = useState<EntryItem[]>([]);
   const [allEntries, setAllEntries] = useState<AllEntryItem[]>([]);
-  const [schoolEntries, setSchoolEntries] = useState<AllEntryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState<Tab>("my");
   const [statusFilter, setStatusFilter] = useState<string>("all");
@@ -140,17 +138,15 @@ export default function StudioDashboardPage() {
     let active = true;
     (async () => {
       try {
-        const [d, e, a, s] = await Promise.all([
+        const [d, e, a] = await Promise.all([
           listMyDraftsAction(),
           listMyEntriesAction(),
           listAllPublishedEntriesAction(),
-          listEntriesByTypeAction("school"),
         ]);
         if (active) {
           setDrafts(d);
           setEntries(e);
           setAllEntries(a);
-          setSchoolEntries(s);
         }
       } catch {
         /* ignore */
@@ -282,7 +278,6 @@ export default function StudioDashboardPage() {
       "source-note": "บันทึกอ้างอิง",
       person: "นักคิด",
       book: "หนังสือ",
-      school: "สำนักคิด",
       symbol: "สัญลักษณ์",
       term: "ศัพท์",
     };
@@ -294,7 +289,6 @@ export default function StudioDashboardPage() {
       article: colors.goldAccent,
       concept: colors.concept,
       person: colors.quote,
-      school: colors.school,
       book: colors.book,
       symbol: colors.symbol,
       term: colors.neutralMuted,
@@ -420,46 +414,6 @@ export default function StudioDashboardPage() {
                   >
                     {statusLabel(d.status)}
                   </span>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* School entries */}
-        {schoolEntries.length > 0 && (
-          <section className="mb-8">
-            <h2 className="mb-3 text-sm font-medium text-text-secondary/80">
-              เนื้อหา School
-            </h2>
-            <div className="space-y-1.5">
-              {schoolEntries.map((e) => (
-                <Link
-                  key={e.id}
-                  href={`/studio/editor?slug=${e.slug}`}
-                  className="archron-card archron-card--link group flex items-center gap-4 p-4"
-                >
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium text-text-heading group-hover:text-accent transition-colors">
-                      {e.title}
-                    </p>
-                    <p className="mt-0.5 text-[11px] text-text-secondary/50">
-                      {e.published_at
-                        ? `เผยแพร่ ${new Date(e.published_at).toLocaleDateString("th-TH", { day: "numeric", month: "short", year: "numeric" })}`
-                        : "—"}
-                      {e.author_name ? ` · ${e.author_name}` : " · system"}
-                    </p>
-                  </div>
-                  <span
-                    className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
-                    style={{
-                      backgroundColor: `${e.status === "published" ? "var(--color-accent)" : "var(--color-premium)"}20`,
-                      color: e.status === "published" ? "var(--color-accent)" : "var(--color-premium)",
-                    }}
-                  >
-                    {e.status === "published" ? "เผยแพร่แล้ว" : e.status}
-                  </span>
-                  <EditorIcon name="edit_note" className="h-4 w-4 text-text-secondary group-hover:text-accent" />
                 </Link>
               ))}
             </div>

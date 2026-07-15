@@ -123,19 +123,6 @@ export const bookSchema = baseEntryFields.extend({
   author: z.string().optional(),
 });
 
-export const schoolSchema = baseEntryFields.extend({
-  contentType: z.literal("school"),
-  mainTerm: z.string().optional(),
-  thaiName: z.string().optional(),
-  founder: z.string().optional(),
-  period: z.string().optional(),
-  keyIdeas: z.array(z.string()).optional(),
-  framework: z.string().optional(),
-  school: z.string().optional(),
-  difficulty: difficultyEnum.optional(),
-  shortDescription: z.string().optional(),
-});
-
 export const articleSchema = baseEntryFields.extend({
   contentType: z.literal("article"),
   subtitle: z.string().optional(),
@@ -183,6 +170,6 @@ export const sourceNoteSchema = baseEntryFields.extend({
 });
 
 export const entrySchema = z.discriminatedUnion("contentType", [
-  conceptSchema, personSchema, bookSchema, schoolSchema, articleSchema,
+  conceptSchema, personSchema, bookSchema, articleSchema,
   symbolSchema, termSchema, readingSetSchema, sourceNoteSchema,
 ]);

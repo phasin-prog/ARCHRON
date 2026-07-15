@@ -1,6 +1,6 @@
 import type { DiscriminatedEntry } from "@/types/content";
 import {
-  isArticle, isPerson, isBook, isSchool,
+  isArticle, isPerson, isBook,
 } from "@/types/content";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://archron.org";
@@ -71,17 +71,5 @@ export function bookLd(entry: DiscriminatedEntry) {
     publisher: entry.publisher,
     datePublished: entry.publicationYear,
     inLanguage: "th",
-  };
-}
-
-export function schoolLd(entry: DiscriminatedEntry) {
-  if (!isSchool(entry)) return null;
-  return {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: entry.title,
-    alternateName: entry.thaiName,
-    foundingDate: entry.period,
-    founder: entry.founder ? { "@type": "Person", name: entry.founder } : undefined,
   };
 }

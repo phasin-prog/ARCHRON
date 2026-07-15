@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
@@ -396,6 +396,155 @@ export default function StudioDashboardPage() {
           </div>
         </section>
 
+        {/* Continue Writing — latest draft hero */}
+        {filteredDrafts.length > 0 && (() => {
+          const latestDraft = filteredDrafts[0];
+          return (
+            <section className="mb-8">
+              <Link
+                href={`/studio/editor?slug=${latestDraft.slug}`}
+                className="archron-card archron-card--link group flex items-center gap-5 p-5"
+              >
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
+                  <EditorIcon name="edit_note" className="h-5 w-5" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs text-text-secondary/80">เขียนต่อ</p>
+                  <p className="truncate text-base font-medium text-text-heading group-hover:text-accent transition-colors">
+                    {latestDraft.title || latestDraft.slug}
+                  </p>
+                  <p className="mt-0.5 text-[11px] text-text-secondary/70">
+                    แก้ไขล่าสุด {latestDraft.updated_at ? new Date(latestDraft.updated_at).toLocaleDateString("th-TH") : "—"}
+                  </p>
+                </div>
+                <span className="shrink-0 rounded-full px-3 py-1 text-xs font-semibold bg-accent/10 text-accent">
+                  เขียนต่อ
+                </span>
+              </Link>
+            </section>
+          );
+        })()}
+
+        {/* Quick Drafts */}
+        <section className="mb-8">
+          <div className="mb-3 flex items-center justify-between gap-4">
+            <h2 className="font-heading text-base font-semibold text-text-heading">
+              ฉบับร่าง
+            </h2>
+            <div className="flex items-center gap-3">
+              <span className="text-xs text-text-secondary/80">{filteredDrafts.length} รายการ</span>
+              <button
+                onClick={() => {
+                  if (selectScope === "drafts") {
+                    setSelectMode(false);
+                    setSelectedIds(new Set());
+                    setSelectScope(null);
+                  } else {
+                    setSelectMode(true);
+                    setSelectScope("drafts");
+                  }
+                }}
+                className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all ${
+                  selectScope === "drafts"
+                    ? "bg-error/15 text-error"
+                    : "border border-border/40 text-text-secondary hover:text-text-heading"
+                }`}
+              >
+                {selectScope === "drafts" ? "เลิกเลือก" : "เลือกเพื่อลบ"}
+              </button>
+              {drafts.length > 5 && (
+                <button
+                  onClick={() => setShowAllDrafts(!showAllDrafts)}
+                  className="text-xs text-accent hover:underline"
+                >
+                  {showAllDrafts ? "แสดงน้อยลง" : `ดูทั้งหมด (${filteredDrafts.length})`}
+                </button>
+              )}
+            </div>
+          </div>
+
+          {drafts.length === 0 ? (
+            <DashboardEmptyState
+              icon={<BookIcon className="h-6 w-6" />}
+              title="ยังไม่มีฉบับร่าง"
+              message="ฉบับร่างจะปรากฏที่นี่เมื่อคุณเริ่มเขียน"
+              cta={{ label: "เริ่มเขียนบทความแรก", href: "/studio/editor" }}
+            />
+          ) : selectScope === "drafts" ? (
+            <div className="space-y-3">
+              <BulkActionBar
+                totalItems={filteredDrafts.length}
+                allSelected={
+                  filteredDrafts.length > 0 &&
+                  filteredDrafts.every((d) => selectedIds.has(d.id))
+                }
+                onSelectAllToggle={() => {
+                  const ids = filteredDrafts.map((d) => d.id);
+                  if (ids.every((id) => selectedIds.has(id))) {
+                    setSelectedIds(new Set());
+                  } else {
+                    setSelectedIds(new Set(ids));
+                  }
+                }}
+                selectedCount={selectedIds.size}
+                acting={acting}
+                onDelete={() => {
+                  const ids = [...selectedIds];
+                  const titles = ids
+                    .map((id) => drafts.find((d) => d.id === id)?.title ?? "")
+                    .filter(Boolean);
+                  requestAction("delete", ids, titles);
+                }}
+                onCancel={() => {
+                  setSelectMode(false);
+                  setSelectedIds(new Set());
+                  setSelectScope(null);
+                }}
+              />
+              <div className="space-y-1.5">
+                {displayDrafts.map((d) => (
+                  <SelectRow
+                    key={d.id}
+                    checked={selectedIds.has(d.id)}
+                    onToggle={() => toggleSelect(d.id)}
+                    ariaLabel={`เลือก ${d.title || d.slug}`}
+                    title={d.title || d.slug}
+                    subtitle={d.updated_at ? new Date(d.updated_at).toLocaleDateString("th-TH") : "—"}
+                    statusBadge={{ label: statusLabel(d.status), color: statusAccent(d.status) }}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              {displayDrafts.map((d) => (
+                <Link
+                  key={d.id}
+                  href={`/studio/editor?slug=${d.slug}`}
+                  className="archron-card archron-card--link group flex items-center justify-between p-4"
+                >
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-medium text-text-heading group-hover:text-accent transition-colors">
+                      {d.title || d.slug}
+                    </p>
+                    <p className="mt-0.5 text-[11px] text-text-secondary/70">
+                      {d.updated_at ? new Date(d.updated_at).toLocaleDateString("th-TH") : "—"}
+                    </p>
+                  </div>
+                  <span
+                    className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
+                    style={{
+                      backgroundColor: `${statusAccent(d.status)}15`,
+                      color: statusAccent(d.status),
+                    }}
+                  >
+                    {statusLabel(d.status)}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          )}
+        </section>
         {/* Tabs: บทความของฉัน / บทความทั้งหมด */}
         <section>
           <div className="mb-4 flex items-center gap-1 rounded-xl border border-border/30 bg-bg/40 p-1">
@@ -747,156 +896,6 @@ export default function StudioDashboardPage() {
           ) : (
             <div className="archron-card p-12 text-center">
               <p className="text-sm text-text-secondary/80">ไม่พบรายการ</p>
-            </div>
-          )}
-        </section>
-
-        {/* Continue Writing — latest draft hero */}
-        {filteredDrafts.length > 0 && (() => {
-          const latestDraft = filteredDrafts[0];
-          return (
-            <section className="mb-8">
-              <Link
-                href={`/studio/editor?slug=${latestDraft.slug}`}
-                className="archron-card archron-card--link group flex items-center gap-5 p-5"
-              >
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
-                  <EditorIcon name="edit_note" className="h-5 w-5" />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="text-xs text-text-secondary/80">เขียนต่อ</p>
-                  <p className="truncate text-base font-medium text-text-heading group-hover:text-accent transition-colors">
-                    {latestDraft.title || latestDraft.slug}
-                  </p>
-                  <p className="mt-0.5 text-[11px] text-text-secondary/70">
-                    แก้ไขล่าสุด {latestDraft.updated_at ? new Date(latestDraft.updated_at).toLocaleDateString("th-TH") : "—"}
-                  </p>
-                </div>
-                <span className="shrink-0 rounded-full px-3 py-1 text-xs font-semibold bg-accent/10 text-accent">
-                  เขียนต่อ
-                </span>
-              </Link>
-            </section>
-          );
-        })()}
-
-        {/* Quick Drafts */}
-        <section className="mb-8">
-          <div className="mb-3 flex items-center justify-between gap-4">
-            <h2 className="font-heading text-base font-semibold text-text-heading">
-              ฉบับร่าง
-            </h2>
-            <div className="flex items-center gap-3">
-              <span className="text-xs text-text-secondary/80">{filteredDrafts.length} รายการ</span>
-              <button
-                onClick={() => {
-                  if (selectScope === "drafts") {
-                    setSelectMode(false);
-                    setSelectedIds(new Set());
-                    setSelectScope(null);
-                  } else {
-                    setSelectMode(true);
-                    setSelectScope("drafts");
-                  }
-                }}
-                className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all ${
-                  selectScope === "drafts"
-                    ? "bg-error/15 text-error"
-                    : "border border-border/40 text-text-secondary hover:text-text-heading"
-                }`}
-              >
-                {selectScope === "drafts" ? "เลิกเลือก" : "เลือกเพื่อลบ"}
-              </button>
-              {drafts.length > 5 && (
-                <button
-                  onClick={() => setShowAllDrafts(!showAllDrafts)}
-                  className="text-xs text-accent hover:underline"
-                >
-                  {showAllDrafts ? "แสดงน้อยลง" : `ดูทั้งหมด (${filteredDrafts.length})`}
-                </button>
-              )}
-            </div>
-          </div>
-
-          {drafts.length === 0 ? (
-            <DashboardEmptyState
-              icon={<BookIcon className="h-6 w-6" />}
-              title="ยังไม่มีฉบับร่าง"
-              message="ฉบับร่างจะปรากฏที่นี่เมื่อคุณเริ่มเขียน"
-              cta={{ label: "เริ่มเขียนบทความแรก", href: "/studio/editor" }}
-            />
-          ) : selectScope === "drafts" ? (
-            <div className="space-y-3">
-              <BulkActionBar
-                totalItems={filteredDrafts.length}
-                allSelected={
-                  filteredDrafts.length > 0 &&
-                  filteredDrafts.every((d) => selectedIds.has(d.id))
-                }
-                onSelectAllToggle={() => {
-                  const ids = filteredDrafts.map((d) => d.id);
-                  if (ids.every((id) => selectedIds.has(id))) {
-                    setSelectedIds(new Set());
-                  } else {
-                    setSelectedIds(new Set(ids));
-                  }
-                }}
-                selectedCount={selectedIds.size}
-                acting={acting}
-                onDelete={() => {
-                  const ids = [...selectedIds];
-                  const titles = ids
-                    .map((id) => drafts.find((d) => d.id === id)?.title ?? "")
-                    .filter(Boolean);
-                  requestAction("delete", ids, titles);
-                }}
-                onCancel={() => {
-                  setSelectMode(false);
-                  setSelectedIds(new Set());
-                  setSelectScope(null);
-                }}
-              />
-              <div className="space-y-1.5">
-                {displayDrafts.map((d) => (
-                  <SelectRow
-                    key={d.id}
-                    checked={selectedIds.has(d.id)}
-                    onToggle={() => toggleSelect(d.id)}
-                    ariaLabel={`เลือก ${d.title || d.slug}`}
-                    title={d.title || d.slug}
-                    subtitle={d.updated_at ? new Date(d.updated_at).toLocaleDateString("th-TH") : "—"}
-                    statusBadge={{ label: statusLabel(d.status), color: statusAccent(d.status) }}
-                  />
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-              {displayDrafts.map((d) => (
-                <Link
-                  key={d.id}
-                  href={`/studio/editor?slug=${d.slug}`}
-                  className="archron-card archron-card--link group flex items-center justify-between p-4"
-                >
-                  <div className="min-w-0">
-                    <p className="truncate text-sm font-medium text-text-heading group-hover:text-accent transition-colors">
-                      {d.title || d.slug}
-                    </p>
-                    <p className="mt-0.5 text-[11px] text-text-secondary/70">
-                      {d.updated_at ? new Date(d.updated_at).toLocaleDateString("th-TH") : "—"}
-                    </p>
-                  </div>
-                  <span
-                    className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold"
-                    style={{
-                      backgroundColor: `${statusAccent(d.status)}15`,
-                      color: statusAccent(d.status),
-                    }}
-                  >
-                    {statusLabel(d.status)}
-                  </span>
-                </Link>
-              ))}
             </div>
           )}
         </section>

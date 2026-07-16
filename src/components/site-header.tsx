@@ -28,7 +28,8 @@ import {
   RootIcon,
   SynthesisIcon,
 } from "@/components/icons";
-import { SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
+import { SignedIn, SignedOut, useClerk, useUser } from "@clerk/nextjs";
+import { roleFromMetadata, isAdmin } from "@/lib/content/utils/roles";
 import { AccountPortalSummary } from "@/components/guide/account-portal-summary";
 
 type IconComponent = React.ComponentType<{ className?: string }>;
@@ -68,6 +69,9 @@ export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const acctRef = useRef<HTMLDivElement>(null);
   const clerk = useClerk();
+  const { user } = useUser();
+  const role = roleFromMetadata(user?.publicMetadata);
+  const admin = isAdmin(role);
 
   const isActive = (href: string) =>
     pathname === href || (href !== "/" && !!pathname?.startsWith(href));
@@ -226,6 +230,12 @@ export function SiteHeader() {
                         <EditIcon className="h-[18px] w-[18px] text-accent" />
                         Studio
                       </Link>
+                      {admin && (
+                        <Link href="/studio/invoices" onClick={() => setAcctOpen(false)} className={menuItem} role="menuitem">
+                          <HistoryIcon className="h-[18px] w-[18px] text-accent" />
+                          Invoices
+                        </Link>
+                      )}
                       <span className="my-1.5 block h-px bg-border/30" aria-hidden="true" />
                       <div className="rounded-lg bg-bg-elevated/50 mx-1">
                         <AccountPortalSummary />

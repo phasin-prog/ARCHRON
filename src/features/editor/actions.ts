@@ -6,6 +6,8 @@ import { saveDraft as saveDraftDb, loadDraftBySlug, publishEntry } from "@/lib/c
 import { addRevision, getRevisions } from "@/lib/content/publishing/entries-db";
 import type { EditorDraft } from "@/lib/content/publishing/publish-validation";
 import { invalidateEntry } from "@/lib/cache/cache";
+import { getEntryBySlug as getStaticEntryBySlug } from "@/lib/content/core/seeds/entries";
+import { entryToDraft } from "@/lib/content/publishing/draft-mapper";
 
 // E7 — revalidate public pages after publish
 export async function revalidatePublic(slug: string) {
@@ -43,15 +45,29 @@ export async function saveDraftWithRevisionAction(draft: EditorDraft) {
 // Load draft by slug + return author_id for admin ownership display
 export async function loadDraftAction(slug: string) {
   const { supabase } = await getAuthedSupabase();
-  const draft = await loadDraftBySlug(supabase, slug);
-  // Fetch author_id for ownership display
-  const { data } = await supabase
-    .from("entries")
-    .select("author_id, author_name")
-    .eq("slug", slug)
-    .maybeSingle();
-  const authorId = (data as { author_id?: string } | null)?.author_id ?? null;
-  const authorName = (data as { author_name?: string } | null)?.author_name ?? null;
+  let draft = await loadDraftBySlug(supabase, slug);
+  let authorId: string | null = null;
+  let authorName: string | null = null;
+
+  if (!draft) {
+    // Fallback to static seed entry — allow editing seed content
+    const staticEntry = getStaticEntryBySlug(slug);
+    if (staticEntry) {
+      draft = entryToDraft(staticEntry);
+      authorId = null;
+      authorName = staticEntry.author ?? null;
+    }
+  } else {
+    // Fetch author_id from DB for ownership display
+    const { data } = await supabase
+      .from("entries")
+      .select("author_id, author_name")
+      .eq("slug", slug)
+      .maybeSingle();
+    authorId = (data as { author_id?: string } | null)?.author_id ?? null;
+    authorName = (data as { author_name?: string } | null)?.author_name ?? null;
+  }
+
   return { draft, authorId, authorName };
 }
 

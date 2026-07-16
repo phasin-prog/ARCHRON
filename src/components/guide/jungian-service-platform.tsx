@@ -27,8 +27,14 @@ import {
   type AppointmentItem,
   type ReportItem,
 } from "@/components/guide/types";
+import type { PricingPageData } from "@/lib/content/guide/pricing-data";
+import { DEFAULT_PRICING } from "@/lib/content/guide/pricing-data";
 
-export function JungianServicePlatform() {
+interface JungianServicePlatformProps {
+  pricingData?: PricingPageData;
+}
+
+export function JungianServicePlatform({ pricingData }: JungianServicePlatformProps) {
   const [platformTab, setPlatformTab] = useState<"overview" | "scope" | "process" | "pricing">("overview");
   const [invoiceModalOpen, setInvoiceModalOpen] = useState(false);
   const [selectedInvoice, setSelectedInvoice] = useState<InvoiceData | null>(null);
@@ -318,6 +324,7 @@ export function JungianServicePlatform() {
             {platformTab === "pricing" && (
               <>
                 <PricingSection
+                  data={pricingData ?? DEFAULT_PRICING}
                   onBookClick={handleScrollToPricing}
                 />
                 <BookingSection

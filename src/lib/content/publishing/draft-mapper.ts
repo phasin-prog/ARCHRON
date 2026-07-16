@@ -48,6 +48,7 @@ export function draftToRow(
     ipa: d.ipa || undefined,
     visual_explanation: d.visualExplanation || undefined,
     technical_meaning: d.technicalMeaning || undefined,
+    real_world_examples: d.realWorldExamples || undefined,
     main_thinkers: d.mainThinker ? [d.mainThinker] : undefined,
     born_year: d.bornYear || undefined,
     died_year: d.diedYear || undefined,
@@ -77,6 +78,7 @@ export function entryToDraft(entry: DiscriminatedEntry): EditorDraft {
     })),
     coverImage: entry.coverImage ?? "", shortDescription: entry.shortDescription ?? "",
     rowName: entry.rowName ?? "", rowCode: entry.rowCode ?? "",
+    realWorldExamples: (entry as { realWorldExamples?: string }).realWorldExamples ?? "",
   };
 
   if (entry.contentType === "concept") {

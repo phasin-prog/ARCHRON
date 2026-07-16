@@ -9,6 +9,7 @@ import {
   type BlueprintId,
   type KnowledgeBlueprint,
 } from "@/lib/content/studio/blueprints";
+import { CloseIcon, BookIcon, EditIcon } from "@/components/icons";
 import { resolveIconElement } from "@/lib/content/core/icon-map";
 import { slugify } from "@/lib/content/publishing/publish-validation";
 

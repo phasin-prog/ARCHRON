@@ -122,6 +122,19 @@ export function ContentTypeSelector() {
                 >
                   เลือก
                    <ArrowRightIcon className="h-[1em] w-[1em]" />
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="mt-8 text-center">
+          <button
+            onClick={() => router.push("/studio")}
+            className="text-sm text-text-secondary hover:text-text-heading transition-colors"
+          >
+            ← กลับห้องเขียน
+          </button>
         </div>
       </div>
     </div>

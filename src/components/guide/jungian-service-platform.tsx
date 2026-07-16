@@ -170,7 +170,7 @@ export function JungianServicePlatform() {
           />
 
           {/* Sticky Platform Navigation Tabs (Eliminates Cognitive Load & Scrolling) */}
-          <div id="platform-tabs-anchor" className="sticky top-[7.75rem] z-20 border-b border-border/70 bg-bg-card/95 backdrop-blur-md px-6 py-3.5 shadow-sm">
+          <div id="platform-tabs-anchor" className="sticky top-14 lg:top-[7.5rem] z-20 border-b border-border/70 bg-bg-card/95 backdrop-blur-md px-6 py-3.5 shadow-sm">
             <div className="mx-auto max-w-5xl">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-accent hidden md:inline">

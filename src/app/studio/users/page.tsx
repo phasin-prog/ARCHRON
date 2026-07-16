@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSession, useUser } from "@clerk/nextjs";
 import { createClerkSupabaseClient } from "@/lib/supabase/client";
-import { resolveIcon } from "@/lib/content/core/icon-map";
+import { resolveIconElement } from "@/lib/content/core/icon-map";
 import { EditIcon } from "@/components/icons";
 import {
   roleFromMetadata,
@@ -151,7 +151,7 @@ export default function StudioUsersPage() {
                         className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium"
                         style={{ backgroundColor: `${meta.accent}1f`, color: meta.accent }}
                       >
-                        {(function() { const IconComp = resolveIcon(meta.icon); return IconComp ? <IconComp className="h-[1em] w-[1em]" /> : null; })()}
+                        {resolveIconElement(meta.icon, { className: "h-[1em] w-[1em]" })}
                         {ROLE_LABEL[u.role]}
                       </span>
                     </td>

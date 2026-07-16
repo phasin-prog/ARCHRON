@@ -5,7 +5,7 @@ import {
   contentTypeMeta,
 } from "@/lib/content/core/cosmology";
 import { EditIcon, ArrowRightIcon } from "@/components/icons";
-import { resolveIcon } from "@/lib/content/core/icon-map";
+import { resolveIconElement } from "@/lib/content/core/icon-map";
 
 type ContentTypeOption = {
   type: string;
@@ -74,7 +74,6 @@ export function ContentTypeSelector() {
         <div className="grid gap-4 sm:grid-cols-2">
           {CONTENT_TYPE_OPTIONS.map((opt) => {
             const meta = contentTypeMeta(opt.type);
-            const Icon = resolveIcon(meta.icon);
             return (
               <button
                 key={opt.type}
@@ -90,7 +89,7 @@ export function ContentTypeSelector() {
                       color: opt.accent,
                     }}
                   >
-                    {Icon && <Icon className="h-6 w-6" />}
+                    {resolveIconElement(meta.icon, { className: "h-6 w-6" })}
                   </span>
                   <div>
                     <h2 className="font-serif text-lg font-semibold text-text-heading group-hover:text-accent transition-colors">
@@ -123,19 +122,6 @@ export function ContentTypeSelector() {
                 >
                   เลือก
                    <ArrowRightIcon className="h-[1em] w-[1em]" />
-                </span>
-              </button>
-            );
-          })}
-        </div>
-
-        <div className="mt-8 text-center">
-          <button
-            onClick={() => router.push("/studio")}
-            className="text-sm text-text-secondary hover:text-text-heading transition-colors"
-          >
-            ← กลับห้องเขียน
-          </button>
         </div>
       </div>
     </div>

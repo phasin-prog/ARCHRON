@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { resolveIcon } from "@/lib/content/core/icon-map";
+import { resolveIconElement } from "@/lib/content/core/icon-map";
 
 type Option = { value: string; label?: string };
 type OptionMeta = { icon: string; accent: string };
@@ -92,7 +92,7 @@ export function SearchableSelect({
         aria-expanded={open}
       >
         <span className={`flex items-center gap-2 ${displayLabel ? "text-text-heading" : "text-text-secondary"}`}>
-          {displayLabel && meta ? (() => { const IconComp = resolveIcon(meta(value).icon); return IconComp ? <IconComp className="h-[1em] w-[1em] text-[18px]" /> : null; })() : null}
+          {displayLabel && meta ? resolveIconElement(meta(value).icon, { className: "h-[1em] w-[1em] text-[18px]" }) : null}
           {displayLabel || placeholder}
         </span>
         <span className="text-text-secondary">▾</span>
@@ -138,7 +138,7 @@ export function SearchableSelect({
                     }}
                     className="flex w-full items-center gap-2 rounded px-2 py-2 text-left text-sm text-text-body hover:bg-text-heading/5"
                   >
-                    {meta ? (() => { const IconComp = resolveIcon(meta(o.value).icon); return IconComp ? <IconComp className="h-[1em] w-[1em] text-[18px]" /> : null; })() : null}
+                    {meta ? resolveIconElement(meta(o.value).icon, { className: "h-[1em] w-[1em] text-[18px]" }) : null}
                     {o.label}
                   </button>
                 </li>

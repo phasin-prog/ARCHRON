@@ -9,8 +9,7 @@ import {
   type BlueprintId,
   type KnowledgeBlueprint,
 } from "@/lib/content/studio/blueprints";
-import { CloseIcon, BookIcon, EditIcon } from "@/components/icons";
-import { resolveIcon } from "@/lib/content/core/icon-map";
+import { resolveIconElement } from "@/lib/content/core/icon-map";
 import { slugify } from "@/lib/content/publishing/publish-validation";
 
 export interface BlueprintSelectorModalProps {
@@ -162,7 +161,7 @@ export function BlueprintSelectorModal({
                             : "bg-accent/10 text-accent group-hover:bg-accent/20"
                         }`}
                       >
-                        {(() => { const BpIcon = resolveIcon(bp.icon); return BpIcon ? <BpIcon className="h-5 w-5" /> : null; })()}
+                        {resolveIconElement(bp.icon, { className: "h-5 w-5" })}
                       </div>
                       <div className="text-right shrink-0">
                         <span className="inline-block rounded bg-bg-elevated px-1.5 py-0.5 text-[10px] font-mono text-text-secondary uppercase">

@@ -169,7 +169,7 @@
 
 @layer base {
   :root {
-    color-scheme: light;
+    color-scheme: light dark;
 
     /* ── Compat defaults — สำหรับ inline style ที่ยังอ้างถึง dynamic accent/domain ──
        ค่าเริ่มต้น = Academic accent / Neutral; override ได้ตามบริบท (per-content) */
@@ -360,6 +360,120 @@
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
     box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-accent) 20%, transparent);
+  }
+}
+
+/* ===== Dark Mode ============================================================
+   Warm-dark variant of the SEP-inspired palette.
+   Flipped neutrals, lightened accent for legibility on dark surfaces.
+   ============================================================================ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    /* Neutral Canvas */
+    --color-bg: #1A1714;
+    --color-bg-card: #24211E;
+    --color-bg-elevated: #2E2B27;
+    --color-surface-1: #2E2B27;
+    --color-surface-2: #383531;
+    --color-surface-3: #423F3B;
+    --color-border: #3D3A36;
+    --color-text-heading: #EDEBE7;
+    --color-text-body: #C8C4BE;
+    --color-text-secondary: #989490;
+    --color-text-inverse: #1A1815;
+
+    /* Academic Accent — lightened cardinal for dark bg */
+    --color-accent: #D44A4A;
+    --color-accent-hover: #E05A5A;
+    --color-accent-on-bg: #D44A4A;
+    --color-accent-subtle: color-mix(in srgb, var(--color-accent) 18%, var(--color-bg-card));
+
+    /* Focus Accent Palette */
+    --color-accent-knowledge: #4A5A7A;
+    --color-accent-wisdom: #C2A46E;
+    --color-accent-mind: #7E9B8F;
+    --color-accent-spirit: #8A758F;
+
+    /* Premium Gold */
+    --color-premium: #D4A96A;
+    --color-premium-hover: #E0B87A;
+    --color-premium-subtle: #2D2A24;
+
+    /* Knowledge Categories */
+    --color-concept: #88B0E0;
+    --color-thinker: #85C285;
+    --color-theory: #B4A8D4;
+    --color-school: #7AACAC;
+    --color-book: #D4A96A;
+    --color-article: #C48A9A;
+    --color-symbol: #D4B050;
+    --color-timeline: #8A9AAA;
+    --color-quote: #9ABA9A;
+    --color-guide: #8A9AC8;
+
+    /* 12 Disciplines */
+    --token-01-psychology: #5A8CBD;
+    --token-02-philosophy: #8B7291;
+    --token-03-anthropology: #C87D55;
+    --token-04-history: #A08A60;
+    --token-05-language: #5AACA2;
+    --token-06-mythology: #A84B4B;
+    --token-07-religion: #8CCFAB;
+    --token-08-science: #5A82FE;
+    --token-09-symbolism: #6078A8;
+    --token-10-art: #BA5A82;
+    --token-11-future: #5A9BC8;
+    --token-12-civilization: #6A879E;
+
+    /* Semantic */
+    --color-success: #78B888;
+    --color-warning: #E0B85A;
+    --color-error: #D88888;
+    --color-info: #8898C8;
+
+    /* Shared Content Palette */
+    --color-steel-blue: #6E93A8;
+    --color-sage-darker: #8AA395;
+    --color-amber-gold: #C9A24A;
+    --color-teal-green: #7FB08A;
+    --color-silver-gray: #B9C2CE;
+    --color-ash-gray: #9A948A;
+    --color-ochre-gold: #CBA45A;
+    --color-neutral-muted: #858992;
+    --color-gold-accent: #C49B55;
+    --color-muted-slate: #6A7A8A;
+
+    /* Cosmology Accents */
+    --color-warm-gray: #8A8780;
+    --color-soft-blue: #5B7FAB;
+    --color-warm-gold: #C4A040;
+    --color-amber-brown: #B58A5A;
+    --color-forest-green: #5A8A6A;
+    --color-sage-green: #7A9A7A;
+    --color-rose-muted: #AB6B7A;
+    --color-indigo-soft: #6A7AB5;
+
+    /* Status & Difficulty */
+    --color-red-muted: #B55A5A;
+    --color-amber-dark: #C48A30;
+    --color-green-forest: #4A8A5A;
+    --color-blue-slate: #5A7AAA;
+
+    /* Seal Progression */
+    --color-slate-dark: #586878;
+    --color-seal-academic: #B84040;
+    --color-silver-light: #C7D0DB;
+
+    /* Editor input fields */
+    --color-editor-input-bg: color-mix(in srgb, var(--color-text-heading) 12%, transparent);
+    --color-editor-input-border: color-mix(in srgb, var(--color-text-heading) 20%, transparent);
+    --color-editor-input-focus: var(--color-accent);
+    --color-editor-label: var(--color-text-body);
+
+    /* Dynamic Typography unchanged — only color tokens change */
+    /* Motion tokens unchanged — only colors above */
   }
 }
 

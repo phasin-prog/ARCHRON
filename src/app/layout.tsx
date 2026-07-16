@@ -33,8 +33,7 @@ const ebGaramond = EB_Garamond({
 
 const crimsonPro = Crimson_Pro({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
+  weight: ["400", "600"],
   variable: "--font-crimson-pro",
   display: "swap",
 });
@@ -84,7 +83,7 @@ export default function RootLayout({
       >
         <head>
           <meta charSet="utf-8" />
-          <meta name="color-scheme" content="light" />
+          <meta name="color-scheme" content="light dark" />
           <noscript>
             <style>{`.scroll-reveal{opacity:1!important;transform:none!important}`}</style>
           </noscript>

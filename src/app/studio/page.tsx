@@ -103,27 +103,25 @@ export default function StudioLandingPage() {
             </div>
             
             <span className="text-sm font-medium text-text-secondary/80">
-              Studio · ห้องเขียนของนักเขียน
+              Studio · ห้องเขียน
             </span>
             
             <h1 className="mt-4 font-serif text-3xl md:text-4xl lg:text-5xl text-text-heading leading-tight font-medium">
-              พื้นที่เรียบเรียง <br className="hidden md:inline" />
+              พื้นที่สำหรับ <br className="hidden md:inline" />
               <span className="relative inline-block">
-                เจตจำนงและการค้นพบ
+                เรียบเรียงความรู้
                 <span className="absolute bottom-1 left-0 h-1.5 w-full bg-accent/20 -z-10 rounded-sm" />
               </span>
             </h1>
             
             <p className="mt-6 max-w-xl text-base leading-[1.8] text-text-body/80">
-              เบื้องหลังความรู้คือความเข้าใจในมิติต่างๆ ของจิตใจมนุษย์ 
-              ที่นี่คือห้องปฏิบัติการของผู้ดูแลระบบและเพื่อนผู้ร่วมเขียนความรู้ 
-              เพื่อร่วมกันบันทึก วิเคราะห์ และจัดเก็บข้อเท็จจริงทางวิชาการอย่างเป็นระบบ 
-              มีระเบียบอ้างอิง และแยกแยะการตีความออกจากความเป็นจริงเพื่อความเที่ยงธรรมสูงสุด
+              ห้องทำงานสำหรับผู้ดูแลและผู้ร่วมเขียน ใช้บันทึก ตรวจทาน และจัดระบบข้อมูลทางวิชาการ
+              ก่อนเผยแพร่ เราแยกข้อเท็จจริง แหล่งอ้างอิง และการตีความออกจากกันให้ชัดเจน
             </p>
             
             <div className="mt-8 flex flex-col gap-4 border-l border-accent/30 pl-5 text-sm italic text-text-secondary">
-              <p>“ตัวอักษรคือความทรงจำ วัสดุคืออารยธรรม”</p>
-              <p className="text-sm font-medium text-text-secondary/80">— กฎข้อปฏิบัติของคลังความรู้ Archron</p>
+              <p>งานเขียนที่ดีระบุแหล่งที่มาและขอบเขตของข้อสรุป</p>
+              <p className="text-sm font-medium text-text-secondary/80">หลักการทำงานของคลังความรู้ Archron</p>
             </div>
           </div>
 
@@ -182,8 +180,8 @@ export default function StudioLandingPage() {
         <div className="w-full max-w-lg">
           {/* การ์ดโปรไฟล์ — Premium Dashboard Card */}
           <div className="group relative overflow-hidden rounded-2xl border border-border/30 bg-bg/60 shadow-2xl backdrop-blur-xl">
-            {/* Gradient accent bar ด้านบน */}
-            <div className="h-1 w-full bg-gradient-to-r from-accent via-accent to-accent/40" />
+            {/* Accent bar ด้านบน */}
+            <div className="h-1 w-full bg-accent" />
 
             {/* Header section — Avatar + Identity */}
             <div className="relative px-8 pt-8 pb-6">
@@ -216,7 +214,7 @@ export default function StudioLandingPage() {
                 {/* Name + Email + Role */}
                 <div className="min-w-0 flex-1 pt-1">
                   <h2 className="truncate font-serif text-2xl font-medium text-text-heading">
-                    {user?.fullName || user?.username || "เพื่อนผู้ร่วมเขียน"}
+                    {user?.fullName || user?.username || "ผู้ร่วมเขียน"}
                   </h2>
                   <p className="mt-1 truncate font-mono text-xs text-text-secondary/60">
                     {user?.primaryEmailAddress?.emailAddress}
@@ -256,7 +254,6 @@ export default function StudioLandingPage() {
                     </span>
                     <div>
                       <span className="block text-[11px] text-text-heading">จัดการผู้ใช้</span>
-                      <span className="block text-[10px] text-text-secondary/50">User Management</span>
                     </div>
                   </Link>
                   <Link
@@ -268,7 +265,6 @@ export default function StudioLandingPage() {
                     </span>
                     <div>
                       <span className="block text-[11px] text-text-heading">ดูแลความเห็น</span>
-                      <span className="block text-[10px] text-text-secondary/50">Comments</span>
                     </div>
                   </Link>
                 </div>

@@ -53,24 +53,8 @@ export function ScrollReveal() {
       }
     }
 
-    const settle = setTimeout(() => {
-      const remaining = document.querySelectorAll<HTMLElement>(".scroll-reveal:not(.visible)");
-      const geometrySettle = Array.from(remaining).map((el) => ({
-        el,
-        top: el.getBoundingClientRect().top,
-      }));
-      for (const { el, top } of geometrySettle) {
-        if (top < viewportThreshold) {
-          el.classList.add("visible");
-        } else {
-          observerRef.current?.observe(el);
-        }
-      }
-    }, 250);
-
     return () => {
       observerRef.current?.disconnect();
-      clearTimeout(settle);
     };
   }, [pathname]);
 

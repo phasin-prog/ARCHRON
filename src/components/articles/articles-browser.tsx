@@ -25,8 +25,6 @@ function frameworkToDiscipline(framework?: string): DisciplineKey {
   return "philosophy";
 }
 
-const GRAIN_URL = "data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E";
-
 const ArticleCard = memo(function ArticleCard({ entry }: { entry: ContentEntry }) {
   const discKey = frameworkToDiscipline(entry.framework);
   const meta = disciplineMeta(discKey);
@@ -52,14 +50,6 @@ const ArticleCard = memo(function ArticleCard({ entry }: { entry: ContentEntry }
           } as React.CSSProperties
         }
       >
-        <div
-          className="pointer-events-none absolute inset-0 z-10 rounded-[inherit] bg-repeat opacity-0 transition-opacity duration-500 group-hover:opacity-[0.04]"
-          style={{
-            backgroundImage: `url("${GRAIN_URL}")`,
-            backgroundSize: "256px 256px",
-          }}
-          aria-hidden
-        />
         <div className="relative z-surface">
           <div className="mb-4 flex items-center justify-between gap-2">
             <span
@@ -87,7 +77,7 @@ const ArticleCard = memo(function ArticleCard({ entry }: { entry: ContentEntry }
           ) : null}
         </div>
         <div className="relative z-surface mt-6 pt-4 border-t border-border/40 flex items-center justify-between text-xs font-semibold text-text-secondary transition-colors group-hover:text-[var(--card-accent)]">
-          <span>อ่านบทความและวิเคราะห์เชิงลึก</span>
+          <span>อ่านบทความ</span>
           <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-border/40 transition-all duration-300 group-hover:border-[var(--card-accent)]/40 group-hover:bg-[var(--card-accent)]/10 group-hover:translate-x-0.5">
             <ArrowRightIcon className="h-3.5 w-3.5" />
           </span>

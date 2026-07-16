@@ -20,13 +20,13 @@ export function ContactSection() {
     <section id="contact" className="border-b border-border/30 bg-bg py-20 lg:py-24">
       <div className="tpl-reference text-center">
         <span className="text-xs font-semibold uppercase tracking-[0.22em] text-accent/85">
-          Direct Communication Channels
+          ช่องทางติดต่อ
         </span>
         <h2 className="mt-3 font-serif text-3xl font-bold text-text-heading md:text-4xl">
-          ติดต่อสอบถาม &amp; ทีมวิเคราะห์
+          ติดต่อสอบถาม
         </h2>
         <p className="mx-auto mt-3 max-w-lg text-sm text-text-secondary/85 md:text-base">
-          ติดต่อผ่านช่องทางหลักเพื่อสอบถามรายละเอียดเพิ่มเติม ตรวจสอบคิวนัดหมาย หรือพูดคุยกับผู้เชี่ยวชาญโดยตรง
+          สอบถามรายละเอียด ตรวจสอบคิวนัดหมาย หรือพูดคุยกับผู้ดูแลบริการได้โดยตรง
         </p>
 
         <div className="mt-12 grid gap-4 sm:grid-cols-2">
@@ -53,12 +53,12 @@ export function ContactSection() {
         </div>
 
         <div className="mt-14 border-t border-border/30 pt-8 text-xs text-text-secondary/80">
-          <span>ต้องการศึกษาทฤษฎีจิตวิทยาก่อนสัมภาษณ์? </span>
+          <span>ต้องการอ่านทฤษฎีก่อนเข้ารับการสัมภาษณ์? </span>
           <Link
             href="/concepts/psychological-types"
             className="font-semibold text-accent underline underline-offset-4 transition-colors hover:text-accent-hover focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
           >
-            อ่านข้อมูล Psychological Types เพิ่มเติมที่นี่
+            อ่านเรื่อง Psychological Types
           </Link>
         </div>
       </div>

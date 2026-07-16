@@ -11,7 +11,7 @@ export const revalidate = 300;
 export const metadata: Metadata = {
   title: "ซีรีส์ / ชุดอ่าน — ARCHRON",
   description:
-    "เส้นทางการอ่านที่จะพาคุณเดินทางจากแนวคิดพื้นฐานไปสู่ความรู้ในระดับลึกอย่างมีลำดับขั้นตอนและเป็นระบบ",
+    "ชุดอ่านที่จัดลำดับจากแนวคิดพื้นฐานไปสู่เนื้อหาที่อ่านต่อได้",
 };
 
 export default async function ReadingSetsPage() {
@@ -26,7 +26,7 @@ export default async function ReadingSetsPage() {
       ]}
       kicker="ซีรีส์ / ชุดอ่าน"
       title="เส้นทางการอ่านความรู้"
-      lead="ลำดับขั้นตอนการอ่านคัดสรรที่จะช่วยให้ผู้อ่านเดินจากแนวคิดระดับพื้นฐานไปสู่โครงสร้างความรู้ระดับลึกอย่างเป็นขั้นเป็นตอน"
+      lead="ชุดอ่านที่จัดลำดับแนวคิดพื้นฐานและเนื้อหาที่เกี่ยวข้องไว้เป็นขั้นตอน"
       ambient
       navCurrent="/reading-sets"
     >
@@ -35,7 +35,7 @@ export default async function ReadingSetsPage() {
           <EmptyState
             icon="menu_book"
             title="ยังไม่เปิดเส้นทางการอ่านในขณะนี้"
-            description="เรากำลังเรียบเรียงลำดับการอ่านให้พาคุณจากพื้นฐานไปสู่ความลึกอย่างมีบริบท — ระหว่างนี้เริ่มเดินสำรวจได้จากพื้นที่เหล่านี้"
+            description="ขณะนี้ยังไม่มีชุดอ่านเผยแพร่ ลองเริ่มจากคลังแนวคิดหรือนักปราชญ์"
             action={
               <div className="flex flex-wrap justify-center gap-3">
                 <Link

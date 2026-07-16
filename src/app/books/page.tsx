@@ -9,7 +9,7 @@ import { ArrowRightIcon } from "@/components/icons";
 export const metadata: Metadata = {
   title: "หนังสือ — ARCHRON",
   description:
-    "รายการหนังสือและตำราที่เป็นรากฐานของแนวคิดใน ARCHRON พร้อมบทสรุปและแนวคิดสำคัญ",
+    "รายชื่อหนังสือและตำราที่เกี่ยวข้องกับแนวคิดใน ARCHRON พร้อมคำอธิบายโดยย่อและประเด็นสำคัญ",
 };
 
 export const revalidate = 300;
@@ -27,7 +27,7 @@ export default async function BooksPage() {
       ]}
       kicker="คลังหนังสือ"
       title="หนังสือและตำรา"
-      lead="รากฐานของแนวคิดสำคัญที่หล่อหลอมจิตวิทยา ปรัชญา และมนุษยศาสตร์ ตั้งแต่ยุคโบราณจนถึงปัจจุบัน"
+      lead="หนังสือและตำราที่เกี่ยวข้องกับจิตวิทยา ปรัชญา และมนุษยศาสตร์"
       ambient
       navCurrent="/books"
     >
@@ -36,7 +36,7 @@ export default async function BooksPage() {
           <EmptyState
             icon="book"
             title="ยังไม่มีหนังสือในคลัง"
-            description="เรากำลังรวบรวมหนังสือและตำราสำคัญที่เป็นรากฐานของแนวคิดใน ARCHRON"
+            description="ขณะนี้ยังไม่มีหนังสือในคลัง ลองเริ่มจากคลังแนวคิดหรือนักปราชญ์"
           >
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               <Link

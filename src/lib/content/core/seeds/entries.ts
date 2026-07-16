@@ -370,7 +370,7 @@ export const entries: DiscriminatedEntry[] = [
     title: "Guide Pricing",
     slug: "guide-pricing",
     status: "published",
-    contentType: "article",
+    contentType: "source-note",
     author: "ARCHRON",
     publishedAt: "2026-07-16",
     updatedAt: "2026-07-16",
@@ -408,7 +408,7 @@ export const entries: DiscriminatedEntry[] = [
         disclaimer: "* กิจกรรมสิทธิ์พิเศษนี้จัดทำขึ้นและตรวจสอบสิทธิ์โดยตรงผ่านช่องทาง Official Facebook Page ของ Archron เท่านั้น สามารถติดต่อทีมงานเพื่อเช็คสถานะสิทธิ์คงเหลือได้ตลอดเวลา",
       },
     }),
-  } satisfies ArticleEntry,
+  },
 ];
 
 export function getEntryBySlug(slug: string): DiscriminatedEntry | undefined {

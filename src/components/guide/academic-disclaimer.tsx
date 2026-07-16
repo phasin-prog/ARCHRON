@@ -10,12 +10,12 @@ export function AcademicDisclaimer() {
               !
             </span>
             <h3 className="font-serif text-xl font-bold text-text-heading">
-              กรอบขอบเขตทางวิชาการและข้อตกลงในการรับบริการ
+              ขอบเขตของบริการ
             </h3>
           </div>
 
           <p className="mt-3 text-xs leading-relaxed text-text-secondary/85">
-            เพื่อความเข้าใจที่ตรงกันและประโยชน์สูงสุดของผู้รับบริการ โปรดอ่านและรับทราบขอบเขตทางวิชาการของเราก่อนเริ่มต้นกระบวนการสัมภาษณ์:
+            โปรดอ่านขอบเขตของบริการก่อนเริ่มการสัมภาษณ์ เพื่อให้เข้าใจตรงกัน:
           </p>
 
           <ul className="mt-6 space-y-3.5 border-t border-border/40 pt-6">

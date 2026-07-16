@@ -31,13 +31,13 @@ export function AnalysisCards() {
       <div className="tpl-reference">
         <div className="text-center md:text-left">
           <span className="text-xs font-semibold uppercase tracking-[0.22em] text-accent/85">
-            Scope of Analytical Inquiry
+            ขอบเขตการพิจารณา
           </span>
           <h2 className="mt-3 font-serif text-3xl font-bold text-text-heading md:text-4xl">
-            ขอบเขตหัวข้อและมิติการวิเคราะห์
+            หัวข้อที่ใช้ในการวิเคราะห์
           </h2>
           <p className="mt-3 text-sm text-text-secondary/85 md:text-base">
-            6 มิติหลักในการสำรวจโครงสร้างและแบบแผน Ego ของคุณที่จะถูกวิเคราะห์และเรียบเรียงในเอกสารสรุป
+            หกหัวข้อสำหรับพิจารณาโครงสร้างและแบบแผนของ Ego ในรายงานสรุป
           </p>
         </div>
 
@@ -72,7 +72,7 @@ export function AnalysisCards() {
 
               <div className="mt-5 border-t border-border/20 pt-3">
                 <span className="inline-block rounded bg-accent/5 px-2 py-0.5 text-[10px] font-medium text-accent">
-                  Jungian Core Framework
+                  กรอบ Jungian
                 </span>
               </div>
             </div>

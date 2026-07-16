@@ -120,7 +120,7 @@ export default function StudioProfilePage() {
     const { error } = await requestWriterAction();
     if (!error) {
       setWriterRequested(true);
-      setMessage("ส่งคำขอเป็นนักเขียนแล้ว — รออนุมัติ");
+      setMessage("ส่งคำขอเป็นนักเขียนแล้ว รออนุมัติ");
     } else {
       setMessage(`ส่งคำขอไม่สำเร็จ: ${error}`);
     }
@@ -154,7 +154,7 @@ export default function StudioProfilePage() {
         </span>
         <h1 className="mt-2 font-serif text-3xl text-text-heading">โปรไฟล์ของฉัน</h1>
         <p className="mt-2 text-sm text-text-secondary/70">
-          ตั้งชื่อผู้ใช้ ชื่อที่แสดง และยศของคุณบน ARCHRON
+          จัดการชื่อผู้ใช้ ชื่อที่แสดง และตำแหน่งใน ARCHRON
         </p>
       </header>
 
@@ -220,11 +220,11 @@ export default function StudioProfilePage() {
             <div className="archron-panel mt-6 p-5">
               <h2 className="font-serif text-lg text-text-heading">อยากร่วมเป็นนักเขียน?</h2>
               <p className="mt-2 text-sm leading-relaxed text-text-secondary/70">
-                ผู้ใช้ทั่วไปอ่านได้ทุกอย่าง หากต้องการเขียนและเรียบเรียงเนื้อหา ส่งคำขอเป็นนักเขียนเพื่อให้แอดมินพิจารณา
+                  ผู้ใช้ทั่วไปอ่านเนื้อหาได้ หากต้องการเขียนและเรียบเรียงเนื้อหา ส่งคำขอเป็นนักเขียนเพื่อให้ผู้ดูแลพิจารณา
               </p>
               <button onClick={handleRequestWriter} disabled={writerRequested} className="mt-4 inline-flex items-center gap-2 rounded border border-accent/45 px-4 py-2 text-sm text-accent transition-colors hover:bg-accent/10 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
                 <EditIcon className="h-[18px] w-[18px]" />
-                {writerRequested ? "ส่งคำขอแล้ว — รออนุมัติ" : "ขอเป็นนักเขียน"}
+                {writerRequested ? "ส่งคำขอแล้ว รออนุมัติ" : "ขอเป็นนักเขียน"}
               </button>
             </div>
           ) : null}

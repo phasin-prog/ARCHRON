@@ -7,7 +7,7 @@ import { ConceptsBrowser } from "@/components/concepts/concepts-browser";
 export const metadata: Metadata = {
   title: "คลังแนวคิด — ARCHRON",
   description:
-    "แผนที่ระบบความรู้แบบเชื่อมโยง ค้นคว้าความหมายเชิงลึกและโครงสร้างความสัมพันธ์ของแนวคิดทางวิทยาศาสตร์ จิตวิทยา และปรัชญา",
+    "รวมคำศัพท์ แนวคิด และสัญลักษณ์ที่เกี่ยวข้องกับจิตใจมนุษย์ พร้อมลิงก์ไปยังเนื้อหาที่เกี่ยวข้อง",
 };
 
 export const revalidate = 300;
@@ -26,9 +26,9 @@ export default async function ConceptsPage() {
         { label: "คลังความรู้", href: "/knowledge" },
         { label: "คลังแนวคิด" },
       ]}
-      kicker="คลังแนวคิด / Wiki"
-      title="แผนที่ความรู้ของจิตใจมนุษย์"
-      lead="สำรวจและสืบค้นความหมายเชิงลึกของคำศัพท์ แนวคิด ตัวตน และสัญลักษณ์ต่าง ๆ ในแบบแผนที่ความรู้เชื่อมโยงกันอย่างมีโครงสร้าง"
+      kicker="คลังแนวคิด"
+      title="แนวคิดเกี่ยวกับจิตใจมนุษย์"
+      lead="ค้นหาคำศัพท์ แนวคิด ตัวตน และสัญลักษณ์ พร้อมลิงก์ไปยังเนื้อหาที่เกี่ยวข้อง"
       ambient
       navCurrent="/concepts"
       className="atmo-dictionary"

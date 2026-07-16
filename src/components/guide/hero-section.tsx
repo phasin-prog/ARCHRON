@@ -39,7 +39,7 @@ export function HeroSection({ onBookClick, onPricingClick }: HeroSectionProps) {
           <div className="text-left lg:col-span-7">
             <span className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/5 px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.25em] text-accent">
               <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
-              ARCHRON · Dynamic Typology
+              ARCHRON · Jungian Typology
             </span>
 
             <h1 className="mt-5 font-serif text-fluid-h1 font-bold leading-[1.12] text-text-heading">
@@ -47,11 +47,11 @@ export function HeroSection({ onBookClick, onPricingClick }: HeroSectionProps) {
             </h1>
 
             <p className="mt-3.5 font-serif text-lg italic text-accent/90 md:text-xl">
-              วิเคราะห์โครงสร้าง Ego ผ่านกรอบทฤษฎีจิตวิทยาเชิงลึกของคาร์ล ยุง
+              สำรวจโครงสร้าง Ego ผ่านกรอบจิตวิทยาวิเคราะห์ของคาร์ล ยุง
             </p>
 
             <p className="mt-6 max-w-xl text-base leading-relaxed text-text-body">
-              สแกนและอ่านโครงสร้างความโน้มเอียงของ Ego ในการรับและตัดสินข้อมูล เพื่อทำความเข้าใจทิศทางพลังงานจิต (Introversion / Extraversion) พร้อมประเมิน Function Stack ค้นหากลไกป้องกันตัวและการตอบสนองยามตกอยู่ภายใต้ความเครียดเชิงลึกอย่างมีสติ
+              สนทนาเพื่อพิจารณาว่า Ego รับข้อมูลและตัดสินใจอย่างไร รวมถึงทิศทางพลังงานจิต (Introversion / Extraversion) ลำดับ Function Stack และรูปแบบการตอบสนองเมื่ออยู่ภายใต้ความเครียด
             </p>
 
             <div className="mt-9 flex flex-wrap items-center gap-3">

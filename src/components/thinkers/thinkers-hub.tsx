@@ -76,10 +76,10 @@ const ThinkerCard = memo(function ThinkerCard({ t }: { t: ThinkerWithSchool }) {
           className="flex items-center gap-1 text-xs font-semibold group-hover:gap-2"
           style={{ color: meta.accent }}
         >
-          ศึกษาประวัติ
+          ดูข้อมูลนักคิด
           <ArrowRightIcon className="h-4 w-4" />
         </span>
-        <span className="text-[11px] font-mono text-text-secondary">ปราชญ์</span>
+        <span className="text-[11px] font-mono text-text-secondary">นักคิด</span>
       </div>
     </Link>
   );
@@ -182,9 +182,9 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
     <div className="mt-8 space-y-8">
       <div className="flex flex-wrap gap-3">
         {[
-          { n: totalThinkers, l: "นักปราชญ์ทั้งหมด" },
-          { n: totalSchools, l: "สำนักคิดต้นสังกัด" },
-          { n: totalFields, l: "สาขาศาสตร์วิชา" },
+          { n: totalThinkers, l: "นักคิดทั้งหมด" },
+          { n: totalSchools, l: "สำนักคิดที่จัดกลุ่ม" },
+          { n: totalFields, l: "สาขาวิชา" },
         ].map((st) => (
           <div
             key={st.l}
@@ -201,7 +201,7 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
         <input
           value={query}
           onChange={(e) => startTransition(() => { setQuery(e.target.value); setPage(1); })}
-          placeholder="ค้นหาชื่อนักคิด คำคม ผลงาน หรือสำนักคิด..."
+            placeholder="ค้นหาชื่อนักคิด คำพูด ผลงาน หรือสำนักคิด..."
           aria-label="ค้นหา"
           className="w-full bg-transparent text-base text-text-heading placeholder:text-text-secondary/55 focus-visible:ring-2 focus-visible:ring-accent/30 focus:outline-none"
         />
@@ -273,7 +273,7 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
       </div>
 
       <div className="flex items-center justify-between text-xs text-text-secondary/60">
-        <p>พบทั้งหมด {filtered.length} นักปราชญ์</p>
+        <p>พบทั้งหมด {filtered.length} นักคิด</p>
         {totalPages > 1 && (
           <p>หน้า {safePage} จาก {totalPages}</p>
         )}
@@ -282,7 +282,7 @@ export function ThinkersHub({ thinkers }: { thinkers: ThinkerWithSchool[] }) {
       <div>
         {filtered.length === 0 ? (
           <p className="rounded-md border border-text-heading/10 bg-bg-card/40 p-8 text-center text-sm text-text-secondary/60">
-            ไม่พบนักปราชญ์ที่ตรงกับการค้นหาหรือกรอง
+            ไม่พบนักคิดที่ตรงกับคำค้นหาหรือตัวกรอง
           </p>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

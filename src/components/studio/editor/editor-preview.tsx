@@ -2,7 +2,6 @@
 
 import type { ReactNode, ComponentType } from "react";
 import {
-  VisualMeaningIcon,
   ScholarIcon,
   SourceRefIcon,
   RootIcon,
@@ -10,10 +9,9 @@ import {
   CalendarIcon,
   ClockIcon,
   SchoolIcon,
-  RealExampleIcon,
 } from "@/components/icons";
-import { InternalLinkText } from "@/components/reading/internal-link-text";
-import { MarkdownRenderer } from "@/components/reading/markdown-renderer";
+import { ReadingDocumentContent } from "@/components/reading/reading-document-content";
+import { draftToPreviewEntry } from "@/lib/content/publishing/draft-preview";
 import type { EditorDraft } from "@/lib/content/publishing/publish-validation";
 
 const DIFFICULTY_LABEL: Record<string, string> = {
@@ -85,6 +83,7 @@ export function EditorPreview({
   draft: EditorDraft;
   displayName?: string;
 }) {
+  const previewEntry = draftToPreviewEntry(draft, displayName);
   const subtitleParts = [draft.thaiName, draft.originalTerm, draft.partOfSpeech].filter(Boolean);
   const authorName = displayName?.trim() || "Archron · Admin";
   const accentIcon = { color: "var(--accent)" };
@@ -204,42 +203,7 @@ export function EditorPreview({
         </dl>
       </div>
 
-      {/* visualExplanation */}
-      {draft.visualExplanation ? (
-        <section className="mt-14">
-          <SectionH3 icon={VisualMeaningIcon}>คำอธิบายให้เห็นภาพ</SectionH3>
-          <div className="md-body mt-4 whitespace-pre-line">
-            <InternalLinkText text={draft.visualExplanation} />
-          </div>
-        </section>
-      ) : null}
-
-      {/* technicalMeaning */}
-      {draft.technicalMeaning ? (
-        <section className="mt-14">
-          <SectionH3 icon={ScholarIcon}>ความหมายทางวิชาการ / เทคนิค</SectionH3>
-          <div className="md-body mt-4 whitespace-pre-line">
-            <InternalLinkText text={draft.technicalMeaning} />
-          </div>
-        </section>
-      ) : null}
-
-      {/* realWorldExamples */}
-      {draft.realWorldExamples ? (
-        <section className="mt-14">
-          <SectionH3 icon={RealExampleIcon}>ตัวอย่างในชีวิตจริง (อิงจากตำรา)</SectionH3>
-          <div className="md-body mt-4 whitespace-pre-line">
-            <InternalLinkText text={draft.realWorldExamples} />
-          </div>
-        </section>
-      ) : null}
-
-      {/* bodyMarkdown */}
-      {draft.bodyMarkdown && draft.bodyMarkdown.trim() !== "" ? (
-        <section className="mt-14">
-          <MarkdownRenderer content={draft.bodyMarkdown} />
-        </section>
-      ) : null}
+      <ReadingDocumentContent entry={previewEntry} />
 
       {/* Caution */}
       {draft.rootsCaution ? (

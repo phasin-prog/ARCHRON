@@ -35,11 +35,44 @@ export interface PricingPageData {
   specialEvent: SpecialEventData;
 }
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}
+
+function isString(value: unknown): value is string {
+  return typeof value === "string";
+}
+
+export function isPricingPageData(value: unknown): value is PricingPageData {
+  if (!isRecord(value) || !isRecord(value.standard) || !isRecord(value.specialEvent)) {
+    return false;
+  }
+
+  const { standard, specialEvent } = value;
+  const standardFields = ["title", "subtitle", "priceLabel", "priceNote", "cta", "footer"];
+  const eventFields = ["badge", "label", "date", "title", "subtitle", "description", "disclaimer"];
+
+  return (
+    standardFields.every((field) => isString(standard[field])) &&
+    typeof standard.price === "number" &&
+    Number.isFinite(standard.price) &&
+    standard.price >= 0 &&
+    Array.isArray(standard.includedItems) &&
+    standard.includedItems.every(
+      (item) => isRecord(item) && isString(item.bold) && isString(item.detail),
+    ) &&
+    eventFields.every((field) => isString(specialEvent[field])) &&
+    Array.isArray(specialEvent.conditions) &&
+    specialEvent.conditions.every(
+      (item) => isRecord(item) && isString(item.step) && isString(item.text),
+    )
+  );
+}
+
 export function parsePricingData(bodyMarkdown: string): PricingPageData {
   try {
     const parsed = JSON.parse(bodyMarkdown);
-    if (!parsed.standard || !parsed.specialEvent) return DEFAULT_PRICING;
-    return parsed as PricingPageData;
+    return isPricingPageData(parsed) ? parsed : DEFAULT_PRICING;
   } catch {
     return DEFAULT_PRICING;
   }

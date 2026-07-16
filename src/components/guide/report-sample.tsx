@@ -15,13 +15,13 @@ export function ReportSample() {
       <div className="tpl-reference">
         <div className="text-center md:text-left">
           <span className="text-xs font-semibold uppercase tracking-[0.22em] text-accent/85">
-            Analytical Report Preview
+            ตัวอย่างรายงาน
           </span>
           <h2 className="mt-3 font-serif text-3xl font-bold text-text-heading md:text-4xl">
             ตัวอย่างเอกสารรายงานสรุปรายบุคคล
           </h2>
           <p className="mt-3 text-sm text-text-secondary/85 md:text-base">
-            ตัวอย่างหน้าเอกสารรายงานวิเคราะห์ที่ลูกค้าจะได้รับหลังจากเสร็จสิ้นเซสชันสัมภาษณ์
+            ตัวอย่างรูปแบบรายงานที่จัดทำหลังจบเซสชันสัมภาษณ์
           </p>
         </div>
 
@@ -40,7 +40,7 @@ export function ReportSample() {
                     : "border border-border/50 bg-bg-card/70 text-text-body hover:border-accent/40 hover:bg-bg-card"
                 }`}
               >
-                <span className="font-mono opacity-80">PAGE {page.pageNumber}</span>
+                <span className="font-mono opacity-80">หน้า {page.pageNumber}</span>
                 <span>{page.title.split("&")[0].trim()}</span>
               </button>
             );
@@ -54,12 +54,12 @@ export function ReportSample() {
             <div className="flex items-center gap-2">
               <AuthorPenIcon className="h-4 w-4 text-accent" />
               <span className="font-serif font-bold tracking-wider text-text-heading uppercase">
-                ARCHRON INSTITUTE OF TYPOLOGY
+                ARCHRON · Jungian Type Analysis
               </span>
             </div>
 
             <div className="font-mono text-[11px] text-text-secondary/70">
-              DOC-ID: ARCH-REPORT-2026
+                รหัสเอกสาร: ARCH-REPORT-2026
             </div>
           </div>
 
@@ -67,10 +67,10 @@ export function ReportSample() {
           <div className="mt-8">
             <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
               <span className="font-mono text-xs font-semibold text-accent">
-                SECTION 0{currentPage.pageNumber} OF 03
+                ส่วนที่ 0{currentPage.pageNumber} จาก 03
               </span>
               <span className="text-xs text-text-secondary/60">
-                CONFIDENTIAL ANALYTICAL REPORT
+                ตัวอย่างรายงานวิเคราะห์
               </span>
             </div>
 
@@ -92,12 +92,12 @@ export function ReportSample() {
             <div className="flex items-center gap-2 text-accent/90">
               <EyeIcon className="h-4 w-4" />
               <span className="font-medium">
-                เอกสารนี้เป็นลิขสิทธิ์ของ Archron Institute of Typology — สงวนไว้ซึ่งสิทธิ์ในการเผยแพร่
+                เอกสารนี้เป็นลิขสิทธิ์ของ Archron สงวนสิทธิ์ในการเผยแพร่
               </span>
             </div>
 
             <span className="font-mono text-[11px]">
-              PAGE {currentPage.pageNumber} / 03
+                หน้า {currentPage.pageNumber} / 03
             </span>
           </div>
         </div>

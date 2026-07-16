@@ -6,7 +6,7 @@ import { ExploreHub } from "@/components/explore/explore-hub";
 export const metadata: Metadata = {
   title: "สำรวจคลังความรู้ — ARCHRON",
   description:
-    "ค้นพบและสำรวจมโนทัศน์ บทความ และทฤษฎีทางจิตวิทยาเชิงลึก ปรัชญา และมนุษยศาสตร์ ตามกระแสยอดนิยมและระบบสุ่มเชื่อมโยงทางปัญญา",
+    "เลือกดูรายการล่าสุด เนื้อหาระดับกลางและระดับสูง หรือสุ่มรายการจากคลัง ARCHRON",
 };
 
 export const revalidate = 300;
@@ -21,9 +21,9 @@ export default async function ExplorePage() {
         { label: "คลังความรู้", href: "/knowledge" },
         { label: "ศูนย์รวมการสำรวจ" },
       ]}
-      kicker="ศูนย์รวมการสำรวจ"
-      title="ศูนย์รวมการสำรวจความรู้"
-      lead="สำรวจความหมาย ข้ามสายใยปัญญา และสุ่มค้นพบองค์ความรู้ที่เป็นรากฐานของมนุษย์ เพื่อขยายขอบเขตความสงสัยใคร่ครวญ (Curiosity Psychology)"
+      kicker="สำรวจ"
+      title="สำรวจเนื้อหาในคลัง"
+      lead="เลือกดูรายการล่าสุด เนื้อหาระดับกลางและระดับสูง หรือสุ่มรายการเพื่อเปลี่ยนหัวข้อที่กำลังอ่าน"
       ambient
       navCurrent="/explore"
     >

@@ -6,34 +6,34 @@ type PsycheFunction = "thinking" | "feeling" | "sensation" | "intuition" | "ego"
 
 const COMPASS_DETAILS: Record<PsycheFunction, { title: string; subtitle: string; desc: string; stack: string }> = {
   thinking: {
-    title: "Thinking (T) — การคิด",
-    subtitle: "Rational & Logical Evaluation",
-    desc: "การประเมินและตัดสินใจด้วยเหตุผลเชิงระบบ การวิเคราะห์หลักการทั่วไป ความถูกต้องเป็นสากล และการแยกแยะจัดหมวดหมู่ข้อมูลอย่างเป็นวัตถุวิสัย (Objective Analysis)",
-    stack: "แกนหลักในการจัดระบบโครงสร้างความคิดและการใช้ตรรกวิทยาเพื่อสร้างระบบระเบียบ",
+    title: "Thinking (T): การคิด",
+    subtitle: "การประเมินด้วยเหตุผล",
+    desc: "ฟังก์ชันที่ใช้พิจารณาหลักการ เหตุผล และความสอดคล้องของข้อมูลก่อนตัดสินใจ",
+    stack: "ช่วยจัดระเบียบความคิดและตรวจสอบความสัมพันธ์ระหว่างแนวคิด",
   },
   feeling: {
-    title: "Feeling (F) — ความรู้สึก",
-    subtitle: "Valuation & Relation Evaluation",
-    desc: "การตัดสินคุณค่า (Value) ด้วยความสำคัญต่อบุคคลหรือสังคม จิตวิญญาณแห่งความเชื่อมโยง ความสอดคล้องกลมกลืน และการวัดน้ำหนักทางจริยธรรมของทางเลือก (Ethical Evaluation)",
-    stack: "ฟังก์ชันที่ทำงานตรงข้ามกับ Thinking ในการประเมินสิ่งที่คู่ควรแก่คุณค่าของมนุษย์",
+    title: "Feeling (F): ความรู้สึก",
+    subtitle: "การประเมินคุณค่าและความสัมพันธ์",
+    desc: "ฟังก์ชันที่ใช้พิจารณาคุณค่าของสิ่งต่าง ๆ และน้ำหนักของความสัมพันธ์ต่อบุคคลหรือสังคม",
+    stack: "ช่วยประเมินว่าสิ่งใดสำคัญหรือเหมาะสมในบริบทนั้น",
   },
   sensation: {
-    title: "Sensation (S) — การรับรู้สัมผัส",
-    subtitle: "Reality & Detail Perception",
-    desc: "การเปิดรับข้อมูลตามความจริงผ่านประสาทสัมผัสทั้งห้า ความเป็นจริงตรงหน้าในปัจจุบัน รายละเอียดที่จับต้องได้ ประสบการณ์ในอดีต และความจริงเชิงประจักษ์ (Concrete Reality)",
-    stack: "ฟังก์ชันสังเกตการณ์ที่เน้นข้อมูลที่เกิดขึ้นจริง ณ ปัจจุบันขณะและการจัดเก็บรายละเอียด",
+    title: "Sensation (S): การรับรู้สัมผัส",
+    subtitle: "การรับรู้ข้อเท็จจริงและรายละเอียด",
+    desc: "ฟังก์ชันที่รับข้อมูลจากสิ่งที่เกิดขึ้นตรงหน้า ผ่านประสาทสัมผัส รายละเอียด และข้อเท็จจริงที่สังเกตได้",
+    stack: "ช่วยให้กลับมาสังเกตสิ่งที่เกิดขึ้นจริงในปัจจุบัน",
   },
   intuition: {
-    title: "Intuition (N) — การหยั่งรู้",
-    subtitle: "Possibility & Pattern Perception",
-    desc: "การรับรู้ผ่านการเชื่อมโยงความสัมพันธ์ที่มองไม่เห็นด้วยตา ความเป็นไปได้ในอนาคต ภาพรวมเชิงระบบ ความหมายเบื้องหลังสัญลักษณ์ และจินตนาการวิสัยทัศน์ (Hidden Patterns)",
-    stack: "ฟังก์ชันสังเกตการณ์ที่มองข้ามความเป็นจริงตรงหน้าเพื่อเข้าหาศักยภาพและแนวโน้มถัดไป",
+    title: "Intuition (N): การหยั่งรู้",
+    subtitle: "การรับรู้ความเป็นไปได้และแบบแผน",
+    desc: "ฟังก์ชันที่มองหาความเชื่อมโยง ความเป็นไปได้ และความหมายที่อาจอยู่เบื้องหลังข้อมูลที่พบ",
+    stack: "ช่วยมองภาพรวมและแนวโน้มที่อาจเกิดขึ้นต่อไป",
   },
   ego: {
-    title: "Ego / Self Axis — ศูนย์กลางจิตวิทยา",
-    subtitle: "Conscious Center & Total Psyche",
-    desc: "จุดสมดุลระหว่าง Ego (จิตสำนึก) และ Self (องค์รวมของจิต) ซึ่งเป็นแกนกลางของการหลอมรวมฟังก์ชันด้านต่างๆ เพื่อให้จิตใจสามารถเติบโตเป็นหนึ่งเดียว (Individuation)",
-    stack: "เป้าหมายหลักของการวิเคราะห์แบบแผน Ego เพื่อนำทางไปสู่ความสมบูรณ์แบบภายในตัวตน",
+    title: "Ego / Self Axis: ศูนย์กลางทางจิต",
+    subtitle: "Ego และองค์รวมของ Psyche",
+    desc: "Ego คือศูนย์กลางของจิตสำนึก ส่วน Self หมายถึงองค์รวมของชีวิตทางจิต แผนภาพนี้ใช้แสดงความสัมพันธ์ระหว่างฟังก์ชันต่าง ๆ",
+    stack: "ใช้เป็นจุดตั้งต้นในการทำความเข้าใจความสัมพันธ์ระหว่างฟังก์ชัน",
   },
 };
 
@@ -69,34 +69,34 @@ export function PsycheCompass() {
           {activeFunc === "sensation" && <circle cx="290" cy="160" r="24" fill="url(#gold-glow)" />}
           {activeFunc === "ego" && <circle cx="160" cy="160" r="30" fill="url(#gold-glow)" />}
 
-          <g className="cursor-pointer" onClick={() => setActiveFunc("thinking")} tabIndex={0} onKeyDown={(e) => e.key === "Enter" && setActiveFunc("thinking")} aria-label="Thinking function">
+          <g className="cursor-pointer" onClick={() => setActiveFunc("thinking")} tabIndex={0} onKeyDown={(e) => e.key === "Enter" && setActiveFunc("thinking")} aria-label="ฟังก์ชันการคิด">
             <circle cx="160" cy="30" r="20" fill="var(--color-bg)" stroke={activeFunc === "thinking" ? "var(--color-accent)" : "var(--color-border)"} strokeWidth="1.5" />
             <text x="160" y="35" textAnchor="middle" fill={activeFunc === "thinking" ? "var(--color-accent)" : "var(--color-text-heading)"} fontSize="12" fontWeight="bold" fontFamily="monospace">T</text>
           </g>
 
-          <g className="cursor-pointer" onClick={() => setActiveFunc("feeling")} tabIndex={0} onKeyDown={(e) => e.key === "Enter" && setActiveFunc("feeling")} aria-label="Feeling function">
+          <g className="cursor-pointer" onClick={() => setActiveFunc("feeling")} tabIndex={0} onKeyDown={(e) => e.key === "Enter" && setActiveFunc("feeling")} aria-label="ฟังก์ชันความรู้สึก">
             <circle cx="160" cy="290" r="20" fill="var(--color-bg)" stroke={activeFunc === "feeling" ? "var(--color-accent)" : "var(--color-border)"} strokeWidth="1.5" />
             <text x="160" y="295" textAnchor="middle" fill={activeFunc === "feeling" ? "var(--color-accent)" : "var(--color-text-heading)"} fontSize="12" fontWeight="bold" fontFamily="monospace">F</text>
           </g>
 
-          <g className="cursor-pointer" onClick={() => setActiveFunc("intuition")} tabIndex={0} onKeyDown={(e) => e.key === "Enter" && setActiveFunc("intuition")} aria-label="Intuition function">
+          <g className="cursor-pointer" onClick={() => setActiveFunc("intuition")} tabIndex={0} onKeyDown={(e) => e.key === "Enter" && setActiveFunc("intuition")} aria-label="ฟังก์ชันการหยั่งรู้">
             <circle cx="30" cy="160" r="20" fill="var(--color-bg)" stroke={activeFunc === "intuition" ? "var(--color-accent)" : "var(--color-border)"} strokeWidth="1.5" />
             <text x="30" y="165" textAnchor="middle" fill={activeFunc === "intuition" ? "var(--color-accent)" : "var(--color-text-heading)"} fontSize="12" fontWeight="bold" fontFamily="monospace">N</text>
           </g>
 
-          <g className="cursor-pointer" onClick={() => setActiveFunc("sensation")} tabIndex={0} onKeyDown={(e) => e.key === "Enter" && setActiveFunc("sensation")} aria-label="Sensation function">
+          <g className="cursor-pointer" onClick={() => setActiveFunc("sensation")} tabIndex={0} onKeyDown={(e) => e.key === "Enter" && setActiveFunc("sensation")} aria-label="ฟังก์ชันการรับรู้สัมผัส">
             <circle cx="290" cy="160" r="20" fill="var(--color-bg)" stroke={activeFunc === "sensation" ? "var(--color-accent)" : "var(--color-border)"} strokeWidth="1.5" />
             <text x="290" y="165" textAnchor="middle" fill={activeFunc === "sensation" ? "var(--color-accent)" : "var(--color-text-heading)"} fontSize="12" fontWeight="bold" fontFamily="monospace">S</text>
           </g>
 
-          <g className="cursor-pointer" onClick={() => setActiveFunc("ego")} tabIndex={0} onKeyDown={(e) => e.key === "Enter" && setActiveFunc("ego")} aria-label="Ego center">
+          <g className="cursor-pointer" onClick={() => setActiveFunc("ego")} tabIndex={0} onKeyDown={(e) => e.key === "Enter" && setActiveFunc("ego")} aria-label="ศูนย์กลาง Ego">
             <circle cx="160" cy="160" r="18" fill="var(--color-bg-card)" stroke={activeFunc === "ego" ? "var(--color-accent)" : "var(--color-border)"} strokeWidth="2" />
             <circle cx="160" cy="160" r="4" fill="var(--color-accent)" />
           </g>
         </svg>
 
         <span className="absolute -top-6 left-1/2 -translate-x-1/2 rounded bg-bg-card px-2 py-0.5 text-sm font-medium text-text-secondary/80">
-          Psyche Compass
+          ผังฟังก์ชันจิต
         </span>
       </div>
 

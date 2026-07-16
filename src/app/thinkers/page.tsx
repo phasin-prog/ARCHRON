@@ -6,9 +6,9 @@ import { ThinkersHub } from "@/components/thinkers/thinkers-hub";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "คลังปัญญา: ดัชนีนักปราชญ์และผู้สร้างสรรค์แนวคิด — ARCHRON",
+  title: "ดัชนีนักคิด — ARCHRON",
   description:
-    "รวบรวมประวัติ ผลงานเด่น และคุณูปการของนักคิด นักจิตวิทยา จิตวิเคราะห์ และนักปราชญ์คนสำคัญที่วางรากฐานการศึกษาจิตใจมนุษย์",
+    "รายชื่อนักคิด นักจิตวิทยา และนักจิตวิเคราะห์ พร้อมข้อมูลประวัติ ผลงาน และสำนักคิดที่เกี่ยวข้อง",
 };
 
 export default async function ThinkersPage() {
@@ -27,13 +27,13 @@ export default async function ThinkersPage() {
 
   return (
     <PageScaffold
-      kicker="ดัชนีนักปราชญ์"
-      title="ดัชนีนักปราชญ์"
-      lead="สำรวจชีวประวัติ คุณูปการ และความสัมพันธ์เชิงอิทธิพลของนักคิดผู้บุกเบิกในศาสตร์ต่าง ๆ"
+      kicker="นักคิด"
+      title="ดัชนีนักคิด"
+      lead="ค้นหาข้อมูลชีวประวัติ ผลงาน และสำนักคิดที่เกี่ยวข้องกับนักคิดแต่ละคน"
       breadcrumb={[
         { label: "หน้าแรก", href: "/" },
         { label: "คลังความรู้", href: "/knowledge" },
-        { label: "ดัชนีนักปราชญ์" },
+        { label: "ดัชนีนักคิด" },
       ]}
       ambient
       navCurrent="/thinkers"

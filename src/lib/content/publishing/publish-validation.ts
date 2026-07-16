@@ -1,5 +1,7 @@
 // Publish validation (Phase 8/9) — ตรวจความพร้อมก่อน publish ตาม Publish Checklist v0.1
 
+import { isPricingPageData } from "@/lib/content/guide/pricing-data";
+
 export type EditorRelatedConcept = {
   conceptSlug: string;
   relationType: string;
@@ -86,6 +88,21 @@ export const EMPTY_DRAFT: EditorDraft = {
 export type ChecklistItem = { label: string; ok: boolean };
 
 export function getPublishChecklist(d: EditorDraft, contentType?: string): ChecklistItem[] {
+  if (d.slug === "guide-pricing") {
+    let pricingData: unknown;
+    try {
+      pricingData = JSON.parse(d.bodyMarkdown);
+    } catch {
+      pricingData = null;
+    }
+
+    return [
+      { label: "มี Title", ok: d.title.trim() !== "" },
+      { label: "มี Slug", ok: d.slug.trim() !== "" },
+      { label: "ข้อมูลราคาและกิจกรรมสมบูรณ์", ok: isPricingPageData(pricingData) },
+    ];
+  }
+
   const ct = contentType || d.contentType;
   const bm = d.bodyMarkdown || "";
 

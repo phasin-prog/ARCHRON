@@ -10,9 +10,9 @@ interface SourceItemWithId extends SourceItem {
 }
 
 const TYPE_LABEL: Record<string, string> = {
-  "primary-source": "Primary Source / แหล่งต้นทาง",
-  "secondary-source": "Secondary Source / งานอธิบาย",
-  "editorial-interpretation": "Interpretation / การตีความ",
+  "primary-source": "แหล่งต้นทาง",
+  "secondary-source": "งานอธิบาย",
+  "editorial-interpretation": "การตีความของกองบรรณาธิการ",
 };
 
 const TYPE_ACCENT: Record<string, string> = {
@@ -72,7 +72,7 @@ const SourceCard = memo(function SourceCard({
 
           {s.author && (
             <p className="text-sm text-text-body">
-              ผู้สร้างสรรค์: <span className="text-accent font-medium">{s.author}</span>
+              ผู้เขียน: <span className="text-accent font-medium">{s.author}</span>
             </p>
           )}
           {s.citationNote && (
@@ -173,9 +173,9 @@ export function SourcesBrowser({ sources }: { sources: SourceItemWithId[] }) {
           className="rounded-lg border border-text-heading/12 bg-bg-card/60 px-3 py-2.5 text-sm text-text-heading focus-visible:ring-2 focus-visible:ring-accent/30 focus-visible:outline-none focus:border-accent/45 transition-colors"
         >
           <option value="all">ระดับแหล่งอ้างอิงทั้งหมด</option>
-          <option value="primary-source">Primary Source / แหล่งต้นทาง</option>
-          <option value="secondary-source">Secondary Source / งานอธิบาย</option>
-          <option value="editorial-interpretation">Interpretation / การตีความ</option>
+            <option value="primary-source">แหล่งต้นทาง</option>
+            <option value="secondary-source">งานอธิบาย</option>
+            <option value="editorial-interpretation">การตีความของกองบรรณาธิการ</option>
         </select>
       </div>
 

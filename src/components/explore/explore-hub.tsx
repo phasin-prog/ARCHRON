@@ -56,7 +56,7 @@ const ExploreEntryCard = memo(function ExploreEntryCard({ entry }: { entry: Cont
         )}
       </div>
       <div className="mt-6 flex items-center justify-between border-t border-text-heading/10 pt-3 text-xs text-text-secondary">
-        <span>{entry.mainThinkers?.[0] ?? "ARCHRON Library"}</span>
+        <span>{entry.mainThinkers?.[0] ?? "ARCHRON"}</span>
         <span className="inline-flex items-center gap-1 text-accent opacity-80 group-hover:opacity-100 transition-opacity">
           อ่านต่อ
           <ArrowRightIcon className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -90,7 +90,7 @@ export function ExploreHub({ entries }: { entries: ContentEntry[] }) {
     }
 
     if (activeTab === "random") {
-      // สุ่มสับเปลี่ยนโหนดความรู้ตามสุ่มซีดเพื่อกระตุ้น Curiosity Psychology
+    // สุ่มสับเปลี่ยนรายการจากข้อมูลที่มีอยู่
       const shuffled = [...entries];
       for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.sin(randomSeed + i * 9999) * 10000) % (i + 1);
@@ -116,10 +116,10 @@ export function ExploreHub({ entries }: { entries: ContentEntry[] }) {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-text-heading/10 pb-4">
         <div className="flex flex-wrap gap-2" role="tablist" aria-label="หมวดหมู่การสำรวจ">
           {[
-            { id: "trending", label: "กระแสยอดนิยม", Icon: TrendingUpIcon },
-            { id: "latest", label: "เผยแพร่ล่าสุด", Icon: ClockIcon },
-            { id: "popular", label: "คัดสรรอมตะ", Icon: DiscoverIcon },
-            { id: "random", label: "สุ่มค้นพบ", Icon: ShuffleIcon },
+            { id: "trending", label: "รายการในคลัง", Icon: TrendingUpIcon },
+            { id: "latest", label: "ปรับปรุงล่าสุด", Icon: ClockIcon },
+            { id: "popular", label: "เนื้อหาอ่านลึก", Icon: DiscoverIcon },
+            { id: "random", label: "สุ่มรายการ", Icon: ShuffleIcon },
           ].map((tab) => {
             const isActive = activeTab === tab.id;
             const TabIcon = tab.Icon;
@@ -151,17 +151,17 @@ export function ExploreHub({ entries }: { entries: ContentEntry[] }) {
             className="inline-flex items-center gap-2 rounded-lg border border-accent/30 bg-bg-card px-3.5 py-2 text-xs text-accent hover:bg-accent/10 transition-colors self-start sm:self-auto"
           >
             <ShuffleIcon className="h-3.5 w-3.5 shrink-0 stroke-[1.75]" aria-hidden="true" />
-            <span>สุ่มความรู้อีกครั้ง</span>
+            <span>สุ่มรายการอีกครั้ง</span>
           </button>
         )}
       </div>
 
       {/* คำอธิบายประจำ Tab */}
       <div className="text-xs text-text-secondary">
-        {activeTab === "trending" && "รวบรวมมโนทัศน์และบทความที่ได้รับความสนใจสูงในคลังความรู้ ARCHRON"}
-        {activeTab === "latest" && "ลำดับการเผยแพร่งานเขียนและแนวคิดใหม่ล่าสุดจากกองบรรณาธิการ"}
-        {activeTab === "popular" && "คัดสรรองค์ความรู้แก่นลึกและทฤษฎีสำคัญที่เป็นรากฐานทางปัญญา"}
-        {activeTab === "random" && "เปิดประตูสู่การค้นพบโดยบังเอิญ (Serendipity) เพื่อกระตุ้นความอยากรู้ใคร่ครวญข้ามสายวิชา"}
+        {activeTab === "trending" && "รายการที่แสดงจากคลังความรู้ ARCHRON"}
+        {activeTab === "latest" && "เรียงตามวันที่ปรับปรุงหรือเผยแพร่"}
+        {activeTab === "popular" && "รายการระดับกลางและระดับสูง"}
+        {activeTab === "random" && "สุ่มรายการจากคลังเพื่อเปลี่ยนหัวข้อที่กำลังอ่าน"}
       </div>
 
       {/* Grid การ์ดความรู้ */}

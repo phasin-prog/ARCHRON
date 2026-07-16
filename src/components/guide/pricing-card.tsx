@@ -22,13 +22,13 @@ export function PricingSection({ data, onBookClick }: PricingSectionProps) {
       <div className="tpl-reference">
         <div className="text-center">
           <span className="text-xs font-semibold uppercase tracking-[0.22em] text-accent/85">
-            Transparent & Consulting Rates
+            อัตราค่าบริการ
           </span>
           <h2 className="mt-3 font-serif text-3xl font-bold text-text-heading md:text-4xl">
             ค่าบริการและเงื่อนไขการวิเคราะห์
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-sm text-text-secondary/85 md:text-base">
-            อัตราค่าบริการมาตรฐานที่โปร่งใส ครอบคลุมการสัมภาษณ์ 90 นาที และรายงานสรุปรายบุคคล พร้อมสิทธิพิเศษในโอกาสพิเศษ
+            ค่าบริการสำหรับการสัมภาษณ์ 90 นาทีและรายงานสรุปรายบุคคล รวมถึงเงื่อนไขของกิจกรรมพิเศษ
           </p>
         </div>
 
@@ -41,14 +41,14 @@ export function PricingSection({ data, onBookClick }: PricingSectionProps) {
                 className="absolute right-3 top-3 z-10 flex items-center gap-1 rounded-md border border-accent/30 bg-bg-card px-2.5 py-1.5 text-[11px] font-semibold text-accent opacity-0 shadow-sm transition-all hover:bg-accent hover:text-text-inverse group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
               >
                 <EditIcon className="h-3 w-3" />
-                Edit
+                แก้ไข
               </Link>
             )}
 
             <div>
               <div className="flex items-center justify-between">
                 <span className="rounded bg-accent/10 px-3 py-1 font-mono text-[11px] font-bold tracking-wider text-accent uppercase">
-                  STANDARD CONSULTING RATE
+                  อัตราค่าบริการมาตรฐาน
                 </span>
                 <span className="text-xs font-semibold text-success">
                   {"\u2022"} ว่างรับคิวประจำสัปดาห์นี้
@@ -76,7 +76,7 @@ export function PricingSection({ data, onBookClick }: PricingSectionProps) {
 
               <div className="mt-6 space-y-3.5">
                 <span className="block text-xs font-semibold tracking-wider text-text-secondary/80 uppercase">
-                  สิ่งที่รวมอยู่ในอัตราบริการนี้ (What&apos;s Included):
+                  สิ่งที่รวมอยู่ในบริการ
                 </span>
                 {data.standard.includedItems.map((item, i) => (
                   <div key={i} className="flex items-start gap-3 text-xs leading-relaxed text-text-body">
@@ -113,7 +113,7 @@ export function PricingSection({ data, onBookClick }: PricingSectionProps) {
                 className="absolute right-3 top-3 z-10 flex items-center gap-1 rounded-md border border-accent/30 bg-bg-card px-2.5 py-1.5 text-[11px] font-semibold text-accent opacity-0 shadow-sm transition-all hover:bg-accent hover:text-text-inverse group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
               >
                 <EditIcon className="h-3 w-3" />
-                Edit
+                แก้ไข
               </Link>
             )}
 

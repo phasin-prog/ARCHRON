@@ -15,14 +15,14 @@ import {
   publishAction,
 } from "@/features/editor/actions";
 import { getMyProfileAction } from "@/features/studio/actions/profile-actions";
-import { findDeadLinks } from "@/lib/content/publishing/internal-links";
+import { buildDocumentDiagnostics } from "@/lib/content/studio/document-diagnostics";
 import { EditorHeader } from "@/components/studio/editor-header";
 import { EditorFeedback, type EditorFeedbackData } from "@/components/studio/editor-feedback";
 import { EditIcon } from "@/components/icons";
 import { useEditorMachine } from "@/features/editor/hooks/useEditorMachine";
 import {
   EditorBasicInfo, EditorCta, EditorPublishPanel,
-  EditorPreview, EditorValidationModal,
+  EditorPreview, EditorValidationModal, GuidePricingEditor,
 } from "@/components/studio/editor";
 import { RevisionPanel } from "@/components/studio/revision-panel";
 import {
@@ -35,8 +35,6 @@ import {
   DiagnosticsPanel,
   OutlinePanel,
 } from "@/components/studio/ide/panels";
-import { parseMdxSemantic } from "@/lib/content/studio/semantic-parser";
-import { evaluateKnowledgeHealth } from "@/lib/content/studio/knowledge-health";
 import type { BlueprintId } from "@/lib/content/studio/blueprints";
 
 export default function StudioEditorPage() {
@@ -58,19 +56,14 @@ export default function StudioEditorPage() {
   const role = roleFromMetadata(user?.publicMetadata);
   const canSave = draft.slug.trim() !== "" && draft.title.trim() !== "";
   const ct = draft.contentType;
-  const canPreview = draft.title.trim() !== "" && draft.contentType !== "";
+  const isGuidePricing = draft.slug === "guide-pricing";
+  const canPreview = !isGuidePricing && draft.title.trim() !== "" && draft.contentType !== "";
   const checklist = getPublishChecklist(draft);
 
   const validationResult = useMemo(() => validateEditorDraft(draft), [draft]);
 
-  const analysis = useMemo(
-    () => parseMdxSemantic(draft.bodyMarkdown || ""),
-    [draft.bodyMarkdown]
-  );
-  const healthReport = useMemo(
-    () => evaluateKnowledgeHealth(draft, analysis),
-    [draft, analysis]
-  );
+  const diagnostics = useMemo(() => buildDocumentDiagnostics(draft), [draft]);
+  const { analysis, health: healthReport } = diagnostics;
 
   const sidebarPanels = useMemo<SidebarPanelItem[]>(() => [
     {
@@ -130,10 +123,7 @@ export default function StudioEditorPage() {
   }
 
 
-  const deadLinks = useMemo(
-    () => Array.from(new Set(findDeadLinks(`${draft.visualExplanation} ${draft.technicalMeaning} ${draft.bodyMarkdown}`))),
-    [draft.visualExplanation, draft.technicalMeaning, draft.bodyMarkdown],
-  );
+  const deadLinks = diagnostics.links.deadTargets;
 
   function showError(text: string) { setFeedback({ type: "error", title: "เกิดข้อผิดพลาด", message: text }); }
   function showSuccess(text: string) { setFeedback({ type: "success", title: "สำเร็จ", message: text }); }
@@ -357,20 +347,29 @@ export default function StudioEditorPage() {
         <EditorPreview draft={draft} displayName={state.displayName ?? undefined} />
       ) : (
         <div className="space-y-6">
-          <div className="h-[calc(100vh-140px)] min-h-[600px] border-b border-border">
-            <StudioIdeWorkspace
-              draft={draft}
-              onChangeDraft={updateField}
-              onSave={handleManualSave}
-              onPublish={handlePublish}
-              publishing={state.publishing}
-              autoSaveState={state.autoState}
-              sidebarPanels={sidebarPanels}
-            />
-          </div>
+          {isGuidePricing ? (
+            <div className="mx-auto max-w-5xl px-4 pt-6">
+              <GuidePricingEditor
+                bodyMarkdown={draft.bodyMarkdown}
+                onChange={(bodyMarkdown) => updateField("bodyMarkdown", bodyMarkdown)}
+              />
+            </div>
+          ) : (
+            <div className="h-[calc(100vh-140px)] min-h-[600px] border-b border-border">
+              <StudioIdeWorkspace
+                draft={draft}
+                onChangeDraft={updateField}
+                onSave={handleManualSave}
+                onPublish={handlePublish}
+                publishing={state.publishing}
+                autoSaveState={state.autoState}
+                sidebarPanels={sidebarPanels}
+              />
+            </div>
+          )}
 
           <div className="mx-auto max-w-5xl px-4 pb-12 space-y-8">
-            {showAdvancedForms && (
+            {showAdvancedForms && !isGuidePricing && (
               <div className="space-y-8 rounded-xl border border-border bg-bg-card p-6 shadow-xs animate-fade-in">
                 <div className="border-b border-border pb-3">
                   <h3 className="font-serif text-lg font-bold text-text-heading">🛠️ ฟอร์มแก้ไขข้อมูลขั้นสูง (Advanced Form Overrides)</h3>

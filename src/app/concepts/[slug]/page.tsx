@@ -7,7 +7,8 @@ import { ReadingErrorBoundary } from "@/components/reading/reading-error-boundar
 import { conceptRegistry, getConceptBySlug } from "@/lib/content/core/registry";
 import { nodeTypeAccent } from "@/lib/content/core/cosmology";
 import { entries } from "@/lib/content/core/seeds/entries";
-import { getPublicEntries, getPublicEntryBySlug } from "@/lib/content/publishing/public-source";
+import { getPublicEntryBySlug } from "@/lib/content/publishing/public-source";
+import { isConceptRouteEntry } from "@/lib/content/routing";
 import { generatePageMetadata } from "@/lib/content/seo/metadata";
 import { articleLd, breadcrumbLd, organizationLd } from "@/lib/content/seo/structured-data";
 import {
@@ -43,7 +44,9 @@ const NODE_ICON: Record<string, ComponentType<{ className?: string }>> = {
 export function generateStaticParams() {
   const slugs = new Set<string>([
     ...conceptRegistry.map((c) => c.slug),
-    ...entries.map((e) => e.slug),
+    ...entries
+      .filter((entry) => entry.status === "published" && isConceptRouteEntry(entry))
+      .map((entry) => entry.slug),
   ]);
   return Array.from(slugs).map((slug) => ({ slug }));
 }
@@ -55,7 +58,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const entry = await getPublicEntryBySlug(slug);
-  if (entry) return generatePageMetadata(entry);
+  if (entry) {
+    if (!isConceptRouteEntry(entry)) return { title: "ไม่พบหน้า — ARCHRON" };
+    return generatePageMetadata(entry);
+  }
   const node = getConceptBySlug(slug);
   return {
     title: node?.title
@@ -79,6 +85,8 @@ export default async function ConceptNodePage({
   } as CSSProperties;
 
   if (entry) {
+    if (!isConceptRouteEntry(entry)) notFound();
+
     const ldJson = {
       "@context": "https://schema.org",
       "@graph": [

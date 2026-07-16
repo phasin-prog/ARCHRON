@@ -2,14 +2,10 @@
 import type { ComponentType, ReactNode } from "react";
 import Link from "next/link";
 import type { ContentEntry, RelationType, SourceItem, Difficulty } from "@/types/content";
-import { MarkdownRenderer } from "@/components/reading/markdown-renderer";
-import { InternalLinkText } from "@/components/reading/internal-link-text";
+import { ReadingDocumentContent } from "@/components/reading/reading-document-content";
 import { InternalConceptLink } from "@/components/reading/internal-concept-link";
 import { conceptTitle } from "@/lib/content/core/registry";
 import {
-  VisualMeaningIcon,
-  ScholarIcon,
-  RealExampleIcon,
   SourceRefIcon,
   RootIcon,
   AuthorPenIcon,
@@ -364,42 +360,7 @@ export async function ReadingPage({
         {/* Meta Card — บริบทของแนวคิด (นักคิด · สำนัก · ราก · เผยแพร่ · แก้ไข · ผู้เขียน) */}
         <MetaCard entry={entry} readingTime={readTime(entry)} />
 
-        {/* Main Content Zone */}
-        {entry.visualExplanation ? (
-          <section className="scroll-reveal mt-14">
-            {/* คำอธิบายให้เห็นภาพ (Header 3) */}
-            <SectionH3 icon={VisualMeaningIcon}>คำอธิบายให้เห็นภาพ</SectionH3>
-            <div className="md-body mt-4 whitespace-pre-line">
-              <InternalLinkText text={entry.visualExplanation} />
-            </div>
-          </section>
-        ) : null}
-
-        {entry.technicalMeaning ? (
-          <section className="scroll-reveal mt-14">
-            {/* ความหมายทางวิชาการ / เทคนิค (Header 3) */}
-            <SectionH3 icon={ScholarIcon}>ความหมายทางวิชาการ / เทคนิค</SectionH3>
-            <div className="md-body mt-4 whitespace-pre-line">
-              <InternalLinkText text={entry.technicalMeaning} />
-            </div>
-          </section>
-        ) : null}
-
-        {/* ตัวอย่างในชีวิตจริง อิงจากตำรา (Header 3) — ช่องเนื้อหาใหม่ realWorldExamples */}
-        {entry.realWorldExamples ? (
-          <section className="scroll-reveal mt-14">
-            <SectionH3 icon={RealExampleIcon}>ตัวอย่างในชีวิตจริง (อิงจากตำรา)</SectionH3>
-            <div className="md-body mt-4 whitespace-pre-line">
-              <InternalLinkText text={entry.realWorldExamples} />
-            </div>
-          </section>
-        ) : null}
-
-        {entry.bodyMarkdown && entry.bodyMarkdown.trim() !== "" ? (
-          <section className="scroll-reveal mt-14">
-            <MarkdownRenderer content={entry.bodyMarkdown} />
-          </section>
-        ) : null}
+        <ReadingDocumentContent entry={entry} />
 
         {/* ความเข้าใจผิดที่พบบ่อย (Caution) */}
         {entry.roots?.caution ? (

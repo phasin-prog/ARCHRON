@@ -4,6 +4,7 @@ import { conceptRegistry } from "@/lib/content/core/registry";
 import { READING_SETS } from "@/lib/content/core/seeds/reading-sets";
 import { entries } from "@/lib/content/core/seeds/entries";
 import { THEMES } from "@/lib/content/core/seeds/themes";
+import { isArticleRouteEntry } from "@/lib/content/routing";
 
 export const dynamic = "force-static";
 
@@ -51,7 +52,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const publishedEntries = entries.filter((e) => e.status === "published");
 
   const articleRoutes = publishedEntries
-    .filter((e) => e.contentType === "article")
+    .filter(isArticleRouteEntry)
     .map((e) => ({
       url: `${baseUrl}/articles/${e.slug}`,
       lastModified: new Date(e.updatedAt ?? e.publishedAt ?? ""),

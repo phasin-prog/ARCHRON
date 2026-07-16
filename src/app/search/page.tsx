@@ -9,7 +9,7 @@ export const revalidate = 300;
 export const metadata: Metadata = {
   title: "ค้นหา — ARCHRON",
   description:
-    "ค้นหาแนวคิด บทความ ทรัพยากรภายนอก และหน้าต่าง ๆ ในคลังความรู้จิตใจมนุษย์",
+    "ค้นหาแนวคิด บทความ แหล่งข้อมูลภายนอก และหน้าต่าง ๆ ใน ARCHRON",
 };
 
 export default async function SearchPage({
@@ -28,7 +28,7 @@ export default async function SearchPage({
       ]}
       kicker="ค้นหา"
       title="ค้นหา"
-      lead="ค้นทั่วทั้งคลังความรู้ — แนวคิด บทความ ทรัพยากรภายนอก และหน้าต่าง ๆ ในที่เดียว"
+      lead="ค้นหาแนวคิด บทความ แหล่งข้อมูลภายนอก และหน้าต่าง ๆ จากช่องเดียว"
       className="atmo-observatory"
     >
       <section className="tpl-reference">

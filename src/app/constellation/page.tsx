@@ -13,7 +13,7 @@ import { PageScaffold } from "@/components/page-scaffold";
 export const metadata: Metadata = {
   title: "แผนที่ความสัมพันธ์ — ARCHRON",
   description:
-    "แผนภาพรัศมีของแนวคิด นักคิด หนังสือ และสำนักคิด — เลือกแนวคิดเป็นศูนย์กลางแล้วสำรวจความเชื่อมโยงทีละก้าว",
+    "แผนภาพความสัมพันธ์ของแนวคิด นักคิด หนังสือ และสำนักคิดใน ARCHRON",
 };
 
 export default async function ConstellationPage({
@@ -45,8 +45,8 @@ export default async function ConstellationPage({
         { label: "แผนที่ความสัมพันธ์" },
       ]}
       kicker="แผนที่ความสัมพันธ์"
-      title="แผนที่ความสัมพันธ์"
-      lead="เลือกแนวคิดเป็น 'ศูนย์กลาง' แล้วดูว่ามันเชื่อมโยงกับแนวคิดใดบ้าง — คลิกแนวคิดรอบ ๆ เพื่อย้ายศูนย์กลางและสำรวจต่อทีละก้าว หรือเปิดหน้าเต็มเพื่ออ่านรายละเอียด"
+      title="แผนที่ความสัมพันธ์ในคลัง"
+      lead="เลือกแนวคิดเป็นศูนย์กลางเพื่อดูเนื้อหาที่เชื่อมโยงกัน คลิกรายการรอบ ๆ เพื่อเปลี่ยนจุดโฟกัส หรือเปิดหน้าเนื้อหาเพื่ออ่านรายละเอียด"
       ambient
       className="atmo-observatory"
     >
@@ -59,7 +59,7 @@ export default async function ConstellationPage({
         <noscript>
           <div className="mt-10">
             <p className="text-sm text-text-secondary">
-              แผนที่ต้องใช้ JavaScript — ด้านล่างคือรายการแนวคิดทั้งหมดแบบลิงก์
+              แผนที่นี้ต้องใช้ JavaScript ด้านล่างคือรายการแบบลิงก์
             </p>
             {grouped.map((g) => (
               <div key={g.nt} className="mt-6">

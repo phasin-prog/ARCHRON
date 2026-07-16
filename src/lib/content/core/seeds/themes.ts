@@ -31,14 +31,14 @@ export const THEMES: Theme[] = [
   {
     key: "self",
     label: "ตัวตน",
-    description: "ศูนย์รวมและความเป็นทั้งหมดของจิต , อัตตาและตัวตนที่ลึกกว่า",
+    description: "หัวข้อที่ใช้จัดกลุ่มเนื้อหาซึ่งกล่าวถึง Self, Ego และ Persona",
     accent: colors.amberGold,
     aliases: ["self", "ego", "persona", "ตัวตน", "อัตตา"],
   },
   {
     key: "individuation",
-    label: "การตื่นรู้และการเป็นปัจเจก",
-    description: "กระบวนการกลายเป็นตัวเองที่สมบูรณ์และตื่นรู้",
+    label: "การเป็นปัจเจก (Individuation)",
+    description: "กระบวนการ Individuation ในจิตวิทยาวิเคราะห์",
     accent: colors.tealGreen,
     aliases: ["individuation", "awakening", "การตื่นรู้"],
   },

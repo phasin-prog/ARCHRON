@@ -11,6 +11,7 @@ import {
   PersonIcon,
 } from "@/components/icons";
 import type { KnowledgeRow } from "@/app/knowledge/page";
+import { contentEntryHref, isLibraryEntry } from "@/lib/content/routing";
 
 const FILTERS = [
   { key: "all", label: "ทั้งหมด" },
@@ -28,9 +29,9 @@ const TYPE_ICON = {
 } as const;
 
 const TYPE_HREF: Record<string, (slug: string) => string> = {
-  article: (s) => `/articles/${s}`,
-  concept: (s) => `/concepts/${s}`,
-  thinker: (s) => `/concepts/${s}`,
+  article: (slug) => contentEntryHref({ contentType: "article", slug }),
+  concept: (slug) => contentEntryHref({ contentType: "concept", slug }),
+  thinker: (slug) => contentEntryHref({ contentType: "person", slug }),
 };
 
 const TYPE_LABEL: Record<string, string> = {
@@ -42,7 +43,7 @@ const TYPE_LABEL: Record<string, string> = {
 const GROUP_TITLE: Record<string, string> = {
   article: "บทความ",
   concept: "คลังแนวคิด",
-  thinker: "นักปราชญ์",
+  thinker: "นักคิด",
 };
 
 type Props = {
@@ -57,7 +58,7 @@ export function KnowledgeIndex({ articles, concepts, thinkers }: Props) {
   const debouncedQuery = useDebounce(query, 200);
 
   const filtered = useMemo(() => {
-    const all: KnowledgeRow[] = [...articles, ...concepts, ...thinkers];
+    const all: KnowledgeRow[] = [...articles.filter(isLibraryEntry), ...concepts, ...thinkers];
 
     let result = all;
 
@@ -101,7 +102,7 @@ export function KnowledgeIndex({ articles, concepts, thinkers }: Props) {
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="ค้นหาแนวคิด บทความ หรือนักปราชญ์..."
+            placeholder="ค้นหาแนวคิด บทความ หรือนักคิด..."
             aria-label="ค้นหา"
             className="w-full bg-transparent text-base text-text-heading placeholder:text-text-secondary/50 focus-visible:outline-none"
           />

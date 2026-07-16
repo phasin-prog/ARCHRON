@@ -5,6 +5,7 @@ import { RecentlyViewedSkeleton } from "@/components/skeleton";
 import { HomeSearch } from "@/components/home-search";
 import { ArrowRightIcon } from "@/components/icons";
 import { getPublicEntries } from "@/lib/content/publishing/public-source";
+import { getLibraryArticles } from "@/lib/content/routing";
 
 export const revalidate = 300;
 
@@ -24,10 +25,7 @@ async function HeroSection() {
           ARCHRON
         </h1>
         <p className="mt-4 font-serif text-xl text-text-secondary sm:text-2xl">
-          เข้าใจมนุษย์ ผ่านความรู้
-        </p>
-        <p className="mt-2 font-serif text-base text-text-secondary">
-          Understanding Humanity Through Knowledge
+          อ่านเรื่องจิตใจมนุษย์อย่างมีบริบท
         </p>
       </div>
     </section>
@@ -61,7 +59,7 @@ function CTASection() {
 async function ContentGrid() {
   const published = await getPublicEntries();
   const publishedSlugs = published.map((e) => e.slug);
-  const articles = published.filter((e) => e.contentType === "article").slice(0, 3);
+  const articles = getLibraryArticles(published).slice(0, 3);
   const concepts = published.filter((e) => e.contentType === "concept").slice(0, 6);
 
   return (
@@ -120,7 +118,7 @@ async function ContentGrid() {
         <section className="tpl-content mt-20">
           <div className="flex items-baseline justify-between">
             <h2 className="font-heading text-2xl font-semibold text-text-heading">
-              แนวคิดน่าสนใจ
+              แนวคิดในคลัง
             </h2>
             <Link
               href="/concepts"
@@ -161,11 +159,11 @@ async function ContentGrid() {
           <h2 className="font-heading text-2xl font-semibold text-text-heading">
             คู่มือแนะนำ
           </h2>
-          <Link
-            href="/guide"
-            className="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover"
-          >
-            ดูทั้งหมด <ArrowRightIcon className="h-4 w-4" />
+            <Link
+              href="/guide"
+              className="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover"
+            >
+              ดูรายละเอียด <ArrowRightIcon className="h-4 w-4" />
           </Link>
         </div>
         <div className="mt-6 grid gap-4 md:grid-cols-2">
@@ -174,13 +172,13 @@ async function ContentGrid() {
             className="group rounded-xl border border-border bg-bg-card p-6 transition-colors hover:border-accent/30 hover:bg-bg-elevated"
           >
             <span className="inline-block rounded-full bg-accent/15 px-3 py-1 text-xs font-medium text-accent">
-              Guide
+              บริการ
             </span>
             <h3 className="mt-3 font-serif text-lg font-semibold text-text-heading">
               Jungian Type Analysis
             </h3>
             <p className="mt-2 text-sm text-text-secondary line-clamp-2">
-              วิเคราะห์โครงสร้าง Ego ผ่านกรอบทฤษฎีจิตวิทยาเชิงลึกของคาร์ล ยุง
+              อ่านแนวโน้มของโครงสร้าง Ego ตามกรอบ Psychological Types ของ C. G. Jung
             </p>
           </Link>
         </div>

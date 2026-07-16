@@ -5,6 +5,7 @@ import { useDebounce } from "@/lib/hooks/use-debounce";
 import Link from "next/link";
 import type { ContentEntry } from "@/types/content";
 import type { ConceptRegistryItem } from "@/lib/content/core/registry";
+import { contentEntryHref, isLibraryEntry, registryNodeHref } from "@/lib/content/routing";
 import { ViewBadge } from "@/components/view-badge";
 import {
   SearchIcon,
@@ -79,7 +80,7 @@ export function DiscoverGrid({ entries, concepts }: DiscoverGridProps) {
       return { paginatedEntries: [], totalEntryPages: 0, totalEntriesCount: 0 };
     }
 
-    let filtered = entries.filter((e) => e.status === "published");
+    let filtered = entries.filter((entry) => entry.status === "published" && isLibraryEntry(entry));
 
     if (category === "articles") {
       filtered = filtered.filter((e) => e.contentType === "article");
@@ -243,14 +244,14 @@ export function DiscoverGrid({ entries, concepts }: DiscoverGridProps) {
           <div className="mb-12">
             {category === "all" && (
               <h3 className="mb-4 font-serif text-lg font-semibold text-text-heading">
-                บทความล่าสุด
+                รายการล่าสุด
               </h3>
             )}
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {paginatedEntries.map((entry) => (
                 <Link
                   key={entry.slug}
-                  href={`/articles/${entry.slug}`}
+                  href={contentEntryHref(entry)}
                   className="group rounded-lg border border-border bg-bg-card p-4 transition-colors hover:border-accent/30 hover:bg-bg-elevated"
                 >
                   <div className="mb-2 flex items-center gap-2">
@@ -304,7 +305,7 @@ export function DiscoverGrid({ entries, concepts }: DiscoverGridProps) {
               {paginatedConcepts.map((concept) => (
                 <Link
                   key={concept.slug}
-                  href={`/concepts/${concept.slug}`}
+                  href={registryNodeHref(concept.nodeType, concept.slug)}
                   className="rounded-lg border border-border bg-bg-card p-3 transition-colors hover:border-concept/30 hover:bg-bg-elevated"
                 >
                   <div className="mb-1 flex items-center gap-2">
@@ -356,7 +357,7 @@ export function DiscoverGrid({ entries, concepts }: DiscoverGridProps) {
               {paginatedThinkers.map((thinker) => (
                 <Link
                   key={thinker.slug}
-                  href={`/thinkers/${thinker.slug}`}
+                  href={registryNodeHref(thinker.nodeType, thinker.slug)}
                   className="rounded-lg border border-border bg-bg-card p-3 transition-colors hover:border-thinker/30 hover:bg-bg-elevated"
                 >
                   <h4 className="text-sm font-semibold text-text-heading">

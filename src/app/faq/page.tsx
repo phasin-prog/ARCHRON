@@ -20,7 +20,7 @@ export default function FaqPage() {
       ]}
       kicker="คำถามที่พบบ่อย"
       title="คำถามที่พบบ่อย"
-      lead="รวมคำถามเกี่ยวกับจุดยืนของโครงการ วิธีอ่าน ระดับเนื้อหา และการนำไปใช้ — คลิกที่คำถามเพื่อดูคำตอบ"
+      lead="รวมคำถามเกี่ยวกับจุดยืนของโครงการ วิธีอ่าน ระดับเนื้อหา และการนำไปใช้"
       className="atmo-observatory"
     >
       <section className="tpl-reference">
@@ -29,7 +29,7 @@ export default function FaqPage() {
         <p className="mt-8 text-sm text-text-secondary/60">
           มีคำถามอื่นเพิ่มเติม?{" "}
           <Link href="/support" className="text-accent hover:underline">
-            ติดต่อ / สนับสนุนโครงการ
+            ติดต่อหรือสนับสนุนโครงการ
           </Link>
         </p>
       </section>

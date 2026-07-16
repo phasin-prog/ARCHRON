@@ -116,7 +116,7 @@ export default async function ProfilePage() {
       <PageHeader
         kicker="โปรไฟล์นักอ่าน"
         title="โปรไฟล์ของฉัน"
-        lead="ติดตามการเดินทางในคลังความรู้ ระดับนักอ่าน และเหรียญตราของคุณ"
+        lead="ดูระดับการอ่าน เหรียญตรา และประวัติการอ่านของคุณ"
       />
 
       <div className="tpl-reference">
@@ -222,7 +222,7 @@ function ReadingTab({
           <p className="mt-2 text-xs text-text-secondary">
             {lp.next
               ? `อ่านอีก ${lp.toNext} ชิ้นความรู้เพื่อเลื่อนสู่ระดับ ${lp.next.name}`
-              : "ถึงระดับสูงสุดแล้ว — นักปราชญ์แห่งคลังความรู้"}
+              : "ถึงระดับสูงสุดแล้ว: นักปราชญ์แห่งคลังความรู้"}
           </p>
         </div>
 
@@ -305,7 +305,7 @@ function ReadingTab({
             <EmptyState
               icon="auto_stories"
               title="ยังไม่มีประวัติการอ่าน"
-              description="เริ่มอ่านชิ้นความรู้ในคลัง แล้วความคืบหน้าจะถูกบันทึกที่นี่โดยอัตโนมัติ"
+              description="เริ่มอ่านเนื้อหาในคลัง แล้วระบบจะบันทึกความคืบหน้าไว้ที่นี่"
             >
               <Link
                 href="/articles"
@@ -368,7 +368,7 @@ function WorkTab({ entries }: { entries: ContentEntry[] }) {
       <EmptyState
         icon="edit_note"
         title="ยังไม่มีงานที่เขียน"
-        description="เมื่อคุณเผยแพร่หรือบันทึกฉบับร่างใน Studio งานเหล่านั้นจะปรากฏที่นี่"
+        description="งานที่คุณบันทึกเป็นฉบับร่างหรือเผยแพร่ผ่าน Studio จะแสดงที่นี่"
       >
         <Link
           href="/studio/editor"
@@ -431,7 +431,7 @@ function AdminTab() {
           </span>
           <div>
             <h3 className="font-serif text-xl text-text-heading">แผงควบคุมผู้ดูแล</h3>
-            <p className="text-sm text-text-secondary/70">จัดการคอมเมนต์และผู้ใช้ — สิทธิเฉพาะแอดมิน</p>
+            <p className="text-sm text-text-secondary/70">จัดการคอมเมนต์และผู้ใช้ เฉพาะผู้ดูแลระบบ</p>
           </div>
         </div>
       </section>
@@ -448,7 +448,7 @@ function AdminTab() {
             จัดการคอมเมนต์
           </h3>
           <p className="mt-1.5 text-sm leading-relaxed text-text-secondary/70">
-            ตรวจสอบ ซ่อน หรือลบคอมเมนต์ทั้งหมดในระบบ — รวมถึงคอมเมนต์ที่ถูกรายงาน
+            ตรวจสอบ ซ่อน หรือลบคอมเมนต์ทั้งหมดในระบบ รวมถึงคอมเมนต์ที่ถูกรายงาน
           </p>
           <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-accent group-hover:gap-2 transition-all">
             เปิดแผงจัดการคอมเมนต์

@@ -6,13 +6,13 @@ export function AnalysisTimeline() {
       <div className="tpl-reference">
         <div className="text-center">
           <span className="text-xs font-semibold uppercase tracking-[0.22em] text-accent/85">
-            Step-by-Step Consulting Flow
+            ลำดับการรับบริการ
           </span>
           <h2 className="mt-3 font-serif text-3xl font-bold text-text-heading md:text-4xl">
-            ขั้นตอนและกระบวนการรับบริการ
+            ขั้นตอนการรับบริการ
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-sm text-text-secondary/85 md:text-base">
-            ออกแบบขั้นตอนที่ลื่นไหล โปร่งใส และลดความซับซ้อน ตั้งแต่วินาทีแรกที่จองคิวจนถึงการรับรายงาน
+            ตั้งแต่จองคิว ชำระเงิน เข้าสัมภาษณ์ จนถึงรับรายงาน
           </p>
         </div>
 

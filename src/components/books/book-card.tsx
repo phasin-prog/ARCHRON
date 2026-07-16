@@ -76,7 +76,7 @@ export function BookCard({ entry }: BookCardProps) {
 
         {/* Action Indicator */}
         <div className="mt-3.5 flex items-center justify-between text-xs font-medium text-text-secondary/70 transition-colors group-hover:text-[var(--card-accent)]">
-          <span>อ่านเนื้อหาและบทวิเคราะห์</span>
+          <span>อ่านรายละเอียด</span>
           <span className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-border/40 transition-transform duration-300 group-hover:border-[var(--card-accent)]/40 group-hover:bg-[var(--card-accent)]/10 group-hover:translate-x-0.5">
             <ArrowRightIcon className="h-3 w-3" />
           </span>

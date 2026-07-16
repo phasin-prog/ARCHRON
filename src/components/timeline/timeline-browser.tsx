@@ -19,10 +19,10 @@ const TIMELINE_DATA: TimelineEvent[] = [
   {
     year: "399 ปีก่อน ค.ศ.",
     era: "ancient",
-    title: "โสกราตีสกับความสงสัยใคร่ครวญแห่งปัญญา (Socratic Questioning)",
+    title: "การตั้งคำถามแบบโสกราตีส (Socratic Questioning)",
     thinker: "Socrates / Plato",
     school: "Ancient Greek Philosophy",
-    description: "จุดกำเนิดของการตั้งคำถามเชิงวิพากษ์เพื่อแสวงหาความจริงแท้เกี่ยวกับจิตวิญญาณและจริยธรรมมนุษย์",
+    description: "แนวทางการตั้งคำถามเชิงวิพากษ์ในประเด็นจริยธรรมและความรู้",
     slug: "platonism",
     type: "school",
   },
@@ -89,7 +89,7 @@ const TIMELINE_DATA: TimelineEvent[] = [
   {
     year: "ค.ศ. 2020s+",
     era: "contemporary",
-    title: "จิตวิญญาณสังเคราะห์และโครงข่ายปัญญาประดิษฐ์ (AI & Cognitive Cybernetics)",
+    title: "ปัญญาประดิษฐ์และปรัชญาจิตร่วมสมัย (AI & Cognitive Cybernetics)",
     thinker: "ARCHRON Research Community",
     school: "Posthumanism & Philosophy of Mind",
     description: "การตั้งคำถามเกี่ยวกับจิตสำนึก ความหมายของการเป็นมนุษย์ และเส้นแบ่งระหว่างปัญญาชีวภาพกับปัญญาสังเคราะห์",
@@ -112,11 +112,11 @@ export function TimelineBrowser() {
       {/* ตัวคัดกรองยุคสมัย */}
       <div className="flex flex-wrap items-center gap-2 border-b border-text-heading/10 pb-4">
         {[
-          { id: "all", label: "ทุกยุคสมัยประวัติศาสตร์" },
-          { id: "ancient", label: "ยุคโบราณ & คลาสสิก" },
-          { id: "enlightenment", label: "ยุคฟื้นฟู & แสงสว่างทางปัญญา" },
-          { id: "modern", label: "ปฏิวัติจิตวิเคราะห์ & ปรัชญาสมัยใหม่" },
-          { id: "contemporary", label: "ยุคประสาทวิทยา & ปัญญาประดิษฐ์" },
+            { id: "all", label: "ทุกยุคที่แสดง" },
+            { id: "ancient", label: "ยุคโบราณและคลาสสิก" },
+            { id: "enlightenment", label: "ยุคฟื้นฟูและแสงสว่างทางปัญญา" },
+            { id: "modern", label: "จิตวิเคราะห์และปรัชญาสมัยใหม่" },
+            { id: "contemporary", label: "ประสาทวิทยาและปัญญาประดิษฐ์" },
         ].map((era) => (
           <button
             key={era.id}

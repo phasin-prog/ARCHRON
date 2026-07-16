@@ -31,13 +31,13 @@ export function FeatureCards() {
       <div className="tpl-reference">
         <div className="text-center md:text-left">
           <span className="text-xs font-semibold uppercase tracking-[0.22em] text-accent/85">
-            Deliverables & Experience
+            สิ่งที่ได้รับจากบริการ
           </span>
           <h2 className="mt-3 font-serif text-3xl font-bold text-text-heading md:text-4xl">
             สิ่งที่คุณจะได้รับจากการวิเคราะห์
           </h2>
           <p className="mt-3 text-sm text-text-secondary/85 md:text-base">
-            รายงานสรุปจิตวิเคราะห์และการสัมภาษณ์เชิงลึกที่ออกแบบมาเพื่อสะท้อนตัวตนของคุณโดยเฉพาะ
+            การสัมภาษณ์และรายงานสรุป เพื่อช่วยให้คุณทบทวนรูปแบบการรับรู้ของตนเอง
           </p>
         </div>
 
@@ -66,7 +66,7 @@ export function FeatureCards() {
               </div>
 
               <div className="mt-6 border-t border-border/20 pt-3 text-[11px] font-medium text-accent opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                <span>อ่านรายละเอียดเพิ่มเติม →</span>
+                <span>ดูรายละเอียด</span>
               </div>
             </div>
           ))}

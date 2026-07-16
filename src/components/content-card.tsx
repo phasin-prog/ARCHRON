@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { getConceptBySlug, conceptTitle } from "@/lib/content/core/registry";
+import { contentEntryHref, registryNodeHref } from "@/lib/content/routing";
 import type { RelationType } from "@/types/content";
 import {
   ConceptIcon,
@@ -42,18 +43,10 @@ const VARIANT_ICON: Record<CardVariant, (props: { className?: string }) => React
   term: TermIcon,
 };
 
-const VARIANT_HREF = (variant: CardVariant, slug: string): string => {
-  const base = {
-    article: "/articles",
-    concept: "/concepts",
-    person: "/concepts",
-    book: "/concepts",
-    school: "/concepts",
-    symbol: "/concepts",
-    term: "/concepts",
-  }[variant];
-  return `${base}/${slug}`;
-};
+function fallbackHref(variant: CardVariant, slug: string): string {
+  if (variant === "school") return registryNodeHref("school", slug);
+  return contentEntryHref({ contentType: variant, slug });
+}
 
 const VARIANT_LABEL: Record<CardVariant, string> = {
   article: "บทความ",
@@ -98,7 +91,7 @@ export function ContentCard({
   const item = getConceptBySlug(slug);
   const v = variant ?? (item ? variantFromNodeType(item.nodeType) : "concept");
   const Icon = VARIANT_ICON[v];
-  const href = VARIANT_HREF(v, slug);
+  const href = item ? registryNodeHref(item.nodeType, slug) : fallbackHref(v, slug);
   const title = item?.thaiTitle ?? item?.title ?? conceptTitle(slug) ?? slug;
   const typeLabel = VARIANT_LABEL[v];
 

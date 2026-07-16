@@ -8,7 +8,7 @@ import { PrimarySourceIcon, SecondarySourceIcon, InterpretationIcon } from "@/co
 export const metadata: Metadata = {
   title: "แหล่งอ้างอิง — ARCHRON",
   description:
-    "ฐานข้อมูลอ้างอิง คัมภีร์ เอกสารประวัติศาสตร์ และเอกสารวิชาการ เพื่อให้ผู้อ่านตรวจสอบย้อนกลับความเป็นจริงกับการตีความได้ตลอดเวลา",
+    "ฐานข้อมูลแหล่งอ้างอิง คัมภีร์ เอกสารประวัติศาสตร์ และเอกสารวิชาการของ ARCHRON",
 };
 
 const METHOD = [
@@ -36,34 +36,34 @@ export default function SourcesPage() {
         { label: "แหล่งอ้างอิง" },
       ]}
       kicker="แหล่งอ้างอิง"
-      title="ฐานความรู้และการอ้างอิง"
-      lead="ทุกแนวคิดควรมีฐานรองรับ ที่นี่เราแยกแหล่งต้นทาง งานอธิบาย และการตีความออกจากกันอย่างชัดเจน เพื่อให้ผู้อ่านตรวจสอบย้อนกลับได้เสมอว่าสิ่งใดคือหลักฐาน และสิ่งใดคือการตีความของเรา"
+      title="แหล่งอ้างอิง"
+      lead="หน้านี้แยกแหล่งต้นทาง งานอธิบาย และการตีความของกองบรรณาธิการ เพื่อให้ผู้อ่านดูที่มาของเนื้อหาได้"
       ambient
       navCurrent="/sources"
     >
       <div className="tpl-reference">
         {/* 01 · ชั้นของแหล่งความรู้ */}
         <section className="scroll-reveal">
-          <SectionLabel num="01">ชั้นของแหล่งความรู้ (Epistemic Tiers)</SectionLabel>
+          <SectionLabel num="01">ประเภทของแหล่งอ้างอิง</SectionLabel>
           <div className="grid gap-[18px] md:grid-cols-3">
             {[
               {
                 num: "01",
-                title: "แหล่งต้นทาง (Primary Sources)",
+                title: "แหล่งต้นทาง",
                 accent: colors.goldAccent,
                 desc: "งานต้นฉบับของนักคิดโดยตรง — ตัวบท คำแปลจากต้นฉบับ จดหมาย บันทึก และงานเขียนชั้นต้น (เช่น Collected Works ของ Jung)",
                 Icon: PrimarySourceIcon,
               },
               {
                 num: "02",
-                title: "งานอธิบาย (Secondary Sources)",
+                title: "งานอธิบาย",
                 accent: colors.concept,
                 desc: "งานศึกษา วิเคราะห์ และอธิบายต่อยอดจากแหล่งต้นทาง โดยนักวิชาการหรือผู้เชี่ยวชาญ (เช่น งานวิเคราะห์ตำนานของ von Franz)",
                 Icon: SecondarySourceIcon,
               },
               {
                 num: "03",
-                title: "การตีความ (Interpretation / Editorial)",
+                title: "การตีความของกองบรรณาธิการ",
                 accent: colors.quote,
                 desc: "การตีความและการเชื่อมโยงใหม่ของกองบรรณาธิการ ARCHRON เอง เพื่อประยุกต์และแปลความให้เหมาะสมกับผู้อ่านร่วมสมัย",
                 Icon: InterpretationIcon,
@@ -84,7 +84,7 @@ export default function SourcesPage() {
                       <t.Icon className="w-6 h-6" />
                     </span>
                     <span className="text-xs tabular-nums tracking-[0.1em] text-text-secondary/40 font-mono">
-                      Tier {t.num}
+                      ประเภท {t.num}
                     </span>
                   </div>
                   <h3 className="mt-4 font-serif text-base font-semibold" style={{ color: t.accent }}>
@@ -99,13 +99,13 @@ export default function SourcesPage() {
 
         {/* 02 · ค้นหาแหล่งอ้างอิงจริง */}
         <section className="scroll-reveal mt-12">
-          <SectionLabel num="02">ดัชนีแหล่งอ้างอิงระบบความรู้</SectionLabel>
+          <SectionLabel num="02">ดัชนีแหล่งอ้างอิง</SectionLabel>
           <SourcesBrowser sources={SOURCES} />
         </section>
 
         {/* 03 · หลักการอ้างอิงของเรา */}
         <section className="scroll-reveal mt-12">
-          <SectionLabel num="03">หลักการจัดการความรู้ของเรา</SectionLabel>
+          <SectionLabel num="03">แนวทางการอ้างอิง</SectionLabel>
           <div className="grid gap-6 md:grid-cols-3">
             {METHOD.map((m) => (
               <div key={m.title} className="border-l-2 border-accent/30 pl-4 space-y-1">

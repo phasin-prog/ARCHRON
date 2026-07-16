@@ -6,7 +6,7 @@ import { CompareMatrix } from "@/components/compare/compare-matrix";
 export const metadata: Metadata = {
   title: "เปรียบเทียบมโนทัศน์และแนวคิด — ARCHRON",
   description:
-    "ตารางเปรียบเทียบเชิงวิเคราะห์คู่ขนาน (Comparative Knowledge Matrix) เพื่อศึกษารากฐาน ข้อถกเถียง และความเชื่อมโยงระหว่างแนวคิดและนักคิด",
+    "เครื่องมือเปรียบเทียบข้อมูลของแนวคิด บทความ และสำนักคิดในคลัง ARCHRON",
 };
 
 export const revalidate = 300;
@@ -23,7 +23,7 @@ export default async function ComparePage() {
       ]}
       kicker="เมทริกซ์เปรียบเทียบ"
       title="ตารางเปรียบเทียบเชิงวิเคราะห์"
-      lead="วิเคราะห์เปรียบเทียบคู่ขนานระหว่าง 2 มโนทัศน์ ทฤษฎี หรือสำนักคิด เพื่อทำความเข้าใจข้อแตกต่าง จุดเชื่อมโยง และรากฐานปรัชญาอย่างรอบด้าน"
+      lead="เลือกสองรายการเพื่ออ่านข้อมูลคู่ขนานและดูจุดที่เหมือนหรือต่างกัน"
       ambient
       navCurrent="/compare"
     >

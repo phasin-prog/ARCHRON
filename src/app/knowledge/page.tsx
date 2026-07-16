@@ -13,9 +13,9 @@ import Link from "next/link";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "สารบัญคลังความรู้ — ARCHRON",
+  title: "สารบัญเนื้อหา — ARCHRON",
   description:
-    "สารบัญคลังความรู้ — ค้นหาและเรียกดูบทความ แนวคิด และนักปราชญ์ได้โดยตรงจากหน้านี้",
+    "ค้นหาและเรียกดูบทความ แนวคิด และนักปราชญ์ได้จากหน้านี้",
 };
 
 // ── Data (server) ──
@@ -92,13 +92,13 @@ export default async function KnowledgePage() {
         <header className="mb-12 space-y-4 text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 px-4 py-1.5 text-[11px] uppercase tracking-[0.2em] text-accent">
             <span className="h-[5px] w-[5px] rounded-full bg-accent" aria-hidden="true" />
-            สารบัญคลังความรู้
+            สารบัญเนื้อหา
           </span>
           <h1 className="font-serif text-4xl tracking-tight text-text-heading sm:text-5xl">
-            คลังความรู้
+            สารบัญเนื้อหา
           </h1>
           <p className="mx-auto max-w-xl text-base leading-relaxed text-text-secondary/80">
-            ค้นหาและเรียกดูบทความ แนวคิด และนักปราชญ์ได้โดยตรง — พิมพ์เพื่อกรองทันที
+            ค้นหาและเรียกดูบทความ แนวคิด และนักปราชญ์ในหน้านี้
           </p>
         </header>
 
@@ -111,19 +111,19 @@ export default async function KnowledgePage() {
               href="/constellation"
               icon={<SynthesisIcon className="h-5 w-5" />}
               title="แผนที่ความสัมพันธ์"
-              desc="สำรวจปฏิสัมพันธ์ระหว่างแนวคิดในรูปโครงข่ายความรู้"
+              desc="ดูความเชื่อมโยงระหว่างแนวคิดในรูปแผนภาพ"
             />
             <QuickLink
               href="/reading-sets"
               icon={<BookIcon className="h-5 w-5" />}
               title="เส้นทางการอ่าน"
-              desc="ลำดับการอ่านที่เรียงจากพื้นฐานสู่ความเข้าใจระดับลึก"
+              desc="ชุดเนื้อหาที่จัดลำดับการอ่านไว้เป็นขั้นตอน"
             />
             <QuickLink
               href="/themes"
               icon={<GridIcon className="h-5 w-5" />}
               title="แก่นเรื่องข้ามศาสตร์"
-              desc="แก่นความคิดที่ปรากฏซ้ำ เช่น จิตไร้สำนึก เสรีภาพ ความหมาย"
+              desc="หัวข้อที่ปรากฏในหลายสาขา เช่น จิตไร้สำนึก เสรีภาพ และความหมาย"
             />
           </div>
         </footer>

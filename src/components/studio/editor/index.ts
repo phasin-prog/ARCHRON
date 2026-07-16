@@ -9,4 +9,5 @@ export { EditorCta } from "./editor-cta";
 export { EditorPublishPanel } from "./editor-publish-panel";
 export { EditorPreview } from "./editor-preview";
 export { EditorValidationModal } from "./editor-validation-modal";
+export { GuidePricingEditor } from "./guide-pricing-editor";
 export { InlineGuidance } from "./inline-guidance";

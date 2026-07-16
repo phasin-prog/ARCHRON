@@ -15,13 +15,13 @@ export function FAQSection() {
       <div className="tpl-reference">
         <div className="text-center">
           <span className="text-xs font-semibold uppercase tracking-[0.22em] text-accent/85">
-            Frequently Asked Questions
+            คำถามเกี่ยวกับบริการ
           </span>
           <h2 className="mt-3 font-serif text-3xl font-bold text-text-heading md:text-4xl">
-            คำถามที่พบบ่อย (FAQ)
+            คำถามที่พบบ่อย
           </h2>
           <p className="mt-3 text-sm text-text-secondary/85 md:text-base">
-            ข้อสงสัยเกี่ยวกับบริการ กรอบวิชาการ และขั้นตอนการทำงานของทีมวิเคราะห์
+            คำตอบเกี่ยวกับบริการ กรอบวิชาการ และขั้นตอนการทำงาน
           </p>
         </div>
 
@@ -31,7 +31,7 @@ export function FAQSection() {
 
         <div className="mt-10 rounded-lg border border-border/40 bg-bg-card/60 p-6 text-center">
           <p className="text-xs text-text-secondary/85">
-            มีคำถามอื่นๆ ที่ไม่ได้ระบุไว้ในรายการนี้? คุณสามารถพูดคุยสอบถามกับเราได้โดยตรงทาง LINE Official ก่อนการจองโดยไม่มีเงื่อนไขผูกมัดใดๆ
+            หากมีคำถามเพิ่มเติม ติดต่อสอบถามผ่าน LINE Official ได้ก่อนจอง โดยไม่มีข้อผูกมัด
           </p>
         </div>
       </div>

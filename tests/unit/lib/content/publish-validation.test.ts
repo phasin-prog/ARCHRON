@@ -1,5 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { slugify, getPublishChecklist, canPublish, EMPTY_DRAFT } from "@/lib/content/publishing/publish-validation";
+import { validateEditorDraft } from "@/lib/content/publishing/editor-validation";
+import { DEFAULT_PRICING } from "@/lib/content/guide/pricing-data";
 
 describe("slugify", () => {
   it("converts title to slug", () => {
@@ -35,5 +37,18 @@ describe("canPublish", () => {
   });
   it("returns false when any item fails", () => {
     expect(canPublish([{ label: "a", ok: true }, { label: "b", ok: false }])).toBe(false);
+  });
+});
+
+describe("guide pricing validation", () => {
+  it("allows the guide pricing configuration to publish without article-only fields", () => {
+    const result = validateEditorDraft({
+      ...EMPTY_DRAFT,
+      title: "Guide Pricing",
+      slug: "guide-pricing",
+      bodyMarkdown: JSON.stringify(DEFAULT_PRICING),
+    });
+
+    expect(result.canPublish).toBe(true);
   });
 });

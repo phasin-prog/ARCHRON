@@ -13,6 +13,7 @@ import { entryToDraft } from "@/lib/content/publishing/draft-mapper";
 export async function revalidatePublic(slug: string) {
   revalidatePath("/articles");
   revalidatePath("/concepts");
+  if (slug === "guide-pricing") revalidatePath("/guide");
   if (slug && slug.trim() !== "") {
     revalidatePath(`/articles/${slug}`);
     revalidatePath(`/concepts/${slug}`);

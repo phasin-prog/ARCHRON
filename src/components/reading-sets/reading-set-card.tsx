@@ -64,7 +64,7 @@ export function ReadingSetCard({ set }: { set: ReadingSetItem }) {
         {/* เส้นทางการอ่านแบบเชื่อมโยง (Timeline Steps) */}
         <div className="py-4 border-t border-b border-border/20 space-y-3">
           <p className="text-sm font-medium text-text-secondary/80">
-            เส้นทางการเรียนรู้ ({set.steps.length} ขั้นตอน):
+            รายการอ่านตามลำดับ ({set.steps.length} ขั้นตอน):
           </p>
           <div className="flex flex-col gap-4 pl-2 md:flex-row md:items-center md:gap-2 md:pl-0">
             {set.steps.map((step, idx) => {

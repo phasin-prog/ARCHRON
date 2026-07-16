@@ -277,10 +277,10 @@ export default function StudioDashboardPage() {
           <EditIcon className="h-8 w-8" />
         </div>
         <h1 className="font-serif text-2xl md:text-3xl font-medium text-text-heading">
-          พื้นที่สงวนเฉพาะนักเขียน Archron
+          พื้นที่สำหรับนักเขียน Archron
         </h1>
         <p className="mt-3 max-w-md text-sm leading-relaxed text-text-secondary/80">
-          ห้องปฏิบัติการทางปัญญานี้เปิดสำหรับผู้มีสิทธิ์ร่วมบันทึกและเรียบเรียงคลังความรู้เท่านั้น ท่านสามารถขอสิทธิ์การเขียนได้จากหน้าโปรไฟล์
+          หน้านี้เปิดให้ผู้ที่มีสิทธิ์เขียนและเรียบเรียงเนื้อหาในคลังความรู้ คุณสามารถขอสิทธิ์การเขียนได้จากหน้าโปรไฟล์
         </p>
         <Link
           href="/studio/profile"
@@ -368,7 +368,7 @@ export default function StudioDashboardPage() {
             </Link>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-border/40 bg-bg-card px-3 py-1 text-[11px] font-medium text-text-secondary/80 shadow-2xs">
               <span className="h-1.5 w-1.5 rounded-full bg-concept animate-pulse" />
-              Studio Workspace
+              ห้องเขียน Studio
             </span>
           </div>
 
@@ -378,7 +378,7 @@ export default function StudioDashboardPage() {
                 ห้องเขียนของ {user?.firstName ?? user?.fullName ?? "ผู้ร่วมเขียน"}
               </h1>
               <p className="mt-2 text-sm text-text-secondary/80 font-serif italic max-w-xl">
-                “ความคิดที่ยังไม่ได้เขียนลงกระดาษ คือความคิดที่รอการค้นพบ”
+                เขียนให้ชัด แยกข้อเท็จจริงออกจากการตีความ
               </p>
             </div>
 
@@ -433,12 +433,12 @@ export default function StudioDashboardPage() {
                 <EditIcon className="h-4 w-4" />
               </span>
               <h2 className="font-heading text-lg font-semibold text-text-heading">
-                เขียนต่อ (Continue Writing)
+                เขียนต่อ
               </h2>
             </div>
             {activeContinueDrafts.length > 0 && (
               <span className="text-xs text-text-secondary/70">
-                ไอเดียที่กำลังเรียบเรียงล่าสุด
+                ฉบับร่างที่แก้ไขล่าสุด
               </span>
             )}
           </div>
@@ -451,16 +451,16 @@ export default function StudioDashboardPage() {
             </div>
           ) : activeContinueDrafts.length === 0 ? (
             <div className="rounded-2xl border border-border/40 bg-bg-card/50 p-8 text-center">
-              <p className="font-serif text-base text-text-heading/80">ยังไม่มีไอเดียที่เขียนค้างไว้</p>
+              <p className="font-serif text-base text-text-heading/80">ยังไม่มีฉบับร่างที่เขียนค้างไว้</p>
               <p className="mt-1 text-xs text-text-secondary/70">
-                ทุกครั้งที่คุณเริ่มร่างบทความ ระบบจะบันทึกและแสดงความคืบหน้าที่นี่โดยอัตโนมัติ
+                เมื่อเริ่มร่างบทความ ระบบจะบันทึกและแสดงรายการไว้ที่นี่โดยอัตโนมัติ
               </p>
               <Link
                 href="/studio/editor"
                 className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-accent hover:underline"
               >
                 <EditIcon className="h-3.5 w-3.5" />
-                เริ่มต้นจรดปากการ่างแรก
+                เริ่มเขียนฉบับร่าง
               </Link>
             </div>
           ) : (
@@ -516,10 +516,10 @@ export default function StudioDashboardPage() {
             <div className="flex items-center justify-between gap-4">
               <div>
                 <h2 className="font-heading text-base font-semibold text-text-heading">
-                  ฉบับร่างอื่นๆ ในคลังความคิด
+                  ฉบับร่างอื่น
                 </h2>
                 <p className="text-xs text-text-secondary/70">
-                  บันทึกความคิดที่กำลังรอการค้นคว้าและเรียบเรียงเพิ่มเติม
+                  งานที่ยังรอการค้นคว้าหรือเรียบเรียงเพิ่มเติม
                 </p>
               </div>
               
@@ -773,7 +773,7 @@ export default function StudioDashboardPage() {
             <DashboardEmptyState
               icon={<BookIcon className="h-6 w-6" />}
               title={tab === "my" ? "ยังไม่มีบทความในหมวดนี้" : "ไม่พบรายการที่ตรงกับตัวกรอง"}
-              message={tab === "my" ? "เริ่มบันทึกและเผยแพร่ความรู้งานแรกของท่านสู่คลัง Archron" : "ลองเปลี่ยนคำค้นหาหรือปรับตัวกรองประเภทความรู้"}
+              message={tab === "my" ? "เริ่มเขียนและเผยแพร่งานชิ้นแรกสู่คลัง Archron" : "ลองเปลี่ยนคำค้นหาหรือปรับตัวกรองประเภทความรู้"}
               cta={tab === "my" ? { label: "เขียนบทความใหม่", href: "/studio/editor" } : undefined}
             />
           ) : tab === "my" && selectScope === "my" ? (
@@ -858,7 +858,7 @@ export default function StudioDashboardPage() {
                       {typeLabel(e.content_type)}
                     </span>
                     <Link
-                      href={e.status === "published" ? `/articles/${e.slug}` : `/studio/editor?slug=${e.slug}`}
+                      href={e.slug === "guide-pricing" || e.status !== "published" ? `/studio/editor?slug=${e.slug}` : `/articles/${e.slug}`}
                       className="min-w-0 flex-1 group/link"
                     >
                       <p className="truncate font-serif text-sm md:text-base font-medium text-text-heading group-hover/link:text-accent transition-colors">

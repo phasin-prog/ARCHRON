@@ -8,7 +8,7 @@ import { DiscoverGrid } from "@/components/discover/discover-grid";
 export const metadata: Metadata = {
   title: "ค้นพบ — ARCHRON",
   description:
-    "สำรวจและค้นพบเนื้อหาใน ARCHRON ตามหมวดหมู่ แขนงวิชา และหัวข้อที่น่าสนใจ",
+    "เลือกดูเนื้อหาใน ARCHRON ตามประเภท หรือค้นหาด้วยคำที่ต้องการ",
 };
 
 export const revalidate = 300;
@@ -24,7 +24,7 @@ export default async function DiscoverPage() {
       ]}
       kicker="ค้นพบ"
       title="ค้นพบ ARCHRON"
-      lead="สำรวจเนื้อหาตามหมวดหมู่และหัวข้อที่สนใจ — เริ่มจากสิ่งที่อยากรู้ หรือเดินตามเส้นทางที่แนะนำ"
+      lead="เลือกประเภทเนื้อหา หรือพิมพ์คำที่ต้องการค้นหา"
       ambient
       navCurrent="/discover"
     >

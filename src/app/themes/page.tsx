@@ -7,7 +7,7 @@ import { THEMES, entriesForTheme } from "@/lib/content/core/seeds/themes";
 export const metadata: Metadata = {
   title: "แก่นเรื่อง — ARCHRON",
   description:
-    "แก่นเรื่องข้ามศาสตร์ของ ARCHRON — รวมแนวคิด บทความ และนักคิดที่พูดถึงแก่นเดียวกัน แม้มาจากต่างศาสตร์",
+    "หัวข้อร่วมข้ามศาสตร์ของ ARCHRON สำหรับดูแนวคิด บทความ และนักคิดที่เกี่ยวข้องกัน",
 };
 
 export const revalidate = 300;
@@ -20,7 +20,7 @@ export default async function ThemesPage() {
       <PageHeader
         kicker="แก่นเรื่อง"
         title="แก่นเรื่องข้ามศาสตร์"
-        lead="แก่นความคิดที่ปรากฏซ้ำในหลายศาสตร์ — เลือกแก่นเรื่องเพื่อรวบรวมแนวคิด บทความ และนักคิดที่พูดถึงสิ่งเดียวกัน แม้จะมาจากจิตวิทยา ปรัชญา หรือศาสตร์อื่น"
+        lead="หัวข้อที่ปรากฏในหลายสาขา เลือกหัวข้อเพื่อดูแนวคิด บทความ และนักคิดที่เกี่ยวข้องกัน โดยไม่ถือว่าใช้ความหมายเดียวกันเสมอไป"
       />
       <section className="scroll-reveal stagger-1 tpl-reference">
         <div className="grid gap-4 sm:grid-cols-2">

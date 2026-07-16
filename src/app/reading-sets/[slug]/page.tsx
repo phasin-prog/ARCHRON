@@ -8,6 +8,7 @@ import { calculateReadingSetEstimatedMinutes } from "@/lib/content/core/seeds/re
 import { difficultyMeta } from "@/lib/content/core/cosmology";
 import { generatePageMetadata } from "@/lib/content/seo/metadata";
 import { articleLd, breadcrumbLd, organizationLd } from "@/lib/content/seo/structured-data";
+import { contentEntryHref } from "@/lib/content/routing";
 import type { DiscriminatedEntry } from "@/types/content";
 import { ArrowRightIcon, ClockIcon } from "@/components/icons";
 
@@ -144,10 +145,7 @@ export default async function ReadingSetDetailPage({
           <ol className="relative space-y-0">
             {set.steps.map((step, idx) => {
               const isLast = idx === set.steps.length - 1;
-              const href =
-                step.type === "person"
-                  ? `/thinkers/${step.slug}`
-                  : `/concepts/${step.slug}`;
+              const href = contentEntryHref({ contentType: step.type, slug: step.slug });
 
               return (
                 <li key={step.slug} className="relative flex gap-4 pb-6 last:pb-0">
@@ -204,11 +202,10 @@ export default async function ReadingSetDetailPage({
           </p>
           {set.steps.length > 0 && (
             <Link
-              href={
-                set.steps[0].type === "person"
-                  ? `/schools?person=${set.steps[0].slug}`
-                  : `/concepts/${set.steps[0].slug}`
-              }
+              href={contentEntryHref({
+                contentType: set.steps[0].type,
+                slug: set.steps[0].slug,
+              })}
               className="mt-4 inline-flex items-center gap-2 rounded-lg bg-accent/90 px-5 py-2.5 text-sm font-semibold text-bg transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
             >
               เริ่มขั้นตอนที่ 1

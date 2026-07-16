@@ -226,7 +226,7 @@ export function JungianServicePlatform({ pricingData }: JungianServicePlatformPr
                         : "bg-bg hover:bg-bg-elevated text-text-body"
                     }`}
                   >
-                    4. ราคา &amp; จอง
+                    4. ราคาและการจอง
                   </button>
                 </div>
               </div>
@@ -244,7 +244,7 @@ export function JungianServicePlatform({ pricingData }: JungianServicePlatformPr
                 <div className="tpl-reference py-10">
                   <div className="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-xl border border-border/60 bg-bg-card p-6 shadow-xs">
                     <div>
-                      <span className="text-xs font-semibold text-accent uppercase tracking-wider">NEXT STEP</span>
+                      <span className="text-xs font-semibold text-accent uppercase tracking-wider">ขั้นต่อไป</span>
                       <p className="mt-1 font-serif text-base font-bold text-text-heading">
                         สำรวจขอบเขตมิติการวิเคราะห์ 6 ประการ และตัวอย่างเอกสารรายงานสรุป
                       </p>
@@ -270,9 +270,9 @@ export function JungianServicePlatform({ pricingData }: JungianServicePlatformPr
                 <div className="tpl-reference py-10">
                   <div className="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-xl border border-border/60 bg-bg-card p-6 shadow-xs">
                     <div>
-                      <span className="text-xs font-semibold text-accent uppercase tracking-wider">NEXT STEP</span>
+                      <span className="text-xs font-semibold text-accent uppercase tracking-wider">ขั้นต่อไป</span>
                       <p className="mt-1 font-serif text-base font-bold text-text-heading">
-                        เรียนรู้ขั้นตอน 6 Phase ตั้งแต่การจองคิว ชำระเงิน สัมภาษณ์ จนถึงรับรายงาน
+                        ดูขั้นตอนทั้ง 8 ขั้น ตั้งแต่การจองคิว ชำระเงิน สัมภาษณ์ จนถึงรับรายงาน
                       </p>
                     </div>
                     <button
@@ -295,7 +295,7 @@ export function JungianServicePlatform({ pricingData }: JungianServicePlatformPr
                 <div className="tpl-reference py-10">
                   <div className="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-xl border border-border/60 bg-bg-card p-6 shadow-xs">
                     <div>
-                      <span className="text-xs font-semibold text-accent uppercase tracking-wider">READY TO BOOK</span>
+                      <span className="text-xs font-semibold text-accent uppercase tracking-wider">พร้อมจอง</span>
                       <p className="mt-1 font-serif text-base font-bold text-text-heading">
                         ตรวจสอบอัตราค่าบริการมาตรฐาน เงื่อนไข และออกใบแจ้งยอดชำระเงินออนไลน์
                       </p>

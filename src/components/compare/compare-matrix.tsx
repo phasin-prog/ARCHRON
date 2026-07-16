@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import type { ContentEntry } from "@/types/content";
 import { disciplineMeta, type DisciplineKey } from "@/components/discipline-meta";
+import { contentEntryHref, isLibraryEntry } from "@/lib/content/routing";
 import Link from "next/link";
 import { PersonIcon, SchoolIcon, SymbolIcon, ArrowRightIcon } from "@/components/icons";
 
@@ -22,30 +23,39 @@ function frameworkToDiscipline(framework?: string): DisciplineKey {
 }
 
 export function CompareMatrix({ entries }: { entries: ContentEntry[] }) {
-  const [slugA, setSlugA] = useState<string>(entries[0]?.slug ?? "");
-  const [slugB, setSlugB] = useState<string>(entries[1]?.slug ?? entries[0]?.slug ?? "");
+  const libraryEntries = useMemo(() => entries.filter(isLibraryEntry), [entries]);
+  const [slugA, setSlugA] = useState<string>(() => libraryEntries[0]?.slug ?? "");
+  const [slugB, setSlugB] = useState<string>(
+    () => libraryEntries[1]?.slug ?? libraryEntries[0]?.slug ?? "",
+  );
   const [searchFilter, setSearchFilter] = useState<string>("");
 
-  const itemA = useMemo(() => entries.find((e) => e.slug === slugA), [entries, slugA]);
-  const itemB = useMemo(() => entries.find((e) => e.slug === slugB), [entries, slugB]);
+  const itemA = useMemo(
+    () => libraryEntries.find((entry) => entry.slug === slugA),
+    [libraryEntries, slugA],
+  );
+  const itemB = useMemo(
+    () => libraryEntries.find((entry) => entry.slug === slugB),
+    [libraryEntries, slugB],
+  );
 
   const filteredOptions = useMemo(() => {
-    if (!searchFilter.trim()) return entries;
+    if (!searchFilter.trim()) return libraryEntries;
     const q = searchFilter.trim().toLowerCase();
-    return entries.filter(
+    return libraryEntries.filter(
       (e) =>
         e.title.toLowerCase().includes(q) ||
         (e.subtitle && e.subtitle.toLowerCase().includes(q)) ||
         (e.framework && e.framework.toLowerCase().includes(q))
     );
-  }, [entries, searchFilter]);
+  }, [libraryEntries, searchFilter]);
 
   const renderColumn = (item?: ContentEntry, sideLabel?: string, onSelect?: (slug: string) => void, currentSlug?: string) => {
     if (!item) return <div className="p-8 text-center text-text-secondary">กรุณาเลือกมโนทัศน์หรือบทความเพื่อเปรียบเทียบ</div>;
 
     const discKey = frameworkToDiscipline(item.framework);
     const meta = disciplineMeta(discKey);
-    const href = item.contentType === "concept" ? `/concepts/${item.slug}` : `/articles/${item.slug}`;
+    const href = contentEntryHref(item);
 
     return (
       <div className="archron-panel relative flex flex-col justify-between p-6 sm:p-8 space-y-6">
@@ -66,7 +76,7 @@ export function CompareMatrix({ entries }: { entries: ContentEntry[] }) {
             onChange={(e) => onSelect?.(e.target.value)}
             className="w-full rounded-md border border-text-heading/20 bg-bg-card px-3 py-2 text-sm text-text-heading outline-none focus:border-accent"
           >
-            {entries.map((e) => (
+            {libraryEntries.map((e) => (
               <option key={e.slug} value={e.slug}>
                 {e.title} ({e.framework ?? e.contentType})
               </option>
@@ -113,8 +123,8 @@ export function CompareMatrix({ entries }: { entries: ContentEntry[] }) {
 
         {/* เนื้อหาข้อความสรุป */}
         <div className="space-y-2 text-sm leading-relaxed text-text-body">
-          <h3 className="text-sm font-medium text-text-secondary/80">ความหมายทางจิตวิทยา/ปรัชญา</h3>
-          <p className="line-clamp-6">{item.visualExplanation ?? item.technicalMeaning ?? "คลิกอ่านฉบับเต็มเพื่อดูรายละเอียดเชิงลึกของแนวคิดนี้"}</p>
+          <h3 className="text-sm font-medium text-text-secondary/80">คำอธิบายโดยย่อ</h3>
+          <p className="line-clamp-6">{item.visualExplanation ?? item.technicalMeaning ?? "อ่านฉบับเต็มเพื่อดูรายละเอียดของรายการนี้"}</p>
         </div>
 
         {/* ปุ่มไปหน้าอ่านฉบับเต็ม */}
@@ -136,15 +146,15 @@ export function CompareMatrix({ entries }: { entries: ContentEntry[] }) {
       {/* ส่วนกรองคำค้นหาในเมนูเปรียบเทียบ */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl bg-bg-card/30 p-4 border border-text-heading/10">
         <div className="text-sm text-text-heading">
-          <span className="font-serif text-base text-accent">ระบบตารางเปรียบเทียบข้ามศาสตร์</span>
-          <p className="text-xs text-text-secondary mt-0.5">เลือกมโนทัศน์หรือบทความ 2 รายการเพื่อวิเคราะห์จุดร่วมและข้อแตกต่าง</p>
+          <span className="font-serif text-base text-accent">เปรียบเทียบรายการในคลัง</span>
+          <p className="text-xs text-text-secondary mt-0.5">เลือกสองรายการเพื่อดูข้อมูลที่เหมือนและต่างกัน</p>
         </div>
       </div>
 
       {/* Grid 2 คอลัมน์เปรียบเทียบ */}
       <div className="grid gap-6 lg:grid-cols-2 items-start">
-        {renderColumn(itemA, "ฝ่ายแรก (Subject A)", setSlugA, slugA)}
-        {renderColumn(itemB, "ฝ่ายเปรียบเทียบ (Subject B)", setSlugB, slugB)}
+        {renderColumn(itemA, "รายการที่หนึ่ง", setSlugA, slugA)}
+        {renderColumn(itemB, "รายการที่สอง", setSlugB, slugB)}
       </div>
     </div>
   );

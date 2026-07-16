@@ -6,12 +6,12 @@ import type { SearchItem, SearchType } from "./types";
 import { normalizeText } from "./tokenizer";
 
 const SECTIONS: { title: string; href: string; description: string }[] = [
-  { title: "บทความ", href: "/articles", description: "งานอ่านที่อธิบายและตีความแนวคิด" },
-  { title: "คลังแนวคิด", href: "/concepts", description: "ระบบความรู้แบบเชื่อมโยง (Wiki)" },
-  { title: "แผนที่ความสัมพันธ์", href: "/constellation", description: "กราฟความสัมพันธ์ระหว่างแนวคิด" },
-  { title: "นักปราชญ์", href: "/thinkers", description: "ไดเรกทอรีนักปราชญ์และแนวคิดสำคัญ" },
-  { title: "เส้นทางการอ่าน / ซีรีส์", href: "/reading-sets", description: "ลำดับการอ่านจากพื้นฐานสู่ความลึก" },
-  { title: "แหล่งอ้างอิง", href: "/sources", description: "ฐานความรู้และการอ้างอิงภายใน" },
+  { title: "บทความ", href: "/articles", description: "บทความที่อธิบายและตีความแนวคิด" },
+  { title: "คลังแนวคิด", href: "/concepts", description: "คำศัพท์และแนวคิดที่เชื่อมโยงกัน" },
+  { title: "แผนที่ความสัมพันธ์", href: "/constellation", description: "แผนภาพความเชื่อมโยงระหว่างเนื้อหา" },
+  { title: "นักคิด", href: "/thinkers", description: "รายชื่อนักคิดและสำนักคิดที่เกี่ยวข้อง" },
+  { title: "เส้นทางการอ่าน / ซีรีส์", href: "/reading-sets", description: "ชุดเนื้อหาที่จัดลำดับการอ่านไว้" },
+  { title: "แหล่งอ้างอิง", href: "/sources", description: "รายการแหล่งอ้างอิงภายในคลัง" },
   { title: "ทรัพยากรและลิงก์ภายนอก", href: "/external-links", description: "ลิงก์ งานวิจัย และคลังข้อมูลภายนอก" },
   { title: "Manifesto", href: "/manifesto", description: "จุดยืนและแนวทางของโครงการ" },
   { title: "คำถามที่พบบ่อย", href: "/faq", description: "คำถามที่พบบ่อยเกี่ยวกับโครงการ วิธีอ่าน ระดับเนื้อหา และการอ้างอิง" },

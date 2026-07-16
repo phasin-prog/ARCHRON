@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { PageScaffold } from "@/components/page-scaffold";
 import { getPublicEntryBySlug } from "@/lib/content/publishing/public-source";
+import { entries } from "@/lib/content/core/seeds/entries";
+import { isLibraryEntry } from "@/lib/content/routing";
 import { ReadingPage } from "@/components/reading/reading-page";
 import { ReadingErrorBoundary } from "@/components/reading/reading-error-boundary";
 import { generatePageMetadata } from "@/lib/content/seo/metadata";
@@ -15,24 +15,30 @@ interface PageProps {
 export const dynamicParams = true;
 export const revalidate = 300;
 
-export async function generateStaticParams() {
-  const { allEntrySlugs } = await import("@/lib/content/core/seeds/entries");
-  return allEntrySlugs()
-    .filter((slug) => slug.startsWith("book-"))
-    .map((slug) => ({ slug }));
+export function generateStaticParams() {
+  return entries
+    .filter(
+      (entry) =>
+        entry.status === "published" &&
+        entry.contentType === "book" &&
+        isLibraryEntry(entry),
+    )
+    .map((entry) => ({ slug: entry.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const entry = await getPublicEntryBySlug(slug);
-  if (!entry || entry.contentType !== "book") return { title: "ไม่พบหนังสือ — ARCHRON" };
+  if (!entry || entry.contentType !== "book" || !isLibraryEntry(entry)) {
+    return { title: "ไม่พบหนังสือ — ARCHRON" };
+  }
   return generatePageMetadata(entry);
 }
 
 export default async function BookDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const entry = await getPublicEntryBySlug(slug);
-  if (!entry || entry.contentType !== "book") notFound();
+  if (!entry || entry.contentType !== "book" || !isLibraryEntry(entry)) notFound();
 
   const ldJson = {
     "@context": "https://schema.org",
@@ -51,22 +57,9 @@ export default async function BookDetailPage({ params }: PageProps) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJson) }} />
-      <PageScaffold
-        breadcrumb={[
-          { label: "หน้าแรก", href: "/" },
-          { label: "คลังความรู้", href: "/knowledge" },
-          { label: "หนังสือ", href: "/books" },
-          { label: entry.title },
-        ]}
-        kicker="หนังสือ"
-        title={entry.title}
-        lead={entry.shortDescription}
-        navCurrent="/books"
-      >
-        <ReadingErrorBoundary>
-          <ReadingPage entry={entry} section="books" />
-        </ReadingErrorBoundary>
-      </PageScaffold>
+      <ReadingErrorBoundary>
+        <ReadingPage entry={entry} section="books" />
+      </ReadingErrorBoundary>
     </>
   );
 }

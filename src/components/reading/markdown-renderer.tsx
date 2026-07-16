@@ -1,5 +1,6 @@
-import React, { type ReactNode, type ReactElement } from "react";
+import React, { type ReactElement, type ReactNode } from "react";
 import ReactMarkdown, { type Components } from "react-markdown";
+import type { PluggableList } from "unified";
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
 import remarkFrontmatter from "remark-frontmatter";
@@ -9,9 +10,19 @@ import { InternalConceptLink } from "@/components/reading/internal-concept-link"
 import { CodeBlock, InlineCode } from "@/components/reading/code-block";
 import { ResponsiveTable, ResponsiveTableHeader, ResponsiveTableCell } from "@/components/reading/responsive-table";
 import { ResponsiveImage } from "@/components/reading/responsive-image";
+import {
+  BookPreview,
+  CitationNote,
+  DefinitionBlock,
+  InteractiveTimeline,
+  SymbolCard,
+  ThinkerCard,
+  type TimelineItem,
+} from "@/components/reading/semantic";
+import { resolveIconElement } from "@/lib/content/core/icon-map";
 
 // ปรับแต่ง Schema สำหรับ rehype-sanitize เพื่อป้องกัน XSS แต่ยังรักษา Class, ID, data attributes ของ Archron ไว้ครบถ้วน
-const sanitizeSchema = {
+export const markdownSanitizeSchema = {
   ...defaultSchema,
   attributes: {
     ...defaultSchema.attributes,
@@ -24,6 +35,12 @@ const sanitizeSchema = {
     input: ["type", "checked", "disabled"],
   },
 };
+
+export const markdownRemarkPlugins = [remarkGfm, remarkBreaks, remarkFrontmatter];
+export const markdownRehypePlugins: PluggableList = [
+  rehypeSlug,
+  [rehypeSanitize, markdownSanitizeSchema],
+];
 
 // แปลงสัญลักษณ์พิเศษของ ARCHRON ให้เป็น Markdown มาตรฐานก่อนส่งเข้า ReactMarkdown:
 // 1. [[cite: 1, 2]] -> [1](#ref-1)[2](#ref-2)
@@ -162,26 +179,162 @@ export const mdComponents: Components = {
 };
 
 // คอมโพเนนต์กลางสำหรับเรนเดอร์ Markdown ในระบบ ARCHRON (WYSIWYG 100% & Production-grade)
+export type CalloutType = "NOTE" | "IMPORTANT" | "TIP" | "WARNING" | "CAUTION";
+
+function getCalloutStyling(type: CalloutType) {
+  switch (type) {
+    case "NOTE": return { border: "border-l-4 border-accent", bg: "bg-accent/5", icon: "info", title: "ข้อสังเกต / บันทึกความรู้ (NOTE)", titleColor: "text-accent" };
+    case "IMPORTANT": return { border: "border-l-4 border-purple-500", bg: "bg-purple-500/5", icon: "priority_high", title: "สาระสำคัญ (IMPORTANT)", titleColor: "text-purple-600 dark:text-purple-400" };
+    case "TIP": return { border: "border-l-4 border-emerald-500", bg: "bg-emerald-500/5", icon: "lightbulb", title: "คำแนะนำและการประยุกต์ใช้ (TIP)", titleColor: "text-emerald-600 dark:text-emerald-400" };
+    case "WARNING": return { border: "border-l-4 border-amber-500", bg: "bg-amber-500/5", icon: "warning", title: "ข้อควรระวัง / ข้อจำกัดทฤษฎี (WARNING)", titleColor: "text-amber-600 dark:text-amber-400" };
+    case "CAUTION": return { border: "border-l-4 border-red-500", bg: "bg-red-500/5", icon: "dangerous", title: "คำเตือนความเสี่ยง (CAUTION)", titleColor: "text-red-600 dark:text-red-400" };
+  }
+}
+
+export function CalloutBox({ type, children }: { type: CalloutType; children: ReactNode }) {
+  const styling = getCalloutStyling(type);
+  return <aside className={`my-6 rounded-r-xl ${styling.border} ${styling.bg} p-4 shadow-xs transition-all sm:p-5`}><div className="mb-2 flex items-center gap-2 font-sans text-sm font-bold tracking-wide"><span className="flex h-5 w-5 items-center justify-center rounded-full bg-current/10">{resolveIconElement(styling.icon, { className: `h-3.5 w-3.5 ${styling.titleColor}` })}</span><span className={styling.titleColor}>{styling.title}</span></div><div className="font-serif text-sm leading-relaxed text-text-body/90 [&>p]:mb-2 [&>p:last-child]:mb-0">{children}</div></aside>;
+}
+
+function renderBlockquote({ children, ...props }: React.ComponentPropsWithoutRef<"blockquote">) {
+  const childArray = React.Children.toArray(children);
+  const firstChild = childArray[0];
+  if (React.isValidElement(firstChild) && firstChild.type === "p") {
+    const paragraphChildren = React.Children.toArray((firstChild.props as { children?: ReactNode }).children);
+    const firstParagraphChild = paragraphChildren[0];
+    if (typeof firstParagraphChild === "string") {
+      const match = firstParagraphChild.trim().match(/^\[!(NOTE|IMPORTANT|TIP|WARNING|CAUTION)\](?:\s+(.*))?/i);
+      if (match) {
+        const updatedChildren = match[2] ? [match[2], ...paragraphChildren.slice(1)] : paragraphChildren.slice(1);
+        const updatedParagraph = React.cloneElement(firstChild as ReactElement<{ children?: ReactNode }>, {}, updatedChildren.length > 0 ? updatedChildren : null);
+        return <CalloutBox type={match[1].toUpperCase() as CalloutType}>{updatedChildren.length > 0 ? updatedParagraph : null}{childArray.slice(1)}</CalloutBox>;
+      }
+    }
+  }
+  return <blockquote className="my-6 border-l-2 border-premium/50 bg-premium/5 py-3 pl-4 pr-3 font-serif italic leading-relaxed text-text-body/90" {...props}>{children}</blockquote>;
+}
+
+type SemanticBlockName = "ThinkerCard" | "DefinitionBlock" | "BookPreview" | "SymbolCard" | "InteractiveTimeline" | "CitationNote";
+type SemanticBlock = { name: SemanticBlockName; attributes: Record<string, string> };
+const semanticBlockNames = new Set<SemanticBlockName>(["ThinkerCard", "DefinitionBlock", "BookPreview", "SymbolCard", "InteractiveTimeline", "CitationNote"]);
+const semanticBlockMarker = "ARCHRON_SEMANTIC_BLOCK:";
+const semanticBlockPattern = /^ARCHRON_SEMANTIC_BLOCK:([^\s]+)$/;
+
+function parseSemanticAttributes(source: string): Record<string, string> {
+  const attributes: Record<string, string> = {};
+  const matcher = /([A-Za-z][\w-]*)\s*=\s*(?:"([^"]*)"|'([^']*)')/g;
+  let match: RegExpExecArray | null;
+  while ((match = matcher.exec(source)) !== null) attributes[match[1]] = match[2] ?? match[3] ?? "";
+  return attributes;
+}
+
+/** Converts recognised standalone semantic blocks without enabling raw HTML. */
+export function semanticBlockify(markdown: string): string {
+  const lines = markdown.split("\n");
+  const output: string[] = [];
+  let fence: "`" | "~" | null = null;
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index];
+    const fenceMatch = line.match(/^\s*(`{3,}|~{3,})/);
+    if (fenceMatch) {
+      const marker = fenceMatch[1][0] as "`" | "~";
+      fence = fence === marker ? null : fence ?? marker;
+      output.push(line);
+      continue;
+    }
+    if (fence) { output.push(line); continue; }
+    const opening = line.match(/^\s*<(ThinkerCard|DefinitionBlock|BookPreview|SymbolCard|InteractiveTimeline|CitationNote)\b(.*)$/);
+    if (!opening) { output.push(line); continue; }
+    const blockLines = [opening[2]];
+    while (!blockLines.join("\n").includes("/>") && index + 1 < lines.length) blockLines.push(lines[++index]);
+    const rawAttributes = blockLines.join("\n");
+    const closingIndex = rawAttributes.indexOf("/>");
+    if (closingIndex === -1 || rawAttributes.slice(closingIndex + 2).trim() !== "") { output.push(line, ...blockLines.slice(1)); continue; }
+    const block: SemanticBlock = { name: opening[1] as SemanticBlockName, attributes: parseSemanticAttributes(rawAttributes.slice(0, closingIndex)) };
+    output.push(`${semanticBlockMarker}${encodeURIComponent(JSON.stringify(block))}`);
+  }
+  return output.join("\n");
+}
+
+function getSemanticBlock(value: string): SemanticBlock | null {
+  const match = value.match(semanticBlockPattern);
+  if (!match) return null;
+  try {
+    const parsed: unknown = JSON.parse(decodeURIComponent(match[1]));
+    if (typeof parsed === "object" && parsed !== null && "name" in parsed && "attributes" in parsed && semanticBlockNames.has((parsed as { name: SemanticBlockName }).name) && typeof (parsed as { attributes: unknown }).attributes === "object") return parsed as SemanticBlock;
+  } catch { /* A malformed marker remains paragraph text. */ }
+  return null;
+}
+
+function stringAttribute(attributes: Record<string, string>, ...names: string[]) { return names.map((name) => attributes[name]).find(Boolean) ?? ""; }
+function safeExternalUrl(value: string | undefined) { return value && /^https?:\/\//i.test(value) ? value : undefined; }
+
+function timelineItems(value: string | undefined): TimelineItem[] {
+  if (!value) return [];
+  try {
+    const parsed: unknown = JSON.parse(value);
+    if (!Array.isArray(parsed)) return [];
+    return parsed.flatMap((item): TimelineItem[] => {
+      if (typeof item !== "object" || item === null || !("year" in item) || !("title" in item) || !("description" in item) || (typeof item.year !== "string" && typeof item.year !== "number") || typeof item.title !== "string" || typeof item.description !== "string") return [];
+      return [{ year: item.year, title: item.title, description: item.description, thinker: "thinker" in item && typeof item.thinker === "string" ? item.thinker : undefined }];
+    });
+  } catch { return []; }
+}
+
+function renderSemanticBlock(block: SemanticBlock) {
+  const { attributes } = block;
+  switch (block.name) {
+    case "ThinkerCard": return <ThinkerCard {...attributes} />;
+    case "DefinitionBlock": return <DefinitionBlock term={stringAttribute(attributes, "term", "title", "name")} definition={stringAttribute(attributes, "definition", "meaning")} phonetic={attributes.phonetic} etymology={attributes.etymology} category={attributes.category} />;
+    case "BookPreview": return <BookPreview slug={attributes.slug ?? ""} titleTh={stringAttribute(attributes, "titleTh", "title", "name")} titleEn={attributes.titleEn} author={attributes.author ?? ""} year={attributes.year} coverUrl={safeExternalUrl(attributes.coverUrl)} summary={attributes.summary} />;
+    case "SymbolCard": return <SymbolCard slug={attributes.slug ?? ""} nameTh={stringAttribute(attributes, "nameTh", "name", "title")} nameEn={attributes.nameEn} archetype={attributes.archetype} shortMeaning={stringAttribute(attributes, "shortMeaning", "meaning", "definition")} />;
+    case "InteractiveTimeline": return <InteractiveTimeline items={timelineItems(attributes.items)} />;
+    case "CitationNote": { const number = Number(attributes.number); return <CitationNote id={stringAttribute(attributes, "id", "number")} number={Number.isFinite(number) ? number : 0} text={attributes.text ?? ""} sourceUrl={safeExternalUrl(attributes.sourceUrl)} />; }
+  }
+}
+
+function renderParagraph({ children, ...props }: React.ComponentPropsWithoutRef<"p">) {
+  const paragraphChildren = React.Children.toArray(children);
+  if (paragraphChildren.length === 1 && typeof paragraphChildren[0] === "string") {
+    const block = getSemanticBlock(paragraphChildren[0]);
+    if (block) return renderSemanticBlock(block);
+  }
+  return <p {...props}>{children}</p>;
+}
+
+export interface MarkdownRendererProps {
+  content: string | null | undefined;
+  className?: string;
+  customComponents?: Partial<Components>;
+  enableAutoLinking?: boolean;
+  enableCallouts?: boolean;
+  enableSemanticBlocks?: boolean;
+}
+
+export function createMarkdownComponents({ customComponents, enableCallouts = true, enableSemanticBlocks = true }: Pick<MarkdownRendererProps, "customComponents" | "enableCallouts" | "enableSemanticBlocks">): Components {
+  return { ...mdComponents, ...(enableCallouts ? { blockquote: renderBlockquote } : {}), ...(enableSemanticBlocks ? { p: renderParagraph } : {}), ...customComponents };
+}
+
 export function MarkdownRenderer({
   content,
   className = "md-body",
   customComponents,
-}: {
-  content: string | null | undefined;
-  className?: string;
-  customComponents?: Partial<Components>;
-}) {
+  enableAutoLinking = true,
+  enableCallouts = true,
+  enableSemanticBlocks = true,
+}: MarkdownRendererProps) {
   if (!content || content.trim() === "") return null;
 
-  const processedContent = wikilinkify(content);
-  const mergedComponents: Components = { ...mdComponents, ...customComponents };
+  const linkedContent = enableAutoLinking ? wikilinkify(content) : content;
+  const processedContent = enableSemanticBlocks ? semanticBlockify(linkedContent) : linkedContent;
+  const components = createMarkdownComponents({ customComponents, enableCallouts, enableSemanticBlocks });
 
   return (
     <div className={className}>
       <ReactMarkdown
-        remarkPlugins={[remarkGfm, remarkBreaks, remarkFrontmatter]}
-        rehypePlugins={[rehypeSlug, [rehypeSanitize, sanitizeSchema]]}
-        components={mergedComponents}
+        remarkPlugins={markdownRemarkPlugins}
+        rehypePlugins={markdownRehypePlugins}
+        components={components}
       >
         {processedContent}
       </ReactMarkdown>

@@ -1,4 +1,5 @@
 import type { EditorDraft } from "./publish-validation";
+import { isPricingPageData } from "@/lib/content/guide/pricing-data";
 
 export type SeverityLevel = "error" | "warning" | "suggestion";
 
@@ -11,6 +12,46 @@ export type ValidationIssue = {
   sectionName: string;
 };
 
+function guidePricingValidation(draft: EditorDraft) {
+  const issues: ValidationIssue[] = [];
+
+  if (!draft.title.trim()) {
+    issues.push({
+      fieldId: "guide-pricing-form",
+      label: "ชื่อข้อมูลราคา",
+      severity: "error",
+      message: "ระบุชื่อข้อมูลราคาก่อนเผยแพร่",
+      whyItMatters: "ใช้แยกระเบียนการตั้งค่าหน้า Guide ออกจากเนื้อหาในคลัง",
+      sectionName: "ข้อมูลราคาและกิจกรรม",
+    });
+  }
+
+  let pricingData: unknown;
+  try {
+    pricingData = JSON.parse(draft.bodyMarkdown);
+  } catch {
+    pricingData = null;
+  }
+
+  if (!isPricingPageData(pricingData)) {
+    issues.push({
+      fieldId: "guide-pricing-form",
+      label: "ข้อมูลราคาและกิจกรรม",
+      severity: "error",
+      message: "กรอกข้อมูลราคาและกิจกรรมให้ครบก่อนเผยแพร่",
+      whyItMatters: "หน้า Guide ต้องใช้ข้อมูลที่มีโครงสร้างครบถ้วนเพื่อแสดงผลได้ถูกต้อง",
+      sectionName: "ข้อมูลราคาและกิจกรรม",
+    });
+  }
+
+  const errors = issues.filter((issue) => issue.severity === "error");
+  const warnings = issues.filter((issue) => issue.severity === "warning");
+  const suggestions = issues.filter((issue) => issue.severity === "suggestion");
+  const byField = Object.fromEntries(issues.map((issue) => [issue.fieldId, issue]));
+
+  return { errors, warnings, suggestions, all: issues, byField, canPublish: errors.length === 0 };
+}
+
 export function validateEditorDraft(
   draft: EditorDraft,
   touchedFields?: Set<string>
@@ -22,6 +63,10 @@ export function validateEditorDraft(
   byField: Record<string, ValidationIssue>;
   canPublish: boolean;
 } {
+  if (draft.slug === "guide-pricing") {
+    return guidePricingValidation(draft);
+  }
+
   const issues: ValidationIssue[] = [];
   const ct = draft.contentType || "article";
   const isArticle = ct === "article";

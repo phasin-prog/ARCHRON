@@ -27,7 +27,7 @@ export const EXTERNAL_CATEGORIES: ExternalCategory[] = [
       {
         title: "International Association for Analytical Psychology (IAAP)",
         description:
-          "สมาคมวิชาชีพและศูนย์กลางการรับรองนักจิตวิทยาวิเคราะห์สายตรงของ Carl Jung ในระดับสากล",
+          "สมาคมวิชาชีพด้านจิตวิทยาวิเคราะห์ในระดับนานาชาติ",
         url: "https://iaap.org",
         tags: ["Official Organization", "Jungian"],
         checkedAt: "2026-07-02",
@@ -35,7 +35,7 @@ export const EXTERNAL_CATEGORIES: ExternalCategory[] = [
       {
         title: "Philemon Foundation",
         description:
-          "มูลนิธิที่อุทิศตนเพื่อชำระ รวบรวม และแปลต้นฉบับงานเขียนที่ยังไม่เคยเผยแพร่ของ Carl Jung ออกมาเป็น Collected Works",
+          "มูลนิธิที่จัดทำและเผยแพร่งานต้นฉบับและเอกสารเกี่ยวกับ Carl Jung",
         url: "https://philemonfoundation.org",
         tags: ["Manuscripts", "Research"],
         checkedAt: "2026-07-02",
@@ -51,7 +51,7 @@ export const EXTERNAL_CATEGORIES: ExternalCategory[] = [
       {
         title: "International Psychoanalytical Association (IPA)",
         description:
-          "องค์กรระดับโลกที่ก่อตั้งโดย Sigmund Freud เพื่อวางรากฐานและรับรองมาตรฐานการฝึกฝนวิชาชีพจิตวิเคราะห์",
+          "องค์กรระหว่างประเทศด้านจิตวิเคราะห์ที่ก่อตั้งโดย Sigmund Freud",
         url: "https://www.ipa.world",
         tags: ["Freudian", "Psychoanalysis"],
         checkedAt: "2026-07-02",
@@ -67,7 +67,7 @@ export const EXTERNAL_CATEGORIES: ExternalCategory[] = [
       {
         title: "American Psychological Association (APA)",
         description:
-          "คลังทรัพยากร ข้อมูลงานวิจัย และมาตรฐานทางวิชาการที่ใหญ่ที่สุดในด้านจิตวิทยาร่วมสมัย",
+          "องค์กรวิชาชีพที่เผยแพร่ทรัพยากร งานวิจัย และมาตรฐานด้านจิตวิทยาร่วมสมัย",
         url: "https://www.apa.org",
         tags: ["Academic", "Standard"],
         checkedAt: "2026-07-02",
@@ -83,7 +83,7 @@ export const EXTERNAL_CATEGORIES: ExternalCategory[] = [
       {
         title: "Stanford Encyclopedia of Philosophy (SEP)",
         description:
-          "แหล่งอ้างอิงและสารานุกรมปรัชญาออนไลน์ที่ผ่านการ Peer-review โดยนักวิชาการอย่างเข้มข้น ครอบคลุมทั้งญาณวิทยาและจิตวิทยาเชิงปรัชญา",
+          "สารานุกรมปรัชญาออนไลน์ที่เรียบเรียงโดยนักวิชาการ ครอบคลุมญาณวิทยาและปรัชญาจิต",
         url: "https://plato.stanford.edu",
         tags: ["Encyclopedia", "Epistemology"],
         checkedAt: "2026-07-02",
@@ -99,7 +99,7 @@ export const EXTERNAL_CATEGORIES: ExternalCategory[] = [
       {
         title: "Society for Neuroscience (SfN)",
         description:
-          "ฐานข้อมูลและสมาคมวิจัยที่มุ่งเน้นการศึกษาโครงสร้างทางชีวภาพของสมองและระบบประสาทที่ส่งผลต่อพฤติกรรมและจิตใจ",
+          "สมาคมและแหล่งทรัพยากรด้านการศึกษาสมอง ระบบประสาท และพฤติกรรม",
         url: "https://www.sfn.org",
         tags: ["Neuroscience", "Research"],
         checkedAt: "2026-07-02",
@@ -113,9 +113,9 @@ export const EXTERNAL_CATEGORIES: ExternalCategory[] = [
     icon: "public",
     items: [
       {
-        title: "AnthroSource , American Anthropological Association",
+        title: "AnthroSource, American Anthropological Association",
         description:
-          "คลังวารสารและงานวิจัยเชิงมานุษยวิทยา วัฒนธรรม และตำนานวิทยา ซึ่งเป็นประโยชน์อย่างยิ่งในการศึกษา Archetype ร่วมของมนุษยชาติ",
+          "คลังวารสารและงานวิจัยด้านมานุษยวิทยา วัฒนธรรม และตำนานวิทยา",
         url: "https://anthrosource.onlinelibrary.wiley.com",
         tags: ["Culture", "Mythology", "Journals"],
         checkedAt: "2026-07-02",

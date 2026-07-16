@@ -6,13 +6,13 @@ export function IntroductionSection() {
       <div className="tpl-reference">
         <div className="mx-auto max-w-3xl text-center">
           <span className="text-xs font-semibold uppercase tracking-[0.22em] text-accent/85">
-            Philosophical & Psychological Foundation
+            กรอบคิดทางจิตวิทยา
           </span>
           <h2 className="mt-3 font-serif text-3xl font-bold text-text-heading md:text-4xl">
             Jungian Type Analysis คืออะไร?
           </h2>
           <p className="mt-4 font-serif text-base leading-relaxed text-text-body/90 md:text-lg">
-            ไม่ใช่แบบทดสอบบุคลิกภาพสำเร็จรูป (SaaS Test) และไม่ใช่การจำแนกคนออกเป็นกล่อง 16 ประเภท แต่เป็นกระบวนการวิเคราะห์ทางจิตวิทยาเชิงลึก เพื่อสังเกตทิศทางการไหลเวียนพลังงานจิตตามธรรมชาติ และการทำงานร่วมกันของช่องทางรับรู้ในตัวตนของคุณ
+            ไม่ใช่แบบทดสอบสำเร็จรูปหรือการจัดคนไว้ใน 16 ประเภท แต่เป็นการสนทนาเพื่อพิจารณาทิศทางพลังงานจิตและการทำงานร่วมกันของช่องทางรับรู้ตามกรอบ Jungian
           </p>
         </div>
 
@@ -25,7 +25,7 @@ export function IntroductionSection() {
               1. เข้าใจทิศทางพลังงานจิตพื้นฐาน
             </h3>
             <p className="mt-2.5 text-xs leading-relaxed text-text-secondary/85">
-              ค้นพบว่าตัวตนของคุณดึงพลังงานและฟื้นฟูจิตใจจากโลกภายใน (Introversion) หรือโลกภายนอก (Extraversion) เป็นหลัก เพื่อการวางตัวและบริหารพลังงานในชีวิตประจำวันอย่างไม่ฝืนธรรมชาติ
+              พิจารณาว่าคุณมักหันความสนใจไปยังโลกภายใน (Introversion) หรือโลกภายนอก (Extraversion) เป็นหลัก
             </p>
           </div>
 
@@ -37,7 +37,7 @@ export function IntroductionSection() {
               2. ถอดรหัสโครงสร้าง Cognitive Stack
             </h3>
             <p className="mt-2.5 text-xs leading-relaxed text-text-secondary/85">
-              มองเห็นลำดับชั้นของฟังก์ชันจิต (Thinking, Feeling, Sensation, Intuition) รู้ว่าช่องทางใดคือเครื่องมือหลักที่ทรงพลัง (Dominant) และช่องทางใดคือจุดบอดที่มักถูกกดทับ (Inferior)
+              ทำความเข้าใจลำดับของ Thinking, Feeling, Sensation และ Intuition รวมถึงฟังก์ชันหลัก (Dominant) และฟังก์ชันด้อย (Inferior)
             </p>
           </div>
 
@@ -49,14 +49,14 @@ export function IntroductionSection() {
               3. รู้เท่าทันกลไกยามเครียดและ Shadow
             </h3>
             <p className="mt-2.5 text-xs leading-relaxed text-text-secondary/85">
-              ตระหนักรู้ต่อปฏิกิริยาป้องกันตัวอัตโนมัติเมื่อ Ego รู้สึกถูกคุกคาม และเรียนรู้ที่จะโอบรับเงาในจิตไร้สำนึก (The Shadow) เพื่อสร้างความมั่นคงทางอารมณ์และอิสรภาพทางจิตใจ
+              สังเกตปฏิกิริยาป้องกันตัวเมื่อ Ego รู้สึกถูกคุกคาม และพิจารณาบทบาทของ The Shadow ในจิตไร้สำนึก
             </p>
           </div>
         </div>
 
         <div className="mt-12 rounded-lg border border-border/40 bg-gradient-to-r from-bg-elevated/60 via-bg-card/80 to-bg-elevated/60 p-6 text-center md:p-8">
           <p className="font-serif text-sm italic text-text-body/90 md:text-base">
-            &ldquo;ความประสงค์ของการวิเคราะห์ไม่ใช่เพื่อเปลี่ยนแปลงตัวตนให้เป็นคนอื่น แต่เพื่อให้คุณตระหนักรู้ในกลไกที่คุ้นเคย และสามารถเลือกใช้ชีวิตด้วยความยืดหยุ่นอย่างมีสติ&rdquo;
+            เป้าหมายของการวิเคราะห์คือการเห็นกลไกที่คุ้นเคยชัดขึ้น ไม่ใช่การเปลี่ยนให้คุณเป็นคนอื่น
           </p>
         </div>
       </div>

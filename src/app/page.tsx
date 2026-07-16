@@ -73,6 +73,8 @@ async function ContentGrid() {
         </div>
       </section>
 
+      <CTASection />
+
       {/* ARTICLES */}
       {articles.length > 0 && (
         <section className="tpl-content mt-20">
@@ -193,6 +195,7 @@ function ContentGridSkeleton() {
       <section className="relative z-10 -mt-8 flex justify-center px-4">
         <div className="w-full max-w-[720px] h-16 animate-pulse rounded-2xl bg-surface-2" />
       </section>
+      <CTASection />
       <div className="tpl-content mt-20 space-y-6">
         {[1, 2, 3].map((i) => (
           <div key={i}>
@@ -214,12 +217,10 @@ export default function HomePage() {
     <main>
       <HeroSection />
 
-      {/* Suspense: stream content grid (search + articles + concepts) */}
+      {/* Suspense: stream content grid (search + CTA + articles + concepts) */}
       <Suspense fallback={<ContentGridSkeleton />}>
         <ContentGrid />
       </Suspense>
-
-      <CTASection />
 
       {/* Suspense: recently viewed (client-only localStorage + dynamic) */}
       <Suspense fallback={<RecentlyViewedSkeleton />}>

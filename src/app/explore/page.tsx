@@ -21,7 +21,7 @@ export default async function ExplorePage() {
         { label: "คลังความรู้", href: "/knowledge" },
         { label: "ศูนย์รวมการสำรวจ" },
       ]}
-      kicker="EXPLORE HUB"
+      kicker="ศูนย์รวมการสำรวจ"
       title="ศูนย์รวมการสำรวจความรู้"
       lead="สำรวจความหมาย ข้ามสายใยปัญญา และสุ่มค้นพบองค์ความรู้ที่เป็นรากฐานของมนุษย์ เพื่อขยายขอบเขตความสงสัยใคร่ครวญ (Curiosity Psychology)"
       ambient

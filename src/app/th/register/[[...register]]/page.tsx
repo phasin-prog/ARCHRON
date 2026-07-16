@@ -1,28 +1,26 @@
+"use client";
+
 import { SignUp } from "@clerk/nextjs";
 import { ArchronLogomark } from "@/components/icons";
+
+export const dynamic = "force-dynamic";
 
 export default function RegisterPage() {
   return (
     <main className="flex min-h-[75vh] flex-col items-center justify-center px-4 py-16 bg-bg relative overflow-hidden">
-      {/* เอฟเฟกต์แสงพื้นหลังสร้างบรรยากาศ */}
       <div className="absolute top-1/4 left-1/2 -z-10 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/5 blur-[120px]" />
-      
       <div className="w-full max-w-md animate-fade-in">
         <div className="mb-8 text-center">
           <div className="mb-6 flex items-center justify-center gap-2 text-accent">
             <ArchronLogomark className="h-7 w-7" />
             <span className="font-wordmark text-xl font-semibold tracking-[0.2em]">ARCHRON</span>
           </div>
-          <span className="text-[11px] uppercase tracking-[0.2em] text-accent/70">
-            บัญชีนักอ่าน
-          </span>
+          <span className="text-[11px] uppercase tracking-[0.2em] text-accent/70">บัญชีนักอ่าน</span>
           <h1 className="mt-3 font-serif text-3xl text-text-heading">สร้างบัญชีนักอ่าน</h1>
           <p className="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-text-secondary/70">
             สมัครเพื่อเก็บบทความ แนวคิด และความคืบหน้าการอ่าน
-            โดยเนื้อหาหลักของเว็บไซต์ยังคงเปิดให้อ่านได้โดยไม่ต้องมีบัญชี
           </p>
         </div>
-
         <SignUp
           path="/th/register"
           routing="path"

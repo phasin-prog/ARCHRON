@@ -25,7 +25,7 @@ export default async function BooksPage() {
         { label: "คลังความรู้", href: "/knowledge" },
         { label: "หนังสือ" },
       ]}
-      kicker="LIBRARY"
+      kicker="คลังหนังสือ"
       title="หนังสือและตำรา"
       lead="รากฐานของแนวคิดสำคัญที่หล่อหลอมจิตวิทยา ปรัชญา และมนุษยศาสตร์ ตั้งแต่ยุคโบราณจนถึงปัจจุบัน"
       ambient

@@ -21,9 +21,9 @@ export function EditorArticleFields({
       </p>
 
       <div id="container-field-visual-explanation" className="rounded-lg transition-all duration-300">
-        <label htmlFor="field-visual-explanation" className="block text-sm font-medium text-text-body">
-          คำอธิบายให้เห็นภาพ (Visual Explanation) <span className="text-accent">*</span>
-        </label>
+          <label htmlFor="field-visual-explanation" title="คำอธิบายให้เห็นภาพ (Visual Explanation)" className="block text-sm font-medium text-text-body">
+            คำอธิบายให้เห็นภาพ
+          </label>
         <p className="mb-1 text-xs text-text-secondary/80">อธิบายภาพเปรียบเปรยหรือตัวอย่างเชิงประจักษ์ที่ช่วยให้ผู้อ่านเข้าใจแก่นเรื่องทันที</p>
         <textarea
           id="field-visual-explanation"
@@ -37,9 +37,9 @@ export function EditorArticleFields({
       </div>
 
       <div id="container-field-technical-meaning" className="rounded-lg transition-all duration-300">
-        <label htmlFor="field-technical-meaning" className="block text-sm font-medium text-text-body">
-          ความหมายทางวิชาการ / เทคนิค (Technical Meaning) <span className="text-accent">*</span>
-        </label>
+          <label htmlFor="field-technical-meaning" title="ความหมายทางวิชาการ (Technical Meaning)" className="block text-sm font-medium text-text-body">
+            ความหมายทางวิชาการ
+          </label>
         <p className="mb-1 text-xs text-text-secondary/80">นิยามที่แม่นยำตามทฤษฎีหรือกรอบแนวคิดทางวิชาการ</p>
         <textarea
           id="field-technical-meaning"
@@ -54,7 +54,7 @@ export function EditorArticleFields({
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div id="container-field-roots-etymology" className="rounded-lg transition-all duration-300">
-          <label htmlFor="field-roots-etymology" className="block text-sm font-medium text-text-body">
+          <label htmlFor="field-roots-etymology" title="รากศัพท์/ที่มา (Etymology/Origin)" className="block text-sm font-medium text-text-body">
             รากศัพท์หรือที่มา (Roots / Etymology) <span className="text-text-secondary/60 text-xs">(ไม่บังคับ)</span>
           </label>
           <p className="mb-1 text-xs text-text-secondary/80">ที่มาของคำศัพท์ในภาษาละติน กรีก หรือประวัติศาสตร์แนวคิด — เว้นว่างได้หากบทความไม่เกี่ยวข้อง</p>
@@ -70,7 +70,7 @@ export function EditorArticleFields({
         </div>
 
         <div id="container-field-roots-caution" className="rounded-lg transition-all duration-300">
-          <label htmlFor="field-roots-caution" className="block text-sm font-medium text-text-body">
+          <label htmlFor="field-roots-caution" title="คำเตือนการใช้ (Usage Warning)" className="block text-sm font-medium text-text-body">
             คำเตือนการใช้ (Roots Caution) <span className="text-text-secondary/60 text-xs">(ไม่บังคับ)</span>
           </label>
           <p className="mb-1 text-xs text-text-secondary/80">ข้อควรระวังในการแปลความหมาย — เว้นว่างได้</p>

@@ -27,7 +27,7 @@ export default async function ThinkersPage() {
 
   return (
     <PageScaffold
-      kicker="Thinkers Index"
+      kicker="ดัชนีนักปราชญ์"
       title="ดัชนีนักปราชญ์"
       lead="สำรวจชีวประวัติ คุณูปการ และความสัมพันธ์เชิงอิทธิพลของนักคิดผู้บุกเบิกในศาสตร์ต่าง ๆ"
       breadcrumb={[

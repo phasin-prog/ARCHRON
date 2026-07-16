@@ -25,8 +25,8 @@ export function EditorBasicInfo({
       
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div id="container-field-title" className="rounded-lg transition-all duration-300">
-          <label htmlFor="field-title" className="block text-sm font-medium text-text-body">
-            Title <span className="text-accent">*</span>
+          <label htmlFor="field-title" title="ชื่อเรื่อง (Title)" className="block text-sm font-medium text-text-body">
+            ชื่อเรื่อง <span className="text-accent">*</span>
           </label>
           <input
             id="field-title"
@@ -40,8 +40,8 @@ export function EditorBasicInfo({
         </div>
 
         <div id="container-field-slug" className="rounded-lg transition-all duration-300">
-          <label htmlFor="field-slug" className="block text-sm font-medium text-text-body">
-            Slug <span className="text-accent">*</span>
+          <label htmlFor="field-slug" title="ลิงก์ถาวร (Slug/URL path)" className="block text-sm font-medium text-text-body">
+            ลิงก์ถาวร <span className="text-accent">*</span>
           </label>
           <input
             id="field-slug"
@@ -57,8 +57,8 @@ export function EditorBasicInfo({
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <div id="container-field-content-type" className="rounded-lg transition-all duration-300">
-          <label htmlFor="field-content-type" className="block text-sm font-medium text-text-body">
-            Content Type <span className="text-accent">*</span>
+          <label htmlFor="field-content-type" title="ประเภทเนื้อหา (Content Type)" className="block text-sm font-medium text-text-body">
+            ประเภทเนื้อหา <span className="text-accent">*</span>
           </label>
           <select
             id="field-content-type"
@@ -76,8 +76,8 @@ export function EditorBasicInfo({
         </div>
 
         <div>
-          <label htmlFor="field-status" className="block text-sm font-medium text-text-body">
-            Status <span className="text-accent">*</span>
+          <label htmlFor="field-status" title="สถานะ (Article Status)" className="block text-sm font-medium text-text-body">
+            สถานะ <span className="text-accent">*</span>
           </label>
           <select
             id="field-status"
@@ -93,7 +93,7 @@ export function EditorBasicInfo({
         </div>
 
         <div>
-          <label htmlFor="field-difficulty" className="block text-sm font-medium text-text-body">ระดับความลึก (Difficulty)</label>
+          <label htmlFor="field-difficulty" title="ระดับความลึก (Difficulty Level)" className="block text-sm font-medium text-text-body">ระดับความลึก</label>
           <select
             id="field-difficulty"
             value={draft.difficulty || "beginner"}
@@ -109,8 +109,8 @@ export function EditorBasicInfo({
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div id="container-field-framework" className="rounded-lg transition-all duration-300">
-          <label htmlFor="field-framework" className="block text-sm font-medium text-text-body">
-            Framework (แขนงวิชา / ทฤษฎีหลัก) <span className="text-accent">*</span>
+          <label htmlFor="field-framework" title="แขนงวิชา/ทฤษฎีหลัก (Framework)" className="block text-sm font-medium text-text-body">
+            แขนงวิชา / ทฤษฎีหลัก <span className="text-accent">*</span>
           </label>
           <input
             id="field-framework"
@@ -134,7 +134,7 @@ export function EditorBasicInfo({
         </div>
 
         <div id="container-field-tags" className="rounded-lg transition-all duration-300">
-          <label htmlFor="field-tags" className="block text-sm font-medium text-text-body">คำค้น / แท็ก (Tags, คั่นด้วยคอมมา)</label>
+          <label htmlFor="field-tags" title="คำค้น (Tags)" className="block text-sm font-medium text-text-body">คำค้น (คั่นด้วยคอมมา)</label>
           <input
             id="field-tags"
             type="text"
@@ -148,7 +148,7 @@ export function EditorBasicInfo({
       </div>
 
       <div id="container-field-short-description" className="rounded-lg transition-all duration-300">
-        <label htmlFor="field-short-description" className="block text-sm font-medium text-text-body">คำอธิบายสั้น / บทคัดย่อ (Short Description)</label>
+        <label htmlFor="field-short-description" title="คำอธิบายสั้น (Short Description)" className="block text-sm font-medium text-text-body">คำอธิบายสั้น</label>
         <textarea
           id="field-short-description"
           value={draft.shortDescription || ""}

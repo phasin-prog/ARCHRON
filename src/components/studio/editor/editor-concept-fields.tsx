@@ -18,7 +18,7 @@ export function EditorConceptFields({
       <h2 className="font-serif text-lg font-semibold text-text-heading">ข้อมูลแนวคิด (Concept Details)</h2>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div id="container-field-main-term" className="rounded-lg transition-all duration-300">
-          <label htmlFor="field-main-term" className="block text-sm font-medium text-text-body">ศัพท์หลัก (Main Term)</label>
+          <label htmlFor="field-main-term" title="ศัพท์หลัก (Main Term)" className="block text-sm font-medium text-text-body">ศัพท์หลัก</label>
           <input
             id="field-main-term"
             type="text"
@@ -26,9 +26,10 @@ export function EditorConceptFields({
             onChange={(e) => updateField("mainTerm", e.target.value)}
             className="mt-1 w-full rounded-md border border-text-heading/15 px-3 py-2 bg-bg-card text-text-heading outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/30"
           />
+          <InlineGuidance issue={validationIssues?.["field-main-term"]} />
         </div>
         <div>
-          <label htmlFor="field-thai-name" className="block text-sm font-medium text-text-body">ชื่อไทย</label>
+          <label htmlFor="field-thai-name" title="ชื่อไทย (Thai Name)" className="block text-sm font-medium text-text-body">ชื่อไทย</label>
           <input
             id="field-thai-name"
             type="text"
@@ -41,8 +42,8 @@ export function EditorConceptFields({
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div id="container-field-roots-etymology" className="rounded-lg transition-all duration-300">
-          <label htmlFor="field-roots-etymology" className="block text-sm font-medium text-text-body">
-            รากศัพท์ (Etymology) <span className="text-accent">*</span>
+          <label htmlFor="field-roots-etymology" title="รากศัพท์ (Etymology)" className="block text-sm font-medium text-text-body">
+            รากศัพท์
           </label>
           <input
             id="field-roots-etymology"
@@ -54,8 +55,8 @@ export function EditorConceptFields({
           <InlineGuidance issue={validationIssues?.["field-roots-etymology"]} />
         </div>
         <div id="container-field-roots-caution" className="rounded-lg transition-all duration-300">
-          <label htmlFor="field-roots-caution" className="block text-sm font-medium text-text-body">
-            คำเตือน / เหตุผลที่ยังไม่ใส่ (Caution) <span className="text-accent">*</span>
+          <label htmlFor="field-roots-caution" title="ข้อควรระวังในการตีความ (Caution)" className="block text-sm font-medium text-text-body">
+            ข้อควรระวังในการตีความ
           </label>
           <input
             id="field-roots-caution"
@@ -64,13 +65,14 @@ export function EditorConceptFields({
             onChange={(e) => updateField("rootsCaution", e.target.value)}
             className="mt-1 w-full rounded-md border border-text-heading/15 px-3 py-2 bg-bg-card text-text-heading outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/30"
           />
+          <InlineGuidance issue={validationIssues?.["field-roots-caution"]} />
         </div>
       </div>
 
       <div id="container-field-visual-explanation" className="rounded-lg transition-all duration-300">
-        <label htmlFor="field-visual-explanation" className="block text-sm font-medium text-text-body">
-          คำอธิบายให้เห็นภาพ (Visual Explanation) <span className="text-accent">*</span>
-        </label>
+          <label htmlFor="field-visual-explanation" title="คำอธิบายให้เห็นภาพ (Visual Explanation)" className="block text-sm font-medium text-text-body">
+            คำอธิบายให้เห็นภาพ
+          </label>
         <textarea
           id="field-visual-explanation"
           value={draft.visualExplanation || ""}
@@ -82,9 +84,9 @@ export function EditorConceptFields({
       </div>
 
       <div id="container-field-technical-meaning" className="rounded-lg transition-all duration-300">
-        <label htmlFor="field-technical-meaning" className="block text-sm font-medium text-text-body">
-          ความหมายทางวิชาการ (Technical Meaning) <span className="text-accent">*</span>
-        </label>
+          <label htmlFor="field-technical-meaning" title="ความหมายทางวิชาการ (Technical Meaning)" className="block text-sm font-medium text-text-body">
+            ความหมายทางวิชาการ
+          </label>
         <textarea
           id="field-technical-meaning"
           value={draft.technicalMeaning || ""}

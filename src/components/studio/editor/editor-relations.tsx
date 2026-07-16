@@ -43,10 +43,10 @@ export function EditorRelations({
 
   return (
     <section className="space-y-6 border-t border-border pt-6">
-      <h2 className="font-serif text-lg font-semibold text-text-heading">ความสัมพันธ์และอ้างอิง (Relations & References)</h2>
+      <h2 className="font-serif text-lg font-semibold text-text-heading">ความสัมพันธ์และแหล่งอ้างอิง</h2>
 
       <div id="container-field-related-concepts" className="space-y-3 rounded-lg transition-all duration-300">
-        <h3 className="text-base font-medium text-text-heading">Related Concepts (แนวคิดที่เกี่ยวข้อง)</h3>
+        <h3 title="แนวคิดที่เกี่ยวข้อง (Related Concepts)" className="text-base font-medium text-text-heading">แนวคิดที่เกี่ยวข้อง</h3>
         {draft.relatedConcepts.map((c, i) => (
           <div key={i} className="flex items-center gap-2 rounded-md border border-text-heading/10 bg-bg-elevated px-3 py-2 text-sm text-text-body">
             <span className="flex-1">
@@ -88,7 +88,7 @@ export function EditorRelations({
       </div>
 
       <div id="container-field-references" className="space-y-3 rounded-lg transition-all duration-300">
-        <h3 className="text-base font-medium text-text-heading">References (แหล่งอ้างอิง/ตำรา)</h3>
+        <h3 title="แหล่งอ้างอิง/ตำรา (References/Sources)" className="text-base font-medium text-text-heading">แหล่งอ้างอิง / ตำรา</h3>
         {draft.references.map((r, i) => (
           <div key={i} className="flex items-center gap-2 rounded-md border border-text-heading/10 bg-bg-elevated px-3 py-2 text-sm text-text-body">
             <span className="flex-1">

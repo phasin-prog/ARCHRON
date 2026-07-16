@@ -22,7 +22,7 @@ export default async function DiscoverPage() {
         { label: "หน้าแรก", href: "/" },
         { label: "ค้นพบ" },
       ]}
-      kicker="DISCOVER"
+      kicker="ค้นพบ"
       title="ค้นพบ ARCHRON"
       lead="สำรวจเนื้อหาตามหมวดหมู่และหัวข้อที่สนใจ — เริ่มจากสิ่งที่อยากรู้ หรือเดินตามเส้นทางที่แนะนำ"
       ambient

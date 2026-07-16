@@ -18,7 +18,7 @@ export default function FaqPage() {
         { label: "หน้าแรก", href: "/" },
         { label: "คำถามที่พบบ่อย" },
       ]}
-      kicker="FAQ"
+      kicker="คำถามที่พบบ่อย"
       title="คำถามที่พบบ่อย"
       lead="รวมคำถามเกี่ยวกับจุดยืนของโครงการ วิธีอ่าน ระดับเนื้อหา และการนำไปใช้ — คลิกที่คำถามเพื่อดูคำตอบ"
       className="atmo-observatory"

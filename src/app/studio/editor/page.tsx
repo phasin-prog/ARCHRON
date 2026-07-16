@@ -242,10 +242,11 @@ export default function StudioEditorPage() {
     dispatch({ type: "PUBLISH_TRIED" });
     if (!userId) { showError("ยังไม่ได้เข้าสู่ระบบ"); return; }
     if (!canSave) { showError("ต้องมี Title และ Slug ก่อนเผยแพร่"); return; }
-    if (!validationResult.canPublish) {
-      setShowValidationModal(true);
-      return;
-    }
+    setShowValidationModal(true);
+  }
+
+  async function confirmPublish() {
+    setShowValidationModal(false);
     if (deadLinks.length > 0) {
       showError(`พบลิงก์เสีย ${deadLinks.length} รายการ: ${deadLinks.join(", ")}`);
       return;
@@ -392,6 +393,7 @@ export default function StudioEditorPage() {
         onClose={() => setShowValidationModal(false)}
         issues={validationResult.all}
         onGoToField={handleGoToField}
+        onConfirmPublish={validationResult.canPublish ? confirmPublish : undefined}
       />
 
       <BlueprintSelectorModal

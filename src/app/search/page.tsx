@@ -26,7 +26,7 @@ export default async function SearchPage({
         { label: "หน้าแรก", href: "/" },
         { label: "ค้นหา" },
       ]}
-      kicker="Search"
+      kicker="ค้นหา"
       title="ค้นหา"
       lead="ค้นทั่วทั้งคลังความรู้ — แนวคิด บทความ ทรัพยากรภายนอก และหน้าต่าง ๆ ในที่เดียว"
       className="atmo-observatory"

@@ -1,27 +1,30 @@
 "use client";
 
 import type { EditorDraft } from "@/lib/content/publishing/publish-validation";
+import type { ValidationIssue } from "@/lib/content/publishing/editor-validation";
+import { InlineGuidance } from "./inline-guidance";
 
-export function EditorBookFields({ draft, updateField }: {
+export function EditorBookFields({ draft, updateField, validationIssues }: {
   draft: EditorDraft; updateField: (field: keyof EditorDraft, value: unknown) => void;
+  validationIssues?: Record<string, ValidationIssue>;
 }) {
   return (
     <section className="space-y-4 border-t border-border pt-6">
       <h2 className="font-serif text-lg font-semibold text-text-heading">ข้อมูลหนังสือ</h2>
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-text-body">ปีที่พิมพ์</label>
+          <label title="ปีที่พิมพ์ (Publication Year)" className="block text-sm font-medium text-text-body">ปีที่พิมพ์</label>
           <input type="text" value={draft.publicationYear} onChange={(e) => updateField("publicationYear", e.target.value)}
             className="mt-1 w-full rounded-md border border-text-heading/15 px-3 py-2 bg-bg-card text-text-heading outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/30" />
         </div>
         <div>
-          <label className="block text-sm font-medium text-text-body">สำนักพิมพ์</label>
+          <label title="สำนักพิมพ์ (Publisher)" className="block text-sm font-medium text-text-body">สำนักพิมพ์</label>
           <input type="text" value={draft.publisher} onChange={(e) => updateField("publisher", e.target.value)}
             className="mt-1 w-full rounded-md border border-text-heading/15 px-3 py-2 bg-bg-card text-text-heading outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/30" />
         </div>
       </div>
       <div>
-        <label className="block text-sm font-medium text-text-body">ISBN</label>
+        <label title="ISBN (International Standard Book Number)" className="block text-sm font-medium text-text-body">ISBN</label>
         <input type="text" value={draft.isbn} onChange={(e) => updateField("isbn", e.target.value)}
           className="mt-1 w-full rounded-md border border-text-heading/15 px-3 py-2 bg-bg-card text-text-heading outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/30" />
       </div>
@@ -31,7 +34,7 @@ export function EditorBookFields({ draft, updateField }: {
           className="mt-1 w-full rounded-md border border-text-heading/15 px-3 py-2 bg-bg-card text-text-heading outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/30" />
       </div>
       <div>
-        <label className="block text-sm font-medium text-text-body">คำอธิบายสั้น</label>
+        <label title="คำอธิบายสั้น (Description)" className="block text-sm font-medium text-text-body">คำอธิบายสั้น</label>
         <textarea value={draft.shortDescription} onChange={(e) => updateField("shortDescription", e.target.value)}
           className="mt-1 w-full rounded-md border border-text-heading/15 px-3 py-2 bg-bg-card text-text-heading outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/30 resize-y" rows={2} />
       </div>

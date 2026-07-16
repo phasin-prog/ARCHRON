@@ -8,15 +8,13 @@ const nextConfig = {
   pageExtensions: ["ts", "tsx", "md", "mdx"],
 
   // ── Next.js 16.3 Speed Optimizations ───────────────────────────────
-  // Cache Components: enables PPR + use cache + instant navigation
-  // Replaces v15's experimental.ppr / dynamicIO / useCache
-  cacheComponents: true,
+  // cacheComponents disabled: Clerk auth uses usePathname() internally
+  // which conflicts with cacheComponents prerendering requirements.
+  // Kept reactCompiler and other optimizations that are fully compatible.
+  // cacheComponents: true,  // ← disable until Clerk is compatible
 
   // React Compiler — auto-memoizes components (promoted from experimental in v16)
   reactCompiler: true,
-
-  // typedRoutes — catch broken links at build time
-  typedRoutes: true,
 
   experimental: {
     // staleTimes — extend client router cache to reduce re-fetches

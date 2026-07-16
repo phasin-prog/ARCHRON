@@ -168,8 +168,8 @@ export function JungianServicePlatform() {
           />
 
           {/* Sticky Platform Navigation Tabs (Eliminates Cognitive Load & Scrolling) */}
-          <div id="platform-tabs-anchor" className="sticky top-14 lg:top-[7.5rem] z-20 border-b border-border/70 bg-bg-card/95 backdrop-blur-md px-6 py-3.5 shadow-sm">
-            <div className="mx-auto max-w-5xl">
+          <div id="platform-tabs-anchor" className="sticky top-14 lg:top-[7.5rem] z-20 border-b border-border/70 bg-bg-card/95 backdrop-blur-md py-3.5 shadow-sm">
+            <div className="tpl-reference">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-accent hidden md:inline">
                   หมวดหมู่ข้อมูลบริการ :
@@ -235,7 +235,7 @@ export function JungianServicePlatform() {
                 <FeatureCards />
                 
                 {/* Next Tab Strip */}
-                <div className="mx-auto max-w-5xl px-6 py-10">
+                <div className="tpl-reference py-10">
                   <div className="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-xl border border-border/60 bg-bg-card p-6 shadow-xs">
                     <div>
                       <span className="text-xs font-semibold text-accent uppercase tracking-wider">NEXT STEP</span>
@@ -261,7 +261,7 @@ export function JungianServicePlatform() {
                 <ReportSample />
 
                 {/* Next Tab Strip */}
-                <div className="mx-auto max-w-5xl px-6 py-10">
+                <div className="tpl-reference py-10">
                   <div className="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-xl border border-border/60 bg-bg-card p-6 shadow-xs">
                     <div>
                       <span className="text-xs font-semibold text-accent uppercase tracking-wider">NEXT STEP</span>
@@ -286,7 +286,7 @@ export function JungianServicePlatform() {
                 <AnalysisTimeline />
 
                 {/* Next Tab Strip */}
-                <div className="mx-auto max-w-5xl px-6 py-10">
+                <div className="tpl-reference py-10">
                   <div className="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-xl border border-border/60 bg-bg-card p-6 shadow-xs">
                     <div>
                       <span className="text-xs font-semibold text-accent uppercase tracking-wider">READY TO BOOK</span>

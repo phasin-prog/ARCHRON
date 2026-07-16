@@ -11,14 +11,14 @@ interface HeroSectionProps {
 
 export function HeroSection({ onBookClick, onPricingClick }: HeroSectionProps) {
   return (
-    <section className="relative overflow-hidden border-b border-border/40 bg-bg px-6 py-20 lg:py-28">
+    <section className="relative overflow-hidden border-b border-border/40 bg-bg py-20 lg:py-28">
       {/* Subtle academic background glow */}
       <div
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(140,21,21,0.05)_0%,transparent_65%)]"
         aria-hidden="true"
       />
 
-      <div className="mx-auto max-w-5xl">
+      <div className="tpl-reference">
         <nav
           aria-label="เส้นทางนำทาง"
           className="mb-8 flex flex-wrap items-center gap-1.5 text-xs text-text-secondary"

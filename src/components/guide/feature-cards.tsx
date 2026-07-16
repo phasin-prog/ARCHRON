@@ -27,8 +27,8 @@ function renderFeatureIcon(iconType: FeatureCardItem["icon"]) {
 
 export function FeatureCards() {
   return (
-    <section className="border-b border-border/30 bg-bg px-6 py-20 lg:py-24">
-      <div className="mx-auto max-w-5xl">
+    <section className="border-b border-border/30 bg-bg py-20 lg:py-24">
+      <div className="tpl-reference">
         <div className="text-center md:text-left">
           <span className="text-xs font-semibold uppercase tracking-[0.22em] text-accent/85">
             Deliverables & Experience

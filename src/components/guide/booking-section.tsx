@@ -104,8 +104,8 @@ export function BookingSection({ onSubmitSuccess }: BookingSectionProps) {
   };
 
   return (
-    <section className="border-b border-border/30 bg-bg px-6 py-20 lg:py-24">
-      <div className="mx-auto max-w-5xl">
+    <section className="border-b border-border/30 bg-bg py-20 lg:py-24">
+      <div className="tpl-reference">
         <div className="rounded-xl border border-border/60 bg-bg-card p-6 sm:p-8 shadow-sm">
           <h2 className="font-heading text-xl font-bold text-text-heading">
             จองเซสชันวิเคราะห์

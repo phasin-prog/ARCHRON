@@ -35,4 +35,9 @@ export function resolveIcon(name: string): IconComponent | null {
   return ICON_MAP[name] ?? null;
 }
 
+export function resolveIconElement(name: string, props: { className?: string; style?: React.CSSProperties } = {}): React.ReactElement | null {
+  const Comp = ICON_MAP[name];
+  return Comp ? React.createElement(Comp, props) : null;
+}
+
 export type { IconComponent };

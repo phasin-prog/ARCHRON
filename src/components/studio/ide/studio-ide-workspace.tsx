@@ -1,11 +1,14 @@
 "use client";
 
-import React, { useState, useRef, useMemo, useCallback } from "react";
+import React, { useState, useRef, useMemo, useCallback, useEffect } from "react";
 import type { EditorDraft } from "@/lib/content/publishing/publish-validation";
-import { SemanticMdxEngine as MarkdownRenderer } from "@/components/reading/semantic-mdx-engine";
+import type { ValidationIssue } from "@/lib/content/publishing/editor-validation";
+import { MarkdownRenderer } from "@/components/reading/markdown-renderer";
 import { statusMeta, contentTypeMeta } from "@/lib/content/core/cosmology";
-import { resolveIcon } from "@/lib/content/core/icon-map";
-import { BookIcon, CheckIcon, TermIcon, ConceptIcon, SymbolIcon, ClockIcon, EditIcon, EyeIcon } from "@/components/icons";
+import { resolveIconElement } from "@/lib/content/core/icon-map";
+import { BookIcon, CheckIcon, TermIcon, ConceptIcon, SymbolIcon, SourceIcon, PersonIcon, ClockIcon, EditIcon, EyeIcon } from "@/components/icons";
+import { InlineGuidance } from "@/components/studio/editor/inline-guidance";
+import { findDeadLinks } from "@/lib/content/publishing/internal-links";
 
 export interface SidebarPanelItem {
   id: string;
@@ -24,6 +27,7 @@ export interface StudioIdeWorkspaceProps {
   autoSaveState?: "idle" | "saving" | "saved";
   sidebarPanels?: SidebarPanelItem[];
   children?: React.ReactNode;
+  validationIssues?: Record<string, ValidationIssue>;
 }
 
 type ViewMode = "write" | "split" | "preview";
@@ -59,6 +63,8 @@ const TOOLBAR_ITEMS: ToolbarButton[] = [
   { label: "Link", title: "แทรกลิงก์ (External Link)", prefix: "[", suffix: "](https://example.com)", defaultText: "ชื่อลิงก์อ้างอิง" },
   { label: "[[Concept]]", title: "เชื่อมโยงแนวคิดภายใน (Wikilink)", prefix: "[[", suffix: "|ชื่อที่แสดง]]", defaultText: "concept-slug", highlight: true },
   { label: "[[Cite]]", title: "แทรกจุดอ้างอิง (Citation)", prefix: "[[cite: ", suffix: "]]", defaultText: "1, 2", highlight: true },
+  { type: "divider" },
+  { label: "🖼 Image", title: "แทรกรูปภาพ (Image)", prefix: "![", suffix: "](url)", defaultText: "คำอธิบายรูป" },
 ];
 
 export function StudioIdeWorkspace({
@@ -70,6 +76,7 @@ export function StudioIdeWorkspace({
   autoSaveState = "idle",
   sidebarPanels,
   children,
+  validationIssues,
 }: StudioIdeWorkspaceProps) {
   const [mode, setMode] = useState<ViewMode>("write");
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -79,7 +86,6 @@ export function StudioIdeWorkspace({
   // คำนวณสถิติคำและอักขระ
   const charCount = content.length;
   const wordCount = useMemo(() => {
-    // ภาษาไทยใช้การประมาณตัวอักษรเฉลี่ย 5 ตัวต่อ 1 คำ หรือนับคำตามช่องว่างภาษาอังกฤษ
     return Math.max(0, Math.round(charCount / 5));
   }, [charCount]);
 
@@ -101,6 +107,9 @@ export function StudioIdeWorkspace({
         return "ฉบับร่าง";
     }
   }, [draft.status]);
+
+  // Dead links from bodyMarkdown
+  const deadLinks = useMemo(() => findDeadLinks(draft.bodyMarkdown || ""), [draft.bodyMarkdown]);
 
   // ฟังก์ชันแทรก Markdown ตรงตำแหน่งเคอร์เซอร์
   const insertMarkdown = useCallback(
@@ -127,6 +136,39 @@ export function StudioIdeWorkspace({
     },
     [content, onChangeDraft]
   );
+
+  const insertMarkdownRef = useRef(insertMarkdown);
+  useEffect(() => {
+    insertMarkdownRef.current = insertMarkdown;
+  }, [insertMarkdown]);
+
+  // Keyboard shortcuts: Ctrl+S, Ctrl+B, Ctrl+I, Ctrl+K
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      const isMod = e.ctrlKey || e.metaKey;
+      if (isMod && e.key === "s") {
+        e.preventDefault();
+        onSave?.();
+        return;
+      }
+      const target = e.target as HTMLElement;
+      if (target?.tagName !== "TEXTAREA") return;
+      if (isMod && e.key === "b") {
+        e.preventDefault();
+        insertMarkdownRef.current("**", "**", "ตัวหนา");
+      }
+      if (isMod && e.key === "i") {
+        e.preventDefault();
+        insertMarkdownRef.current("*", "*", "ตัวเอียง");
+      }
+      if (isMod && e.key === "k") {
+        e.preventDefault();
+        insertMarkdownRef.current("[", "](url)", "ข้อความลิงก์");
+      }
+    };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, [onSave]);
 
   // แทรกโครงสร้างมาตรฐาน SSOT ตามหมวดหมู่เนื้อหา
   const insertSSOTTemplate = () => {
@@ -160,6 +202,46 @@ export function StudioIdeWorkspace({
     template += `## 📚 แหล่งอ้างอิงและตำรา (References)\n- [1] Jung, C. G. (1968). *The Archetypes and the Collective Unconscious* (2nd ed.). Princeton University Press.\n`;
 
     onChangeDraft("bodyMarkdown", template);
+    setTimeout(() => {
+      textareaRef.current?.focus();
+    }, 50);
+  };
+
+  // Type-specific SSOT template generator (from EditorBody)
+  const generateSSOTTemplate = (targetType?: string) => {
+    const ct = targetType || draft.contentType || "article";
+    const title = draft.title || (ct === "concept" ? "ชื่อแนวคิดใหม่ (Concept Title)" : "ชื่อหัวข้อบทความ (Article Title)");
+    
+    let template = `# ${title}\n\n`;
+
+    if (ct === "concept" || ct === "term" || ct === "symbol") {
+      template += `> **ศัพท์หลัก (Main Term):** ${draft.mainTerm || "Archetype"} | **ชื่อไทย:** ${draft.thaiName || "แม่แบบดั้งเดิม"} | **รากศัพท์ (Etymology):** ${draft.originalTerm || "αρχέτυπον (กรีก)"}\n\n`;
+    } else if (ct === "person") {
+      template += `> **นักคิดหลัก:** ${draft.mainThinker || "Carl Gustav Jung"} | **ช่วงชีวิต:** ${draft.bornYear || "1875"} - ${draft.diedYear || "1961"} | **สัญชาติ:** ${draft.nationality || "สวิส"}\n\n`;
+    }
+
+    if (draft.framework) {
+      template += `## 🧩 กรอบทฤษฎีและแขนงวิชา (Framework)\n- **สังกัดทฤษฎี:** ${draft.framework}\n\n`;
+    }
+
+    template += `## 🌟 คำอธิบายให้เห็นภาพ (Visual Explanation)\n> [!NOTE] คำอธิบายเชิงประจักษ์\n${draft.visualExplanation || "[อธิบายภาพเปรียบเปรยหรือตัวอย่างเชิงประจักษ์ด้วยภาษาที่เข้าใจง่าย เพื่อให้บุคคลทั่วไปสามารถนึกภาพและเข้าใจแนวคิดนี้ได้ทันทีตั้งแต่ย่อหน้าแรก...]"}\n\n`;
+
+    template += `## 🎓 นิยามและความหมายทางวิชาการ (Technical Meaning)\n${draft.technicalMeaning || "[ระบุนิยามทางวิชาการที่แม่นยำตามทฤษฎีเชิงลึก และอธิบายกลไกการทำงานทางจิตวิทยาของแนวคิดนี้...]"}\n\n`;
+
+    if (ct === "concept" || ct === "term") {
+      template += `## 🏛️ รากศัพท์และการเปลี่ยนผ่านความหมาย (Etymology & Roots)\n- **ที่มาและรากคำดั้งเดิม:** ${draft.rootsEtymology || "[อธิบายรากคำในภาษากรีก/ละติน การเริ่มใช้ครั้งแรกโดยใครในบริบทใด...]"}\n- **ข้อควรระวังในการตีความ:** ${draft.rootsCaution || "[ข้อควรระวังไม่ให้นำไปสับสนกับความหมายในภาษาปุถุชนทั่วไป...]"}\n\n`;
+    }
+
+    template += `## 📖 เนื้อหาหลักและการวิเคราะห์เชิงลึก (Core Content & MDX)\n[เรียบเรียงการวิเคราะห์ทั้งหมดที่นี่ รองรับ GFM, Callout Blocks (\`> [!IMPORTANT]\`), ตารางเปรียบเทียบ, โค้ดบล็อก และการจัดรูปแบบขั้นสูง]\n\n`;
+
+    template += `### ตัวอย่างตารางเปรียบเทียบ (Comparison Table)\n| มิติการวิเคราะห์ | ทฤษฎีจิตวิทยาวิเคราะห์ (Jung) | ทฤษฎีจิตวิเคราะห์ (Freud) |\n| --- | --- | --- |\n| **โครงสร้างไร้สำนึก** | Collective Unconscious | Personal Unconscious |\n| **พลังขับเคลื่อนจิต** | Psychic Energy / Individuation | Libido / Pleasure Principle |\n\n`;
+
+    template += `## 🔗 แนวคิดที่เกี่ยวข้อง (Related Concepts)\n- [[Analytical Psychology]] : กรอบคิดและโครงข่ายหลักของแนวคิดนี้\n- [[Collective Unconscious]] : ทฤษฎีและโครงสร้างจิตที่เกี่ยวเนื่อง\n- [[Individuation]] : เป้าหมายสูงสุดของการพัฒนาตนเอง\n\n`;
+
+    template += `## 📚 แหล่งอ้างอิงและตำรา (References)\n- [1] Jung, C. G. (1968). *The Archetypes and the Collective Unconscious* (2nd ed.). Princeton University Press.\n- [2] Campbell, J. (1949). *The Hero with a Thousand Faces*. Pantheon Books.\n`;
+
+    onChangeDraft("bodyMarkdown", template);
+    
     setTimeout(() => {
       textareaRef.current?.focus();
     }, 50);
@@ -298,7 +380,8 @@ export function StudioIdeWorkspace({
       id: "metadata",
       label: "ข้อมูลสกัด",
       icon: "tag",
-      content: (
+      content: (() => {
+        return (
         <div className="space-y-3 font-ui text-xs">
           <div className="border-b border-border pb-2">
             <h4 className="font-semibold text-text-heading flex items-center gap-1.5">
@@ -313,7 +396,7 @@ export function StudioIdeWorkspace({
             <div className="rounded-md border border-border/60 bg-bg-elevated/30 p-2.5">
               <div className="text-[11px] text-text-secondary">ประเภทเนื้อหา (Content Type)</div>
               <div className="font-semibold text-text-heading mt-0.5 flex items-center gap-1.5">
-                {(() => { const T = resolveIcon(typeInfo.icon); return T ? <T className="h-3.5 w-3.5" style={{ color: typeInfo.accent }} /> : null; })()}
+                {resolveIconElement(typeInfo.icon, { className: "h-3.5 w-3.5", style: { color: typeInfo.accent } })}
                 <span>{typeInfo.label}</span>
               </div>
             </div>
@@ -351,7 +434,8 @@ export function StudioIdeWorkspace({
             </div>
           </div>
         </div>
-      ),
+      );
+      })(),
     };
 
     // 4. AI Assistant Panel
@@ -563,6 +647,38 @@ export function StudioIdeWorkspace({
         </button>
       </div>
 
+      {/* Type-specific SSOT Template Buttons (from EditorBody) */}
+      <div className="border-b border-accent/20 bg-accent/5 px-4 py-2.5 flex flex-wrap items-center gap-2 text-xs select-none">
+        <span className="font-semibold text-accent flex items-center gap-1 mr-1">
+          <EditIcon className="h-3.5 w-3.5" />
+          <span>แม่แบบ:</span>
+        </span>
+        <button
+          type="button"
+          onClick={() => generateSSOTTemplate("concept")}
+          className="inline-flex items-center gap-1.5 rounded-md bg-accent px-3 py-1.5 text-xs font-semibold text-text-inverse shadow-xs hover:brightness-110 transition-all"
+        >
+          <ConceptIcon className="h-3.5 w-3.5" />
+          Concept
+        </button>
+        <button
+          type="button"
+          onClick={() => generateSSOTTemplate("article")}
+          className="inline-flex items-center gap-1.5 rounded-md border border-accent/40 bg-bg-card px-3 py-1.5 text-xs font-medium text-accent hover:bg-accent/10 transition-all"
+        >
+          <SourceIcon className="h-3.5 w-3.5" />
+          Article
+        </button>
+        <button
+          type="button"
+          onClick={() => generateSSOTTemplate("person")}
+          className="inline-flex items-center gap-1.5 rounded-md border border-accent/40 bg-bg-card px-3 py-1.5 text-xs font-medium text-accent hover:bg-accent/10 transition-all"
+        >
+          <PersonIcon className="h-3.5 w-3.5" />
+          Person
+        </button>
+      </div>
+
       {/* Editor Body Textarea */}
       <div className="flex-1 overflow-hidden relative p-4">
         <textarea
@@ -572,6 +688,69 @@ export function StudioIdeWorkspace({
           placeholder="เริ่มเขียนเนื้อหาความรู้ด้วย Markdown (MDX) ที่นี่... (ใช้ [[ ]] สำหรับ Wikilink และ [[cite: 1]] สำหรับอ้างอิง)"
           className="w-full h-full rounded-lg border-0 bg-transparent font-mono text-sm leading-relaxed text-text-heading outline-none resize-none focus:ring-0 placeholder:text-text-secondary/50"
         />
+      </div>
+
+      {/* Live SSOT Structural Checklist (from EditorBody) */}
+      <div className="px-4 py-3 border-t border-border/60 bg-bg-elevated/30 flex flex-wrap items-center gap-2 text-xs">
+        <span className="font-semibold text-text-heading mr-1 flex items-center gap-1.5">
+          <CheckIcon className="h-4 w-4 text-accent" />
+          <span>ตรวจโครงสร้าง SSOT สด:</span>
+        </span>
+        <span className={`px-2.5 py-1 rounded-full font-medium transition-all flex items-center gap-1.5 ${
+          (/#[#]?\s*(คำอธิบายเชิงประจักษ์|คำอธิบายให้เห็นภาพ|ภาพเปรียบเปรย|Visual Explanation|ตัวอย่างให้เห็นภาพ)/i.test(content) || />\s*\[!(NOTE|TIP|IMPORTANT)\]\s*คำอธิบาย/i.test(content) || (draft.visualExplanation && draft.visualExplanation.trim() !== ""))
+            ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
+            : "bg-amber-500/10 text-amber-700 border border-amber-500/20"
+        }`}>
+          {( /#[#]?\s*(คำอธิบายเชิงประจักษ์|คำอธิบายให้เห็นภาพ|ภาพเปรียบเปรย|Visual Explanation|ตัวอย่างให้เห็นภาพ)/i.test(content) || />\s*\[!(NOTE|TIP|IMPORTANT)\]\s*คำอธิบาย/i.test(content) || (draft.visualExplanation && draft.visualExplanation.trim() !== "")) ? <CheckIcon className="h-3.5 w-3.5" /> : <ClockIcon className="h-3.5 w-3.5" />}
+          <span>คำอธิบายให้เห็นภาพ</span>
+        </span>
+        <span className={`px-2.5 py-1 rounded-full font-medium transition-all flex items-center gap-1.5 ${
+          (/#[#]?\s*(นิยาม|ความหมายทางวิชาการ|นิยามและแก่น|นิยามเชิงเทคนิค|Technical Meaning|แก่นทางวิชาการ)/i.test(content) || (draft.technicalMeaning && draft.technicalMeaning.trim() !== ""))
+            ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
+            : "bg-amber-500/10 text-amber-700 border border-amber-500/20"
+        }`}>
+          {( /#[#]?\s*(นิยาม|ความหมายทางวิชาการ|นิยามและแก่น|นิยามเชิงเทคนิค|Technical Meaning|แก่นทางวิชาการ)/i.test(content) || (draft.technicalMeaning && draft.technicalMeaning.trim() !== "")) ? <CheckIcon className="h-3.5 w-3.5" /> : <ClockIcon className="h-3.5 w-3.5" />}
+          <span>ความหมายทางวิชาการ</span>
+        </span>
+        {(draft.contentType === "concept" || draft.contentType === "term") && (
+          <span className={`px-2.5 py-1 rounded-full font-medium transition-all flex items-center gap-1.5 ${
+            (/#[#]?\s*(รากศัพท์|ที่มาของคำ|Etymology|Roots|การเปลี่ยนความหมาย|รากคำ)/i.test(content) || (draft.rootsEtymology && draft.rootsEtymology.trim() !== "") || (draft.rootsCaution && draft.rootsCaution.trim() !== ""))
+              ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
+              : "bg-amber-500/10 text-amber-700 border border-amber-500/20"
+          }`}>
+            {( /#[#]?\s*(รากศัพท์|ที่มาของคำ|Etymology|Roots|การเปลี่ยนความหมาย|รากคำ)/i.test(content) || (draft.rootsEtymology && draft.rootsEtymology.trim() !== "") || (draft.rootsCaution && draft.rootsCaution.trim() !== "")) ? <CheckIcon className="h-3.5 w-3.5" /> : <ClockIcon className="h-3.5 w-3.5" />}
+            <span>รากศัพท์ / ข้อควรระวัง</span>
+          </span>
+        )}
+        <span className={`px-2.5 py-1 rounded-full font-medium transition-all flex items-center gap-1.5 ${
+          (/\[\[[^\]]+\]\]/.test(content) || /#[#]?\s*(แนวคิดที่เกี่ยวข้อง|Related Concepts|เชื่อมโยง)/i.test(content) || (draft.relatedConcepts && draft.relatedConcepts.length > 0))
+            ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
+            : "bg-amber-500/10 text-amber-700 border border-amber-500/20"
+        }`}>
+          {( /\[\[[^\]]+\]\]/.test(content) || /#[#]?\s*(แนวคิดที่เกี่ยวข้อง|Related Concepts|เชื่อมโยง)/i.test(content) || (draft.relatedConcepts && draft.relatedConcepts.length > 0)) ? <CheckIcon className="h-3.5 w-3.5" /> : <ClockIcon className="h-3.5 w-3.5" />}
+          <span>แนวคิดที่เกี่ยวข้อง ([[Wikilink]])</span>
+        </span>
+        <span className={`px-2.5 py-1 rounded-full font-medium transition-all flex items-center gap-1.5 ${
+          (/\[\^?\d+\]/.test(content) || /#[#]?\s*(แหล่งอ้างอิง|อ้างอิง|References|Citations|ตำรา)/i.test(content) || (draft.references && draft.references.length > 0) || draft.status === "needs-source-check")
+            ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
+            : "bg-amber-500/10 text-amber-700 border border-amber-500/20"
+        }`}>
+          {( /\[\^?\d+\]/.test(content) || /#[#]?\s*(แหล่งอ้างอิง|อ้างอิง|References|Citations|ตำรา)/i.test(content) || (draft.references && draft.references.length > 0) || draft.status === "needs-source-check") ? <CheckIcon className="h-3.5 w-3.5" /> : <ClockIcon className="h-3.5 w-3.5" />}
+          <span>แหล่งอ้างอิง ([^1])</span>
+        </span>
+      </div>
+
+      {/* Dead links indicator (write mode only) */}
+      {deadLinks.length > 0 && (
+        <div className="px-4 py-2 border-t border-amber-500/20 bg-amber-500/5 text-xs text-amber-700 flex items-center gap-2">
+          <span>⚠️</span>
+          <span>พบลิงก์เสีย {deadLinks.length} รายการ: {deadLinks.slice(0, 3).join(", ")}{deadLinks.length > 3 ? ` และอีก ${deadLinks.length - 3} รายการ` : ""}</span>
+        </div>
+      )}
+
+      {/* InlineGuidance */}
+      <div className="px-3 pb-2">
+        <InlineGuidance issue={validationIssues?.["field-body-markdown"]} />
       </div>
     </div>
   );
@@ -635,7 +814,7 @@ export function StudioIdeWorkspace({
             className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 font-semibold text-[11px]"
             style={{ backgroundColor: `${statusInfo.accent}1f`, color: statusInfo.accent }}
           >
-            {(() => { const S = resolveIcon(statusInfo.icon); return S ? <S className="h-3.5 w-3.5" style={{ color: statusInfo.accent }} /> : null; })()}
+            {resolveIconElement(statusInfo.icon, { className: "h-3.5 w-3.5", style: { color: statusInfo.accent } })}
             <span>{statusLabel}</span>
           </span>
 
@@ -688,7 +867,8 @@ export function StudioIdeWorkspace({
             <div className="w-[30%] h-full bg-bg-card flex flex-col overflow-hidden border-l border-border">
               {/* Sidebar Tabs Bar */}
               <div className="flex items-center overflow-x-auto border-b border-border bg-bg-elevated/40 px-2 scrollbar-none">
-                {activePanels.map((panel) => (
+                {activePanels.map((panel) => {
+                  return (
                   <button
                     key={panel.id}
                     type="button"
@@ -699,7 +879,7 @@ export function StudioIdeWorkspace({
                         : "border-transparent text-text-secondary hover:text-text-heading hover:bg-bg-elevated/60"
                     }`}
                   >
-                    {(() => { const P = resolveIcon(panel.icon); return P ? <P className="h-4 w-4" /> : null; })()}
+                    {resolveIconElement(panel.icon, { className: "h-4 w-4" })}
                     <span>{panel.label}</span>
                     {panel.badge !== undefined && (
                       <span className="ml-0.5 rounded-full bg-bg-elevated px-1.5 py-0.5 text-[10px] font-semibold text-text-secondary">
@@ -707,7 +887,8 @@ export function StudioIdeWorkspace({
                       </span>
                     )}
                   </button>
-                ))}
+                  );
+                })}
               </div>
 
               {/* Active Panel Content */}
@@ -750,7 +931,7 @@ export function StudioIdeWorkspace({
                     className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold"
                     style={{ backgroundColor: `${typeInfo.accent}1f`, color: typeInfo.accent }}
                   >
-                    {(() => { const T = resolveIcon(typeInfo.icon); return T ? <T className="h-3.5 w-3.5" style={{ color: typeInfo.accent }} /> : null; })()}
+                    {resolveIconElement(typeInfo.icon, { className: "h-3.5 w-3.5", style: { color: typeInfo.accent } })}
                     <span>{typeInfo.label}</span>
                   </span>
                   <span

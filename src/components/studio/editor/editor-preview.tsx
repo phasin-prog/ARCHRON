@@ -10,9 +10,10 @@ import {
   CalendarIcon,
   ClockIcon,
   SchoolIcon,
+  RealExampleIcon,
 } from "@/components/icons";
 import { InternalLinkText } from "@/components/reading/internal-link-text";
-import { SemanticMdxEngine as MarkdownRenderer } from "@/components/reading/semantic-mdx-engine";
+import { MarkdownRenderer } from "@/components/reading/markdown-renderer";
 import type { EditorDraft } from "@/lib/content/publishing/publish-validation";
 
 const DIFFICULTY_LABEL: Record<string, string> = {
@@ -219,6 +220,16 @@ export function EditorPreview({
           <SectionH3 icon={ScholarIcon}>ความหมายทางวิชาการ / เทคนิค</SectionH3>
           <div className="md-body mt-4 whitespace-pre-line">
             <InternalLinkText text={draft.technicalMeaning} />
+          </div>
+        </section>
+      ) : null}
+
+      {/* realWorldExamples */}
+      {draft.realWorldExamples ? (
+        <section className="mt-14">
+          <SectionH3 icon={RealExampleIcon}>ตัวอย่างในชีวิตจริง (อิงจากตำรา)</SectionH3>
+          <div className="md-body mt-4 whitespace-pre-line">
+            <InternalLinkText text={draft.realWorldExamples} />
           </div>
         </section>
       ) : null}

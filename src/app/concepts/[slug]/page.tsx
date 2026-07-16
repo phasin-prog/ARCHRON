@@ -3,6 +3,7 @@ import type { ComponentType, CSSProperties } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ReadingPage } from "@/components/reading/reading-page";
+import { ReadingErrorBoundary } from "@/components/reading/reading-error-boundary";
 import { conceptRegistry, getConceptBySlug } from "@/lib/content/core/registry";
 import { nodeTypeAccent } from "@/lib/content/core/cosmology";
 import { entries } from "@/lib/content/core/seeds/entries";
@@ -94,7 +95,9 @@ export default async function ConceptNodePage({
     return (
       <>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJson) }} />
-        <ReadingPage entry={entry} section="concepts" atmosphere="atmo-dictionary" />
+        <ReadingErrorBoundary>
+          <ReadingPage entry={entry} section="concepts" atmosphere="atmo-dictionary" />
+        </ReadingErrorBoundary>
       </>
     );
   }

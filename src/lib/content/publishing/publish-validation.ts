@@ -41,6 +41,7 @@ export type EditorDraft = {
   ipa: string;
   visualExplanation: string;
   technicalMeaning: string;
+  realWorldExamples: string;
   rootsEtymology: string;
   rootsMeaningShift: string;
   rootsCaution: string;
@@ -75,7 +76,7 @@ export const EMPTY_DRAFT: EditorDraft = {
   school: "", rowName: "", rowCode: "",
   mainTerm: "", thaiName: "", originalTerm: "", partOfSpeech: "",
   languageRoot: "", ipa: "", visualExplanation: "", technicalMeaning: "",
-  rootsEtymology: "", rootsMeaningShift: "", rootsCaution: "",
+  realWorldExamples: "", rootsEtymology: "", rootsMeaningShift: "", rootsCaution: "",
   mainThinker: "", bornYear: "", diedYear: "", nationality: "",
   keyIdeas: "", notableWorks: "",
   publicationYear: "", publisher: "", isbn: "",

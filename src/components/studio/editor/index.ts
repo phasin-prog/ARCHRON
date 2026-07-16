@@ -4,7 +4,6 @@ export { EditorConceptFields } from "./editor-concept-fields";
 export { EditorPersonFields } from "./editor-person-fields";
 export { EditorBookFields } from "./editor-book-fields";
 export { EditorSchoolFields } from "./editor-school-fields";
-export { EditorBody } from "./editor-body";
 export { EditorRelations } from "./editor-relations";
 export { EditorCta } from "./editor-cta";
 export { EditorPublishPanel } from "./editor-publish-panel";

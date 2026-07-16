@@ -4,7 +4,7 @@ import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 import { EditorStatusBar } from "@/components/studio/editor-status-bar";
 import { ArrowLeftIcon, EditIcon } from "@/components/icons";
-import { resolveIcon } from "@/lib/content/core/icon-map";
+import { resolveIconElement } from "@/lib/content/core/icon-map";
 import { statusMeta } from "@/lib/content/core/cosmology";
 import { isAdmin, type Role } from "@/lib/content/utils/roles";
 import type { EditorDraft } from "@/lib/content/publishing/publish-validation";
@@ -33,7 +33,6 @@ export function EditorHeader({
   role, originalAuthorId, originalAuthorName, userId, displayName,
 }: Props) {
   const status = statusMeta(draft.status);
-  const StatusIcon = resolveIcon(status.icon);
   const editingOther = isAdmin(role) && originalAuthorId && originalAuthorId !== userId;
 
   return (
@@ -60,7 +59,7 @@ export function EditorHeader({
             className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-semibold leading-[1.4]"
             style={{ backgroundColor: `${status.accent}1f`, color: status.accent }}
           >
-            {StatusIcon && <StatusIcon className="h-3 w-3" />}
+            {resolveIconElement(status.icon, { className: "h-3 w-3" })}
             {draft.status}
           </span>
           <EditorStatusBar autoState={autoState} savedAt={savedAt} />

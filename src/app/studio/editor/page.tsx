@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useAuth, useUser } from "@clerk/nextjs";
 import { roleFromMetadata, canWrite } from "@/lib/content/utils/roles";
 import {
-  EMPTY_DRAFT, getPublishChecklist, canPublish,
+  EMPTY_DRAFT, getPublishChecklist,
 } from "@/lib/content/publishing/publish-validation";
 import type { EditorDraft } from "@/lib/content/publishing/publish-validation";
 import { validateEditorDraft } from "@/lib/content/publishing/editor-validation";
@@ -21,7 +21,7 @@ import { EditorFeedback, type EditorFeedbackData } from "@/components/studio/edi
 import { EditIcon } from "@/components/icons";
 import { useEditorMachine } from "@/features/editor/hooks/useEditorMachine";
 import {
-  EditorBasicInfo, EditorBody, EditorCta, EditorPublishPanel,
+  EditorBasicInfo, EditorCta, EditorPublishPanel,
   EditorPreview, EditorValidationModal,
 } from "@/components/studio/editor";
 import { RevisionPanel } from "@/components/studio/revision-panel";
@@ -43,7 +43,6 @@ export default function StudioEditorPage() {
   const { userId } = useAuth();
   const { user } = useUser();
   const searchParams = useSearchParams();
-  const router = useRouter();
   const { state, dispatch, updateField } = useEditorMachine(EMPTY_DRAFT);
   const { draft, mode } = state;
 
@@ -54,6 +53,7 @@ export default function StudioEditorPage() {
   const [showValidationModal, setShowValidationModal] = useState(false);
   const [showBlueprintModal, setShowBlueprintModal] = useState(false);
   const [showAdvancedForms, setShowAdvancedForms] = useState(false);
+  const goToFieldTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const role = roleFromMetadata(user?.publicMetadata);
   const canSave = draft.slug.trim() !== "" && draft.title.trim() !== "";
@@ -190,6 +190,7 @@ export default function StudioEditorPage() {
       const result = await saveDraftAction(draft);
       if (result.error) {
         dispatch({ type: "AUTO_SAVE_DONE" });
+        showError(result.error);
       } else {
         dispatch({ type: "AUTO_SAVE_DONE" });
         const row = result.data as { id?: string } | null;
@@ -201,6 +202,12 @@ export default function StudioEditorPage() {
     return () => clearTimeout(timer);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [draft, userId]);
+
+  useEffect(() => {
+    return () => {
+      if (goToFieldTimerRef.current) clearTimeout(goToFieldTimerRef.current);
+    };
+  }, []);
 
   async function handleManualSave() {
     if (!userId) { showError("ยังไม่ได้เข้าสู่ระบบ"); return; }
@@ -217,7 +224,9 @@ export default function StudioEditorPage() {
 
   function handleGoToField(fieldId: string) {
     setShowValidationModal(false);
-    setTimeout(() => {
+    if (goToFieldTimerRef.current) clearTimeout(goToFieldTimerRef.current);
+    goToFieldTimerRef.current = setTimeout(() => {
+      goToFieldTimerRef.current = null;
       const containerId = `container-${fieldId}`;
       const container = document.getElementById(containerId) || document.getElementById(fieldId);
       const input = document.getElementById(fieldId) as HTMLElement | null;
@@ -368,7 +377,6 @@ export default function StudioEditorPage() {
                   <p className="text-xs text-text-secondary">ใช้สำหรับปรับแต่งค่าฟิลด์พิเศษ หรือข้อมูลที่ต้องการกำหนดค่าเฉพาะเจาะจงนอกเหนือจาก MDX</p>
                 </div>
                 <EditorBasicInfo draft={draft} updateField={updateField} validationIssues={validationResult.byField} />
-                <EditorBody draft={draft} updateField={updateField} validationIssues={validationResult.byField} />
                 <EditorCta draft={draft} updateField={updateField} />
               </div>
             )}

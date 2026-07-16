@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ReadingPage } from "@/components/reading/reading-page";
+import { ReadingErrorBoundary } from "@/components/reading/reading-error-boundary";
 import { allEntrySlugs } from "@/lib/content/core/seeds/entries";
 import { getPublicEntryBySlug } from "@/lib/content/publishing/public-source";
 import { generatePageMetadata } from "@/lib/content/seo/metadata";
@@ -50,7 +51,9 @@ async function ArticleContent({ params }: { params: Promise<{ slug: string }> })
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJson) }} />
-      <ReadingPage entry={entry} section="articles" atmosphere="atmo-magazine" />
+      <ReadingErrorBoundary>
+        <ReadingPage entry={entry} section="articles" atmosphere="atmo-magazine" />
+      </ReadingErrorBoundary>
     </>
   );
 }

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { PageScaffold } from "@/components/page-scaffold";
 import { getPublicEntryBySlug } from "@/lib/content/publishing/public-source";
 import { ReadingPage } from "@/components/reading/reading-page";
+import { ReadingErrorBoundary } from "@/components/reading/reading-error-boundary";
 import { generatePageMetadata } from "@/lib/content/seo/metadata";
 import { bookLd, breadcrumbLd, organizationLd } from "@/lib/content/seo/structured-data";
 
@@ -62,7 +63,9 @@ export default async function BookDetailPage({ params }: PageProps) {
         lead={entry.shortDescription}
         navCurrent="/books"
       >
-        <ReadingPage entry={entry} section="books" />
+        <ReadingErrorBoundary>
+          <ReadingPage entry={entry} section="books" />
+        </ReadingErrorBoundary>
       </PageScaffold>
     </>
   );

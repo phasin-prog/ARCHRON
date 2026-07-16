@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent, type ChangeEvent } from "react";
+import Image from "next/image";
 import type { BookingFormData } from "@/components/guide/types";
 
 interface BookingSectionProps {
@@ -123,6 +124,26 @@ export function BookingSection({ onSubmitSuccess }: BookingSectionProps) {
           <div className="rounded-lg border border-accent/20 bg-accent/5 p-3.5 text-xs text-text-body">
             <span className="font-semibold text-accent">บริการที่เลือก:</span>{" "}
             {formData.service}
+          </div>
+
+          <div className="rounded-lg border border-success/25 bg-success/5 p-4 text-center">
+            <span className="block text-xs font-bold text-success uppercase tracking-wider">
+              ชำระเงินผ่าน THAI QR PAYMENT / PromptPay
+            </span>
+            <p className="mt-1 text-[11px] text-text-secondary/90">
+              สแกนผ่านแอปพลิเคชันธนาคารทุกธนาคาร หรือโอนเข้าบัญชี: <strong className="font-mono text-text-heading">xxx-x-x6727-x (นาย พศิน พสุมาตร)</strong>
+            </p>
+            <div className="mx-auto mt-3 flex flex-col items-center justify-center rounded-xl border-2 border-success/30 bg-bg-card p-3 shadow-md max-w-[180px]">
+              <Image
+                src="/promptpay-qr.jpg"
+                alt="THAI QR PAYMENT - PromptPay นาย พศิน พสุมาตร บัญชี xxx-x-x6727-x"
+                width={160}
+                height={200}
+                className="rounded object-contain w-full h-auto"
+                priority
+                unoptimized
+              />
+            </div>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">

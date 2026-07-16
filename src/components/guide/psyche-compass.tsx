@@ -70,23 +70,23 @@ export function PsycheCompass() {
           {activeFunc === "ego" && <circle cx="160" cy="160" r="30" fill="url(#gold-glow)" />}
 
           <g className="cursor-pointer" onClick={() => setActiveFunc("thinking")} tabIndex={0} onKeyDown={(e) => e.key === "Enter" && setActiveFunc("thinking")} aria-label="Thinking function">
-            <circle cx="160" cy="30" r="14" fill="var(--color-bg)" stroke={activeFunc === "thinking" ? "var(--color-accent)" : "var(--color-border)"} strokeWidth="1.5" />
-            <text x="160" y="34" textAnchor="middle" fill={activeFunc === "thinking" ? "var(--color-accent)" : "var(--color-text-heading)"} fontSize="11" fontWeight="bold" fontFamily="monospace">T</text>
+            <circle cx="160" cy="30" r="20" fill="var(--color-bg)" stroke={activeFunc === "thinking" ? "var(--color-accent)" : "var(--color-border)"} strokeWidth="1.5" />
+            <text x="160" y="35" textAnchor="middle" fill={activeFunc === "thinking" ? "var(--color-accent)" : "var(--color-text-heading)"} fontSize="12" fontWeight="bold" fontFamily="monospace">T</text>
           </g>
 
           <g className="cursor-pointer" onClick={() => setActiveFunc("feeling")} tabIndex={0} onKeyDown={(e) => e.key === "Enter" && setActiveFunc("feeling")} aria-label="Feeling function">
-            <circle cx="160" cy="290" r="14" fill="var(--color-bg)" stroke={activeFunc === "feeling" ? "var(--color-accent)" : "var(--color-border)"} strokeWidth="1.5" />
-            <text x="160" y="294" textAnchor="middle" fill={activeFunc === "feeling" ? "var(--color-accent)" : "var(--color-text-heading)"} fontSize="11" fontWeight="bold" fontFamily="monospace">F</text>
+            <circle cx="160" cy="290" r="20" fill="var(--color-bg)" stroke={activeFunc === "feeling" ? "var(--color-accent)" : "var(--color-border)"} strokeWidth="1.5" />
+            <text x="160" y="295" textAnchor="middle" fill={activeFunc === "feeling" ? "var(--color-accent)" : "var(--color-text-heading)"} fontSize="12" fontWeight="bold" fontFamily="monospace">F</text>
           </g>
 
           <g className="cursor-pointer" onClick={() => setActiveFunc("intuition")} tabIndex={0} onKeyDown={(e) => e.key === "Enter" && setActiveFunc("intuition")} aria-label="Intuition function">
-            <circle cx="30" cy="160" r="14" fill="var(--color-bg)" stroke={activeFunc === "intuition" ? "var(--color-accent)" : "var(--color-border)"} strokeWidth="1.5" />
-            <text x="30" y="164" textAnchor="middle" fill={activeFunc === "intuition" ? "var(--color-accent)" : "var(--color-text-heading)"} fontSize="11" fontWeight="bold" fontFamily="monospace">N</text>
+            <circle cx="30" cy="160" r="20" fill="var(--color-bg)" stroke={activeFunc === "intuition" ? "var(--color-accent)" : "var(--color-border)"} strokeWidth="1.5" />
+            <text x="30" y="165" textAnchor="middle" fill={activeFunc === "intuition" ? "var(--color-accent)" : "var(--color-text-heading)"} fontSize="12" fontWeight="bold" fontFamily="monospace">N</text>
           </g>
 
           <g className="cursor-pointer" onClick={() => setActiveFunc("sensation")} tabIndex={0} onKeyDown={(e) => e.key === "Enter" && setActiveFunc("sensation")} aria-label="Sensation function">
-            <circle cx="290" cy="160" r="14" fill="var(--color-bg)" stroke={activeFunc === "sensation" ? "var(--color-accent)" : "var(--color-border)"} strokeWidth="1.5" />
-            <text x="290" y="164" textAnchor="middle" fill={activeFunc === "sensation" ? "var(--color-accent)" : "var(--color-text-heading)"} fontSize="11" fontWeight="bold" fontFamily="monospace">S</text>
+            <circle cx="290" cy="160" r="20" fill="var(--color-bg)" stroke={activeFunc === "sensation" ? "var(--color-accent)" : "var(--color-border)"} strokeWidth="1.5" />
+            <text x="290" y="165" textAnchor="middle" fill={activeFunc === "sensation" ? "var(--color-accent)" : "var(--color-text-heading)"} fontSize="12" fontWeight="bold" fontFamily="monospace">S</text>
           </g>
 
           <g className="cursor-pointer" onClick={() => setActiveFunc("ego")} tabIndex={0} onKeyDown={(e) => e.key === "Enter" && setActiveFunc("ego")} aria-label="Ego center">

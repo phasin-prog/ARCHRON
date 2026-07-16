@@ -3,7 +3,7 @@ import { BOUNDARIES_ITEMS } from "@/components/guide/types";
 export function AcademicDisclaimer() {
   return (
     <section className="border-b border-border/30 bg-bg px-6 py-16">
-      <div className="mx-auto max-w-3xl">
+      <div className="mx-auto max-w-5xl">
         <div className="rounded-xl border border-accent/25 bg-bg-card/70 p-8 shadow-sm md:p-10">
           <div className="flex items-center gap-2.5">
             <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent/15 text-xs font-bold text-accent">

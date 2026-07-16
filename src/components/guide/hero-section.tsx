@@ -18,7 +18,7 @@ export function HeroSection({ onBookClick, onPricingClick }: HeroSectionProps) {
         aria-hidden="true"
       />
 
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-5xl">
         <nav
           aria-label="เส้นทางนำทาง"
           className="mb-8 flex flex-wrap items-center gap-1.5 text-xs text-text-secondary"
@@ -73,7 +73,7 @@ export function HeroSection({ onBookClick, onPricingClick }: HeroSectionProps) {
               </button>
             </div>
 
-            <div className="mt-8 flex items-center gap-6 border-t border-border/30 pt-6 text-xs text-text-secondary/80">
+            <div className="mt-8 flex flex-wrap items-center gap-6 border-t border-border/30 pt-6 text-xs text-text-secondary/80">
               <div className="flex items-center gap-2">
                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-success/15 text-success">
                   <CheckIcon className="h-3 w-3" />

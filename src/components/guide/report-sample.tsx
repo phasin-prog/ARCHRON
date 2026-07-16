@@ -65,7 +65,7 @@ export function ReportSample() {
 
           {/* Document Content */}
           <div className="mt-8">
-            <div className="flex items-baseline justify-between">
+            <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
               <span className="font-mono text-xs font-semibold text-accent">
                 SECTION 0{currentPage.pageNumber} OF 03
               </span>

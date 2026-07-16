@@ -17,7 +17,7 @@ import { PricingSection } from "@/components/guide/pricing-card";
 import { FAQSection } from "@/components/guide/faq-accordion";
 import { AcademicDisclaimer } from "@/components/guide/academic-disclaimer";
 import { ContactSection } from "@/components/guide/contact-card";
-import { BookingDialog } from "@/components/guide/booking-dialog";
+import { BookingSection } from "@/components/guide/booking-section";
 import { InvoiceModal } from "@/components/guide/invoice-modal";
 import {
   generateInvoiceNumber,
@@ -30,7 +30,6 @@ import {
 
 export function JungianServicePlatform() {
   const [platformTab, setPlatformTab] = useState<"overview" | "scope" | "process" | "pricing">("overview");
-  const [bookingOpen, setBookingOpen] = useState(false);
   const [invoiceModalOpen, setInvoiceModalOpen] = useState(false);
   const [selectedInvoice, setSelectedInvoice] = useState<InvoiceData | null>(null);
 
@@ -83,21 +82,24 @@ export function JungianServicePlatform() {
     });
   }, [supabase]);
 
-  const handleOpenBooking = () => {
-    setBookingOpen(true);
-  };
-
-  const handleBookingSubmitSuccess = (formData: BookingFormData) => {
-    setBookingOpen(false);
-
-    // Generate new formal invoice ID & data object
+  const handleBookingSubmitSuccess = async (formData: BookingFormData, slipFile?: File) => {
     const newInvoiceId = generateInvoiceNumber();
     const newInvoice = generateInvoiceData(formData, newInvoiceId);
 
-    // Add to invoice list
+    // Upload slip first if provided
+    if (slipFile) {
+      try {
+        const fd = new FormData();
+        fd.append("file", slipFile);
+        fd.append("invoiceNumber", newInvoiceId);
+        await fetch("/api/upload/slip", { method: "POST", body: fd });
+      } catch {
+        // silent — user can upload later in InvoiceModal
+      }
+    }
+
     setInvoices((prev) => [newInvoice, ...prev]);
 
-    // Create a new pending appointment slot
     const newAppointment: AppointmentItem = {
       id: `APT-${newInvoiceId.split("-")[1] || "NEW"}`,
       invoiceId: newInvoiceId,
@@ -109,7 +111,6 @@ export function JungianServicePlatform() {
     };
     setAppointments((prev) => [newAppointment, ...prev]);
 
-    // Open invoice verification modal
     setSelectedInvoice(newInvoice);
     setInvoiceModalOpen(true);
 
@@ -117,14 +118,11 @@ export function JungianServicePlatform() {
       upsertServiceInvoice(supabase, newInvoice, formData.notes);
     }
 
-    // Trigger instant Resend automated email with Invoice & PromptPay QR
     fetch("/api/email/notify-booking", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ invoice: newInvoice }),
-    }).catch(() => {
-      /* ignore background notification errors */
-    });
+    }).catch(() => {});
   };
 
   const handlePaymentVerified = (invoiceNumber: string) => {
@@ -165,7 +163,7 @@ export function JungianServicePlatform() {
     <div className="min-h-screen bg-bg text-text-body">
       <main className="pb-20">
           <HeroSection
-            onBookClick={handleOpenBooking}
+            onBookClick={handleScrollToPricing}
             onPricingClick={handleScrollToPricing}
           />
 
@@ -180,49 +178,49 @@ export function JungianServicePlatform() {
                   <button
                     type="button"
                     onClick={() => handleSwitchTab("overview")}
-                    className={`rounded-lg px-4 py-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+                    className={`rounded-lg px-3 py-2.5 text-[11px] sm:px-4 sm:py-2.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                       platformTab === "overview"
                         ? "bg-text-heading text-text-inverse shadow-sm"
                         : "bg-bg hover:bg-bg-elevated text-text-body"
                     }`}
                   >
-                    1. ภาพรวมและคุณค่า
+                    1. ภาพรวม
                   </button>
 
                   <button
                     type="button"
                     onClick={() => handleSwitchTab("scope")}
-                    className={`rounded-lg px-4 py-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+                    className={`rounded-lg px-3 py-2.5 text-[11px] sm:px-4 sm:py-2.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                       platformTab === "scope"
                         ? "bg-text-heading text-text-inverse shadow-sm"
                         : "bg-bg hover:bg-bg-elevated text-text-body"
                     }`}
                   >
-                    2. มิติวิเคราะห์ &amp; ตัวอย่างรายงาน
+                    2. มิติวิเคราะห์
                   </button>
 
                   <button
                     type="button"
                     onClick={() => handleSwitchTab("process")}
-                    className={`rounded-lg px-4 py-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+                    className={`rounded-lg px-3 py-2.5 text-[11px] sm:px-4 sm:py-2.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                       platformTab === "process"
                         ? "bg-text-heading text-text-inverse shadow-sm"
                         : "bg-bg hover:bg-bg-elevated text-text-body"
                     }`}
                   >
-                    3. ขั้นตอนการเข้ารับบริการ
+                    3. ขั้นตอน
                   </button>
 
                   <button
                     type="button"
                     onClick={() => handleSwitchTab("pricing")}
-                    className={`rounded-lg px-4 py-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+                    className={`rounded-lg px-3 py-2.5 text-[11px] sm:px-4 sm:py-2.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                       platformTab === "pricing"
                         ? "bg-accent text-text-inverse shadow-sm"
                         : "bg-bg hover:bg-bg-elevated text-text-body"
                     }`}
                   >
-                    4. อัตราค่าบริการ &amp; การจอง
+                    4. ราคา &amp; จอง
                   </button>
                 </div>
               </div>
@@ -248,9 +246,9 @@ export function JungianServicePlatform() {
                     <button
                       type="button"
                       onClick={() => handleSwitchTab("scope")}
-                      className="shrink-0 rounded-md bg-text-heading px-5 py-2.5 text-xs font-semibold text-text-inverse transition-colors hover:bg-text-body"
+                      className="shrink-0 rounded-md bg-text-heading px-5 py-3 text-xs font-semibold text-text-inverse transition-colors hover:bg-text-body"
                     >
-                      ดูมิติวิเคราะห์ &amp; ตัวอย่างรายงาน ➔
+                      ดูมิติวิเคราะห์ ➔
                     </button>
                   </div>
                 </div>
@@ -274,9 +272,9 @@ export function JungianServicePlatform() {
                     <button
                       type="button"
                       onClick={() => handleSwitchTab("process")}
-                      className="shrink-0 rounded-md bg-text-heading px-5 py-2.5 text-xs font-semibold text-text-inverse transition-colors hover:bg-text-body"
+                      className="shrink-0 rounded-md bg-text-heading px-5 py-3 text-xs font-semibold text-text-inverse transition-colors hover:bg-text-body"
                     >
-                      ศึกษากระบวนการบริการ ➔
+                      ศึกษากระบวนการ ➔
                     </button>
                   </div>
                 </div>
@@ -300,16 +298,16 @@ export function JungianServicePlatform() {
                       <button
                         type="button"
                         onClick={() => handleSwitchTab("pricing")}
-                        className="shrink-0 rounded-md bg-text-heading px-5 py-2.5 text-xs font-semibold text-text-inverse transition-colors hover:bg-text-body"
+                        className="shrink-0 rounded-md bg-text-heading px-5 py-3 text-xs font-semibold text-text-inverse transition-colors hover:bg-text-body"
                       >
-                        ตรวจสอบอัตราค่าบริการ ➔
+                        ตรวจสอบราคา ➔
                       </button>
                       <button
                         type="button"
-                        onClick={handleOpenBooking}
-                        className="shrink-0 rounded-md bg-accent px-5 py-2.5 text-xs font-semibold text-text-inverse transition-colors hover:bg-accent-hover"
+                        onClick={handleScrollToPricing}
+                        className="shrink-0 rounded-md bg-accent px-5 py-3 text-xs font-semibold text-text-inverse transition-colors hover:bg-accent-hover"
                       >
-                        + จองคิวทันที
+                        + จองคิว
                       </button>
                     </div>
                   </div>
@@ -320,7 +318,10 @@ export function JungianServicePlatform() {
             {platformTab === "pricing" && (
               <>
                 <PricingSection
-                  onBookClick={handleOpenBooking}
+                  onBookClick={handleScrollToPricing}
+                />
+                <BookingSection
+                  onSubmitSuccess={handleBookingSubmitSuccess}
                 />
                 <FAQSection />
                 <AcademicDisclaimer />
@@ -329,13 +330,6 @@ export function JungianServicePlatform() {
             )}
         </div>
       </main>
-
-      {/* Booking Dialog Modal */}
-      <BookingDialog
-        open={bookingOpen}
-        onClose={() => setBookingOpen(false)}
-        onSubmitSuccess={handleBookingSubmitSuccess}
-      />
 
       {/* Invoice Modal */}
       <InvoiceModal

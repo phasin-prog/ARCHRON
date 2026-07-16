@@ -17,8 +17,8 @@ function renderContactIcon(iconType: ContactChannelItem["icon"]) {
 
 export function ContactSection() {
   return (
-    <section id="contact" className="bg-bg-card/40 px-6 py-20 lg:py-24">
-      <div className="mx-auto max-w-4xl text-center">
+    <section id="contact" className="border-b border-border/30 bg-bg px-6 py-20 lg:py-24">
+      <div className="mx-auto max-w-5xl text-center">
         <span className="text-xs font-semibold uppercase tracking-[0.22em] text-accent/85">
           Direct Communication Channels
         </span>

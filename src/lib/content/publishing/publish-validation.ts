@@ -10,7 +10,11 @@ export type EditorRelatedConcept = {
 
 export type EditorReference = {
   sourceType: string;
+  author: string;
   title: string;
+  year: string;
+  pageOrSection: string;
+  citationNote: string;
   relatedClaim: string;
 };
 
@@ -45,6 +49,7 @@ export type EditorDraft = {
   technicalMeaning: string;
   realWorldExamples: string;
   rootsEtymology: string;
+  rootsHistoricalUsage: string;
   rootsMeaningShift: string;
   rootsCaution: string;
 
@@ -78,7 +83,8 @@ export const EMPTY_DRAFT: EditorDraft = {
   school: "", rowName: "", rowCode: "",
   mainTerm: "", thaiName: "", originalTerm: "", partOfSpeech: "",
   languageRoot: "", ipa: "", visualExplanation: "", technicalMeaning: "",
-  realWorldExamples: "", rootsEtymology: "", rootsMeaningShift: "", rootsCaution: "",
+  realWorldExamples: "",
+  rootsEtymology: "", rootsHistoricalUsage: "", rootsMeaningShift: "", rootsCaution: "",
   mainThinker: "", bornYear: "", diedYear: "", nationality: "",
   keyIdeas: "", notableWorks: "",
   publicationYear: "", publisher: "", isbn: "",
@@ -122,6 +128,7 @@ export function getPublishChecklist(d: EditorDraft, contentType?: string): Check
 
   const hasRootsSSOT =
     (d.rootsEtymology && d.rootsEtymology.trim() !== "") ||
+    (d.rootsHistoricalUsage && d.rootsHistoricalUsage.trim() !== "") ||
     (d.rootsCaution && d.rootsCaution.trim() !== "") ||
     /#[#]?\s*(รากศัพท์|ที่มาของคำ|Etymology|Roots|การเปลี่ยนความหมาย|รากคำ)/i.test(bm);
 
@@ -152,11 +159,11 @@ export function getPublishChecklist(d: EditorDraft, contentType?: string): Check
     },
     {
       label: "มีคำอธิบายให้เห็นภาพ",
-      ok: true,
+      ok: isArticle || isConcept || isSymbol || isTerm ? Boolean(hasVisualSSOT) : true,
     },
     {
       label: "มีความหมายทางวิชาการ / เทคนิค",
-      ok: true,
+      ok: isArticle || isConcept || isPerson ? Boolean(hasTechnicalSSOT) : true,
     },
     {
       label: "มี Related Concepts อย่างน้อย 1",
@@ -168,7 +175,7 @@ export function getPublishChecklist(d: EditorDraft, contentType?: string): Check
     },
     {
       label: "มี Roots หรือเหตุผลที่ยังไม่ใส่",
-      ok: true,
+      ok: isConcept || isTerm ? Boolean(hasRootsSSOT) : true,
     },
     {
       label: "มีเนื้อหา (Body Markdown)",

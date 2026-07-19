@@ -48,7 +48,20 @@ export async function saveDraft(
 
   const profile = await getMyProfile(sb, authorId);
   const authorName = profile?.display_name ?? profile?.username ?? null;
-  const row = draftToRow(draft, authorId, authorName);
+
+  // Preserve existing published_at so saving a draft doesn't erase it
+  const { data: existing } = await sb
+    .from("entries")
+    .select("published_at")
+    .eq("slug", draft.slug)
+    .maybeSingle();
+  const existingPublishedAt =
+    (existing as { published_at: string | null } | null)?.published_at ?? undefined;
+
+  const row = {
+    ...draftToRow(draft, authorId, authorName),
+    published_at: existingPublishedAt,
+  };
   const { data, error } = await sb
     .from("entries")
     .upsert(row, { onConflict: "slug" })

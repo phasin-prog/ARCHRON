@@ -117,6 +117,7 @@ export function validateEditorDraft(
 
   const hasRootsSSOT =
     (draft.rootsEtymology && draft.rootsEtymology.trim() !== "") ||
+    (draft.rootsHistoricalUsage && draft.rootsHistoricalUsage.trim() !== "") ||
     (draft.rootsCaution && draft.rootsCaution.trim() !== "") ||
     /#[#]?\s*(รากศัพท์|ที่มาของคำ|Etymology|Roots|การเปลี่ยนความหมาย|รากคำ)/i.test(bm);
 

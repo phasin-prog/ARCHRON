@@ -97,7 +97,9 @@ export async function deleteEntry(sb: SupabaseClient, id: string) {
   const result = await sb.from("entries").delete().eq("id", id);
 
   // Invalidate RTK cache — FK cascade removes library + chunks rows
-  invalidateRTK().catch(() => {});
+  invalidateRTK().catch((e) => {
+    console.error("[RTK_INVALIDATE_ERROR]", e);
+  });
 
   return result;
 }

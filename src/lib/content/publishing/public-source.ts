@@ -30,7 +30,13 @@ function hasSupabaseEnv(): boolean {
 }
 
 function staticPublished(): DiscriminatedEntry[] {
-  return staticEntries.filter((e) => e.status === "published") as unknown as DiscriminatedEntry[];
+  return (staticEntries.filter((e) => e.status === "published") as DiscriminatedEntry[]).sort(
+    (a, b) => {
+      const da = a.publishedAt ?? "";
+      const db = b.publishedAt ?? "";
+      return db.localeCompare(da);
+    },
+  );
 }
 
 export const getPublicEntries = cache(
@@ -90,7 +96,11 @@ export const getPublicReadingSets = cache(
       if (hasSupabaseEnv()) {
         try {
           const dbSets = await getDbPublishedEntries("reading-set");
-          if (dbSets.length > 0) return dbSets as ReadingSetItem[];
+          if (dbSets.length > 0) {
+            return dbSets.filter(
+              (e) => "steps" in e && Array.isArray((e as { steps?: unknown }).steps),
+            ) as ReadingSetItem[];
+          }
         } catch {
           // DB เข้าถึงไม่ได้
         }
@@ -109,8 +119,8 @@ export const getPublicReadingSetBySlug = cache(
       if (hasSupabaseEnv()) {
         try {
           const dbEntry = await getDbPublishedEntryBySlug(slug);
-          if (dbEntry !== null && dbEntry.contentType === "reading-set") {
-            return dbEntry as ReadingSetItem;
+          if (dbEntry !== null && dbEntry.contentType === "reading-set" && "steps" in dbEntry) {
+            return dbEntry as unknown as ReadingSetItem;
           }
         } catch {
           // DB เข้าถึงไม่ได้ — fallback ไป static
@@ -124,7 +134,8 @@ export const getPublicReadingSetBySlug = cache(
 );
 
 // เรียกหลัง publish เพื่อ invalidate data cache
-export async function revalidateEntry(_slug: string) {
+export async function revalidateEntry(slug: string) {
   const { revalidateTag } = await import("next/cache");
   revalidateTag("entries", { expire: 0 });
+  revalidateTag(`entry-${slug}`, { expire: 0 });
 }

@@ -1,14 +1,12 @@
 // app/sitemap.ts — ARCHRON Phase 20: SEO Sitemap Architecture
 import type { MetadataRoute } from "next";
-import { conceptRegistry } from "@/lib/content/core/registry";
-import { READING_SETS } from "@/lib/content/core/seeds/reading-sets";
-import { entries } from "@/lib/content/core/seeds/entries";
+import { getPublicEntries, getPublicReadingSets } from "@/lib/content/publishing/public-source";
 import { THEMES } from "@/lib/content/core/seeds/themes";
-import { isArticleRouteEntry } from "@/lib/content/routing";
+import { isArticleRouteEntry, isConceptRouteEntry } from "@/lib/content/routing";
 
 export const dynamic = "force-static";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://archron.org";
 
   const staticRoutes = [
@@ -40,18 +38,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority,
   }));
 
-  // concept nodes (registry)
-  const conceptRoutes = conceptRegistry.map((c) => ({
-    url: `${baseUrl}/concepts/${c.slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
+  // Published entries from DB (fallback static seed)
+  const published = await getPublicEntries();
 
-  // content entries: articles + person entries (concept entries already in conceptRegistry)
-  const publishedEntries = entries.filter((e) => e.status === "published");
-
-  const articleRoutes = publishedEntries
+  // articles
+  const articleRoutes = published
     .filter(isArticleRouteEntry)
     .map((e) => ({
       url: `${baseUrl}/articles/${e.slug}`,
@@ -60,24 +51,46 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     }));
 
-  const thinkerRoutes = conceptRegistry
-    .filter((c) => c.nodeType === "person")
-    .map((c) => ({
-      url: `${baseUrl}/thinkers/${c.slug}`,
-      lastModified: new Date(),
+  // concepts (concept, source-note, symbol, term)
+  const conceptRoutes = published
+    .filter(isConceptRouteEntry)
+    .map((e) => ({
+      url: `${baseUrl}/concepts/${e.slug}`,
+      lastModified: new Date(e.updatedAt ?? e.publishedAt ?? ""),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    }));
+
+  // persons
+  const thinkerRoutes = published
+    .filter((e) => e.contentType === "person")
+    .map((e) => ({
+      url: `${baseUrl}/thinkers/${e.slug}`,
+      lastModified: new Date(e.updatedAt ?? e.publishedAt ?? ""),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    }));
+
+  // books
+  const bookRoutes = published
+    .filter((e) => e.contentType === "book")
+    .map((e) => ({
+      url: `${baseUrl}/books/${e.slug}`,
+      lastModified: new Date(e.updatedAt ?? e.publishedAt ?? ""),
       changeFrequency: "monthly" as const,
       priority: 0.6,
     }));
 
   // reading sets
-  const setRoutes = READING_SETS.map((r) => ({
+  const readingSets = await getPublicReadingSets();
+  const setRoutes = readingSets.map((r) => ({
     url: `${baseUrl}/reading-sets/${r.slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));
 
-  // themes
+  // themes (static only)
   const themeRoutes = THEMES.map((t) => ({
     url: `${baseUrl}/themes/${t.key}`,
     lastModified: new Date(),
@@ -85,23 +98,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  // books from registry
-  const bookRoutes = conceptRegistry
-    .filter((c) => c.nodeType === "book")
-    .map((c) => ({
-      url: `${baseUrl}/books/${c.slug}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    }));
-
   return [
     ...staticRoutes,
     ...conceptRoutes,
     ...articleRoutes,
     ...thinkerRoutes,
+    ...bookRoutes,
     ...setRoutes,
     ...themeRoutes,
-    ...bookRoutes,
   ];
 }

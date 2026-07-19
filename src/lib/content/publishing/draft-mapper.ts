@@ -1,6 +1,6 @@
 import type { EditorDraft } from "@/lib/content/publishing/publish-validation";
 import type { EntryRow } from "@/lib/content/publishing/entry-mapper";
-import type { DiscriminatedEntry } from "@/types/content";
+import type { DiscriminatedEntry, SourceType, RelationType } from "@/types/content";
 
 // EditorDraft (ฟอร์ม) → แถวสำหรับเขียนลง Supabase (snake_case)
 export function draftToRow(
@@ -10,12 +10,14 @@ export function draftToRow(
 ): Partial<EntryRow> & { slug: string; title: string; author_id: string } {
   const hasRoots =
     d.rootsEtymology.trim() !== "" ||
+    d.rootsHistoricalUsage.trim() !== "" ||
     d.rootsMeaningShift.trim() !== "" ||
     d.rootsCaution.trim() !== "";
 
   const roots = hasRoots
     ? {
         etymology: d.rootsEtymology || undefined,
+        historicalUsage: d.rootsHistoricalUsage || undefined,
         meaningShift: d.rootsMeaningShift || undefined,
         caution: d.rootsCaution || undefined,
       }
@@ -34,8 +36,20 @@ export function draftToRow(
     difficulty: d.difficulty || undefined,
     tags: d.tags.length > 0 ? d.tags : undefined,
     body_markdown: d.bodyMarkdown || undefined,
-    related_concepts: d.relatedConcepts as unknown as EntryRow["related_concepts"],
-    source_refs: d.references as unknown as EntryRow["source_refs"],
+    related_concepts: d.relatedConcepts.map((rc) => ({
+      conceptSlug: rc.conceptSlug,
+      relationType: rc.relationType as RelationType,
+      reason: rc.reason || undefined,
+    })),
+    source_refs: d.references.map((r) => ({
+      sourceType: r.sourceType as SourceType,
+      author: r.author || undefined,
+      title: r.title,
+      year: r.year || undefined,
+      pageOrSection: r.pageOrSection || undefined,
+      citationNote: r.citationNote || undefined,
+      relatedClaim: r.relatedClaim || undefined,
+    })),
     roots: roots as EntryRow["roots"],
     cover_image: d.coverImage || undefined,
     short_description: d.shortDescription || undefined,
@@ -50,7 +64,9 @@ export function draftToRow(
     visual_explanation: d.visualExplanation || undefined,
     technical_meaning: d.technicalMeaning || undefined,
     real_world_examples: d.realWorldExamples || undefined,
-    main_thinkers: d.mainThinker ? [d.mainThinker] : undefined,
+    main_thinkers: d.mainThinker
+      ? d.mainThinker.split(",").map((s) => s.trim()).filter(Boolean)
+      : undefined,
     born_year: d.bornYear || undefined,
     died_year: d.diedYear || undefined,
     nationality: d.nationality || undefined,
@@ -75,7 +91,13 @@ export function entryToDraft(entry: DiscriminatedEntry): EditorDraft {
       conceptSlug: r.conceptSlug, relationType: r.relationType, reason: r.reason ?? "",
     })),
     references: (entry.references ?? []).map((r) => ({
-      sourceType: r.sourceType, title: r.title, relatedClaim: r.relatedClaim ?? "",
+      sourceType: r.sourceType,
+      author: r.author ?? "",
+      title: r.title,
+      year: r.year ?? "",
+      pageOrSection: r.pageOrSection ?? "",
+      citationNote: r.citationNote ?? "",
+      relatedClaim: r.relatedClaim ?? "",
     })),
     coverImage: entry.coverImage ?? "", shortDescription: entry.shortDescription ?? "",
     rowName: entry.rowName ?? "", rowCode: entry.rowCode ?? "",
@@ -92,9 +114,10 @@ export function entryToDraft(entry: DiscriminatedEntry): EditorDraft {
       visualExplanation: entry.visualExplanation ?? "",
       technicalMeaning: entry.technicalMeaning ?? "",
       rootsEtymology: entry.roots?.etymology ?? "",
+      rootsHistoricalUsage: entry.roots?.historicalUsage ?? "",
       rootsMeaningShift: entry.roots?.meaningShift ?? "",
       rootsCaution: entry.roots?.caution ?? "",
-      mainThinker: entry.mainThinkers?.[0] ?? "",
+      mainThinker: entry.mainThinkers?.join(", ") ?? "",
       bornYear: "", diedYear: "", nationality: "",
       keyIdeas: "", notableWorks: "",
       publicationYear: "", publisher: "", isbn: "",
@@ -113,7 +136,7 @@ export function entryToDraft(entry: DiscriminatedEntry): EditorDraft {
       originalTerm: "", partOfSpeech: "", languageRoot: "", ipa: "",
       visualExplanation: entry.visualExplanation ?? "",
       technicalMeaning: entry.technicalMeaning ?? "",
-      rootsEtymology: "", rootsMeaningShift: "", rootsCaution: "",
+      rootsEtymology: "", rootsHistoricalUsage: "", rootsMeaningShift: "", rootsCaution: "",
       publicationYear: "", publisher: "", isbn: "",
       founder: "", period: "",
     };
@@ -126,7 +149,7 @@ export function entryToDraft(entry: DiscriminatedEntry): EditorDraft {
       isbn: entry.isbn ?? "",
       originalTerm: "", partOfSpeech: "", languageRoot: "", ipa: "",
       visualExplanation: "", technicalMeaning: "",
-      rootsEtymology: "", rootsMeaningShift: "", rootsCaution: "",
+      rootsEtymology: "", rootsHistoricalUsage: "", rootsMeaningShift: "", rootsCaution: "",
       mainThinker: "", bornYear: "", diedYear: "", nationality: "",
       keyIdeas: "", notableWorks: "",
       founder: "", period: "",
@@ -139,8 +162,8 @@ export function entryToDraft(entry: DiscriminatedEntry): EditorDraft {
       originalTerm: "", partOfSpeech: "", languageRoot: "", ipa: "",
       visualExplanation: entry.visualExplanation ?? "",
       technicalMeaning: entry.technicalMeaning ?? "",
-      rootsEtymology: "", rootsMeaningShift: "", rootsCaution: "",
-      mainThinker: entry.mainThinkers?.[0] ?? "",
+      rootsEtymology: "", rootsHistoricalUsage: "", rootsMeaningShift: "", rootsCaution: "",
+      mainThinker: entry.mainThinkers?.join(", ") ?? "",
       bornYear: "", diedYear: "", nationality: "",
       keyIdeas: "", notableWorks: "",
       publicationYear: "", publisher: "", isbn: "",
@@ -151,7 +174,7 @@ export function entryToDraft(entry: DiscriminatedEntry): EditorDraft {
     ...base, framework: "", school: "",
     mainTerm: "", thaiName: "", originalTerm: "", partOfSpeech: "",
     languageRoot: "", ipa: "", visualExplanation: "", technicalMeaning: "",
-    rootsEtymology: "", rootsMeaningShift: "", rootsCaution: "",
+    rootsEtymology: "", rootsHistoricalUsage: "", rootsMeaningShift: "", rootsCaution: "",
     mainThinker: "", bornYear: "", diedYear: "", nationality: "",
     keyIdeas: "", notableWorks: "",
     publicationYear: "", publisher: "", isbn: "",

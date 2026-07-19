@@ -18,7 +18,8 @@ export function EditorRelations({
     conceptSlug: "", relationType: "related", reason: "",
   });
   const [newRef, setNewRef] = useState<EditorReference>({
-    sourceType: "primary-source", title: "", relatedClaim: "",
+    sourceType: "primary-source", author: "", title: "", year: "",
+    pageOrSection: "", citationNote: "", relatedClaim: "",
   });
 
   function addConcept() {
@@ -34,7 +35,8 @@ export function EditorRelations({
   function addReference() {
     if (!newRef.title.trim()) return;
     updateField("references", [...draft.references, { ...newRef }]);
-    setNewRef({ sourceType: "primary-source", title: "", relatedClaim: "" });
+    setNewRef({ sourceType: "primary-source", author: "", title: "", year: "",
+      pageOrSection: "", citationNote: "", relatedClaim: "" });
   }
 
   function removeReference(idx: number) {

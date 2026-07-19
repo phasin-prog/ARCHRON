@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Breadcrumb } from "@/components/breadcrumb";
 import { PageScaffold } from "@/components/page-scaffold";
-import { conceptRegistry } from "@/lib/content/core/registry";
 import { getPublicEntries } from "@/lib/content/publishing/public-source";
 import {
   BookIcon,
@@ -49,7 +48,8 @@ type ThinkerRow = {
 export type KnowledgeRow = ArticleRow | ConceptRow | ThinkerRow;
 
 export default async function KnowledgePage() {
-  const entries = await getPublicEntries("article");
+  const all = await getPublicEntries();
+  const entries = all.filter((e) => e.contentType === "article");
 
   const articles: ArticleRow[] = entries.map((e) => ({
     type: "article" as const,
@@ -59,27 +59,33 @@ export default async function KnowledgePage() {
     description: e.shortDescription,
   }));
 
-  const concepts: ConceptRow[] = conceptRegistry
-    .filter((c) => c.nodeType === "concept")
-    .map((c) => ({
-      type: "concept" as const,
-      slug: c.slug,
-      title: c.title,
-      thaiTitle: c.thaiTitle,
-      description: c.description,
-      framework: c.framework,
-    }));
+  const concepts: ConceptRow[] = all
+    .filter((e) => ["concept", "symbol", "term", "source-note"].includes(e.contentType))
+    .map((e) => {
+      const m = e as { mainTerm?: string; thaiName?: string; framework?: string };
+      return {
+        type: "concept" as const,
+        slug: e.slug,
+        title: m.mainTerm || e.title,
+        thaiTitle: m.thaiName,
+        description: e.shortDescription,
+        framework: m.framework,
+      };
+    });
 
-  const thinkers: ThinkerRow[] = conceptRegistry
-    .filter((c) => c.nodeType === "person")
-    .map((c) => ({
-      type: "thinker" as const,
-      slug: c.slug,
-      title: c.title,
-      thaiTitle: c.thaiTitle,
-      description: c.description,
-      framework: c.framework,
-    }));
+  const thinkers: ThinkerRow[] = all
+    .filter((e) => e.contentType === "person")
+    .map((e) => {
+      const m = e as { mainTerm?: string; thaiName?: string; framework?: string };
+      return {
+        type: "thinker" as const,
+        slug: e.slug,
+        title: m.mainTerm || e.title,
+        thaiTitle: m.thaiName,
+        description: e.shortDescription,
+        framework: m.framework,
+      };
+    });
 
   return (
     <PageScaffold ambient navCurrent="/knowledge">

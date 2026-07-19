@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import { PageScaffold } from "@/components/page-scaffold";
-import { conceptRegistry } from "@/lib/content/core/registry";
+import type { ConceptRegistryItem, NodeType } from "@/lib/content/core/registry";
 import { getPublicEntries } from "@/lib/content/publishing/public-source";
 import { ConceptsBrowser } from "@/components/concepts/concepts-browser";
+
+const NODE_TYPE_MAP: Record<string, NodeType> = {
+  concept: "concept", person: "person", book: "book",
+  symbol: "symbol", term: "term", "source-note": "concept",
+};
 
 export const metadata: Metadata = {
   title: "คลังแนวคิด — ARCHRON",
@@ -14,10 +19,25 @@ export const revalidate = 300;
 
 export default async function ConceptsPage() {
   const published = await getPublicEntries();
-  // รวบรวมเฉพาะ slugs ของประเภทเนื้อหาที่ไม่ใช่บทความ (แนวคิด, ศัพท์, สัญลักษณ์ ฯลฯ)
   const publishedSlugs = published
     .filter((e) => e.contentType !== "article")
     .map((e) => e.slug);
+
+  const registryItems: ConceptRegistryItem[] = published
+    .filter((e) => e.contentType !== "article")
+    .map((e) => {
+      const m = e as { mainTerm?: string; thaiName?: string; framework?: string };
+      return {
+        id: e.id,
+        title: m.mainTerm || e.title,
+        slug: e.slug,
+        thaiTitle: m.thaiName,
+        aliases: [e.title],
+        nodeType: NODE_TYPE_MAP[e.contentType] ?? "concept",
+        framework: m.framework,
+        description: e.shortDescription,
+      };
+    });
 
   return (
     <PageScaffold
@@ -34,7 +54,7 @@ export default async function ConceptsPage() {
       className="atmo-dictionary"
     >
       <section className="tpl-reference">
-        <ConceptsBrowser concepts={conceptRegistry} publishedSlugs={publishedSlugs} />
+        <ConceptsBrowser concepts={registryItems} publishedSlugs={publishedSlugs} />
       </section>
     </PageScaffold>
   );

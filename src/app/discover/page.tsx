@@ -2,8 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageScaffold } from "@/components/page-scaffold";
 import { getPublicEntries } from "@/lib/content/publishing/public-source";
-import { conceptRegistry } from "@/lib/content/core/registry";
+import type { ConceptRegistryItem, NodeType } from "@/lib/content/core/registry";
 import { DiscoverGrid } from "@/components/discover/discover-grid";
+
+const NODE_TYPE_MAP: Record<string, NodeType> = {
+  concept: "concept", person: "person", book: "book",
+  symbol: "symbol", term: "term", "source-note": "concept",
+};
 
 export const metadata: Metadata = {
   title: "ค้นพบ — ARCHRON",
@@ -15,6 +20,20 @@ export const revalidate = 300;
 
 export default async function DiscoverPage() {
   const published = await getPublicEntries();
+
+  const registryItems: ConceptRegistryItem[] = published.map((e) => {
+    const m = e as { mainTerm?: string; thaiName?: string; framework?: string };
+    return {
+      id: e.id,
+      title: m.mainTerm || e.title,
+      slug: e.slug,
+      thaiTitle: m.thaiName,
+      aliases: [e.title],
+      nodeType: NODE_TYPE_MAP[e.contentType] ?? "concept",
+      framework: m.framework,
+      description: e.shortDescription,
+    };
+  });
 
   return (
     <PageScaffold
@@ -31,7 +50,7 @@ export default async function DiscoverPage() {
       <section className="tpl-reference">
         <DiscoverGrid
           entries={published}
-          concepts={conceptRegistry}
+          concepts={registryItems}
         />
       </section>
     </PageScaffold>

@@ -177,7 +177,6 @@ export default function StudioEditorPage() {
     if (type) {
       dispatch({ type: "SET_MODE", payload: "editing" });
       updateField("contentType", type);
-      updateField("id", crypto.randomUUID());
     }
   }, [searchParams, userId, dispatch, updateField]);
 
@@ -194,7 +193,7 @@ export default function StudioEditorPage() {
         dispatch({ type: "AUTO_SAVE_DONE" });
         const row = result.data as { id?: string } | null;
         const id = row?.id ?? entryId;
-        if (id && id !== entryId) setEntryId(id);
+        if (id && id !== entryId) { setEntryId(id); updateField("id", id); }
         setFeedback(null);
       }
     }, 2500);
@@ -215,7 +214,7 @@ export default function StudioEditorPage() {
     if (result.error) { showError(`บันทึกไม่สำเร็จ: ${result.error}`); return; }
     const row = result.data as { id?: string } | null;
     const id = row?.id ?? entryId;
-    if (id && id !== entryId) setEntryId(id);
+    if (id && id !== entryId) { setEntryId(id); updateField("id", id); }
     setRevisionKey((k) => k + 1);
     dispatch({ type: "AUTO_SAVE_DONE" });
     showSuccess("บันทึก + เวอร์ชันแล้ว");
@@ -292,9 +291,9 @@ export default function StudioEditorPage() {
       showError(`เผยแพร่ไม่สำเร็จ: ${result.error}`);
       return;
     }
-    const row = result.data as { id?: string } | null;
-    const id = row?.id ?? entryId;
-    if (id && id !== entryId) setEntryId(id);
+    const publishRow = result.data as { id?: string } | null;
+    const publishId = publishRow?.id ?? entryId;
+    if (publishId) { setEntryId(publishId); updateField("id", publishId); }
     updateField("status", "published");
     dispatch({ type: "PUBLISH_DONE" });
     showSuccess("เผยแพร่แล้ว");

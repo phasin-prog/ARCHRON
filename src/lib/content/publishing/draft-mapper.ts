@@ -22,7 +22,8 @@ export function draftToRow(
     : null;
 
   return {
-    id: d.id || undefined,       // ใช้ UUID ที่สร้างไว้ (ใหม่) หรือที่โหลดมา (แก้ไข)
+    // id omitted deliberately — let PostgreSQL auto-generate via gen_random_uuid().
+    // ON CONFLICT (slug) handles the match/update without needing a client id.
     slug: d.slug,
     title: d.title,
     author_id: authorId,

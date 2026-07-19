@@ -783,35 +783,8 @@
   background: linear-gradient(135deg, color-mix(in srgb, var(--thinker-accent, var(--color-accent)) 5%, var(--color-bg-card)) 0%, var(--color-bg-card) 100%);
 }
 .scroll-reveal {
-  transition:
-    opacity 1s cubic-bezier(0.21, 0.6, 0.35, 1),
-    transform 1s cubic-bezier(0.21, 0.6, 0.35, 1);
-}
-.js-reveal .scroll-reveal {
-  opacity: 0;
-  transform: translateY(30px);
-}
-.js-reveal .scroll-reveal.visible {
   opacity: 1;
-  transform: translateY(0);
-}
-.stagger-1 { --stagger-index: 1; }
-.stagger-2 { --stagger-index: 2; }
-.stagger-3 { --stagger-index: 3; }
-.stagger-4 { --stagger-index: 4; }
-.stagger-5 { --stagger-index: 5; }
-.stagger-6 { --stagger-index: 6; }
-
-/* Stagger delay computed from index — set --stagger-base if different from 100ms */
-.stagger-1, .stagger-2, .stagger-3, .stagger-4, .stagger-5, .stagger-6 {
-  transition-delay: calc(var(--stagger-index, 0) * var(--stagger-base, 100ms));
-}
-@media (prefers-reduced-motion: reduce) {
-  .scroll-reveal {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
+  transform: none;
 }
 
 /* ===== Motion system ===== */
@@ -825,13 +798,7 @@
     transform: translate(-50%, 0);
   }
 }
-@keyframes route-fade {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.route-fade {
-  animation: route-fade var(--dur-base) var(--ease-out) both;
-}
+/* route-fade removed — disrupts reading flow */
 @keyframes menu-in {
   from { opacity: 0; transform: translateY(-6px); }
   to { opacity: 1; transform: translateY(0); }
@@ -937,7 +904,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .route-fade,
   .menu-in,
   .ambient-glow,
   .concept-pulse,

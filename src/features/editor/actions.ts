@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { getAuthedSupabase, getUserRole } from "@/lib/content/utils/server-auth";
 import { saveDraft as saveDraftDb, loadDraftBySlug, publishEntry } from "@/lib/content/publishing/draft-db";
 import { addRevision, getRevisions } from "@/lib/content/publishing/entries-db";
@@ -11,8 +11,11 @@ import { entryToDraft } from "@/lib/content/publishing/draft-mapper";
 
 // E7 — revalidate public pages after publish
 export async function revalidatePublic(slug: string) {
+  revalidatePath("/");
+  revalidatePath("/knowledge");
   revalidatePath("/articles");
   revalidatePath("/concepts");
+  revalidateTag("entries", "max");
   if (slug === "guide-pricing") revalidatePath("/guide");
   if (slug && slug.trim() !== "") {
     revalidatePath(`/articles/${slug}`);

@@ -308,55 +308,56 @@ export function EditorBody({
               )}
             </div>
           )}
-          {/* Live SSOT Structural Checklist */}
+          {/* Live SSOT Structural Checklist — กดรายการที่ขาดเพื่อแทรกโครงสร้าง */}
           {viewMode !== "preview" && (
             <div className="px-4 py-3 border-t border-border/60 bg-bg-elevated/30 flex flex-wrap items-center gap-2 text-xs">
               <span className="font-semibold text-text-heading mr-1 flex items-center gap-1.5">
                 <CheckIcon className="h-4 w-4 text-accent" />
                 <span>ตรวจโครงสร้าง SSOT สด:</span>
               </span>
-              <span className={`px-2.5 py-1 rounded-full font-medium transition-all flex items-center gap-1.5 ${
-                (/#[#]?\s*(คำอธิบายเชิงประจักษ์|คำอธิบายให้เห็นภาพ|ภาพเปรียบเปรย|Visual Explanation|ตัวอย่างให้เห็นภาพ)/i.test(content) || />\s*\[!(NOTE|TIP|IMPORTANT)\]\s*คำอธิบาย/i.test(content) || draft.visualExplanation.trim() !== "")
-                  ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
-                  : "bg-amber-500/10 text-amber-700 border border-amber-500/20"
-              }`}>
-                {( /#[#]?\s*(คำอธิบายเชิงประจักษ์|คำอธิบายให้เห็นภาพ|ภาพเปรียบเปรย|Visual Explanation|ตัวอย่างให้เห็นภาพ)/i.test(content) || />\s*\[!(NOTE|TIP|IMPORTANT)\]\s*คำอธิบาย/i.test(content) || draft.visualExplanation.trim() !== "") ? <CheckIcon className="h-3.5 w-3.5" /> : <ClockIcon className="h-3.5 w-3.5" />}
-                <span>คำอธิบายให้เห็นภาพ</span>
-              </span>
-              <span className={`px-2.5 py-1 rounded-full font-medium transition-all flex items-center gap-1.5 ${
-                (/#[#]?\s*(นิยาม|ความหมายทางวิชาการ|นิยามและแก่น|นิยามเชิงเทคนิค|Technical Meaning|แก่นทางวิชาการ)/i.test(content) || draft.technicalMeaning.trim() !== "")
-                  ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
-                  : "bg-amber-500/10 text-amber-700 border border-amber-500/20"
-              }`}>
-                {( /#[#]?\s*(นิยาม|ความหมายทางวิชาการ|นิยามและแก่น|นิยามเชิงเทคนิค|Technical Meaning|แก่นทางวิชาการ)/i.test(content) || draft.technicalMeaning.trim() !== "") ? <CheckIcon className="h-3.5 w-3.5" /> : <ClockIcon className="h-3.5 w-3.5" />}
-                <span>ความหมายทางวิชาการ</span>
-              </span>
-              {(draft.contentType === "concept" || draft.contentType === "term") && (
-                <span className={`px-2.5 py-1 rounded-full font-medium transition-all flex items-center gap-1.5 ${
-                  (/#[#]?\s*(รากศัพท์|ที่มาของคำ|Etymology|Roots|การเปลี่ยนความหมาย|รากคำ)/i.test(content) || (draft.rootsEtymology && draft.rootsEtymology.trim() !== "") || (draft.rootsCaution && draft.rootsCaution.trim() !== ""))
-                    ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
-                    : "bg-amber-500/10 text-amber-700 border border-amber-500/20"
-                }`}>
-                  {( /#[#]?\s*(รากศัพท์|ที่มาของคำ|Etymology|Roots|การเปลี่ยนความหมาย|รากคำ)/i.test(content) || (draft.rootsEtymology && draft.rootsEtymology.trim() !== "") || (draft.rootsCaution && draft.rootsCaution.trim() !== "")) ? <CheckIcon className="h-3.5 w-3.5" /> : <ClockIcon className="h-3.5 w-3.5" />}
-                  <span>รากศัพท์ / ข้อควรระวัง</span>
-                </span>
-              )}
-              <span className={`px-2.5 py-1 rounded-full font-medium transition-all flex items-center gap-1.5 ${
-                (/\[\[[^\]]+\]\]/.test(content) || /#[#]?\s*(แนวคิดที่เกี่ยวข้อง|Related Concepts|เชื่อมโยง)/i.test(content) || (draft.relatedConcepts && draft.relatedConcepts.length > 0))
-                  ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
-                  : "bg-amber-500/10 text-amber-700 border border-amber-500/20"
-              }`}>
-                {( /\[\[[^\]]+\]\]/.test(content) || /#[#]?\s*(แนวคิดที่เกี่ยวข้อง|Related Concepts|เชื่อมโยง)/i.test(content) || (draft.relatedConcepts && draft.relatedConcepts.length > 0)) ? <CheckIcon className="h-3.5 w-3.5" /> : <ClockIcon className="h-3.5 w-3.5" />}
-                <span>แนวคิดที่เกี่ยวข้อง ([[Wikilink]])</span>
-              </span>
-              <span className={`px-2.5 py-1 rounded-full font-medium transition-all flex items-center gap-1.5 ${
-                (/\[\^?\d+\]/.test(content) || /#[#]?\s*(แหล่งอ้างอิง|อ้างอิง|References|Citations|ตำรา)/i.test(content) || (draft.references && draft.references.length > 0) || draft.status === "needs-source-check")
-                  ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
-                  : "bg-amber-500/10 text-amber-700 border border-amber-500/20"
-              }`}>
-                {( /\[\^?\d+\]/.test(content) || /#[#]?\s*(แหล่งอ้างอิง|อ้างอิง|References|Citations|ตำรา)/i.test(content) || (draft.references && draft.references.length > 0) || draft.status === "needs-source-check") ? <CheckIcon className="h-3.5 w-3.5" /> : <ClockIcon className="h-3.5 w-3.5" />}
-                <span>แหล่งอ้างอิง ([^1])</span>
-              </span>
+              {(() => {
+                const hasVisual = /#[#]?\s*(คำอธิบายเชิงประจักษ์|คำอธิบายให้เห็นภาพ|ภาพเปรียบเปรย|Visual Explanation|ตัวอย่างให้เห็นภาพ)/i.test(content) || />\s*\[!(NOTE|TIP|IMPORTANT)\]\s*คำอธิบาย/i.test(content) || !!(draft.visualExplanation && draft.visualExplanation.trim() !== "");
+                const hasTechnical = /#[#]?\s*(นิยาม|ความหมายทางวิชาการ|นิยามและแก่น|นิยามเชิงเทคนิค|Technical Meaning|แก่นทางวิชาการ)/i.test(content) || !!(draft.technicalMeaning && draft.technicalMeaning.trim() !== "");
+                const hasRoots = /#[#]?\s*(รากศัพท์|ที่มาของคำ|Etymology|Roots|การเปลี่ยนความหมาย|รากคำ)/i.test(content) || !!(draft.rootsEtymology && draft.rootsEtymology.trim() !== "") || !!(draft.rootsCaution && draft.rootsCaution.trim() !== "");
+                const hasRelated = /\[\[[^\]]+\]\]/.test(content) || /#[#]?\s*(แนวคิดที่เกี่ยวข้อง|Related Concepts|เชื่อมโยง)/i.test(content) || !!(draft.relatedConcepts && draft.relatedConcepts.length > 0);
+                const hasRefs = /\[\^?\d+\]/.test(content) || /#[#]?\s*(แหล่งอ้างอิง|อ้างอิง|References|Citations|ตำรา)/i.test(content) || !!(draft.references && draft.references.length > 0) || !!(draft.status === "needs-source-check");
+
+                const visualTmpl = "\n\n## 🌟 คำอธิบายให้เห็นภาพ (Visual Explanation)\n> [!NOTE] คำอธิบายเชิงประจักษ์\n[อธิบายภาพเปรียบเปรยหรือตัวอย่างเชิงประจักษ์]\n\n";
+                const technicalTmpl = "\n\n## 🎓 นิยามและความหมายทางวิชาการ (Technical Meaning)\n[ระบุนิยามทางวิชาการที่แม่นยำตามทฤษฎี]\n\n";
+                const rootsTmpl = "\n\n## 🏛️ รากศัพท์และการเปลี่ยนผ่านความหมาย (Etymology & Roots)\n- **ที่มาและรากคำดั้งเดิม:** [อธิบายรากคำ]\n- **ข้อควรระวังในการตีความ:** [ข้อควรระวัง]\n\n";
+                const relatedTmpl = "\n\n## 🔗 แนวคิดที่เกี่ยวข้อง (Related Concepts)\n- [[Analytical Psychology]] : อธิบายความเชื่อมโยง\n\n";
+                const refsTmpl = "\n\n## 📚 แหล่งอ้างอิงและตำรา (References)\n- [1] ผู้แต่ง. (ปี). *ชื่อเรื่อง*. สำนักพิมพ์.\n\n";
+
+                const badge = (passed: boolean, label: string, template: string, show: boolean = true) =>
+                  show && (
+                    passed ? (
+                      <span key={label} className="px-2.5 py-1 rounded-full font-medium bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 flex items-center gap-1.5">
+                        <CheckIcon className="h-3.5 w-3.5" />
+                        <span>{label}</span>
+                      </span>
+                    ) : (
+                      <button
+                        key={label}
+                        type="button"
+                        onClick={() => updateField("bodyMarkdown", content + template)}
+                        title={`แทรกหัวข้อ "${label}" ต่อท้ายเนื้อหา`}
+                        className="px-2.5 py-1 rounded-full font-medium bg-amber-500/10 text-amber-700 border border-amber-500/20 hover:bg-amber-500/20 hover:border-amber-500/40 hover:brightness-110 transition-all flex items-center gap-1.5 cursor-pointer"
+                      >
+                        <ClockIcon className="h-3.5 w-3.5" />
+                        <span>{label}</span>
+                        <span className="text-[10px] opacity-60">+แทรก</span>
+                      </button>
+                    )
+                  );
+
+                return <>
+                  {badge(hasVisual, "คำอธิบายให้เห็นภาพ", visualTmpl)}
+                  {badge(hasTechnical, "ความหมายทางวิชาการ", technicalTmpl)}
+                  {badge(hasRoots, "รากศัพท์ / ข้อควรระวัง", rootsTmpl, draft.contentType === "concept" || draft.contentType === "term")}
+                  {badge(hasRelated, "แนวคิดที่เกี่ยวข้อง ([[Wikilink]])", relatedTmpl)}
+                  {badge(hasRefs, "แหล่งอ้างอิง ([^1])", refsTmpl)}
+                </>;
+              })()}
             </div>
           )}
 

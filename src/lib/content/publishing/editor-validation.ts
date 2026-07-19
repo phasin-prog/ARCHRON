@@ -195,7 +195,7 @@ export function validateEditorDraft(
     issues.push({
       fieldId: "field-body-markdown",
       label: "Related Concepts (แนวคิดที่เกี่ยวข้อง)",
-      severity: "error",
+      severity: "warning",
       message: "🛑 ใช้ลิงก์ภายใน [[ชื่อโหนด]] ใน Body Markdown เพื่อเชื่อมโยงและขยายโครงข่ายปัญญา (Knowledge Graph)",
       whyItMatters: "โครงการ Archron ออกแบบในรูปแบบโครงข่ายความรู้ การเชื่อมโยงช่วยให้ผู้อ่านสำรวจหัวข้อที่เกี่ยวเนื่องและเห็นภาพรวมข้ามศาสตร์ได้ไม่รู้จบ",
       sectionName: "ห้องเขียนเนื้อหาหลัก (Studio Workspace)",
@@ -207,7 +207,7 @@ export function validateEditorDraft(
     issues.push({
       fieldId: "field-body-markdown",
       label: "References (แหล่งอ้างอิง/ตำรา)",
-      severity: "error",
+      severity: "warning",
       message: "🛑 เขียนหัวข้อ '## แหล่งอ้างอิง (References)' หรือใช้เชิงอรรถ [^1] ใน Body Markdown เพื่อระบุตำราหลัก",
       whyItMatters: "แหล่งอ้างอิงคือเกราะป้องกันข้อมูลคลาดเคลื่อน และเป็นการให้เกียรติปัญญาชนผู้บุกเบิกทฤษฎี",
       sectionName: "ห้องเขียนเนื้อหาหลัก (Studio Workspace)",

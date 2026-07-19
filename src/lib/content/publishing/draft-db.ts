@@ -51,7 +51,7 @@ export async function saveDraft(
   const row = draftToRow(draft, authorId, authorName);
   const { data, error } = await sb
     .from("entries")
-    .upsert(row, { onConflict: "id" })
+    .upsert(row, { onConflict: "slug" })
     .select()
     .maybeSingle();
   return { data, error };
@@ -124,7 +124,7 @@ export async function publishEntry(
 
   const result = await sb
     .from("entries")
-    .upsert(row, { onConflict: "id" })
+    .upsert(row, { onConflict: "slug" })
     .select()
     .maybeSingle();
 

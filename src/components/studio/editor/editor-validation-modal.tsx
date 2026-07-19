@@ -10,12 +10,14 @@ export function EditorValidationModal({
   onClose,
   issues,
   onGoToField,
+  onQuickFix,
   onConfirmPublish,
 }: {
   open: boolean;
   onClose: () => void;
   issues: ValidationIssue[];
   onGoToField: (fieldId: string) => void;
+  onQuickFix?: (fieldId: string, label: string) => void;
   onConfirmPublish?: () => void;
 }) {
   const [mounted, setMounted] = useState(false);
@@ -149,7 +151,10 @@ export function EditorValidationModal({
                       </div>
                       <button
                         type="button"
-                        onClick={() => onGoToField(issue.fieldId)}
+                        onClick={() => {
+                          if (onQuickFix) onQuickFix(issue.fieldId, issue.label);
+                          else onGoToField(issue.fieldId);
+                        }}
                         className="shrink-0 rounded-md border border-accent/30 px-2.5 py-1 text-[11px] font-medium text-accent hover:bg-accent/10 transition-all"
                       >
                         แก้ไข

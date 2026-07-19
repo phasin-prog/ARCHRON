@@ -37,6 +37,15 @@ import {
 } from "@/components/studio/ide/panels";
 import type { BlueprintId } from "@/lib/content/studio/blueprints";
 
+const SECTION_TEMPLATES: Record<string, string> = {
+  "แนวคิดที่เกี่ยวข้อง": "\n\n## 🔗 แนวคิดที่เกี่ยวข้อง (Related Concepts)\n- [[Analytical Psychology]] : อธิบายความเชื่อมโยง\n\n",
+  "แหล่งอ้างอิง": "\n\n## 📚 แหล่งอ้างอิงและตำรา (References)\n- [1] ผู้แต่ง. (ปี). *ชื่อเรื่อง*. สำนักพิมพ์.\n\n",
+  "คำอธิบายให้เห็นภาพ": "\n\n## 🌟 คำอธิบายให้เห็นภาพ (Visual Explanation)\n> [!NOTE] คำอธิบายเชิงประจักษ์\n[อธิบายภาพเปรียบเปรยหรือตัวอย่างเชิงประจักษ์]\n\n",
+  "ความหมายทางวิชาการ": "\n\n## 🎓 นิยามและความหมายทางวิชาการ (Technical Meaning)\n[ระบุนิยามทางวิชาการที่แม่นยำตามทฤษฎี]\n\n",
+  "รากศัพท์": "\n\n## 🏛️ รากศัพท์และการเปลี่ยนผ่านความหมาย (Etymology & Roots)\n- **ที่มาและรากคำดั้งเดิม:** [อธิบายรากคำ]\n- **ข้อควรระวังในการตีความ:** [ข้อควรระวัง]\n\n",
+  "เนื้อหาบทความ": "\n\n## 📖 เนื้อหาหลักและการวิเคราะห์เชิงลึก (Core Content)\n[เรียบเรียงเนื้อหาที่นี่]\n\n",
+};
+
 export default function StudioEditorPage() {
   const { userId } = useAuth();
   const { user } = useUser();
@@ -237,6 +246,32 @@ export default function StudioEditorPage() {
     }, 200);
   }
 
+  function handleQuickFix(fieldId: string, label: string) {
+    if (fieldId !== "field-body-markdown") {
+      handleGoToField(fieldId);
+      return;
+    }
+
+    const matchKey = Object.keys(SECTION_TEMPLATES).find((k) => label.includes(k));
+    const template = matchKey ? SECTION_TEMPLATES[matchKey] : null;
+    if (!template) {
+      handleGoToField(fieldId);
+      return;
+    }
+
+    const current = draft.bodyMarkdown || "";
+    updateField("bodyMarkdown", current + template);
+
+    setShowValidationModal(false);
+    setTimeout(() => {
+      const textarea = document.getElementById("field-body-markdown") as HTMLTextAreaElement | null;
+      if (textarea) {
+        textarea.focus();
+        textarea.setSelectionRange(current.length, current.length + template.length);
+      }
+    }, 300);
+  }
+
   async function handlePublish() {
     dispatch({ type: "PUBLISH_TRIED" });
     if (!userId) { showError("ยังไม่ได้เข้าสู่ระบบ"); return; }
@@ -400,6 +435,7 @@ export default function StudioEditorPage() {
         onClose={() => setShowValidationModal(false)}
         issues={validationResult.all}
         onGoToField={handleGoToField}
+        onQuickFix={handleQuickFix}
         onConfirmPublish={validationResult.canPublish ? confirmPublish : undefined}
       />
 

@@ -15,7 +15,7 @@ export async function revalidatePublic(slug: string) {
   revalidatePath("/knowledge");
   revalidatePath("/articles");
   revalidatePath("/concepts");
-  revalidateTag("entries", "max");
+  revalidateTag("entries", { expire: 0 });
   if (slug === "guide-pricing") revalidatePath("/guide");
   if (slug && slug.trim() !== "") {
     revalidatePath(`/articles/${slug}`);

@@ -5,7 +5,9 @@ import { RecentlyViewedSkeleton } from "@/components/skeleton";
 import { HomeSearch } from "@/components/home-search";
 import { ArrowRightIcon } from "@/components/icons";
 import { getPublicEntries } from "@/lib/content/publishing/public-source";
-import { getLibraryArticles } from "@/lib/content/routing";
+import { contentEntryHref } from "@/lib/content/routing";
+import { contentTypeMeta } from "@/lib/content/core/cosmology";
+import { resolveIconElement } from "@/lib/content/core/icon-map";
 
 export const revalidate = 300;
 
@@ -59,7 +61,7 @@ function CTASection() {
 async function ContentGrid() {
   const published = await getPublicEntries();
   const publishedSlugs = published.map((e) => e.slug);
-  const articles = getLibraryArticles(published).slice(0, 3);
+  const latest = published.slice(0, 6);
   const concepts = published.filter((e) => e.contentType === "concept").slice(0, 6);
 
   return (
@@ -73,42 +75,49 @@ async function ContentGrid() {
 
       <CTASection />
 
-      {/* ARTICLES */}
-      {articles.length > 0 && (
+      {/* LATEST CONTENT */}
+      {latest.length > 0 && (
         <section className="tpl-content mt-20">
           <div className="flex items-baseline justify-between">
             <h2 className="font-heading text-2xl font-semibold text-text-heading">
-              บทความล่าสุด
+              เนื้อหาล่าสุด
             </h2>
             <Link
-              href="/articles"
+              href="/explore"
               className="inline-flex items-center gap-1 text-sm text-accent hover:text-accent-hover"
             >
               ดูทั้งหมด <ArrowRightIcon className="h-4 w-4" />
             </Link>
           </div>
           <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {articles.map((article) => (
-              <Link
-                key={article.slug}
-                href={`/articles/${article.slug}`}
-                className="group rounded-xl border border-border bg-bg-card p-5 transition-colors hover:border-accent/30 hover:bg-bg-elevated"
-              >
-                {article.framework && (
-                  <span className="inline-block rounded-full bg-accent/10 px-2.5 py-0.5 text-xs font-medium text-accent">
-                    {article.framework}
+            {latest.map((entry) => {
+              const href = contentEntryHref(entry);
+              return (
+                <Link
+                  key={entry.slug}
+                  href={href}
+                  className="group rounded-xl border border-border bg-bg-card p-5 transition-colors hover:border-accent/30 hover:bg-bg-elevated"
+                >
+                  <span className="inline-flex items-center gap-1 rounded-full bg-accent/10 px-2.5 py-0.5 text-xs font-medium text-accent">
+                    {resolveIconElement(contentTypeMeta(entry.contentType).icon, { className: "h-3 w-3" })}
+                    {contentTypeMeta(entry.contentType).label}
                   </span>
-                )}
-                <h3 className="mt-3 font-serif text-base font-semibold text-text-heading transition-colors group-hover:text-accent">
-                  {article.title}
-                </h3>
-                {article.shortDescription && (
-                  <p className="mt-2 text-sm text-text-secondary line-clamp-2">
-                    {article.shortDescription}
-                  </p>
-                )}
-              </Link>
-            ))}
+                  {(entry as { framework?: string }).framework && (
+                    <span className="ml-2 inline-block rounded-full bg-accent/10 px-2.5 py-0.5 text-xs font-medium text-accent">
+                      {(entry as { framework?: string }).framework}
+                    </span>
+                  )}
+                  <h3 className="mt-3 font-serif text-base font-semibold text-text-heading transition-colors group-hover:text-accent">
+                    {entry.title}
+                  </h3>
+                  {entry.shortDescription && (
+                    <p className="mt-2 text-sm text-text-secondary line-clamp-2">
+                      {entry.shortDescription}
+                    </p>
+                  )}
+                </Link>
+              );
+            })}
           </div>
         </section>
       )}

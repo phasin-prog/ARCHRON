@@ -56,11 +56,11 @@ export function EditorHeader({
 
         <div className="flex items-center gap-3">
           <span
-            className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-semibold leading-[1.4]"
+            className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-semibold leading-[1.4] ${draft.status === "published" ? "ring-1 ring-emerald-500/40" : ""}`}
             style={{ backgroundColor: `${status.accent}1f`, color: status.accent }}
           >
             {resolveIconElement(status.icon, { className: "h-3 w-3" })}
-            {draft.status}
+            {draft.status === "published" ? "เผยแพร่แล้ว" : draft.status}
           </span>
           <EditorStatusBar autoState={autoState} savedAt={savedAt} />
         </div>

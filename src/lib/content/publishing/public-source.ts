@@ -126,5 +126,5 @@ export const getPublicReadingSetBySlug = cache(
 // เรียกหลัง publish เพื่อ invalidate data cache
 export async function revalidateEntry(_slug: string) {
   const { revalidateTag } = await import("next/cache");
-  revalidateTag("entries", "max");
+  revalidateTag("entries", { expire: 0 });
 }

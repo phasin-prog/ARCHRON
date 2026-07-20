@@ -32,8 +32,8 @@ function hasSupabaseEnv(): boolean {
 function staticPublished(): DiscriminatedEntry[] {
   return (staticEntries.filter((e) => e.status === "published") as DiscriminatedEntry[]).sort(
     (a, b) => {
-      const da = a.publishedAt ?? "";
-      const db = b.publishedAt ?? "";
+      const da = a.updatedAt ?? a.publishedAt ?? "";
+      const db = b.updatedAt ?? b.publishedAt ?? "";
       return db.localeCompare(da);
     },
   );
@@ -42,17 +42,23 @@ function staticPublished(): DiscriminatedEntry[] {
 export const getPublicEntries = cache(
   unstable_cache(
     async (contentType?: string): Promise<DiscriminatedEntry[]> => {
-      if (hasSupabaseEnv()) {
-        try {
-          const fromDb = await getDbPublishedEntries(contentType);
-          if (fromDb.length > 0) return fromDb;
-        } catch {
-          // DB เข้าถึงไม่ได้ — ใช้ static แทน
-        }
-      }
-      return contentType
+      const seed = contentType
         ? staticPublished().filter((e) => e.contentType === contentType)
         : staticPublished();
+
+      if (!hasSupabaseEnv()) return seed;
+
+      try {
+        const fromDb = await getDbPublishedEntries(contentType);
+        // Merge: DB entries override seed entries with the same slug,
+        // seed entries that don't exist in DB are kept
+        const dbSlugs = new Set(fromDb.map((e) => e.slug));
+        const mergedSeed = seed.filter((e) => !dbSlugs.has(e.slug));
+        return [...fromDb, ...mergedSeed];
+      } catch {
+        // DB เข้าถึงไม่ได้ — ใช้ static แทน
+        return seed;
+      }
     },
     ["public-entries"],
     { revalidate: 300, tags: ["entries"] },
@@ -93,17 +99,20 @@ export const getPublicSchools = cache(
 export const getPublicReadingSets = cache(
   unstable_cache(
     async (): Promise<ReadingSetItem[]> => {
-      if (hasSupabaseEnv()) {
-        try {
-          const dbSets = await getDbPublishedEntries("reading-set");
-          if (dbSets.length > 0) {
-            return dbSets.filter(
-              (e) => "steps" in e && Array.isArray((e as { steps?: unknown }).steps),
-            ) as ReadingSetItem[];
-          }
-        } catch {
-          // DB เข้าถึงไม่ได้
+      if (!hasSupabaseEnv()) return READING_SETS;
+
+      try {
+        const dbSets = await getDbPublishedEntries("reading-set");
+        const validDbSets = dbSets.filter(
+          (e) => "steps" in e && Array.isArray((e as { steps?: unknown }).steps),
+        ) as ReadingSetItem[];
+        if (validDbSets.length > 0) {
+          const dbSlugs = new Set(validDbSets.map((e) => e.slug));
+          const mergedSeed = READING_SETS.filter((e) => !dbSlugs.has(e.slug));
+          return [...validDbSets, ...mergedSeed];
         }
+      } catch {
+        // DB เข้าถึงไม่ได้
       }
       return READING_SETS;
     },

@@ -9,6 +9,14 @@ import { contentEntryHref } from "@/lib/content/routing";
 import { contentTypeMeta } from "@/lib/content/core/cosmology";
 import { resolveIconElement } from "@/lib/content/core/icon-map";
 
+const THAI_MONTHS_SHORT = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+function formatDate(iso: string | undefined): string | null {
+  if (!iso) return null;
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return iso;
+  return `${d.getDate()} ${THAI_MONTHS_SHORT[d.getMonth()]} ${d.getFullYear()}`;
+}
+
 export const revalidate = 300;
 
 async function HeroSection() {
@@ -115,6 +123,9 @@ async function ContentGrid() {
                       {entry.shortDescription}
                     </p>
                   )}
+                  <p className="mt-3 text-xs text-text-secondary">
+                    อัปเดตล่าสุด · {formatDate(entry.updatedAt ?? entry.publishedAt)}
+                  </p>
                 </Link>
               );
             })}

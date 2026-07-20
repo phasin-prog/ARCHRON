@@ -18,7 +18,7 @@ export async function getPublishedEntries(contentType?: string): Promise<Discrim
   if (contentType) {
     query = query.eq("content_type", contentType);
   }
-  const { data, error } = await query.order("published_at", { ascending: false });
+  const { data, error } = await query.order("updated_at", { ascending: false });
   if (error || !data) return [];
   return (data as EntryRow[]).map(rowToEntry);
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getPublicSchools } from "@/lib/content/publishing/public-source";
+import { getPublicSchools, getPublicEntries } from "@/lib/content/publishing/public-source";
 import { PageScaffold } from "@/components/page-scaffold";
 import { ThinkersHub } from "@/components/thinkers/thinkers-hub";
 
@@ -12,10 +12,13 @@ export const metadata: Metadata = {
 };
 
 export default async function ThinkersPage() {
-  const schools = await getPublicSchools();
+  const [schools, allEntries] = await Promise.all([
+    getPublicSchools(),
+    getPublicEntries(),
+  ]);
 
   // ดึงรายชื่อนักคิดทั้งหมดจากทุกสำนักคิด
-  const thinkers = schools.flatMap((s) =>
+  const rawThinkers = schools.flatMap((s) =>
     s.thinkers.map((t) => ({
       ...t,
       schoolId: s.id,
@@ -24,6 +27,20 @@ export default async function ThinkersPage() {
       field: s.field,
     }))
   );
+
+  // คัดกรองนักคิด: แสดงเฉพาะคนที่มีเนื้อหา (งานเขียน/คำศัพท์) ในระบบจริง ๆ
+  const thinkers = rawThinkers.filter((t) => {
+    return allEntries.some((e) => {
+      if (e.status !== "published") return false;
+      const mainThinkers = "mainThinkers" in e ? e.mainThinkers : undefined;
+      return (
+        mainThinkers?.includes(t.nameEn) ||
+        mainThinkers?.includes(t.nameTh) ||
+        e.bodyMarkdown?.includes(t.nameTh) ||
+        e.bodyMarkdown?.includes(t.nameEn)
+      );
+    });
+  });
 
   return (
     <PageScaffold

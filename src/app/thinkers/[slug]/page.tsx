@@ -49,10 +49,26 @@ function findThinkerAndSchool(slug: string, schools: School[]): { thinker: Think
 export const revalidate = 300;
 
 export async function generateStaticParams() {
+  const [schools, allEntries] = await Promise.all([
+    getPublicSchools(),
+    getPublicEntries(),
+  ]);
   const params: { slug: string }[] = [];
-  for (const s of SCHOOLS) {
+  for (const s of schools) {
     for (const t of s.thinkers) {
-      params.push({ slug: t.nameEn.toLowerCase().replace(/\s+/g, "-") });
+      const hasRelated = allEntries.some((e) => {
+        if (e.status !== "published") return false;
+        const mainThinkers = "mainThinkers" in e ? e.mainThinkers : undefined;
+        return (
+          mainThinkers?.includes(t.nameEn) ||
+          mainThinkers?.includes(t.nameTh) ||
+          e.bodyMarkdown?.includes(t.nameTh) ||
+          e.bodyMarkdown?.includes(t.nameEn)
+        );
+      });
+      if (hasRelated) {
+        params.push({ slug: t.nameEn.toLowerCase().replace(/\s+/g, "-") });
+      }
     }
   }
   return params;
@@ -113,6 +129,11 @@ export default async function ThinkerDetailPage({ params }: PageProps) {
       );
     },
   );
+
+  // ป้องกันหน้าเปล่า: ถ้านักคิดไม่มีงานเขียนหรือเนื้อหาเกี่ยวข้องเลย ให้แสดง 404 (notFound)
+  if (relatedEntries.length === 0) {
+    notFound();
+  }
 
   return (
     <>

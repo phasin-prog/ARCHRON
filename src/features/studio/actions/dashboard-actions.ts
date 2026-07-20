@@ -57,6 +57,8 @@ export async function deleteEntriesAction(
     const { error, count } = await q;
     if (error) throw new Error(error.message);
     await invalidateRTK().catch(() => {});
+    const { revalidateTag } = await import("next/cache");
+    revalidateTag("entries", { expire: 0 });
     return { ok: true, count: count ?? ids.length };
   } catch (e) {
     return { ok: false, count: 0, error: e instanceof Error ? e.message : "ลบไม่สำเร็จ" };

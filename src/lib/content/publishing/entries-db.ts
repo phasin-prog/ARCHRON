@@ -101,6 +101,10 @@ export async function deleteEntry(sb: SupabaseClient, id: string) {
     console.error("[RTK_INVALIDATE_ERROR]", e);
   });
 
+  // Invalidate Next.js data cache so homepage/list pages reflect deletion
+  const { revalidateTag } = await import("next/cache");
+  revalidateTag("entries", { expire: 0 });
+
   return result;
 }
 
